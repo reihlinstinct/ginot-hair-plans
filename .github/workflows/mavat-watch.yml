@@ -73,7 +73,8 @@ jobs:
         if: ${{ inputs.mode == 'check' }}
         env:
           PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
-        run: sudo -E python3 scripts/vpn/mavat_check.py
+          PYTHONUNBUFFERED: "1"
+        run: python3 scripts/vpn/mavat_check.py
 
       - name: Publish check results as a PR, merge on green CI
         if: ${{ inputs.mode == 'check' && success() }}
