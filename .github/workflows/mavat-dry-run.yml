@@ -1,0 +1,42 @@
+name: Mavat VPN dry-run check
+
+# Manual trigger only. Do NOT add a schedule here until a dry run has passed
+# and the owner has explicitly approved scheduled checks.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mavat-vpn-dry-run
+  cancel-in-progress: false
+
+jobs:
+  mavat-dry-run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Dry-run probe of public Mavat plan page
+        # Public plan page only; no login, no CAPTCHA bypass. The probe exits 2
+        # on any anti-bot interstitial/challenge, which fails this job by design.
+        run: sudo python3 scripts/vpn/mavat_dry_run.py
+
+      - name: Tear down tunnel and remove generated secret material
+        if: ${{ always() }}
+        run: sudo python3 scripts/vpn/l2tp.py down
