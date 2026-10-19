@@ -6,6 +6,12 @@
 [![plans](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fplans.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
 [![updated](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fupdated.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
 [![page](https://img.shields.io/badge/page-live-blue)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![אישור](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_approved.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![בבדיקה תכנונית](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_review.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![במילוי תנאים להפקדה](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_conditions.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![הפקדה להתנגדויות](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_deposit.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![הכרעה](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_decision.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![בהליך אישור](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fstatus_inproc.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
 
 Watch planning applications (תכניות בניין עיר) inside the **גינות העיר (Ginot HaIr)
 community council** area of Jerusalem, from the Israel Planning Administration's
@@ -45,10 +51,19 @@ human reviewer.
    the rows; advisory urgent flag when an undecided plan's derived objection
    deadline is within 30 days.
 6. `src/ginot/diff.py` - snapshot diff: new / removed / status-changed plans.
-7. `src/ginot/page.py` - static Hebrew RTL page: stats section (status,
-   inside/overlap, deposits by month, approvals by year), urgent section,
-   recent changes, full table in entry order; plus Atom `feed.xml`,
-   `data.json`, and shields badge endpoints under `badge/`.
+7. `src/ginot/page.py` - static Hebrew RTL page. The plans table comes
+   first, ordered by a stated relevance rule (open objection windows by
+   nearest derived deadline, then active statuses newest-first, approved
+   last; inside before partial within the active/approved tiers); it
+   collapses to the top 20 with a show-more control, approved plans are
+   hidden by default (count stated, one click to bring back), and
+   client-side filters (status, inside/partial, date range, free text,
+   objection-open) always operate over all rows. Dates display as
+   DD.MM.YYYY with ISO values kept in data attributes. Colored status
+   chips with a legend. Statistics (status, inside/overlap, deposits by
+   month, approvals by year), urgent section and recent changes below the
+   table; plus Atom `feed.xml`, `data.json`, and shields badge endpoints
+   under `badge/` (including per-status plan-count badges).
 8. `refresh.py` - weekly one-shot orchestration of all of the above.
 
 ## Weekly refresh

@@ -88,6 +88,22 @@ def main():
                              ("updated", datetime.date.today().isoformat(), "green")]:
         with open(os.path.join(badge_dir, f"{name}.json"), "w") as fh:
             json.dump({"schemaVersion": 1, "label": name, "message": msg, "color": color}, fh)
+    # per-status plan-count badges (stable slugs for README links)
+    from collections import Counter
+    # match order matters: "במילוי תנאים להפקדה" is conditions, not deposit;
+    # "הכרעה ... / אישור" is decision, not approved
+    slug = {"תנאים": ("status_conditions", "purple"), "הפקדה": ("status_deposit", "orange"),
+            "בדיקה": ("status_review", "blue"), "הכרעה": ("status_decision", "yellow"),
+            "בהליך": ("status_inproc", "brightgreen"), "אישור": ("status_approved", "green")}
+    counts = Counter(r.get("station_desc") or "(ללא)" for r in rows)
+    written = set()
+    for st, n in sorted(counts.items()):
+        fname, color = next((v for k, v in slug.items() if k in st), ("status_other", "lightgrey"))
+        if fname in written:  # multiple statuses mapping to one slug
+            fname = f"{fname}_{abs(hash(st)) % 1000}"
+        written.add(fname)
+        with open(os.path.join(badge_dir, f"{fname}.json"), "w") as fh:
+            json.dump({"schemaVersion": 1, "label": st, "message": str(n), "color": color}, fh)
     print(f"{len(rows)} plans, {len(changes)} changes, {len(slim)} in 77/78 track")
 
 

@@ -1,13 +1,164 @@
 """Render the static public page (Hebrew RTL) + Atom feed from the plan table.
 
-Sorted by receiving_date desc ("order of entry into the system"). The
-objection-deadline column is marked as derived (deposit publication + 60d).
+Row order follows a transparent relevance rule (stated on the page):
+open objection windows first (nearest derived deadline), then active
+statuses newest-entry-first, approved last; fully-inside before partial
+overlaps within each tier. Approved (non-active) plans are hidden by
+default (one click to bring back, count stated on the page). The table
+collapses to the top 20 rows of the visible set with a show-more control;
+client-side filters (status, inside/partial, date range, free text,
+objection-open, show-approved) always operate over all rows.
+Dates display as DD.MM.YYYY; ISO values stay in data-* attributes so all
+sorting/filtering uses true dates. Statistics render below the table.
 """
 import datetime
 import html
 import json
 
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
+DEPOSIT_MARK = "הפקדה"
+COLLAPSE_TOP = 20
+
+_CSS = """
+body{font-family:system-ui,Arial;max-width:1100px;margin:1em auto;padding:0 1em}
+table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4px 8px;font-size:14px}
+th{background:#eee;position:sticky;top:0}
+.chip{border-radius:8px;padding:1px 8px;background:#e0e0e0;color:#1a1a1a;white-space:nowrap}
+.chip.c-deposit{background:#ffd27f}.chip.c-review{background:#cfe3ff}
+.chip.c-cond{background:#e2d4f7}.chip.c-decision{background:#ffc4a8}
+.chip.c-inproc{background:#bfe8d4}.chip.c-approved{background:#cfe8cf}
+.legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
+.derived{color:#666}.new td{background:#fff8e1}
+#filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
+padding:8px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
+#filters input[type=search]{flex:1;min-width:180px}
+#fcount{font-size:12px;color:#555}
+#more{margin:6px 0;padding:6px 14px}
+tr.filtered-out{display:none}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1em}
+.bars .bar{display:flex;align-items:center;gap:6px;margin:2px 0}
+.bars .bl{width:12em;font-size:12px;text-align:left;direction:ltr}
+.bars .bt{flex:1;background:#eee;height:12px}
+.bars .bf{display:block;background:#4a7;height:12px}
+.bars .bv{font-size:12px;width:3em}
+"""
+
+_JS = """
+(function(){
+var rows=Array.prototype.slice.call(document.querySelectorAll('#plans tbody tr'));
+var fq=document.getElementById('fq'),fstatus=document.getElementById('fstatus'),
+fflag=document.getElementById('fflag'),fobj=document.getElementById('fobj'),
+ffrom=document.getElementById('ffrom'),fto=document.getElementById('fto'),
+fappr=document.getElementById('fappr'),fcount=document.getElementById('fcount'),
+more=document.getElementById('more');
+var expanded=false;
+function match(r){
+  if(!fappr.checked&&r.getAttribute('data-active')!=='1')return false;
+  var q=fq.value.trim().toLowerCase();
+  if(q&&r.getAttribute('data-search').indexOf(q)===-1)return false;
+  if(fstatus.value&&r.getAttribute('data-status')!==fstatus.value)return false;
+  if(fflag.value&&r.getAttribute('data-flag')!==fflag.value)return false;
+  if(fobj.checked&&r.getAttribute('data-open')!=='1')return false;
+  var a=r.getAttribute('data-recv'),b=r.getAttribute('data-dep');
+  if(ffrom.value&&!((a&&a>=ffrom.value)||(b&&b>=ffrom.value)))return false;
+  if(fto.value&&!((a&&a<=fto.value)||(b&&b<=fto.value)))return false;
+  return true;
+}
+function apply(){
+  var n=0;
+  rows.forEach(function(r){
+    var vis=match(r);
+    if(vis){n++;if(!expanded&&n>20)vis=false;}
+    r.classList.toggle('filtered-out',!vis);
+  });
+  more.style.display=n>20?'':'none';
+  more.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' התכניות';
+  fcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
+}
+[fq,fstatus,fflag,fobj,ffrom,fto,fappr].forEach(function(el){
+  var h=function(){expanded=false;apply();};
+  el.addEventListener('input',h);el.addEventListener('change',h);
+});
+document.getElementById('freset').addEventListener('click',function(){
+  fq.value='';fstatus.value='';fflag.value='';fobj.checked=false;fappr.checked=false;
+  ffrom.value='';fto.value='';expanded=false;apply();
+});
+more.addEventListener('click',function(){expanded=!expanded;apply();});
+apply();
+})();
+"""
+
+
+def _e(s):
+    return html.escape(str(s or ""))
+
+
+def _iso(d) -> str:
+    d = (d or "").strip()
+    return d if len(d) >= 10 and d[4] == "-" and d[7] == "-" else ""
+
+
+def _fmt(d) -> str:
+    iso = _iso(d)
+    return f"{iso[8:10]}.{iso[5:7]}.{iso[:4]}" if iso else ""
+
+
+def _date_cell(d) -> str:
+    iso = _iso(d)
+    return f"<span data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
+
+
+def _deposit_date(r) -> str:
+    return r.get("pl_last_deposit_date") or r.get("depositing_date") or ""
+
+
+def _is_open_objection(r, today: str) -> bool:
+    st = r.get("station_desc") or ""
+    deadline = _iso(r.get("objection_deadline_derived_60d_from_publication"))
+    return bool(DEPOSIT_MARK in st and deadline and deadline >= today)
+
+
+def _is_active(r) -> bool:
+    st = r.get("station_desc") or ""
+    return any(k in st for k in ACTIVE_STATUSES)
+
+
+def _inside_rank(r) -> int:
+    return 0 if r.get("inside_flag") == "inside" else 1
+
+
+def rank_rows(rows: list[dict], today: str | None = None) -> list[dict]:
+    """Order rows by the published relevance rule and annotate each row with
+    _rank (1-based) and _open_obj (objection window open today)."""
+    today = today or datetime.date.today().isoformat()
+    open_rows, active_rows, rest = [], [], []
+    for r in rows:
+        r["_open_obj"] = _is_open_objection(r, today)
+        if r["_open_obj"]:
+            open_rows.append(r)
+        elif _is_active(r):
+            active_rows.append(r)
+        else:
+            rest.append(r)
+
+    def flag_then_date(group, date_key, reverse):
+        g = sorted(group, key=lambda r: _iso(date_key(r)), reverse=reverse)
+        return sorted(g, key=_inside_rank)  # stable: keeps date order within flag
+
+    # Open objection windows: nearest derived deadline first (actionability
+    # beats the inside/partial split here); inside-first applies to the
+    # active and approved tiers.
+    open_sorted = sorted(
+        open_rows,
+        key=lambda r: (_iso(r["objection_deadline_derived_60d_from_publication"]), _inside_rank(r)))
+    ordered = (
+        open_sorted
+        + flag_then_date(active_rows, lambda r: r.get("receiving_date"), True)
+        + flag_then_date(rest, lambda r: r.get("receiving_date"), True)
+    )
+    for i, r in enumerate(ordered):
+        r["_rank"] = i + 1
+    return ordered
 
 
 def _bars(counts: dict, label_map: dict | None = None) -> str:
@@ -47,66 +198,94 @@ def stats_section(rows: list[dict]) -> str:
 </div>"""
 
 
-
-def _e(s):
-    return html.escape(str(s or ""))
-
-
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str) -> str:
+    rows = rank_rows(rows)
+    statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
+
     def chip(st):
-        cls = "active" if any(k in (st or "") for k in ACTIVE_STATUSES) else "approved"
+        st = st or ""
+        if "הפקדה" in st:
+            cls = "c-deposit"
+        elif "בדיקה" in st:
+            cls = "c-review"
+        elif "תנאים" in st:
+            cls = "c-cond"
+        elif "הכרעה" in st:
+            cls = "c-decision"
+        elif "בהליך" in st:
+            cls = "c-inproc"
+        elif "אישור" in st:
+            cls = "c-approved"
+        else:
+            cls = ""
         return f'<span class="chip {cls}">{_e(st)}</span>'
 
-    def tr(r, cls=""):
-        return (f"<tr class='{cls}'>"
+    def tr(r):
+        search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
+        attrs = (f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
+                 f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
+                 f"data-open='{1 if r['_open_obj'] else 0}' "
+                 f"data-active='{1 if r['_open_obj'] or _is_active(r) else 0}' data-search='{search}'")
+        cls = "new" if r.get("_is_new") else ""
+        return (f"<tr class='{cls}' {attrs}>"
                 f"<td><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a></td>"
                 f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
-                f"<td>{_e(r['receiving_date'])}</td>"
-                f"<td>{_e(r['pl_last_deposit_date'] or r['depositing_date'])}</td>"
-                f"<td class='derived'>{_e(r['objection_deadline_derived_60d_from_publication'])}</td>"
+                f"<td>{_date_cell(r['receiving_date'])}</td>"
+                f"<td>{_date_cell(_deposit_date(r))}</td>"
+                f"<td class='derived'>{_date_cell(r['objection_deadline_derived_60d_from_publication'])}</td>"
                 f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td></tr>")
 
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
-    body = "\n".join(tr(r, "new" if r["pl_number"] in new_ids else "") for r in rows)
+    for r in rows:
+        r["_is_new"] = r["pl_number"] in new_ids
+    body = "\n".join(tr(r) for r in rows)
     stats_html = stats_section(rows)
     urgent = [r for r in rows if r.get("advisory_urgent")]
     urgent_html = "".join(
         f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
-        f"אחרון להתנגדות (משוער): {_e(r['objection_deadline_derived_60d_from_publication'])}</li>"
+        f"אחרון להתנגדות (משוער): {_e(_fmt(r['objection_deadline_derived_60d_from_publication']))}</li>"
         for r in urgent) or "<li>אין</li>"
     changes_html = "".join(
         f"<li>{_e(c['kind'])}: <a href='{_e(c['mavat_url'])}'>{_e(c['pl_number'])}</a> {_e(c['pl_name'])}"
         + (f" ({_e(c.get('from'))} → {_e(c.get('to'))})" if c["kind"] == "status_change" else "")
         + "</li>" for c in changes) or "<li>אין שינויים מהסריקה הקודמת</li>"
+    status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
+    n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
+    legend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + " ".join(chip(s) for s in statuses) + "</div>"
     return f"""<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>תכניות במינהל הקהילתי {_e(council_name)}</title>
 <link rel="alternate" type="application/atom+xml" href="feed.xml">
-<style>
-body{{font-family:system-ui,Arial;max-width:1100px;margin:1em auto;padding:0 1em}}
-table{{border-collapse:collapse;width:100%}}td,th{{border:1px solid #ccc;padding:4px 8px;font-size:14px}}
-th{{background:#eee;position:sticky;top:0}}
-.chip{{border-radius:8px;padding:1px 8px;background:#ddd}}
-.chip.active{{background:#ffd27f}}.chip.approved{{background:#cfe8cf}}
-.derived{{color:#666}}.new td{{background:#fff8e1}}
-.stats{{display:grid;grid-template-columns:1fr 1fr;gap:1em}}
-.bars .bar{{display:flex;align-items:center;gap:6px;margin:2px 0}}
-.bars .bl{{width:12em;font-size:12px;text-align:left;direction:ltr}}
-.bars .bt{{flex:1;background:#eee;height:12px}}
-.bars .bf{{display:block;background:#4a7; height:12px}}
-.bars .bv{{font-size:12px;width:3em}}
-</style></head><body>
+<style>{_CSS}</style></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
-<p>מסודר לפי תאריך קליטה במערכת (חדש קודם). עודכן: {_e(generated)}.
-מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
+<p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
+<p><b>סדר הרלוונטיות בטבלה:</b> תכניות עם חלון התנגדות פתוח קודם (הדדליין המשוער הקרוב ביותר ראשון),
+אחר כך תכניות פעילות (הפקדה / מילוי תנאים / הכרעה / בדיקה תכנונית / בהליך אישור) מהחדשה לישנה,
+תכניות מאושרות אחרונות. בקבוצות הפעילות והמאושרות - תכניות בתוך השטח לפני חפיפה חלקית.
+מוצגות {COLLAPSE_TOP} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.
+תכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו "הצג תכניות מאושרות" כדי לראותן.</p>
 <p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
-{stats_html}
-<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
-<h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
-<table><thead><tr><th>מספר תכנית</th><th>שם</th><th>סטטוס</th><th>קליטה</th>
+{legend}
+<div id="filters">
+<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)">
+<select id="fstatus"><option value="">כל הסטטוסים</option>{status_opts}</select>
+<select id="fflag"><option value="">בתוך + חלקי</option><option value="inside">בתוך השטח</option><option value="partial">חפיפה חלקית</option></select>
+<label><input type="checkbox" id="fobj"> חלון התנגדות פתוח (משוער)</label>
+<label><input type="checkbox" id="fappr"> הצג תכניות מאושרות ({n_approved})</label>
+<label>מתאריך <input type="date" id="ffrom"></label>
+<label>עד <input type="date" id="fto"></label>
+<button id="freset" type="button">נקה סינון</button>
+<span id="fcount"></span>
+</div>
+<table id="plans"><thead><tr><th>מספר תכנית</th><th>שם</th><th>סטטוס</th><th>קליטה</th>
 <th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th></tr></thead>
 <tbody>{body}</tbody></table>
+<button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
+<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
+<h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
+{stats_html}
+<script>{_JS}</script>
 </body></html>"""
 
 
