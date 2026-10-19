@@ -157,6 +157,23 @@ def main():
         except Exception as exc:
             print(f"{tik}: detail fetch failed: {exc}")
 
+    # Union with the existing feed file (main's version, from checkout):
+    # each batch scans only its parcel slice, and without this merge every
+    # batch PR would DELETE the previous batches' rows. Freshly scanned
+    # rows win per tik_num; unscanned rows carry over unchanged.
+    carried = 0
+    try:
+        with open(args.out, encoding="utf-8") as fh:
+            prev = json.load(fh).get("requests", [])
+        for r in prev:
+            if r.get("tik_num") and r["tik_num"] not in requests:
+                requests[r["tik_num"]] = r
+                carried += 1
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+    if carried:
+        print(f"carried over {carried} requests from previous batches")
+
     payload = {"generated": datetime.date.today().isoformat(),
                "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
                "batch": {"offset": args.offset, "limit": args.limit},
