@@ -30,6 +30,40 @@ def load_council(path):
     return transform(t.transform, shape(gj["geometry"]))
 
 
+
+
+def merge_land_status(rows, land_path="data/land_plan_status.json"):
+    """Merge land.gov.il (TabaSearch) deposit-publication status into rows.
+
+    The statutory objection clock runs from the LATEST deposit-notice
+    publication (Planning and Building Law s.102), so when the land feed
+    reports a deposit-publication status with a status date, the derived
+    deadline is recomputed as max(iplan publication, land status date) + 60d.
+    """
+    import datetime as _dt
+    try:
+        with open(land_path, encoding="utf-8") as fh:
+            land = json.load(fh).get("plans", {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        return rows
+    for r in rows:
+        info = land.get(r.get("pl_number") or "")
+        if not info:
+            continue
+        r["land_status"] = info.get("land_status")
+        r["land_status_date"] = info.get("land_status_date")
+        r["land_plan_id"] = info.get("land_plan_id")
+        if info.get("is_deposit_publication") and info.get("land_status_date"):
+            pubs = [d for d in (r.get("pl_date_advertise"), info["land_status_date"]) if d]
+            if pubs:
+                latest = max(pubs)
+                dl = (_dt.date.fromisoformat(latest)
+                      + _dt.timedelta(days=outputs.OBJECTION_WINDOW_DAYS)).isoformat()
+                if dl != r.get("objection_deadline_derived_60d_from_publication"):
+                    r["objection_deadline_derived_60d_from_publication"] = dl
+                    r["deadline_source_note"] = "max(iplan, land.gov.il) publication + 60d"
+    return rows
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--council", default="data/council_ginot_hair.geojson")
@@ -47,6 +81,7 @@ def main():
     rows = outputs.rows_from_features(features, council)
     states = tracking.load(args.status)
     rows, changed_defaults = tracking.merge(rows, states)
+    rows = merge_land_status(rows)
     if changed_defaults:
         tracking.save(states, args.status)
     # planner tracking data stays local - public artifacts carry only the

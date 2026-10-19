@@ -41,8 +41,15 @@ def query_plans(council: Polygon, service: str = "xplan_without_77_78",
            "--data-urlencode", f"returnGeometry={'true' if return_geometry else 'false'}",
            "--data-urlencode", "outSR=2039",
            "--data-urlencode", "resultRecordCount=2000"]
-    out = subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
-    data = json.loads(out)
+    out = subprocess.run(cmd, check=False, capture_output=True, text=True).stdout
+    try:
+        data = json.loads(out)
+    except json.JSONDecodeError:
+        # the server sometimes insists on a legacy TLS handshake; retry
+        # with relaxed cipher security (curl-specific flags)
+        legacy = cmd[:2] + ["--tlsv1.0", "--ciphers", "DEFAULT@SECLEVEL=1"] + cmd[2:]
+        out = subprocess.run(legacy, capture_output=True, text=True, check=True).stdout
+        data = json.loads(out)
     if "error" in data:
         raise RuntimeError(f"ArcGIS error: {data['error']}")
     return data.get("features", [])
