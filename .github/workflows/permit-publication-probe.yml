@@ -1,0 +1,42 @@
+name: Jerusalem permit publication probe (VPN)
+
+# One-shot probe for issue #53: does the municipality's public permit API
+# expose publication / objection-notice data for permit request
+# 1993/0664.03 (Alfasi 9)? Calls the viewer's own process/decision
+# procedures through the owner-operated L2TP tunnel, slow-paced, values
+# logged with personal-data fields stripped. Manual dispatch only. On any
+# anti-bot challenge the run stops red (no workaround).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  permit-publication-probe:
+    if: ${{ vars.PERMIT_PROBE_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Probe publication data for one public permit request
+        run: sudo python3 scripts/vpn/permit_publication_probe.py
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
