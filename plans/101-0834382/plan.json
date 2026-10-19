@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0834382",
+ "pl_name": "תוספת קומות ושטחים למבנה מגורים, רחוב ניקנור 32",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2020-02-24",
+ "open_date": "2021-06-01",
+ "date_saf": "2020-02-25",
+ "depositing_date": "2020-04-23",
+ "pl_last_deposit_date": "2020-11-24",
+ "pl_date_advertise": "2020-09-25",
+ "pl_date_8_approval": "2021-08-04",
+ "objection_deadline_derived_60d_from_publication": "2020-11-24",
+ "pl_area_dunam": 1.002,
+ "intersection_dunam": 1.0,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005055300/310",
+ "mp_id": 1005055300.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2021-08-11",
+ "advisory_urgent": false
+}

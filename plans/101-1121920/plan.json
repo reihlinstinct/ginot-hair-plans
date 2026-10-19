@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1121920",
+ "pl_name": "התחדשות עירונית משולש פת, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2023-03-23",
+ "open_date": "2025-09-16",
+ "date_saf": "2023-09-18",
+ "depositing_date": "2024-03-11",
+ "pl_last_deposit_date": "2025-02-25",
+ "pl_date_advertise": "2024-12-27",
+ "pl_date_8_approval": "2025-12-18",
+ "objection_deadline_derived_60d_from_publication": "2025-02-25",
+ "pl_area_dunam": 11.519,
+ "intersection_dunam": 11.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005245172/310",
+ "mp_id": 1005245172.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2025-12-23",
+ "advisory_urgent": false
+}

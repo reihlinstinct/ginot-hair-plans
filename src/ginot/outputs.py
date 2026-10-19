@@ -75,7 +75,7 @@ def rows_from_features(features: list[dict], council: Polygon | None) -> list[di
 
 def write_csv(rows: list[dict], path: str):
     with open(path, "w", newline="", encoding="utf-8-sig") as fh:
-        w = csv.DictWriter(fh, fieldnames=COLUMNS)
+        w = csv.DictWriter(fh, fieldnames=COLUMNS, extrasaction="ignore")
         w.writeheader()
         w.writerows(rows)
 

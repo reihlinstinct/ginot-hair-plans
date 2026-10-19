@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0657593",
+ "pl_name": "סטריפ דרך חברון, ירושלים - מתחם שימושים מעורבים על ציר רק\"ל",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-10-31",
+ "open_date": "2024-12-09",
+ "date_saf": "2023-01-16",
+ "depositing_date": "2023-09-11",
+ "pl_last_deposit_date": "2024-10-08",
+ "pl_date_advertise": "2024-08-09",
+ "pl_date_8_approval": "2024-12-31",
+ "objection_deadline_derived_60d_from_publication": "2024-10-08",
+ "pl_area_dunam": 119.304,
+ "intersection_dunam": 13.7,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000947247/310",
+ "mp_id": 1000947247.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2025-02-17",
+ "advisory_urgent": false
+}

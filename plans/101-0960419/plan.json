@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0960419",
+ "pl_name": "תוספת שטח עיקרי בקומת המרתף עבור הרחבת יח\"ד קיימת, רח' חובבי ציון 7",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-07-25",
+ "open_date": "2023-09-20",
+ "date_saf": "2021-08-10",
+ "depositing_date": "2021-10-31",
+ "pl_last_deposit_date": "2022-11-08",
+ "pl_date_advertise": "2022-09-09",
+ "pl_date_8_approval": "2023-11-29",
+ "objection_deadline_derived_60d_from_publication": "2022-11-08",
+ "pl_area_dunam": 0.567,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005130570/310",
+ "mp_id": 1005130570.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2024-02-06",
+ "advisory_urgent": false
+}

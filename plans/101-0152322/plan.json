@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0152322",
+ "pl_name": "הרחבת יחידת דיור והשלמת קומה ברח' הרכבי 6, ירושלים.",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-04-27",
+ "open_date": "",
+ "date_saf": "2014-02-11",
+ "depositing_date": "2014-05-25",
+ "pl_last_deposit_date": "2015-06-30",
+ "pl_date_advertise": "2015-05-01",
+ "pl_date_8_approval": "2015-08-26",
+ "objection_deadline_derived_60d_from_publication": "2015-06-30",
+ "pl_area_dunam": 0.589,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000274631/310",
+ "mp_id": 1000274631.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

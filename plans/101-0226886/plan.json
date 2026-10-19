@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0226886",
+ "pl_name": "תוספת יחידות דיור בבניין קיים ברח' פינסקר 8, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2014-11-02",
+ "open_date": "2016-07-17",
+ "date_saf": "2015-02-18",
+ "depositing_date": "2015-05-14",
+ "pl_last_deposit_date": "2016-07-12",
+ "pl_date_advertise": "2016-05-13",
+ "pl_date_8_approval": "2016-11-29",
+ "objection_deadline_derived_60d_from_publication": "2016-07-12",
+ "pl_area_dunam": 0.832,
+ "intersection_dunam": 0.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000315105/310",
+ "mp_id": 1000315105.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

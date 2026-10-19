@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1575943",
+ "pl_name": "תוספת קומה ושטחי בניה ברחוב המערבים 8",
+ "station_desc": "הכרעה בהתנגדויות / אישור",
+ "internet_short_status": "בתהליך הפקדה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2026-03-03",
+ "open_date": "",
+ "date_saf": "2026-03-24",
+ "depositing_date": "2026-06-14",
+ "pl_last_deposit_date": "2026-08-25",
+ "pl_date_advertise": "2026-06-26",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2026-08-25",
+ "pl_area_dunam": 0.152,
+ "intersection_dunam": 0.2,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005527870/310",
+ "mp_id": 1005527870.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-09-02",
+ "advisory_urgent": false
+}

@@ -5,7 +5,7 @@ no_objection_needed, urgent. All state changes are human-made (the planner's),
 except: missing plans default to 'new', and an *advisory* urgent flag is
 computed when a plan in an undecided state (new/reviewed) has a derived
 objection deadline within URGENT_WITHIN_DAYS. Nothing is ever auto-filed;
-this model is bookkeeping for a human reviewer only.
+this model is bookkeeping for a human reviewer only. Its states and notes are NEVER written to public artifacts (refresh.py strips them; only the machine-derived advisory urgency flag is published).
 """
 import datetime
 import json

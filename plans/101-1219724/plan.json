@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1219724",
+ "pl_name": "עירוב שימושים שער האומן, תלפיות",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-03-05",
+ "open_date": "2025-12-10",
+ "date_saf": "2024-07-30",
+ "depositing_date": "2024-12-23",
+ "pl_last_deposit_date": "2025-09-23",
+ "pl_date_advertise": "2025-07-25",
+ "pl_date_8_approval": "2025-12-28",
+ "objection_deadline_derived_60d_from_publication": "2025-09-23",
+ "pl_area_dunam": 16.718,
+ "intersection_dunam": 16.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005307320/310",
+ "mp_id": 1005307320.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-01-12",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0095612",
+ "pl_name": "תכנית עמק רפאים 43",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2013-06-16",
+ "open_date": "2016-04-10",
+ "date_saf": "2015-06-22",
+ "depositing_date": "2015-08-11",
+ "pl_last_deposit_date": "2016-02-09",
+ "pl_date_advertise": "2015-12-11",
+ "pl_date_8_approval": "2016-06-09",
+ "objection_deadline_derived_60d_from_publication": "2016-02-09",
+ "pl_area_dunam": 8.622,
+ "intersection_dunam": 8.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000242449/310",
+ "mp_id": 1000242449.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

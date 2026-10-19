@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0666032",
+ "pl_name": "התחדשות עירונית פת/בר יוחאי",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2019-10-10",
+ "open_date": "2021-03-01",
+ "date_saf": "2019-10-27",
+ "depositing_date": "2020-02-25",
+ "pl_last_deposit_date": "2021-02-16",
+ "pl_date_advertise": "2020-12-18",
+ "pl_date_8_approval": "2021-03-22",
+ "objection_deadline_derived_60d_from_publication": "2021-02-16",
+ "pl_area_dunam": 8.316,
+ "intersection_dunam": 8.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000952339/310",
+ "mp_id": 1000952339.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

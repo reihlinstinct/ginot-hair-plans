@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0136804",
+ "pl_name": "הרחבת יח\"ד ברח' יהושע בן נון 28, המושבה היוונית, ירושלים.",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-05-05",
+ "open_date": "",
+ "date_saf": "2014-06-19",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2015-07-07",
+ "pl_date_advertise": "2015-05-08",
+ "pl_date_8_approval": "2016-02-16",
+ "objection_deadline_derived_60d_from_publication": "2015-07-07",
+ "pl_area_dunam": 0.64,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000263255/310",
+ "mp_id": 1000263255.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

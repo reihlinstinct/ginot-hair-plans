@@ -2,105 +2,97 @@
 
 [![CI](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml/badge.svg)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![last commit](https://img.shields.io/github/last-commit/reihlinstinct/ginot-hair-plans)](https://github.com/reihlinstinct/ginot-hair-plans/commits/main)
+[![plans](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fplans.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![updated](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fupdated.json)](https://reihlinstinct.github.io/ginot-hair-plans/)
+[![page](https://img.shields.io/badge/page-live-blue)](https://reihlinstinct.github.io/ginot-hair-plans/)
 
 Watch planning applications (תכניות בניין עיר) inside the **גינות העיר (Ginot HaIr)
 community council** area of Jerusalem, from the Israel Planning Administration's
 public ArcGIS service, and publish them as a sortable table (entry order) with
 derived objection deadlines.
 
-**Status: PRIVATE. Do not make public without the owner's explicit approval
-(see Data & redistribution below).**
+**Live page: https://reihlinstinct.github.io/ginot-hair-plans/**
 
-## What it does
+## Purpose
 
-1. `ginot.dwg` - convert the municipal community-council DWG export (AutoCAD
-   AC1024, EPSG:2039) to polygons via LibreDWG `dwg2dxf` + `ezdxf`
-   (includes repair of the broken ESRI-WKT XRECORD LibreDWG emits).
-2. `ginot.select` - the municipal layer ships 53 *unnamed* council polygons.
-   Ginot HaIr is identified geometrically: greedy union of the polygons
-   covering a set of required neighborhood landmarks (Rehavia, Talbiya,
-   Komemiyut, German+Greek Colony, Old Katamon, Givat Hordim, Gonenim, Nayot)
-   while excluding forbidden ones (Baka, Shaare Hesed, Lev HaIr, Old City).
-   Verified against the municipal GIS outline (Oct 2026). Result on the
-   Oct-2026 export: polygons #37+#39+#46, ~6.10 km2.
-   The derived union is committed as `data/council_ginot_hair.geojson`.
-3. `ginot.iplan` - spatial query (intersects) against
+Built to help the Ginot HaIr community urban planner follow plans in the
+council area: what is new, what is open for objections (and until when -
+derived), what has been reviewed, and what needed no action. The planner's
+own tracking states (new / reviewed / objection filed / no objection needed /
+urgent) live in a local, never-published file (`data/plan_status.json`,
+gitignored). Nothing is ever filed automatically - the repo only informs a
+human reviewer.
+
+## Pipeline
+
+1. `src/ginot/dwg.py` - convert the municipal community-council DWG export
+   (AutoCAD AC1024, EPSG:2039) to polygons via LibreDWG `dwg2dxf` + `ezdxf`
+   (repairs the broken ESRI-WKT XRECORD LibreDWG emits).
+2. `src/ginot/select.py` - the municipal layer ships 53 *unnamed* polygons;
+   Ginot HaIr is identified geometrically (landmark-driven greedy union,
+   verified against the municipal GIS outline, Oct 2026): polygons #37+#39+#46,
+   ~6.10 km2. Committed derived result: `data/council_ginot_hair.geojson`.
+3. `src/ginot/iplan.py` - spatial-intersect query against
    `https://ags.iplan.gov.il/arcgisiplan/rest/services/PlanningPublic/<service>/MapServer/1/query`
-   (services: `xplan_without_77_78` for active plans, `Xplan_77_78` for the
-   77/78 track - name is case-sensitive). Read-only, no account.
-   NOTE: the server needs a legacy TLS handshake; we shell out to `curl`
-   (python-requests/OpenSSL 3 is refused).
-4. `ginot.outputs` - plan table: number, name, status, deposit/publication/
-   approval dates, area, inside-vs-partial-overlap flag, Mavat link
-   (`pl_url`), and a **derived** objection deadline (publication of deposit
-   notice + 60 days - flagged as derived, verify against Mavat).
-5. `ginot.diff` - snapshot diff: new plans, removed plans, status changes.
-6. `ginot.page` - static Hebrew RTL page (`index.html`) sorted by entry date
-   (`receiving_date` desc) with a "new this week" highlight, plus an Atom
-   feed (`feed.xml`) of changes, plus `data.json`.
-7. `refresh.py` - one-shot orchestration of all of the above, designed to be
-   run weekly (Tuesdays) by any free scheduler.
+   (`xplan_without_77_78` for active plans; `Xplan_77_78` for the 77/78 track).
+   Read-only, no account. The server needs legacy TLS - we shell out to curl.
+4. `src/ginot/outputs.py` - plan table: number, name, status, deposit /
+   publication / approval dates, area, inside-vs-partial flag, Mavat link
+   (`pl_url`), and a **derived** objection deadline (publication of the deposit
+   notice + 60 days; flagged as derived - always verify against Mavat).
+5. `src/ginot/tracking.py` - merge the planner's local tracking states into
+   the rows; advisory urgent flag when an undecided plan's derived objection
+   deadline is within 30 days.
+6. `src/ginot/diff.py` - snapshot diff: new / removed / status-changed plans.
+7. `src/ginot/page.py` - static Hebrew RTL page: stats section (status,
+   inside/overlap, deposits by month, approvals by year), urgent section,
+   recent changes, full table in entry order; plus Atom `feed.xml`,
+   `data.json`, and shields badge endpoints under `badge/`.
+8. `refresh.py` - weekly one-shot orchestration of all of the above.
 
-## Data & redistribution
+## Weekly refresh
 
-- **The municipal DWG itself is NOT committed.** Its redistribution terms were
-  not verified; only the small derived council-boundary GeoJSON is committed.
-  Do not commit municipal source data without checking the license.
-- Plan data comes from the Planning Administration's public iplan API
-  (government open data) and is re-published here as derived snapshots.
-- The planner's tracking-state file (data/plan_status.json) is gitignored and
-  lives only on the machine running the refresh - it is never published. A
-  durable private store for it comes with the approved planner workflow.
+Runs every **Tuesday morning** from an external scheduler (the owner's
+assistant on a weekly wake - GitHub Actions scheduling is intentionally not
+used for the recurring run). It re-queries iplan, diffs against
+`snapshots/latest.json`, regenerates `out/` + `docs/`, and commits the result
+to this repo. New/changed plans are surfaced on the page ("new this week"),
+in `feed.xml`, and in a summary ping to the owner.
 
-## Install
+## Run it yourself
 
     pip install -r requirements.txt
-    # Only needed to re-derive the boundary from the DWG (not for refresh):
-    # build LibreDWG from source for dwg2dxf:
-    #   curl -LO https://ftp.gnu.org/gnu/libredwg/libredwg-0.13.3.tar.xz
-    #   ./configure --disable-bindings --disable-write --disable-trace && make -j1 CFLAGS='-O1 -g0'
-    #   (parallel -j4 builds may OOM on small machines)
+    python3 refresh.py          # writes out/, docs/, snapshots/latest.json
+    python3 -m pytest -q        # 12 tests, no network needed
 
-## Usage
+Only re-deriving the boundary from a fresh DWG export needs LibreDWG's
+`dwg2dxf` (build notes in the wiki of the git history; the committed GeoJSON
+is enough for the weekly run).
 
-    # weekly refresh (uses the committed council GeoJSON - no DWG needed)
-    python refresh.py
-    # outputs (committed to the repo by the weekly run):
-    #   out/ginot_hair_plans.{csv,xlsx}, out/changes.json,
-    #   snapshots/latest.json, site/{index.html,feed.xml,data.json}
+## Data sources & attribution
 
-    # re-derive the council polygon from a fresh municipal DWG export
-    python -m ginot.derive data/municipal_councils.dwg   # TODO via ginot.dwg + ginot.select
+- Plan data: **Israel Planning Administration (מנהל התכנון)** public iplan
+  service (ags.iplan.gov.il), republished here as derived snapshots. Verify
+  against the official source (Mavat links included per plan).
+- Council boundary: derived from a Jerusalem municipal community-council GIS
+  export (geometry only). The municipal DWG itself is **not** redistributed
+  here.
+- Base map in development overlays: © OpenStreetMap contributors.
 
-## Weekly refresh scheduling (no GitHub Actions - billing-blocked)
+## Security & engineering
 
-Pick one:
-- **Agent-side scheduled run (current default)**: our Instinct agent runs
-  `python refresh.py` on a weekly Tuesday wake and pushes the result
-  (`out/`, `site/`, `snapshots/`) to this repo. Zero cost, no new accounts.
-- Free external cron (e.g. cron-job.org free tier) hitting a small hook.
-- Free CI minutes on another host (Codeberg / GitLab free tier).
+Public repo. CI on every PR/push: pytest + ruff across Python 3.10-3.13
+(pinned action SHAs, `contents: read`). Branch protection on `main`: PRs +
+green CI required. Secret scanning + push protection, Dependabot alerts and
+updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
+- see SECURITY.md.
 
-## Notifications
+## Status & limitations
 
-- `site/feed.xml` - Atom feed of new/changed plans (free, no accounts;
-  recommended public channel once the page is public).
-- The page highlights rows that are new since the previous snapshot.
-- The agent pings the owner with the weekly diff summary.
-
-## Tests
-
-    python3 -m pytest -q
-
-Unit tests cover council selection + landmark verification, date conversion
-and the derived objection-deadline fallback chain, inside/partial
-classification, entry-order sorting, snapshot diffing, and page/feed rendering.
-No network access in tests.
-
-## Notes / known caveats
-
-- `receiving_date` is used as "entry into the system" for the arrival-order
-  sort; `open_date`/`date_saf` are also exported if the semantics need to move.
-- Only plans in הפקדה status have a meaningful live objection deadline.
-- GitHub Pages needs a public repo on the free tier - publishing the page
-  waits for the owner's go-public approval.
+- `receiving_date` is used as "entry into the system" for the sort order;
+  `open_date`/`date_saf` are also exported per plan.
+- The objection deadline is a computed estimate (+60d); only plans in הפקדה
+  status have a live objection window.
+- Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
+  (see issues); nothing is downloaded or auto-filed.

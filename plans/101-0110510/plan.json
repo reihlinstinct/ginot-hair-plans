@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0110510",
+ "pl_name": "מתחם פינוי ובינוי אלכסנדריון, גוננים - ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "",
+ "open_date": "2014-10-23",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2014-08-12",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2015-06-28",
+ "objection_deadline_derived_60d_from_publication": "2014-10-11",
+ "pl_area_dunam": 18.687,
+ "intersection_dunam": 19.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000248067/310",
+ "mp_id": 1000248067.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

@@ -8,9 +8,11 @@ def test_render_site(tmp_path):
              "pl_area_dunam": 3.2, "inside_flag": "inside", "mavat_url": "https://mavat.iplan.gov.il/x"}]
     changes = [{"kind": "new", "pl_number": "1", "pl_name": "תכנית א",
                 "station_desc": "הפקדה", "mavat_url": "https://mavat.iplan.gov.il/x"}]
+    rows[0]["advisory_urgent"] = True
     page.render_site(rows, changes, str(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    assert "אחרון להתנגדות" in html and "101" not in html  # no crash, hebrew ok
+    assert "אחרון להתנגדות" in html and "דחוף להתנגדות" in html
+    assert "מעקב" not in html  # planner tracking column must not be public
     assert "class='new'" in html
     feed = (tmp_path / "feed.xml").read_text(encoding="utf-8")
     assert "<feed" in feed and "urn:ginot:1" in feed

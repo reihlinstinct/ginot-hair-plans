@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0613679",
+ "pl_name": "תוספות בנייה ברחוב בן גמלא 12, קטמון הישנה",
+ "station_desc": "אישור",
+ "internet_short_status": "החלטה בדיון",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-04-23",
+ "open_date": "2020-09-10",
+ "date_saf": "2018-09-05",
+ "depositing_date": "2018-12-16",
+ "pl_last_deposit_date": "2019-10-29",
+ "pl_date_advertise": "2019-08-30",
+ "pl_date_8_approval": "2021-04-12",
+ "objection_deadline_derived_60d_from_publication": "2019-10-29",
+ "pl_area_dunam": 1.18,
+ "intersection_dunam": 1.2,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000921455/310",
+ "mp_id": 1000921455.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-04-02",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0838219",
+ "pl_name": "שינוי בקווי בניין תוספת מחסנים ושינוי הוראות בינוי ברחוב הרב ברלין 3",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-02-16",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2021-04-20",
+ "pl_date_advertise": "2021-02-19",
+ "pl_date_8_approval": "2021-06-28",
+ "objection_deadline_derived_60d_from_publication": "2021-04-20",
+ "pl_area_dunam": 0.586,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005057464/310",
+ "mp_id": 1005057464.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2021-07-22",
+ "advisory_urgent": false
+}

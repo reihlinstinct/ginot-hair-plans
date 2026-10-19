@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1033588",
+ "pl_name": "הגדלת זכויות בניה ותוספת קומות ברחוב דוד המלך 12 ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-01-05",
+ "open_date": "2025-02-04",
+ "date_saf": "2022-11-02",
+ "depositing_date": "2023-01-08",
+ "pl_last_deposit_date": "2023-05-23",
+ "pl_date_advertise": "2023-03-24",
+ "pl_date_8_approval": "2025-03-31",
+ "objection_deadline_derived_60d_from_publication": "2023-05-23",
+ "pl_area_dunam": 0.128,
+ "intersection_dunam": 0.1,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005191670/310",
+ "mp_id": 1005191670.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-05-14",
+ "advisory_urgent": false
+}

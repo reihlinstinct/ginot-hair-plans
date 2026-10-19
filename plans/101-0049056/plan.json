@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0049056",
+ "pl_name": "מתחם מלונאות, מסחר ומגורים, עומריה, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2014-07-08",
+ "open_date": "2016-02-14",
+ "date_saf": "2014-07-16",
+ "depositing_date": "2014-09-22",
+ "pl_last_deposit_date": "2015-12-15",
+ "pl_date_advertise": "2015-10-16",
+ "pl_date_8_approval": "2016-06-26",
+ "objection_deadline_derived_60d_from_publication": "2015-12-15",
+ "pl_area_dunam": 11.42,
+ "intersection_dunam": 11.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000203769/310",
+ "mp_id": 1000203769.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-10-21",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0588897",
+ "pl_name": "מבנה לביה\"ס על יסודי עבור מדרשיית הרטמן, רח' הצפירה 27, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-04-09",
+ "open_date": "2023-05-09",
+ "date_saf": "2018-06-25",
+ "depositing_date": "2018-10-22",
+ "pl_last_deposit_date": "2019-06-11",
+ "pl_date_advertise": "2019-04-12",
+ "pl_date_8_approval": "2023-09-12",
+ "objection_deadline_derived_60d_from_publication": "2019-06-11",
+ "pl_area_dunam": 5.607,
+ "intersection_dunam": 4.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000907781/310",
+ "mp_id": 1000907781.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-01-21",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "תתל/ 108/ 77-78",
+ "pl_name": "מסילת רכבת בירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "הודעה לפי סעיף 77 ו 78 לחוק התכנון והבניה",
+ "receiving_date": "",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 1000.664,
+ "intersection_dunam": 83.1,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/99001010241/310",
+ "mp_id": 99001010241.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2026-01-12",
+ "advisory_urgent": false
+}

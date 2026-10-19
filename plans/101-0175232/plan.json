@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0175232",
+ "pl_name": "מגדל פרדס, פייר קניג 31, תלפיות, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2013-10-27",
+ "open_date": "2016-12-13",
+ "date_saf": "2014-07-14",
+ "depositing_date": "2014-11-03",
+ "pl_last_deposit_date": "2016-03-28",
+ "pl_date_advertise": "2016-01-28",
+ "pl_date_8_approval": "2018-02-15",
+ "objection_deadline_derived_60d_from_publication": "2016-03-28",
+ "pl_area_dunam": 5.085,
+ "intersection_dunam": 5.1,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000287999/310",
+ "mp_id": 1000287999.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}
