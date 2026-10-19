@@ -8,6 +8,8 @@ import html
 import json
 
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
+TRACKING_HE = {"new": "חדש", "reviewed": "נבדק", "objection_filed": "הוגשה התנגדות",
+               "no_objection_needed": "אין צורך בהתנגדות", "urgent": "דחוף"}
 
 
 def _e(s):
@@ -26,10 +28,16 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
                 f"<td>{_e(r['receiving_date'])}</td>"
                 f"<td>{_e(r['pl_last_deposit_date'] or r['depositing_date'])}</td>"
                 f"<td class='derived'>{_e(r['objection_deadline_derived_60d_from_publication'])}</td>"
-                f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td></tr>")
+                f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td>"
+                f"<td>{_e(TRACKING_HE.get(r.get('tracking_state'), r.get('tracking_state') or ''))}</td></tr>")
 
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
     body = "\n".join(tr(r, "new" if r["pl_number"] in new_ids else "") for r in rows)
+    urgent = [r for r in rows if r.get("tracking_state") == "urgent"]
+    urgent_html = "".join(
+        f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
+        f"אחרון להתנגדות (משוער): {_e(r['objection_deadline_derived_60d_from_publication'])}</li>"
+        for r in urgent) or "<li>אין</li>"
     changes_html = "".join(
         f"<li>{_e(c['kind'])}: <a href='{_e(c['mavat_url'])}'>{_e(c['pl_number'])}</a> {_e(c['pl_name'])}"
         + (f" ({_e(c.get('from'))} → {_e(c.get('to'))})" if c["kind"] == "status_change" else "")
@@ -51,9 +59,10 @@ th{{background:#eee;position:sticky;top:0}}
 <p>מסודר לפי תאריך קליטה במערכת (חדש קודם). עודכן: {_e(generated)}.
 מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
+<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 <table><thead><tr><th>מספר תכנית</th><th>שם</th><th>סטטוס</th><th>קליטה</th>
-<th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th></tr></thead>
+<th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th><th>מעקב</th></tr></thead>
 <tbody>{body}</tbody></table>
 </body></html>"""
 

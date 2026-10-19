@@ -16,7 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from shapely.geometry import shape
-from ginot import iplan, outputs, diff, page
+from ginot import iplan, outputs, diff, page, tracking
 
 
 def load_council(path):
@@ -35,6 +35,7 @@ def main():
     ap.add_argument("--out", default="out")
     ap.add_argument("--site", default="site")
     ap.add_argument("--snapshots", default="snapshots")
+    ap.add_argument("--status", default="data/plan_status.json")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     os.makedirs(args.snapshots, exist_ok=True)
@@ -42,6 +43,10 @@ def main():
     council = load_council(args.council)
     features = iplan.query_plans(council, service="xplan_without_77_78")
     rows = outputs.rows_from_features(features, council)
+    states = tracking.load(args.status)
+    rows, changed_defaults = tracking.merge(rows, states)
+    if changed_defaults:
+        tracking.save(states, args.status)
     outputs.write_csv(rows, f"{args.out}/ginot_hair_plans.csv")
     outputs.write_xlsx(rows, f"{args.out}/ginot_hair_plans.xlsx")
 
