@@ -32,27 +32,27 @@ CHALLENGE_MARKERS = (b"incapsula", b"recaptcha", b"captcha", b"_challenge",
                      b"px-captcha", b"perimeterx", b"request blocked")
 
 
-def main():
+DETAILS_PAYLOAD = json.dumps({
+    "Cnn": "cnnGisYk",
+    "ProcName": 242700447,
+    "Parameters": {"tikNum": "1993/0664.03", "systemCode": "26400046"},
+})
+
+
+def call(payload, tag):
     cmd = ["curl", "-s", "-o", "/tmp/permit_probe_body", "-w", "%{http_code}\t%{content_type}\t%{size_download}",
            "-m", "45", "--interface", IFACE,
            "-H", "Referer: https://ykpubdata.jerusalem.muni.il/",
            "-H", "Content-Type: application/json",
            "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
-           "--data", PAYLOAD, URL]
-    try:
-        out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-        parts = out.stdout.split("\t")
-        code, ctype, size = (parts + ["", "", "0"])[:3]
-    except Exception as e:
-        print(json.dumps({"result": "error", "error_kind": type(e).__name__}))
-        return 1
-    try:
-        body = open("/tmp/permit_probe_body", "rb").read()
-    except OSError:
-        body = b""
+           "--data", payload, URL]
+    out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    parts = out.stdout.split("\t")
+    code, ctype, size = (parts + ["", "", "0"])[:3]
+    body = open("/tmp/permit_probe_body", "rb").read()
     low = body[:200000].lower()
     if any(m in low for m in CHALLENGE_MARKERS):
-        print(json.dumps({"result": "anti_bot_challenge", "http": code}))
+        print(json.dumps({"call": tag, "result": "anti_bot_challenge", "http": code}))
         return 2
     denied = b"access denied" in low
     is_json = "json" in (ctype or "") or body[:1] in (b"{", b"[")
@@ -63,14 +63,23 @@ def main():
             rows = len(data) if isinstance(data, list) else None
             if isinstance(data, list) and data and isinstance(data[0], dict):
                 keys = sorted(data[0].keys())
+            elif isinstance(data, dict):
+                keys = sorted(data.keys())
         except Exception:
             pass
-    print(json.dumps({"result": "served" if not denied else "access_denied",
-                      "http": code, "content_type": (ctype or "").split(";")[0],
-                      "bytes": int(size or 0), "json_like": bool(is_json),
-                      "row_count": rows, "field_names": keys},
-                     ensure_ascii=False))
+    print(json.dumps({"call": tag, "result": "served" if not denied else "access_denied",
+                      "http": code, "bytes": int(size or 0), "json_like": bool(is_json),
+                      "row_count": rows, "field_names": keys}, ensure_ascii=False))
     return 0 if (not denied and is_json) else 1
+
+
+def main():
+    rc = call(PAYLOAD, "search_242700437")
+    if rc == 0:
+        import time
+        time.sleep(5)
+        rc = call(DETAILS_PAYLOAD, "details_242700447")
+    return rc
 
 
 if __name__ == "__main__":
