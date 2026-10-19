@@ -9,11 +9,11 @@ name: Mavat watch (VPN)
 # usable endpoint) fingerprints document sets, downloads changed/new public
 # documents, and opens a PR.
 #
-# The weekly schedule is intentionally NOT active yet. It will be enabled by a
-# separate PR only after a green manual run of the check mode, per the repo
-# owner's instruction:
-#   schedule:
-#     - cron: "23 4 * * 1"   # Mondays 04:23 UTC (off-peak, weekly)
+# Weekly schedule ENABLED 2026-10-19 (owner approval, green instrumented
+# manual run 39310111704). Fires Tuesdays 04:43 UTC, after the weekly land
+# refresh (04:07 UTC) to avoid runner contention; Tuesday was chosen so the
+# first scheduled fire can be verified the morning after enabling.
+# Scheduled runs execute check mode (see MODE resolution below).
 #
 # Hard rules enforced here and in the scripts: public documents only, no
 # login, no CAPTCHA/challenge bypass (any hard challenge or throttling stops
@@ -21,6 +21,8 @@ name: Mavat watch (VPN)
 # response bodies in the log (fixed classification fields only).
 
 on:
+  schedule:
+    - cron: "43 4 * * 2"   # Tuesdays 04:43 UTC (off-peak, weekly)
   workflow_dispatch:
     inputs:
       mode:
@@ -57,12 +59,15 @@ jobs:
           VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
+      - name: Resolve run mode (schedule -> check)
+        run: echo "MODE=${{ inputs.mode || 'check' }}" >> "$GITHUB_ENV"
+
       - name: Discover reachable public Mavat endpoints
-        if: ${{ inputs.mode == 'discover' }}
+        if: ${{ env.MODE == 'discover' }}
         run: sudo python3 scripts/vpn/mavat_discover.py
 
       - name: Install Playwright and Chromium (check mode)
-        if: ${{ inputs.mode == 'check' }}
+        if: ${{ env.MODE == 'check' }}
         env:
           PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
         run: |
@@ -70,14 +75,14 @@ jobs:
           sudo -E python3 -m playwright install --with-deps chromium
 
       - name: Check tracked Mavat plan pages (deadline + fingerprint)
-        if: ${{ inputs.mode == 'check' }}
+        if: ${{ env.MODE == 'check' }}
         env:
           PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
           PYTHONUNBUFFERED: "1"
         run: python3 scripts/vpn/mavat_check.py
 
       - name: Publish check results as a PR, merge on green CI
-        if: ${{ inputs.mode == 'check' && success() }}
+        if: ${{ env.MODE == 'check' && success() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
