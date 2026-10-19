@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0563643",
+ "pl_name": "הרחבת בניין מגורים ברח' הפלמ\"ח 66, שכונת קטמון,ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-01-24",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2022-07-11",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 0.481,
+ "intersection_dunam": 0.5,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000895113/310",
+ "mp_id": 1000895113.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-08-29",
+ "advisory_urgent": false
+}

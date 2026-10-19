@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1175926",
+ "pl_name": "הריסה ובנית בנין חדש, רח' דוד שמעוני 31, ירושלים",
+ "station_desc": "בהליך אישור",
+ "internet_short_status": "בתהליך אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-02-15",
+ "open_date": "2026-06-30",
+ "date_saf": "2024-03-13",
+ "depositing_date": "2024-05-13",
+ "pl_last_deposit_date": "2025-07-08",
+ "pl_date_advertise": "2025-05-09",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2025-07-08",
+ "pl_area_dunam": 0.59,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005278248/310",
+ "mp_id": 1005278248.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-06-30",
+ "advisory_urgent": false
+}

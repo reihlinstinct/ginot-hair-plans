@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0215509",
+ "pl_name": "פינוי בינוי, ברניקי 6 - גוננים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-05-28",
+ "open_date": "2019-09-08",
+ "date_saf": "2018-06-24",
+ "depositing_date": "2018-09-16",
+ "pl_last_deposit_date": "2019-08-20",
+ "pl_date_advertise": "2019-06-21",
+ "pl_date_8_approval": "2019-10-06",
+ "objection_deadline_derived_60d_from_publication": "2019-08-20",
+ "pl_area_dunam": 0.57,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000309291/310",
+ "mp_id": 1000309291.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-10-10",
+ "advisory_urgent": false
+}

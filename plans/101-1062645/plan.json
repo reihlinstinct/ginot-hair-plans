@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1062645",
+ "pl_name": "מבנה משולב ברחוב חרשי הברזל 8, תלפיות, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-04-11",
+ "open_date": "2024-03-26",
+ "date_saf": "2022-08-10",
+ "depositing_date": "2022-10-30",
+ "pl_last_deposit_date": "2023-09-26",
+ "pl_date_advertise": "2023-07-28",
+ "pl_date_8_approval": "2025-09-18",
+ "objection_deadline_derived_60d_from_publication": "2023-09-26",
+ "pl_area_dunam": 7.4914,
+ "intersection_dunam": 7.5,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005208772/310",
+ "mp_id": 1005208772.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-07-14",
+ "advisory_urgent": false
+}

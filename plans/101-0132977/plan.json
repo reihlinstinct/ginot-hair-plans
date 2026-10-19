@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0132977",
+ "pl_name": "בניין מגורים ברח' הפלמ\"ח 24, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2013-05-12",
+ "open_date": "2015-06-29",
+ "date_saf": "2013-10-29",
+ "depositing_date": "2014-02-23",
+ "pl_last_deposit_date": "2014-12-30",
+ "pl_date_advertise": "2014-10-31",
+ "pl_date_8_approval": "2015-10-22",
+ "objection_deadline_derived_60d_from_publication": "2014-12-30",
+ "pl_area_dunam": 0.63,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000260903/310",
+ "mp_id": 1000260903.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

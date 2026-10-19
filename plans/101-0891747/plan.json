@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0891747",
+ "pl_name": "דוד שמעוני 22, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-02-20",
+ "open_date": "2022-05-08",
+ "date_saf": "2021-07-07",
+ "depositing_date": "2021-10-10",
+ "pl_last_deposit_date": "2022-05-03",
+ "pl_date_advertise": "2022-03-04",
+ "pl_date_8_approval": "2022-05-16",
+ "objection_deadline_derived_60d_from_publication": "2022-05-03",
+ "pl_area_dunam": 0.586,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005089090/310",
+ "mp_id": 1005089090.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-05-22",
+ "advisory_urgent": false
+}

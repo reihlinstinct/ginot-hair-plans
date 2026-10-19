@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0502948",
+ "pl_name": "פינוי בינוי דב קמחי-טשרניחובסקי",
+ "station_desc": "בהליך אישור",
+ "internet_short_status": "בתהליך אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-02-11",
+ "open_date": "2026-09-15",
+ "date_saf": "2018-03-26",
+ "depositing_date": "2018-07-23",
+ "pl_last_deposit_date": "2019-10-22",
+ "pl_date_advertise": "2019-08-23",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2019-10-22",
+ "pl_area_dunam": 3.386,
+ "intersection_dunam": 3.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000697003/310",
+ "mp_id": 1000697003.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-09-15",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0618413",
+ "pl_name": "תוספת קומה למבנה מגורים לשם תוספת יח\"ד חדשה, רח' שמעוני 21, ירושלים.",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2019-04-28",
+ "open_date": "2020-07-05",
+ "date_saf": "2019-07-16",
+ "depositing_date": "2019-09-23",
+ "pl_last_deposit_date": "2020-04-21",
+ "pl_date_advertise": "2020-02-21",
+ "pl_date_8_approval": "2020-08-04",
+ "objection_deadline_derived_60d_from_publication": "2020-04-21",
+ "pl_area_dunam": 0.609,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000924081/310",
+ "mp_id": 1000924081.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-09-14",
+ "advisory_urgent": false
+}

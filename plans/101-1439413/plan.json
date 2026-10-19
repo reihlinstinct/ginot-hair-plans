@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1439413",
+ "pl_name": "הטייסים 33",
+ "station_desc": "בבדיקה תכנונית",
+ "internet_short_status": "קיום תנאי סף",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2026-08-10",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 0.93,
+ "intersection_dunam": 0.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005444316/310",
+ "mp_id": 1005444316.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-08-10",
+ "advisory_urgent": false
+}

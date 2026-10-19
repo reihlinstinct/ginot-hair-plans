@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0899880",
+ "pl_name": "התחדשות עירונית טשרניחובסקי 52-54-55",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-08-31",
+ "open_date": "2024-06-25",
+ "date_saf": "2022-03-01",
+ "depositing_date": "2022-06-27",
+ "pl_last_deposit_date": "2023-10-10",
+ "pl_date_advertise": "2023-08-11",
+ "pl_date_8_approval": "2024-09-12",
+ "objection_deadline_derived_60d_from_publication": "2023-10-10",
+ "pl_area_dunam": 2.777,
+ "intersection_dunam": 2.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005094114/310",
+ "mp_id": 1005094114.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-28",
+ "advisory_urgent": false
+}

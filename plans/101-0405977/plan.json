@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0405977",
+ "pl_name": "מתחם מסחר ותעסוקה, רחוב האומן 8 תלפיות",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2016-06-19",
+ "open_date": "2017-07-09",
+ "date_saf": "2016-06-21",
+ "depositing_date": "2016-09-18",
+ "pl_last_deposit_date": "2017-06-20",
+ "pl_date_advertise": "2017-04-21",
+ "pl_date_8_approval": "2017-07-30",
+ "objection_deadline_derived_60d_from_publication": "2017-06-20",
+ "pl_area_dunam": 0.934,
+ "intersection_dunam": 0.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000403741/310",
+ "mp_id": 1000403741.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

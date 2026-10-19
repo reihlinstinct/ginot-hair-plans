@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1454198",
+ "pl_name": "קביעת הוראות בינוי להשלמת קומה, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2025-04-08",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2025-07-08",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 125942.0,
+ "intersection_dunam": 6097.2,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005453548/310",
+ "mp_id": 1005453548.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-08",
+ "advisory_urgent": false
+}

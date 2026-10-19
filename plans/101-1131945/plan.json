@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1131945",
+ "pl_name": "עמק רפאים 76 - מגורים מסחר ותעסוקה",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-12-11",
+ "open_date": "2024-05-12",
+ "date_saf": "2023-01-25",
+ "depositing_date": "2023-04-02",
+ "pl_last_deposit_date": "2024-04-30",
+ "pl_date_advertise": "2024-03-01",
+ "pl_date_8_approval": "2024-05-21",
+ "objection_deadline_derived_60d_from_publication": "2024-04-30",
+ "pl_area_dunam": 0.637,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005251780/310",
+ "mp_id": 1005251780.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2024-05-27",
+ "advisory_urgent": false
+}

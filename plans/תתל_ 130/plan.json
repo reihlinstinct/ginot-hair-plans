@@ -1,0 +1,23 @@
+{
+ "pl_number": "תתל/ 130",
+ "pl_name": "תת\"ל 130 - חשמול התחבורה הציבורית",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית לתשתית לאומית",
+ "receiving_date": "2020-12-01",
+ "open_date": "2023-10-12",
+ "date_saf": "2022-05-24",
+ "depositing_date": "2022-07-18",
+ "pl_last_deposit_date": "2023-02-07",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2023-10-17",
+ "objection_deadline_derived_60d_from_publication": "2023-04-08",
+ "pl_area_dunam": 5440.0,
+ "intersection_dunam": 69.8,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/99005180460/310",
+ "mp_id": 99005180460.0,
+ "jurstiction_area_name": "מזכרת בתיה",
+ "last_update_date": "2024-08-08",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0729871",
+ "pl_name": "תוספת שטחים ומרפסות ברחוב הל\"ה 30 , ירושלים.",
+ "station_desc": "בבדיקה תכנונית",
+ "internet_short_status": "קיום תנאי סף",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2019-05-15",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 1.674,
+ "intersection_dunam": 1.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000991563/310",
+ "mp_id": 1000991563.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-06-11",
+ "advisory_urgent": false
+}

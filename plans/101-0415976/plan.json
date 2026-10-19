@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0415976",
+ "pl_name": "המשך כביש 16 / מחלף בייט",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2017-03-23",
+ "open_date": "2019-05-02",
+ "date_saf": "2017-07-18",
+ "depositing_date": "2018-01-22",
+ "pl_last_deposit_date": "2018-09-04",
+ "pl_date_advertise": "2018-07-06",
+ "pl_date_8_approval": "2020-06-02",
+ "objection_deadline_derived_60d_from_publication": "2018-09-04",
+ "pl_area_dunam": 238.892,
+ "intersection_dunam": 2.4,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000408915/310",
+ "mp_id": 1000408915.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-05-05",
+ "advisory_urgent": false
+}

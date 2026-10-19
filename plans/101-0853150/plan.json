@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0853150",
+ "pl_name": "הרחבות יח\"ד קיימות ברחוב ריש לקיש 7, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-01-31",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 0.574,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005066494/310",
+ "mp_id": 1005066494.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-11-24",
+ "advisory_urgent": false
+}

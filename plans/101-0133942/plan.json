@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0133942",
+ "pl_name": "הסדרת רחוב צרת וקביעת הוראות בניה במגרשי תעשיה, תלפיות , ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-05-18",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2015-09-15",
+ "pl_date_advertise": "2015-07-17",
+ "pl_date_8_approval": "2015-12-06",
+ "objection_deadline_derived_60d_from_publication": "2015-09-15",
+ "pl_area_dunam": 4.033,
+ "intersection_dunam": 2.0,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000261529/310",
+ "mp_id": 1000261529.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

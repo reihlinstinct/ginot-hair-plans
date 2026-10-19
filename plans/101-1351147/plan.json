@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1351147",
+ "pl_name": "התחדשות עירונית קרן היסוד 7",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-12-30",
+ "open_date": "2026-07-22",
+ "date_saf": "2025-02-23",
+ "depositing_date": "2025-05-18",
+ "pl_last_deposit_date": "2026-03-03",
+ "pl_date_advertise": "2026-01-02",
+ "pl_date_8_approval": "2026-07-26",
+ "objection_deadline_derived_60d_from_publication": "2026-03-03",
+ "pl_area_dunam": 0.751,
+ "intersection_dunam": 0.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005390312/310",
+ "mp_id": 1005390312.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-08-09",
+ "advisory_urgent": false
+}
