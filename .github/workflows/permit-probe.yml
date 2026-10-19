@@ -1,0 +1,43 @@
+name: Jerusalem permit API probe (VPN)
+
+# One-shot probe: can the municipality's public permit-detail API
+# (jerbasicserviceapi.jerusalem.muni.il, the API behind the public
+# ykpubdata.jerusalem.muni.il viewer) be reached through the owner-operated
+# L2TP/IPsec tunnel? Manual dispatch only. Terms checked: the municipality
+# terms page has no automated-access prohibition and the viewer host's
+# robots.txt allows all; on Access Denied or any challenge the run stops
+# red (no workaround).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  permit-probe:
+    if: ${{ vars.PERMIT_PROBE_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Probe the public permit-detail API (one parcel, one call)
+        run: sudo python3 scripts/vpn/permit_probe.py
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
