@@ -34,12 +34,10 @@ on:
 permissions:
   contents: read
 
-env:
-  MAVAT_WATCH_ENABLED: "true"   # kill switch: set to "false" to disable
-
 jobs:
   mavat-watch:
-    if: ${{ env.MAVAT_WATCH_ENABLED == 'true' }}
+    # Kill switch: set repo variable MAVAT_WATCH_ENABLED=false to disable.
+    if: ${{ vars.MAVAT_WATCH_ENABLED != 'false' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
