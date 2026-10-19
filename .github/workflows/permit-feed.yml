@@ -66,6 +66,14 @@ jobs:
           BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m feed-output -- data/permit_requests.json
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
           git checkout -b "$BRANCH"
           git add data/permit_requests.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"

@@ -89,6 +89,14 @@ jobs:
           BRANCH="mavat-check/$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m feed-output -- data/mavat_plan_status.json
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
           git checkout -b "$BRANCH"
           git add data/mavat_plan_status.json
           git commit -m "Mavat check $(date +%Y-%m-%d) (refs #32)"

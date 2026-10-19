@@ -57,6 +57,14 @@ jobs:
           BRANCH="weekly-refresh/$(date +%Y%m%d)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m feed-output
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
           git checkout -b "$BRANCH"
           git add -A
           git commit -m "Weekly data refresh $(date +%Y-%m-%d) (refs #55)
