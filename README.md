@@ -61,8 +61,9 @@ derived objection deadlines.
 
     # weekly refresh (uses the committed council GeoJSON - no DWG needed)
     python refresh.py
-    # outputs: out/ginot_hair_plans.{csv,xlsx}, snapshots/latest.json,
-    #          site/{index.html,feed.xml,data.json}
+    # outputs (committed to the repo by the weekly run):
+    #   out/ginot_hair_plans.{csv,xlsx}, out/changes.json,
+    #   snapshots/latest.json, site/{index.html,feed.xml,data.json}
 
     # re-derive the council polygon from a fresh municipal DWG export
     python -m ginot.derive data/municipal_councils.dwg   # TODO via ginot.dwg + ginot.select

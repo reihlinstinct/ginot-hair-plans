@@ -56,6 +56,8 @@ def main():
     if os.path.exists(snap_path):
         old_rows = json.load(open(snap_path, encoding="utf-8"))["rows"]
     changes = diff.diff_snapshots(old_rows, rows)
+    json.dump({"date": datetime.date.today().isoformat(), "changes": changes},
+              open(f"{args.out}/changes.json", "w", encoding="utf-8"), ensure_ascii=False)
     json.dump({"date": datetime.date.today().isoformat(), "rows": rows,
                "plans_77_78": slim}, open(snap_path, "w", encoding="utf-8"), ensure_ascii=False)
     page.render_site(rows, changes, args.site)
