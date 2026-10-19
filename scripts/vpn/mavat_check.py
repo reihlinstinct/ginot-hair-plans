@@ -25,9 +25,20 @@ TRACKED = "data/mavat_tracked_plans.json"
 OUT = "data/mavat_plan_status.json"
 SV4 = "https://mavat.iplan.gov.il/SV4/1/{mp_id}/310"
 PACE_SECONDS = 6
+# Hard-challenge detection is positive-content based (issue #32): the
+# legitimate SV4 page always loads a reCAPTCHA script token for its gated
+# data APIs, so a raw-HTML substring match fires on every healthy page.
+# Instead, a page passes when it actually shows plan content; only a page
+# WITHOUT plan content is inspected for challenge markers, and only in
+# its visible text (interstitials render their message; they do not
+# render the plan).
 CHALLENGE_PATTERNS = (
     "recaptcha", "captcha", "px-captcha", "perimeterx", "incapsula",
     "access denied", "request blocked", "are you a robot",
+)
+CONTENT_MARKERS = (
+    "מועד אחרון להגשת הערות", "מטרת התכנית", "הפקדה להתנגדויות",
+    "מסמכים", "גוש", "חלקה",
 )
 DEADLINE_RE = re.compile(r"מועד אחרון להגשת הערות[^<\\n]{0,120}")
 STATION_RE = re.compile(r"(הפקדה להתנגדויות/השגות|בבדיקה תכנונית|במילוי תנאים להפקדה|הכרעה בהתנגדויות|אישור)")
@@ -38,18 +49,26 @@ def normalize(text):
     return text.strip()
 
 
-def scrape_plan(page, mp_id):
+def scrape_plan(page, mp_id, num):
     page.goto(SV4.format(mp_id=mp_id), wait_until="domcontentloaded", timeout=60000)
     try:
         page.wait_for_load_state("networkidle", timeout=45000)
     except Exception:
         pass
     time.sleep(2)
-    html = page.content()
-    low = html.lower()
-    if any(p in low for p in CHALLENGE_PATTERNS):
-        raise RuntimeError("hard_challenge")
     text = normalize(page.inner_text("body")) if page.query_selector("body") else ""
+    # Positive-content check: the plan number or a plan-page marker must
+    # be visible. Instrumented: the matched marker is logged so the first
+    # re-run can be audited against the old behaviour.
+    marker_hit = num if num in text else next(
+        (m for m in CONTENT_MARKERS if m in text), "")
+    if not marker_hit:
+        low = text.lower()
+        if any(p in low for p in CHALLENGE_PATTERNS):
+            raise RuntimeError("hard_challenge")
+        raise RuntimeError(f"no_plan_content (page_chars={len(text)})")
+    print(f"  content check: positive via {marker_hit!r} "
+          f"(page_chars={len(text)})")
     deadline = ""
     m = DEADLINE_RE.search(text)
     if m:
@@ -87,10 +106,11 @@ def main():
                 time.sleep(PACE_SECONDS)
             num, mp_id = p["plan_number"], p["mp_id"]
             try:
-                info = scrape_plan(page, mp_id)
+                info = scrape_plan(page, mp_id, num)
             except RuntimeError as exc:
-                if "hard_challenge" in str(exc):
-                    print(f"{num}: hard challenge - stopping (no workaround)")
+                msg = str(exc)
+                if "hard_challenge" in msg or "no_plan_content" in msg:
+                    print(f"{num}: {msg} - stopping (no workaround)")
                     browser.close()
                     return 2
                 raise
