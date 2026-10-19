@@ -1,0 +1,57 @@
+name: Permit viewer XHR capture (VPN)
+
+# Observe the PUBLIC ykpubdata permit viewer's own API calls in headless
+# Chromium through the owner-operated L2TP tunnel, so the permit feed can
+# mirror one exact call shape. Public pages only, no login. On any hard
+# challenge / block the run stops red (exit 2) with no workaround, per the
+# owner's standing anti-bot rule. Manual dispatch only.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  permit-xhr-capture:
+    if: ${{ vars.PERMIT_PROBE_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp > /dev/null 2>&1
+
+      - name: Install headless Chromium (Playwright)
+        run: |
+          pip install --quiet playwright
+          playwright install --with-deps chromium > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Capture the public viewer's own XHR calls
+        run: sudo -E python3 scripts/vpn/permit_xhr_capture.py
+
+      - name: Upload capture artifact
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: yk-xhr-capture
+          path: |
+            /tmp/yk_capture.json
+            /tmp/yk_search.png
+            /tmp/yk_details.png
+          if-no-files-found: ignore
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
