@@ -11,7 +11,7 @@
  "pl_last_deposit_date": "2026-10-25",
  "pl_date_advertise": "2026-08-07",
  "pl_date_8_approval": "",
- "objection_deadline_derived_60d_from_publication": "2026-10-06",
+ "objection_deadline_derived_60d_from_publication": "2026-10-08",
  "pl_area_dunam": 4.034,
  "intersection_dunam": 4.0,
  "inside_flag": "inside",
@@ -19,5 +19,9 @@
  "mp_id": 1005284398.0,
  "jurstiction_area_name": "ירושלים",
  "last_update_date": "2026-09-23",
+ "land_status": "פרסום הפקדה ברשומות",
+ "land_status_date": "2026-08-09",
+ "land_plan_id": 1057102,
+ "deadline_source_note": "max(iplan, land.gov.il) publication + 60d",
  "advisory_urgent": false
 }

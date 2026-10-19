@@ -1,0 +1,1952 @@
+{
+ "generated": "2026-10-19",
+ "source": "Israel Land Authority TabaSearch public API",
+ "plans": {
+  "101-0049056": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-06-26",
+   "land_plan_id": 1014729,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0054676": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-10-16",
+   "land_plan_id": 1014342,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0055293": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2014-07-14",
+   "land_plan_id": 1013337,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0057596": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-10-13",
+   "land_plan_id": 1014496,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0059576": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2014-06-20",
+   "land_plan_id": 1014055,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0060434": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2013-03-20",
+   "land_plan_id": 1012150,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0064295": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2014-09-09",
+   "land_plan_id": 1013946,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0068593": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2014-08-11",
+   "land_plan_id": 1013873,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0071951": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-03-06",
+   "land_plan_id": 1014585,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0092098": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2013-06-14",
+   "land_plan_id": 1012237,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0095612": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-06-09",
+   "land_plan_id": 1014835,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0108019": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-12-29",
+   "land_plan_id": 1014425,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0110510": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-07-06",
+   "land_plan_id": 1014140,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0112557": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-07-06",
+   "land_plan_id": 1014165,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0113381": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-10-20",
+   "land_plan_id": 1014298,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0117853": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2014-12-19",
+   "land_plan_id": 1014203,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0132944": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-08-22",
+   "land_plan_id": 1015242,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0132977": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-10-30",
+   "land_plan_id": 1014315,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0133942": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-12-06",
+   "land_plan_id": 1014622,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0136804": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-02-16",
+   "land_plan_id": 1014690,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0147348": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2014-09-16",
+   "land_plan_id": 1014158,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0150805": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-01-04",
+   "land_plan_id": 1014745,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0151571": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-08-10",
+   "land_plan_id": 1014323,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0152322": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-08-26",
+   "land_plan_id": 1014509,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0157826": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2016-04-21",
+   "land_plan_id": 1014868,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0161257": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2016-06-29",
+   "land_plan_id": 1014702,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0175232": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2018-02-16",
+   "land_plan_id": 1014920,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0178129": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2018-08-17",
+   "land_plan_id": 1015312,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0181933": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-12-08",
+   "land_plan_id": 1015012,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0182667": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-03-14",
+   "land_plan_id": 1014999,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0184523": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-10-02",
+   "land_plan_id": 1014607,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0189852": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-01-13",
+   "land_plan_id": 1014265,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0193193": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-01-05",
+   "land_plan_id": 1014703,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0194688": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-07-09",
+   "land_plan_id": 1014424,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0195032": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2018-10-19",
+   "land_plan_id": 1015281,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0209593": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-01-12",
+   "land_plan_id": 1014826,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0215509": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-10-06",
+   "land_plan_id": 1052147,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0216614": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-11-03",
+   "land_plan_id": 1051010,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0226886": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2018-10-26",
+   "land_plan_id": 1015091,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0234138": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-07-28",
+   "land_plan_id": 1014877,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0236612": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-08-18",
+   "land_plan_id": 1014849,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0243865": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2016-05-05",
+   "land_plan_id": 1014705,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0250563": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-02-22",
+   "land_plan_id": 1015196,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0252379": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-07-24",
+   "land_plan_id": 1051297,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0253286": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2015-06-23",
+   "land_plan_id": 1014465,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0256131": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-11-02",
+   "land_plan_id": 1053808,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0262717": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-07-21",
+   "land_plan_id": 1014862,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0275636": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-02-02",
+   "land_plan_id": 1015185,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0283978": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-02-15",
+   "land_plan_id": 1015235,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0289512": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2015-11-26",
+   "land_plan_id": 1014611,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0290049": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-04-20",
+   "land_plan_id": 1014846,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0292870": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-10-30",
+   "land_plan_id": 1051632,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0296889": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-06-15",
+   "land_plan_id": 1015165,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0306944": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-03-23",
+   "land_plan_id": 1014803,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0315119": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-01-05",
+   "land_plan_id": 1015112,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0326751": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-05-21",
+   "land_plan_id": 1015299,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0338335": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2016-06-23",
+   "land_plan_id": 1014882,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0342261": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2018-05-27",
+   "land_plan_id": 1051129,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0350173": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-06-15",
+   "land_plan_id": 1015304,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0351411": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-01-18",
+   "land_plan_id": 1051250,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0397752": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-08-07",
+   "land_plan_id": 1052736,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0402925": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2018-01-09",
+   "land_plan_id": 1051033,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0405977": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2017-07-30",
+   "land_plan_id": 1015440,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0406504": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2017-09-14",
+   "land_plan_id": 1015424,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0408567": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2018-08-07",
+   "land_plan_id": 1015455,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0410282": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-01-11",
+   "land_plan_id": 1051034,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0410332": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-11-28",
+   "land_plan_id": 1052074,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0415976": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-06-05",
+   "land_plan_id": 1051534,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0433359": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-11-15",
+   "land_plan_id": 1051471,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0433474": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-03-08",
+   "land_plan_id": 1051182,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0454553": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-11-17",
+   "land_plan_id": 1052019,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0459339": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2018-05-01",
+   "land_plan_id": 1051038,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0477240": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-01-27",
+   "land_plan_id": 1051561,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0487694": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-11-15",
+   "land_plan_id": 1052146,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0490656": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-04-19",
+   "land_plan_id": 1051557,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0492199": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-06-14",
+   "land_plan_id": 1051751,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0502948": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-09-15",
+   "land_plan_id": 1052299,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0511923": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-11-06",
+   "land_plan_id": 1052160,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0515635": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-03-22",
+   "land_plan_id": 1051550,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0520163": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-03-18",
+   "land_plan_id": 1052596,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0521534": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-07-26",
+   "land_plan_id": 1051551,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0537480": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-03-22",
+   "land_plan_id": 1051487,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0541102": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-03-01",
+   "land_plan_id": 1051469,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0542803": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-03-22",
+   "land_plan_id": 1051715,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0545657": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-05-01",
+   "land_plan_id": 1052282,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0547992": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-05-15",
+   "land_plan_id": 1052002,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0548180": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2018-11-23",
+   "land_plan_id": 1051622,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0548891": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-07-19",
+   "land_plan_id": 1051753,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0550541": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-10-11",
+   "land_plan_id": 1054581,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0560805": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-03-09",
+   "land_plan_id": 1051352,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0563643": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2022-07-11",
+   "land_plan_id": 1053774,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0564583": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-07-05",
+   "land_plan_id": 1051832,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0565317": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-12-03",
+   "land_plan_id": 1051837,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0571190": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2018-10-29",
+   "land_plan_id": 1051473,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0585851": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-12-04",
+   "land_plan_id": 1052537,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0588897": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-09-15",
+   "land_plan_id": 1052044,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0600064": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-02-06",
+   "land_plan_id": 1052238,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0605956": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-02-14",
+   "land_plan_id": 1055039,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0613679": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2021-04-30",
+   "land_plan_id": 1052304,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0615880": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-07-29",
+   "land_plan_id": 1052624,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0618413": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-08-14",
+   "land_plan_id": 1052718,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0622621": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-12-04",
+   "land_plan_id": 1051981,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0638908": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-05-17",
+   "land_plan_id": 1051742,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0650747": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-07-17",
+   "land_plan_id": 1057058,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-0657593": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-03",
+   "land_plan_id": 1055660,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0657601": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2020-09-08",
+   "land_plan_id": 1052741,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0658088": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-08-13",
+   "land_plan_id": 1051965,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0665620": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-03-12",
+   "land_plan_id": 1052549,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0665752": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-11-10",
+   "land_plan_id": 1055040,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0666032": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-03-22",
+   "land_plan_id": 1053152,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0666289": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-12-25",
+   "land_plan_id": 1051677,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0668954": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-01-17",
+   "land_plan_id": 1053066,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0673897": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2020-10-13",
+   "land_plan_id": 1052891,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0682088": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-02-20",
+   "land_plan_id": 1052194,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0690859": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-29",
+   "land_plan_id": 1054818,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0705426": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-07-24",
+   "land_plan_id": 1052488,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0721902": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-11-03",
+   "land_plan_id": 1052222,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0725663": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2020-11-06",
+   "land_plan_id": 1052941,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0731877": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-07-14",
+   "land_plan_id": 1054341,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0738872": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-07-28",
+   "land_plan_id": 1054635,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0740555": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-05-13",
+   "land_plan_id": 1052509,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0751990": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-05-13",
+   "land_plan_id": 1052901,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0755256": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-06-23",
+   "land_plan_id": 1052789,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0771550": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-05-13",
+   "land_plan_id": 1052809,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0775940": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2020-05-14",
+   "land_plan_id": 1052762,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-0778035": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-12-20",
+   "land_plan_id": 1055268,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0779546": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-09-08",
+   "land_plan_id": 1053813,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0785766": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2022-07-04",
+   "land_plan_id": 1053848,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0788422": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-09-20",
+   "land_plan_id": 1055568,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0794214": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-03-31",
+   "land_plan_id": 1054528,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0798306": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-06-25",
+   "land_plan_id": 1051923,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0800771": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-03",
+   "land_plan_id": 1054171,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0820761": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-06-24",
+   "land_plan_id": 1053896,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0834382": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-08-04",
+   "land_plan_id": 1053037,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0836312": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2022-01-30",
+   "land_plan_id": 1053390,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0836809": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-12-26",
+   "land_plan_id": 1053666,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0838219": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-06-28",
+   "land_plan_id": 1053253,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0842617": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-06-13",
+   "land_plan_id": 1055440,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0844969": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-03-11",
+   "land_plan_id": 1053189,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0853150": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-12-16",
+   "land_plan_id": 1054281,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0855585": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-10-27",
+   "land_plan_id": 1054508,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0855668": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-09-15",
+   "land_plan_id": 1054453,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0857086": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-05-07",
+   "land_plan_id": 1051769,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0859322": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-03-25",
+   "land_plan_id": 1053748,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0862904": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-06-13",
+   "land_plan_id": 1054583,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0863068": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-09-13",
+   "land_plan_id": 1054390,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0867317": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-01-06",
+   "land_plan_id": 1053983,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0870865": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-02-07",
+   "land_plan_id": 1054285,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0876003": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2021-09-17",
+   "land_plan_id": 1053398,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0888032": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-05-13",
+   "land_plan_id": 1053682,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0891747": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-05-20",
+   "land_plan_id": 1053865,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0899880": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-31",
+   "land_plan_id": 1055010,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0912337": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-06-17",
+   "land_plan_id": 1053650,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0921213": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-06-13",
+   "land_plan_id": 1056041,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0926105": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-05-08",
+   "land_plan_id": 1055426,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0932152": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-05-12",
+   "land_plan_id": 1054036,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0934117": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-11-03",
+   "land_plan_id": 1054578,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0934745": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-03-10",
+   "land_plan_id": 1053878,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0944512": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-06-30",
+   "land_plan_id": 1054636,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0950493": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-03-03",
+   "land_plan_id": 1054457,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0955450": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-06-21",
+   "land_plan_id": 1055145,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0960419": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-12-08",
+   "land_plan_id": 1054261,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0961151": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2025-12-09",
+   "land_plan_id": 1056291,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0962720": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-12-01",
+   "land_plan_id": 1054405,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0968321": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-07-26",
+   "land_plan_id": 1054026,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0972554": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-05-31",
+   "land_plan_id": 1055011,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0973958": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-05-01",
+   "land_plan_id": 1055491,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0987016": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-01",
+   "land_plan_id": 1055127,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0995332": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2025-05-30",
+   "land_plan_id": 1056317,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-0999185": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-12-01",
+   "land_plan_id": 1054618,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1002054": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-04-07",
+   "land_plan_id": 1054558,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1002625": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-06-21",
+   "land_plan_id": 1055336,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1008176": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-09-01",
+   "land_plan_id": 1054510,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1008390": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-08-25",
+   "land_plan_id": 1054773,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1019157": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-02-20",
+   "land_plan_id": 1056389,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1021344": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-05-28",
+   "land_plan_id": 1054507,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1024272": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-11-20",
+   "land_plan_id": 1055279,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1024645": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-03-12",
+   "land_plan_id": 1056215,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1025295": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-01-04",
+   "land_plan_id": 1056075,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1030790": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-08-07",
+   "land_plan_id": 1056646,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1033588": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-04-04",
+   "land_plan_id": 1054727,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1033869": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-07-05",
+   "land_plan_id": 1055389,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1041870": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2025-04-20",
+   "land_plan_id": 1054709,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1052901": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-10-02",
+   "land_plan_id": 1055525,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1056019": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-07-28",
+   "land_plan_id": 1055339,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1062645": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2025-09-18",
+   "land_plan_id": 1054980,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1063957": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-12-19",
+   "land_plan_id": 1056091,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1068295": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-02-23",
+   "land_plan_id": 1055177,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1069764": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-22",
+   "land_plan_id": 1055571,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1071448": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-12-27",
+   "land_plan_id": 1055428,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1078476": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-08-16",
+   "land_plan_id": 1056028,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1090091": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-09-10",
+   "land_plan_id": 1056685,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1091438": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-06-23",
+   "land_plan_id": 1054755,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1095124": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-17",
+   "land_plan_id": 1055379,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1106483": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-12-30",
+   "land_plan_id": 1054986,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1114305": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-03",
+   "land_plan_id": 1055687,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1115450": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-09-12",
+   "land_plan_id": 1052704,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1115484": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-05-29",
+   "land_plan_id": 1056959,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1121920": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-12-19",
+   "land_plan_id": 1056042,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1125970": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-07-07",
+   "land_plan_id": 1056724,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1131192": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-10-03",
+   "land_plan_id": 1056312,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1131945": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-05-24",
+   "land_plan_id": 1055412,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1132471": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-07-30",
+   "land_plan_id": 1054693,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1144179": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-05-06",
+   "land_plan_id": 1056218,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1146505": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-03-19",
+   "land_plan_id": 1056171,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1150374": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-07-07",
+   "land_plan_id": 1055151,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1160019": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-07-07",
+   "land_plan_id": 1055290,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1161439": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-05-05",
+   "land_plan_id": 1054710,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1163773": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-05-21",
+   "land_plan_id": 1056916,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1166586": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-07-31",
+   "land_plan_id": 1056648,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1167410": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-22",
+   "land_plan_id": 1055351,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1170190": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2023-11-20",
+   "land_plan_id": 1054957,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1172402": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-11-07",
+   "land_plan_id": 1055593,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1175926": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-06-30",
+   "land_plan_id": 1056283,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1182146": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-06-26",
+   "land_plan_id": 1055468,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1183128": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-11-03",
+   "land_plan_id": 1054864,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1185578": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-08-09",
+   "land_plan_id": 1057102,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1191014": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-04-24",
+   "land_plan_id": 1056307,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1193531": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2025-04-20",
+   "land_plan_id": 1055692,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1197755": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-11-20",
+   "land_plan_id": 1055497,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1200229": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-05-09",
+   "land_plan_id": 1055572,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1207158": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-08-04",
+   "land_plan_id": 1055180,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1211002": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-06-09",
+   "land_plan_id": 1055374,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1214279": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-08-21",
+   "land_plan_id": 1057122,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1215656": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-09-06",
+   "land_plan_id": 1057167,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1219609": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-22",
+   "land_plan_id": 1055595,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1219724": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-01-09",
+   "land_plan_id": 1054130,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1222645": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2024-09-24",
+   "land_plan_id": 1055475,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1225218": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-11-29",
+   "land_plan_id": 1055709,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1226307": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-05-23",
+   "land_plan_id": 1055557,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1229517": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-12-20",
+   "land_plan_id": 1055869,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1236736": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-09-14",
+   "land_plan_id": 1056067,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1242700": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-06-27",
+   "land_plan_id": 1056225,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1246404": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-01-25",
+   "land_plan_id": 1056132,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1247485": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-06-30",
+   "land_plan_id": 1056102,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1250026": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2024-12-20",
+   "land_plan_id": 1055866,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1261510": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-06-16",
+   "land_plan_id": 1056750,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1275866": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-06-19",
+   "land_plan_id": 1056846,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1285808": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-06-19",
+   "land_plan_id": 1056003,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1293554": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2025-09-19",
+   "land_plan_id": 1056505,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1298728": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-07-17",
+   "land_plan_id": 1056490,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1300003": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-09-06",
+   "land_plan_id": 1056740,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1301753": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2025-12-26",
+   "land_plan_id": 1056686,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1307255": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2025-11-30",
+   "land_plan_id": 1056616,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1309061": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-10-09",
+   "land_plan_id": 1055584,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1322452": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-08-16",
+   "land_plan_id": 1056619,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1329770": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-01-19",
+   "land_plan_id": 1056507,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1338425": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-06-26",
+   "land_plan_id": 1057020,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1345420": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-07-22",
+   "land_plan_id": 1056444,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1348069": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-10-09",
+   "land_plan_id": 1057215,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1350255": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-06-29",
+   "land_plan_id": 1056081,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1350594": {
+   "land_status": "פרסום הפקדה לפי סעיף 106ב ברשומות",
+   "land_status_date": "2026-08-17",
+   "land_plan_id": 1056431,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1351147": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-07-31",
+   "land_plan_id": 1056589,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1354356": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-10-14",
+   "land_plan_id": 1057017,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1360650": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-08-07",
+   "land_plan_id": 1056885,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1360791": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-01-04",
+   "land_plan_id": 1056475,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1363290": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-09-25",
+   "land_plan_id": 1056542,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1366053": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-08-14",
+   "land_plan_id": 1056055,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1370881": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2025-11-28",
+   "land_plan_id": 1056640,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1372085": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-01-25",
+   "land_plan_id": 1056434,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1377753": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-09-17",
+   "land_plan_id": 1056373,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1386671": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-10-15",
+   "land_plan_id": 1057219,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1401348": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2025-12-26",
+   "land_plan_id": 1056687,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1405729": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-04-17",
+   "land_plan_id": 1056709,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1409366": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-08-20",
+   "land_plan_id": 1057135,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1417328": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-10-15",
+   "land_plan_id": 1056376,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1420926": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-09-14",
+   "land_plan_id": 1056471,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1422401": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-09-06",
+   "land_plan_id": 1057016,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1430339": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-07-17",
+   "land_plan_id": 1056870,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1443126": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-06-16",
+   "land_plan_id": 1057002,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1451699": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-09-25",
+   "land_plan_id": 1057178,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1454198": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2025-05-19",
+   "land_plan_id": 1056274,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1488261": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-10-09",
+   "land_plan_id": 1057165,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1526193": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2026-10-15",
+   "land_plan_id": 1057106,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1575943": {
+   "land_status": "פרסום להפקדה בעיתונים",
+   "land_status_date": "2026-06-26",
+   "land_plan_id": 1057023,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "151-0347427": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2021-01-17",
+   "land_plan_id": 1052877,
+   "land_city": "רמת רחל",
+   "is_deposit_publication": false
+  },
+  "151-0387068": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2019-01-03",
+   "land_plan_id": 1051421,
+   "land_city": "מ.א. מטה יהודה",
+   "is_deposit_publication": false
+  },
+  "151-1322924": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2025-01-02",
+   "land_plan_id": 1055716,
+   "land_city": "מ.א. מטה יהודה",
+   "is_deposit_publication": false
+  }
+ }
+}
