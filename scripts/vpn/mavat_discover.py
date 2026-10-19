@@ -33,11 +33,11 @@ CHALLENGE_MARKERS = (b"incapsula", b"recaptcha", b"captcha", b"_challenge",
 
 
 def probe(name, url):
-    cmd = ["curl", "-s", "-o", "/tmp/probe_body", "-w", "%{http_code} %{content_type} %{size_download}",
+    cmd = ["curl", "-s", "-o", "/tmp/probe_body", "-w", "%{http_code}\t%{content_type}\t%{size_download}",
            "-m", "45", "--interface", IFACE, "-A", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36", url]
     try:
         out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-        parts = out.stdout.split()
+        parts = out.stdout.split("\t")
         code, ctype, size = (parts + ["", "", "0"])[:3]
     except Exception as e:
         return {"endpoint": name, "result": "error", "error_kind": type(e).__name__}
