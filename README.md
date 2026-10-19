@@ -45,8 +45,9 @@ derived objection deadlines.
   Do not commit municipal source data without checking the license.
 - Plan data comes from the Planning Administration's public iplan API
   (government open data) and is re-published here as derived snapshots.
-- Keeping this repo private until the owner approves publication after a data
-  scan.
+- The planner's tracking-state file (data/plan_status.json) is gitignored and
+  lives only on the machine running the refresh - it is never published. A
+  durable private store for it comes with the approved planner workflow.
 
 ## Install
 

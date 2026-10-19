@@ -1,3 +1,4 @@
 __pycache__/
 *.pyc
 .vault/
+data/plan_status.json
