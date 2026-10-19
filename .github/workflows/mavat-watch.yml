@@ -63,12 +63,16 @@ jobs:
 
       - name: Install Playwright and Chromium (check mode)
         if: ${{ inputs.mode == 'check' }}
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
         run: |
-          sudo pip install playwright > /dev/null 2>&1
-          sudo python3 -m playwright install --with-deps chromium > /dev/null 2>&1
+          sudo pip install playwright
+          sudo -E python3 -m playwright install --with-deps chromium
 
       - name: Check tracked Mavat plan pages (deadline + fingerprint)
         if: ${{ inputs.mode == 'check' }}
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
         run: sudo -E python3 scripts/vpn/mavat_check.py
 
       - name: Publish check results as a PR, merge on green CI
