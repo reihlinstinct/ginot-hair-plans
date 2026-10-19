@@ -1,0 +1,67 @@
+name: Mavat watch (VPN)
+
+# Weekly Mavat document-set check for the tracked deposit-stage plans
+# (data/mavat_tracked_plans.json, issue #32), through the owner-operated
+# L2TP/IPsec tunnel (same pattern as mavat-dry-run.yml).
+#
+# Mode "discover" probes which public Mavat endpoints serve plan document
+# metadata through the tunnel; mode "check" (added after discovery proves a
+# usable endpoint) fingerprints document sets, downloads changed/new public
+# documents, and opens a PR.
+#
+# The weekly schedule is intentionally NOT active yet. It will be enabled by a
+# separate PR only after a green manual run of the check mode, per the repo
+# owner's instruction:
+#   schedule:
+#     - cron: "23 4 * * 1"   # Mondays 04:23 UTC (off-peak, weekly)
+#
+# Hard rules enforced here and in the scripts: public documents only, no
+# login, no CAPTCHA/challenge bypass (any hard challenge or throttling stops
+# the run with a visible failure), polite pacing, and no secrets, IPs or
+# response bodies in the log (fixed classification fields only).
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Run mode"
+        required: true
+        default: "discover"
+        type: choice
+        options:
+          - discover
+
+permissions:
+  contents: read
+
+env:
+  MAVAT_WATCH_ENABLED: "true"   # kill switch: set to "false" to disable
+
+jobs:
+  mavat-watch:
+    if: ${{ env.MAVAT_WATCH_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Discover reachable public Mavat endpoints
+        if: ${{ inputs.mode == 'discover' }}
+        run: sudo python3 scripts/vpn/mavat_discover.py
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down

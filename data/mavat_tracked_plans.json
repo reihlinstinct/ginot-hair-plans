@@ -1,0 +1,19 @@
+{
+  "comment": "Deposit-stage urgent plans tracked for Mavat document changes (issue #32). mp_id is the Mavat SV4 plan-page identifier.",
+  "plans": [
+    {"plan_number": "101-0775940", "mp_id": "1001020555"},
+    {"plan_number": "101-1095330", "mp_id": "1005228636"},
+    {"plan_number": "101-1214279", "mp_id": "1005303784"},
+    {"plan_number": "101-1386671", "mp_id": "1005388186"},
+    {"plan_number": "101-1348069", "mp_id": "1005412538"},
+    {"plan_number": "101-1185578", "mp_id": "1005284398"},
+    {"plan_number": "101-1215656", "mp_id": "1005304728"},
+    {"plan_number": "101-1377753", "mp_id": "1005407450"},
+    {"plan_number": "101-1293554", "mp_id": "1005353666"},
+    {"plan_number": "101-1350594", "mp_id": "1005389744"},
+    {"plan_number": "101-1409366", "mp_id": "1005426396"},
+    {"plan_number": "101-1451699", "mp_id": "1005451880"},
+    {"plan_number": "101-1488261", "mp_id": "1005474110"},
+    {"plan_number": "101-1500909", "mp_id": "1005482106"}
+  ]
+}
