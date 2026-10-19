@@ -26,22 +26,20 @@ def _row(n, status, recv="", dep="", deadline="", flag="inside"):
             "mavat_url": "https://mavat.iplan.gov.il/x"}
 
 
-def test_relevance_ranking():
+def test_default_sort_deadline_desc():
     import datetime
     today = datetime.date.today()
     near = (today + datetime.timedelta(days=10)).isoformat()
     far = (today + datetime.timedelta(days=40)).isoformat()
     rows = [
-        _row("approved", "אישור", recv="2020-01-01"),
-        _row("active-partial", "בבדיקה תכנונית", recv="2026-01-01", flag="partial"),
-        _row("active-inside", "בבדיקה תכנונית", recv="2025-01-01"),
+        _row("no-deadline-new", "בבדיקה תכנונית", recv="2026-01-01"),
+        _row("open-near", "הפקדה להתנגדויות", dep="2026-09-01", deadline=near),
+        _row("no-deadline-old", "אישור", recv="2019-01-01"),
         _row("open-far", "הפקדה להתנגדויות", dep="2026-09-01", deadline=far),
-        _row("open-near", "הפקדה להתנגדויות", dep="2026-09-01", deadline=near, flag="partial"),
     ]
-    order = [r["pl_number"] for r in page.rank_rows(rows)]
-    # open windows first by nearest deadline (flag does not trump deadline),
-    # then active newest-first with inside before partial, approved last
-    assert order == ["open-near", "open-far", "active-inside", "active-partial", "approved"]
+    order = [r["pl_number"] for r in page.sort_rows(rows)]
+    # farthest deadline first; no-deadline rows below, newest entry first
+    assert order == ["open-far", "open-near", "no-deadline-new", "no-deadline-old"]
 
 
 def test_date_format_and_controls(tmp_path):
@@ -51,7 +49,7 @@ def test_date_format_and_controls(tmp_path):
     page.render_site(rows, [], str(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # DD.MM.YYYY display with ISO preserved for sorting/filtering
-    assert "01.10.2026" in html and "data-iso='2026-10-01'" in html
+    assert "01.10.26" in html and "data-iso='2026-10-01'" in html and "dir='ltr'" in html
     # approved hidden by default, count stated, one-click control present
     assert "data-active='0'" in html and "הצג תכניות מאושרות (1)" in html
     assert "מוסתרות כברירת מחדל" in html

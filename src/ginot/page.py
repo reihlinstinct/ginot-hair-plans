@@ -1,9 +1,8 @@
 """Render the static public page (Hebrew RTL) + Atom feed from the plan table.
 
-Row order follows a transparent relevance rule (stated on the page):
-open objection windows first (nearest derived deadline), then active
-statuses newest-entry-first, approved last; fully-inside before partial
-overlaps within each tier. Approved (non-active) plans are hidden by
+Default row order: derived objection deadline, farthest first (plans
+without a deadline below those with one). Clicking a column header sorts
+by that column's true values (dates sort as dates, not text). Approved (non-active) plans are hidden by
 default (one click to bring back, count stated on the page). The table
 collapses to the top 20 rows of the visible set with a show-more control;
 client-side filters (status, inside/partial, date range, free text,
@@ -23,6 +22,8 @@ _CSS = """
 body{font-family:system-ui,Arial;max-width:1100px;margin:1em auto;padding:0 1em}
 table{border-collapse:collapse;width:100%}td,th{border:1px solid #ccc;padding:4px 8px;font-size:14px}
 th{background:#eee;position:sticky;top:0}
+th button{background:none;border:0;font:inherit;cursor:pointer;padding:0}
+th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:" ▼"}
 .chip{border-radius:8px;padding:1px 8px;background:#e0e0e0;color:#1a1a1a;white-space:nowrap}
 .chip.c-deposit{background:#ffd27f}.chip.c-review{background:#cfe3ff}
 .chip.c-cond{background:#e2d4f7}.chip.c-decision{background:#ffc4a8}
@@ -84,7 +85,34 @@ document.getElementById('freset').addEventListener('click',function(){
   ffrom.value='';fto.value='';expanded=false;apply();
 });
 more.addEventListener('click',function(){expanded=!expanded;apply();});
-apply();
+var sortKey='obj',sortDir=-1;
+function val(r,k){
+  if(k==='area')return parseFloat(r.getAttribute('data-area'))||0;
+  if(k==='num')return r.getAttribute('data-num');
+  return r.getAttribute('data-'+k)||'';
+}
+function resort(){
+  var tb=document.querySelector('#plans tbody');
+  rows.sort(function(a,b){
+    var x=val(a,sortKey),y=val(b,sortKey);
+    if(!x&&!y)return 0;if(!x)return 1;if(!y)return -1;
+    return (x<y?-1:x>y?1:0)*sortDir;
+  });
+  rows.forEach(function(r){tb.appendChild(r);});
+  document.querySelectorAll('th button').forEach(function(b){
+    b.classList.toggle('sorted-asc',b.getAttribute('data-sort')===sortKey&&sortDir===1);
+    b.classList.toggle('sorted-desc',b.getAttribute('data-sort')===sortKey&&sortDir===-1);
+  });
+  apply();
+}
+document.querySelectorAll('th button').forEach(function(b){
+  b.addEventListener('click',function(){
+    var k=b.getAttribute('data-sort');
+    if(sortKey===k){sortDir=-sortDir;}else{sortKey=k;sortDir=1;}
+    expanded=false;resort();
+  });
+});
+resort();
 })();
 """
 
@@ -100,12 +128,12 @@ def _iso(d) -> str:
 
 def _fmt(d) -> str:
     iso = _iso(d)
-    return f"{iso[8:10]}.{iso[5:7]}.{iso[:4]}" if iso else ""
+    return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
 
 
 def _date_cell(d) -> str:
     iso = _iso(d)
-    return f"<span data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
+    return f"<span dir='ltr' data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
 
 
 def _deposit_date(r) -> str:
@@ -127,35 +155,18 @@ def _inside_rank(r) -> int:
     return 0 if r.get("inside_flag") == "inside" else 1
 
 
-def rank_rows(rows: list[dict], today: str | None = None) -> list[dict]:
-    """Order rows by the published relevance rule and annotate each row with
-    _rank (1-based) and _open_obj (objection window open today)."""
+def sort_rows(rows: list[dict], today: str | None = None) -> list[dict]:
+    """Default table order: derived objection deadline, farthest first; rows
+    without a deadline sort below those with one (then newest entry first).
+    Annotates each row with _rank (1-based) and _open_obj (window open today)."""
     today = today or datetime.date.today().isoformat()
-    open_rows, active_rows, rest = [], [], []
     for r in rows:
         r["_open_obj"] = _is_open_objection(r, today)
-        if r["_open_obj"]:
-            open_rows.append(r)
-        elif _is_active(r):
-            active_rows.append(r)
-        else:
-            rest.append(r)
-
-    def flag_then_date(group, date_key, reverse):
-        g = sorted(group, key=lambda r: _iso(date_key(r)), reverse=reverse)
-        return sorted(g, key=_inside_rank)  # stable: keeps date order within flag
-
-    # Open objection windows: nearest derived deadline first (actionability
-    # beats the inside/partial split here); inside-first applies to the
-    # active and approved tiers.
-    open_sorted = sorted(
-        open_rows,
-        key=lambda r: (_iso(r["objection_deadline_derived_60d_from_publication"]), _inside_rank(r)))
-    ordered = (
-        open_sorted
-        + flag_then_date(active_rows, lambda r: r.get("receiving_date"), True)
-        + flag_then_date(rest, lambda r: r.get("receiving_date"), True)
-    )
+    with_dl = sorted((r for r in rows if _iso(r.get("objection_deadline_derived_60d_from_publication"))),
+                     key=lambda r: _iso(r["objection_deadline_derived_60d_from_publication"]), reverse=True)
+    without_dl = sorted((r for r in rows if not _iso(r.get("objection_deadline_derived_60d_from_publication"))),
+                        key=lambda r: _iso(r.get("receiving_date")), reverse=True)
+    ordered = with_dl + without_dl
     for i, r in enumerate(ordered):
         r["_rank"] = i + 1
     return ordered
@@ -199,7 +210,7 @@ def stats_section(rows: list[dict]) -> str:
 
 
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str) -> str:
-    rows = rank_rows(rows)
+    rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
     def chip(st):
@@ -224,7 +235,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
         search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
         attrs = (f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
                  f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
-                 f"data-open='{1 if r['_open_obj'] else 0}' "
+                 f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_iso(r['objection_deadline_derived_60d_from_publication']))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
                  f"data-active='{1 if r['_open_obj'] or _is_active(r) else 0}' data-search='{search}'")
         cls = "new" if r.get("_is_new") else ""
         return (f"<tr class='{cls}' {attrs}>"
@@ -260,9 +271,8 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <style>{_CSS}</style></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
-<p><b>סדר הרלוונטיות בטבלה:</b> תכניות עם חלון התנגדות פתוח קודם (הדדליין המשוער הקרוב ביותר ראשון),
-אחר כך תכניות פעילות (הפקדה / מילוי תנאים / הכרעה / בדיקה תכנונית / בהליך אישור) מהחדשה לישנה,
-תכניות מאושרות אחרונות. בקבוצות הפעילות והמאושרות - תכניות בתוך השטח לפני חפיפה חלקית.
+<p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
+תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.
 מוצגות {COLLAPSE_TOP} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.
 תכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו "הצג תכניות מאושרות" כדי לראותן.</p>
 <p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
@@ -278,8 +288,14 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <button id="freset" type="button">נקה סינון</button>
 <span id="fcount"></span>
 </div>
-<table id="plans"><thead><tr><th>מספר תכנית</th><th>שם</th><th>סטטוס</th><th>קליטה</th>
-<th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th></tr></thead>
+<table id="plans"><thead><tr><th><button type="button" data-sort="num">מספר תכנית</button></th>
+<th><button type="button" data-sort="name">שם</button></th>
+<th><button type="button" data-sort="status">סטטוס</button></th>
+<th><button type="button" data-sort="recv">קליטה</button></th>
+<th><button type="button" data-sort="dep">הפקדה</button></th>
+<th><button type="button" data-sort="obj">אחרון להתנגדות (משוער)</button></th>
+<th><button type="button" data-sort="area">שטח (דונם)</button></th>
+<th><button type="button" data-sort="flag">בתוך/חלקי</button></th></tr></thead>
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 <h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
