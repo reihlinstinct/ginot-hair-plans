@@ -209,7 +209,38 @@ def stats_section(rows: list[dict]) -> str:
 </div>"""
 
 
-def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str) -> str:
+
+
+def _permits_section(permits: list[dict]) -> str:
+    """Separate DRAFT-labeled permit-requests section (issue: permit feed).
+    A permit request is NOT a deposited plan; the section is visually and
+    textually distinct from the plans table."""
+    if not permits:
+        return ""
+    body = "".join(
+        f"<tr><td>{_e(p.get('tik_num') or '')}</td>"
+        f"<td>{_e(p.get('address') or '')}</td>"
+        f"<td>{_e(p.get('mahut') or '')}</td>"
+        f"<td>{_e(p.get('sugbakasha') or '')}</td>"
+        f"<td>{_e(p.get('status') or '')}</td>"
+        f"<td>{_e(p.get('status_date') or '')}</td>"
+        f"<td>{_e(p.get('publication_start') or '')}</td>"
+        f"<td>{_e(p.get('publication_end_planned') or '')}</td></tr>"
+        for p in permits)
+    return f"""
+<section id="permits" dir="rtl">
+<h2>בקשות היתר (טיוטה - DRAFT)</h2>
+<p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
+בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
+(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.</p>
+<table id="permits-table"><thead><tr>
+<th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
+<th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
+</tr></thead><tbody>{body}</tbody></table>
+</section>"""
+
+def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
+                 permits: list[dict] | None = None) -> str:
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
@@ -298,6 +329,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <th><button type="button" data-sort="flag">בתוך/חלקי</button></th></tr></thead>
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
+{_permits_section(permits or [])}
 <h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 {stats_html}
@@ -316,13 +348,22 @@ def render_feed(changes: list[dict], generated: str, council_name: str, base_url
 
 
 def render_site(rows: list[dict], changes: list[dict], out_dir: str,
-                council_name: str = "גינות העיר", base_url: str = ""):
+                council_name: str = "גינות העיר", base_url: str = "",
+                permits_path: str | None = None):
     import os
     os.makedirs(out_dir, exist_ok=True)
     generated = datetime.date.today().isoformat()
+    permits = []
+    if permits_path:
+        try:
+            with open(permits_path, encoding="utf-8") as pf:
+                permits = json.load(pf).get("requests", [])
+        except (FileNotFoundError, json.JSONDecodeError):
+            permits = []
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
-        fh.write(render_index(rows, changes, generated, council_name))
+        fh.write(render_index(rows, changes, generated, council_name, permits))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
-        json.dump({"generated": generated, "rows": rows, "changes": changes}, fh, ensure_ascii=False)
+        json.dump({"generated": generated, "rows": rows, "changes": changes,
+                   "permits": permits}, fh, ensure_ascii=False)

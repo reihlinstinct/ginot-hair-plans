@@ -1,0 +1,19 @@
+{
+ "generated": "2026-10-19",
+ "source": "Jerusalem municipality public permit viewer API (ykpubdata), verified probe run 39252880650",
+ "batch": {"offset": 0, "limit": 0, "note": "seed entry from the verified Alfasi 9 probe; the pilot feed run replaces this file"},
+ "requests": [
+  {
+   "tik_num": "1993/0664.03",
+   "mahut": "הריסת מבנה המיועד למגורים בעל חזיתות לשימור והקמתו מחדש לפי הוראות סעיף 13 לתמ״א 38 ברחוב אלפסי 9",
+   "sugbakasha": "בניה חדשה / בניין חדש, עבודות הריסה",
+   "status": "תחילת פרסום הבקשה להקלה",
+   "status_date": "2026-10-04",
+   "gush": 30025,
+   "helka": 126,
+   "address": "י. אלפסי 9 רחביה",
+   "publication_start": "2026-10-04",
+   "publication_end_planned": "2026-11-10"
+  }
+ ]
+}

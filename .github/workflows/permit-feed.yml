@@ -1,0 +1,86 @@
+name: Jerusalem permit feed pilot (VPN)
+
+# Pilot for issue #57: scan a bounded batch of council parcels
+# against the municipality's public permit API through the owner-operated
+# L2TP tunnel, capture search-level request data plus the s.149
+# publication process steps, write data/permit_requests.json, and land it
+# as a PR (CI dispatched on the branch, squash merge on green, Pages
+# rebuild via the API). MANUAL DISPATCH ONLY - the weekly cron stays
+# commented until a green manual run, per the owner's gate. On any
+# anti-bot challenge the run stops red (no workaround).
+#
+#   schedule:
+#     - cron: "41 5 * * 3"   # Wednesdays 05:41 UTC - NOT ACTIVE YET
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Parcels to scan in this batch"
+        required: true
+        default: "60"
+      offset:
+        description: "Parcel list offset"
+        required: true
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  pages: write
+
+jobs:
+  permit-feed:
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Scan parcel batch for permit requests
+        run: sudo python3 scripts/vpn/permit_feed.py --limit "${{ inputs.limit }}" --offset "${{ inputs.offset }}"
+
+      - name: Publish changes as a PR, merge on green CI, rebuild Pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet data/permit_requests.json; then
+            echo "no changes to permit data"
+            exit 0
+          fi
+          BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add data/permit_requests.json
+          git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
+            --body "Automated permit-feed pilot batch (refs #57). Merged automatically once CI is green." \
+            --base main --head "$BRANCH")
+          echo "opened $PR"
+          gh workflow run ci.yml --ref "$BRANCH"
+          sleep 15
+          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --limit 1 --json databaseId -q '.[0].databaseId')
+          gh run watch "$RUN_ID" --exit-status --interval 20
+          gh pr merge "$PR" --squash --delete-branch
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
