@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0492199",
+ "pl_name": "תוספת קומות ושינויים למבנה ברחוב רחל אימנו 28, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2017-03-19",
+ "open_date": "2019-02-17",
+ "date_saf": "2017-05-08",
+ "depositing_date": "2018-02-11",
+ "pl_last_deposit_date": "2019-02-12",
+ "pl_date_advertise": "2018-12-14",
+ "pl_date_8_approval": "2019-03-28",
+ "objection_deadline_derived_60d_from_publication": "2019-02-12",
+ "pl_area_dunam": 0.883,
+ "intersection_dunam": 0.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000633611/310",
+ "mp_id": 1000633611.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-07-07",
+ "advisory_urgent": false
+}

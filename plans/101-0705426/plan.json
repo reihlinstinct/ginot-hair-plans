@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0705426",
+ "pl_name": "תוספת קומה עבור הרחבת יח\"ד קיימת, רח' דוד מרכוס 11, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2019-11-04",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2020-01-07",
+ "pl_date_advertise": "2019-11-08",
+ "pl_date_8_approval": "2020-07-14",
+ "objection_deadline_derived_60d_from_publication": "2020-01-07",
+ "pl_area_dunam": 0.594,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000975563/310",
+ "mp_id": 1000975563.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-05-19",
+ "advisory_urgent": false
+}

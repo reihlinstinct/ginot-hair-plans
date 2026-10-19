@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0511923",
+ "pl_name": "קדמת גונן , פינוי בינוי ברחוב בר יוחאי 5,7,11,13,15 ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-04-08",
+ "open_date": "2020-03-17",
+ "date_saf": "2018-05-10",
+ "depositing_date": "2018-08-20",
+ "pl_last_deposit_date": "2019-08-20",
+ "pl_date_advertise": "2019-06-21",
+ "pl_date_8_approval": "2020-10-19",
+ "objection_deadline_derived_60d_from_publication": "2019-08-20",
+ "pl_area_dunam": 52.425,
+ "intersection_dunam": 51.9,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000753843/310",
+ "mp_id": 1000753843.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

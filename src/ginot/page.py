@@ -8,8 +8,44 @@ import html
 import json
 
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
-TRACKING_HE = {"new": "חדש", "reviewed": "נבדק", "objection_filed": "הוגשה התנגדות",
-               "no_objection_needed": "אין צורך בהתנגדות", "urgent": "דחוף"}
+
+
+def _bars(counts: dict, label_map: dict | None = None) -> str:
+    """Pure-CSS horizontal bars, no external services."""
+    if not counts:
+        return "<p>אין נתונים</p>"
+    top = max(counts.values())
+    out = []
+    for k, v in sorted(counts.items(), key=lambda kv: -kv[1]):
+        label = (label_map or {}).get(k, k) or "(ללא)"
+        pct = max(2, round(100 * v / top))
+        out.append(f"<div class='bar'><span class='bl'>{_e(label)}</span>"
+                   f"<span class='bt'><span class='bf' style='width:{pct}%'></span></span>"
+                   f"<span class='bv'>{v}</span></div>")
+    return "<div class='bars'>" + "".join(out) + "</div>"
+
+
+def _month_key(iso: str) -> str:
+    return iso[:7] if iso and len(iso) >= 7 else ""
+
+
+def stats_section(rows: list[dict]) -> str:
+    from collections import Counter
+    by_status = Counter(r.get("station_desc") or "(ללא)" for r in rows)
+    by_flag = Counter(r.get("inside_flag") or "(ללא)" for r in rows)
+    deposits = Counter(filter(None, (_month_key(r.get("pl_last_deposit_date") or r.get("depositing_date")) for r in rows)))
+    deposits = dict(sorted(deposits.items())[-24:])
+    approvals = Counter(filter(None, ((r.get("pl_date_8_approval") or "")[:4] for r in rows)))
+    approvals = dict(sorted(approvals.items()))
+    flag_he = {"inside": "בתוך השטח", "partial": "חפיפה חלקית"}
+    return f"""<h2>סטטיסטיקה</h2>
+<div class="stats">
+<div><h3>לפי סטטוס</h3>{_bars(dict(by_status))}</div>
+<div><h3>בתוך השטח / חפיפה חלקית</h3>{_bars(dict(by_flag), flag_he)}</div>
+<div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits)}</div>
+<div><h3>אישורים לפי שנה</h3>{_bars(approvals)}</div>
+</div>"""
+
 
 
 def _e(s):
@@ -28,12 +64,12 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
                 f"<td>{_e(r['receiving_date'])}</td>"
                 f"<td>{_e(r['pl_last_deposit_date'] or r['depositing_date'])}</td>"
                 f"<td class='derived'>{_e(r['objection_deadline_derived_60d_from_publication'])}</td>"
-                f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td>"
-                f"<td>{_e(TRACKING_HE.get(r.get('tracking_state'), r.get('tracking_state') or ''))}</td></tr>")
+                f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td></tr>")
 
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
     body = "\n".join(tr(r, "new" if r["pl_number"] in new_ids else "") for r in rows)
-    urgent = [r for r in rows if r.get("tracking_state") == "urgent"]
+    stats_html = stats_section(rows)
+    urgent = [r for r in rows if r.get("advisory_urgent")]
     urgent_html = "".join(
         f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
         f"אחרון להתנגדות (משוער): {_e(r['objection_deadline_derived_60d_from_publication'])}</li>"
@@ -54,15 +90,22 @@ th{{background:#eee;position:sticky;top:0}}
 .chip{{border-radius:8px;padding:1px 8px;background:#ddd}}
 .chip.active{{background:#ffd27f}}.chip.approved{{background:#cfe8cf}}
 .derived{{color:#666}}.new td{{background:#fff8e1}}
+.stats{{display:grid;grid-template-columns:1fr 1fr;gap:1em}}
+.bars .bar{{display:flex;align-items:center;gap:6px;margin:2px 0}}
+.bars .bl{{width:12em;font-size:12px;text-align:left;direction:ltr}}
+.bars .bt{{flex:1;background:#eee;height:12px}}
+.bars .bf{{display:block;background:#4a7; height:12px}}
+.bars .bv{{font-size:12px;width:3em}}
 </style></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>מסודר לפי תאריך קליטה במערכת (חדש קודם). עודכן: {_e(generated)}.
 מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
+{stats_html}
 <h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 <table><thead><tr><th>מספר תכנית</th><th>שם</th><th>סטטוס</th><th>קליטה</th>
-<th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th><th>מעקב</th></tr></thead>
+<th>הפקדה</th><th>אחרון להתנגדות (משוער)</th><th>שטח (דונם)</th><th>בתוך/חלקי</th></tr></thead>
 <tbody>{body}</tbody></table>
 </body></html>"""
 

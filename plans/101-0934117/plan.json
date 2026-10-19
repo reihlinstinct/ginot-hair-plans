@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0934117",
+ "pl_name": "הצפירה 20- תוספת בינוי",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-02-11",
+ "open_date": "2023-09-20",
+ "date_saf": "2021-05-02",
+ "depositing_date": "2021-08-08",
+ "pl_last_deposit_date": "2023-03-14",
+ "pl_date_advertise": "2023-01-13",
+ "pl_date_8_approval": "2023-10-30",
+ "objection_deadline_derived_60d_from_publication": "2023-03-14",
+ "pl_area_dunam": 2.223,
+ "intersection_dunam": 2.2,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005115122/310",
+ "mp_id": 1005115122.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2024-02-06",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1008390",
+ "pl_name": "הקמת בניין חדש ברח' שמעוני 23, ירושלים.",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-01-05",
+ "open_date": "2023-06-18",
+ "date_saf": "2022-05-15",
+ "depositing_date": "2022-07-31",
+ "pl_last_deposit_date": "2023-06-02",
+ "pl_date_advertise": "2023-04-03",
+ "pl_date_8_approval": "2023-06-25",
+ "objection_deadline_derived_60d_from_publication": "2023-06-02",
+ "pl_area_dunam": 0.6975,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005159940/310",
+ "mp_id": 1005159940.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2023-08-29",
+ "advisory_urgent": false
+}

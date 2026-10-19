@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0487694",
+ "pl_name": "מתחם תלפיות - רחוב התנופה פינת פייר קניג",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2018-05-14",
+ "open_date": "2019-09-16",
+ "date_saf": "2018-07-24",
+ "depositing_date": "2018-12-03",
+ "pl_last_deposit_date": "2019-08-13",
+ "pl_date_advertise": "2019-06-14",
+ "pl_date_8_approval": "2019-11-10",
+ "objection_deadline_derived_60d_from_publication": "2019-08-13",
+ "pl_area_dunam": 9.994,
+ "intersection_dunam": 10.0,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000604449/310",
+ "mp_id": 1000604449.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-12-09",
+ "advisory_urgent": false
+}

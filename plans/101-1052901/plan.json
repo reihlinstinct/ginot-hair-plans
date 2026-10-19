@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1052901",
+ "pl_name": "אחד העם 5- תוספת קומות וזכויות",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-06-02",
+ "open_date": "2024-09-10",
+ "date_saf": "2022-08-17",
+ "depositing_date": "2022-12-25",
+ "pl_last_deposit_date": "2024-08-27",
+ "pl_date_advertise": "2024-06-28",
+ "pl_date_8_approval": "2024-09-26",
+ "objection_deadline_derived_60d_from_publication": "2024-08-27",
+ "pl_area_dunam": 0.715,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005203082/310",
+ "mp_id": 1005203082.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2025-11-12",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0195032",
+ "pl_name": "בניין מגורים חדש ברחוב הל\"ה 24",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-07-05",
+ "open_date": "2018-06-04",
+ "date_saf": "2015-11-09",
+ "depositing_date": "2016-01-17",
+ "pl_last_deposit_date": "2017-01-17",
+ "pl_date_advertise": "2016-11-18",
+ "pl_date_8_approval": "2018-10-17",
+ "objection_deadline_derived_60d_from_publication": "2017-01-17",
+ "pl_area_dunam": 0.894,
+ "intersection_dunam": 0.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000298267/310",
+ "mp_id": 1000298267.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

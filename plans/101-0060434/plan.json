@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0060434",
+ "pl_name": "הרחבת 2 יחידות דיור קיימות",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2011-11-07",
+ "open_date": "2013-01-27",
+ "date_saf": "2012-01-17",
+ "depositing_date": "2012-04-01",
+ "pl_last_deposit_date": "2013-01-15",
+ "pl_date_advertise": "2012-11-16",
+ "pl_date_8_approval": "2013-03-20",
+ "objection_deadline_derived_60d_from_publication": "2013-01-15",
+ "pl_area_dunam": 0.41,
+ "intersection_dunam": 0.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000219361/310",
+ "mp_id": 1000219361.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

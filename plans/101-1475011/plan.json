@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1475011",
+ "pl_name": "רחוב האומן, תלפיות, ירושלים",
+ "station_desc": "בבדיקה תכנונית",
+ "internet_short_status": "קיום תנאי סף",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2026-03-25",
+ "open_date": "",
+ "date_saf": "2026-10-04",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 33614.0,
+ "intersection_dunam": 33.5,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005465852/310",
+ "mp_id": 1005465852.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-10-18",
+ "advisory_urgent": false
+}

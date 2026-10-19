@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1360650",
+ "pl_name": "דרך בית לחם 150",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-11-19",
+ "open_date": "2026-07-05",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2026-06-16",
+ "pl_date_advertise": "2026-04-17",
+ "pl_date_8_approval": "2026-08-05",
+ "objection_deadline_derived_60d_from_publication": "2026-06-16",
+ "pl_area_dunam": 2.34,
+ "intersection_dunam": 2.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005396574/310",
+ "mp_id": 1005396574.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-08-12",
+ "advisory_urgent": false
+}

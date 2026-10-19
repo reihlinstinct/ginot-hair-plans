@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0665620",
+ "pl_name": "תוספת יח\"ד ברח' החי\"ם 4, מושבות, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-07-30",
+ "open_date": "2020-02-10",
+ "date_saf": "2018-12-31",
+ "depositing_date": "2019-06-16",
+ "pl_last_deposit_date": "2020-02-04",
+ "pl_date_advertise": "2019-12-06",
+ "pl_date_8_approval": "2020-03-08",
+ "objection_deadline_derived_60d_from_publication": "2020-02-04",
+ "pl_area_dunam": 0.785,
+ "intersection_dunam": 0.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000952059/310",
+ "mp_id": 1000952059.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2020-03-19",
+ "advisory_urgent": false
+}

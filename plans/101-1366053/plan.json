@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1366053",
+ "pl_name": "מתחם מלון הנשיא, ירושלים",
+ "station_desc": "הכרעה בהתנגדויות / אישור",
+ "internet_short_status": "בתהליך הפקדה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-12-03",
+ "open_date": "",
+ "date_saf": "2025-01-01",
+ "depositing_date": "2025-06-09",
+ "pl_last_deposit_date": "2026-10-13",
+ "pl_date_advertise": "2026-08-14",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2026-10-13",
+ "pl_area_dunam": 5.062,
+ "intersection_dunam": 5.0,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005399858/310",
+ "mp_id": 1005399858.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2026-10-15",
+ "advisory_urgent": false
+}

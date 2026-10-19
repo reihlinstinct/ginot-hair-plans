@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0216614",
+ "pl_name": "איחוד וחלוקה לחלקות 9,16,17,18 ברחוב התעשיה ,שכונת תלפיות ,ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-10-13",
+ "open_date": "2019-10-22",
+ "date_saf": "2016-02-07",
+ "depositing_date": "2016-06-19",
+ "pl_last_deposit_date": "2017-10-31",
+ "pl_date_advertise": "2017-09-01",
+ "pl_date_8_approval": "2019-11-03",
+ "objection_deadline_derived_60d_from_publication": "2017-10-31",
+ "pl_area_dunam": 4.785,
+ "intersection_dunam": 4.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000309889/310",
+ "mp_id": 1000309889.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-11-06",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0515635",
+ "pl_name": "פינוי בינוי אנטיגנוס 14",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2017-06-06",
+ "open_date": "2018-11-12",
+ "date_saf": "2017-08-17",
+ "depositing_date": "2017-12-18",
+ "pl_last_deposit_date": "2018-09-04",
+ "pl_date_advertise": "2018-07-06",
+ "pl_date_8_approval": "2019-03-17",
+ "objection_deadline_derived_60d_from_publication": "2018-09-04",
+ "pl_area_dunam": 3.848,
+ "intersection_dunam": 3.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000779705/310",
+ "mp_id": 1000779705.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0564583",
+ "pl_name": "תוספות בנייה בכל קומות הבניין ותוספת קומה לשם הרחבות יח\"ד קיימות",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2019-01-09",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2019-03-19",
+ "pl_date_advertise": "2019-01-18",
+ "pl_date_8_approval": "2019-07-02",
+ "objection_deadline_derived_60d_from_publication": "2019-03-19",
+ "pl_area_dunam": 1.348,
+ "intersection_dunam": 1.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000895617/310",
+ "mp_id": 1000895617.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-03-23",
+ "advisory_urgent": false
+}
