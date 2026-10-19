@@ -3,3 +3,7 @@ reference/moshavot-master-plan/greek_coloni_b1.pdf filter=lfs diff=lfs merge=lfs
 reference/moshavot-master-plan/katamon_c1_part*.pdf filter=lfs diff=lfs merge=lfs -text
 reference/moshavot-master-plan/10b_tashrit.pdf filter=lfs diff=lfs merge=lfs -text
 reference/moshavot-master-plan/feb_2015.pdf filter=lfs diff=lfs merge=lfs -text
+reference/rasko/nispach_tnua.pdf filter=lfs diff=lfs merge=lfs -text
+reference/rasko/matzeget_rasko.pdf filter=lfs diff=lfs merge=lfs -text
+reference/katamon-bruria-capacity/bruria_lminhal_07_2021.pdf filter=lfs diff=lfs merge=lfs -text
+reference/katamon-bruria-capacity/bruria_lvaada_mekomit_03_2022.pdf filter=lfs diff=lfs merge=lfs -text
