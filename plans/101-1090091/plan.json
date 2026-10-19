@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1090091",
+ "pl_name": "השלמת קומה עליונה מאושרת בהיתר לשם תוספת יחידת דיור, הטייסים 27",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-08-06",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2026-10-05",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 0.973,
+ "intersection_dunam": 1.0,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005225622/310",
+ "mp_id": 1005225622.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-10-05",
+ "advisory_urgent": false
+}

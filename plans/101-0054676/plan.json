@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0054676",
+ "pl_name": "תוספת קומה חמישית ותוספת 1 יח\"ד ברחוב רשב\"א 10 רחביה ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2011-12-11",
+ "open_date": "2015-05-03",
+ "date_saf": "2013-09-30",
+ "depositing_date": "2014-01-19",
+ "pl_last_deposit_date": "2015-01-27",
+ "pl_date_advertise": "2014-11-28",
+ "pl_date_8_approval": "2015-06-28",
+ "objection_deadline_derived_60d_from_publication": "2015-01-27",
+ "pl_area_dunam": 0.6,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000214111/310",
+ "mp_id": 1000214111.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

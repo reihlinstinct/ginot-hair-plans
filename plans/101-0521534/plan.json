@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0521534",
+ "pl_name": "תוספת קומה ללא תוספת יח\"ד על בניין קיים, רח' זבוטינסקי 4, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2017-07-13",
+ "open_date": "2019-05-14",
+ "date_saf": "2018-02-07",
+ "depositing_date": "2018-05-06",
+ "pl_last_deposit_date": "2018-09-04",
+ "pl_date_advertise": "2018-07-06",
+ "pl_date_8_approval": "2019-07-21",
+ "objection_deadline_derived_60d_from_publication": "2018-09-04",
+ "pl_area_dunam": 0.746,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000804543/310",
+ "mp_id": 1000804543.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-07-29",
+ "advisory_urgent": false
+}

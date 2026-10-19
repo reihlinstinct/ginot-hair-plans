@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1246404",
+ "pl_name": "הריסה ובניה בבנין ברח' מאפו 6, ירושלים",
+ "station_desc": "בהליך אישור",
+ "internet_short_status": "בתהליך אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-05-28",
+ "open_date": "2026-01-25",
+ "date_saf": "2024-07-28",
+ "depositing_date": "2024-09-29",
+ "pl_last_deposit_date": "2025-04-22",
+ "pl_date_advertise": "2025-02-21",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2025-04-22",
+ "pl_area_dunam": 0.844,
+ "intersection_dunam": 0.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005324064/310",
+ "mp_id": 1005324064.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-07-19",
+ "advisory_urgent": false
+}

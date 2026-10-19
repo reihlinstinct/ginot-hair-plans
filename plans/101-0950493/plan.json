@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0950493",
+ "pl_name": "תכנית להתחדשות עירונית  יצחק שדה8 השומר 15",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2021-10-12",
+ "open_date": "2023-02-13",
+ "date_saf": "2021-11-16",
+ "depositing_date": "2022-05-09",
+ "pl_last_deposit_date": "2023-01-31",
+ "pl_date_advertise": "2022-12-02",
+ "pl_date_8_approval": "2023-02-28",
+ "objection_deadline_derived_60d_from_publication": "2023-01-31",
+ "pl_area_dunam": 2.836,
+ "intersection_dunam": 2.9,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005124814/310",
+ "mp_id": 1005124814.0,
+ "jurstiction_area_name": null,
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

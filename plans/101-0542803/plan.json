@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0542803",
+ "pl_name": "תוספת קומה מלאה וקומה חלקית לשם הרחבת דיור ותוספת יח\"ד קטנה.",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2017-07-30",
+ "open_date": "2019-01-27",
+ "date_saf": "2017-12-18",
+ "depositing_date": "2018-02-25",
+ "pl_last_deposit_date": "2019-01-15",
+ "pl_date_advertise": "2018-11-16",
+ "pl_date_8_approval": "2019-03-17",
+ "objection_deadline_derived_60d_from_publication": "2019-01-15",
+ "pl_area_dunam": 0.626,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000883723/310",
+ "mp_id": 1000883723.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-03-31",
+ "advisory_urgent": false
+}

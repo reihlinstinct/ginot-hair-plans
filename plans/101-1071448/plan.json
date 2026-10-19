@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1071448",
+ "pl_name": "רחל אמנו 46-48",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2023-03-13",
+ "open_date": "2024-11-24",
+ "date_saf": "2023-05-09",
+ "depositing_date": "2023-07-02",
+ "pl_last_deposit_date": "2024-05-14",
+ "pl_date_advertise": "2024-03-15",
+ "pl_date_8_approval": "2024-12-22",
+ "objection_deadline_derived_60d_from_publication": "2024-05-14",
+ "pl_area_dunam": 2.061,
+ "intersection_dunam": 2.1,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005214136/310",
+ "mp_id": 1005214136.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

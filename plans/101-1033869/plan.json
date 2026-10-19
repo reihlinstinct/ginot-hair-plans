@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1033869",
+ "pl_name": "התחדשות עירונית ברחוב בר יוחאי 1-3- מתחם 01",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-08-07",
+ "open_date": "2024-05-27",
+ "date_saf": "2023-01-24",
+ "depositing_date": "2023-03-27",
+ "pl_last_deposit_date": "2024-04-16",
+ "pl_date_advertise": "2024-02-16",
+ "pl_date_8_approval": "2024-07-01",
+ "objection_deadline_derived_60d_from_publication": "2024-04-16",
+ "pl_area_dunam": 4.303,
+ "intersection_dunam": 4.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005191924/310",
+ "mp_id": 1005191924.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-07-27",
+ "advisory_urgent": false
+}

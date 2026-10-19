@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0836312",
+ "pl_name": "תוספת בניה לבניין ברח' משה הס 7",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2021-05-19",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2021-07-27",
+ "pl_date_advertise": "2021-05-28",
+ "pl_date_8_approval": "2022-01-30",
+ "objection_deadline_derived_60d_from_publication": "2021-07-27",
+ "pl_area_dunam": 0.696,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005056316/310",
+ "mp_id": 1005056316.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-02-16",
+ "advisory_urgent": false
+}

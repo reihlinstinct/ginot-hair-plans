@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1338425",
+ "pl_name": "בניין חדש ברח' אנטיגונוס 10, ירושלים",
+ "station_desc": "הכרעה בהתנגדויות / אישור",
+ "internet_short_status": "בתהליך הפקדה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2024-08-06",
+ "open_date": "",
+ "date_saf": "2025-06-08",
+ "depositing_date": "2025-09-14",
+ "pl_last_deposit_date": "2026-08-25",
+ "pl_date_advertise": "2026-06-26",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2026-08-25",
+ "pl_area_dunam": 0.822,
+ "intersection_dunam": 0.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005382462/310",
+ "mp_id": 1005382462.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-09-02",
+ "advisory_urgent": false
+}

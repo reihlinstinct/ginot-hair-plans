@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0571190",
+ "pl_name": "בריכת ירושלים - מגורים, מסחר ושטחים ציבוריים, המושבה הגרמנית, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-05-10",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2018-07-10",
+ "pl_date_advertise": "2018-05-11",
+ "pl_date_8_approval": "2018-10-29",
+ "objection_deadline_derived_60d_from_publication": "2018-07-10",
+ "pl_area_dunam": 4.634,
+ "intersection_dunam": 4.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000898679/310",
+ "mp_id": 1000898679.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2022-03-23",
+ "advisory_urgent": false
+}

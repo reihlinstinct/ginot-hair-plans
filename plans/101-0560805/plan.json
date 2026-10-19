@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0560805",
+ "pl_name": "דרך חברון ירושלים, מתחם אמת המים.",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2018-06-05",
+ "open_date": "2021-02-22",
+ "date_saf": "2018-06-05",
+ "depositing_date": "2018-10-08",
+ "pl_last_deposit_date": "2019-08-13",
+ "pl_date_advertise": "2019-06-14",
+ "pl_date_8_approval": "2021-03-09",
+ "objection_deadline_derived_60d_from_publication": "2019-08-13",
+ "pl_area_dunam": 19.85,
+ "intersection_dunam": 17.2,
+ "inside_flag": "partial",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000893491/310",
+ "mp_id": 1000893491.0,
+ "jurstiction_area_name": "מטה יהודה",
+ "last_update_date": "2024-05-21",
+ "advisory_urgent": false
+}

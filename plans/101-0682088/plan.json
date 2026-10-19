@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0682088",
+ "pl_name": "שינוי בקו בניין עבור תוספת מרפסות, רח' הס 7, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2019-07-01",
+ "open_date": "",
+ "date_saf": "",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2019-09-03",
+ "pl_date_advertise": "2019-07-05",
+ "pl_date_8_approval": "2020-01-12",
+ "objection_deadline_derived_60d_from_publication": "2019-09-03",
+ "pl_area_dunam": 0.696,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000961273/310",
+ "mp_id": 1000961273.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2020-03-15",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1025295",
+ "pl_name": "התחדשות עירונית בן זכאי 31, ירושלים.",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2022-12-08",
+ "open_date": "2025-11-04",
+ "date_saf": "2023-01-10",
+ "depositing_date": "2023-05-23",
+ "pl_last_deposit_date": "2025-03-18",
+ "pl_date_advertise": "2025-01-17",
+ "pl_date_8_approval": "2026-01-04",
+ "objection_deadline_derived_60d_from_publication": "2025-03-18",
+ "pl_area_dunam": 3.288,
+ "intersection_dunam": 3.2,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005186454/310",
+ "mp_id": 1005186454.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-08-10",
+ "advisory_urgent": false
+}

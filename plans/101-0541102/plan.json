@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0541102",
+ "pl_name": "פינוי בינוי, בן גמליאל 52",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2017-11-19",
+ "open_date": "2018-11-06",
+ "date_saf": "2017-11-21",
+ "depositing_date": "2018-02-11",
+ "pl_last_deposit_date": "2018-07-16",
+ "pl_date_advertise": "2018-05-17",
+ "pl_date_8_approval": "2019-02-24",
+ "objection_deadline_derived_60d_from_publication": "2018-07-16",
+ "pl_area_dunam": 0.656,
+ "intersection_dunam": 0.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/6000882843/310",
+ "mp_id": 6000882843.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-03-31",
+ "advisory_urgent": false
+}

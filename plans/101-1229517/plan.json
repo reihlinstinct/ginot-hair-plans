@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1229517",
+ "pl_name": "מתחם רג'ואן - התעשיה-החרושת",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2023-08-20",
+ "open_date": "2024-12-15",
+ "date_saf": "2023-08-29",
+ "depositing_date": "2023-10-30",
+ "pl_last_deposit_date": "2024-12-10",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "2024-12-17",
+ "objection_deadline_derived_60d_from_publication": "2025-02-08",
+ "pl_area_dunam": 2.107,
+ "intersection_dunam": 2.1,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005313586/310",
+ "mp_id": 1005313586.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-02-05",
+ "advisory_urgent": false
+}

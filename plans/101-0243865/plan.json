@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0243865",
+ "pl_name": "תוספת שטחים למגורים, בבניין לשימור בחובבי ציון 5, טלביה, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-02-10",
+ "open_date": "2015-12-16",
+ "date_saf": "2015-03-22",
+ "depositing_date": "2015-06-01",
+ "pl_last_deposit_date": "2015-11-17",
+ "pl_date_advertise": "2015-09-18",
+ "pl_date_8_approval": "2016-03-30",
+ "objection_deadline_derived_60d_from_publication": "2015-11-17",
+ "pl_area_dunam": 0.582,
+ "intersection_dunam": 0.6,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000323603/310",
+ "mp_id": 1000323603.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1125970",
+ "pl_name": "מתחם טובול- מגורים בעירוב שימושים ברחוב התעשיה 5 תלפיות ירושלים",
+ "station_desc": "בהליך אישור",
+ "internet_short_status": "בתהליך אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2023-06-27",
+ "open_date": "2026-07-07",
+ "date_saf": "2023-11-07",
+ "depositing_date": "2025-03-31",
+ "pl_last_deposit_date": "2026-03-17",
+ "pl_date_advertise": "2026-01-16",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "2026-03-17",
+ "pl_area_dunam": 7.81,
+ "intersection_dunam": 7.8,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005247866/310",
+ "mp_id": 1005247866.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-07-08",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1375641",
+ "pl_name": "התחדשות עירונית שמעוני 26-28, ירושלים",
+ "station_desc": "בבדיקה תכנונית",
+ "internet_short_status": "קיום תנאי סף",
+ "entity_subtype_desc": "תכנית מפורטת",
+ "receiving_date": "2026-01-13",
+ "open_date": "",
+ "date_saf": "2026-07-13",
+ "depositing_date": "",
+ "pl_last_deposit_date": "",
+ "pl_date_advertise": "",
+ "pl_date_8_approval": "",
+ "objection_deadline_derived_60d_from_publication": "",
+ "pl_area_dunam": 1.651,
+ "intersection_dunam": 1.7,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005406110/310",
+ "mp_id": 1005406110.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2026-07-13",
+ "advisory_urgent": false
+}

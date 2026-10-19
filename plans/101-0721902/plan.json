@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0721902",
+ "pl_name": "בנין חדש למגורים ברחוב ניתאי הארבלי 42",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2019-03-17",
+ "open_date": "2019-10-06",
+ "date_saf": "2019-03-21",
+ "depositing_date": "2019-05-20",
+ "pl_last_deposit_date": "2019-09-24",
+ "pl_date_advertise": "2019-07-26",
+ "pl_date_8_approval": "2019-11-03",
+ "objection_deadline_derived_60d_from_publication": "2019-09-24",
+ "pl_area_dunam": 1.288,
+ "intersection_dunam": 1.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000986123/310",
+ "mp_id": 1000986123.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2019-11-27",
+ "advisory_urgent": false
+}

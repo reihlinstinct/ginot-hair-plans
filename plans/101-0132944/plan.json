@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0132944",
+ "pl_name": "מבנה עירוני מעורב - המלך דוד 6 ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "פרסום אישור",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-01-05",
+ "open_date": "2017-05-14",
+ "date_saf": "2015-06-24",
+ "depositing_date": "2015-08-16",
+ "pl_last_deposit_date": "2016-11-22",
+ "pl_date_advertise": "2016-09-23",
+ "pl_date_8_approval": "2017-08-22",
+ "objection_deadline_derived_60d_from_publication": "2016-11-22",
+ "pl_area_dunam": 0.494,
+ "intersection_dunam": 0.5,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000260861/310",
+ "mp_id": 1000260861.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}

@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-1167410",
+ "pl_name": "איחוד חלקות ובנית בנין חדש ברח' רבן יוחנן בן זכאי 15, ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2023-03-20",
+ "open_date": "2024-09-29",
+ "date_saf": "2023-03-26",
+ "depositing_date": "2023-06-18",
+ "pl_last_deposit_date": "2024-03-26",
+ "pl_date_advertise": "2024-01-26",
+ "pl_date_8_approval": "2024-10-31",
+ "objection_deadline_derived_60d_from_publication": "2024-03-26",
+ "pl_area_dunam": 1.008,
+ "intersection_dunam": 1.0,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005273230/310",
+ "mp_id": 1005273230.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-02-06",
+ "advisory_urgent": false
+}

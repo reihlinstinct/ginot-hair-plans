@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0779546",
+ "pl_name": "כתר דוד - מלונאות ומגורים (מתחם ימק\"א)",
+ "station_desc": "אישור",
+ "internet_short_status": "התכנית אושרה",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2020-01-14",
+ "open_date": "2023-05-15",
+ "date_saf": "2020-02-25",
+ "depositing_date": "2021-07-04",
+ "pl_last_deposit_date": "2022-04-19",
+ "pl_date_advertise": "2022-02-18",
+ "pl_date_8_approval": "2023-09-04",
+ "objection_deadline_derived_60d_from_publication": "2022-04-19",
+ "pl_area_dunam": 3.312,
+ "intersection_dunam": 3.3,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1001022785/310",
+ "mp_id": 1001022785.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2025-01-16",
+ "advisory_urgent": false
+}

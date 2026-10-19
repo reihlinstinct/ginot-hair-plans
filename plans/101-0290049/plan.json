@@ -1,0 +1,23 @@
+{
+ "pl_number": "101-0290049",
+ "pl_name": "תוספת בנייה בקומת המרתף לשם הרחבת דיור, רח' הצפירה 22 א', ירושלים",
+ "station_desc": "אישור",
+ "internet_short_status": "סיום טיפול",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
+ "receiving_date": "2015-12-10",
+ "open_date": "",
+ "date_saf": "2015-06-22",
+ "depositing_date": "",
+ "pl_last_deposit_date": "2016-02-09",
+ "pl_date_advertise": "2015-12-11",
+ "pl_date_8_approval": "2016-04-20",
+ "objection_deadline_derived_60d_from_publication": "2016-02-09",
+ "pl_area_dunam": 1.445,
+ "intersection_dunam": 1.4,
+ "inside_flag": "inside",
+ "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1000345793/310",
+ "mp_id": 1000345793.0,
+ "jurstiction_area_name": "ירושלים",
+ "last_update_date": "2018-12-04",
+ "advisory_urgent": false
+}
