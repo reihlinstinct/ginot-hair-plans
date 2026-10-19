@@ -1,5 +1,8 @@
 # ginot-hair-plans
 
+[![CI](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml/badge.svg)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Watch planning applications (תכניות בניין עיר) inside the **גינות העיר (Ginot HaIr)
 community council** area of Jerusalem, from the Israel Planning Administration's
 public ArcGIS service, and publish them as a sortable table (entry order) with
