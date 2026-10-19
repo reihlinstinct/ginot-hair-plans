@@ -30,6 +30,7 @@ on:
         type: choice
         options:
           - discover
+          - check
 
 permissions:
   contents: read
@@ -59,6 +60,42 @@ jobs:
       - name: Discover reachable public Mavat endpoints
         if: ${{ inputs.mode == 'discover' }}
         run: sudo python3 scripts/vpn/mavat_discover.py
+
+      - name: Install Playwright and Chromium (check mode)
+        if: ${{ inputs.mode == 'check' }}
+        run: |
+          sudo pip install playwright > /dev/null 2>&1
+          sudo python3 -m playwright install --with-deps chromium > /dev/null 2>&1
+
+      - name: Check tracked Mavat plan pages (deadline + fingerprint)
+        if: ${{ inputs.mode == 'check' }}
+        run: sudo -E python3 scripts/vpn/mavat_check.py
+
+      - name: Publish check results as a PR, merge on green CI
+        if: ${{ inputs.mode == 'check' && success() }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet data/mavat_plan_status.json 2>/dev/null || [ ! -f data/mavat_plan_status.json ]; then
+            echo "no changes to Mavat status data"
+            exit 0
+          fi
+          BRANCH="mavat-check/$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add data/mavat_plan_status.json
+          git commit -m "Mavat check $(date +%Y-%m-%d) (refs #32)"
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Mavat check $(date +%Y-%m-%d)" \
+            --body "Automated Mavat check-mode results (refs #32): per-plan deadline text + page fingerprint. Merged automatically once CI is green." \
+            --base main --head "$BRANCH")
+          gh workflow run ci.yml --ref "$BRANCH"
+          sleep 15
+          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --limit 1 --json databaseId -q '.[0].databaseId')
+          gh run watch "$RUN_ID" --exit-status --interval 20
+          gh pr merge "$PR" --squash --delete-branch
 
       - name: Tear down tunnel and remove generated secret material
         if: always()
