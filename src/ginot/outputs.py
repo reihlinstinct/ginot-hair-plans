@@ -19,13 +19,13 @@ INSIDE_FRACTION = 0.995
 def _iso(ms):
     if not ms:
         return ""
-    return datetime.datetime.utcfromtimestamp(ms / 1000).strftime("%Y-%m-%d")
+    return datetime.datetime.fromtimestamp(ms / 1000, tz=datetime.timezone.utc).strftime("%Y-%m-%d")
 
 
 def _plus_days(ms, days):
     if not ms:
         return ""
-    return datetime.datetime.utcfromtimestamp(ms / 1000 + days * DAY).strftime("%Y-%m-%d")
+    return datetime.datetime.fromtimestamp(ms / 1000 + days * DAY, tz=datetime.timezone.utc).strftime("%Y-%m-%d")
 
 
 COLUMNS = ["pl_number", "pl_name", "station_desc", "internet_short_status",
@@ -82,6 +82,7 @@ def write_csv(rows: list[dict], path: str):
 
 def write_xlsx(rows: list[dict], path: str):
     from collections import Counter
+
     import openpyxl
     wb = openpyxl.Workbook()
     ws = wb.active

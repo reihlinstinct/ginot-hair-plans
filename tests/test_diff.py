@@ -13,7 +13,7 @@ def test_new_removed_changed():
     assert ("new", "3") in kinds
     assert ("removed", "1") in kinds
     assert ("status_change", "2") in kinds
-    sc = [e for e in ev if e["kind"] == "status_change"][0]
+    sc = next(e for e in ev if e["kind"] == "status_change")
     assert sc["from"] == "הפקדה" and sc["to"] == "אישור"
 
 

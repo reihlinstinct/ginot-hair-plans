@@ -9,9 +9,9 @@ Result with the Oct-2026 export: polygons #37 + #39 + #46
 (Rehavia/Talbiya/Komemiyut/German+Greek Colony + Old Katamon + Gonenim/Givat
 Hordim), ~6.10 km2. Baka, Shaare Hesed and Lev HaIr stay outside.
 """
+from pyproj import Transformer
 from shapely.geometry import Point, Polygon
 from shapely.ops import unary_union
-from pyproj import Transformer
 
 _TO_2039 = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
 

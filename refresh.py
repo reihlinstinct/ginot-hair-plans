@@ -16,7 +16,8 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from shapely.geometry import shape
-from ginot import iplan, outputs, diff, page, tracking
+
+from ginot import diff, iplan, outputs, page, tracking
 
 
 def load_council(path):
@@ -59,12 +60,15 @@ def main():
     snap_path = f"{args.snapshots}/latest.json"
     old_rows = []
     if os.path.exists(snap_path):
-        old_rows = json.load(open(snap_path, encoding="utf-8"))["rows"]
+        with open(snap_path, encoding="utf-8") as fh:
+            old_rows = json.load(fh)["rows"]
     changes = diff.diff_snapshots(old_rows, rows)
-    json.dump({"date": datetime.date.today().isoformat(), "changes": changes},
-              open(f"{args.out}/changes.json", "w", encoding="utf-8"), ensure_ascii=False)
-    json.dump({"date": datetime.date.today().isoformat(), "rows": rows,
-               "plans_77_78": slim}, open(snap_path, "w", encoding="utf-8"), ensure_ascii=False)
+    with open(f"{args.out}/changes.json", "w", encoding="utf-8") as fh:
+        json.dump({"date": datetime.date.today().isoformat(), "changes": changes},
+                  fh, ensure_ascii=False)
+    with open(snap_path, "w", encoding="utf-8") as fh:
+        json.dump({"date": datetime.date.today().isoformat(), "rows": rows,
+                   "plans_77_78": slim}, fh, ensure_ascii=False)
     page.render_site(rows, changes, args.site)
     print(f"{len(rows)} plans, {len(changes)} changes, {len(slim)} in 77/78 track")
 

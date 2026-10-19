@@ -24,8 +24,8 @@ def load(path: str) -> dict:
 
 def save(states: dict, path: str):
     os.makedirs(os.path.dirname(path), exist_ok=True)
-    json.dump(states, open(path, "w", encoding="utf-8"), ensure_ascii=False,
-              indent=1, sort_keys=True)
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump(states, fh, ensure_ascii=False, indent=1, sort_keys=True)
 
 
 def _days_to(date_iso: str, today: datetime.date) -> int | None:

@@ -1,4 +1,5 @@
-from shapely.geometry import Polygon, Point
+from shapely.geometry import Point, Polygon
+
 from ginot import select
 
 
