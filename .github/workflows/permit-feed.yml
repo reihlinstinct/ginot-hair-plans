@@ -103,8 +103,6 @@ jobs:
         if: ${{ inputs.mode == 'enrich' }}
         env:
           PYTHONUNBUFFERED: "1"
-        env:
-          PYTHONUNBUFFERED: "1"
         run: |
           ARGS="--limit ${{ inputs.limit }} --offset ${{ inputs.offset }}"
           if [ "${{ inputs.include_unenriched }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
