@@ -129,9 +129,11 @@ conn mavat-l2tp
     rightprotoport=17/1701
     forceencaps=yes
     keyingtries=1
-    rekey=no
-    ikelifetime=8h
-    lifetime=8h
+    rekey=yes
+    rekeymargin=5m
+    rekeyfuzz=0%
+    ikelifetime=45m
+    lifetime=45m
     auto=add
 ''',
         'ipsec.secrets': ': PSK '+psk+'\n',
