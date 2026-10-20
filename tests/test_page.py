@@ -115,3 +115,21 @@ def test_footer_links(tmp_path):
     assert "github.com/reihlinstinct/ginot-hair-plans" in html
     assert 'href="about.html"' in html and "CONTRIBUTING.md" in html
     assert "<footer" in html
+
+
+def test_status_legends_clickable(tmp_path):
+    from ginot import page
+    rows = [_row("1", "הפקדה להתנגדויות", recv="2026-10-01", dep="2026-10-10",
+                 deadline="2026-12-09"), _row("2", "אישור", recv="2019-05-02")]
+    page.render_site(rows, [], str(tmp_path), permits_path=_permits(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # both legends exist and chips carry data-status for click filtering
+    assert html.count("מקרא סטטוסים") == 2
+    assert "class=\"chip c-deposit\" data-status=\"הפקדה להתנגדויות\"" in html
+    assert "data-status=\"נפתח תיק רישוי\"" in html
+    assert "data-status=\"הבקשה נסגרה\"" in html
+    # permits legend carries counts
+    assert "נפתח תיק רישוי (1)" in html
+    # click bindings for both tables
+    assert ".legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
+    assert "#permits .legend .chip" in html and "pfstatus.value=(pfstatus.value===st)" in html

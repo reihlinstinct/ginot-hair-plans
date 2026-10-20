@@ -29,6 +29,8 @@ th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:
 .chip.c-cond{background:#e2d4f7}.chip.c-decision{background:#ffc4a8}
 .chip.c-inproc{background:#bfe8d4}.chip.c-approved{background:#cfe8cf}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
+.legend .chip{cursor:pointer}
+.legend .chip.sel{outline:2px solid #0b5fff;outline-offset:1px}
 .derived{color:#666}.new td{background:#fff8e1}
 #filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
 padding:8px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
@@ -111,6 +113,16 @@ document.querySelectorAll('th button').forEach(function(b){
     var k=b.getAttribute('data-sort');
     if(sortKey===k){sortDir=-sortDir;}else{sortKey=k;sortDir=1;}
     expanded=false;resort();
+  });
+});
+document.querySelectorAll('.legend .chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var st=c.getAttribute('data-status');
+    fstatus.value=(fstatus.value===st)?'':st;
+    document.querySelectorAll('.legend .chip').forEach(function(x){
+      x.classList.toggle('sel',x.getAttribute('data-status')===fstatus.value);
+    });
+    expanded=false;apply();
   });
 });
 resort();
@@ -254,6 +266,12 @@ def _permits_section(permits: list[dict]) -> str:
     body = "".join(rows)
     n_terminal = sum(1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES)
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
+    from collections import Counter as _PCounter
+    _pcounts = _PCounter((p.get("status") or "") for p in permits)
+    plegend_chips = " ".join(
+        f'<span class="chip" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
+        for v in statuses)
+    plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>" 
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
     status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses)
@@ -269,6 +287,7 @@ def _permits_section(permits: list[dict]) -> str:
 מספר הבקשה מזדנה לחיפוש ידני במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>
 (אין קישור יציב לבקשה בודדת).</p>
+{plegend}
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
 <select id="pfstatus">{status_opts}</select>
@@ -326,6 +345,16 @@ document.getElementById('pfreset').addEventListener('click',function(){
   pfclosed.checked=false;expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});
+document.querySelectorAll('#permits .legend .chip').forEach(function(c){
+  c.addEventListener('click',function(){
+    var st=c.getAttribute('data-status');
+    pfstatus.value=(pfstatus.value===st)?'':st;
+    document.querySelectorAll('#permits .legend .chip').forEach(function(x){
+      x.classList.toggle('sel',x.getAttribute('data-status')===pfstatus.value);
+    });
+    expanded=false;apply();
+  });
+});
 apply();
 })();
 """
@@ -351,7 +380,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
             cls = "c-approved"
         else:
             cls = ""
-        return f'<span class="chip {cls}">{_e(st)}</span>'
+        return f'<span class="chip {cls}" data-status="{_e(st)}">{_e(st)}</span>'
 
     def tr(r):
         search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
