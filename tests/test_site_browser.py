@@ -278,3 +278,37 @@ def test_statistics_collapsed_by_default_and_expandable(page):
     assert d.locator("h3").count() == 4
     d.locator("summary").click()
     assert not d.locator(".stats").is_visible()
+
+
+@pytest.mark.parametrize("w,h", [(390, 844), (360, 800)])
+def test_mobile_no_horizontal_scroll_and_cards(browser, site, w, h):
+    ctx = browser.new_context(viewport={"width": w, "height": h}, is_mobile=True, has_touch=True)
+    pg = ctx.new_page()
+    pg.goto((site / "index.html").as_uri())
+    assert pg.evaluate("document.documentElement.scrollWidth") <= w + 1
+    assert pg.evaluate("getComputedStyle(document.querySelector('#plans tbody tr')).display") == "block"
+    label = pg.evaluate(
+        "getComputedStyle(document.querySelector('#plans tbody tr td:nth-child(4)'), '::before').content")
+    assert "קליטה" in label
+    # the sort controls stay usable as chips
+    assert pg.locator("#plans thead th button").first.is_visible()
+    ctx.close()
+
+
+def test_mobile_tap_targets_and_font_size(browser, site):
+    ctx = browser.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
+    pg = ctx.new_page()
+    pg.goto((site / "index.html").as_uri())
+    for sel in ("#fq", "#fstatus", "#freset", "#more"):
+        box = pg.locator(sel).bounding_box()
+        assert box["height"] >= 43, sel
+        assert float(pg.evaluate(f"parseFloat(getComputedStyle(document.querySelector('{sel}')).fontSize)")) >= 16
+    ctx.close()
+
+
+def test_desktop_keeps_the_table_layout(browser, site):
+    ctx = browser.new_context(viewport={"width": 1200, "height": 800})
+    pg = ctx.new_page()
+    pg.goto((site / "index.html").as_uri())
+    assert pg.evaluate("getComputedStyle(document.querySelector('#plans')).display") == "table"
+    ctx.close()
