@@ -65,3 +65,12 @@ python3 -m pytest -q
 
 Page changes should add or update tests in `tests/test_page.py` and include
 a regenerated `docs/index.html` in the PR so the change is live on merge.
+
+## Diagrams
+
+Anything that needs design (API, containers, architecture, data flow,
+security boundaries, test pipeline) gets a diagram in the issue or in the
+docs. Use Mermaid (fenced `mermaid` block): it renders on GitHub, is
+version-controlled, and needs no binary files. Use generic example data
+only: no real plates, locations or personal data. Check that it renders in
+the preview before merging.
