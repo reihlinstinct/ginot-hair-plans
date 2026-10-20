@@ -388,8 +388,30 @@ apply();
 })();
 """
 
+def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
+    """Open Graph + Twitter card tags. The image URL must be absolute, so the
+    image tags appear only with a base_url and a generated og.png."""
+    title = f"תכניות תכנון ובנייה - {council_name}"
+    desc = "תכניות והיתרים באזור: סטטוס, מועדי הפקדה ותאריך אחרון להתנגדות (משוער)."
+    tags = [("name", "description", desc), ("property", "og:type", "website"),
+            ("property", "og:locale", "he_IL"), ("property", "og:title", title),
+            ("property", "og:description", desc)]
+    if base_url:
+        tags.append(("property", "og:url", base_url))
+    if base_url and preview_image:
+        tags += [("property", "og:image", base_url.rstrip("/") + "/og.png"),
+                 ("property", "og:image:width", "1200"), ("property", "og:image:height", "630"),
+                 ("property", "og:image:alt", title), ("name", "twitter:card", "summary_large_image"),
+                 ("name", "twitter:image", base_url.rstrip("/") + "/og.png")]
+    else:
+        tags.append(("name", "twitter:card", "summary"))
+    tags += [("name", "twitter:title", title), ("name", "twitter:description", desc)]
+    return "\n".join(f'<meta {k}="{n}" content="{_e(v)}">' for k, n, v in tags)
+
+
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
-                 permits: list[dict] | None = None) -> str:
+                 permits: list[dict] | None = None, base_url: str = "",
+                 preview_image: bool = False) -> str:
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
@@ -448,6 +470,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>תכניות במינהל הקהילתי {_e(council_name)}</title>
 <link rel="alternate" type="application/atom+xml" href="feed.xml">
+{_social_meta(council_name, base_url, preview_image)}
 <style>{_CSS}</style></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
@@ -504,7 +527,7 @@ def render_feed(changes: list[dict], generated: str, council_name: str, base_url
 
 def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                 council_name: str = "גינות העיר", base_url: str = "",
-                permits_path: str | None = None):
+                permits_path: str | None = None, council_geojson: str | None = None):
     import os
     os.makedirs(out_dir, exist_ok=True)
     generated = datetime.date.today().isoformat()
@@ -515,8 +538,13 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                 permits = json.load(pf).get("requests", [])
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
+    from . import preview
+    has_img = preview.render_preview(rows, council_name, generated, "data/council_ginot_hair.geojson"
+                                     if os.path.exists("data/council_ginot_hair.geojson")
+                                     else "data/council.geojson", f"{out_dir}/og.png")
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
-        fh.write(render_index(rows, changes, generated, council_name, permits))
+        fh.write(render_index(rows, changes, generated, council_name, permits,
+                              base_url=base_url, preview_image=has_img))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
