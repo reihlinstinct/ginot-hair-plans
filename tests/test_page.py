@@ -133,3 +133,32 @@ def test_status_legends_clickable(tmp_path):
     # click bindings for both tables
     assert ".legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
     assert "#permits .legend .chip" in html and "pfstatus.value=(pfstatus.value===st)" in html
+
+
+def test_permit_status_chips(tmp_path):
+    from ginot import page
+    page.render_site([_row("1", "אישור", recv="2019-05-02")], [], str(tmp_path),
+                     permits_path=_permits(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # row status cells colour-coded like plan chips
+    assert 'class="chip c-inproc"' in html  # נפתח תיק רישוי
+    assert 'class="chip c-closed"' in html  # הבקשה נסגרה
+    # legend chips colour-coded and still clickable
+    assert 'class="chip c-closed" data-status="הבקשה נסגרה"' in html
+    # mapping covers every live status value
+    from ginot.page import _permit_status_class, _PERMIT_TERMINAL_STATUSES
+    live = ["הבקשה נסגרה", "הופק-הוצא היתר בניה", "הוכנה טיוטת היתר בניה",
+            "נדונה בוועדת המשנה", "התקבל תיק ורוד / מסמכים חתומים", "שולמה מקדמה",
+            "נפתח תיק רישוי", "הופק היתר מוארך", "נדונה ברשות הרישוי",
+            "ממתין לאישור נוסח פרסום", "נדונה בועדת ערר", "הגשה מקוונת הושלמה",
+            "תחילת פרסום הבקשה להקלה", "תחילת הודעות לפני תקנה 36", "התקבל ערר"]
+    for st in live:
+        cls = _permit_status_class(st)
+        assert cls in ("c-closed", "c-approved", "c-deposit", "c-review", "c-cond", "c-inproc"), st
+    assert _permit_status_class("הבקשה נסגרה") == "c-closed"
+    assert _permit_status_class("הופק-הוצא היתר בניה") == "c-approved"
+    assert _permit_status_class("תחילת פרסום הבקשה להקלה") == "c-deposit"
+    assert _permit_status_class("נדונה בועדת ערר") == "c-review"
+    assert _permit_status_class("הוכנה טיוטת היתר בניה") == "c-cond"
+    for st in _PERMIT_TERMINAL_STATUSES:
+        assert _permit_status_class(st) in ("c-closed", "c-approved")

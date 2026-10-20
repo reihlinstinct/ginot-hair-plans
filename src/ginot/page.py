@@ -28,6 +28,7 @@ th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:
 .chip.c-deposit{background:#ffd27f}.chip.c-review{background:#cfe3ff}
 .chip.c-cond{background:#e2d4f7}.chip.c-decision{background:#ffc4a8}
 .chip.c-inproc{background:#bfe8d4}.chip.c-approved{background:#cfe8cf}
+.chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
 .legend .chip.sel{outline:2px solid #0b5fff;outline-offset:1px}
@@ -224,6 +225,22 @@ def stats_section(rows: list[dict]) -> str:
 
 
 
+def _permit_status_class(status: str) -> str:
+    """Colour class for a permit-request status (mirrors the plan chip palette)."""
+    st = status or ""
+    if "נסגרה" in st:
+        return "c-closed"
+    if "הופק" in st:
+        return "c-approved"
+    if "פרסום" in st or "הודעות לפני תקנה" in st:
+        return "c-deposit"
+    if "וועד" in st or "ועדת" in st or "רשות הרישוי" in st:
+        return "c-review"
+    if "טיוטת היתר" in st:
+        return "c-cond"
+    return "c-inproc"
+
+
 _PERMIT_TERMINAL_STATUSES = frozenset({
     "הבקשה נסגרה",
     "הופק-הוצא היתר בניה",
@@ -259,7 +276,7 @@ def _permits_section(permits: list[dict]) -> str:
             f"<td>{_e(p.get('address') or '')}</td>"
             f"<td>{_e(p.get('mahut') or '')}</td>"
             f"<td>{_e(sug)}</td>"
-            f"<td>{_e(status)}</td>"
+            f"<td><span class=\"chip {_permit_status_class(status)}\">{_e(status)}</span></td>"
             f"<td>{_date_cell(p.get('status_date'))}</td>"
             f"<td>{_date_cell(p.get('publication_start'))}</td>"
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>")
@@ -269,7 +286,7 @@ def _permits_section(permits: list[dict]) -> str:
     from collections import Counter as _PCounter
     _pcounts = _PCounter((p.get("status") or "") for p in permits)
     plegend_chips = " ".join(
-        f'<span class="chip" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
+        f'<span class="chip {_permit_status_class(v)}" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
         for v in statuses)
     plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>" 
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
