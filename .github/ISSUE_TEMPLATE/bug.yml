@@ -1,0 +1,24 @@
+name: Bug report
+description: A failed run, wrong data, or tooling defect
+title: "Bug: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Links to runs, logs, data samples. No personal data - this is a public repo.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+    validations:
+      required: false
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suspected fix
+    validations:
+      required: false
