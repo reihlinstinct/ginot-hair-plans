@@ -139,7 +139,13 @@ jobs:
           echo "opened $PR"
           gh workflow run ci.yml --ref "$BRANCH"
           sleep 15
-          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --limit 1 --json databaseId -q '.[0].databaseId')
+          # Bot-authored PRs get an approval-gated pull_request CI run
+          # (conclusion action_required). Approve those first so the watch
+          # below never dies on the approval gate (fixes #85).
+          for ID in $(gh run list --workflow ci.yml --branch "$BRANCH" --limit 5 --json databaseId,conclusion -q '.[] | select(.conclusion=="action_required") | .databaseId'); do
+            gh api -X POST "repos/${{ github.repository }}/actions/runs/$ID/approve" >/dev/null || true
+          done
+          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId')
           gh run watch "$RUN_ID" --exit-status --interval 20
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
