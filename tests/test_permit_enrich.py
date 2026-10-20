@@ -44,3 +44,12 @@ def test_backfill_skips_late_stages_by_default():
 def test_diff_tiks_fetched_even_in_late_stage():
     reqs = [req("2", "הוכנה טיוטת היתר בניה")]
     assert permit_enrich.select_tiks(reqs, {"2"}, include_unenriched=False) == ["2"]
+
+
+def test_backfill_request_file_is_valid():
+    import json
+    d = json.load(open(pathlib.Path(__file__).parent.parent / "data" / "backfill_request.json"))
+    assert d["mode"] in ("scan", "enrich")
+    assert isinstance(d["include_unenriched"], bool) and isinstance(d["include_late_stages"], bool)
+    assert int(d["limit"]) > 0 and int(d["offset"]) >= 0
+    assert d["request_id"]
