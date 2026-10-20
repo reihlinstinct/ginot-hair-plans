@@ -130,6 +130,8 @@ conn mavat-l2tp
     forceencaps=yes
     keyingtries=1
     rekey=no
+    ikelifetime=8h
+    lifetime=8h
     auto=add
 ''',
         'ipsec.secrets': ': PSK '+psk+'\n',
