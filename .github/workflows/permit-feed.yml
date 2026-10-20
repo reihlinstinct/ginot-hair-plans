@@ -30,6 +30,15 @@ on:
         required: true
         default: "0"
 
+concurrency:
+  # One permit-feed run at a time: a scheduled fire while a long
+  # backfill batch is still scanning waits in the queue instead of
+  # duplicating the same cursor range and racing the publish step.
+  # Offset is resolved at run start, so a queued run picks up the
+  # cursor advanced by the run it waited for.
+  group: permit-feed
+  cancel-in-progress: false
+
 permissions:
   contents: write
   pull-requests: write
