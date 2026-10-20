@@ -146,7 +146,7 @@ def test_permit_status_chips(tmp_path):
     # legend chips colour-coded and still clickable
     assert 'class="chip c-closed" data-status="הבקשה נסגרה"' in html
     # mapping covers every live status value
-    from ginot.page import _permit_status_class, _PERMIT_TERMINAL_STATUSES
+    from ginot.page import _PERMIT_TERMINAL_STATUSES, _permit_status_class
     live = ["הבקשה נסגרה", "הופק-הוצא היתר בניה", "הוכנה טיוטת היתר בניה",
             "נדונה בוועדת המשנה", "התקבל תיק ורוד / מסמכים חתומים", "שולמה מקדמה",
             "נפתח תיק רישוי", "הופק היתר מוארך", "נדונה ברשות הרישוי",
