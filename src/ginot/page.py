@@ -36,6 +36,7 @@ padding:8px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
 #fcount{font-size:12px;color:#555}
 #more{margin:6px 0;padding:6px 14px}
 tr.filtered-out{display:none}
+footer{margin-top:24px;padding-top:10px;border-top:1px solid #ddd;font-size:13px;color:#555}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:1em}
 .bars .bar{display:flex;align-items:center;gap:6px;margin:2px 0}
 .bars .bl{width:12em;font-size:12px;text-align:left;direction:ltr}
@@ -420,6 +421,12 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [])}
+<footer dir="rtl"><p>
+אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">github.com/reihlinstinct/ginot-hair-plans</a>
+&middot; <a href="about.html">אודות</a>
+&middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
+</p></footer>
 <h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 {stats_html}
