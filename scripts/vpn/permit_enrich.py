@@ -28,7 +28,20 @@ TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בני
                      "הופק היתר מוארך", "נדחתה"}
 
 
-def select_tiks(requests, diff_tiks, include_unenriched):
+# Late-stage statuses: the s.149 publication already happened (or never
+# applies), so the one-time backfill skips them by default (owner decision
+# 2026-10-20, issue #99). Widen with --include-late-stages. Tiks the
+# nightly mirror diff reports as new/changed are still fetched.
+LATE_STAGE_STATUSES = {
+    "הוכנה טיוטת היתר בניה",
+    "התקבל תיק ורוד / מסמכים חתומים",
+    "שולמה מקדמה",
+    "אושר ע\"י מהנדס העיר",
+    "הבקשה נגנזה",
+}
+
+
+def select_tiks(requests, diff_tiks, include_unenriched, include_late_stages=False):
     """Tiks to (re)fetch publication dates for, in stable order."""
     selected = []
     for r in requests:
@@ -36,7 +49,8 @@ def select_tiks(requests, diff_tiks, include_unenriched):
             continue
         if r["tik_num"] in diff_tiks:
             selected.append(r["tik_num"])
-        elif include_unenriched and "publication_start" not in r:
+        elif (include_unenriched and "publication_start" not in r
+              and (include_late_stages or r["status"] not in LATE_STAGE_STATUSES)):
             selected.append(r["tik_num"])
     return sorted(set(selected))
 
@@ -46,6 +60,8 @@ def main():
     ap.add_argument("--mirror", default=MIRROR)
     ap.add_argument("--diff", default=DIFF)
     ap.add_argument("--include-unenriched", action="store_true")
+    ap.add_argument("--include-late-stages", action="store_true",
+                    help="backfill also late-stage statuses (default: skipped)")
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--limit", type=int, default=2000)
     args = ap.parse_args()
@@ -60,7 +76,8 @@ def main():
     except (FileNotFoundError, json.JSONDecodeError):
         diff_tiks = set()
 
-    todo = select_tiks(requests, diff_tiks, args.include_unenriched)
+    todo = select_tiks(requests, diff_tiks, args.include_unenriched,
+                       args.include_late_stages)
     batch = todo[args.offset:args.offset + args.limit]
     print(f"{len(todo)} tiks selected; enriching batch of {len(batch)} "
           f"(offset={args.offset})")
