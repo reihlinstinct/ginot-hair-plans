@@ -106,3 +106,12 @@ def test_permits_filters_dates_default_active(tmp_path):
     assert "2026/0001.01" in html and "גוש 30001" in html and "חלקה 5" in html
     # municipality SPA note, no invented per-request deep link
     assert "ykpubdata.jerusalem.muni.il" in html
+
+
+def test_footer_links(tmp_path):
+    from ginot import page
+    page.render_site([_row("1", "אישור", recv="2019-05-02")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "github.com/reihlinstinct/ginot-hair-plans" in html
+    assert 'href="about.html"' in html and "CONTRIBUTING.md" in html
+    assert "<footer" in html
