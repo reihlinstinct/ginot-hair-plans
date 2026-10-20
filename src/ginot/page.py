@@ -8,7 +8,7 @@ collapses to the top 20 rows of the visible set with a show-more control;
 client-side filters (status, inside/partial, date range, free text,
 objection-open, show-approved) always operate over all rows.
 Dates display as DD.MM.YYYY; ISO values stay in data-* attributes so all
-sorting/filtering uses true dates. Statistics render below the table.
+sorting/filtering uses true dates. Statistics render in a collapsed block below the table; the footer (About) is last.
 """
 import datetime
 import html
@@ -215,13 +215,13 @@ def stats_section(rows: list[dict]) -> str:
     approvals = Counter(filter(None, ((r.get("pl_date_8_approval") or "")[:4] for r in rows)))
     approvals = dict(sorted(approvals.items()))
     flag_he = {"inside": "בתוך השטח", "partial": "חפיפה חלקית"}
-    return f"""<h2>סטטיסטיקה</h2>
+    return f"""<details id="stats"><summary>סטטיסטיקה</summary>
 <div class="stats">
 <div><h3>לפי סטטוס</h3>{_bars(dict(by_status))}</div>
 <div><h3>בתוך השטח / חפיפה חלקית</h3>{_bars(dict(by_flag), flag_he)}</div>
 <div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits)}</div>
 <div><h3>אישורים לפי שנה</h3>{_bars(approvals)}</div>
-</div>"""
+</div></details>"""
 
 
 
@@ -479,15 +479,15 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [])}
+<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
+<h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
+{stats_html}
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">github.com/reihlinstinct/ginot-hair-plans</a>
 &middot; <a href="about.html">אודות</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p></footer>
-<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
-<h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
-{stats_html}
 <script>{_JS}{_PERMITS_JS}</script>
 </body></html>"""
 
