@@ -29,6 +29,10 @@ on:
         description: "enrich mode: also fetch never-enriched active tiks (one-time backfill)"
         required: false
         default: "false"
+      include_late_stages:
+        description: "enrich backfill: also fetch late-stage statuses (draft permit, pink file, deposit paid, city engineer approved, shelved); default false"
+        required: false
+        default: "false"
       limit:
         description: "Parcels to scan in this batch (scan) or tiks to enrich (enrich)"
         required: true
@@ -119,6 +123,7 @@ jobs:
           trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
           ARGS="--limit ${{ inputs.limit }} --offset ${{ inputs.offset }}"
           if [ "${{ inputs.include_unenriched }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
+          if [ "${{ inputs.include_late_stages }}" = "true" ]; then ARGS="$ARGS --include-late-stages"; fi
           sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
