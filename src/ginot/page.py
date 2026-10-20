@@ -539,6 +539,7 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
     from . import preview
+    sort_rows(rows)  # annotates _open_obj, which the preview card counts
     has_img = preview.render_preview(rows, council_name, generated, "data/council_ginot_hair.geojson"
                                      if os.path.exists("data/council_ginot_hair.geojson")
                                      else "data/council.geojson", f"{out_dir}/og.png")
