@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""Publication-date enrichment for mirror-ingested tiks (issue #76).
+
+Runs through the owner-operated L2TP tunnel. For each selected tik it
+fetches ONLY the process-step procedure (242700451, publication dates -
+process metadata, no personal data) and writes the s.149 dates back
+into data/permit_mirror.json. The details procedure (personal data) is
+never called; addresses already come from the mirror.
+
+Selection: tiks in data/permit_mirror_diff.json's changed list (the
+nightly path), plus - with --include-unenriched - active-status tiks
+never enriched (the one-time backfill, batched with --offset/--limit).
+Stops red on any anti-bot challenge (no workaround).
+
+Usage: python3 scripts/vpn/permit_enrich.py [--include-unenriched] [--offset 0] [--limit 2000]
+"""
+import argparse
+import json
+import sys
+import time
+
+from permit_feed import call, publication_dates, PACE_SECONDS
+
+MIRROR = "data/permit_mirror.json"
+DIFF = "data/permit_mirror_diff.json"
+# statuses where no s.149 publication can still start (request is over)
+TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בניה",
+                     "הופק היתר מוארך", "נדחתה"}
+
+
+def select_tiks(requests, diff_tiks, include_unenriched):
+    """Tiks to (re)fetch publication dates for, in stable order."""
+    selected = []
+    for r in requests:
+        if r["status"] in TERMINAL_STATUSES:
+            continue
+        if r["tik_num"] in diff_tiks:
+            selected.append(r["tik_num"])
+        elif include_unenriched and "publication_start" not in r:
+            selected.append(r["tik_num"])
+    return sorted(set(selected))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--mirror", default=MIRROR)
+    ap.add_argument("--diff", default=DIFF)
+    ap.add_argument("--include-unenriched", action="store_true")
+    ap.add_argument("--offset", type=int, default=0)
+    ap.add_argument("--limit", type=int, default=2000)
+    args = ap.parse_args()
+
+    with open(args.mirror, encoding="utf-8") as fh:
+        payload = json.load(fh)
+    requests = payload["requests"]
+    try:
+        with open(args.diff, encoding="utf-8") as fh:
+            diff = json.load(fh)
+        diff_tiks = set(diff.get("new_tiks", []) + diff.get("changed_tiks", []))
+    except (FileNotFoundError, json.JSONDecodeError):
+        diff_tiks = set()
+
+    todo = select_tiks(requests, diff_tiks, args.include_unenriched)
+    batch = todo[args.offset:args.offset + args.limit]
+    print(f"{len(todo)} tiks selected; enriching batch of {len(batch)} "
+          f"(offset={args.offset})")
+    if not batch:
+        print("nothing to enrich")
+        return 0
+
+    by_tik = {r["tik_num"]: r for r in requests}
+    done = 0
+    for i, tik in enumerate(batch):
+        if i:
+            time.sleep(PACE_SECONDS)
+        try:
+            start, end = publication_dates(tik)
+        except RuntimeError:
+            print("anti-bot challenge - stopping (no workaround)")
+            return 2
+        except Exception as exc:
+            print(f"{tik}: publication fetch failed: {exc}")
+            continue
+        by_tik[tik]["publication_start"] = start
+        by_tik[tik]["publication_end_planned"] = end
+        done += 1
+        if (i + 1) % 50 == 0:
+            print(f"[{i+1}/{len(batch)}] enriched {done}")
+
+    with open(args.mirror, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=1)
+    remaining = len(todo) - (args.offset + len(batch))
+    print(f"enriched {done}/{len(batch)} tiks; {max(remaining, 0)} remain "
+          f"after this batch")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

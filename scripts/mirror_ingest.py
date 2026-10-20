@@ -132,6 +132,24 @@ def fetch_rows(gushim):
         time.sleep(PACE_SECONDS)
 
 
+def diff_records(old_records, new_records):
+    """Change detection between the previous ingest and this one.
+
+    A tik counts as changed when its status or status_date moved; new
+    and gone tiks are set differences. The output drives the nightly
+    targeted publication-date enrichment (issue #76).
+    """
+    old_by_tik = {r["tik_num"]: r for r in old_records}
+    new_by_tik = {r["tik_num"]: r for r in new_records}
+    new_tiks = sorted(set(new_by_tik) - set(old_by_tik))
+    gone_tiks = sorted(set(old_by_tik) - set(new_by_tik))
+    changed = sorted(t for t in set(old_by_tik) & set(new_by_tik)
+                     if (old_by_tik[t].get("status"), old_by_tik[t].get("status_date"))
+                        != (new_by_tik[t].get("status"), new_by_tik[t].get("status_date")))
+    return {"new_tiks": new_tiks, "changed_tiks": changed,
+            "gone_tiks": gone_tiks}
+
+
 def validate(records, path):
     """Compare mirror records against the direct-scanner output."""
     with open(path, encoding="utf-8") as fh:
@@ -153,6 +171,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
     ap.add_argument("--out", default="data/permit_mirror.json")
+    ap.add_argument("--diff-out", default="data/permit_mirror_diff.json")
     ap.add_argument("--validate-against", default="")
     args = ap.parse_args()
 
@@ -160,6 +179,13 @@ def main():
     gushim = sorted(parcels_by_gush)
     print(f"{sum(len(v) for v in parcels_by_gush.values())} council parcels "
           f"in {len(gushim)} gushim")
+
+    old_records = []
+    try:
+        with open(args.out, encoding="utf-8") as fh:
+            old_records = json.load(fh).get("requests", [])
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
 
     records = {}
     for row in fetch_rows(gushim):
@@ -184,6 +210,13 @@ def main():
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(records)} requests on council parcels")
+
+    diff = diff_records(old_records, payload["requests"])
+    diff.update({"generated": payload["generated"]})
+    with open(args.diff_out, "w", encoding="utf-8") as fh:
+        json.dump(diff, fh, ensure_ascii=False, indent=1)
+    print(f"diff vs previous ingest: {len(diff['new_tiks'])} new, "
+          f"{len(diff['changed_tiks'])} changed, {len(diff['gone_tiks'])} gone")
 
     if args.validate_against:
         validate(records, args.validate_against)

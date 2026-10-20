@@ -48,3 +48,14 @@ def test_map_record_drops_personal_and_shapes_fields():
     assert rec["address"] == "י. אלפסי 9 גינות העיר"
     assert rec["mahut"] == "בניין"
     assert "שם פרטי" not in str(rec) and "בעלי עניין" not in rec
+
+
+def test_diff_records():
+    old = [{"tik_num": "1", "status": "a", "status_date": "2026-01-01"},
+           {"tik_num": "2", "status": "a", "status_date": "2026-01-01"},
+           {"tik_num": "3", "status": "a", "status_date": "2026-01-01"}]
+    new = [{"tik_num": "2", "status": "b", "status_date": "2026-02-01"},
+           {"tik_num": "3", "status": "a", "status_date": "2026-01-01"},
+           {"tik_num": "4", "status": "a", "status_date": "2026-01-01"}]
+    d = mirror_ingest.diff_records(old, new)
+    assert d == {"new_tiks": ["4"], "changed_tiks": ["2"], "gone_tiks": ["1"]}

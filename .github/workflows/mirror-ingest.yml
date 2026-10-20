@@ -9,6 +9,8 @@ name: Permit mirror ingest (over.org.il)
 # publication dates; those stay with the direct scanner (permit-feed).
 
 on:
+  schedule:
+    - cron: "20 3 * * *"   # nightly 03:20 UTC mirror-diff (owner-approved 2026-10-20)
   workflow_dispatch:
 
 permissions:
@@ -59,7 +61,7 @@ jobs:
             git stash drop
           fi
           git checkout -b "$BRANCH"
-          git add data/permit_mirror.json
+          git add data/
           git commit -m "Permit mirror ingest $(date +%Y-%m-%d) (refs #74)
 
           Bulk ingest from the over.org.il public mirror of the ykpubdata
@@ -76,3 +78,10 @@ jobs:
           gh run watch "$RUN_ID" --exit-status --interval 20
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
+
+      - name: Dispatch targeted publication-date enrichment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run permit-feed.yml -f mode=enrich
+          echo "dispatched permit-feed enrich (no-ops when the diff is empty)"

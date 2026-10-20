@@ -21,8 +21,16 @@ on:
     - cron: "0 3 * * *"   # nightly 03:00 UTC backfill batch
   workflow_dispatch:
     inputs:
+      mode:
+        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks"
+        required: true
+        default: "scan"
+      include_unenriched:
+        description: "enrich mode: also fetch never-enriched active tiks (one-time backfill)"
+        required: false
+        default: "false"
       limit:
-        description: "Parcels to scan in this batch"
+        description: "Parcels to scan in this batch (scan) or tiks to enrich (enrich)"
         required: true
         default: "60"
       offset:
@@ -67,6 +75,7 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Resolve batch parameters (schedule -> next offset)
+        if: ${{ inputs.mode != 'enrich' }}
         run: |
           if [ -n "${{ inputs.limit }}" ]; then
             echo "LIMIT=${{ inputs.limit }}" >> "$GITHUB_ENV"
@@ -85,25 +94,36 @@ jobs:
           fi
 
       - name: Scan parcel batch for permit requests
-        if: ${{ env.BACKFILL_COMPLETE != 'true' }}
+        if: ${{ inputs.mode != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
         run: sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
 
+      - name: Enrich mirror tiks with s.149 publication dates
+        if: ${{ inputs.mode == 'enrich' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          ARGS="--limit ${{ inputs.limit }} --offset ${{ inputs.offset }}"
+          if [ "${{ inputs.include_unenriched }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
+          sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
+
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
-        if: ${{ env.BACKFILL_COMPLETE != 'true' && success() }}
+        if: ${{ (inputs.mode == 'enrich' || env.BACKFILL_COMPLETE != 'true') && success() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
-          if git diff --quiet data/permit_requests.json; then
+          if git diff --quiet data/; then
             echo "no changes to permit data"
             exit 0
           fi
           BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git stash push --include-untracked -m feed-output -- data/permit_requests.json
+          git stash push --include-untracked -m feed-output -- data/
           git fetch origin main
           git reset --hard origin/main
           if ! git stash pop; then
@@ -112,7 +132,7 @@ jobs:
             git stash drop
           fi
           git checkout -b "$BRANCH"
-          git add data/permit_requests.json
+          git add data/
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
