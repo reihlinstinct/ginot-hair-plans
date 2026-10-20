@@ -48,7 +48,8 @@ def test_diff_tiks_fetched_even_in_late_stage():
 
 def test_backfill_request_file_is_valid():
     import json
-    d = json.load(open(pathlib.Path(__file__).parent.parent / "data" / "backfill_request.json"))
+    path = pathlib.Path(__file__).parent.parent / "data" / "backfill_request.json"
+    d = json.loads(path.read_text(encoding="utf-8"))
     assert d["mode"] in ("scan", "enrich")
     assert isinstance(d["include_unenriched"], bool) and isinstance(d["include_late_stages"], bool)
     assert int(d["limit"]) > 0 and int(d["offset"]) >= 0
