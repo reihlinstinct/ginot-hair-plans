@@ -97,13 +97,26 @@ jobs:
         if: ${{ inputs.mode != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
-        run: sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
+        run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
 
       - name: Enrich mirror tiks with s.149 publication dates
         if: ${{ inputs.mode == 'enrich' }}
         env:
           PYTHONUNBUFFERED: "1"
         run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
           ARGS="--limit ${{ inputs.limit }} --offset ${{ inputs.offset }}"
           if [ "${{ inputs.include_unenriched }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
           sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
