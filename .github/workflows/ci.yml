@@ -19,6 +19,23 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: pip install -r requirements.txt ruff
+      - run: pip install -r requirements.txt ruff pytest-cov
       - run: ruff check src tests refresh.py
-      - run: python -m pytest -q
+      - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json
+      # Coverage gate (issue #105). Report-only until .github/qa-gates.json
+      # has "enforce": true - flipping that one value is the whole
+      # November switch-on. The floor can only be raised.
+      - name: Coverage gate
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          gates = json.load(open(".github/qa-gates.json"))
+          pct = json.load(open("coverage.json"))["totals"]["percent_covered"]
+          floor = gates["coverage_floor"]
+          print(f"coverage {pct:.1f}% (floor {floor}%, enforce={gates['enforce']})")
+          if pct < floor:
+              msg = f"coverage {pct:.1f}% is below the floor {floor}%"
+              if gates["enforce"]:
+                  sys.exit(msg)
+              print("::warning::" + msg + " (report-only, gate not enforced yet)")
+          PY
