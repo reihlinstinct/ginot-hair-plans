@@ -117,7 +117,7 @@ def main():
         json.dump({"date": datetime.date.today().isoformat(), "rows": rows,
                    "plans_77_78": slim}, fh, ensure_ascii=False)
     page.render_site(rows, changes, args.site, base_url=args.base_url,
-                     permits_path="data/permit_requests.json")
+                     permits_path="data/permit_requests.json", council_geojson=args.council)
     badge_dir = os.path.join(args.site, "badge")
     os.makedirs(badge_dir, exist_ok=True)
     for name, msg, color in [("plans", str(len(rows)), "blue"),
