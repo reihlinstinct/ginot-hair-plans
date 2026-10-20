@@ -28,3 +28,19 @@ def test_select_tiks_include_unenriched():
             req("3", "הבקשה נסגרה")]
     sel = permit_enrich.select_tiks(reqs, set(), include_unenriched=True)
     assert sel == ["2"]  # already-enriched and terminal tiks skipped
+
+
+def test_backfill_skips_late_stages_by_default():
+    reqs = [req("1", "נפתח תיק רישוי"),
+            req("2", "הוכנה טיוטת היתר בניה"),
+            req("3", "שולמה מקדמה"),
+            req("4", "נדונה בוועדת המשנה")]
+    sel = permit_enrich.select_tiks(reqs, set(), include_unenriched=True)
+    assert sel == ["1", "4"]
+    wide = permit_enrich.select_tiks(reqs, set(), True, include_late_stages=True)
+    assert wide == ["1", "2", "3", "4"]
+
+
+def test_diff_tiks_fetched_even_in_late_stage():
+    reqs = [req("2", "הוכנה טיוטת היתר בניה")]
+    assert permit_enrich.select_tiks(reqs, {"2"}, include_unenriched=False) == ["2"]
