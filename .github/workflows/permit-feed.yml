@@ -17,6 +17,13 @@ name: Jerusalem permit feed pilot (VPN)
 # explicit limit/offset always overrides.
 
 on:
+  # Backfill request by code (issue #102): editing data/backfill_request.json
+  # on main starts one run with the inputs stored in that file. No file
+  # change, no run. The file is not cleared; a new request is a new edit.
+  push:
+    branches: [main]
+    paths:
+      - data/backfill_request.json
   schedule:
     - cron: "0 3 * * *"   # nightly 03:00 UTC backfill batch
   workflow_dispatch:
@@ -65,6 +72,27 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
+      - name: Resolve run inputs (dispatch inputs, or data/backfill_request.json on push)
+        run: |
+          python3 - <<'PY' >> "$GITHUB_ENV"
+          import json, os
+          ev = os.environ["GITHUB_EVENT_NAME"]
+          if ev == "push":
+              d = json.load(open("data/backfill_request.json"))
+              src = {k: str(d.get(k, "")).lower() if isinstance(d.get(k), bool) else str(d.get(k, ""))
+                     for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+          elif ev == "workflow_dispatch":
+              ins = json.loads(os.environ["INPUTS_JSON"])
+              src = {k: str(ins.get(k) or "") for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+          else:
+              src = {k: "" for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+          for k, v in src.items():
+              assert "\n" not in v and len(v) < 20, k
+              print(f"REQ_{k.upper()}={v}")
+          PY
+        env:
+          INPUTS_JSON: ${{ toJSON(inputs) }}
+
       - name: Install VPN transport packages
         run: |
           sudo apt-get update -qq > /dev/null 2>&1
@@ -79,11 +107,11 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Resolve batch parameters (schedule -> next offset)
-        if: ${{ inputs.mode != 'enrich' }}
+        if: ${{ env.REQ_MODE != 'enrich' }}
         run: |
-          if [ -n "${{ inputs.limit }}" ]; then
-            echo "LIMIT=${{ inputs.limit }}" >> "$GITHUB_ENV"
-            echo "OFFSET=${{ inputs.offset }}" >> "$GITHUB_ENV"
+          if [ -n "${{ env.REQ_LIMIT }}" ]; then
+            echo "LIMIT=${{ env.REQ_LIMIT }}" >> "$GITHUB_ENV"
+            echo "OFFSET=${{ env.REQ_OFFSET }}" >> "$GITHUB_ENV"
           else
             read O _ < <(python3 -c "import json;b=json.load(open('data/permit_requests.json'))['batch'];print(b['offset']+b['limit'],b['limit'])")
             L=500   # approved backfill batch size for scheduled runs
@@ -98,7 +126,7 @@ jobs:
           fi
 
       - name: Scan parcel batch for permit requests
-        if: ${{ inputs.mode != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
         run: |
@@ -111,7 +139,7 @@ jobs:
           sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
 
       - name: Enrich mirror tiks with s.149 publication dates
-        if: ${{ inputs.mode == 'enrich' }}
+        if: ${{ env.REQ_MODE == 'enrich' }}
         env:
           PYTHONUNBUFFERED: "1"
         run: |
@@ -121,13 +149,13 @@ jobs:
           sudo python3 scripts/vpn/vpn_watch.py &
           WATCH=$!
           trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
-          ARGS="--limit ${{ inputs.limit }} --offset ${{ inputs.offset }}"
-          if [ "${{ inputs.include_unenriched }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
-          if [ "${{ inputs.include_late_stages }}" = "true" ]; then ARGS="$ARGS --include-late-stages"; fi
+          ARGS="--limit ${{ env.REQ_LIMIT }} --offset ${{ env.REQ_OFFSET }}"
+          if [ "${{ env.REQ_INCLUDE_UNENRICHED }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
+          if [ "${{ env.REQ_INCLUDE_LATE_STAGES }}" = "true" ]; then ARGS="$ARGS --include-late-stages"; fi
           sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
-        if: ${{ (inputs.mode == 'enrich' || env.BACKFILL_COMPLETE != 'true') && success() }}
+        if: ${{ (env.REQ_MODE == 'enrich' || env.BACKFILL_COMPLETE != 'true') && success() }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
