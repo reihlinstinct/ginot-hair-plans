@@ -1,0 +1,550 @@
+{
+ "note": "tiks fetched with no publication dates: step names and date presence only",
+ "samples": [
+  {
+   "tik_num": "1978/0717.12",
+   "status": "הגשה מקוונת הושלמה",
+   "steps": [
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה מקוונת הושלמה. טרם התקבלו מסמכים חתומים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1978/0775.01",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "גניזת תיק מנהלית",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "ביצוע החזר לאגרת פקדון/מקדמה",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הדפסת טיוטת היתר בנייה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1978/0778.02",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "זיכוי תשלום פקדון/מקדמה ע\"י המסלקה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "פתיחת תיק רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1978/0802.03",
+   "status": "נפתח תיק רישוי",
+   "steps": [
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "בדיקת חוות דעת למהנדס העיר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "סגירת תיק הבקשה להיתר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה מקוונת הושלמה. טרם התקבלו מסמכים חתומים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפניית תיק לבוחן רישוי",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "קליטת בקשה לקראת גיבוש המלצה",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "פתיחת התיק לגורמים - בקרה מרחבית",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הכנת חוות דעת למהנדס העיר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הבקשה לא אושרה ע\"י מהנדס העיר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0167.01",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0193.08",
+   "status": "הגשה מקוונת הושלמה",
+   "steps": [
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "זיכוי תשלום פקדון/מקדמה ע\"י המסלקה",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה מקוונת הושלמה. טרם התקבלו מסמכים חתומים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0193.09",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "גניזת תיק מנהלית",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "ביצוע החזר לאגרת פקדון/מקדמה",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשת תכנית מתוקנת המיועדת לדיון נוסף בוועדה/רשות",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשת תכנית מתוקנת  בהתאם להחלטת ועדה/רשות",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "מילוי תנאים להיתר",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "חתימה דיגיטלית ע\"י ראש צוות",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה מקוונת הושלמה. טרם התקבלו מסמכים חתומים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "זיכוי תשלום פקדון/מקדמה ע\"י המסלקה",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפניה למשלוח הודעות לפי תקנה 36",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הודעה על קבלת מסמכים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "תחילת ביצוע – משלוח הודעות לפי תקנה 36",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "התקבלו מסמכי משלוח הודעות לפי תקנה 36",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת משלוח הודעות לפי תקנה 36",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "סיום הגשת בקשה להיתר ",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "תום מועד להגשת התנגדויות",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "פתיחת התיק לגורמים - בקרה מרחבית",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "קליטת בקשה לקראת גיבוש המלצה",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "בדיקה אם הליך הפרסום מתקדם",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הפניית תיק לבוחן רישוי",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הפקה ושליחת הודעות על החלטת רשות רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "דיון ברשות הרישוי",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "פתיחת תיק במערכת שימור אתרים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "סגירת תיק הבקשה להיתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "חידוש טיפול בתיק הבקשה להיתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הפקה ושליחת הודעות על החלטת ועדה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפקה ושליחת הודעות על החלטת ועדה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפניית תיק לבוחן רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "בקשת חוות דעת גורמים - תכן ותשלומים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "אישור להעלאת מסמכים סופיים הנדרשים להפקת היתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפניית תיק לבוחן רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפקת תצהירים לקראת הוצאת היתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפניית תיק לבוחן רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "אישור להעלאת מסמכים סופיים הנדרשים להפקת היתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "השלמת תנאים לקראת הכנת המלצה לוועדה/ר\"ר",
+     "has_exec_date": true,
+     "has_plan_date": true
+    },
+    {
+     "step": "הגשה הועברה לבדיקת המחלקה לאחר פתיחת תיק",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": " הגשה מקוונת אושרה ונקלטה מחדש עם תיקונים",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפקת היתר בניה לחתימה דיגיטלית",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "אישור להעלאת מסמכים סופיים הנדרשים להפקת היתר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הכנת היתר דיגיטלי לבדיקה ולחתימה ע\"י ראש הצוות",
+     "has_exec_date": true,
+     "has_plan_date": true
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0230.01",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0420.01",
+   "status": "נדונה בועדת ערר",
+   "steps": [
+    {
+     "step": "זיכוי תשלום פקדון/מקדמה ע\"י המסלקה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "פתיחת תיק רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "דיון ברשות הרישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "הפקה ושליחת הודעות על החלטת רשות רישוי",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "העברת מסמכים לועדת הערר",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  },
+  {
+   "tik_num": "1979/0442.02",
+   "status": "נדונה בוועדת המשנה",
+   "steps": [
+    {
+     "step": "הדפסת טיוטת היתר בנייה",
+     "has_exec_date": false,
+     "has_plan_date": false
+    },
+    {
+     "step": "הוצאת היתר בנייה",
+     "has_exec_date": false,
+     "has_plan_date": false
+    },
+    {
+     "step": "סגירת תיק הבקשה להיתר",
+     "has_exec_date": false,
+     "has_plan_date": false
+    },
+    {
+     "step": "גניזת תיק מנהלית",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "ביצוע החזר לאגרת פקדון/מקדמה",
+     "has_exec_date": false,
+     "has_plan_date": true
+    },
+    {
+     "step": "דיון בועדת משנה",
+     "has_exec_date": true,
+     "has_plan_date": false
+    },
+    {
+     "step": "דיון בועדה המחוזית",
+     "has_exec_date": true,
+     "has_plan_date": false
+    }
+   ]
+  }
+ ]
+}
