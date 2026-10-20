@@ -252,3 +252,29 @@ def test_footer_links(page, site):
 def test_page_has_draft_notice_and_feed_link(page):
     assert "DRAFT" in page.locator("#permits h2").inner_text()
     assert page.locator("link[rel='alternate'][type='application/atom+xml']").get_attribute("href") == "feed.xml"
+
+
+def test_footer_with_about_is_at_the_bottom_of_the_page(page):
+    footer = page.locator("footer")
+    assert footer.locator("a[href='about.html']").count() == 1
+    # footer is the last content element before the script, below every section
+    last = page.evaluate("document.body.lastElementChild.tagName")
+    assert last == "SCRIPT"
+    assert page.evaluate("document.querySelector('footer').nextElementSibling.tagName") == "SCRIPT"
+    fy = footer.bounding_box()["y"]
+    for sel in ("#plans", "#permits", "#stats"):
+        box = page.locator(sel).bounding_box()
+        assert box["y"] < fy, sel
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    assert footer.is_visible()
+
+
+def test_statistics_collapsed_by_default_and_expandable(page):
+    d = page.locator("details#stats")
+    assert d.get_attribute("open") is None
+    assert not d.locator(".stats").is_visible()
+    d.locator("summary").click()
+    assert d.locator(".stats").is_visible()
+    assert d.locator("h3").count() == 4
+    d.locator("summary").click()
+    assert not d.locator(".stats").is_visible()
