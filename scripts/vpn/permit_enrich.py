@@ -19,10 +19,12 @@ import json
 import sys
 import time
 
-from permit_feed import call, publication_dates, PACE_SECONDS
+from permit_feed import SYS, call, publication_dates, PACE_SECONDS
 
 MIRROR = "data/permit_mirror.json"
 DIFF = "data/permit_mirror_diff.json"
+SPOTCHECK = "data/permit_enrich_spotcheck.json"
+SPOTCHECK_MAX = 10
 # statuses where no s.149 publication can still start (request is over)
 TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בניה",
                      "הופק היתר מוארך", "נדחתה"}
@@ -39,6 +41,19 @@ LATE_STAGE_STATUSES = {
     "אושר ע\"י מהנדס העיר",
     "הבקשה נגנזה",
 }
+
+
+def step_summary(tik):
+    """Process-step names and which date fields exist, for tiks that came
+    back without publication dates (spot check, issue #102). Step names and
+    date presence only: process metadata, no personal data, no dates."""
+    rows = call(242700451, {"SystemID": SYS, "TikNum": tik}) or []
+    out = []
+    for r in rows if isinstance(rows, list) else []:
+        out.append({"step": r.get("stepCodeText") or "",
+                    "has_exec_date": bool(r.get("execDateStr")),
+                    "has_plan_date": bool(r.get("planDateStr"))})
+    return out
 
 
 def select_tiks(requests, diff_tiks, include_unenriched, include_late_stages=False):
@@ -87,6 +102,7 @@ def main():
 
     by_tik = {r["tik_num"]: r for r in requests}
     done = 0
+    spot = []
     for i, tik in enumerate(batch):
         if i:
             time.sleep(PACE_SECONDS)
@@ -98,6 +114,12 @@ def main():
         except Exception as exc:
             print(f"{tik}: publication fetch failed: {exc}")
             continue
+        if not start and not end and len(spot) < SPOTCHECK_MAX:
+            try:
+                spot.append({"tik_num": tik, "status": by_tik[tik]["status"],
+                             "steps": step_summary(tik)})
+            except Exception as exc:
+                print(f"{tik}: spot check failed: {exc}")
         by_tik[tik]["publication_start"] = start
         by_tik[tik]["publication_end_planned"] = end
         done += 1
@@ -106,6 +128,10 @@ def main():
 
     with open(args.mirror, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
+    if spot:
+        with open(SPOTCHECK, "w", encoding="utf-8") as fh:
+            json.dump({"note": "tiks fetched with no publication dates: step names and date presence only",
+                       "samples": spot}, fh, ensure_ascii=False, indent=1)
     remaining = len(todo) - (args.offset + len(batch))
     print(f"enriched {done}/{len(batch)} tiks; {max(remaining, 0)} remain "
           f"after this batch")
