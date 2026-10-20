@@ -77,7 +77,9 @@ jobs:
 
       - name: Scan parcel batch for permit requests
         if: ${{ env.BACKFILL_COMPLETE != 'true' }}
-        run: sudo python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
         if: ${{ env.BACKFILL_COMPLETE != 'true' && success() }}
