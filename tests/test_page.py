@@ -176,3 +176,33 @@ def test_permit_tik_number_deep_links_to_municipality_file(tmp_path):
     assert _permit_tik_link(None) == ""
     assert _permit_tik_link("") == ""
     assert "%2F" in _permit_tik_link("1910/0594.09")
+
+
+def test_social_meta_tags_with_absolute_image(tmp_path):
+    from ginot import page, preview
+    rows = [{"pl_number": "1", "pl_name": "תכנית א", "station_desc": "הפקדה",
+             "receiving_date": "2026-10-01", "pl_last_deposit_date": "2026-10-10",
+             "depositing_date": "", "objection_deadline_derived_60d_from_publication": "2026-12-09",
+             "pl_area_dunam": 3.2, "inside_flag": "inside", "mavat_url": "https://mavat.iplan.gov.il/x"}]
+    base = "https://example.org/site/"
+    page.render_site(rows, [], str(tmp_path), base_url=base,
+                     council_geojson="data/council_ginot_hair.geojson")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert '<meta property="og:title"' in html
+    assert '<meta property="og:locale" content="he_IL">' in html
+    assert '<meta name="description"' in html
+    if (tmp_path / "og.png").exists():
+        assert f'<meta property="og:image" content="{base}og.png">' in html
+        assert '<meta name="twitter:card" content="summary_large_image">' in html
+        from PIL import Image
+        assert Image.open(tmp_path / "og.png").size == (1200, 630)
+    else:  # no Pillow/font: no image tags (never point at a missing file)
+        assert "og:image" not in html and preview._font(10) is None
+
+
+def test_social_meta_has_no_image_tags_without_base_url(tmp_path):
+    from ginot import page
+    page.render_site([], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "og:image" not in html
+    assert '<meta property="og:title"' in html
