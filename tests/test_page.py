@@ -162,3 +162,17 @@ def test_permit_status_chips(tmp_path):
     assert _permit_status_class("הוכנה טיוטת היתר בניה") == "c-cond"
     for st in _PERMIT_TERMINAL_STATUSES:
         assert _permit_status_class(st) in ("c-closed", "c-approved")
+
+
+def test_permit_tik_number_deep_links_to_municipality_file(tmp_path):
+    page.render_site([_row("1", "אישור", recv="2019-05-02")], [], str(tmp_path),
+                     permits_path=_permits(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # every request number links to the licensing file viewer (issue #96)
+    assert ("href='https://ykpubdata.jerusalem.muni.il/#/Details?TikNum=2026%2F0001.01"
+            "&SystemCode=26400046&Page=BakashalInfo' target='_blank'"
+            " rel='noopener'>2026/0001.01</a>") in html
+    from ginot.page import _permit_tik_link
+    assert _permit_tik_link(None) == ""
+    assert _permit_tik_link("") == ""
+    assert "%2F" in _permit_tik_link("1910/0594.09")

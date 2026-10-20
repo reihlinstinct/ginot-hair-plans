@@ -13,6 +13,7 @@ sorting/filtering uses true dates. Statistics render below the table.
 import datetime
 import html
 import json
+import urllib.parse as _urlparse_mod
 
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
 DEPOSIT_MARK = "הפקדה"
@@ -248,6 +249,18 @@ _PERMIT_TERMINAL_STATUSES = frozenset({
 })
 
 
+def _permit_tik_link(tik_num: str | None) -> str:
+    """Link a permit request number to its file in the municipality's
+    licensing data viewer (תיק רישוי בניה, SystemCode 26400046). Issue #96."""
+    tik = (tik_num or "").strip()
+    if not tik:
+        return ""
+    url = ("https://ykpubdata.jerusalem.muni.il/#/Details?TikNum="
+           + _urlparse_mod.quote(tik, safe="")
+           + "&SystemCode=26400046&Page=BakashalInfo")
+    return f"<a href='{url}' target='_blank' rel='noopener'>{_e(tik)}</a>"
+
+
 def _permits_section(permits: list[dict]) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
@@ -272,7 +285,7 @@ def _permits_section(permits: list[dict]) -> str:
         rows.append(
             f"<tr data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
             f" data-pub='{pub_iso}' data-search='{search}'>"
-            f"<td>{_e(p.get('tik_num') or '')}</td>"
+            f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(p.get('address') or '')}</td>"
             f"<td>{_e(p.get('mahut') or '')}</td>"
             f"<td>{_e(sug)}</td>"
@@ -301,9 +314,8 @@ def _permits_section(permits: list[dict]) -> str:
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
 בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
-מספר הבקשה מזדנה לחיפוש ידני במערכת
-<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>
-(אין קישור יציב לבקשה בודדת).</p>
+מספר הבקשה מקשר לתיק במערכת
+<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
 {plegend}
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
