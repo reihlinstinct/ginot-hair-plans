@@ -30,9 +30,9 @@ th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:
 .chip.c-inproc{background:#bfe8d4}.chip.c-approved{background:#cfe8cf}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .derived{color:#666}.new td{background:#fff8e1}
-#filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
+#filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
 padding:8px;border:1px solid #ddd;border-radius:8px;background:#fafafa}
-#filters input[type=search]{flex:1;min-width:180px}
+#filters input[type=search],#pfilters input[type=search]{flex:1;min-width:180px}
 #fcount{font-size:12px;color:#555}
 #more{margin:6px 0;padding:6px 14px}
 tr.filtered-out{display:none}
@@ -211,33 +211,123 @@ def stats_section(rows: list[dict]) -> str:
 
 
 
+_PERMIT_TERMINAL_STATUSES = frozenset({
+    "הבקשה נסגרה",
+    "הופק-הוצא היתר בניה",
+    "הופק היתר מוארך",
+})
+
+
 def _permits_section(permits: list[dict]) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
-    textually distinct from the plans table."""
+    textually distinct from the plans table. Terminal requests (closed /
+    permit issued) are hidden by default - the planner can no longer act
+    on them - and revealed by one checkbox. Dates render dd.mm.yy with the
+    ISO value kept in data-iso for filtering."""
     if not permits:
         return ""
-    body = "".join(
-        f"<tr><td>{_e(p.get('tik_num') or '')}</td>"
-        f"<td>{_e(p.get('address') or '')}</td>"
-        f"<td>{_e(p.get('mahut') or '')}</td>"
-        f"<td>{_e(p.get('sugbakasha') or '')}</td>"
-        f"<td>{_e(p.get('status') or '')}</td>"
-        f"<td>{_e(p.get('status_date') or '')}</td>"
-        f"<td>{_e(p.get('publication_start') or '')}</td>"
-        f"<td>{_e(p.get('publication_end_planned') or '')}</td></tr>"
-        for p in permits)
+    rows = []
+    for p in permits:
+        status = p.get("status") or ""
+        sug = p.get("sugbakasha") or ""
+        active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
+        pub_iso = _iso(p.get("publication_start"))
+        search = _e(" ".join([
+            p.get("tik_num") or "", p.get("address") or "",
+            p.get("mahut") or "", sug,
+            f"גוש {p.get('gush')}" if p.get("gush") else "",
+            f"חלקה {p.get('helka')}" if p.get("helka") else "",
+        ]).lower())
+        rows.append(
+            f"<tr data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
+            f" data-pub='{pub_iso}' data-search='{search}'>"
+            f"<td>{_e(p.get('tik_num') or '')}</td>"
+            f"<td>{_e(p.get('address') or '')}</td>"
+            f"<td>{_e(p.get('mahut') or '')}</td>"
+            f"<td>{_e(sug)}</td>"
+            f"<td>{_e(status)}</td>"
+            f"<td>{_date_cell(p.get('status_date'))}</td>"
+            f"<td>{_date_cell(p.get('publication_start'))}</td>"
+            f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>")
+    body = "".join(rows)
+    n_terminal = sum(1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES)
+    statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
+    sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
+    status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
+        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses)
+    sug_opts = "<option value=''>כל הסוגים</option>" + "".join(
+        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs)
     return f"""
 <section id="permits" dir="rtl">
 <h2>בקשות היתר (טיוטה - DRAFT)</h2>
 <p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
-(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.</p>
+(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
+בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
+מספר הבקשה מזדנה לחיפוש ידני במערכת
+<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>
+(אין קישור יציב לבקשה בודדת).</p>
+<div id="pfilters">
+<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
+<select id="pfstatus">{status_opts}</select>
+<select id="pfsug">{sug_opts}</select>
+<label>מתאריך פרסום <input type="date" id="pffrom"></label>
+<label>עד <input type="date" id="pfto"></label>
+<label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
+<button id="pfreset" type="button">נקה</button>
+<span id="pfcount"></span>
+</div>
 <table id="permits-table"><thead><tr>
 <th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
 <th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
 </tr></thead><tbody>{body}</tbody></table>
+<button id="pmore" type="button"></button>
 </section>"""
+
+_PERMITS_JS = """
+(function(){
+var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
+if(!rows.length)return;
+var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
+pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
+pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
+pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore');
+var expanded=false;
+function match(r){
+  if(!pfclosed.checked&&r.getAttribute('data-active')!=='1')return false;
+  var q=pfq.value.trim().toLowerCase();
+  if(q&&r.getAttribute('data-search').indexOf(q)===-1)return false;
+  if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
+  if(pfsug.value&&r.getAttribute('data-sug')!==pfsug.value)return false;
+  var pub=r.getAttribute('data-pub');
+  if(pffrom.value&&!(pub&&pub>=pffrom.value))return false;
+  if(pfto.value&&!(pub&&pub<=pfto.value))return false;
+  return true;
+}
+function apply(){
+  var n=0;
+  rows.forEach(function(r){
+    var vis=match(r);
+    if(vis){n++;if(!expanded&&n>20)vis=false;}
+    r.classList.toggle('filtered-out',!vis);
+  });
+  pmore.style.display=n>20?'':'none';
+  pmore.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' הבקשות';
+  pfcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
+}
+[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed].forEach(function(el){
+  var h=function(){expanded=false;apply();};
+  el.addEventListener('input',h);el.addEventListener('change',h);
+});
+document.getElementById('pfreset').addEventListener('click',function(){
+  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
+  pfclosed.checked=false;expanded=false;apply();
+});
+pmore.addEventListener('click',function(){expanded=!expanded;apply();});
+apply();
+})();
+"""
 
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
                  permits: list[dict] | None = None) -> str:
@@ -333,7 +423,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 {stats_html}
-<script>{_JS}</script>
+<script>{_JS}{_PERMITS_JS}</script>
 </body></html>"""
 
 

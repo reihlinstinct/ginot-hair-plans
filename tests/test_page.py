@@ -67,3 +67,42 @@ def test_status_chips_and_legend(tmp_path):
     assert 'class="chip c-deposit"' in html and 'class="chip c-approved"' in html
     assert 'class="chip c-review"' in html
     assert "מקרא סטטוסים" in html and html.find("legend") < html.find("<table")
+
+
+def _permits(tmp_path):
+    import json
+    reqs = {"requests": [
+        {"tik_num": "2026/0001.01", "address": "רחוב א 1", "mahut": "תוספת קומה",
+         "sugbakasha": "היתר בניה", "status": "נפתח תיק רישוי",
+         "status_date": "2026-09-01", "publication_start": "2026-10-01",
+         "publication_end_planned": "2026-11-01", "gush": 30001, "helka": 5},
+        {"tik_num": "2024/0002.02", "address": "רחוב ב 2", "mahut": "שימוש חורג",
+         "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית", "status": "הבקשה נסגרה",
+         "status_date": "", "publication_start": "", "publication_end_planned": "",
+         "gush": 30002, "helka": 6},
+    ]}
+    pp = tmp_path / "permits.json"
+    pp.write_text(json.dumps(reqs, ensure_ascii=False), encoding="utf-8")
+    return str(pp)
+
+
+def test_permits_filters_dates_default_active(tmp_path):
+    from ginot import page
+    rows = [_row("1", "הפקדה להתנגדויות", recv="2026-10-01", dep="2026-10-10",
+                 deadline="2026-12-09")]
+    page.render_site(rows, [], str(tmp_path), permits_path=_permits(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # dates render dd.mm.yy with ISO kept for filtering
+    assert "01.10.26" in html and "data-iso='2026-10-01'" in html
+    # active vs terminal flags: open file active, closed request terminal
+    assert "data-active='1'" in html and "data-active='0'" in html
+    # filter controls present, terminal hidden by default (checkbox unchecked)
+    for cid in ("pfq", "pfstatus", "pfsug", "pffrom", "pfto", "pfclosed",
+                "pfreset", "pfcount", "pmore"):
+        assert f'id="{cid}"' in html
+    assert "הצג בקשות שהסתיימו (1)" in html
+    assert "מוסתרות כברירת מחדל" in html
+    # search text carries number/address/essence/type/gush/helka
+    assert "2026/0001.01" in html and "גוש 30001" in html and "חלקה 5" in html
+    # municipality SPA note, no invented per-request deep link
+    assert "ykpubdata.jerusalem.muni.il" in html
