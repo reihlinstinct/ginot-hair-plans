@@ -47,6 +47,46 @@ footer{margin-top:24px;padding-top:10px;border-top:1px solid #ddd;font-size:13px
 .bars .bt{flex:1;background:#eee;height:12px}
 .bars .bf{display:block;background:#4a7;height:12px}
 .bars .bv{font-size:12px;width:3em}
+
+@media (max-width:700px){
+body{margin:.5em auto;padding:0 .75em;font-size:16px;line-height:1.45}
+h1{font-size:22px;line-height:1.3}h2{font-size:19px}
+body>p{font-size:14px}
+#filters,#pfilters{flex-direction:column;align-items:stretch;gap:10px}
+#filters input,#filters select,#filters button,#pfilters input,#pfilters select,#pfilters button{
+font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
+#filters label,#pfilters label{display:flex;align-items:center;gap:10px;min-height:44px;font-size:16px}
+#filters input[type=checkbox],#pfilters input[type=checkbox]{width:24px;min-height:24px;height:24px}
+#more{width:100%;min-height:44px;font-size:16px}
+.legend .chip{padding:8px 12px;font-size:14px}
+#plans,#plans tbody,#plans tr,#plans td,#permits-table,#permits-table tbody,#permits-table tr,#permits-table td{display:block;width:auto}
+#plans thead tr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+#plans thead th{display:block;border:1px solid #ccc;border-radius:16px;padding:0;position:static}
+#plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
+#permits-table thead{display:none}
+#plans tr,#permits-table tr{border:1px solid #ccc;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
+#plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+#plans td::before,#permits-table td::before{color:#666;font-size:13px;flex:none}
+#plans td:nth-child(1){font-weight:600;font-size:17px}
+#plans td:nth-child(2){font-size:16px;padding-bottom:6px}
+#plans td:nth-child(3){padding-bottom:6px}
+#plans td:nth-child(4)::before{content:"קליטה"}
+#plans td:nth-child(5)::before{content:"הפקדה"}
+#plans td:nth-child(6)::before{content:"אחרון להתנגדות (משוער)"}
+#plans td:nth-child(7)::before{content:"שטח (דונם)"}
+#plans td:nth-child(8)::before{content:"בתוך/חלקי"}
+#permits-table td:nth-child(1){font-weight:600}
+#permits-table td:nth-child(2)::before{content:"כתובת"}
+#permits-table td:nth-child(3)::before{content:"מהות"}
+#permits-table td:nth-child(4)::before{content:"סוג"}
+#permits-table td:nth-child(5)::before{content:"סטטוס"}
+#permits-table td:nth-child(6)::before{content:"תאריך סטטוס"}
+#permits-table td:nth-child(7)::before{content:"תחילת פרסום"}
+#permits-table td:nth-child(8)::before{content:"סיום פרסום"}
+tr.filtered-out{display:none!important}
+.stats{grid-template-columns:1fr}.bars .bl{width:8em}
+footer{font-size:14px;line-height:1.8}footer a{display:inline-block;min-height:32px}
+}
 """
 
 _JS = """
