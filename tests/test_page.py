@@ -206,3 +206,18 @@ def test_social_meta_has_no_image_tags_without_base_url(tmp_path):
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "og:image" not in html
     assert '<meta property="og:title"' in html
+
+
+def test_preview_counts_open_objection_windows(tmp_path, monkeypatch):
+    """Regression: the og card once showed 0 because rows were annotated only
+    after the preview was drawn."""
+    from ginot import page, preview
+    seen = {}
+    monkeypatch.setattr(preview, "render_preview",
+                        lambda rows, *a, **k: seen.update(n=sum(1 for r in rows if r.get("_open_obj"))) or False)
+    row = {"pl_number": "1", "pl_name": "תכנית א", "station_desc": "הפקדה להתנגדויות/השגות",
+           "receiving_date": "2026-10-01", "pl_last_deposit_date": "2026-10-10",
+           "depositing_date": "", "objection_deadline_derived_60d_from_publication": "2999-12-09",
+           "pl_area_dunam": 3.2, "inside_flag": "inside", "mavat_url": "https://mavat.iplan.gov.il/x"}
+    page.render_site([row], [], str(tmp_path))
+    assert seen["n"] == 1
