@@ -1,0 +1,9 @@
+{
+  "note": "Editing this file on main starts one permit-feed run with these inputs (issue #102). Early-stage publication-date backfill, 969 tiks remaining after run 39380975772.",
+  "request_id": "2026-10-20-early-stage-backfill-1",
+  "mode": "enrich",
+  "include_unenriched": true,
+  "include_late_stages": false,
+  "limit": 1000,
+  "offset": 0
+}
