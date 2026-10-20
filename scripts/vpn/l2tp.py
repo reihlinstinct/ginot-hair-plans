@@ -178,6 +178,10 @@ connect-delay 5000
     private_diagnostics {
       path = /run/mavat-l2tp/charon-private.log
       default = 1
+      ike = 2
+      cfg = 2
+      knl = 2
+      net = 1
       flush_line = yes
       ike_name = no
       append = no
