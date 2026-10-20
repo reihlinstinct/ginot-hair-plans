@@ -1,0 +1,78 @@
+name: Permit mirror ingest (over.org.il)
+
+# Issue #74: bulk ingest of Jerusalem licensing case files from the
+# over.org.il (גרסאות לעם) public mirror of the ykpubdata viewer -
+# change detection and bulk layer with zero load on the municipality.
+# The mirror's בעלי עניין personal-names column is dropped on ingest.
+# MANUAL DISPATCH ONLY until a green manual run and owner sign-off,
+# per the owner's schedule gate. The mirror carries no s.149
+# publication dates; those stay with the direct scanner (permit-feed).
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+  pages: write
+
+concurrency:
+  group: mirror-ingest
+  cancel-in-progress: false
+
+jobs:
+  mirror-ingest:
+    if: ${{ vars.MIRROR_INGEST_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7
+        with:
+          python-version: "3.12"
+
+      - name: Ingest mirror rows and validate against the direct scan
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 scripts/mirror_ingest.py --validate-against data/permit_requests.json
+
+      - name: Publish changes as a PR, merge on green CI, rebuild Pages
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+            echo "no mirror changes"
+            exit 0
+          fi
+          BRANCH="mirror-ingest/$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m mirror-output
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
+          git checkout -b "$BRANCH"
+          git add data/permit_mirror.json
+          git commit -m "Permit mirror ingest $(date +%Y-%m-%d) (refs #74)
+
+          Bulk ingest from the over.org.il public mirror of the ykpubdata
+          licensing viewer, DRAFT-labelled; בעלי עניין personal data
+          dropped on ingest. Third-party data - verify at source."
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Permit mirror ingest $(date +%Y-%m-%d)" \
+            --body "Automated mirror ingest (refs #74). DRAFT third-party mirror data; personal-names column dropped. Merged automatically once CI is green." \
+            --base main --head "$BRANCH")
+          echo "opened $PR"
+          gh workflow run ci.yml --ref "$BRANCH"
+          sleep 15
+          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --limit 1 --json databaseId -q '.[0].databaseId')
+          gh run watch "$RUN_ID" --exit-status --interval 20
+          gh pr merge "$PR" --squash --delete-branch
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
