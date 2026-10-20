@@ -7,10 +7,11 @@ name: Weekly data refresh (iplan + land.gov.il)
 #   2. refresh.py - the iplan ArcGIS refresh; merges the land feed into
 #      each row (deadline = latest publication + 60d, Planning and
 #      Building Law s.102), rebuilds CSV/XLSX/snapshots and the Pages site.
-# Changes land as a PR, CI is dispatched on the branch (GITHUB_TOKEN PRs
-# do not fire pull_request workflows), the PR is squash-merged on green,
-# and a Pages build is requested via the API (GITHUB_TOKEN pushes do not
-# trigger the Pages deploy-from-branch build).
+# Changes land as a PR, the CI checks run inline in the publish step
+# (a bot-dispatched ci.yml run is approval-gated and the run's own token
+# cannot approve it on scheduled triggers - issue #132), the PR is
+# squash-merged on green, and a Pages build is requested via the API
+# (GITHUB_TOKEN pushes do not trigger the Pages deploy-from-branch build).
 
 on:
   schedule:
@@ -77,15 +78,13 @@ jobs:
             --body "Automated weekly refresh (refs #55): land.gov.il publication-status feed + iplan refresh. Merged automatically once CI is green." \
             --base main --head "$BRANCH")
           echo "opened $PR"
-          gh workflow run ci.yml --ref "$BRANCH"
-          sleep 15
-          # Bot-authored PRs get an approval-gated pull_request CI run
-          # (conclusion action_required). Approve those first so the watch
-          # below never dies on the approval gate (fixes #85).
-          for ID in $(gh run list --workflow ci.yml --branch "$BRANCH" --limit 5 --json databaseId,conclusion -q '.[] | select(.conclusion=="action_required") | .databaseId'); do
-            gh api -X POST "repos/${{ github.repository }}/actions/runs/$ID/approve" >/dev/null || true
-          done
-          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId')
-          gh run watch "$RUN_ID" --exit-status --interval 20
+          # CI runs inline in this job (fixes #132): a ci.yml run dispatched
+          # from a scheduled workflow is approval-gated, and the run's own
+          # GITHUB_TOKEN cannot approve it, so the old dispatch+watch step
+          # died with "already completed with action_required" on scheduled
+          # runs. Same commands as ci.yml, run here on the branch worktree.
+          pip install -q ruff pytest
+          ruff check src tests refresh.py
+          python -m pytest -q
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"

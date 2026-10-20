@@ -79,6 +79,10 @@ def main():
                     help="backfill also late-stage statuses (default: skipped)")
     ap.add_argument("--offset", type=int, default=0)
     ap.add_argument("--limit", type=int, default=2000)
+    ap.add_argument("--count-only", action="store_true",
+                    help="print the number of selected tiks and exit "
+                         "(no fetching; used by the self-chaining guard, "
+                         "issue #145)")
     args = ap.parse_args()
 
     with open(args.mirror, encoding="utf-8") as fh:
@@ -93,6 +97,9 @@ def main():
 
     todo = select_tiks(requests, diff_tiks, args.include_unenriched,
                        args.include_late_stages)
+    if args.count_only:
+        print(len(todo))
+        return 0
     batch = todo[args.offset:args.offset + args.limit]
     print(f"{len(todo)} tiks selected; enriching batch of {len(batch)} "
           f"(offset={args.offset})")

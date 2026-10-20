@@ -54,3 +54,20 @@ def test_backfill_request_file_is_valid():
     assert isinstance(d["include_unenriched"], bool) and isinstance(d["include_late_stages"], bool)
     assert int(d["limit"]) > 0 and int(d["offset"]) >= 0
     assert d["request_id"]
+
+
+def test_count_only_prints_selection_without_fetching(tmp_path, capsys, monkeypatch):
+    import json
+    mirror = tmp_path / "mirror.json"
+    reqs = [req("1", "נפתח תיק רישוי", publication_start="2026-01-01"),
+            req("2", "נפתח תיק רישוי"),
+            req("3", "הבקשה נסגרה"),
+            req("4", "הוכנה טיוטת היתר בניה")]
+    mirror.write_text(json.dumps({"requests": reqs}), encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["permit_enrich.py", "--mirror", str(mirror),
+                                      "--diff", str(tmp_path / "missing.json"),
+                                      "--include-unenriched", "--count-only"])
+    assert permit_enrich.main() == 0
+    assert capsys.readouterr().out.strip() == "1"  # only tik 2; diff file absent
+    # count-only must not modify the mirror file
+    assert "publication_start" not in json.loads(mirror.read_text(encoding="utf-8"))["requests"][1]

@@ -196,6 +196,42 @@ jobs:
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
 
+      - name: Self-dispatch next enrichment run while unenriched tiks remain
+        # Issue #145: an enrich backfill run (mode=enrich,
+        # include_unenriched=true) that ends green starts its own successor
+        # via workflow_dispatch - exempt from the GITHUB_TOKEN no-recursion
+        # rule - until no unenriched early-stage tiks remain. Hard stops:
+        # any failed step (this step is skipped), anti-bot marker (enrich
+        # exits 2 -> run red), VPN failure (run red), or the daily run cap
+        # (10 permit-feed runs per UTC day) -> stop and file an issue for a
+        # human instead of dispatching.
+        if: ${{ success() && env.REQ_MODE == 'enrich' && env.REQ_INCLUDE_UNENRICHED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          ARGS=""
+          if [ "${{ env.REQ_INCLUDE_LATE_STAGES }}" = "true" ]; then ARGS="--include-late-stages"; fi
+          REMAINING=$(python3 scripts/vpn/permit_enrich.py --count-only --include-unenriched $ARGS | tail -1)
+          echo "unenriched tiks remaining: $REMAINING"
+          if [ "$REMAINING" -eq 0 ]; then
+            echo "enrichment backfill complete - chain ends"
+            gh issue comment 99 --body "Self-chained enrichment backfill complete ($(date -u +%F)): 0 unenriched early-stage tiks remain (refs #145)." || true
+            exit 0
+          fi
+          TODAY=$(date -u +%F)
+          RUNS=$(gh api "repos/${{ github.repository }}/actions/workflows/permit-feed.yml/runs?created=%3E%3D${TODAY}&per_page=100" --jq '.total_count')
+          echo "permit-feed runs today: $RUNS (cap 10)"
+          if [ "$RUNS" -ge 10 ]; then
+            echo "daily chain cap reached - stopping for a human"
+            if ! gh issue list --search "enrichment chain paused" --state open --json number --jq '.[0].number' | grep -q .; then
+              gh issue create --title "Enrichment chain paused: daily run cap reached"                 --body "Self-chaining enrichment stopped after 10 permit-feed runs in one UTC day (guard, refs #145). $REMAINING unenriched tiks remain. Restart: dispatch permit-feed.yml with mode=enrich, include_unenriched=true."                 --label needs-triage
+            fi
+            exit 0
+          fi
+          gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true             -f include_late_stages="${{ env.REQ_INCLUDE_LATE_STAGES }}"             -f limit="${{ env.REQ_LIMIT }}" -f offset=0
+          echo "dispatched next enrichment run ($REMAINING tiks remaining)"
+
       - name: Tear down tunnel and remove generated secret material
         if: always()
         run: sudo python3 scripts/vpn/l2tp.py down
