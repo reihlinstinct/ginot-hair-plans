@@ -44,6 +44,13 @@
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
+  "101-0064295": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2014-09-09",
+   "land_plan_id": 1013946,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
   "101-0068593": {
    "land_status": "פרסום לתוקף בעיתונים",
    "land_status_date": "2014-08-11",
@@ -1824,7 +1831,7 @@
   },
   "101-1386671": {
    "land_status": "פרסום להפקדה בעיתונים",
-   "land_status_date": "2026-10-15",
+   "land_status_date": "2026-10-16",
    "land_plan_id": 1057219,
    "land_city": "ירושלים",
    "is_deposit_publication": true
@@ -1852,7 +1859,7 @@
   },
   "101-1417328": {
    "land_status": "פרסום לתוקף בעיתונים",
-   "land_status_date": "2026-10-15",
+   "land_status_date": "2026-10-16",
    "land_plan_id": 1056376,
    "land_city": "ירושלים",
    "is_deposit_publication": false
@@ -1907,8 +1914,8 @@
    "is_deposit_publication": true
   },
   "101-1526193": {
-   "land_status": "פרסום לתוקף ברשומות",
-   "land_status_date": "2026-10-15",
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-10-16",
    "land_plan_id": 1057106,
    "land_city": "ירושלים",
    "is_deposit_publication": false
