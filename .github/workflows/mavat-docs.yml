@@ -60,7 +60,6 @@ jobs:
           PYTHONUNBUFFERED: "1"
           MAVAT_MP_ID: ${{ inputs.mp_id }}
           MAVAT_PLAN_NUMBER: ${{ inputs.plan_number }}
-          MAVAT_DOC_LIST: data/mavat_doclist_${{ inputs.plan_number }}.json
         run: python3 scripts/vpn/mavat_docs.py
 
       - name: Upload documents artifact

@@ -233,45 +233,89 @@ def main():
             print(json.dumps(report["summary"], ensure_ascii=False), flush=True)
             return 0 if got else 1
 
-        # --- 3. click through document-section tabs, capture downloads ---
-        tab_re = re.compile(r"מסמכים|רקע|הערות|מטעם המנהל|הוראות|תשריט|נספח|הורדה|zip", re.I)
-        seen_texts = set()
-        clickables = page.locator("a, button, [role='tab'], [role='button'], li, span, div").all()
-        candidates = []
-        for el in clickables[:1500]:
-            try:
-                if not el.is_visible():
-                    continue
-                t = (el.inner_text() or "").strip()
-                if 0 < len(t) <= 40 and tab_re.search(t) and t not in seen_texts:
-                    seen_texts.add(t)
-                    candidates.append((t, el))
-            except Exception:
-                continue
-        print(f"click candidates: {len(candidates)}", flush=True)
+        # --- 3. expand the documents accordion and click every download
+        #     affordance, so each request is issued by the page itself ---
+        req_log = []
 
-        for t, el in candidates[:18]:
-            entry = {"text": t, "download": None, "ok": False}
+        def on_request(req):
             try:
-                try:
-                    with page.expect_download(timeout=20000) as dl_info:
-                        el.click(timeout=8000)
-                    dl = dl_info.value
-                    path = OUT / "zips" / safe_name(dl.suggested_filename)
-                    path.parent.mkdir(parents=True, exist_ok=True)
-                    dl.save_as(str(path))
-                    entry["download"] = path.name
-                    entry["ok"] = True
-                    print(f"download captured via tab {t!r}", flush=True)
-                except Exception:
-                    el.click(timeout=8000)
-                    entry["ok"] = True
-                time.sleep(PACE_S)
-                shot = OUT / f"after_click_{len(report['clicks'])}.png"
-                page.screenshot(path=str(shot), full_page=False)
+                if "ttacments" in req.url:
+                    req_log.append({"method": req.method, "url": req.url[:400],
+                                    "post": (req.post_data or "")[:400]})
+            except Exception:
+                pass
+
+        page.on("request", on_request)
+
+        def click_text(pattern, exact=False, wait=3):
+            try:
+                loc = page.get_by_text(re.compile(pattern), exact=exact).first
+                loc.click(timeout=9000)
+                time.sleep(wait)
+                return True
             except Exception as exc:
-                entry["error"] = type(exc).__name__
-            report["clicks"].append(entry)
+                report["failures"].append({"stage": "expand", "pattern": pattern,
+                                           "error": type(exc).__name__})
+                return False
+
+        # the documents accordion and the background-docs category inside it
+        click_text(r"^מסמכי התכנית$")
+        page.screenshot(path=str(OUT / "expanded_docs.png"), full_page=True)
+        click_text(r"מסמכי רקע לתכנית")
+        page.screenshot(path=str(OUT / "expanded_bg.png"), full_page=True)
+
+        # collect short visible texts for the artifact (page structure log)
+        try:
+            texts = page.locator("a, button, [role='tab'], [role='button'], span, div").all_inner_texts()
+            short = sorted({t.strip() for t in texts if 0 < len(t.strip()) <= 60})
+            save_body(".", "visible_texts.txt", ("\n".join(short)).encode("utf-8"))
+        except Exception:
+            pass
+
+        # brute-force: click every visible download affordance and capture
+        # whatever downloads; the page issues its own requests, so URLs and
+        # headers are exactly the site's own
+        seen_clicks = set()
+        done_clicks = 0
+        for selector in ["a", "button", "img", "span", "div"]:
+            for el in page.locator(selector).all():
+                if done_clicks >= 45:
+                    break
+                try:
+                    if not el.is_visible():
+                        continue
+                    desc = ((el.get_attribute("title") or "") + " " +
+                            (el.get_attribute("href") or "") + " " +
+                            (el.get_attribute("src") or "") + " " +
+                            (el.get_attribute("class") or "") + " " +
+                            (el.inner_text() or "")[:30])
+                    if not re.search(r"הורד|pdf|zip|PDF|ZIP|attach|download|מסמך", desc, re.I):
+                        continue
+                    if desc in seen_clicks:
+                        continue
+                    seen_clicks.add(desc)
+                    try:
+                        with page.expect_download(timeout=15000) as dl_info:
+                            el.click(timeout=6000)
+                        dl = dl_info.value
+                        path = OUT / "zips" / safe_name(dl.suggested_filename)
+                        path.parent.mkdir(parents=True, exist_ok=True)
+                        dl.save_as(str(path))
+                        downloaded_names.add(path.name)
+                        report["downloads"].append({"file": path.name, "via": desc[:80]})
+                        print(f"download: {path.name}", flush=True)
+                    except Exception:
+                        pass
+                    done_clicks += 1
+                    time.sleep(PACE_S)
+                except Exception:
+                    continue
+            if done_clicks >= 45:
+                break
+
+        # learned request shapes go to the artifact (public URLs only)
+        save_body(".", "attacments_requests.json",
+                  json.dumps(req_log, ensure_ascii=False, indent=1).encode("utf-8"))
 
         # admin-comments tab text (if visible anywhere on the page)
         try:
