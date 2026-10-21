@@ -50,6 +50,10 @@ tr.filtered-out{display:none}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list li{margin:4px 0}
+.ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
+.review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
+.review-body h1{font-size:22px}.review-body h2{font-size:18px;margin-top:18px}.review-body h3{font-size:16px}
+.review-body li{margin:4px 0}
 #urgent-list li{margin:4px 0}
 #datasets-list li{margin:4px 0}
 footer{margin-top:24px;padding-top:10px;border-top:1px solid #dde4f6;font-size:13px;color:#555}
@@ -651,6 +655,29 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 </body></html>"""
 
 
+def render_review(pl_number: str, md_text: str, generated: str, council_name: str) -> str:
+    """Render a plan's AI talking-points markdown as a styled site page
+    (issue #177). The .md stays the source of truth in the repo; the site
+    render converts it - no separate Action. Clearly labelled AI content."""
+    import markdown
+    body = markdown.markdown(md_text, extensions=["tables", "fenced_code", "sane_lists"])
+    return f"""<!DOCTYPE html>
+<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>סקירת AI - תכנית {_e(pl_number)}</title>
+<link rel="stylesheet" href="../style.css"></head><body>
+<div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
+מתוך מסמכי התכנית הרשמיים. התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
+<article class="review-body">
+{body}
+</article>
+<p><a href="../index.html">חזרה לעמוד הראשי</a> &middot; עודכן: {_e(generated)}</p>
+<footer dir="rtl"><p>
+אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
+</p></footer>
+</body></html>"""
+
+
 def render_sources(generated: str, council_name: str) -> str:
     """Data-sources page (issue #173): what each dataset is, where it comes
     from, how often it updates, and where the files live. Generated with the
@@ -712,17 +739,19 @@ def render_feed(changes: list[dict], generated: str, council_name: str, base_url
 def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                 council_name: str = "גינות העיר", base_url: str = "",
                 permits_path: str | None = None, council_geojson: str | None = None,
-                plans_dir: str = "plans",
-                blob_base: str = "https://github.com/reihlinstinct/ginot-hair-plans/blob/main"):
+                plans_dir: str = "plans"):
     import glob
     import os
     import re as _re
     os.makedirs(out_dir, exist_ok=True)
     reviews = {}
+    review_pages = {}
     for path in sorted(glob.glob(os.path.join(plans_dir, "*", "analysis", "talking_points_*.md"))):
         m = _re.fullmatch(r"talking_points_(\d+-\d+)\.md", os.path.basename(path))
         if m:
-            reviews[m.group(1)] = blob_base.rstrip("/") + "/" + path.replace(os.sep, "/")
+            reviews[m.group(1)] = f"reviews/talking_points_{m.group(1)}.html"
+            with open(path, encoding="utf-8") as rf:
+                review_pages[m.group(1)] = rf.read()
     generated = datetime.date.today().isoformat()
     permits = []
     if permits_path:
@@ -743,6 +772,11 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                               base_url=base_url, preview_image=has_img, reviews=reviews,
                               rows_file=f"{out_dir}/rows.html",
                               permits_file=f"{out_dir}/permits.html"))
+    if review_pages:
+        os.makedirs(f"{out_dir}/reviews", exist_ok=True)
+        for pl, md_text in review_pages.items():
+            with open(f"{out_dir}/reviews/talking_points_{pl}.html", "w", encoding="utf-8") as fh:
+                fh.write(render_review(pl, md_text, generated, council_name))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
         fh.write(render_sources(generated, council_name))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:

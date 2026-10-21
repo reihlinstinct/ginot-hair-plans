@@ -299,13 +299,19 @@ def test_ai_review_column(tmp_path):
 def test_ai_review_links_discovered_from_plans_tree(tmp_path):
     pdir = tmp_path / "plans" / "101-1377753" / "analysis"
     pdir.mkdir(parents=True)
-    (pdir / "talking_points_101-1377753.md").write_text("# points", encoding="utf-8")
+    (pdir / "talking_points_101-1377753.md").write_text("# נקודות לדיון\n\n- שימור", encoding="utf-8")
     r = _row(1, "הפקדה")
     r["pl_number"] = "101-1377753"
     out = tmp_path / "out"
     page.render_site([r], [], str(out), plans_dir=str(tmp_path / "plans"))
     html = (out / "index.html").read_text(encoding="utf-8")
-    assert "blob/main/" in html and "talking_points_101-1377753.md" in html
+    # owner decision 2026-10-21 (#177): link the rendered site page, not raw .md
+    assert "reviews/talking_points_101-1377753.html" in html
+    review = (out / "reviews" / "talking_points_101-1377753.html").read_text(encoding="utf-8")
+    assert 'dir="rtl"' in review and "<h1>" in review  # markdown rendered, RTL
+    assert "סקירת AI" in review and "אינו מסמך רשמי" in review  # AI label
+    assert "../index.html" in review  # back link
+    assert "../style.css" in review  # site styling
 
 
 def test_mobile_label_for_ai_review_column(tmp_path):
