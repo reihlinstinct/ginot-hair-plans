@@ -369,3 +369,15 @@ def test_sources_page_generated_and_linked(tmp_path):
     assert "עודכן:" in src  # last-update stamp
     # linked from the main page footer, next to the GitHub link (#173)
     assert '<a href="sources.html">מקורות נתונים</a>' in html
+
+
+def test_changes_section_renders_as_card(tmp_path):
+    page.render_site([_row(1, "הפקדה")],
+                     [{"kind": "new", "pl_number": "1", "pl_name": "x",
+                       "mavat_url": "https://mavat.iplan.gov.il/x"}], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    # owner request 2026-10-21: changes list sits in a card like the urgent row
+    assert '<ul id="changes-list">' in html
+    assert "#changes-list{background:#fff;border:1px solid #dde4f6" in css
+    assert "border-radius:10px" in css

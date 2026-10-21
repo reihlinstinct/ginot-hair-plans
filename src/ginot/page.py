@@ -48,6 +48,8 @@ padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-sha
 #freset,#pfreset{padding:6px 12px}
 tr.filtered-out{display:none}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
+#changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
+#changes-list li{margin:4px 0}
 #urgent-list li{margin:4px 0}
 #datasets-list li{margin:4px 0}
 footer{margin-top:24px;padding-top:10px;border-top:1px solid #dde4f6;font-size:13px;color:#555}
@@ -635,7 +637,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [], rows_file=permits_file)}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
-<h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
+<h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
 <section id="datasets"><h2>מערכי נתונים</h2><ul id="datasets-list"><li>טוען רשימה...</li></ul></section>
 {stats_html}
 <footer dir="rtl"><p>
