@@ -26,6 +26,12 @@ padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-sha
 #freset,#pfreset{padding:6px 12px}
 tr.filtered-out{display:none}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
+#changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
+#changes-list li{margin:4px 0}
+.ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
+.review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
+.review-body h1{font-size:22px}.review-body h2{font-size:18px;margin-top:18px}.review-body h3{font-size:16px}
+.review-body li{margin:4px 0}
 #urgent-list li{margin:4px 0}
 #datasets-list li{margin:4px 0}
 footer{margin-top:24px;padding-top:10px;border-top:1px solid #dde4f6;font-size:13px;color:#555}
