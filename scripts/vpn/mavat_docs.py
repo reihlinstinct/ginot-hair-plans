@@ -385,10 +385,13 @@ def main():
         # those page-issued requests are read from the page's own
         # session (the page downloads ZIPs via XHR, so no browser
         # download event fires); we never replay a captured token.
+        # The page's "preparing file" overlay hangs when the browser
+        # download cannot start headlessly, so it is dismissed after
+        # every click (same effect as a visitor pressing Escape).
         if os.environ.get("MAVAT_FETCH_MODE") == "clickdocs":
             print("clickdocs mode: page-issued downloads only", flush=True)
 
-            seen_bin = set()
+            seen_bin = [0]
 
             def on_binary_response(resp):
                 try:
@@ -400,7 +403,7 @@ def main():
                                      "application/msword",
                                      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"):
                         return
-                    seen_bin.add(len(seen_bin))
+                    seen_bin[0] += 1
                     body = resp.body()
                     if not body or len(body) < 200:
                         return
@@ -409,11 +412,11 @@ def main():
                     base = m.group(1).strip() if m else ""
                     if not base:
                         if body[:4] == b"%PDF":
-                            base = f"page_doc_{len(seen_bin):02d}.pdf"
+                            base = f"page_doc_{seen_bin[0]:02d}.pdf"
                         elif body[:2] == b"PK":
-                            base = f"page_zip_{len(seen_bin):02d}.zip"
+                            base = f"page_zip_{seen_bin[0]:02d}.zip"
                         else:
-                            base = f"page_bin_{len(seen_bin):02d}.bin"
+                            base = f"page_bin_{seen_bin[0]:02d}.bin"
                     fname = safe_name(base)
                     path = OUT / "zips" / fname
                     n = 1
@@ -435,6 +438,24 @@ def main():
             except Exception:
                 pass
 
+            def dismiss_overlays():
+                try:
+                    page.keyboard.press("Escape")
+                except Exception:
+                    pass
+                try:
+                    page.evaluate("""() => {
+                      for (const s of ['.modal-backdrop', '.modal', '.swal2-container',
+                                       '[class*="overlay"]', '[class*="Overlay"]',
+                                       '[class*="spinner"]', '[class*="loader"]']) {
+                        document.querySelectorAll(s).forEach(e => e.remove());
+                      }
+                      document.body.style.overflow = 'auto';
+                      document.documentElement.style.overflow = 'auto';
+                    }""")
+                except Exception:
+                    pass
+
             def expand(label):
                 for el in page.get_by_text(re.compile(f"^{label}$")).all():
                     try:
@@ -450,9 +471,22 @@ def main():
                         continue
                 return False
 
+            def click_and_wait(el, timeout):
+                try:
+                    with page.expect_download(timeout=6000) as dl_info:
+                        el.click(timeout=timeout)
+                    dl = dl_info.value
+                    time.sleep(1)
+                    dismiss_overlays()
+                    return dl
+                except Exception:
+                    time.sleep(2)
+                    dismiss_overlays()
+                    return None
+
             expanded = {}
             for label in ("מסמכי התכנית", "מסמכי מידע מנהלי", "נוסחי פרסום",
-                          "החלטות מוסדות תכנון", "מסמכי רקע לתכנית"):
+                          "מסמכי רקע לתכנית"):
                 expanded[label] = expand(label)
             if not expanded.get("מסמכי רקע לתכנית"):
                 report["failures"].append({"stage": "expand", "pattern": "מסמכי רקע לתכנית",
@@ -472,40 +506,11 @@ def main():
                 pass
             page.screenshot(path=str(OUT / "clickdocs_expanded.png"), full_page=True)
 
-            def click_and_wait(el, timeout):
-                try:
-                    with page.expect_download(timeout=6000) as dl_info:
-                        el.click(timeout=timeout)
-                    return dl_info.value
-                except Exception:
-                    return None
-
-            idx = 0
-            zloc = page.get_by_text(re.compile("הורדת קבצים ב ZIP"))
-            i = 0
-            while i < zloc.count():
-                try:
-                    el = zloc.nth(i)
-                    if not el.is_visible():
-                        i += 1
-                        continue
-                    idx += 1
-                    dl = click_and_wait(el, 6000)
-                    if dl:
-                        path = OUT / "zips" / f"cat{idx:02d}_" + safe_name(dl.suggested_filename)
-                        path.parent.mkdir(parents=True, exist_ok=True)
-                        dl.save_as(str(path))
-                        downloaded_names.add(path.name)
-                        report["downloads"].append({"file": path.name, "via": "category_zip",
-                                                    "bytes": path.stat().st_size})
-                        print(f"download: {path.name}", flush=True)
-                    time.sleep(3)
-                except Exception:
-                    pass
-                i += 1
-
-            # decisions accordion: open any per-document links it shows
+            # decisions first (before any ZIP click can hang the page):
+            # expand החלטות מוסדות תכנון, then open the docs it lists
             try:
+                expand("החלטות מוסדות תכנון")
+                time.sleep(1)
                 page.screenshot(path=str(OUT / "clickdocs_meetings.png"), full_page=True)
                 idx2 = 0
                 for selector in ["a[href*='Attacments']", "a[href*='eid=']",
@@ -513,18 +518,46 @@ def main():
                                  "i[title*='הורד']", "span[title*='הורד']",
                                  "img[src*='pdf' i]", "img[alt*='PDF' i]",
                                  "[title*='צפיה']", "[title*='צפי']"]:
-                    for el in page.locator(selector).all():
+                    dloc = page.locator(selector)
+                    j = 0
+                    while j < dloc.count():
                         try:
-                            if not el.is_visible():
-                                continue
-                            idx2 += 1
-                            click_and_wait(el, 5000)
-                            time.sleep(2)
+                            el = dloc.nth(j)
+                            if el.is_visible():
+                                idx2 += 1
+                                click_and_wait(el, 5000)
+                                time.sleep(2)
                         except Exception:
-                            continue
+                            pass
+                        j += 1
             except Exception as exc:
                 report["failures"].append({"stage": "meetings_tab",
                                            "error": type(exc).__name__})
+
+            # every visible category ZIP link: each is a distinct
+            # page-issued download of one document category
+            idx = 0
+            zloc = page.get_by_text(re.compile("הורדת קבצים ב ZIP"))
+            i = 0
+            while i < zloc.count():
+                try:
+                    el = zloc.nth(i)
+                    if el.is_visible():
+                        idx += 1
+                        dl = click_and_wait(el, 6000)
+                        if dl:
+                            path = OUT / "zips" / f"cat{idx:02d}_" + safe_name(dl.suggested_filename)
+                            path.parent.mkdir(parents=True, exist_ok=True)
+                            dl.save_as(str(path))
+                            downloaded_names.add(path.name)
+                            report["downloads"].append({"file": path.name, "via": "category_zip",
+                                                        "bytes": path.stat().st_size})
+                            print(f"download: {path.name}", flush=True)
+                        time.sleep(2)
+                except Exception:
+                    pass
+                i += 1
+            page.screenshot(path=str(OUT / "clickdocs_end.png"), full_page=True)
 
             # let page-issued XHR downloads settle before closing
             try:
