@@ -597,6 +597,10 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <title>תכניות במינהל הקהילתי {_e(council_name)}</title>
 <link rel="alternate" type="application/atom+xml" href="feed.xml">
 {_social_meta(council_name, base_url, preview_image)}
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css"></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
@@ -669,7 +673,10 @@ _SOURCES_ROWS = [
 _SOURCES_REDIRECT = """<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta http-equiv="refresh" content="0; url=about.html">
-<title>מקורות נתונים</title></head>
+<title>מקורות נתונים</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"></head>
 <body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
 """
 
@@ -699,6 +706,10 @@ def render_about(generated: str, council_name: str) -> str:
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>אודות ומקורות נתונים - {_e(council_name)}</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css"></head><body>
 <h1>אודות האתר</h1>
 <p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
@@ -712,6 +723,22 @@ def render_about(generated: str, council_name: str) -> str:
 <tbody>{rows}</tbody></table>
 <h2>מערכי נתונים</h2>
 <ul id="datasets-list"><li>טוען רשימה...</li></ul>
+<h2>גישה לנתונים (API)</h2>
+<p>הנתונים זמינים כקבצים סטטיים (JSON / Atom) לשימוש חופשי, עם CORS פתוח.
+אין שאילתות צד-שרת - הסינון מתבצע אצל הלקוח. כל הקבצים מתעדכנים בכל רענון
+של האתר (רענון שבועי ורענונים ידניים).</p>
+<table id="plans"><thead><tr><th>קובץ</th><th>תוכן</th><th>מבנה</th></tr></thead><tbody>
+<tr><td><a href="data.json">data.json</a></td><td>מערך הנתונים המלא: תכניות, שינויים אחרונים ובקשות היתר</td>
+<td>{{generated, rows[], changes[], permits[]}} - שמות השדות כפי שהגיעו מ-iplan / איתור הנתונים ברישוי</td></tr>
+<tr><td><a href="open.json">open.json</a></td><td>תכניות פתוחות בלבד (עדיין בתהליך תכנוני)</td>
+<td>{{generated, definition, count, plans[]}} - כל רשומה כוללת in_objection_period (חלון התנגדויות פתוח היום)</td></tr>
+<tr><td><a href="feed.xml">feed.xml</a></td><td>פיד Atom של תכניות חדשות ושינויים</td><td>Atom 1.0</td></tr>
+<tr><td><a href="badge/plans.json">badge/*.json</a></td><td>נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)</td>
+<td>{{schemaVersion, label, message, color}}</td></tr>
+<tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
+<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status</td>
+<td>JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)</td></tr>
+</tbody></table>
 <h2>פרטיות</h2>
 <p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
 (למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
@@ -738,6 +765,10 @@ def render_review(pl_number: str, md_text: str, generated: str, council_name: st
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירת AI - תכנית {_e(pl_number)}</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="../style.css"></head><body>
 <div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
 מתוך מסמכי התכנית הרשמיים. התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
@@ -811,3 +842,18 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
         json.dump({"generated": generated, "rows": rows, "changes": changes,
                    "permits": permits}, fh, ensure_ascii=False)
+    # Public "open plans" endpoint (owner request 2026-10-21): plans still in
+    # the planning process (definition A: station_desc is not "אישור"), with a
+    # public flag for an open objection window. sort_rows above already
+    # annotated _open_obj for every row.
+    open_rows = []
+    for r in rows:
+        if _is_active(r):
+            rr = dict(r)
+            rr["in_objection_period"] = bool(r.get("_open_obj"))
+            open_rows.append(rr)
+    with open(f"{out_dir}/open.json", "w", encoding="utf-8") as fh:
+        json.dump({"generated": generated,
+                   "definition": "station_desc != 'אישור' - תכניות שעדיין בתהליך תכנוני",
+                   "count": len(open_rows), "plans": open_rows},
+                  fh, ensure_ascii=False)
