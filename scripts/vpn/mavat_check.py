@@ -207,22 +207,58 @@ def main():
             if i:
                 time.sleep(PACE_SECONDS)
             num, mp_id = p["plan_number"], p["mp_id"]
-            try:
-                info = scrape_plan(page, mp_id, num)
-            except RuntimeError as exc:
-                msg = str(exc)
-                if "hard_challenge" in msg or "no_plan_content" in msg:
-                    print(f"{num}: {msg} - stopping (no workaround)")
-                    browser.close()
-                    return 2
-                raise
-            except Exception as exc:
-                failures += 1
-                print(f"{num}: failed ({exc}); {failures} consecutive")
-                if failures >= 4:
-                    print("aborting: repeated failures")
-                    browser.close()
-                    return 1
+            info = None
+            last_msg = ""
+            for attempt in range(3):
+                try:
+                    info = scrape_plan(page, mp_id, num)
+                    break
+                except RuntimeError as exc:
+                    msg = str(exc)
+                    if "hard_challenge" in msg:
+                        print(f"{num}: {msg} - stopping (no workaround)")
+                        browser.close()
+                        return 2
+                    if "no_plan_content" in msg:
+                        last_msg = msg
+                        # A single plan returning an empty shell after many
+                        # successful loads is per-plan flakiness, not a block.
+                        # Retry with a fresh page; only stop if it persists
+                        # across plans (handled by the consecutive counter).
+                        if attempt < 2:
+                            print(f"{num}: {msg} - retry {attempt + 1}/2 with fresh page")
+                            try:
+                                page.close()
+                            except Exception:
+                                pass
+                            page = ctx.new_page()
+                            time.sleep(5)
+                            continue
+                    raise
+                except Exception as exc:
+                    failures += 1
+                    print(f"{num}: failed ({exc}); {failures} consecutive")
+                    if failures >= 4:
+                        print("aborting: repeated failures")
+                        browser.close()
+                        return 1
+                    break
+            if info is None:
+                if last_msg:
+                    failures += 1
+                    print(f"{num}: persistent no_plan_content after retries; "
+                          f"recording error and continuing ({failures} consecutive)")
+                    prev = old.get(num, {})
+                    entry = {"mp_id": mp_id, "error": last_msg}
+                    if prev.get("fingerprint"):
+                        entry["fingerprint"] = prev["fingerprint"]
+                        entry["station_text"] = prev.get("station_text", "")
+                        entry["deadline_text"] = prev.get("deadline_text", "")
+                    result[num] = entry
+                    if failures >= 4:
+                        print("aborting: repeated failures")
+                        browser.close()
+                        return 1
                 continue
             failures = 0
             prev = old.get(num, {})
