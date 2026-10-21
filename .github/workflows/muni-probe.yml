@@ -73,6 +73,12 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python3 scripts/vpn/muni_api_probe2.py
 
+      - name: Probe public SPA API v3 (file-number variants)
+        if: inputs.mode == 'api3'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 scripts/vpn/muni_api_probe3.py
+
       - name: Upload probe artifact
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
