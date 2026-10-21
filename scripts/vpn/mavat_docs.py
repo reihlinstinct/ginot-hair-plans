@@ -509,9 +509,25 @@ def main():
             # decisions first (before any ZIP click can hang the page):
             # expand החלטות מוסדות תכנון, then open the docs it lists
             try:
-                expand("החלטות מוסדות תכנון")
-                time.sleep(1)
+                if not expand("החלטות מוסדות תכנון"):
+                    for el in page.get_by_text(re.compile("החלטות מוסדות")).all():
+                        try:
+                            if not el.is_visible():
+                                continue
+                            el.scroll_into_view_if_needed(timeout=4000)
+                            time.sleep(0.5)
+                            el.evaluate("e => e.click()")
+                            break
+                        except Exception:
+                            continue
+                time.sleep(3)
                 page.screenshot(path=str(OUT / "clickdocs_meetings.png"), full_page=True)
+                try:
+                    body_txt = page.inner_text("body")
+                    k = body_txt.find("החלטות מוסדות")
+                    report["decisions_region_text"] = body_txt[k:k+1500] if k >= 0 else "header not found"
+                except Exception:
+                    pass
                 idx2 = 0
                 for selector in ["a[href*='Attacments']", "a[href*='eid=']",
                                  "img[title*='הורד']", "a[title*='הורד']",
@@ -542,6 +558,18 @@ def main():
             while i < zloc.count():
                 try:
                     el = zloc.nth(i)
+                    if not el.is_visible():
+                        # the מסמכים מופקדים panel may have collapsed
+                        # mid-loop; reopen it and retry once
+                        try:
+                            for dd in page.get_by_text(re.compile("מסמכים מופקדים")).all():
+                                if dd.is_visible():
+                                    dd.click(timeout=4000)
+                                    break
+                            time.sleep(1.5)
+                        except Exception:
+                            pass
+                        el = zloc.nth(i)
                     if el.is_visible():
                         idx += 1
                         dl = click_and_wait(el, 6000)
@@ -559,12 +587,87 @@ def main():
                 i += 1
             page.screenshot(path=str(OUT / "clickdocs_end.png"), full_page=True)
 
-            # let page-issued XHR downloads settle before closing
+            # let page-issued XHR downloads settle
             try:
                 page.wait_for_load_state("networkidle", timeout=15000)
             except Exception:
                 pass
             time.sleep(3)
+
+            # in-page fetch fallback: ask the page's own JS session for
+            # each committed eid the UI clicks could not reach (same
+            # request the page issues when a visitor opens the document
+            # link; no token replay, no new endpoint)
+            import base64 as _b64
+            from urllib.parse import quote as _quote
+
+            def inpage_get(eid, name):
+                fn_variants = [f"{PLAN}_{name}.pdf", f"DOC_{eid}.pdf", ""]
+                for fn in fn_variants:
+                    url = (f"{BASE}/rest/api/Attacments/?eid={eid}"
+                           f"&fn={_quote(fn)}&edn=temp-default&pn={PLAN}")
+                    try:
+                        res = page.evaluate("""async (url) => {
+                          const r = await fetch(url, {credentials: 'include'});
+                          const b = await r.arrayBuffer();
+                          const u8 = new Uint8Array(b);
+                          let s = '';
+                          for (let i = 0; i < u8.length; i += 65536) {
+                            s += String.fromCharCode.apply(null, u8.subarray(i, i + 65536));
+                          }
+                          return {status: r.status, ctype: r.headers.get('content-type') || '', b64: btoa(s)};
+                        }""", url)
+                    except Exception as exc:
+                        report["failures"].append({"stage": "inpage_fetch", "doc": name,
+                                                   "error": type(exc).__name__})
+                        return False
+                    body = _b64.b64decode(res["b64"]) if res.get("b64") else b""
+                    if res.get("status") != 200 or not body:
+                        continue
+                    low = body[:200000].lower()
+                    if any(m.encode() in low for m in CHALLENGE_MARKERS):
+                        raise Challenge()
+                    if body[:4] == b"%PDF":
+                        ext = ".pdf"
+                    elif body[:2] == b"PK":
+                        ext = ".zip"
+                    elif body[:8].startswith(b"\xd0\xcf\x11\xe0"):
+                        ext = ".xls"
+                    else:
+                        continue
+                    fname = safe_name(f"{PLAN}_{name}") + ext
+                    path = OUT / "zips" / fname
+                    n = 1
+                    while path.exists():
+                        path = OUT / "zips" / f"{n}_{fname}"
+                        n += 1
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(body)
+                    downloaded_names.add(path.name)
+                    report["downloads"].append({"file": path.name, "via": "inpage_fetch",
+                                                "eid": eid, "bytes": len(body)})
+                    print(f"inpage {path.name} ({len(body)} bytes)", flush=True)
+                    return True
+                return False
+
+            extra_lists = []
+            if doc_list_path:
+                extra_lists.append(doc_list_path)
+            dec_path = os.environ.get("MAVAT_DEC_LIST",
+                                      f"data/mavat_declist_{PLAN}.json")
+            if os.path.exists(dec_path):
+                extra_lists.append(dec_path)
+            for lp in extra_lists:
+                try:
+                    with open(lp, encoding="utf-8") as fh:
+                        for d in json.load(fh)["docs"]:
+                            time.sleep(PACE_S)
+                            inpage_get(str(d["id"]), d["name"])
+                except Challenge:
+                    raise
+                except Exception as exc:
+                    report["failures"].append({"stage": "inpage_list", "list": lp,
+                                               "error": type(exc).__name__})
 
             browser.close()
             got = len(downloaded_names)
