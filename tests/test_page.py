@@ -272,3 +272,13 @@ def test_datasets_section_loads_index(tmp_path):
     assert 'id="datasets-list"' in html
     assert "fetch('index.json')" in html
     assert "מערכי נתונים" in html
+
+
+def test_stylesheet_uses_approved_ginothair_palette(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    # approved 2026-10-21 (#154): ginothair.org.il-inspired palette
+    assert "#101f5b" in css and "#51b89a" in css and "#f3f6ff" in css
+    assert "#c8a4de" in css and "#00a8cf" in css and "#6db633" in css
+    # mobile sort-header chips stay readable (white bg, mint border, navy text)
+    assert "#plans thead th{display:block;background:#fff" in css
