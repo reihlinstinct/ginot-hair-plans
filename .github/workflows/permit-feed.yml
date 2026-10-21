@@ -9,12 +9,18 @@ name: Jerusalem permit feed pilot (VPN)
 # commented until a green manual run, per the owner's gate. On any
 # anti-bot challenge the run stops red (no workaround).
 #
-# Backfill schedule ENABLED 2026-10-19 (owner approval): one 280-parcel
-# batch nightly at 03:00 UTC until all parcels are covered, then the job
-# prints "backfill complete" and no-ops until the cron is switched to the
-# approved weekly rotating re-scan (follow-up PR). Offset advances from
-# the batch cursor in data/permit_requests.json; manual dispatch with
-# explicit limit/offset always overrides.
+# Backfill schedule ENABLED 2026-10-19 (owner approval; second daily
+# window added 2026-10-21, issue #211): 280-parcel batches at 03:00 and
+# 09:00 UTC (06:00/12:00 Israel; both shift one hour when Israel DST
+# ends) until all parcels are covered, then the job prints "backfill
+# complete" and no-ops until the cron is switched to the approved weekly
+# rotating re-scan (follow-up PR). Offset advances from the batch cursor
+# in data/permit_requests.json, resolved at run start, so the two
+# windows never double-scan; checkpoints survive runner loss (#155).
+# 280 parcels per window is the size that fits the 355-min job timeout
+# at the measured 60-90 parcels/hour; a single bigger batch does not
+# (#147, PR #148). Manual dispatch with explicit limit/offset always
+# overrides.
 
 on:
   # Backfill request by code (issue #102): editing data/backfill_request.json
@@ -25,7 +31,8 @@ on:
     paths:
       - data/backfill_request.json
   schedule:
-    - cron: "0 3 * * *"   # nightly 03:00 UTC backfill batch
+    - cron: "0 3 * * *"   # daily backfill batch 1, 03:00 UTC (06:00 Israel)
+    - cron: "0 9 * * *"   # daily backfill batch 2, 09:00 UTC (12:00 Israel) - issue #211
   workflow_dispatch:
     inputs:
       mode:

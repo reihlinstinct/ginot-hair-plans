@@ -141,8 +141,9 @@ Examples (use `-G` + `--data-urlencode` so Hebrew values are URL-encoded):
 Limitations: no server-side joins or aggregation (filtering is substring
 matching on the fields above; anything richer happens client-side over
 `data.json`); objection deadlines are derived estimates, not legal dates;
-the permit dataset is a work-in-progress parcel scan (see the permits
-section caveat on the site); the rate limit is best-effort, not contractual.
+the permit dataset is a work-in-progress parcel scan, backfilled in two
+280-parcel windows daily (03:00 + 09:00 UTC) until all 4,739 parcels are
+covered (see the permits section caveat on the site); the rate limit is best-effort, not contractual.
 
 ### גישה לנתונים (API) - תקציר
 

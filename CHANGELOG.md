@@ -5,6 +5,10 @@ issue + PR record in this repo.
 
 ## 2026-10-21
 
+- Permit scan backfill doubled: two 280-parcel windows daily, 03:00 +
+  09:00 UTC (06:00/12:00 Israel); same cursor/checkpoint logic, no
+  double-scanning, enrichment runs share the single queue (#211, PR #212).
+
 - Site restyled in the Ginot HaIr palette (navy/mint), owner-approved mockup (#154, PR #161).
 - Plans table: inside/partial column hidden (filter kept); new "סקירת AI"
   column linking plans that have an AI-generated review (#162, PR #163).
