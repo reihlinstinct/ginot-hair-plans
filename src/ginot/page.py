@@ -15,6 +15,7 @@ import html
 import json
 import urllib.parse as _urlparse_mod
 
+URGENT_DAYS = 30  # objection-window days for the urgent row (issue #153)
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
 DEPOSIT_MARK = "הפקדה"
 COLLAPSE_TOP = 20
@@ -168,6 +169,31 @@ document.querySelectorAll('.legend .chip').forEach(function(c){
   });
 });
 resort();
+var URGENT_DAYS=30;
+function _todayIL(){
+  var q=new URLSearchParams(location.search).get('today');
+  if(q&&/^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/.test(q))return q;
+  try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jerusalem'}).format(new Date());}
+  catch(e){return new Date().toISOString().slice(0,10);}
+}
+function _esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function _renderUrgent(){
+  var ul=document.getElementById('urgent-list');if(!ul)return;
+  var t=_todayIL(),tms=Date.parse(t+'T00:00:00Z'),items=[];
+  rows.forEach(function(r){
+    var d=r.getAttribute('data-obj');if(!d)return;
+    var dd=Math.round((Date.parse(d+'T00:00:00Z')-tms)/86400000);
+    if(dd<0||dd>URGENT_DAYS)return;
+    var a=r.querySelector('td a');
+    items.push({dd:dd,href:a?a.getAttribute('href'):'',num:r.getAttribute('data-num')||'',
+      name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
+  });
+  items.sort(function(a,b){return a.dd-b.dd;});
+  ul.innerHTML=items.length?items.map(function(it){
+    return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
+           ' - \u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05ea\u05e0\u05d2\u05d3\u05d5\u05ea (\u05de\u05e9\u05d5\u05e2\u05e8): '+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+}
+_renderUrgent();
 })();
 """
 
@@ -493,7 +519,24 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
         r["_is_new"] = r["pl_number"] in new_ids
     body = "\n".join(tr(r) for r in rows)
     stats_html = stats_section(rows)
-    urgent = [r for r in rows if r.get("advisory_urgent")]
+    # Urgent = derived objection deadline within [0, URGENT_DAYS] of the
+    # generation date; the browser recomputes the same window at page load
+    # against "today" in Asia/Jerusalem, so the row stays current between
+    # refreshes with no Action (issue #153).
+    gen_d = datetime.date.fromisoformat(generated)
+
+    def _urgent_window(r):
+        iso = _iso(r["objection_deadline_derived_60d_from_publication"])
+        if not iso:
+            return False
+        try:
+            dd = (datetime.date.fromisoformat(iso) - gen_d).days
+        except ValueError:
+            return False
+        return 0 <= dd <= URGENT_DAYS
+
+    urgent = sorted((r for r in rows if _urgent_window(r)),
+                    key=lambda r: _iso(r["objection_deadline_derived_60d_from_publication"]))
     urgent_html = "".join(
         f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
         f"אחרון להתנגדות (משוער): {_e(_fmt(r['objection_deadline_derived_60d_from_publication']))}</li>"
@@ -542,7 +585,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [])}
-<h2>דחוף להתנגדות</h2><ul>{urgent_html}</ul>
+<h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 {stats_html}
 <footer dir="rtl"><p>

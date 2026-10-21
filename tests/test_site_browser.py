@@ -312,3 +312,28 @@ def test_desktop_keeps_the_table_layout(browser, site):
     pg.goto((site / "index.html").as_uri())
     assert pg.evaluate("getComputedStyle(document.querySelector('#plans')).display") == "table"
     ctx.close()
+
+
+def test_urgent_row_matches_deadline_window(browser, site):
+    import re
+    html_src = (site / "index.html").read_text(encoding="utf-8")
+    deadlines = re.findall(r"data-obj='([0-9]{4}-[0-9]{2}-[0-9]{2})'", html_src)
+    expected = sorted(d for d in deadlines
+                      if 0 <= (datetime.date.fromisoformat(d) - TODAY).days <= 30)
+    assert expected, "fixture must include plans inside the urgent window"
+    pg = browser.new_page()
+    pg.goto((site / "index.html").as_uri() + "?today=" + TODAY.isoformat())
+    items = pg.locator("#urgent-list li").all_inner_texts()
+    pg.close()
+    assert len(items) == len(expected)
+    d = expected[0]
+    assert f"{d[8:10]}.{d[5:7]}.{d[0:4]}" in items[0]  # nearest deadline first
+
+
+def test_urgent_row_empties_once_window_passes(browser, site):
+    pg = browser.new_page()
+    pg.goto((site / "index.html").as_uri() + "?today=" +
+            (TODAY + datetime.timedelta(days=40)).isoformat())
+    items = pg.locator("#urgent-list li").all_inner_texts()
+    pg.close()
+    assert items == ["אין"]
