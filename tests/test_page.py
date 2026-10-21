@@ -266,12 +266,11 @@ def test_urgent_client_side_machinery(tmp_path):
     assert "get('today')" in html            # ?today=YYYY-MM-DD test/QA hook
 
 
-def test_datasets_section_loads_index(tmp_path):
+def test_today_hook_and_timezone(tmp_path):
     page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    assert 'id="datasets-list"' in html
-    assert "fetch('index.json')" in html
-    assert "מערכי נתונים" in html
+    assert "Asia/Jerusalem" in html          # today resolved in the site's timezone
+    assert "get('today')" in html            # ?today=YYYY-MM-DD test/QA hook
 
 
 def test_inside_column_hidden_but_filterable(tmp_path):
@@ -364,17 +363,24 @@ def test_permits_table_is_slim_and_full_set_ships_as_permits_html(tmp_path):
     assert "<noscript>" in html and "20 הבקשות הראשונות" in html
 
 
-def test_sources_page_generated_and_linked(tmp_path):
+def test_about_page_combines_sources_and_datasets(tmp_path):
+    # owner request 2026-10-21: datasets move off index into the About page
     page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
-    src = (tmp_path / "sources.html").read_text(encoding="utf-8")
+    about = (tmp_path / "about.html").read_text(encoding="utf-8")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    assert "מקורות נתונים" in src
+    redir = (tmp_path / "sources.html").read_text(encoding="utf-8")
     for source in ("iplan", "land.gov.il", 'מאב"ת', "רישוי", "geojson"):
-        assert source in src, source
-    assert "רענון שבועי" in src  # cadence stated
-    assert "עודכן:" in src  # last-update stamp
-    # linked from the main page footer, next to the GitHub link (#173)
-    assert '<a href="sources.html">מקורות נתונים</a>' in html
+        assert source in about, source
+    assert "רענון שבועי" in about and "עודכן:" in about
+    assert "יוזמה עצמאית" in about and "פרטיות" in about  # about content kept
+    assert 'id="datasets-list"' in about and "fetch('index.json')" in about
+    assert "מערכי נתונים" in about
+    # index no longer carries the datasets section
+    assert 'id="datasets-list"' not in html and "fetch('index.json')" not in html
+    # footer links the combined page
+    assert '<a href="about.html">אודות ומקורות נתונים</a>' in html
+    # the short-lived sources.html URL stays valid as a redirect
+    assert "url=about.html" in redir
 
 
 def test_changes_section_renders_as_card(tmp_path):

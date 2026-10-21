@@ -213,16 +213,6 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
   resort();_renderUrgent();
   window.__rowsLoaded=true;
 }).catch(function(){window.__rowsFailed=true;});
-fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
-  var ul=document.getElementById('datasets-list');if(!ul)return;
-  ul.innerHTML=(ix.datasets||[]).map(function(d){
-    return '<li><a href="'+_esc(d.url)+'">'+_esc(d.name)+'</a>'+
-      (d.records!=null?' - '+d.records+' \u05e8\u05e9\u05d5\u05de\u05d5\u05ea':'')+'</li>';
-  }).join('')||'<li>\u05d0\u05d9\u05df</li>';
-}).catch(function(){
-  var ul=document.getElementById('datasets-list');
-  if(ul)ul.innerHTML='<li>\u05e8\u05e9\u05d9\u05de\u05ea \u05de\u05e2\u05e8\u05db\u05d9 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05dc\u05d0 \u05d6\u05de\u05d9\u05e0\u05d4 \u05db\u05e8\u05d2\u05e2 - \u05d9\u05d9\u05ea\u05db\u05df \u05e9\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d1\u05e2\u05de\u05d5\u05d3 \u05d0\u05d9\u05e0\u05dd \u05de\u05e2\u05d5\u05d3\u05db\u05e0\u05d9\u05dd</li>';
-});
 })();
 """
 
@@ -642,16 +632,99 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 {_permits_section(permits or [], rows_file=permits_file)}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
-<section id="datasets"><h2>מערכי נתונים</h2><ul id="datasets-list"><li>טוען רשימה...</li></ul></section>
 {stats_html}
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
-&middot; <a href="sources.html">מקורות נתונים</a>
-&middot; <a href="about.html">אודות</a>
+&middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p></footer>
 <script>{_JS}{_PERMITS_JS}</script>
+</body></html>"""
+
+
+_SOURCES_ROWS = [
+    ("תכניות במינהל", "שירות התכנון הציבורי (iplan), מנהל התכנון",
+     "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
+     "רענון שבועי (יום שלישי) ורענונים ידניים",
+     '<a href="data.json">data.json</a>'),
+    ("פרסומי הפקדה", "land.gov.il - מינהל מקרקעי ישראל",
+     "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
+     "רענון שבועי",
+     '<a href="https://land.gov.il">land.gov.il</a>'),
+    ("בקשות היתר", "איתור נתונים ברישוי, עיריית ירושלים",
+     "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
+     "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
+     '<a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a>'),
+    ("מסמכי תכנית וסקירות AI", 'מאב"ת - מערכת איתור בינוי ותכניות',
+     "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
+     "לפי צורך, לתכניות נבחרות",
+     '<a href="https://mavat.iplan.gov.il/">מאב"ת</a>'),
+    ("גבול המינהל", "קובץ גבול גיאוגרפי במאגר",
+     "פוליגון שטח המינהל הקהילתי (geojson)",
+     "עדכון ידני בשינוי גבול",
+     '<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a>'),
+]
+
+_SOURCES_REDIRECT = """<!DOCTYPE html>
+<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=about.html">
+<title>מקורות נתונים</title></head>
+<body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
+"""
+
+_DATASETS_JS = """
+fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
+  var ul=document.getElementById('datasets-list');if(!ul)return;
+  ul.innerHTML=(ix.datasets||[]).map(function(d){
+    return '<li><a href="'+String(d.url).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'">'+String(d.name).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</a>'+
+      (d.records!=null?' - '+d.records+' \u05e8\u05e9\u05d5\u05de\u05d5\u05ea':'')+'</li>';
+  }).join('')||'<li>\u05d0\u05d9\u05df</li>';
+}).catch(function(){
+  var ul=document.getElementById('datasets-list');
+  if(ul)ul.innerHTML='<li>\u05e8\u05e9\u05d9\u05de\u05ea \u05de\u05e2\u05e8\u05db\u05d9 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05dc\u05d0 \u05d6\u05de\u05d9\u05e0\u05d4 \u05db\u05e8\u05d2\u05e2</li>';
+});
+"""
+
+
+def render_about(generated: str, council_name: str) -> str:
+    """Combined About + data-sources + datasets page (issue: datasets off the
+    main page, owner request 2026-10-21). Generated with the site so the
+    update stamp stays current; the datasets list loads from index.json."""
+    rows = "".join(
+        f"<tr><td>{_e(name)}</td><td>{_e(src)}</td><td>{_e(what)}</td>"
+        f"<td>{_e(cad)}</td><td>{link}</td></tr>"
+        for name, src, what, cad, link in _SOURCES_ROWS)
+    return f"""<!DOCTYPE html>
+<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אודות ומקורות נתונים - {_e(council_name)}</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<h1>אודות האתר</h1>
+<p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
+<strong>גינות העיר</strong> בירושלים, ומתעדכן אוטומטית. עודכן: {_e(generated)}.</p>
+<div class="ai-banner">האתר הוא <strong>יוזמה עצמאית של הוועד</strong> ואינו אתר רשמי של עיריית
+ירושלים, מנהל התכנון או רשות מקרקעי ישראל. המידע באתר הוא לנוחות בלבד,
+אינו תחליף למקורות הרשמיים ואינו ייעוץ משפטי. מועדי התנגדות המוצגים הם
+הערכה בלבד - המועד המחייב נקבע לפי הודעות ההפקדה הרשמיות.</div>
+<h2>מקורות נתונים</h2>
+<table id="plans"><thead><tr><th>מערך נתונים</th><th>מקור</th><th>מה נאסף</th><th>תדירות עדכון</th><th>קישורים</th></tr></thead>
+<tbody>{rows}</tbody></table>
+<h2>מערכי נתונים</h2>
+<ul id="datasets-list"><li>טוען רשימה...</li></ul>
+<h2>פרטיות</h2>
+<p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
+(למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
+אף שהם גלויים במקור.</p>
+<h2>קוד ונתונים</h2>
+<p>קוד האתר והנתונים המעובדים פתוחים:
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
+רוצים לעזור? <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>.</p>
+<p><a href="index.html">חזרה לעמוד הראשי</a></p>
+<footer dir="rtl"><p>
+אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
+</p></footer>
+<script>{_DATASETS_JS}</script>
 </body></html>"""
 
 
@@ -674,54 +747,6 @@ def render_review(pl_number: str, md_text: str, generated: str, council_name: st
 <p><a href="../index.html">חזרה לעמוד הראשי</a> &middot; עודכן: {_e(generated)}</p>
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p></footer>
-</body></html>"""
-
-
-def render_sources(generated: str, council_name: str) -> str:
-    """Data-sources page (issue #173): what each dataset is, where it comes
-    from, how often it updates, and where the files live. Generated with the
-    site so the last-update stamp stays current."""
-    rows = [
-        ("תכניות במינהל", "שירות התכנון הציבורי (iplan), מנהל התכנון",
-         "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
-         "רענון שבועי (יום שלישי) ורענונים ידניים",
-         '<a href="data.json">data.json</a>'),
-        ("פרסומי הפקדה", "land.gov.il - מינהל מקרקעי ישראל",
-         "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
-         "רענון שבועי",
-         '<a href="https://land.gov.il">land.gov.il</a>'),
-        ("בקשות היתר", "איתור נתונים ברישוי, עיריית ירושלים",
-         "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
-         "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
-         '<a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a>'),
-        ("מסמכי תכנית וסקירות AI", 'מאב"ת - מערכת איתור בינוי ותכניות',
-         "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
-         "לפי צורך, לתכניות נבחרות",
-         '<a href="https://mavat.iplan.gov.il/">מאב"ת</a>'),
-        ("גבול המינהל", "קובץ גבול גיאוגרפי במאגר",
-         "פוליגון שטח המינהל הקהילתי (geojson)",
-         "עדכון ידני בשינוי גבול",
-         '<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a>'),
-    ]
-    body = "".join(
-        f"<tr><td>{_e(name)}</td><td>{_e(src)}</td><td>{_e(what)}</td>"
-        f"<td>{_e(cad)}</td><td>{link}</td></tr>"
-        for name, src, what, cad, link in rows)
-    return f"""<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>מקורות נתונים - {_e(council_name)}</title>
-<link rel="stylesheet" href="style.css"></head><body>
-<h1>מקורות נתונים</h1>
-<p>עודכן: {_e(generated)}. אתר נתונים אוטומטי ובלתי רשמי; הנתונים משוערים ולצורכי מידע בלבד -
-המקור המחייב הוא המסמכים הרשמיים בכל מערכת.</p>
-<table id="plans"><thead><tr><th>מערך נתונים</th><th>מקור</th><th>מה נאסף</th><th>תדירות עדכון</th><th>קישורים</th></tr></thead>
-<tbody>{body}</tbody></table>
-<p><a href="index.html">חזרה לעמוד הראשי</a></p>
-<footer dir="rtl"><p>
-אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
-<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
 </p></footer>
 </body></html>"""
 
@@ -777,8 +802,10 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
         for pl, md_text in review_pages.items():
             with open(f"{out_dir}/reviews/talking_points_{pl}.html", "w", encoding="utf-8") as fh:
                 fh.write(render_review(pl, md_text, generated, council_name))
+    with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
+        fh.write(render_about(generated, council_name))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
-        fh.write(render_sources(generated, council_name))
+        fh.write(_SOURCES_REDIRECT)
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
