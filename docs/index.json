@@ -35,6 +35,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/land_plan_status.json"
   },
   {
+   "name": "mavat_bglist_101-1377753.json",
+   "path": "data/mavat_bglist_101-1377753.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1712,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_bglist_101-1377753.json"
+  },
+  {
    "name": "mavat_declist_101-1377753.json",
    "path": "data/mavat_declist_101-1377753.json",
    "kind": "json",
