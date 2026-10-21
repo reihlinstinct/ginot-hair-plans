@@ -48,7 +48,11 @@ jobs:
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT (owner-approved 2026-10-21, repo secret): a GITHUB_TOKEN-opened
+          # PR never triggers ci.yml, so the required checks never ran and the
+          # auto-merge stalled. Opening/updating/merging as the PAT user fires
+          # pull_request events normally.
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
         run: |
           set -euo pipefail
           if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
@@ -88,10 +92,6 @@ jobs:
           python -m pytest -q
           # main can move during the long fetch (issue #170): bring the PR up
           # to date and wait for the ruleset to go green before merging.
-          # NOTE: a GITHUB_TOKEN-opened PR does not trigger ci.yml, so the
-          # required checks may never report and this loop can time out; the
-          # run then fails loudly and the PR is merged manually (the inline
-          # tests above are the real gate). A repo PAT secret would fix this.
           gh pr update-branch "$PR" || true
           for i in $(seq 1 45); do
             STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
