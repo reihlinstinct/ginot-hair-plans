@@ -264,3 +264,11 @@ def test_urgent_client_side_machinery(tmp_path):
     assert "URGENT_DAYS=30" in html
     assert "Asia/Jerusalem" in html          # today resolved in the site's timezone
     assert "get('today')" in html            # ?today=YYYY-MM-DD test/QA hook
+
+
+def test_datasets_section_loads_index(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert 'id="datasets-list"' in html
+    assert "fetch('index.json')" in html
+    assert "מערכי נתונים" in html

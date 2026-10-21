@@ -116,6 +116,8 @@ def main():
     with open(snap_path, "w", encoding="utf-8") as fh:
         json.dump({"date": datetime.date.today().isoformat(), "rows": rows,
                    "plans_77_78": slim}, fh, ensure_ascii=False)
+    import subprocess
+    subprocess.run([sys.executable, "scripts/build_site_index.py"], check=False)
     page.render_site(rows, changes, args.site, base_url=args.base_url,
                      permits_path="data/permit_requests.json", council_geojson=args.council)
     badge_dir = os.path.join(args.site, "badge")

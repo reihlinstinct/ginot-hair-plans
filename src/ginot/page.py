@@ -194,6 +194,16 @@ function _renderUrgent(){
            ' - \u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05ea\u05e0\u05d2\u05d3\u05d5\u05ea (\u05de\u05e9\u05d5\u05e2\u05e8): '+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
 _renderUrgent();
+fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
+  var ul=document.getElementById('datasets-list');if(!ul)return;
+  ul.innerHTML=(ix.datasets||[]).map(function(d){
+    return '<li><a href="'+_esc(d.url)+'">'+_esc(d.name)+'</a>'+
+      (d.records!=null?' - '+d.records+' \u05e8\u05e9\u05d5\u05de\u05d5\u05ea':'')+'</li>';
+  }).join('')||'<li>\u05d0\u05d9\u05df</li>';
+}).catch(function(){
+  var ul=document.getElementById('datasets-list');
+  if(ul)ul.innerHTML='<li>\u05e8\u05e9\u05d9\u05de\u05ea \u05de\u05e2\u05e8\u05db\u05d9 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05dc\u05d0 \u05d6\u05de\u05d9\u05e0\u05d4 \u05db\u05e8\u05d2\u05e2 - \u05d9\u05d9\u05ea\u05db\u05df \u05e9\u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05d1\u05e2\u05de\u05d5\u05d3 \u05d0\u05d9\u05e0\u05dd \u05de\u05e2\u05d5\u05d3\u05db\u05e0\u05d9\u05dd</li>';
+});
 })();
 """
 
@@ -587,6 +597,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 {_permits_section(permits or [])}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
+<section id="datasets"><h2>מערכי נתונים</h2><ul id="datasets-list"><li>טוען רשימה...</li></ul></section>
 {stats_html}
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:

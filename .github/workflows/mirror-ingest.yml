@@ -61,7 +61,8 @@ jobs:
             git stash drop
           fi
           git checkout -b "$BRANCH"
-          git add data/
+          python3 scripts/build_site_index.py || echo "site index rebuild failed (non-fatal)"
+          git add data/ docs/index.json
           git commit -m "Permit mirror ingest $(date +%Y-%m-%d) (refs #74)
 
           Bulk ingest from the over.org.il public mirror of the ykpubdata
