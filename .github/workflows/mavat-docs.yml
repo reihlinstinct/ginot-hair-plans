@@ -23,6 +23,10 @@ on:
         description: "auto (click-through) or zip (relay the page's own zipAttacments call for the doc-list ids)"
         required: true
         default: "zip"
+      doc_list:
+        description: "Optional doc-list JSON path override (defaults to data/mavat_doclist_<plan>.json)"
+        required: false
+        default: ""
 
 permissions:
   contents: read
@@ -65,7 +69,7 @@ jobs:
           MAVAT_MP_ID: ${{ inputs.mp_id }}
           MAVAT_PLAN_NUMBER: ${{ inputs.plan_number }}
           MAVAT_FETCH_MODE: ${{ inputs.fetch_mode }}
-          MAVAT_DOC_LIST: data/mavat_doclist_${{ inputs.plan_number }}.json
+          MAVAT_DOC_LIST: ${{ inputs.doc_list != '' && inputs.doc_list || format('data/mavat_doclist_{0}.json', inputs.plan_number) }}
         run: python3 scripts/vpn/mavat_docs.py
 
       - name: Upload documents artifact

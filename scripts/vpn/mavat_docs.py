@@ -184,7 +184,7 @@ def main():
         print("plan page loaded (content check positive)", flush=True)
         page.screenshot(path=str(OUT / "page_top.png"), full_page=False)
 
-        if direct_docs:
+        if direct_docs and os.environ.get("MAVAT_FETCH_MODE") != "zip":
             print(f"direct-fetch mode: {len(direct_docs)} documents", flush=True)
             from urllib.parse import quote
             for i, d in enumerate(direct_docs):
