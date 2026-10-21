@@ -18,7 +18,7 @@ REPO = os.environ.get("GITHUB_REPOSITORY", "reihlinstinct/ginot-hair-plans")
 BLOB_BASE = f"https://github.com/{REPO}/blob/main/"
 
 # Planner bookkeeping (gitignored; defensive only).
-EXCLUDE = {"plan_status.json"}
+EXCLUDE = {"plan_status.json", "mavat_plan_status.json"}
 # Owner decision 2026-10-21: mirror data is linked from the site only after
 # the full parcel download completes.
 MIRROR_HOLD = {"permit_mirror.json", "permit_mirror_diff.json"}

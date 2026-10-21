@@ -25,7 +25,8 @@ def test_scan_counts_known_shapes(tmp_path):
 
 
 def test_mirror_hold_and_planner_excluded(tmp_path):
-    for fn in ("permit_mirror.json", "permit_mirror_diff.json", "plan_status.json"):
+    for fn in ("permit_mirror.json", "permit_mirror_diff.json", "plan_status.json",
+               "mavat_plan_status.json"):
         (tmp_path / fn).write_text("{}", encoding="utf-8")
     (tmp_path / "land_plan_status.json").write_text("{}", encoding="utf-8")
     names = [d["name"] for d in bsi.scan(str(tmp_path))]
