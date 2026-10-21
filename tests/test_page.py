@@ -356,3 +356,16 @@ def test_permits_table_is_slim_and_full_set_ships_as_permits_html(tmp_path):
     assert permits_html.count("<tr ") == 25
     assert "fetch('permits.html')" in html
     assert "<noscript>" in html and "20 הבקשות הראשונות" in html
+
+
+def test_sources_page_generated_and_linked(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    src = (tmp_path / "sources.html").read_text(encoding="utf-8")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "מקורות נתונים" in src
+    for source in ("iplan", "land.gov.il", 'מאב"ת', "רישוי", "geojson"):
+        assert source in src, source
+    assert "רענון שבועי" in src  # cadence stated
+    assert "עודכן:" in src  # last-update stamp
+    # linked from the main page footer, next to the GitHub link (#173)
+    assert '<a href="sources.html">מקורות נתונים</a>' in html

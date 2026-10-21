@@ -641,10 +641,59 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
+&middot; <a href="sources.html">מקורות נתונים</a>
 &middot; <a href="about.html">אודות</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p></footer>
 <script>{_JS}{_PERMITS_JS}</script>
+</body></html>"""
+
+
+def render_sources(generated: str, council_name: str) -> str:
+    """Data-sources page (issue #173): what each dataset is, where it comes
+    from, how often it updates, and where the files live. Generated with the
+    site so the last-update stamp stays current."""
+    rows = [
+        ("תכניות במינהל", "שירות התכנון הציבורי (iplan), מנהל התכנון",
+         "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
+         "רענון שבועי (יום שלישי) ורענונים ידניים",
+         '<a href="data.json">data.json</a>'),
+        ("פרסומי הפקדה", "land.gov.il - מינהל מקרקעי ישראל",
+         "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
+         "רענון שבועי",
+         '<a href="https://land.gov.il">land.gov.il</a>'),
+        ("בקשות היתר", "איתור נתונים ברישוי, עיריית ירושלים",
+         "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
+         "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
+         '<a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a>'),
+        ("מסמכי תכנית וסקירות AI", 'מאב"ת - מערכת איתור בינוי ותכניות',
+         "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
+         "לפי צורך, לתכניות נבחרות",
+         '<a href="https://mavat.iplan.gov.il/">מאב"ת</a>'),
+        ("גבול המינהל", "קובץ גבול גיאוגרפי במאגר",
+         "פוליגון שטח המינהל הקהילתי (geojson)",
+         "עדכון ידני בשינוי גבול",
+         '<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a>'),
+    ]
+    body = "".join(
+        f"<tr><td>{_e(name)}</td><td>{_e(src)}</td><td>{_e(what)}</td>"
+        f"<td>{_e(cad)}</td><td>{link}</td></tr>"
+        for name, src, what, cad, link in rows)
+    return f"""<!DOCTYPE html>
+<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מקורות נתונים - {_e(council_name)}</title>
+<link rel="stylesheet" href="style.css"></head><body>
+<h1>מקורות נתונים</h1>
+<p>עודכן: {_e(generated)}. אתר נתונים אוטומטי ובלתי רשמי; הנתונים משוערים ולצורכי מידע בלבד -
+המקור המחייב הוא המסמכים הרשמיים בכל מערכת.</p>
+<table id="plans"><thead><tr><th>מערך נתונים</th><th>מקור</th><th>מה נאסף</th><th>תדירות עדכון</th><th>קישורים</th></tr></thead>
+<tbody>{body}</tbody></table>
+<p><a href="index.html">חזרה לעמוד הראשי</a></p>
+<footer dir="rtl"><p>
+אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
+</p></footer>
 </body></html>"""
 
 
@@ -692,6 +741,8 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                               base_url=base_url, preview_image=has_img, reviews=reviews,
                               rows_file=f"{out_dir}/rows.html",
                               permits_file=f"{out_dir}/permits.html"))
+    with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
+        fh.write(render_sources(generated, council_name))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
