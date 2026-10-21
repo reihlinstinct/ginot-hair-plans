@@ -332,3 +332,11 @@ def test_index_is_slim_and_full_rows_ship_as_rows_html(tmp_path):
     assert rows_html.count("<tr class=''") == 25  # full set ships as a static asset
     assert "fetch('rows.html')" in html
     assert "<noscript>" in html and "20 התכניות המובילות" in html
+
+
+def test_footer_github_link_text(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # owner request 2026-10-21: link text is just "GitHub", target unchanged
+    assert '<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>' in html
+    assert ">github.com/reihlinstinct<" not in html

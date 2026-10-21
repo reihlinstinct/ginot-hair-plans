@@ -629,7 +629,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 {stats_html}
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
-<a href="https://github.com/reihlinstinct/ginot-hair-plans">github.com/reihlinstinct/ginot-hair-plans</a>
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
 &middot; <a href="about.html">אודות</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p></footer>
