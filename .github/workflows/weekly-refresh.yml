@@ -86,5 +86,16 @@ jobs:
           pip install -q ruff pytest
           ruff check src tests refresh.py
           python -m pytest -q
+          # main can move during the long fetch (issue #170): bring the PR up
+          # to date and wait for the ruleset to go green before merging.
+          gh pr update-branch "$PR" || true
+          for i in $(seq 1 45); do
+            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq -r .mergeStateStatus)
+            echo "merge state: $STATE"
+            [ "$STATE" = "CLEAN" ] && break
+            [ "$STATE" = "DIRTY" ] && { echo "PR has conflicts"; exit 1; }
+            [ "$i" = "45" ] && { echo "timed out waiting for a mergeable state ($STATE)"; exit 1; }
+            sleep 10
+          done
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
