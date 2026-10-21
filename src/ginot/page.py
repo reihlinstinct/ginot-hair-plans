@@ -597,6 +597,10 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <title>תכניות במינהל הקהילתי {_e(council_name)}</title>
 <link rel="alternate" type="application/atom+xml" href="feed.xml">
 {_social_meta(council_name, base_url, preview_image)}
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css"></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
@@ -669,7 +673,10 @@ _SOURCES_ROWS = [
 _SOURCES_REDIRECT = """<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta http-equiv="refresh" content="0; url=about.html">
-<title>מקורות נתונים</title></head>
+<title>מקורות נתונים</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png"></head>
 <body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
 """
 
@@ -699,6 +706,10 @@ def render_about(generated: str, council_name: str) -> str:
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>אודות ומקורות נתונים - {_e(council_name)}</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css"></head><body>
 <h1>אודות האתר</h1>
 <p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
@@ -738,6 +749,10 @@ def render_review(pl_number: str, md_text: str, generated: str, council_name: st
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירת AI - תכנית {_e(pl_number)}</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="../style.css"></head><body>
 <div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
 מתוך מסמכי התכנית הרשמיים. התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
