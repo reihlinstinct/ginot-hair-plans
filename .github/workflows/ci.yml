@@ -39,6 +39,13 @@ jobs:
                   sys.exit(msg)
               print("::warning::" + msg + " (report-only, gate not enforced yet)")
           PY
+  worker:
+    # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: node --test worker/*.test.mjs
+
   site-browser:
     # Headless Chromium tests of the built site (issue #106). Separate job so the
     # 4-version test matrix does not each download a browser.

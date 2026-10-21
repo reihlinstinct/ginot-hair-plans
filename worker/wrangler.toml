@@ -1,0 +1,7 @@
+name = "ginot-hair-api"
+main = "api.mjs"
+compatibility_date = "2026-10-21"
+
+# No secrets and no bindings: the worker is stateless and read-only, it only
+# fetches the public static files from GitHub Pages. Free plan.
+account_id = "66d6c24cf39de07f3b5e4f3d1eda945f"
