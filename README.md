@@ -69,6 +69,17 @@ human reviewer.
    `badge/` (including per-status plan-count badges).
 8. `refresh.py` - weekly one-shot orchestration of all of the above.
 
+## Mirrors
+
+The site is published twice: **GitHub Pages** (primary,
+`reihlinstinct.github.io/ginot-hair-plans`) and a **Cloudflare Pages**
+mirror (`ginot-hair-plans.pages.dev`). To stay inside the free build quota,
+the mirror's production branch is `mirror`, not `main`: Cloudflare builds
+only when the weekly refresh workflow (or a manual run of it) pushes
+`main` to `mirror` after merging its publish PR - ordinary pushes to
+`main` do not trigger a mirror build. PR preview deployments are disabled
+in the Cloudflare project (Settings > Builds > Branch control).
+
 ## Weekly refresh
 
 Runs every **Tuesday morning** from an external scheduler (the owner's

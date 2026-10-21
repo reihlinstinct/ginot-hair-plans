@@ -103,3 +103,9 @@ jobs:
           done
           gh pr merge "$PR" --squash --delete-branch
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
+          # Cloudflare Pages mirror (owner request 2026-10-21, quota-limited):
+          # the mirror's production branch is `mirror`, so Pages builds ONLY
+          # when this refresh (or a manual run of this workflow) lands - not
+          # on every push to main. PR previews are disabled in the project.
+          git fetch origin main
+          git push origin origin/main:refs/heads/mirror --force-with-lease

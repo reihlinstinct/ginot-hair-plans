@@ -40,3 +40,8 @@ issue + PR record in this repo.
 - Site favicon on all pages (issue #192, PR #193): stylised garden tree in the site palette (SVG + PNG + apple-touch-icon), regeneration script `scripts/make_favicon.py`.
 - Read-only API query layer as a free Cloudflare Worker (issue #197, PR #198): `https://ginot-hair-api.reihlinstinct.workers.dev` - `/plans`, `/permits`, `/open`, `/status` with substring filters; CORS open; 5-min edge cache; best-effort rate limit. Node tests + CI job.
 - README: new "Data API" section (English + Hebrew) documenting the static endpoints and the Worker with curl examples.
+
+## 2026-10-21 - Cloudflare Pages mirror, quota-limited
+- Cloudflare Pages mirror at https://ginot-hair-plans.pages.dev (GitHub-app integration on this repo only; reports builds as the "Cloudflare Pages" check run).
+- Quota limiting (owner request): the mirror's production branch is `mirror`; the weekly-refresh publish step pushes main to `mirror` after merging, so the mirror builds only on the weekly refresh or a manual run - not on every push. PR previews disabled in the project's branch controls.
+- README: "Mirrors" section documents the setup.
