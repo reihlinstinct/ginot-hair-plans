@@ -259,10 +259,40 @@ def main():
 
             def harvest_token():
                 before = len(tokens)
+                # expand the documents accordion first (the ZIP affordance
+                # is only clickable once the category is open; run 4)
                 try:
-                    page.get_by_text(re.compile("הורדת קבצים ב ZIP")).first.click(timeout=9000)
+                    page.get_by_text(re.compile("^מסמכי התכנית$")).first.click(timeout=6000)
+                    time.sleep(2)
                 except Exception:
                     pass
+                clicked = False
+                try:
+                    page.get_by_text(re.compile("הורדת קבצים ב ZIP")).first.click(timeout=6000)
+                    clicked = True
+                except Exception:
+                    pass
+                if not clicked:
+                    # brute-force the same affordance scan that captured
+                    # the page-issued zipAttacments requests in run 4
+                    for selector in ["a", "button", "img", "span", "div"]:
+                        done = False
+                        for el in page.locator(selector).all():
+                            try:
+                                if not el.is_visible():
+                                    continue
+                                desc = ((el.get_attribute("title") or "") + " " +
+                                        (el.get_attribute("class") or "") + " " +
+                                        (el.inner_text() or "")[:40])
+                                if "zip" not in desc.lower():
+                                    continue
+                                el.click(timeout=4000)
+                                done = True
+                                break
+                            except Exception:
+                                continue
+                        if done:
+                            break
                 for _ in range(40):
                     if len(tokens) > before:
                         return tokens[-1]
@@ -285,6 +315,7 @@ def main():
             def fetch_zip(ids, out_name):
                 token = tokens[-1] if tokens else harvest_token()
                 if not token:
+                    report["failures"].append({"stage": "zip_mode", "error": "no_token"})
                     return None
                 try:
                     with page.expect_download(timeout=120000) as dl_info:
@@ -321,7 +352,11 @@ def main():
                         print(f"zip batch: {len(names)} entries", flush=True)
                 except Exception:
                     pass
+            if not ok and batch is None and not tokens:
+                report["failures"].append({"stage": "zip_mode",
+                                           "error": "batch_failed_no_token"})
             if not ok:
+                harvest_token()  # refresh: page tokens may be single-use
                 for d in direct_docs:
                     eid, name = d["id"], d["name"]
                     res = fetch_zip([eid], f"{PLAN}_{name}.zip")
