@@ -119,7 +119,9 @@ def page(browser, served):
     pg.on("pageerror", lambda e: errors.append(str(e)))
     pg.goto(served + "/index.html")
     pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+    pg.wait_for_function("window.__permitsLoaded === true || window.__permitsFailed === true")
     assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
+    assert pg.evaluate("window.__permitsLoaded") is True, "permits.html failed to load"
     yield pg
     assert errors == [], f"JavaScript errors on the page: {errors}"
     pg.close()

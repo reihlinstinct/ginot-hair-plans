@@ -350,7 +350,7 @@ def _permit_tik_link(tik_num: str | None) -> str:
     return f"<a href='{url}' target='_blank' rel='noopener'>{_e(tik)}</a>"
 
 
-def _permits_section(permits: list[dict]) -> str:
+def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
     textually distinct from the plans table. Terminal requests (closed /
@@ -382,7 +382,10 @@ def _permits_section(permits: list[dict]) -> str:
             f"<td>{_date_cell(p.get('status_date'))}</td>"
             f"<td>{_date_cell(p.get('publication_start'))}</td>"
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>")
-    body = "".join(rows)
+    if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
+        with open(rows_file, "w", encoding="utf-8") as fh:
+            fh.write("".join(rows))
+    body = "".join(rows[:COLLAPSE_TOP])
     n_terminal = sum(1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES)
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
@@ -420,13 +423,14 @@ def _permits_section(permits: list[dict]) -> str:
 <th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
 <th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
 </tr></thead><tbody>{body}</tbody></table>
+<noscript><p>מוצגות {COLLAPSE_TOP} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="pmore" type="button"></button>
 </section>"""
 
 _PERMITS_JS = """
 (function(){
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
-if(!rows.length)return;
+if(!rows.length){window.__permitsLoaded=true;return;}
 var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
 pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
 pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
@@ -463,6 +467,13 @@ document.getElementById('pfreset').addEventListener('click',function(){
   pfclosed.checked=false;expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});
+fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
+  tb.innerHTML=h;
+  rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  apply();
+  window.__permitsLoaded=true;
+}).catch(function(){window.__permitsFailed=true;});
 document.querySelectorAll('#permits .legend .chip').forEach(function(c){
   c.addEventListener('click',function(){
     var st=c.getAttribute('data-status');
@@ -501,7 +512,7 @@ def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
                  permits: list[dict] | None = None, base_url: str = "",
                  preview_image: bool = False, reviews: dict[str, str] | None = None,
-                 rows_file: str | None = None) -> str:
+                 rows_file: str | None = None, permits_file: str | None = None) -> str:
     reviews = reviews or {}
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
@@ -622,7 +633,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <tbody>{body}</tbody></table>
 <noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
-{_permits_section(permits or [])}
+{_permits_section(permits or [], rows_file=permits_file)}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul>{changes_html}</ul>
 <section id="datasets"><h2>מערכי נתונים</h2><ul id="datasets-list"><li>טוען רשימה...</li></ul></section>
@@ -679,7 +690,8 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
         fh.write(render_index(rows, changes, generated, council_name, permits,
                               base_url=base_url, preview_image=has_img, reviews=reviews,
-                              rows_file=f"{out_dir}/rows.html"))
+                              rows_file=f"{out_dir}/rows.html",
+                              permits_file=f"{out_dir}/permits.html"))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:

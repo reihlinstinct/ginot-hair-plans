@@ -340,3 +340,19 @@ def test_footer_github_link_text(tmp_path):
     # owner request 2026-10-21: link text is just "GitHub", target unchanged
     assert '<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>' in html
     assert ">github.com/reihlinstinct<" not in html
+
+
+def test_permits_table_is_slim_and_full_set_ships_as_permits_html(tmp_path):
+    permits = [{"tik_num": f"2020/{i:07d}", "status": "בבדיקה", "mahut": "x", "sugbakasha": "היתר",
+                "gush": 1, "helka": i, "address": f"רחוב {i}", "status_date": "2026-09-01",
+                "publication_start": "2026-09-05", "publication_end_planned": ""} for i in range(1, 26)]
+    pf = tmp_path / "permits.json"
+    import json as _json
+    pf.write_text(_json.dumps({"requests": permits}), encoding="utf-8")
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path), permits_path=str(pf))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    permits_html = (tmp_path / "permits.html").read_text(encoding="utf-8")
+    assert html.count("2020/") < permits_html.count("2020/")  # only top rows embedded (#169)
+    assert permits_html.count("<tr ") == 25
+    assert "fetch('permits.html')" in html
+    assert "<noscript>" in html and "20 הבקשות הראשונות" in html
