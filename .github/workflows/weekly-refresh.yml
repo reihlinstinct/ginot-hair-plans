@@ -108,4 +108,5 @@ jobs:
           # when this refresh (or a manual run of this workflow) lands - not
           # on every push to main. PR previews are disabled in the project.
           git fetch origin main
+          git fetch origin mirror  # refresh the lease ref or the push is rejected (stale info)
           git push origin origin/main:refs/heads/mirror --force-with-lease
