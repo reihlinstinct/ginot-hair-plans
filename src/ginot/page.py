@@ -200,6 +200,13 @@ function _renderUrgent(){
            ' - \u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05ea\u05e0\u05d2\u05d3\u05d5\u05ea (\u05de\u05e9\u05d5\u05e2\u05e8): '+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
 _renderUrgent();
+fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  var tb=document.querySelector('#plans tbody');if(!tb)return;
+  tb.innerHTML=h;
+  rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  resort();_renderUrgent();
+  window.__rowsLoaded=true;
+}).catch(function(){window.__rowsFailed=true;});
 fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
   var ul=document.getElementById('datasets-list');if(!ul)return;
   ul.innerHTML=(ix.datasets||[]).map(function(d){
@@ -493,7 +500,8 @@ def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
 
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
                  permits: list[dict] | None = None, base_url: str = "",
-                 preview_image: bool = False, reviews: dict[str, str] | None = None) -> str:
+                 preview_image: bool = False, reviews: dict[str, str] | None = None,
+                 rows_file: str | None = None) -> str:
     reviews = reviews or {}
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
@@ -542,7 +550,10 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
     for r in rows:
         r["_is_new"] = r["pl_number"] in new_ids
-    body = "\n".join(tr(r) for r in rows)
+    if rows_file:  # full set loads client-side (#164); the page keeps only the top rows
+        with open(rows_file, "w", encoding="utf-8") as fh:
+            fh.write("\n".join(tr(r) for r in rows))
+    body = "\n".join(tr(r) for r in rows[:COLLAPSE_TOP])
     stats_html = stats_section(rows)
     # Urgent = derived objection deadline within [0, URGENT_DAYS] of the
     # generation date; the browser recomputes the same window at page load
@@ -609,6 +620,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <th><button type="button" data-sort="area">שטח (דונם)</button></th>
 <th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th></tr></thead>
 <tbody>{body}</tbody></table>
+<noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [])}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
@@ -666,7 +678,8 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
         fh.write(_CSS)
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
         fh.write(render_index(rows, changes, generated, council_name, permits,
-                              base_url=base_url, preview_image=has_img, reviews=reviews))
+                              base_url=base_url, preview_image=has_img, reviews=reviews,
+                              rows_file=f"{out_dir}/rows.html"))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:

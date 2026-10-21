@@ -9,10 +9,14 @@ Skipped when Playwright or its browser is not installed (the CI
 "site-browser" job installs both).
 """
 import datetime
+import functools
+import http.server
 import json
 import pathlib
 import shutil
+import socketserver
 import sys
+import threading
 
 import pytest
 
@@ -94,12 +98,28 @@ def browser():
         b.close()
 
 
+class _Quiet(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *args):
+        pass
+
+
+@pytest.fixture(scope="module")
+def served(site):
+    # served over http (not file://) so the client-side rows.html fetch works (#164)
+    handler = functools.partial(_Quiet, directory=str(site))
+    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        yield f"http://127.0.0.1:{srv.server_address[1]}"
+
+
 @pytest.fixture
-def page(browser, site):
+def page(browser, served):
     pg = browser.new_page()
     errors = []
     pg.on("pageerror", lambda e: errors.append(str(e)))
-    pg.goto((site / "index.html").as_uri())
+    pg.goto(served + "/index.html")
+    pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+    assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
     yield pg
     assert errors == [], f"JavaScript errors on the page: {errors}"
     pg.close()
@@ -295,10 +315,11 @@ def test_mobile_no_horizontal_scroll_and_cards(browser, site, w, h):
     ctx.close()
 
 
-def test_mobile_tap_targets_and_font_size(browser, site):
+def test_mobile_tap_targets_and_font_size(browser, served):
     ctx = browser.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
     pg = ctx.new_page()
-    pg.goto((site / "index.html").as_uri())
+    pg.goto(served + "/index.html")
+    pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
     for sel in ("#fq", "#fstatus", "#freset", "#more"):
         box = pg.locator(sel).bounding_box()
         assert box["height"] >= 43, sel
@@ -314,15 +335,16 @@ def test_desktop_keeps_the_table_layout(browser, site):
     ctx.close()
 
 
-def test_urgent_row_matches_deadline_window(browser, site):
+def test_urgent_row_matches_deadline_window(browser, served, site):
     import re
-    html_src = (site / "index.html").read_text(encoding="utf-8")
+    html_src = (site / "rows.html").read_text(encoding="utf-8")  # full row set (#164)
     deadlines = re.findall(r"data-obj='([0-9]{4}-[0-9]{2}-[0-9]{2})'", html_src)
     expected = sorted(d for d in deadlines
                       if 0 <= (datetime.date.fromisoformat(d) - TODAY).days <= 30)
     assert expected, "fixture must include plans inside the urgent window"
     pg = browser.new_page()
-    pg.goto((site / "index.html").as_uri() + "?today=" + TODAY.isoformat())
+    pg.goto(served + "/index.html?today=" + TODAY.isoformat())
+    pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
     items = pg.locator("#urgent-list li").all_inner_texts()
     pg.close()
     assert len(items) == len(expected)

@@ -321,3 +321,14 @@ def test_stylesheet_uses_approved_ginothair_palette(tmp_path):
     assert "#c8a4de" in css and "#00a8cf" in css and "#6db633" in css
     # mobile sort-header chips stay readable (white bg, mint border, navy text)
     assert "#plans thead th{display:block;background:#fff" in css
+
+
+def test_index_is_slim_and_full_rows_ship_as_rows_html(tmp_path):
+    rows = [_row(i, "הפקדה") for i in range(1, 26)]
+    page.render_site(rows, [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    rows_html = (tmp_path / "rows.html").read_text(encoding="utf-8")
+    assert html.count("<tr class=''") == 20  # only the top rows are embedded (#164)
+    assert rows_html.count("<tr class=''") == 25  # full set ships as a static asset
+    assert "fetch('rows.html')" in html
+    assert "<noscript>" in html and "20 התכניות המובילות" in html
