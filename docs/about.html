@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>אודות ומקורות נתונים - גינות העיר</title><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><meta name="theme-color" content="#101f5b">
+<title>אודות ומקורות נתונים - גינות העיר</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css"></head><body>
 <h1>אודות האתר</h1>
 <p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
@@ -15,6 +19,22 @@
 <tbody><tr><td>תכניות במינהל</td><td>שירות התכנון הציבורי (iplan), מנהל התכנון</td><td>מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)</td><td>רענון שבועי (יום שלישי) ורענונים ידניים</td><td><a href="data.json">data.json</a></td></tr><tr><td>פרסומי הפקדה</td><td>land.gov.il - מינהל מקרקעי ישראל</td><td>תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית</td><td>רענון שבועי</td><td><a href="https://land.gov.il">land.gov.il</a></td></tr><tr><td>בקשות היתר</td><td>איתור נתונים ברישוי, עיריית ירושלים</td><td>מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה</td><td>סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים</td><td><a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a></td></tr><tr><td>מסמכי תכנית וסקירות AI</td><td>מאב&quot;ת - מערכת איתור בינוי ותכניות</td><td>מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)</td><td>לפי צורך, לתכניות נבחרות</td><td><a href="https://mavat.iplan.gov.il/">מאב"ת</a></td></tr><tr><td>גבול המינהל</td><td>קובץ גבול גיאוגרפי במאגר</td><td>פוליגון שטח המינהל הקהילתי (geojson)</td><td>עדכון ידני בשינוי גבול</td><td><a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a></td></tr></tbody></table>
 <h2>מערכי נתונים</h2>
 <ul id="datasets-list"><li>טוען רשימה...</li></ul>
+<h2>גישה לנתונים (API)</h2>
+<p>הנתונים זמינים כקבצים סטטיים (JSON / Atom) לשימוש חופשי, עם CORS פתוח.
+אין שאילתות צד-שרת - הסינון מתבצע אצל הלקוח. כל הקבצים מתעדכנים בכל רענון
+של האתר (רענון שבועי ורענונים ידניים).</p>
+<table id="plans"><thead><tr><th>קובץ</th><th>תוכן</th><th>מבנה</th></tr></thead><tbody>
+<tr><td><a href="data.json">data.json</a></td><td>מערך הנתונים המלא: תכניות, שינויים אחרונים ובקשות היתר</td>
+<td>{generated, rows[], changes[], permits[]} - שמות השדות כפי שהגיעו מ-iplan / איתור הנתונים ברישוי</td></tr>
+<tr><td><a href="open.json">open.json</a></td><td>תכניות פתוחות בלבד (עדיין בתהליך תכנוני)</td>
+<td>{generated, definition, count, plans[]} - כל רשומה כוללת in_objection_period (חלון התנגדויות פתוח היום)</td></tr>
+<tr><td><a href="feed.xml">feed.xml</a></td><td>פיד Atom של תכניות חדשות ושינויים</td><td>Atom 1.0</td></tr>
+<tr><td><a href="badge/plans.json">badge/*.json</a></td><td>נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)</td>
+<td>{schemaVersion, label, message, color}</td></tr>
+<tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
+<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status</td>
+<td>JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)</td></tr>
+</tbody></table>
 <h2>פרטיות</h2>
 <p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
 (למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,

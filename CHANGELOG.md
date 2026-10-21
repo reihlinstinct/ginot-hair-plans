@@ -31,3 +31,7 @@ issue + PR record in this repo.
 
 - Public site, weekly refresh, diff/feed/badges, planner tracking - see git
   history and issues #1-#150.
+
+## 2026-10-21 - open.json + API section
+- `docs/open.json`: public static endpoint of open plans (still in the planning process; definition A: station_desc != "אישור"), each row with `in_objection_period`; regenerated on every refresh (issue: open plans API, owner request).
+- About page: new "גישה לנתונים (API)" section documenting data.json / open.json / feed.xml / badge endpoints.

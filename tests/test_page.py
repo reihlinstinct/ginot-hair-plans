@@ -393,3 +393,17 @@ def test_changes_section_renders_as_card(tmp_path):
     assert '<ul id="changes-list">' in html
     assert "#changes-list{background:#fff;border:1px solid #dde4f6" in css
     assert "border-radius:10px" in css
+
+
+def test_open_json_and_api_section(tmp_path):
+    import json
+    rows = [_row("1", "הפקדה להתנגדויות", recv="2026-10-01", dep="2026-10-10",
+                 deadline="2026-12-09"),
+            _row("2", "אישור", recv="2019-05-02")]
+    page.render_site(rows, [], str(tmp_path))
+    d = json.loads((tmp_path / "open.json").read_text(encoding="utf-8"))
+    assert d["count"] == 1 and [p["pl_number"] for p in d["plans"]] == ["1"]
+    assert "definition" in d and "generated" in d
+    assert all("in_objection_period" in p for p in d["plans"])
+    about = (tmp_path / "about.html").read_text(encoding="utf-8")
+    assert "גישה לנתונים (API)" in about and "open.json" in about
