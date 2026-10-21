@@ -221,3 +221,12 @@ def test_preview_counts_open_objection_windows(tmp_path, monkeypatch):
            "pl_area_dunam": 3.2, "inside_flag": "inside", "mavat_url": "https://mavat.iplan.gov.il/x"}
     page.render_site([row], [], str(tmp_path))
     assert seen["n"] == 1
+
+
+def test_css_is_external_file(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html_out = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "<style>" not in html_out
+    assert '<link rel="stylesheet" href="style.css">' in html_out
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    assert "body{" in css and len(css) > 500

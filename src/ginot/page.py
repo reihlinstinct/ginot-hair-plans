@@ -511,7 +511,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <title>תכניות במינהל הקהילתי {_e(council_name)}</title>
 <link rel="alternate" type="application/atom+xml" href="feed.xml">
 {_social_meta(council_name, base_url, preview_image)}
-<style>{_CSS}</style></head><body>
+<link rel="stylesheet" href="style.css"></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
@@ -583,6 +583,8 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
     has_img = preview.render_preview(rows, council_name, generated, "data/council_ginot_hair.geojson"
                                      if os.path.exists("data/council_ginot_hair.geojson")
                                      else "data/council.geojson", f"{out_dir}/og.png")
+    with open(f"{out_dir}/style.css", "w", encoding="utf-8") as fh:
+        fh.write(_CSS)
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
         fh.write(render_index(rows, changes, generated, council_name, permits,
                               base_url=base_url, preview_image=has_img))
