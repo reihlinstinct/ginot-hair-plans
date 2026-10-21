@@ -51,19 +51,22 @@ human reviewer.
    the rows; advisory urgent flag when an undecided plan's derived objection
    deadline is within 30 days.
 6. `src/ginot/diff.py` - snapshot diff: new / removed / status-changed plans.
-7. `src/ginot/page.py` - static Hebrew RTL page. The plans table comes
-   first, ordered by a stated relevance rule (open objection windows by
-   nearest derived deadline, then active statuses newest-first, approved
-   last; inside before partial within the active/approved tiers); it
-   collapses to the top 20 with a show-more control, approved plans are
-   hidden by default (count stated, one click to bring back), and
-   client-side filters (status, inside/partial, date range, free text,
-   objection-open) always operate over all rows. Dates display as
-   DD.MM.YYYY with ISO values kept in data attributes. Colored status
-   chips with a legend. Statistics (status, inside/overlap, deposits by
-   month, approvals by year), urgent section and recent changes below the
-   table; plus Atom `feed.xml`, `data.json`, and shields badge endpoints
-   under `badge/` (including per-status plan-count badges).
+7. `src/ginot/page.py` - static Hebrew RTL page (Ginot HaIr palette).
+   The plans table comes first, ordered by a stated relevance rule (open
+   objection windows by nearest derived deadline, then active statuses
+   newest-first, approved last); the page embeds the top 20 rows and loads
+   the full set client-side from `rows.html`, approved plans are hidden by
+   default (count stated, one click to bring back), and client-side
+   filters (status, inside/partial, date range, free text, objection-open)
+   always operate over all rows. An "סקירת AI" column links plans that
+   have an AI-generated talking-points review, rendered as styled site
+   pages from the repo markdown. A permit-requests section (DRAFT) loads
+   the same way from `permits.html`. Dates display as DD.MM.YYYY with ISO
+   values kept in data attributes. Colored status chips with a legend.
+   Statistics, urgent section and recent changes (card) below the table;
+   About + data sources + datasets list on a separate generated page;
+   plus Atom `feed.xml`, `data.json`, and shields badge endpoints under
+   `badge/` (including per-status plan-count badges).
 8. `refresh.py` - weekly one-shot orchestration of all of the above.
 
 ## Weekly refresh
@@ -81,7 +84,7 @@ in `feed.xml`, and in a summary ping to the owner.
     python3 refresh.py          # writes out/, docs/, snapshots/latest.json
     python3 -m pytest -q        # 12 tests, no network needed
 
-Only re-deriving the boundary from a fresh DWG export needs LibreDWG's
+See [CHANGELOG.md](CHANGELOG.md) for notable changes. Only re-deriving the boundary from a fresh DWG export needs LibreDWG's
 `dwg2dxf` (build notes in the wiki of the git history; the committed GeoJSON
 is enough for the weekly run).
 
