@@ -88,9 +88,13 @@ jobs:
           python -m pytest -q
           # main can move during the long fetch (issue #170): bring the PR up
           # to date and wait for the ruleset to go green before merging.
+          # NOTE: a GITHUB_TOKEN-opened PR does not trigger ci.yml, so the
+          # required checks may never report and this loop can time out; the
+          # run then fails loudly and the PR is merged manually (the inline
+          # tests above are the real gate). A repo PAT secret would fix this.
           gh pr update-branch "$PR" || true
           for i in $(seq 1 45); do
-            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq -r .mergeStateStatus)
+            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
             echo "merge state: $STATE"
             [ "$STATE" = "CLEAN" ] && break
             [ "$STATE" = "DIRTY" ] && { echo "PR has conflicts"; exit 1; }
