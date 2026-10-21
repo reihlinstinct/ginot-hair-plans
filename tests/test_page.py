@@ -272,3 +272,44 @@ def test_datasets_section_loads_index(tmp_path):
     assert 'id="datasets-list"' in html
     assert "fetch('index.json')" in html
     assert "מערכי נתונים" in html
+
+
+def test_inside_column_hidden_but_filterable(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # no visible inside/partial column (#162)
+    assert 'data-sort="flag"' not in html and "בתוך/חלקי" not in html
+    # ...but the filter select and the row attribute remain
+    assert '<select id="fflag">' in html
+    assert "data-flag='inside'" in html
+
+
+def test_ai_review_column(tmp_path):
+    r = _row(1, "הפקדה")
+    r["pl_number"] = "101-1377753"
+    reviews = {"101-1377753": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/plans/101-1377753/analysis/talking_points_101-1377753.md"}
+    html = page.render_index([r, _row(2, "הפקדה")], [], "2026-01-01", "גינות העיר", reviews=reviews)
+    assert ">סקירת AI</th>" in html
+    assert "talking_points_101-1377753.md" in html
+    assert html.count("class='ai-review'") == 1  # only the plan that has a review
+    # clearly labelled as AI-generated, not an official document
+    assert "באמצעות AI" in html and "אינו מסמך רשמי" in html
+
+
+def test_ai_review_links_discovered_from_plans_tree(tmp_path):
+    pdir = tmp_path / "plans" / "101-1377753" / "analysis"
+    pdir.mkdir(parents=True)
+    (pdir / "talking_points_101-1377753.md").write_text("# points", encoding="utf-8")
+    r = _row(1, "הפקדה")
+    r["pl_number"] = "101-1377753"
+    out = tmp_path / "out"
+    page.render_site([r], [], str(out), plans_dir=str(tmp_path / "plans"))
+    html = (out / "index.html").read_text(encoding="utf-8")
+    assert "blob/main/" in html and "talking_points_101-1377753.md" in html
+
+
+def test_mobile_label_for_ai_review_column(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    assert '#plans td:nth-child(8)::before{content:"סקירת AI"}' in css
+    assert "בתוך/חלקי" not in css

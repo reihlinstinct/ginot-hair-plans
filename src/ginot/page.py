@@ -75,7 +75,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans td:nth-child(5)::before{content:"הפקדה"}
 #plans td:nth-child(6)::before{content:"אחרון להתנגדות (משוער)"}
 #plans td:nth-child(7)::before{content:"שטח (דונם)"}
-#plans td:nth-child(8)::before{content:"בתוך/חלקי"}
+#plans td:nth-child(8)::before{content:"סקירת AI"}
 #permits-table td:nth-child(1){font-weight:600}
 #permits-table td:nth-child(2)::before{content:"כתובת"}
 #permits-table td:nth-child(3)::before{content:"מהות"}
@@ -487,7 +487,8 @@ def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
 
 def render_index(rows: list[dict], changes: list[dict], generated: str, council_name: str,
                  permits: list[dict] | None = None, base_url: str = "",
-                 preview_image: bool = False) -> str:
+                 preview_image: bool = False, reviews: dict[str, str] | None = None) -> str:
+    reviews = reviews or {}
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
@@ -509,6 +510,14 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
             cls = ""
         return f'<span class="chip {cls}" data-status="{_e(st)}">{_e(st)}</span>'
 
+
+    def review_cell(r):
+        url = reviews.get(r["pl_number"])
+        if not url:
+            return "—"
+        return (f"<a class='ai-review' href='{_e(url)}' "
+                f"title='סיכום נקודות לדיון שהופק באמצעות AI - אינו מסמך רשמי'>סקירה</a>")
+
     def tr(r):
         search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
         attrs = (f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
@@ -522,7 +531,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
                 f"<td>{_date_cell(r['receiving_date'])}</td>"
                 f"<td>{_date_cell(_deposit_date(r))}</td>"
                 f"<td class='derived'>{_date_cell(r['objection_deadline_derived_60d_from_publication'])}</td>"
-                f"<td>{_e(r['pl_area_dunam'])}</td><td>{_e(r['inside_flag'])}</td></tr>")
+                f"<td>{_e(r['pl_area_dunam'])}</td><td>{review_cell(r)}</td></tr>")
 
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
     for r in rows:
@@ -572,6 +581,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 מוצגות {COLLAPSE_TOP} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.
 תכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו "הצג תכניות מאושרות" כדי לראותן.</p>
 <p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
+<p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
 {legend}
 <div id="filters">
 <input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)">
@@ -591,7 +601,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <th><button type="button" data-sort="dep">הפקדה</button></th>
 <th><button type="button" data-sort="obj">אחרון להתנגדות (משוער)</button></th>
 <th><button type="button" data-sort="area">שטח (דונם)</button></th>
-<th><button type="button" data-sort="flag">בתוך/חלקי</button></th></tr></thead>
+<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th></tr></thead>
 <tbody>{body}</tbody></table>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [])}
@@ -621,9 +631,18 @@ def render_feed(changes: list[dict], generated: str, council_name: str, base_url
 
 def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                 council_name: str = "גינות העיר", base_url: str = "",
-                permits_path: str | None = None, council_geojson: str | None = None):
+                permits_path: str | None = None, council_geojson: str | None = None,
+                plans_dir: str = "plans",
+                blob_base: str = "https://github.com/reihlinstinct/ginot-hair-plans/blob/main"):
+    import glob
     import os
+    import re as _re
     os.makedirs(out_dir, exist_ok=True)
+    reviews = {}
+    for path in sorted(glob.glob(os.path.join(plans_dir, "*", "analysis", "talking_points_*.md"))):
+        m = _re.fullmatch(r"talking_points_(\d+-\d+)\.md", os.path.basename(path))
+        if m:
+            reviews[m.group(1)] = blob_base.rstrip("/") + "/" + path.replace(os.sep, "/")
     generated = datetime.date.today().isoformat()
     permits = []
     if permits_path:
@@ -641,7 +660,7 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
         fh.write(_CSS)
     with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
         fh.write(render_index(rows, changes, generated, council_name, permits,
-                              base_url=base_url, preview_image=has_img))
+                              base_url=base_url, preview_image=has_img, reviews=reviews))
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
         fh.write(render_feed(changes, generated, council_name, base_url))
     with open(f"{out_dir}/data.json", "w", encoding="utf-8") as fh:
