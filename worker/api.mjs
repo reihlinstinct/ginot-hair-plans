@@ -102,7 +102,11 @@ export async function handleRequest(request, fetchImpl = fetch) {
     url.pathname === "/open" ? "open.json" : "data.json", ORIGIN + "/");
   let resp;
   try {
-    resp = await fetchImpl(new Request(upstream.toString(), { cf: { cacheTtl: CACHE_TTL, cacheEverything: true } }));
+    // Cache only successful upstream responses at the edge (a cached 404 for
+    // a not-yet-published open.json would otherwise stick for CACHE_TTL).
+    const cf = upstream.pathname.endsWith("data.json")
+      ? { cacheTtl: CACHE_TTL, cacheEverything: true } : {};
+    resp = await fetchImpl(new Request(upstream.toString(), { cf }));
   } catch (e) {
     return json({ error: "upstream fetch failed", detail: String(e && e.message || e) }, { status: 502 });
   }
