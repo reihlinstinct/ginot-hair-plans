@@ -129,6 +129,7 @@ jobs:
         if: ${{ env.REQ_MODE != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Redacted VPN health watcher (issue #83): masked, timestamped
           # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
@@ -136,7 +137,11 @@ jobs:
           sudo python3 scripts/vpn/vpn_watch.py &
           WATCH=$!
           trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
-          sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}"
+          # --checkpoint pushes partial results to the scan-checkpoint branch
+          # every 15 parcels and --resume continues from it (issue #155), so a
+          # lost runner no longer wipes hours of scanning. GH_TOKEN is needed
+          # by the checkpoint push; sudo -E preserves it.
+          sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}" --checkpoint --resume
 
       - name: Enrich mirror tiks with s.149 publication dates
         if: ${{ env.REQ_MODE == 'enrich' }}
@@ -194,6 +199,8 @@ jobs:
           RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId')
           gh run watch "$RUN_ID" --exit-status --interval 20
           gh pr merge "$PR" --squash --delete-branch
+          # Batch fully published - drop the mid-run checkpoint branch (#155)
+          gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/scan-checkpoint" || true
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
 
       - name: Self-dispatch next enrichment run while unenriched tiks remain

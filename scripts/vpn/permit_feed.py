@@ -14,8 +14,10 @@ only, slow pacing, stop on any anti-bot challenge (exit 2, no workaround).
 Usage: python3 scripts/vpn/permit_feed.py [--limit 60] [--offset 0]
 """
 import argparse
+import base64
 import datetime
 import json
+import os
 import subprocess
 import sys
 import time
@@ -29,6 +31,76 @@ CHALLENGE_MARKERS = (b"incapsula", b"recaptcha", b"captcha", b"_challenge",
                      b"px-captcha", b"perimeterx", b"request blocked")
 PUB_START_STEP = "תחילת פרסום בפועל"
 PUB_END_STEP = "השלמת פרסום"
+CHECKPOINT_BRANCH = "scan-checkpoint"  # issue #155: survives runner loss
+
+
+def gh_api(method, path, token, payload=None):
+    """Minimal GitHub REST call over the normal network (never the tunnel)."""
+    cmd = ["curl", "-s", "-X", method, "-m", "30",
+           "-H", f"Authorization: Bearer {token}",
+           "-H", "Accept: application/vnd.github+json",
+           "-H", "X-GitHub-Api-Version: 2022-11-28"]
+    if payload is not None:
+        cmd += ["-H", "Content-Type: application/json", "--data", json.dumps(payload)]
+    cmd.append(f"https://api.github.com{path}")
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=45)
+    try:
+        return json.loads(r.stdout)
+    except Exception:
+        return None
+
+
+def checkpoint_payload(requests, offset, limit, done):
+    return {"checkpoint": True,
+            "note": "mid-batch scan checkpoint (issue #155); scratch branch, not a publish candidate",
+            "batch": {"offset": offset, "limit": limit, "done": done},
+            "requests": sorted(requests.values(), key=lambda r: r["tik_num"])}
+
+
+def push_checkpoint(requests, offset, limit, done, token, slug):
+    """Commit the partial scan to the checkpoint branch (contents API), so a
+    lost runner leaves progress behind. Best-effort: never aborts the scan."""
+    try:
+        ref = gh_api("GET", f"/repos/{slug}/git/ref/heads/{CHECKPOINT_BRANCH}", token)
+        if not ref or "object" not in ref:
+            main_ref = gh_api("GET", f"/repos/{slug}/git/ref/heads/main", token)
+            sha = main_ref["object"]["sha"]
+            gh_api("POST", f"/repos/{slug}/git/refs", token,
+                   {"ref": f"refs/heads/{CHECKPOINT_BRANCH}", "sha": sha})
+        cur = gh_api("GET", f"/repos/{slug}/contents/data/permit_requests.json"
+                             f"?ref={CHECKPOINT_BRANCH}", token)
+        body = {"message": f"Scan checkpoint {done}/{limit} at offset {offset}",
+                "content": base64.b64encode(
+                    json.dumps(checkpoint_payload(requests, offset, limit, done),
+                               ensure_ascii=False, indent=1).encode()).decode(),
+                "branch": CHECKPOINT_BRANCH}
+        if cur and cur.get("sha"):
+            body["sha"] = cur["sha"]
+        r = gh_api("PUT", f"/repos/{slug}/contents/data/permit_requests.json", token, body)
+        print(f"checkpoint pushed ({done}/{limit}): {'ok' if r and r.get('commit') else 'FAILED'}")
+    except Exception as exc:
+        print(f"checkpoint push failed (continuing): {exc}")
+
+
+def load_checkpoint(token, slug):
+    try:
+        r = gh_api("GET", f"/repos/{slug}/contents/data/permit_requests.json"
+                           f"?ref={CHECKPOINT_BRANCH}", token)
+        if r and r.get("content"):
+            return json.loads(base64.b64decode(r["content"]))
+    except Exception as exc:
+        print(f"checkpoint read failed (fresh start): {exc}")
+    return None
+
+
+def resume_start(cp, offset, limit, batch_len):
+    """Parcels already scanned per the checkpoint, or 0 when it does not
+    match this run's range."""
+    b = (cp or {}).get("batch", {})
+    if cp and cp.get("checkpoint") and b.get("offset") == offset \
+            and b.get("limit") == limit and 0 < b.get("done", 0) < batch_len:
+        return b["done"]
+    return 0
 
 
 def call(proc, params):
@@ -88,6 +160,13 @@ def main():
     ap.add_argument("--out", default="data/permit_requests.json")
     ap.add_argument("--limit", type=int, default=60)
     ap.add_argument("--offset", type=int, default=0)
+    ap.add_argument("--checkpoint", action="store_true",
+                    help="push a checkpoint commit every --checkpoint-every parcels "
+                         "(needs GH_TOKEN + GITHUB_REPOSITORY)")
+    ap.add_argument("--resume", action="store_true",
+                    help="resume from the checkpoint branch when its range matches")
+    ap.add_argument("--checkpoint-every", type=int, default=15,
+                    help="parcels between checkpoint pushes (owner spec: 10-20)")
     args = ap.parse_args()
 
     with open(args.parcels, encoding="utf-8") as fh:
@@ -105,8 +184,23 @@ def main():
         batch.insert(0, (30025, 126))
     print(f"{len(parcels)} unique parcels, scanning batch of {len(batch)}")
 
+    slug = os.environ.get("GITHUB_REPOSITORY", "")
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
+    ckpt_on = bool(args.checkpoint and token and slug)
+    if args.checkpoint and not ckpt_on:
+        print("checkpoint requested but GH_TOKEN/GITHUB_REPOSITORY missing - off")
+
     requests, failures = {}, 0
-    for i, (gush, helka) in enumerate(batch):
+    start = 0
+    if args.resume and token and slug:
+        cp = load_checkpoint(token, slug)
+        start = resume_start(cp, args.offset, args.limit, len(batch))
+        if start:
+            requests = {r["tik_num"]: r for r in cp.get("requests", []) if r.get("tik_num")}
+            print(f"resuming from checkpoint: {start}/{len(batch)} parcels already scanned, "
+                  f"{len(requests)} requests carried")
+    for i in range(start, len(batch)):
+        gush, helka = batch[i]
         if i:
             time.sleep(PACE_SECONDS)
         try:
@@ -140,9 +234,15 @@ def main():
             }
         if (i + 1) % 10 == 0:
             print(f"[{i+1}/{len(batch)}] {len(requests)} requests so far")
+        if ckpt_on and (i + 1) % args.checkpoint_every == 0:
+            push_checkpoint(requests, args.offset, args.limit, i + 1, token, slug)
 
+    if ckpt_on:
+        push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
     print(f"found {len(requests)} unique requests; fetching process + address data")
     for j, tik in enumerate(sorted(requests)):
+        if "publication_start" in requests[tik] and "address" in requests[tik]:
+            continue  # already detailed in a checkpointed earlier attempt
         if j:
             time.sleep(PACE_SECONDS)
         try:
