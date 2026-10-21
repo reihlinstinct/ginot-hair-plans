@@ -97,7 +97,6 @@
 </section>
 <h2>דחוף להתנגדות</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005304728/310'>101-1215656</a> בני בתירא 7-9 התחדשות עירונית - אחרון להתנגדות (משוער): 05.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005267674/310'>101-1158146</a> בית הנוער העברי - אחרון להתנגדות (משוער): 07.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - אחרון להתנגדות (משוער): 18.11.26</li></ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list"><li>אין שינויים מהסריקה הקודמת</li></ul>
-<section id="datasets"><h2>מערכי נתונים</h2><ul id="datasets-list"><li>טוען רשימה...</li></ul></section>
 <details id="stats"><summary>סטטיסטיקה</summary>
 <div class="stats">
 <div><h3>לפי סטטוס</h3><div class='bars'><div class='bar'><span class='bl'>אישור</span><span class='bt'><span class='bf' style='width:100%'></span></span><span class='bv'>248</span></div><div class='bar'><span class='bl'>בבדיקה תכנונית</span><span class='bt'><span class='bf' style='width:18%'></span></span><span class='bv'>44</span></div><div class='bar'><span class='bl'>במילוי תנאים להפקדה</span><span class='bt'><span class='bf' style='width:8%'></span></span><span class='bv'>21</span></div><div class='bar'><span class='bl'>הפקדה להתנגדויות/השגות</span><span class='bt'><span class='bf' style='width:5%'></span></span><span class='bv'>13</span></div><div class='bar'><span class='bl'>הכרעה בהתנגדויות / אישור</span><span class='bt'><span class='bf' style='width:5%'></span></span><span class='bv'>13</span></div><div class='bar'><span class='bl'>בהליך אישור</span><span class='bt'><span class='bf' style='width:5%'></span></span><span class='bv'>12</span></div></div></div>
@@ -108,8 +107,7 @@
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
-&middot; <a href="sources.html">מקורות נתונים</a>
-&middot; <a href="about.html">אודות</a>
+&middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p></footer>
 <script>
@@ -223,16 +221,6 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
   resort();_renderUrgent();
   window.__rowsLoaded=true;
 }).catch(function(){window.__rowsFailed=true;});
-fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
-  var ul=document.getElementById('datasets-list');if(!ul)return;
-  ul.innerHTML=(ix.datasets||[]).map(function(d){
-    return '<li><a href="'+_esc(d.url)+'">'+_esc(d.name)+'</a>'+
-      (d.records!=null?' - '+d.records+' רשומות':'')+'</li>';
-  }).join('')||'<li>אין</li>';
-}).catch(function(){
-  var ul=document.getElementById('datasets-list');
-  if(ul)ul.innerHTML='<li>רשימת מערכי הנתונים לא זמינה כרגע - ייתכן שהנתונים בעמוד אינם מעודכנים</li>';
-});
 })();
 
 (function(){
