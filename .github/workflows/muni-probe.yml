@@ -13,7 +13,7 @@ on:
         required: true
         default: "https://tor.jerusalem.muni.il/Service.aspx?channel=3554&Id=1324"
       mode:
-        description: "requests (plain GET) or browser (playwright render, for JS apps)"
+        description: "requests (plain GET), browser (playwright render), or api (public SPA API POSTs)"
         required: true
         default: "requests"
 
@@ -61,6 +61,12 @@ jobs:
           python3 -m playwright install --with-deps chromium > /dev/null 2>&1
           python3 scripts/vpn/muni_browser_probe.py
 
+      - name: Probe public SPA API (requests)
+        if: inputs.mode == 'api'
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: python3 scripts/vpn/muni_api_probe.py
+
       - name: Upload probe artifact
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -69,6 +75,7 @@ jobs:
           path: |
             /tmp/muni_probe/
             /tmp/muni_browser_probe/
+            /tmp/muni_api_probe/
           if-no-files-found: ignore
 
       - name: Tear down tunnel and remove generated secret material

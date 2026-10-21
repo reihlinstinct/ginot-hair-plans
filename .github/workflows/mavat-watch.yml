@@ -35,7 +35,9 @@ on:
           - check
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+  actions: write
 
 jobs:
   mavat-watch:
