@@ -9,7 +9,7 @@ name: Jerusalem permit feed pilot (VPN)
 # commented until a green manual run, per the owner's gate. On any
 # anti-bot challenge the run stops red (no workaround).
 #
-# Backfill schedule ENABLED 2026-10-19 (owner approval): one 500-parcel
+# Backfill schedule ENABLED 2026-10-19 (owner approval): one 280-parcel
 # batch nightly at 03:00 UTC until all parcels are covered, then the job
 # prints "backfill complete" and no-ops until the cron is switched to the
 # approved weekly rotating re-scan (follow-up PR). Offset advances from
@@ -114,7 +114,7 @@ jobs:
             echo "OFFSET=${{ env.REQ_OFFSET }}" >> "$GITHUB_ENV"
           else
             read O _ < <(python3 -c "import json;b=json.load(open('data/permit_requests.json'))['batch'];print(b['offset']+b['limit'],b['limit'])")
-            L=500   # approved backfill batch size for scheduled runs
+            L=280   # approved backfill batch size for scheduled runs (280 fits the 355-min job timeout at the measured ~60-90 parcels/hour; 500 did not)
             TOTAL=$(python3 -c "import json;print(len({(int(f['properties']['gush']),int(f['properties']['helka'])) for f in json.load(open('data/ginot_hair_parcels.geojson'))['features'] if f.get('properties',{}).get('gush') and f.get('properties',{}).get('helka')}))")
             if [ "$O" -ge "$TOTAL" ]; then
               echo "backfill complete: $O >= $TOTAL parcels; no-op until weekly re-scan is enabled"
