@@ -44,13 +44,6 @@
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
-  "101-0064295": {
-   "land_status": "פרסום לתוקף בעיתונים",
-   "land_status_date": "2014-09-09",
-   "land_plan_id": 1013946,
-   "land_city": "ירושלים",
-   "is_deposit_publication": false
-  },
   "101-0068593": {
    "land_status": "פרסום לתוקף בעיתונים",
    "land_status_date": "2014-08-11",
@@ -814,6 +807,13 @@
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
+  "101-0721902": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2019-11-03",
+   "land_plan_id": 1052222,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
   "101-0725663": {
    "land_status": "פרסום לתוקף בעיתונים",
    "land_status_date": "2020-11-06",
@@ -933,6 +933,13 @@
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
+  "101-0836312": {
+   "land_status": "פרסום לתוקף ברשומות",
+   "land_status_date": "2022-01-30",
+   "land_plan_id": 1053390,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
   "101-0836809": {
    "land_status": "פרסום לתוקף בעיתונים",
    "land_status_date": "2025-12-26",
@@ -975,10 +982,24 @@
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
+  "101-0855668": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2023-09-15",
+   "land_plan_id": 1054453,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
   "101-0857086": {
    "land_status": "פרסום לתוקף ברשומות",
    "land_status_date": "2023-05-07",
    "land_plan_id": 1051769,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-0859322": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2022-03-25",
+   "land_plan_id": 1053748,
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
@@ -1301,6 +1322,13 @@
    "land_status": "פרסום לתוקף בעיתונים",
    "land_status_date": "2024-12-27",
    "land_plan_id": 1055428,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
+  "101-1078476": {
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-08-16",
+   "land_plan_id": 1056028,
    "land_city": "ירושלים",
    "is_deposit_publication": false
   },
