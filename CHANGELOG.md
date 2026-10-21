@@ -35,3 +35,8 @@ issue + PR record in this repo.
 ## 2026-10-21 - open.json + API section
 - `docs/open.json`: public static endpoint of open plans (still in the planning process; definition A: station_desc != "אישור"), each row with `in_objection_period`; regenerated on every refresh (issue: open plans API, owner request).
 - About page: new "גישה לנתונים (API)" section documenting data.json / open.json / feed.xml / badge endpoints.
+
+## 2026-10-21 - favicon, API worker, API docs
+- Site favicon on all pages (issue #192, PR #193): stylised garden tree in the site palette (SVG + PNG + apple-touch-icon), regeneration script `scripts/make_favicon.py`.
+- Read-only API query layer as a free Cloudflare Worker (issue #197, PR #198): `https://ginot-hair-api.reihlinstinct.workers.dev` - `/plans`, `/permits`, `/open`, `/status` with substring filters; CORS open; 5-min edge cache; best-effort rate limit. Node tests + CI job.
+- README: new "Data API" section (English + Hebrew) documenting the static endpoints and the Worker with curl examples.

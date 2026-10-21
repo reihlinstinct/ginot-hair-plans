@@ -88,6 +88,65 @@ See [CHANGELOG.md](CHANGELOG.md) for notable changes. Only re-deriving the bound
 `dwg2dxf` (build notes in the wiki of the git history; the committed GeoJSON
 is enough for the weekly run).
 
+## Data API
+
+Two layers, both read-only, public, and free to use. Everything updates on
+each site refresh (weekly Tuesday 04:07 UTC, plus approved manual runs).
+
+### Static files (GitHub Pages)
+
+Served from `https://reihlinstinct.github.io/ginot-hair-plans/` with
+`Access-Control-Allow-Origin: *` and a 10-minute cache:
+
+| File | Contents |
+| --- | --- |
+| `data.json` | Full dataset: `{generated, rows[], changes[], permits[]}` - field names as they arrive from iplan / the municipal permit search |
+| `open.json` | Open plans only (still in the planning process; definition: `station_desc != "אישור"`). `{generated, definition, count, plans[]}`, each row with `in_objection_period` |
+| `feed.xml` | Atom feed of new/changed plans |
+| `badge/*.json` | shields.io endpoints (plan count, per-status counts, updated date) |
+
+### Query layer (Cloudflare Worker)
+
+`https://ginot-hair-api.reihlinstinct.workers.dev` - a stateless read-only
+Worker over the static files. CORS open, GET only, 5-minute edge cache,
+best-effort rate limit (120 requests/minute/IP, per isolate).
+
+| Route | Parameters |
+| --- | --- |
+| `/plans` | `open=1` (open plans only), `status` (substring of station_desc), `q` (number/name), `before=YYYY-MM-DD` (objection deadline on/before), `limit` (default 100, max 500) |
+| `/permits` | `street`, `status`, `type` (sugbakasha), `q`, `limit` |
+| `/open` | the static `open.json` |
+| `/status` | `{generated, plans, permits}` counts |
+
+Examples (use `-G` + `--data-urlencode` so Hebrew values are URL-encoded):
+
+    curl -s -G https://ginot-hair-api.reihlinstinct.workers.dev/plans \
+      --data-urlencode "open=1" --data-urlencode "limit=5"
+    curl -s -G https://ginot-hair-api.reihlinstinct.workers.dev/permits \
+      --data-urlencode "street=עמק רפאים"
+    curl -s -G https://ginot-hair-api.reihlinstinct.workers.dev/plans \
+      --data-urlencode "status=הפקדה" --data-urlencode "before=2026-12-31"
+
+Limitations: no server-side joins or aggregation (filtering is substring
+matching on the fields above; anything richer happens client-side over
+`data.json`); objection deadlines are derived estimates, not legal dates;
+the permit dataset is a work-in-progress parcel scan (see the permits
+section caveat on the site); the rate limit is best-effort, not contractual.
+
+### גישה לנתונים (API) - תקציר
+
+שתי שכבות, שתיהן לקריאה בלבד, ציבוריות ובחינם, עם CORS פתוח. הכל מתעדכן
+בכל רענון של האתר (שבועי, יום שלישי 04:07 UTC, ורענונים ידניים).
+
+- **קבצים סטטיים** תחת `https://reihlinstinct.github.io/ginot-hair-plans/`:
+  `data.json` (כל הנתונים), `open.json` (תכניות פתוחות בלבד, עם
+  `in_objection_period`), `feed.xml` (Atom), `badge/*.json` (תגי shields).
+- **שכבת שאילתות** ב-`https://ginot-hair-api.reihlinstinct.workers.dev`:
+  `/plans` (`open=1`, `status`, `q`, `before`, `limit`), `/permits`
+  (`street`, `status`, `type`, `q`, `limit`), `/open`, `/status`.
+  מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort).
+  דוגמה: `curl -s -G .../permits --data-urlencode "street=עמק רפאים"`.
+
 ## Data sources & attribution
 
 - Plan data: **Israel Planning Administration (מנהל התכנון)** public iplan
