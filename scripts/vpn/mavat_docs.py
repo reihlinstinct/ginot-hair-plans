@@ -313,7 +313,11 @@ def main():
             }"""
 
             def fetch_zip(ids, out_name):
-                token = tokens[-1] if tokens else harvest_token()
+                # fresh token per request: the page-issued token is
+                # single-use (replay returns {"CaptchaNotValid":true},
+                # verified 2026-10-21). Each harvest clicks the page's
+                # own ZIP link so the token is the site's own.
+                token = harvest_token()
                 if not token:
                     report["failures"].append({"stage": "zip_mode", "error": "no_token"})
                     return None
@@ -335,7 +339,6 @@ def main():
                                                "error": type(exc).__name__})
                     return None
 
-            harvest_token()  # learn the token from the page's own request
             all_ids = [d["id"] for d in direct_docs]
             batch = fetch_zip(all_ids, f"{PLAN}_background_docs.zip")
             ok = False
@@ -356,7 +359,6 @@ def main():
                 report["failures"].append({"stage": "zip_mode",
                                            "error": "batch_failed_no_token"})
             if not ok:
-                harvest_token()  # refresh: page tokens may be single-use
                 for d in direct_docs:
                     eid, name = d["id"], d["name"]
                     res = fetch_zip([eid], f"{PLAN}_{name}.zip")
