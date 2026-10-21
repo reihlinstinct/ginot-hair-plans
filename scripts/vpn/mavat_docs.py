@@ -440,6 +440,16 @@ def main():
             except Exception:
                 pass
 
+            issued_urls = []
+            def _on_request(req):
+                try:
+                    if "Attacments/?eid=" in req.url:
+                        issued_urls.append(req.url)
+                except Exception:
+                    pass
+            page.on("request", _on_request)
+            report["issued_doc_urls"] = issued_urls
+
             def dismiss_overlays():
                 try:
                     page.keyboard.press("Escape")
@@ -487,9 +497,29 @@ def main():
                     return None
 
             expanded = {}
-            for label in ("מסמכי התכנית", "מסמכים מופקדים", "מסמכי מידע מנהלי",
-                          "נוסחי פרסום", "מסמכי רקע לתכנית"):
+            for label in ("מסמכי התכנית", "מסמכי מידע מנהלי", "נוסחי פרסום"):
                 expanded[label] = expand(label)
+            # מסמכים מופקדים is a sub-panel of מסמכי התכנית; verify the
+            # רקע category really appears (clicks can no-op silently)
+            mufkadim_open = False
+            for attempt in range(3):
+                expand("מסמכים מופקדים")
+                try:
+                    if page.get_by_text(re.compile("מסמכי רקע לתכנית")).first.is_visible():
+                        mufkadim_open = True
+                        break
+                except Exception:
+                    pass
+                try:
+                    page.locator("text=מסמכים מופקדים").first.click(timeout=4000, force=True)
+                    time.sleep(2)
+                    if page.get_by_text(re.compile("מסמכי רקע לתכנית")).first.is_visible():
+                        mufkadim_open = True
+                        break
+                except Exception:
+                    pass
+            expanded["מסמכים מופקדים"] = mufkadim_open
+            expanded["מסמכי רקע לתכנית"] = expand("מסמכי רקע לתכנית") if mufkadim_open else False
             if not expanded.get("מסמכי רקע לתכנית"):
                 report["failures"].append({"stage": "expand", "pattern": "מסמכי רקע לתכנית",
                                            "error": "label_not_on_page"})
@@ -510,22 +540,36 @@ def main():
             # issues the exact Attacments URL itself (guessed fn 404s)
             bg_names = ["בינוי ופיתוח", "בנין לשימור", "חוות דעת כלכלית",
                         "מצב מאושר", "נספח חברתי", "נספח סביבה", "סקר עצים",
-                        "תנועה", "בינוי", "נוף"]
+                        "תנועה", "בינוי", "נוף", "טבלאות איזון והקצאה",
+                        "תדפיס הוראות התכנית", "תדפיס תשריט מצב מוצע"]
             for nm in bg_names:
+                got = False
                 try:
-                    for el in page.get_by_text(re.compile(f"^{nm}$")).all():
+                    rows = page.locator(f'tr:has-text("{nm}"), li:has-text("{nm}"), div[role="row"]:has-text("{nm}")')
+                    n = rows.count()
+                    for ri in range(min(n, 4)):
+                        row = rows.nth(ri)
                         try:
-                            if not el.is_visible():
+                            if not row.is_visible():
                                 continue
-                            dl = click_and_wait(el, 5000)
-                            if dl:
-                                path = OUT / "zips" / ("bg_" + safe_name(dl.suggested_filename))
-                                path.parent.mkdir(parents=True, exist_ok=True)
-                                dl.save_as(str(path))
-                                downloaded_names.add(path.name)
-                                report["downloads"].append({"file": path.name, "via": "bg_row_click",
-                                                            "bytes": path.stat().st_size})
-                                print(f"download: {path.name}", flush=True)
+                            for sel in ["img[src*='pdf' i]", "a[title*='הורד']",
+                                        "img[title*='הורד']", "[title*='צפיה']",
+                                        "a", "img"]:
+                                ic = row.locator(sel)
+                                if ic.count() == 0:
+                                    continue
+                                dl = click_and_wait(ic.first, 5000)
+                                if dl:
+                                    path = OUT / "zips" / ("bg_" + safe_name(dl.suggested_filename))
+                                    path.parent.mkdir(parents=True, exist_ok=True)
+                                    dl.save_as(str(path))
+                                    downloaded_names.add(path.name)
+                                    report["downloads"].append({"file": path.name, "via": "bg_row_click",
+                                                                "bytes": path.stat().st_size})
+                                    print(f"download: {path.name}", flush=True)
+                                    got = True
+                                    break
+                            if got:
                                 break
                         except Exception:
                             continue
