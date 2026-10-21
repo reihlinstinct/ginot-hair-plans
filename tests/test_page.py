@@ -313,3 +313,11 @@ def test_mobile_label_for_ai_review_column(tmp_path):
     css = (tmp_path / "style.css").read_text(encoding="utf-8")
     assert '#plans td:nth-child(8)::before{content:"סקירת AI"}' in css
     assert "בתוך/חלקי" not in css
+def test_stylesheet_uses_approved_ginothair_palette(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    # approved 2026-10-21 (#154): ginothair.org.il-inspired palette
+    assert "#101f5b" in css and "#51b89a" in css and "#f3f6ff" in css
+    assert "#c8a4de" in css and "#00a8cf" in css and "#6db633" in css
+    # mobile sort-header chips stay readable (white bg, mint border, navy text)
+    assert "#plans thead th{display:block;background:#fff" in css
