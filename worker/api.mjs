@@ -99,9 +99,14 @@ export async function handleRequest(request, fetchImpl = fetch) {
   if (url.pathname === "/" || url.pathname === "") return json(INDEX);
 
   const upstream = new URL(
-    url.pathname === "/open" ? "/open.json" : "/data.json", ORIGIN);
-  const resp = await fetchImpl(new Request(upstream, { cf: { cacheTtl: CACHE_TTL, cacheEverything: true } }));
-  if (!resp.ok) return json({ error: "upstream unavailable" }, { status: 502 });
+    url.pathname === "/open" ? "open.json" : "data.json", ORIGIN + "/");
+  let resp;
+  try {
+    resp = await fetchImpl(new Request(upstream.toString(), { cf: { cacheTtl: CACHE_TTL, cacheEverything: true } }));
+  } catch (e) {
+    return json({ error: "upstream fetch failed", detail: String(e && e.message || e) }, { status: 502 });
+  }
+  if (!resp.ok) return json({ error: "upstream unavailable", upstream_status: resp.status }, { status: 502 });
   const data = await resp.json();
   const p = url.searchParams;
 
