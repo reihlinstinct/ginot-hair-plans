@@ -81,7 +81,8 @@ def test_complete_scan_resumes_details_and_checkpoints_them(monkeypatch, tmp_pat
     out = tmp_path / "out.json"
     requests = _reqs(3)
     first = min(requests)
-    requests[first].update(address="saved", publication_start="", publication_end_planned="")
+    requests[first].update(address="saved", publication_start="", publication_end_planned="",
+                           details_checked_on=pf.datetime.date.today().isoformat())
     cp = pf.checkpoint_payload(requests, 0, 3, 3)
     monkeypatch.setenv("GH_TOKEN", "fake")
     monkeypatch.setenv("GITHUB_REPOSITORY", "example/repo")

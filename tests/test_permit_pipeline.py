@@ -364,3 +364,45 @@ def test_mirror_main_end_to_end(monkeypatch, tmp_path):
     assert d["new_tiks"] == ["T/1"] and d["gone_tiks"] == ["gone"]
     v = mirror.validate({"T/1": {}}, str(direct))
     assert v["common"] == 1 and v["direct_only"] == ["only-direct"]
+
+
+def test_checkpoint_large_payload_uses_stdin_not_argv(monkeypatch):
+    payload = {"content": "x" * 300000}
+    seen = {}
+    def run(cmd, **kwargs):
+        seen.update(cmd=cmd, kwargs=kwargs)
+        return subprocess.CompletedProcess(cmd, 0, '{"commit": {"sha": "ok"}}', '')
+    monkeypatch.setattr(feed.subprocess, "run", run)
+    assert feed.gh_api("PUT", "/repos/test/test/contents/data.json", "test", payload)["commit"]
+    assert "@-" in seen["cmd"]
+    assert max(map(len, seen["cmd"])) < 1000
+    assert json.loads(seen["kwargs"]["input"]) == payload
+
+
+@pytest.mark.parametrize("age,status,complete,reuse", [
+    ("today", "fresh", True, True),
+    ("2000-01-01", "fresh", True, False),
+    ("today", "old", True, False),
+    ("today", "fresh", False, False),
+    (None, "fresh", True, False),
+])
+def test_feed_reuses_only_complete_same_day_unchanged_details(monkeypatch, tmp_path, age, status, complete, reuse):
+    parcels = parcels_file(tmp_path, [(100, 1)])
+    out = tmp_path / "out.json"
+    prior = {"tik_num": "T/1", "mahut": "בקשה", "sugbakasha": "היתר", "status": status,
+             "status_date": "2026-03-02", "publication_start": "2026-02-01",
+             "publication_end_planned": "", "address": "cached"}
+    if age:
+        prior["details_checked_on"] = feed.datetime.date.today().isoformat() if age == "today" else age
+    if not complete:
+        del prior["address"]
+    out.write_text(json.dumps({"requests": [prior]}))
+    seen = []
+    def call(proc, params):
+        seen.append(proc)
+        return [search_row("T/1", "fresh")] if proc == 242700437 else []
+    assert run_feed(monkeypatch, tmp_path, ["--parcels", str(parcels), "--out", str(out)], call) == 0
+    assert (242700451 not in seen) == reuse
+    row = json.loads(out.read_text())["requests"][0]
+    assert row["details_checked_on"] == feed.datetime.date.today().isoformat()
+    assert row["address"] == ("cached" if reuse else "")

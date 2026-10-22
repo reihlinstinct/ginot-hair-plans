@@ -16,3 +16,5 @@ The standing rule is in CONTRIBUTING.md and the Bug/PR templates.
 
 Map coverage was split into a dedicated module and CI target by #272.
 No test-only follow-up issue is needed for these fixes: all are automated.
+
+- #285: `tests/test_permit_pipeline.py::test_checkpoint_large_payload_uses_stdin_not_argv` covers oversized checkpoint transport; `test_feed_reuses_only_complete_same_day_unchanged_details` covers freshness and changed/missing detail rejection. `tests/test_scan_checkpoint.py::test_complete_scan_resumes_details_and_checkpoints_them` covers durable detail resume.

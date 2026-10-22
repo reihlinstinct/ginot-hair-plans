@@ -41,9 +41,10 @@ def gh_api(method, path, token, payload=None):
            "-H", "Accept: application/vnd.github+json",
            "-H", "X-GitHub-Api-Version: 2022-11-28"]
     if payload is not None:
-        cmd += ["-H", "Content-Type: application/json", "--data", json.dumps(payload)]
+        cmd += ["-H", "Content-Type: application/json", "--data-binary", "@-"]
     cmd.append(f"https://api.github.com{path}")
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=45)
+    r = subprocess.run(cmd, input=json.dumps(payload) if payload is not None else None,
+                       capture_output=True, text=True, timeout=45)
     try:
         return json.loads(r.stdout)
     except Exception:
@@ -203,6 +204,15 @@ def main():
     if args.checkpoint and not ckpt_on:
         print("checkpoint requested but GH_TOKEN/GITHUB_REPOSITORY missing - off")
 
+    # Reuse only complete details checked today for unchanged search metadata.
+    # Active publication steps can change even without a status change, so old
+    # days and legacy rows without a check timestamp must always refresh.
+    today = datetime.date.today().isoformat()
+    try:
+        previous = {r["tik_num"]: r for r in json.load(open(args.out)).get("requests", [])
+                    if r.get("tik_num")}
+    except (FileNotFoundError, json.JSONDecodeError):
+        previous = {}
     requests, failures = {}, 0
     start = 0
     if args.resume and token and slug:
@@ -255,8 +265,16 @@ def main():
     print(f"found {len(requests)} unique requests; fetching process + address data")
     detailed_since_checkpoint = 0
     for j, tik in enumerate(sorted(requests)):
-        if "publication_start" in requests[tik] and "address" in requests[tik]:
-            continue  # already detailed in a checkpointed earlier attempt
+        row = requests[tik]
+        prior = previous.get(tik, {})
+        metadata = ("mahut", "sugbakasha", "status", "status_date")
+        details = ("publication_start", "publication_end_planned", "address", "details_checked_on")
+        if (prior.get("details_checked_on") == today
+                and all(key in prior for key in details)
+                and all(prior.get(key) == row.get(key) for key in metadata)):
+            row.update({key: prior[key] for key in details})
+        if row.get("details_checked_on") == today and all(key in row for key in details):
+            continue  # today's complete read, from prior output or durable checkpoint
         if j:
             time.sleep(PACE_SECONDS)
         try:
@@ -265,6 +283,7 @@ def main():
             requests[tik]["publication_end_planned"] = end
             time.sleep(PACE_SECONDS)
             requests[tik]["address"] = address_of(tik)
+            requests[tik]["details_checked_on"] = today
         except RuntimeError:
             print("anti-bot challenge during detail fetch - stopping (no workaround)")
             return 2
