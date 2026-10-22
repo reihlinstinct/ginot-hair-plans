@@ -168,6 +168,24 @@ def address_of(tik):
     return ""
 
 
+def load_parcel_list(path, known):
+    """Parcels from a JSON [[gush, helka], ...] file, restricted to the
+    council parcel set, de-duplicated, in stable order."""
+    with open(path, encoding="utf-8") as fh:
+        raw = json.load(fh)
+    out = {(int(g), int(h)) for g, h in raw}
+    return sorted(out & known)
+
+
+def prior_batch_cursor(path, default):
+    """The feed's existing backfill cursor, so a re-check never moves it."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh).get("batch") or default
+    except (FileNotFoundError, json.JSONDecodeError):
+        return default
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
@@ -181,7 +199,12 @@ def main():
                     help="resume from the checkpoint branch when its range matches")
     ap.add_argument("--checkpoint-every", type=int, default=15,
                     help="parcels between checkpoint pushes (owner spec: 10-20)")
+    ap.add_argument("--parcel-list", default="",
+                    help="JSON file [[gush, helka], ...]: scan exactly these parcels "
+                         "(tiered re-check, issue #344). No checkpoint/resume, address "
+                         "kept from the prior row, feed batch cursor left untouched.")
     args = ap.parse_args()
+    list_mode = bool(args.parcel_list)
 
     with open(args.parcels, encoding="utf-8") as fh:
         gj = json.load(fh)
@@ -192,15 +215,20 @@ def main():
         if g and h:
             parcels.add((int(g), int(h)))
     parcels = sorted(parcels)
-    batch = parcels[args.offset:args.offset + args.limit]
-    # keep the known active parcel (Alfasi 9) in every pilot batch
-    if (30025, 126) in parcels and (30025, 126) not in batch:
-        batch.insert(0, (30025, 126))
+    if list_mode:
+        batch = load_parcel_list(args.parcel_list, set(parcels))
+    else:
+        batch = parcels[args.offset:args.offset + args.limit]
+        # keep the known active parcel (Alfasi 9) in every pilot batch
+        if (30025, 126) in parcels and (30025, 126) not in batch:
+            batch.insert(0, (30025, 126))
     print(f"{len(parcels)} unique parcels, scanning batch of {len(batch)}")
 
     slug = os.environ.get("GITHUB_REPOSITORY", "")
     token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
-    ckpt_on = bool(args.checkpoint and token and slug)
+    # List mode never touches the scan-checkpoint branch: it belongs to the
+    # offset backfill and a re-check must not overwrite or resume from it.
+    ckpt_on = bool(args.checkpoint and token and slug and not list_mode)
     if args.checkpoint and not ckpt_on:
         print("checkpoint requested but GH_TOKEN/GITHUB_REPOSITORY missing - off")
 
@@ -215,7 +243,7 @@ def main():
         previous = {}
     requests, failures = {}, 0
     start = 0
-    if args.resume and token and slug:
+    if args.resume and token and slug and not list_mode:
         cp = load_checkpoint(token, slug)
         start = resume_start(cp, args.offset, args.limit, len(batch))
         if start:
@@ -281,8 +309,11 @@ def main():
             start, end = publication_dates(tik)
             requests[tik]["publication_start"] = start
             requests[tik]["publication_end_planned"] = end
-            time.sleep(PACE_SECONDS)
-            requests[tik]["address"] = address_of(tik)
+            if list_mode and prior.get("address"):
+                requests[tik]["address"] = prior["address"]  # address does not change
+            else:
+                time.sleep(PACE_SECONDS)
+                requests[tik]["address"] = address_of(tik)
             requests[tik]["details_checked_on"] = today
         except RuntimeError:
             print("anti-bot challenge during detail fetch - stopping (no workaround)")
@@ -314,9 +345,12 @@ def main():
     if carried:
         print(f"carried over {carried} requests from previous batches")
 
+    batch_cursor = {"offset": args.offset, "limit": args.limit}
+    if list_mode:
+        batch_cursor = prior_batch_cursor(args.out, batch_cursor)
     payload = {"generated": datetime.date.today().isoformat(),
                "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
-               "batch": {"offset": args.offset, "limit": args.limit},
+               "batch": batch_cursor,
                "requests": sorted(requests.values(), key=lambda r: r["tik_num"])}
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
