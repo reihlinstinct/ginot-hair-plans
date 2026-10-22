@@ -215,3 +215,16 @@ def test_permit_status_chip_isolated_from_map_and_closed_hidden(page, map_networ
     assert page.locator('.leaflet-overlay-pane path').count() == 20
     page.click('#pfreset')
     assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
+
+
+def test_popup_layer_above_controls_and_overlap_summary_compact(page, map_network):
+    page.locator('#plan-map-panel summary').click()
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('20 גבולות')")
+    canvas = page.locator('#plan-map')
+    box = canvas.bounding_box()
+    canvas.click(position={'x': box['width']/2, 'y': box['height']/2})
+    page.locator('.leaflet-popup-content').wait_for()
+    z = page.locator('.leaflet-popup-pane').evaluate('e=>+getComputedStyle(e).zIndex')
+    assert z > 800
+    assert page.locator('.leaflet-popup-content summary').first.evaluate(
+        'e=>parseFloat(getComputedStyle(e).fontSize)') == 14
