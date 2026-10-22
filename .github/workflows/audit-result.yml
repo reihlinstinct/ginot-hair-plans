@@ -41,6 +41,13 @@ jobs:
           git commit -m 'data: verified Go parcel audit result'
           git push origin "$BRANCH"
           PR=$(gh pr create --title 'Verified Go parcel audit result' --body 'Source/digest/cursor verified; callback does not start a scan.' --base main --head "$BRANCH")
+          # Wait for PR event checks to register before asking --watch.
+          for i in $(seq 1 30); do
+            COUNT=$(gh pr view "$PR" --json statusCheckRollup --jq '.statusCheckRollup | length')
+            [ "$COUNT" -gt 0 ] && break
+            [ "$i" = 30 ] && exit 1
+            sleep 5
+          done
           gh pr checks "$PR" --watch --interval 10
           gh pr update-branch "$PR" || true
           for i in $(seq 1 45); do
