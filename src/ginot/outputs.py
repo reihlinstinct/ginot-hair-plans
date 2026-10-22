@@ -43,7 +43,11 @@ def row_from_feature(attrs: dict, geom: dict | None, council: Polygon | None) ->
         inter = pg.intersection(council).area
         inside = "inside" if (pg.area and inter / pg.area > INSIDE_FRACTION) else "partial"
         inter_dunam = round(inter / 1000, 1)
-    pub = attrs.get("pl_date_advertise") or attrs.get("pl_last_deposit_date") or attrs.get("depositing_date")
+    # s.102 objection clock runs from newspaper publication only. depositing_date
+    # is the committee's deposit DECISION date; deriving a deadline from it shows
+    # a bogus statutory date for plans still awaiting publication (issue: 12/12
+    # shown for plans whose deposit was only decided on 13/10/2026).
+    pub = attrs.get("pl_date_advertise") or attrs.get("pl_last_deposit_date")
     return {
         "pl_number": attrs.get("pl_number"), "pl_name": attrs.get("pl_name"),
         "station_desc": attrs.get("station_desc"),

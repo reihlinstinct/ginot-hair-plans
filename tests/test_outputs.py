@@ -24,9 +24,10 @@ def test_dates_and_derived_deadline():
 def test_deadline_fallback_chain():
     r = outputs.row_from_feature(attrs(pl_date_advertise=None, pl_last_deposit_date=PUB), None, None)
     assert r["objection_deadline_derived_60d_from_publication"] == "2025-08-14"
+    # a deposit DECISION date alone is not a publication: no derived deadline
     r = outputs.row_from_feature(attrs(pl_date_advertise=None, pl_last_deposit_date=None,
                                        depositing_date=PUB), None, None)
-    assert r["objection_deadline_derived_60d_from_publication"] == "2025-08-14"
+    assert r["objection_deadline_derived_60d_from_publication"] == ""
     r = outputs.row_from_feature(attrs(pl_date_advertise=None, pl_last_deposit_date=None,
                                        depositing_date=None), None, None)
     assert r["objection_deadline_derived_60d_from_publication"] == ""
