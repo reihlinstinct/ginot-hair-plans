@@ -105,16 +105,15 @@ def test_map_overlap_prefers_smallest_and_excludes_holes_and_hidden_rows(page):
     box = page.locator('#plan-map')
     box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
     popup = page.locator('.leaflet-popup-content')
-    assert '2 תכניות חופפות' in popup.inner_text()
+    assert 'תכנית 200-20' in popup.inner_text()
     assert popup.locator('strong').first.inner_text() == 'תכנית 200-20'
-    assert '200-22' in popup.inner_text()
+    assert '200-22' not in popup.inner_text()
     assert '200-21' not in popup.inner_text()  # click was in its hole
     assert page.locator('.leaflet-overlay-pane .leaflet-interactive').count() == 0
     page.fill('#fq', '200-22')
     page.wait_for_function("document.querySelector('#map-status').textContent.includes('1 גבולות')")
-    box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
-    page.wait_for_function("document.querySelectorAll('.leaflet-popup-content strong').length===1")
-    assert page.locator('.leaflet-popup-content strong').inner_text() == 'תכנית 200-22'
+    box.click(position={'x': box.bounding_box()['width']/2+50, 'y': box.bounding_box()['height']/2+50})
+    page.locator('.leaflet-popup').wait_for(state='detached')
     page.fill('#fq', 'absent')
     box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
     page.locator('.leaflet-popup').wait_for(state='detached')
@@ -249,3 +248,26 @@ def test_popup_close_restores_zoom_and_keeps_nested_text_readable(page, map_netw
     popup.locator('.leaflet-popup-close-button').click()
     popup.wait_for(state='detached')
     assert page.locator('.leaflet-control-zoom').is_visible()
+
+
+def test_map_excludes_style_hidden_row_and_keeps_boundary_click(page, map_network):
+    page.fill('#fq', '200-22')
+    page.locator('#plan-map-panel summary').click()
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('1 גבולות')")
+    canvas = page.locator('#plan-map')
+    canvas.scroll_into_view_if_needed()
+    canvas.screenshot(path='/tmp/map-boundary-stable.png')
+    # SVG path pixels give an actual edge to click, not a mocked map event.
+    point = page.locator('.leaflet-overlay-pane path').evaluate('''e=>{
+      var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
+      return {x:p.x,y:p.y};}''')
+    page.mouse.click(point['x'], point['y'])
+    page.locator('.leaflet-popup-content strong').wait_for()
+    assert page.locator('.leaflet-popup-content strong').inner_text() == 'תכנית 200-22'
+    page.locator('.leaflet-popup-close-button').click()
+    page.locator('.leaflet-popup').wait_for(state='detached')
+    # Simulate an alternate table presentation hiding a row without its class.
+    page.locator('#plans tbody tr[data-num="200-22"]').evaluate("e=>e.style.display='none'")
+    box = canvas.bounding_box()
+    canvas.click(position={'x': box['width']/2, 'y': box['height']/2})
+    assert page.locator('.leaflet-popup').count() == 0

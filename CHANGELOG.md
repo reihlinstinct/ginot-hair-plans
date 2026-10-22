@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1] - 2026-10-22
+
+- #283: Fix random-area citywide popups; preserve displayed-plan boundary clicks
+
 ## [0.2.0] - 2026-10-22
 
 - Semantic version baseline, bilingual release notes and visible footer version.

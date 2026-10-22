@@ -20,7 +20,7 @@
   function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
   function link(text,url){var a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';return a;}
   function asset(tag,attr,url){return new Promise(function(resolve,reject){var e=document.createElement(tag);e[attr]=url;e.onload=resolve;e.onerror=reject;if(tag==='link')e.rel='stylesheet';document.head.appendChild(e);});}
-  function rows(){return Array.from(document.querySelectorAll('#plans tbody tr:not(.filtered-out)'));}
+  function rows(){return Array.from(document.querySelectorAll('#plans tbody tr')).filter(function(r){return r.dataset.mapMatch==='1'&&!r.classList.contains('filtered-out')&&r.getClientRects().length>0&&getComputedStyle(r).visibility!=='hidden';});}
   function selected(){var allowed=new Set(rows().map(function(r){return r.dataset.num;}));return items.filter(function(i){return allowed.has(i.row.pl_number);});}
   function popup(row){
     var box=el('div');box.dir='rtl';box.append(el('strong','תכנית '+row.pl_number),el('p',row.pl_name),el('p',row.station_desc||'סטטוס לא ידוע'));
@@ -52,9 +52,21 @@
   function contains(geometry,p){return parts(geometry).some(function(rings){return ringContains(rings[0],p)&&!rings.slice(1).some(function(r){return ringContains(r,p);});});}
   function ringArea(ring){var sum=0;for(var i=0,j=ring.length-1;i<ring.length;j=i++)sum+=ring[j][0]*ring[i][1]-ring[i][0]*ring[j][1];return Math.abs(sum)/2;}
   function area(geometry){return parts(geometry).reduce(function(total,rings){return total+ringArea(rings[0])-rings.slice(1).reduce(function(n,r){return n+ringArea(r);},0);},0);}
+  function nearBoundary(geometry,latlng){
+    var p=map.latLngToContainerPoint(latlng);
+    return parts(geometry).some(function(rings){return rings.some(function(ring){
+      for(var i=1;i<ring.length;i++){
+        var a=map.latLngToContainerPoint([ring[i-1][1],ring[i-1][0]]),b=map.latLngToContainerPoint([ring[i][1],ring[i][0]]);
+        if(L.LineUtil.pointToSegmentDistance(p,a,b)<=6)return true;
+      }return false;
+    });});
+  }
   function inspectPoint(event){
     var visible=new Set(rows().map(function(r){return r.dataset.num;})),p=[event.latlng.lng,event.latlng.lat];
-    var hits=drawn.filter(function(item){return visible.has(item.row.pl_number)&&item.features.some(function(f){return contains(f.geometry,p);});});
+    var hits=drawn.filter(function(item){return visible.has(item.row.pl_number)&&item.features.some(function(f){return contains(f.geometry,p)||nearBoundary(f.geometry,event.latlng);});});
+    // Citywide footprints are context outlines, not useful random-area hits.
+    // 0.01 square degrees is roughly100 square km at Jerusalem latitude.
+    hits=hits.filter(function(item){return item.area<0.01||item.features.some(function(f){return nearBoundary(f.geometry,event.latlng);});});
     hits.sort(function(a,b){return a.area-b.area||a.row.pl_number.localeCompare(b.row.pl_number);});
     map.closePopup();if(!hits.length)return;
     var box=el('div');box.dir='rtl';
@@ -68,7 +80,7 @@
     polygons.clearLayers();drawn=[];var count=0,points=0;
     items.forEach(function(item){map.removeLayer(item.marker);});
     active.forEach(function(item){var fs=(automatic||manual.has(item.row.pl_number))&&cache.get(item.row.pl_number);
-      if(fs&&fs.length){L.geoJSON({type:'FeatureCollection',features:fs},{interactive:false,style:{color:color(item.row),weight:3,fillOpacity:.07}}).addTo(polygons);drawn.push({row:item.row,features:fs,area:fs.reduce(function(n,f){return n+area(f.geometry);},0)});count++;}
+      if(fs&&fs.length){L.geoJSON({type:'FeatureCollection',features:fs},{interactive:false,style:{color:color(item.row),weight:3,fillOpacity:.07}}).addTo(polygons);var footprint=fs.reduce(function(n,f){return n+area(f.geometry);},0);drawn.push({row:item.row,features:fs,area:footprint});count++;}
       else{item.marker.addTo(map);points++;}
     });
     var note=!toggle.checked?' הצגת גבולות אוטומטית כבויה; ניתן לטעון גבול מתוך כל נקודה.':active.length>MAX?' יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.':map.getZoom()<MIN_ZOOM?' התקרבו במפה להצגת גבולות.':'';
@@ -108,7 +120,7 @@
       var states=new Set();data.points.forEach(function(row){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||'סטטוס לא ידוע';states.add(s);
         var icon=L.divIcon({className:'plan-marker',html:'<span style="background:'+color(row)+'"></span>',iconSize:[14,14],iconAnchor:[7,7]});
-        var marker=L.marker([xy[1],xy[0]],{icon:icon,title:'תכנית '+row.pl_number+' '+row.pl_name+' - '+s,alt:'תכנית '+row.pl_number+' '+row.pl_name});marker.bindPopup(popup(row),{maxWidth:240});items.push({marker:marker,row:row});
+        var marker=L.marker([xy[1],xy[0]],{icon:icon,title:'תכנית '+row.pl_number+' '+row.pl_name+' - '+s,alt:'תכנית '+row.pl_number+' '+row.pl_name});marker.bindPopup(popup(row),{maxWidth:240});marker.on('popupopen',function(){if(!rows().some(function(r){return r.dataset.num===row.pl_number;}))map.closePopup();});items.push({marker:marker,row:row});
       });
       var legend=document.getElementById('map-legend');legend.replaceChildren(el('p','קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.'));
       Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.style.background=colors[category(s)];item.append(swatch,document.createTextNode(s));legend.append(item);});
