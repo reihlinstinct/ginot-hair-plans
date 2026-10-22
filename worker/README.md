@@ -47,6 +47,8 @@ Connect (per official docs; steps may change):
   OpenAI API: Responses API `mcp` tool with `server_url` set to the endpoint.
 - Grok: API `mcp` tool with `server_url` ([docs](https://docs.x.ai/developers/tools/remote-mcp)); CLI: `grok mcp add` ([docs](https://docs.x.ai/build/features/mcp-servers)).
 
+- Google Antigravity CLI (`agy`, tested 2026-10-22 with Gemini 3.6 Flash): add to `~/.gemini/config/mcp_config.json` (or `.agents/mcp_config.json`) `{"mcpServers":{"ginot-hair":{"serverUrl":"https://ginot-hair-mcp.reihlinstinct.workers.dev/mcp"}}}` - remote servers use `serverUrl`, not `url` ([docs](https://antigravity.google/docs/mcp/)). Check with `agy mcp list`.
+
 Test: `node --test worker/*.test.mjs`.
 
 ## External AI review submissions (ginot-hair-mcp-submit)
