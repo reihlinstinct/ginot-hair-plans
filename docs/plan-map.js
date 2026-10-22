@@ -103,7 +103,7 @@
     try{
       await Promise.all([asset('link','href','vendor/leaflet/leaflet.css'),asset('script','src','vendor/leaflet/leaflet.js')]);
       var response=await fetch('plan-points.json');if(!response.ok)throw Error('points');var data=await response.json();
-      map=L.map('plan-map',{scrollWheelZoom:false}).setView([31.768,35.213],14);polygons=L.layerGroup().addTo(map);map.on('click',inspectPoint);
+      map=L.map('plan-map',{scrollWheelZoom:false}).setView([31.768,35.213],14);polygons=L.layerGroup().addTo(map);map.on('click',inspectPoint);map.on('popupopen',function(){map.getContainer().classList.add('has-popup');});map.on('popupclose',function(){map.getContainer().classList.remove('has-popup');});
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin',attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'}).addTo(map);
       var states=new Set();data.points.forEach(function(row){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||'סטטוס לא ידוע';states.add(s);

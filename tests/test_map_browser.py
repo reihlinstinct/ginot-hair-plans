@@ -226,5 +226,6 @@ def test_popup_layer_above_controls_and_overlap_summary_compact(page, map_networ
     page.locator('.leaflet-popup-content').wait_for()
     z = page.locator('.leaflet-popup-pane').evaluate('e=>+getComputedStyle(e).zIndex')
     assert z > 800
+    assert page.locator('.leaflet-control-zoom').is_hidden()
     assert page.locator('.leaflet-popup-content summary').first.evaluate(
         'e=>parseFloat(getComputedStyle(e).fontSize)') == 14
