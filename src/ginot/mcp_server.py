@@ -117,7 +117,7 @@ def serve(data, stdin=sys.stdin, stdout=sys.stdout):
             msg = json.loads(line)
             if not isinstance(msg, dict):
                 raise TypeError
-        except ValueError:
+        except (ValueError, TypeError):
             reply = {"jsonrpc": "2.0", "id": None, "error": {"code": -32700, "message": "parse error"}}
         else:
             reply = handle(data, msg)
