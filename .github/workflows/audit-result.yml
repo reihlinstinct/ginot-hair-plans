@@ -1,0 +1,59 @@
+name: Ingest Go parcel analysis
+run-name: Ingest parcel analysis
+on:
+  workflow_dispatch:
+    inputs:
+      report:
+        description: Bounded source-verified audit result
+        required: true
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency:
+  group: parcel-audit-result
+  cancel-in-progress: false
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Validate exact source snapshot and report
+        env:
+          REPORT: ${{ inputs.report }}
+        run: |
+          printf '%s' "$REPORT" > /tmp/audit-report.json
+          python3 scripts/audit/ingest.py --report /tmp/audit-report.json
+          python3 scripts/build_site_index.py
+      - name: Publish through tested PR only
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/parcel_audit.json docs/parcel-audit.json docs/index.json && [ -z "$(git ls-files --others --exclude-standard data/parcel_audit.json docs/parcel-audit.json)" ]; then exit 0; fi
+          BRANCH="parcel-audit/${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add data/parcel_audit.json docs/parcel-audit.json docs/index.json
+          git commit -m 'data: verified Go parcel audit result'
+          git push origin "$BRANCH"
+          PR=$(gh pr create --title 'Verified Go parcel audit result' --body 'Source/digest/cursor verified; callback does not start a scan.' --base main --head "$BRANCH")
+          gh pr checks "$PR" --watch --interval 10
+          gh pr update-branch "$PR" || true
+          for i in $(seq 1 45); do
+            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
+            [ "$STATE" = CLEAN ] && break
+            [ "$STATE" = DIRTY ] && exit 1
+            [ "$i" = 45 ] && exit 1
+            sleep 10
+          done
+          gh pr merge "$PR" --squash --delete-branch
+          gh api -X POST "repos/${{ github.repository }}/pages/builds"
+      - name: Result summary
+        if: always()
+        run: |
+          echo '## Go parcel analysis callback' >> "$GITHUB_STEP_SUMMARY"
+          echo 'A callback only validates/publishes audit JSON. It never dispatches a scan.' >> "$GITHUB_STEP_SUMMARY"

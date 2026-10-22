@@ -209,6 +209,15 @@ jobs:
           gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/scan-checkpoint" || true
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
 
+      - name: Dispatch read-only Go auditor after scan publication
+        if: ${{ success() && env.REQ_MODE != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.PARCEL_AUDIT_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          SHA=$(git ls-remote origin refs/heads/main | cut -f1)
+          gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit --ref main -f source_sha="$SHA" -f source_run="$GITHUB_RUN_ID"
+
       - name: Self-dispatch next enrichment run while unenriched tiks remain
         # Issue #145: an enrich backfill run (mode=enrich,
         # include_unenriched=true) that ends green starts its own successor
