@@ -1,26 +1,11 @@
 name: Jerusalem permit feed pilot (VPN)
 
-# Pilot for issue #57: scan a bounded batch of council parcels
-# against the municipality's public permit API through the owner-operated
-# L2TP tunnel, capture search-level request data plus the s.149
-# publication process steps, write data/permit_requests.json, and land it
-# as a PR (CI dispatched on the branch, squash merge on green, Pages
-# rebuild via the API). MANUAL DISPATCH ONLY - the weekly cron stays
-# commented until a green manual run, per the owner's gate. On any
-# anti-bot challenge the run stops red (no workaround).
-#
-# Backfill schedule ENABLED 2026-10-19 (owner approval; second daily
-# window added 2026-10-21, issue #211): 280-parcel batches at 03:00 and
-# 09:00 UTC (06:00/12:00 Israel; both shift one hour when Israel DST
-# ends) until all parcels are covered, then the job prints "backfill
-# complete" and no-ops until the cron is switched to the approved weekly
-# rotating re-scan (follow-up PR). Offset advances from the batch cursor
-# in data/permit_requests.json, resolved at run start, so the two
-# windows never double-scan; checkpoints survive runner loss (#155).
-# 280 parcels per window is the size that fits the 355-min job timeout
-# at the measured 60-90 parcels/hour; a single bigger batch does not
-# (#147, PR #148). Manual dispatch with explicit limit/offset always
-# overrides.
+# Public municipality API, owner-operated tunnel. Three-second request
+# spacing, serial execution, stop on challenge. No increased concurrency.
+# Backfill:280 parcels every6h (03/09/15/21 UTC), until cursor reaches
+# all4739 parcels. Resolve cursor at execution time; checkpoints survive
+# runner loss. A larger batch previously exceeded the355-minute timeout.
+# Oct22 approval: four daily windows, unchanged request spacing.
 
 on:
   # Backfill request by code (issue #102): editing data/backfill_request.json
@@ -32,7 +17,9 @@ on:
       - data/backfill_request.json
   schedule:
     - cron: "0 3 * * *"   # daily backfill batch 1, 03:00 UTC (06:00 Israel)
-    - cron: "0 9 * * *"   # daily backfill batch 2, 09:00 UTC (12:00 Israel) - issue #211
+    - cron: "0 9 * * *"
+    - cron: "0 15 * * *"
+    - cron: "0 21 * * *"
   workflow_dispatch:
     inputs:
       mode:
