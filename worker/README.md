@@ -61,4 +61,5 @@ labelled "external AI review, unverified"; they never replace or edit existing r
 - Rotate the key: edit `SUBMIT_KEY` in `worker/wrangler-submit.toml`, redeploy
   (`npx wrangler deploy -c wrangler-submit.toml`), update this README.
 - Kill switch: set `DISABLED = "1"` in the same file and redeploy; the tool then refuses everything.
+- Live endpoint: `POST https://ginot-hair-mcp-submit.reihlinstinct.workers.dev/` (MCP over HTTP, same connection steps as the read server, one tool: `submit_review`). End-to-end tested 2026-10-22 (wrong key refused, link text refused, valid submission quarantined as a private issue).
 - Test: `node --test worker/*.test.mjs`.
