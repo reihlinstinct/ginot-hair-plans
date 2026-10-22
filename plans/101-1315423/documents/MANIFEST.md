@@ -13,6 +13,7 @@ be added when it appears.
 | Document | Saved as | Notes |
 |---|---|---|
 | מסמך החלטות, ישיבה 2026040, 13/10/2026 | decision/00_מסמך_החלטות_2026040_13102026.pdf | החלטת ההפקדה בכפוף לתנאים; מסמך משותף לכל תכניות אותה ישיבה |
+| מסמך החלטות, ישיבה 2026021, 08/06/2026 | decision/01_מסמך_החלטות_2026021_08062026.pdf | ביטול החלטה קודמת עקב הודעה חסרה לוועדה המקומית |
 
 Not committed on purpose: agendas and transcripts (personal contact details and resident
 names), GIS/DWG working files.
