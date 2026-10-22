@@ -94,8 +94,8 @@
    "name": "permit_requests.json",
    "path": "data/permit_requests.json",
    "kind": "json",
-   "records": 2140,
-   "bytes": 804404,
+   "records": 2900,
+   "bytes": 1120121,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
   }
  ]
