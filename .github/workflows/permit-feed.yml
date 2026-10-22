@@ -176,7 +176,7 @@ jobs:
           fi
           git checkout -b "$BRANCH"
           python3 scripts/build_site_index.py || echo "site index rebuild failed (non-fatal)"
-          git add data/ docs/index.json
+          git add data/ docs/index.json docs/badge/parcel-*.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \

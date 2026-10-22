@@ -1,5 +1,14 @@
 # ginot-hair-plans
 
+<!-- Live public counters: generated static endpoint JSON, no scan triggered. -->
+[![published range](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fparcel-progress.json&cacheSeconds=300)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/permit-feed.yml)
+[![remaining](https://img.shields.io/endpoint?url=https%3A%2F%2Freihlinstinct.github.io%2Fginot-hair-plans%2Fbadge%2Fparcel-remaining.json&cacheSeconds=300)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/permit-feed.yml)
+[![Python suite](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Freihlinstinct%2Fginot-hair-plans%2Fbadge-data%2Ftests.json&cacheSeconds=300)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml)
+[![test coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Freihlinstinct%2Fginot-hair-plans%2Fbadge-data%2Fcoverage.json&cacheSeconds=300)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml)
+[![latest release](https://img.shields.io/github/v/release/reihlinstinct/ginot-hair-plans)](https://github.com/reihlinstinct/ginot-hair-plans/releases)
+
+Range badges show published cursor progress, not verified query success. Tests/coverage show the last successful main Python 3.12 suite (browser and worker jobs are separate). Shields may cache for five minutes.
+
 [![CI](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml/badge.svg)](https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![last commit](https://img.shields.io/github/last-commit/reihlinstinct/ginot-hair-plans)](https://github.com/reihlinstinct/ginot-hair-plans/commits/main)

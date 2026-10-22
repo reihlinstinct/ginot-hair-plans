@@ -73,6 +73,9 @@ def main():
     data_dir = sys.argv[1] if len(sys.argv) > 1 else DATA_DIR
     out = sys.argv[2] if len(sys.argv) > 2 else OUT
     p = build(data_dir, out)
+    if data_dir == DATA_DIR and out == OUT:
+        from parcel_badges import build_badges
+        build_badges()
     print(f"wrote {out}: {len(p['datasets'])} datasets")
     return 0
 

@@ -9,6 +9,8 @@ permissions:
   contents: read
 jobs:
   test:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -25,6 +27,11 @@ jobs:
       - name: Test run summary
         if: ${{ always() }}
         run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python ${{ matrix.python-version }}"
+      - name: Publish measured main-only test badges
+        if: ${{ success() && github.ref == 'refs/heads/main' && matrix.python-version == '3.12' }}
+        run: |
+          python3 scripts/ci/publish_badges.py python test-results.xml coverage.json /tmp/badges
+          bash scripts/ci/push_badges.sh /tmp/badges
       # Coverage gate (issue #105). Report-only until .github/qa-gates.json
       # has "enforce": true - flipping that one value is the whole
       # November switch-on. The floor can only be raised.

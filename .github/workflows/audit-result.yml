@@ -37,7 +37,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -b "$BRANCH"
-          git add data/parcel_audit.json docs/parcel-audit.json docs/index.json
+          git add data/parcel_audit.json docs/parcel-audit.json docs/index.json docs/badge/parcel-*.json
           git commit -m 'data: verified Go parcel audit result'
           git push origin "$BRANCH"
           PR=$(gh pr create --title 'Verified Go parcel audit result' --body 'Source/digest/cursor verified; callback does not start a scan.' --base main --head "$BRANCH")
