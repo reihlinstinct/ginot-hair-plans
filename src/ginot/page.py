@@ -15,6 +15,8 @@ import html
 import json
 import urllib.parse as _urlparse_mod
 
+from . import __version__
+
 URGENT_DAYS = 30  # objection-window days for the urgent row (issue #153)
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
 DEPOSIT_MARK = "הפקדה"
@@ -651,7 +653,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
 &middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
-</p></footer>
+</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script>{_JS}{_PERMITS_JS}</script>
 </body></html>"""
 
@@ -761,7 +763,7 @@ def render_about(generated: str, council_name: str) -> str:
 <p><a href="index.html">חזרה לעמוד הראשי</a></p>
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p></footer>
+</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script>{_DATASETS_JS}</script>
 </body></html>"""
 
@@ -813,7 +815,7 @@ def render_review(pl_number: str, md_text: str, generated: str, council_name: st
 <p><a href="../index.html">חזרה לעמוד הראשי</a> &middot; עודכן: {_e(generated)}</p>
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p></footer>
+</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 </body></html>"""
 
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.0] - 2026-10-22
+
+- Semantic version baseline, bilingual release notes and visible footer version.
+- Map matches visible table rows, live boundary controls and smallest-plan overlap selection.
+- Permit filters restored, closed requests hidden by default.
+- Per-review automatic sharing cards, favicon fallbacks and visible statistics bars.
+- Checkpoint recovery and strict-branch publication fixes; regression evidence required for every Bug.
+- Hebrew/English release notes: releases/0.2.0.md.
+
+
 ## 2026-10-22
 
 - Optional mobile map below the tables: real representative plan points on OSM,

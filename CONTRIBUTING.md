@@ -87,3 +87,10 @@ If an automated test is not feasible, the fixing PR must state why and link a
 separate test issue with acceptance criteria. A manual check alone is not a
 silent substitute. The bug issue must link that test issue too. See
 [the recent-fix audit](tests/BUG_REGRESSIONS.md) for examples.
+
+### Versions and release notes
+
+Use semantic versions: Bug=PATCH, feature=MINOR, breaking=MAJOR. Update the
+single package version, CHANGELOG and Hebrew/English notes together. See
+[release process](releases/README.md). Use the standing release authority when CI is green; keep releases small and
+frequent, without delaying deployment. Never include personal data in notes.
