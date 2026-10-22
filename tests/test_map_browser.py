@@ -229,3 +229,23 @@ def test_popup_layer_above_controls_and_overlap_summary_compact(page, map_networ
     assert page.locator('.leaflet-control-zoom').is_hidden()
     assert page.locator('.leaflet-popup-content summary').first.evaluate(
         'e=>parseFloat(getComputedStyle(e).fontSize)') == 14
+
+
+@pytest.mark.parametrize('width', [390, 1280])
+def test_popup_close_restores_zoom_and_keeps_nested_text_readable(page, map_network, width):
+    page.set_viewport_size({'width': width, 'height': 900})
+    page.locator('#plan-map-panel summary').click()
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('20 גבולות')")
+    canvas = page.locator('#plan-map')
+    box = canvas.bounding_box()
+    canvas.click(position={'x': box['width']/2, 'y': box['height']/2})
+    popup = page.locator('.leaflet-popup')
+    popup.wait_for()
+    assert page.locator('.leaflet-control-zoom').is_hidden()
+    heading = popup.locator('summary').first
+    assert heading.evaluate('e=>parseFloat(getComputedStyle(e).fontSize)') == 14
+    assert heading.bounding_box()['height'] >= 44
+    assert popup.bounding_box()['width'] <= width
+    popup.locator('.leaflet-popup-close-button').click()
+    popup.wait_for(state='detached')
+    assert page.locator('.leaflet-control-zoom').is_visible()

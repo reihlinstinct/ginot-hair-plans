@@ -419,3 +419,19 @@ def test_favicon_subpath_links_on_root_and_review():
         assert f'href="{prefix}favicon-32.png?v=20261022"' in html
         assert f'href="{prefix}apple-touch-icon.png?v=20261022"' in html
         assert 'sizes="any"' in html
+
+
+def test_favicon_committed_fallback_files_decode_at_expected_sizes():
+    from pathlib import Path
+
+    from PIL import Image
+
+    root = Path(__file__).parent.parent / 'docs'
+    icon = Image.open(root / 'favicon.ico')
+    assert icon.format == 'ICO'
+    assert icon.info['sizes'] == {(16, 16), (32, 32), (48, 48)}
+    for filename, size in [('favicon-32.png', (32, 32)), ('apple-touch-icon.png', (180, 180))]:
+        image = Image.open(root / filename)
+        assert image.format == 'PNG' and image.size == size
+        image.verify()
+    assert '<svg' in (root / 'favicon.svg').read_text()

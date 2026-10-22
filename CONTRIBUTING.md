@@ -74,3 +74,16 @@ docs. Use Mermaid (fenced `mermaid` block): it renders on GitHub, is
 version-controlled, and needs no binary files. Use generic example data
 only: no real plates, locations or personal data. Check that it renders in
 the preview before merging.
+
+### Bug regression rule
+
+Every `bug` issue must link an automated regression test in its fixing PR.
+Name the test and explain the original failure it reproduces in the PR, then
+link that evidence back from the issue before closing it. Prefer a browser
+DOM/click test for interactive UI bugs, not a source-string assertion alone.
+Run the regression and the full applicable suite before merge.
+
+If an automated test is not feasible, the fixing PR must state why and link a
+separate test issue with acceptance criteria. A manual check alone is not a
+silent substitute. The bug issue must link that test issue too. See
+[the recent-fix audit](tests/BUG_REGRESSIONS.md) for examples.

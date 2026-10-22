@@ -22,3 +22,11 @@ body:
       label: Suspected fix
     validations:
       required: false
+  - type: textarea
+    id: regression
+    attributes:
+      label: Regression test (required before closing)
+      description: Link the fixing PR and named automated regression test. If infeasible, link a separate test issue and explain why.
+      placeholder: Fixing PR + test path/name, or test issue + reason
+    validations:
+      required: false
