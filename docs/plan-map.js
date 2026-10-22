@@ -4,7 +4,7 @@
   'use strict';
   var panel=document.getElementById('plan-map-panel');if(!panel)return;
   var items=[],pointsDate='',map,loading=false,polygons,controller,revision=0,timer;
-  var cache=new Map(),failed=new Set(),MAX=20,MIN_ZOOM=14;
+  var cache=new Map(),failed=new Set(),MAX=20,MIN_ZOOM=11;
   var status=document.getElementById('map-status');
   var colors={deposit:'#e8c31d',review:'#00a8cf',conditions:'#c8a4de',decision:'#ff8c00',process:'#51b89a',approved:'#6db633',other:'#dde4f6'};
   function category(s){

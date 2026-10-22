@@ -138,7 +138,7 @@ function apply(){
   more.style.display=n>20?'':'none';
   more.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' התכניות';
   fcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
-  document.dispatchEvent(new Event('plans-filtered')); 
+  document.dispatchEvent(new Event('plans-filtered'));
 }
 [fq,fstatus,fflag,fobj,ffrom,fto,fappr].forEach(function(el){
   var h=function(){expanded=false;apply();};
@@ -395,7 +395,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     plegend_chips = " ".join(
         f'<span class="chip {_permit_status_class(v)}" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
         for v in statuses)
-    plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>" 
+    plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>"
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
     status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses)
