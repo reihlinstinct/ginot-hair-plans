@@ -364,36 +364,64 @@ def test_urgent_row_empties_once_window_passes(browser, site):
 
 
 def test_map_lazy_filter_legend_and_live_boundary(page):
+    points = [{"pl_number": f"200-{i}", "pl_name": f"Synthetic {i}",
+               "station_desc": "הפקדה להתנגדויות", "representative_point": [35.213+i*.0001, 31.768]}
+              for i in range(1, 23)]
     page.route("**/plan-points.json", lambda route: route.fulfill(
-        json={"generated": "2026-10-22", "points": [
-            {"pl_number": "200-1", "pl_name": "Synthetic plan", "station_desc": "הפקדה להתנגדויות",
-             "representative_point": [35.213, 31.768]},
-            {"pl_number": "200-2", "pl_name": "Other plan", "station_desc": "הפקדה להתנגדויות",
-             "representative_point": [35.214, 31.769]}]}))
+        json={"generated": "2026-10-22", "points": points}))
     page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
-    page.route("https://ags.iplan.gov.il/**", lambda route: route.fulfill(
-        json={"type": "FeatureCollection", "features": [{"type": "Feature",
-              "properties": {}, "geometry": {"type": "Polygon", "coordinates": [
-                  [[35.212, 31.767], [35.214, 31.767], [35.214, 31.769],
-                   [35.212, 31.769], [35.212, 31.767]]]}}]}))
-    assert page.locator(".leaflet-marker-icon").count() == 0
+    requests = []
+
+    def boundary(route):
+        import re
+        from urllib.parse import parse_qs, urlparse
+        query = parse_qs(urlparse(route.request.url).query)
+        numbers = re.findall(r"'([0-9]+-[0-9]+)'", query["where"][0])
+        requests.append(numbers)
+        route.fulfill(json={"type": "FeatureCollection", "features": [
+            {"type": "Feature", "properties": {"pl_number": n}, "geometry": {
+                "type": "Polygon", "coordinates": [[[35.212, 31.767], [35.214, 31.767],
+                [35.214, 31.769], [35.212, 31.769], [35.212, 31.767]]]}} for n in numbers]})
+    page.route("https://ags.iplan.gov.il/**", boundary)
+    assert not requests
     page.locator("#plan-map-panel summary").click()
-    page.wait_for_selector(".leaflet-marker-icon")
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('20 גבולות')")
+    assert set(requests[0]) == set(plan_ids(page))
+    assert len(requests[0]) == 20
+    assert page.locator(".leaflet-marker-icon").count() == 0
+    assert page.locator(".leaflet-overlay-pane path").count() == 20
     assert page.locator("#map-legend").is_hidden()
     page.locator("#map-legend-toggle").click()
-    assert page.locator("#map-legend").is_visible()
+    assert "נקודה" in page.locator("#map-legend").inner_text()
     page.locator("#map-legend-toggle").click()
+    page.click("#more")
+    assert "26 שורות גלויות" in page.locator("#map-status").inner_text()
+    assert page.locator(".leaflet-marker-icon").count() == 22
+    assert page.locator(".leaflet-overlay-pane path").count() == 0
     page.locator("#fq").fill("200-1")
-    page.wait_for_function("document.querySelectorAll('.leaflet-marker-icon').length===1")
-    page.locator(".leaflet-marker-icon").click()
-    page.get_by_role("button", name="טען גבול תכנית", exact=True).click()
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('נטען כעת')")
-    assert page.locator(".leaflet-overlay-pane path").count() == 1
-    page.locator(".leaflet-popup").wait_for(state="detached")
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('גבולות') && !document.querySelector('#map-status').textContent.includes('טוען')")
+    assert page.locator(".leaflet-overlay-pane path").count() == 11
     page.locator("#fq").fill("does-not-exist")
     assert page.locator(".leaflet-marker-icon").count() == 0
-    assert "אין תכניות" in page.locator("#map-status").inner_text()
     assert page.locator(".leaflet-overlay-pane path").count() == 0
+    assert "אין תכניות" in page.locator("#map-status").inner_text()
+
+
+def test_map_failed_geometry_keeps_small_accessible_points(page):
+    page.fill("#fq", "200-22")
+    page.route("**/plan-points.json", lambda route: route.fulfill(json={"generated": "2026-10-22",
+        "points": [{"pl_number": "200-22", "pl_name": "Fallback plan", "station_desc": "הפקדה",
+                    "representative_point": [35.213, 31.768]}]}))
+    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
+    page.route("https://ags.iplan.gov.il/**", lambda route: route.fulfill(status=503, body="unavailable"))
+    page.locator("#plan-map-panel summary").click()
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('לא נטענו')")
+    point = page.locator(".leaflet-marker-icon")
+    assert point.count() == 1
+    assert "200-22" in point.get_attribute("title")
+    assert point.inner_text() == ""
+    point.click()
+    assert "Fallback plan" in page.locator(".leaflet-popup").inner_text()
 
 
 @pytest.mark.parametrize("width", [390, 1280])
@@ -407,3 +435,21 @@ def test_statistics_have_visible_tracks_and_fills(page, width):
     assert page.locator("#stats .bf").first.evaluate(
         "e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
     assert page.locator("#stats .bv").first.inner_text().isdigit()
+
+
+def test_permit_closed_chip_is_explicit_and_does_not_change_plan_filter(page):
+    assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
+    before = plan_ids(page)
+    page.locator('#permits .legend .chip', has_text='הבקשה נסגרה').click()
+    assert page.locator('#pfstatus').input_value() == 'הבקשה נסגרה'
+    assert page.locator('#permits-table tbody tr:visible').count() == 1
+    assert page.locator('#fstatus').input_value() == ''
+    assert plan_ids(page) == before
+    page.click('#pfreset')
+    assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
+
+
+def test_committed_site_includes_permit_filter_script():
+    html = (ROOT / 'docs/index.html').read_text()
+    assert 'window.__permitsLoaded=true' in html
+    assert "document.getElementById('pfstatus')" in html

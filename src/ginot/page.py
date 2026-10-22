@@ -131,8 +131,8 @@ function apply(){
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
-    r.dataset.mapMatch=vis?'1':'0';
     if(vis){n++;if(!expanded&&n>20)vis=false;}
+    r.dataset.mapMatch=vis?'1':'0';
     r.classList.toggle('filtered-out',!vis);
   });
   more.style.display=n>20?'':'none';
@@ -176,11 +176,11 @@ document.querySelectorAll('th button').forEach(function(b){
     expanded=false;resort();
   });
 });
-document.querySelectorAll('.legend .chip').forEach(function(c){
+document.querySelectorAll('.plan-legend .chip').forEach(function(c){
   c.addEventListener('click',function(){
     var st=c.getAttribute('data-status');
     fstatus.value=(fstatus.value===st)?'':st;
-    document.querySelectorAll('.legend .chip').forEach(function(x){
+    document.querySelectorAll('.plan-legend .chip').forEach(function(x){
       x.classList.toggle('sel',x.getAttribute('data-status')===fstatus.value);
     });
     expanded=false;apply();
@@ -374,7 +374,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f"חלקה {p.get('helka')}" if p.get("helka") else "",
         ]).lower())
         rows.append(
-            f"<tr data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
+            f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
             f" data-pub='{pub_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(p.get('address') or '')}</td>"
@@ -439,7 +439,7 @@ pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore');
 var expanded=false;
 function match(r){
-  if(!pfclosed.checked&&r.getAttribute('data-active')!=='1')return false;
+  if(!pfclosed.checked&&!pfstatus.value&&r.getAttribute('data-active')!=='1')return false;
   var q=pfq.value.trim().toLowerCase();
   if(q&&r.getAttribute('data-search').indexOf(q)===-1)return false;
   if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
@@ -453,7 +453,6 @@ function apply(){
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
-    r.dataset.mapMatch=vis?'1':'0';
     if(vis){n++;if(!expanded&&n>20)vis=false;}
     r.classList.toggle('filtered-out',!vis);
   });
@@ -598,7 +597,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
         + "</li>" for c in changes) or "<li>אין שינויים מהסריקה הקודמת</li>"
     status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
-    legend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + " ".join(chip(s) for s in statuses) + "</div>"
+    legend = '<div class="legend plan-legend"><b>מקרא סטטוסים:</b> ' + " ".join(chip(s) for s in statuses) + "</div>"
     return f"""<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
