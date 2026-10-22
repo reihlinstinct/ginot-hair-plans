@@ -57,9 +57,9 @@ def checkpoint_payload(requests, offset, limit, done):
             "requests": sorted(requests.values(), key=lambda r: r["tik_num"])}
 
 
-def push_checkpoint(requests, offset, limit, done, token, slug):
+def _push_checkpoint_once(requests, offset, limit, done, token, slug):
     """Commit the partial scan to the checkpoint branch (contents API), so a
-    lost runner leaves progress behind. Best-effort: never aborts the scan."""
+    lost runner leaves progress behind. Return whether GitHub confirmed it."""
     try:
         ref = gh_api("GET", f"/repos/{slug}/git/ref/heads/{CHECKPOINT_BRANCH}", token)
         if not ref or "object" not in ref:
@@ -77,9 +77,22 @@ def push_checkpoint(requests, offset, limit, done, token, slug):
         if cur and cur.get("sha"):
             body["sha"] = cur["sha"]
         r = gh_api("PUT", f"/repos/{slug}/contents/data/permit_requests.json", token, body)
-        print(f"checkpoint pushed ({done}/{limit}): {'ok' if r and r.get('commit') else 'FAILED'}")
+        ok = bool(r and r.get("commit"))
+        print(f"checkpoint pushed ({done}/{limit}): {'ok' if ok else 'FAILED'}")
+        return ok
     except Exception as exc:
-        print(f"checkpoint push failed (continuing): {exc}")
+        print(f"checkpoint push failed: {exc}")
+        return False
+
+
+def push_checkpoint(requests, offset, limit, done, token, slug):
+    """Require a confirmed durable commit before doing more scan/detail work."""
+    for attempt in range(3):
+        if _push_checkpoint_once(requests, offset, limit, done, token, slug):
+            return
+        if attempt < 2:
+            time.sleep(2 ** attempt)
+    raise RuntimeError("checkpoint persistence failed after 3 attempts; stopping safely")
 
 
 def load_checkpoint(token, slug):
@@ -98,7 +111,7 @@ def resume_start(cp, offset, limit, batch_len):
     match this run's range."""
     b = (cp or {}).get("batch", {})
     if cp and cp.get("checkpoint") and b.get("offset") == offset \
-            and b.get("limit") == limit and 0 < b.get("done", 0) < batch_len:
+            and b.get("limit") == limit and 0 < b.get("done", 0) <= batch_len:
         return b["done"]
     return 0
 
@@ -240,6 +253,7 @@ def main():
     if ckpt_on:
         push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
     print(f"found {len(requests)} unique requests; fetching process + address data")
+    detailed_since_checkpoint = 0
     for j, tik in enumerate(sorted(requests)):
         if "publication_start" in requests[tik] and "address" in requests[tik]:
             continue  # already detailed in a checkpointed earlier attempt
@@ -256,6 +270,13 @@ def main():
             return 2
         except Exception as exc:
             print(f"{tik}: detail fetch failed: {exc}")
+        detailed_since_checkpoint += 1
+        if ckpt_on and detailed_since_checkpoint >= args.checkpoint_every:
+            push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
+            detailed_since_checkpoint = 0
+
+    if ckpt_on:
+        push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
 
     # Union with the existing feed file (main's version, from checkout):
     # each batch scans only its parcel slice, and without this merge every
