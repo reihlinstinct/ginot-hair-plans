@@ -407,3 +407,15 @@ def test_open_json_and_api_section(tmp_path):
     assert all("in_objection_period" in p for p in d["plans"])
     about = (tmp_path / "about.html").read_text(encoding="utf-8")
     assert "גישה לנתונים (API)" in about and "open.json" in about
+
+
+def test_favicon_subpath_links_on_root_and_review():
+    from ginot import page
+    root = page.render_index([], [], "2026-10-22", "test")
+    review = page.render_review("101-1", "# test", "2026-10-22", "test")
+    for html, prefix in [(root, ""), (review, "../")]:
+        assert f'href="{prefix}favicon.ico?v=20261022"' in html
+        assert f'href="{prefix}favicon.svg?v=20261022"' in html
+        assert f'href="{prefix}favicon-32.png?v=20261022"' in html
+        assert f'href="{prefix}apple-touch-icon.png?v=20261022"' in html
+        assert 'sizes="any"' in html

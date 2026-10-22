@@ -25,4 +25,7 @@ def render(size: int, out: pathlib.Path) -> None:
 if __name__ == "__main__":
     render(32, DOCS / "favicon-32.png")
     render(180, DOCS / "apple-touch-icon.png")
-    print("wrote docs/favicon-32.png and docs/apple-touch-icon.png")
+    from PIL import Image
+    Image.open(DOCS / "apple-touch-icon.png").convert("RGBA").save(
+        DOCS / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
+    print("wrote PNG, Apple and multi-size ICO icons")
