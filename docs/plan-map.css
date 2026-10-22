@@ -1,0 +1,8 @@
+.plan-map-panel{margin:20px 0;padding:14px;border:1px solid #51b89a;border-radius:12px;background:white}
+.plan-map-panel summary{cursor:pointer;min-height:44px;font-weight:600;font-size:19px;color:#101f5b}
+.plan-map-panel button{min-height:44px;padding:6px 14px;background:#fff;border:1px solid #51b89a;border-radius:18px;color:#101f5b;font:inherit;cursor:pointer}
+#plan-map{height:440px;width:100%;border-radius:8px;background:#e4edf0;direction:ltr}
+#map-legend{margin:10px 0;color:#101f5b}#map-legend div{display:flex;gap:8px;align-items:center;margin:6px 0}.map-swatch{display:inline-block;width:18px;height:18px;border:1px solid #101f5b;border-radius:50%;flex:none}
+.plan-marker span{display:flex;width:28px;height:28px;border:2px solid #101f5b;box-sizing:border-box;border-radius:50%;align-items:center;justify-content:center;color:#101f5b;font:bold 11px system-ui;box-shadow:0 0 0 2px #fff}
+.plan-map-panel .leaflet-control-zoom a{min-width:44px;min-height:44px;line-height:44px}.plan-map-panel .leaflet-popup-content{font:14px system-ui;color:#101f5b}
+@media(max-width:700px){#plan-map{height:370px}.plan-map-panel{padding:10px}.plan-map-panel p{font-size:14px}}

@@ -2,6 +2,10 @@
 
 ## 2026-10-22
 
+- Optional mobile map below the tables: real representative plan points on OSM,
+  table-filter sync, status colors and toggleable legend. Selected boundaries
+  load live in the visitor browser; no stored boundary export (#253).
+
 - Harden permit scan recovery: resume completed parcel checkpoints, persist
   detail progress, retry failed checkpoint writes and stop if no durable save
   is confirmed. Existing checkpoint format and scan schedule unchanged (#251).

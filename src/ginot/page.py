@@ -129,12 +129,14 @@ function apply(){
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
+    r.dataset.mapMatch=vis?'1':'0';
     if(vis){n++;if(!expanded&&n>20)vis=false;}
     r.classList.toggle('filtered-out',!vis);
   });
   more.style.display=n>20?'':'none';
   more.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' התכניות';
   fcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
+  document.dispatchEvent(new Event('plans-filtered')); 
 }
 [fq,fstatus,fflag,fobj,ffrom,fto,fappr].forEach(function(el){
   var h=function(){expanded=false;apply();};
@@ -449,6 +451,7 @@ function apply(){
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
+    r.dataset.mapMatch=vis?'1':'0';
     if(vis){n++;if(!expanded&&n>20)vis=false;}
     r.classList.toggle('filtered-out',!vis);
   });
@@ -512,6 +515,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
                  preview_image: bool = False, reviews: dict[str, str] | None = None,
                  rows_file: str | None = None, permits_file: str | None = None) -> str:
     reviews = reviews or {}
+    from . import mapview
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
@@ -603,7 +607,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css"></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
@@ -636,6 +640,7 @@ def render_index(rows: list[dict], changes: list[dict], generated: str, council_
 <noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
 {_permits_section(permits or [], rows_file=permits_file)}
+{mapview.PANEL}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
 {stats_html}
@@ -801,7 +806,11 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
     import glob
     import os
     import re as _re
+    import shutil
     os.makedirs(out_dir, exist_ok=True)
+    from pathlib import Path
+    static = Path(__file__).parent / "static"
+    shutil.copytree(static, out_dir, dirs_exist_ok=True)
     reviews = {}
     review_pages = {}
     for path in sorted(glob.glob(os.path.join(plans_dir, "*", "analysis", "talking_points_*.md"))):

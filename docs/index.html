@@ -21,7 +21,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css"></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי גינות העיר</h1>
 <p>עודכן: 2026-10-22. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
@@ -99,6 +99,17 @@
 <noscript><p>מוצגות 20 הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="pmore" type="button"></button>
 </section>
+<details id="plan-map-panel" class="plan-map-panel">
+<summary>מפת התכניות - נקודות וגבולות</summary>
+<p>מיקום מייצג של כל תכנית, לא כתובת כניסה. המפה אינה מסמך רשמי.</p>
+<button id="map-legend-toggle" type="button" aria-expanded="false" aria-controls="map-legend">מקרא צבעי המפה</button>
+<div id="map-legend" hidden></div>
+<p id="map-status" role="status">פתחו את המפה לטעינת הנקודות.</p>
+<div id="plan-map" aria-label="מפת מיקומי תכניות" tabindex="0"></div>
+<p>לבחירת גבול: לחצו על נקודה ואז על "טען גבול תכנית". הגבול נטען ישירות משירות מינהל התכנון לדפדפן, ואינו נשמר באתר.</p>
+<p><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> · מקור מיקומים וגבולות: מינהל התכנון. הזמינות והעדכניות אינן מובטחות.</p>
+</details>
+<script src="plan-map.js" defer></script>
 <h2>דחוף להתנגדות</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005304728/310'>101-1215656</a> בני בתירא 7-9 התחדשות עירונית - אחרון להתנגדות (משוער): 05.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - אחרון להתנגדות (משוער): 18.11.26</li></ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list"><li>אין שינויים מהסריקה הקודמת</li></ul>
 <details id="stats"><summary>סטטיסטיקה</summary>
@@ -139,12 +150,14 @@ function apply(){
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
+    r.dataset.mapMatch=vis?'1':'0';
     if(vis){n++;if(!expanded&&n>20)vis=false;}
     r.classList.toggle('filtered-out',!vis);
   });
   more.style.display=n>20?'':'none';
   more.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' התכניות';
   fcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
+  document.dispatchEvent(new Event('plans-filtered')); 
 }
 [fq,fstatus,fflag,fobj,ffrom,fto,fappr].forEach(function(el){
   var h=function(){expanded=false;apply();};
@@ -225,65 +238,6 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
   resort();_renderUrgent();
   window.__rowsLoaded=true;
 }).catch(function(){window.__rowsFailed=true;});
-})();
-
-(function(){
-var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
-if(!rows.length){window.__permitsLoaded=true;return;}
-var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
-pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
-pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
-pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore');
-var expanded=false;
-function match(r){
-  if(!pfclosed.checked&&r.getAttribute('data-active')!=='1')return false;
-  var q=pfq.value.trim().toLowerCase();
-  if(q&&r.getAttribute('data-search').indexOf(q)===-1)return false;
-  if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
-  if(pfsug.value&&r.getAttribute('data-sug')!==pfsug.value)return false;
-  var pub=r.getAttribute('data-pub');
-  if(pffrom.value&&!(pub&&pub>=pffrom.value))return false;
-  if(pfto.value&&!(pub&&pub<=pfto.value))return false;
-  return true;
-}
-function apply(){
-  var n=0;
-  rows.forEach(function(r){
-    var vis=match(r);
-    if(vis){n++;if(!expanded&&n>20)vis=false;}
-    r.classList.toggle('filtered-out',!vis);
-  });
-  pmore.style.display=n>20?'':'none';
-  pmore.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' הבקשות';
-  pfcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
-}
-[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed].forEach(function(el){
-  var h=function(){expanded=false;apply();};
-  el.addEventListener('input',h);el.addEventListener('change',h);
-});
-document.getElementById('pfreset').addEventListener('click',function(){
-  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
-  pfclosed.checked=false;expanded=false;apply();
-});
-pmore.addEventListener('click',function(){expanded=!expanded;apply();});
-fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
-  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
-  tb.innerHTML=h;
-  rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
-  apply();
-  window.__permitsLoaded=true;
-}).catch(function(){window.__permitsFailed=true;});
-document.querySelectorAll('#permits .legend .chip').forEach(function(c){
-  c.addEventListener('click',function(){
-    var st=c.getAttribute('data-status');
-    pfstatus.value=(pfstatus.value===st)?'':st;
-    document.querySelectorAll('#permits .legend .chip').forEach(function(x){
-      x.classList.toggle('sel',x.getAttribute('data-status')===pfstatus.value);
-    });
-    expanded=false;apply();
-  });
-});
-apply();
 })();
 </script>
 </body></html>

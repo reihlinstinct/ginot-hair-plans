@@ -198,3 +198,19 @@ updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
   status have a live objection window.
 - Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
   (see issues); nothing is downloaded or auto-filed.
+
+### Optional plan map
+
+The collapsed map below the tables uses locally hosted Leaflet (BSD-2-Clause)
+and OpenStreetMap standard tiles with visible attribution, browser Referer and
+normal caching. No prefetch, offline download, paid account or key. It loads only
+when opened. Points follow the table's filter/search, including all matching rows
+beyond the first 20. Numbered markers and status text supplement the status colors;
+the map legend is hidden until toggled. No-match filters show an empty state.
+
+`plan-points.json` stores only representative point coordinates from the public
+planning geometry, not entrances. A selected plan's boundary loads directly in
+the visitor's browser from the public ArcGIS service on request, with no polygon
+file stored in this repo or site. Source downtime does not disable the table.
+This is an unofficial information aid, not a statutory map. See
+[map design and source terms](design/plan-map.md) (#253).

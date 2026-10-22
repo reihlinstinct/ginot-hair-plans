@@ -361,3 +361,35 @@ def test_urgent_row_empties_once_window_passes(browser, site):
     items = pg.locator("#urgent-list li").all_inner_texts()
     pg.close()
     assert items == ["אין"]
+
+
+def test_map_lazy_filter_legend_and_live_boundary(page):
+    page.route("**/plan-points.json", lambda route: route.fulfill(
+        json={"generated": "2026-10-22", "points": [
+            {"pl_number": "200-1", "pl_name": "Synthetic plan", "station_desc": "הפקדה להתנגדויות",
+             "representative_point": [35.213, 31.768]},
+            {"pl_number": "200-2", "pl_name": "Other plan", "station_desc": "הפקדה להתנגדויות",
+             "representative_point": [35.214, 31.769]}]}))
+    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
+    page.route("https://ags.iplan.gov.il/**", lambda route: route.fulfill(
+        json={"type": "FeatureCollection", "features": [{"type": "Feature",
+              "properties": {}, "geometry": {"type": "Polygon", "coordinates": [
+                  [[35.212, 31.767], [35.214, 31.767], [35.214, 31.769],
+                   [35.212, 31.769], [35.212, 31.767]]]}}]}))
+    assert page.locator(".leaflet-marker-icon").count() == 0
+    page.locator("#plan-map-panel summary").click()
+    page.wait_for_selector(".leaflet-marker-icon")
+    assert page.locator("#map-legend").is_hidden()
+    page.locator("#map-legend-toggle").click()
+    assert page.locator("#map-legend").is_visible()
+    page.locator("#map-legend-toggle").click()
+    page.locator("#fq").fill("200-1")
+    page.wait_for_function("document.querySelectorAll('.leaflet-marker-icon').length===1")
+    page.locator(".leaflet-marker-icon").click()
+    page.get_by_role("button", name="טען גבול תכנית", exact=True).click()
+    page.wait_for_function("document.querySelector('#map-status').textContent.includes('נטען כעת')")
+    assert page.locator(".leaflet-overlay-pane path").count() == 1
+    page.locator("#fq").fill("does-not-exist")
+    assert page.locator(".leaflet-marker-icon").count() == 0
+    assert "אין תכניות" in page.locator("#map-status").inner_text()
+    assert page.locator(".leaflet-overlay-pane path").count() == 0

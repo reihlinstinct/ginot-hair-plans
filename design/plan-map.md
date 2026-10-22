@@ -1,9 +1,12 @@
 # Plan map design (issue #253)
 
 ## Status
-Prototype and geometry preparation only. No public boundary export, live map
-activation, workflow dispatch or new spending. The mobile preview uses synthetic
-geometry and no third-party tiles. A visual review is required before any UI merge.
+User approved OSM and live visitor-browser boundary loading on 2026-10-22.
+Only representative point coordinates are published, not polygon geometry.
+The optional collapsed panel is BELOW both tables. Points follow current table
+filters/search (including matches beyond the collapsed first 20). The map legend
+is hidden until toggled, with keyboard support. Colors match the table's status
+rules; numbered accessible markers and popup text avoid color-only meaning.
 
 ## Data flow
 ```mermaid
@@ -19,7 +22,7 @@ flowchart TD
 ```
 
 ## UI
-Optional panel above the plans table, initially collapsed. On opening, load local
+Optional panel below both tables, initially collapsed. On opening, load local
 Leaflet 1.9.4 assets and the overlay. Interior points are labelled as approximate
 plan locations, not entrances. A toggle adds polygon outlines; selection opens a
 popup with plain-text name/status and source/review links. Fit to council area,
@@ -41,7 +44,8 @@ Missing geometry is counted, never silently placed at a guessed address.
   copyright including maps, permit fair use with attribution, and otherwise
   require written permission for copying/publication. A public query endpoint
   is not by itself a redistribution licence. Establish the applicable basis
-  before publishing a static boundary dump; until then link to the official map.
+  before publishing a static boundary dump. No dump is published: the visitor
+  explicitly requests one boundary live from the documented public service.
   https://mavat.iplan.gov.il/rest/api/getAboutHtml/
   https://www.gov.il/he/general/terms_of_use
 - Leaflet 1.9.4 is the current stable release and permits local hosting. Preserve

@@ -78,6 +78,16 @@ def main():
 
     council = load_council(args.council)
     features = iplan.query_plans(council, service="xplan_without_77_78")
+    # Store representative points only. Boundaries are requested live in visitors' browsers.
+    from ginot.mapdata import feature_collection
+    prepared_map = feature_collection(features)
+    os.makedirs(args.site, exist_ok=True)
+    with open(f"{args.site}/plan-points.json", "w", encoding="utf-8") as points_file:
+        json.dump({"generated": datetime.date.today().isoformat(),
+                   "source": "Planning Administration public ArcGIS",
+                   "missing_geometry": prepared_map["missing_geometry"],
+                   "points": [f["properties"] for f in prepared_map["features"]]},
+                  points_file, ensure_ascii=False, separators=(",", ":"))
     rows = outputs.rows_from_features(features, council)
     states = tracking.load(args.status)
     rows, changed_defaults = tracking.merge(rows, states)
