@@ -106,3 +106,66 @@ def render_preview(rows, council_name, generated, geojson_path, out_path) -> boo
     right("עודכן", 545, small, (150, 165, 195), x=W - 70 - d.textlength(str(generated), font=small) - 14)
     img.save(out_path, "PNG", optimize=True)
     return True
+
+
+def render_review_preview(row, generated, out_path):
+    """Public-data review card. Derived deadlines are deliberately omitted.
+
+    Requires RAQM for correct mixed Hebrew/numeric text. Without it, use the
+    default site card instead of publishing reversed identifiers. No tiles.
+    """
+    import os
+    try:
+        from PIL import Image, ImageDraw, ImageFont, features
+    except ImportError:
+        return False
+    if not features.check("raqm"):
+        return False
+    engine = ImageFont.Layout.RAQM
+    font_path = next((p for p in FONT_PATHS if os.path.exists(p)), None)
+    if not font_path:
+        return False
+    img = Image.new("RGB", (W, H), "#f3f6ff")
+    draw = ImageDraw.Draw(img)
+    draw.rectangle((0, 0, W, 18), fill="#51b89a")
+
+    def font(size):
+        return ImageFont.truetype(font_path, size, layout_engine=engine)
+
+    def text(value, y, size, color="#101f5b", rtl=True):
+        value = str(value)
+        kw = {"direction": "rtl"} if rtl else {}
+        f = font(size)
+        if draw.textlength(value, font=f, **kw) > W - 140:
+            while value and draw.textlength(value + "…", font=f, **kw) > W - 140:
+                value = value[:-1]
+            value += "…"
+        width = draw.textlength(value, font=f, **kw)
+        draw.text((W - 70 - width, y), value, font=f, fill=color, **kw)
+
+    text("גינות העיר | סקירת AI", 50, 38)
+    text(row.get("pl_number") or "", 115, 68, rtl=False)
+    name = str(row.get("pl_name") or "תכנית ללא שם")
+    words, lines, current = name.split(), [], ""
+    for word in words:
+        candidate = (current + " " + word).strip()
+        if draw.textlength(candidate, font=font(43)) > 1060 and current:
+            lines.append(current)
+            current = word
+        else:
+            current = candidate
+    if current:
+        lines.append(current)
+    for i, line in enumerate(lines[:2]):
+        if i == 1 and len(lines) > 2:
+            line = line[:43] + "…"
+        text(line, 220 + i * 60, 43)
+    status = str(row.get("station_desc") or "סטטוס לא זמין")
+    if len(status) > 60:
+        status = status[:57] + "…"
+    text(status, 365, 31)
+    # No deadline displayed: snapshot-derived +60d is not source verification.
+    text("סיכום אוטומטי לעיון - לא מסמך רשמי", 460, 28)
+    text("עודכן: " + str(generated), 525, 25)
+    img.save(out_path, "PNG", optimize=True)
+    return True

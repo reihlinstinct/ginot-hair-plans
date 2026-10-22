@@ -767,16 +767,39 @@ def render_about(generated: str, council_name: str) -> str:
 </body></html>"""
 
 
-def render_review(pl_number: str, md_text: str, generated: str, council_name: str) -> str:
+def review_social_meta(pl_number, plan_name, base_url, has_image):
+    title = f"סקירת AI - {pl_number}" + (f" | {plan_name}" if plan_name else "")
+    desc = "נקודות לדיון מתוך מסמכי התכנית. סיכום אוטומטי, לא מסמך רשמי ולא ייעוץ מקצועי."
+    tags = [("property", "og:type", "article"), ("property", "og:locale", "he_IL"),
+            ("property", "og:title", title), ("property", "og:description", desc),
+            ("name", "description", desc), ("name", "twitter:title", title),
+            ("name", "twitter:description", desc)]
+    if base_url:
+        base = base_url.rstrip("/") + "/"
+        tags.append(("property", "og:url", base + f"reviews/talking_points_{pl_number}.html"))
+        image = base + (f"reviews/og_{pl_number}.png" if has_image else "og.png")
+        tags += [("property", "og:image", image), ("property", "og:image:width", "1200"),
+                 ("property", "og:image:height", "630"), ("property", "og:image:type", "image/png"),
+                 ("property", "og:image:alt", title), ("name", "twitter:image", image),
+                 ("name", "twitter:card", "summary_large_image")]
+    else:
+        tags.append(("name", "twitter:card", "summary"))
+    return "\n".join(f'<meta {key}="{name}" content="{_e(value)}">' for key, name, value in tags)
+
+
+def render_review(pl_number: str, md_text: str, generated: str, council_name: str,
+                  base_url: str = "", plan_name: str = "", preview_image: bool = False) -> str:
     """Render a plan's AI talking-points markdown as a styled site page
     (issue #177). The .md stays the source of truth in the repo; the site
     render converts it - no separate Action. Clearly labelled AI content."""
     import markdown
     body = markdown.markdown(md_text, extensions=["tables", "fenced_code", "sane_lists"])
+    social = review_social_meta(pl_number, plan_name, base_url, preview_image)
     return f"""<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>סקירת AI - תכנית {_e(pl_number)}</title>
+{social}
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="../favicon.ico?v=20261022">
 <link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg?v=20261022">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
@@ -847,9 +870,13 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                               permits_file=f"{out_dir}/permits.html"))
     if review_pages:
         os.makedirs(f"{out_dir}/reviews", exist_ok=True)
+        row_by_number = {r.get("pl_number"): r for r in rows}
         for pl, md_text in review_pages.items():
+            row = row_by_number.get(pl, {"pl_number": pl})
+            review_image = preview.render_review_preview(row, generated, f"{out_dir}/reviews/og_{pl}.png")
             with open(f"{out_dir}/reviews/talking_points_{pl}.html", "w", encoding="utf-8") as fh:
-                fh.write(render_review(pl, md_text, generated, council_name))
+                fh.write(render_review(pl, md_text, generated, council_name, base_url,
+                                       row.get("pl_name") or "", review_image))
     with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
         fh.write(render_about(generated, council_name))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
