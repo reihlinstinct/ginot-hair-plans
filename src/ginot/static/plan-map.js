@@ -50,9 +50,10 @@
   function syncFilter() {
     if(!map)return;
     var allowed=new Set(Array.from(document.querySelectorAll('#plans tbody tr')).filter(function(r){return r.dataset.mapMatch==='1';}).map(function(r){return r.dataset.num;}));
-    var visible=0;
-    markers.forEach(function(item){if(allowed.has(item.row.pl_number)){if(!map.hasLayer(item.marker))item.marker.addTo(map);visible++;}else{map.removeLayer(item.marker);}});
+    var visible=0, positions=[];
+    markers.forEach(function(item){if(allowed.has(item.row.pl_number)){if(!map.hasLayer(item.marker))item.marker.addTo(map);visible++;positions.push(item.marker.getLatLng());}else{map.removeLayer(item.marker);}});
     if(boundary){map.removeLayer(boundary);boundary=null;}
+    if(positions.length)map.fitBounds(L.latLngBounds(positions),{padding:[30,30],maxZoom:16,animate:false});
     status.textContent=allowed.size===0?'אין תכניות התואמות לחיפוש או לסינון.':visible+' תכניות מסוננות על המפה; '+(allowed.size-visible)+' ללא מיקום. תאריך מיקומים: '+pointsDate+'.';
   }
   document.addEventListener('plans-filtered',syncFilter);
@@ -68,7 +69,7 @@
       data.points.forEach(function(row,i){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||'סטטוס לא ידוע';states.add(s);count++;
         var icon=L.divIcon({className:'plan-marker',html:'<span style="background:'+colors[category(s)]+'">'+(i+1)+'</span>',iconSize:[28,28],iconAnchor:[14,14]});
-        var marker=L.marker([xy[1],xy[0]],{icon:icon,title:(i+1)+'. '+row.pl_number+' '+row.pl_name+' - '+s,alt:row.pl_number+' '+s}).addTo(map);marker.bindPopup(popup(row,i+1));markers.push({marker:marker,row:row});
+        var marker=L.marker([xy[1],xy[0]],{icon:icon,title:(i+1)+'. '+row.pl_number+' '+row.pl_name+' - '+s,alt:row.pl_number+' '+s}).addTo(map);marker.bindPopup(popup(row,i+1),{maxWidth:240,autoPanPadding:[48,25]});markers.push({marker:marker,row:row});
       });
       var legend=document.getElementById('map-legend');legend.replaceChildren();Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.style.background=colors[category(s)];item.append(swatch,document.createTextNode(s));legend.append(item);});
       pointsDate=data.generated; syncFilter();
