@@ -34,9 +34,20 @@ def parcel_key(r):
     return (int(r["gush"]), int(r["helka"]))
 
 
-def active_parcels(requests):
-    return sorted({parcel_key(r) for r in requests
-                   if r.get("gush") and r.get("helka") and is_active(r.get("status", ""))})
+def active_parcels(requests, stale_before=None, cap=None):
+    """Parcels with a changeable request, oldest check first. With
+    stale_before (YYYY-MM-DD) only parcels with an active request not
+    checked on or after that day; cap bounds the run time."""
+    last = {}
+    for r in requests:
+        if not (r.get("gush") and r.get("helka") and is_active(r.get("status", ""))):
+            continue
+        d = r.get("details_checked_on") or ""
+        k = parcel_key(r)
+        last[k] = d if k not in last else min(last[k], d)
+    keys = [k for k, d in last.items() if stale_before is None or d < stale_before]
+    keys.sort(key=lambda k: (last[k], k))
+    return keys if cap is None else keys[:max(0, cap)]
 
 
 def rotation_parcels(requests, all_parcels, scanned_upto, cap):
@@ -73,12 +84,15 @@ def main():
     ap.add_argument("--feed", default="data/permit_requests.json")
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
     ap.add_argument("--cap", type=int, default=150)
+    ap.add_argument("--stale-before", default=None,
+                    help="active tier: only parcels with an active request not checked since DATE")
     args = ap.parse_args()
     with open(args.feed, encoding="utf-8") as fh:
         feed = json.load(fh)
     requests = feed.get("requests", [])
     if args.tier == "active":
-        sel = active_parcels(requests)
+        sel = active_parcels(requests, args.stale_before,
+                             args.cap if args.stale_before else None)
     else:
         with open(args.parcels, encoding="utf-8") as fh:
             parcels = all_parcels_of(json.load(fh))

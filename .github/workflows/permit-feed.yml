@@ -157,6 +157,26 @@ jobs:
           # list mode never reads or writes the scan-checkpoint branch
           sudo -E python3 scripts/vpn/permit_feed.py --parcel-list /tmp/recheck_parcels.json
 
+      - name: Daily re-check of active parcels (tiered re-check, issue #348)
+        # Runs after the batch scan and before publish, at most once per UTC day
+        # (the selector returns only active requests not checked today). It can
+        # never lose the batch: continue-on-error, capped, and list mode writes
+        # the feed only at the end. Never touches the scan-checkpoint branch.
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' }}
+        continue-on-error: true
+        timeout-minutes: 60
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 scripts/vpn/recheck_select.py --tier active --cap 150 --stale-before "$(date -u +%F)" > /tmp/recheck_parcels.json
+          N=$(python3 -c "import json;print(len(json.load(open('/tmp/recheck_parcels.json'))))")
+          echo "$N active parcels not yet re-checked today"
+          [ "$N" = "0" ] && exit 0
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          sudo -E python3 scripts/vpn/permit_feed.py --parcel-list /tmp/recheck_parcels.json
+
       - name: Enrich mirror tiks with s.149 publication dates
         if: ${{ env.REQ_MODE == 'enrich' }}
         env:
@@ -174,7 +194,7 @@ jobs:
           sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
-        if: ${{ (env.REQ_MODE == 'enrich' || env.BACKFILL_COMPLETE != 'true') && success() }}
+        if: ${{ success() }}  # no-op when data is unchanged (git diff check inside)
         env:
           GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
         run: |
