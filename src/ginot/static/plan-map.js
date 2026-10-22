@@ -4,7 +4,8 @@
   'use strict';
   var panel=document.getElementById('plan-map-panel');if(!panel)return;
   var items=[],pointsDate='',map,loading=false,polygons,controller,revision=0,timer;
-  var cache=new Map(),failed=new Set(),MAX=20,MIN_ZOOM=11;
+  var cache=new Map(),failed=new Set(),manual=new Set(),MAX=20,MIN_ZOOM=11;
+  var toggle=document.getElementById('map-boundaries');
   var status=document.getElementById('map-status');
   var colors={deposit:'#e8c31d',review:'#00a8cf',conditions:'#c8a4de',decision:'#ff8c00',process:'#51b89a',approved:'#6db633',other:'#dde4f6'};
   function category(s){
@@ -23,7 +24,7 @@
   function selected(){var allowed=new Set(rows().map(function(r){return r.dataset.num;}));return items.filter(function(i){return allowed.has(i.row.pl_number);});}
   function popup(row){
     var box=el('div');box.dir='rtl';box.append(el('strong','תכנית '+row.pl_number),el('p',row.pl_name),el('p',row.station_desc||'סטטוס לא ידוע'));
-    var button=el('button','התמקד בגבול התכנית');button.type='button';button.onclick=function(){focus(row);};box.append(button);
+    var button=el('button','טען גבול תכנית');button.type='button';button.onclick=function(){focus(row);};box.append(button);
     var tr=Array.from(document.querySelectorAll('#plans tbody tr')).find(function(r){return r.dataset.num===row.pl_number;});
     var source=tr&&tr.querySelector('td a');
     if(source&&source.href.startsWith('https://mavat.iplan.gov.il/'))box.append(el('p'),link('פרטי התכנית במאב"ת',source.href));
@@ -39,20 +40,20 @@
     numbers.forEach(function(n){cache.set(n,grouped.get(n)||[]);});
   }
   function draw(){
-    var active=selected(),allowed=rows().length,automatic=active.length<=MAX&&map.getZoom()>=MIN_ZOOM;
+    var active=selected(),allowed=rows().length,automatic=toggle.checked&&active.length<=MAX&&map.getZoom()>=MIN_ZOOM;
     polygons.clearLayers();var count=0,points=0;
     items.forEach(function(item){map.removeLayer(item.marker);});
-    active.forEach(function(item){var fs=automatic&&cache.get(item.row.pl_number);
+    active.forEach(function(item){var fs=(automatic||manual.has(item.row.pl_number))&&cache.get(item.row.pl_number);
       if(fs&&fs.length){L.geoJSON({type:'FeatureCollection',features:fs},{style:{color:color(item.row),weight:3,fillOpacity:.07},onEachFeature:function(f,layer){layer.bindPopup(popup(item.row),{maxWidth:240});}}).addTo(polygons);count++;}
       else{item.marker.addTo(map);points++;}
     });
-    var note=active.length>MAX?' יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.':map.getZoom()<MIN_ZOOM?' התקרבו במפה להצגת גבולות.':'';
+    var note=!toggle.checked?' הצגת גבולות אוטומטית כבויה; ניתן לטעון גבול מתוך כל נקודה.':active.length>MAX?' יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.':map.getZoom()<MIN_ZOOM?' התקרבו במפה להצגת גבולות.':'';
     status.textContent=allowed===0?'אין תכניות התואמות לחיפוש או לסינון.':allowed+' שורות גלויות בטבלה: '+count+' גבולות, '+points+' נקודות, '+(allowed-active.length)+' ללא מיקום.'+note+' תאריך מיקומים: '+pointsDate+'.';
     if(failed.size&&automatic)status.textContent+=' חלק מהגבולות לא נטענו; הנקודות נשארות זמינות.';
   }
   async function boundaries(){
     clearTimeout(timer);if(controller)controller.abort();controller=new AbortController();var current=++revision;
-    draw();var active=selected();if(!active.length||active.length>MAX||map.getZoom()<MIN_ZOOM)return;
+    draw();var active=selected();if(!toggle.checked||!active.length||active.length>MAX||map.getZoom()<MIN_ZOOM)return;
     var missing=active.map(function(i){return i.row.pl_number;}).filter(function(n){return !cache.has(n)&&!failed.has(n);});if(!missing.length)return;
     status.textContent+=' טוען גבולות ממינהל התכנון…';
     timer=setTimeout(function(){controller.abort();},20000);
@@ -65,12 +66,13 @@
       if(!cache.has(row.pl_number)||!cache.get(row.pl_number).length){await fetchGeometry([row.pl_number],AbortSignal.timeout(20000));}
       if(!selected().some(function(i){return i.row.pl_number===row.pl_number;}))return;
       var fs=cache.get(row.pl_number);if(!fs||!fs.length)throw Error('missing');
-      var layer=L.geoJSON({type:'FeatureCollection',features:fs});map.closePopup();map.fitBounds(layer.getBounds(),{padding:[24,24],maxZoom:17});draw();
-      if(selected().length>MAX)L.geoJSON({type:'FeatureCollection',features:fs},{style:{color:color(row),weight:4,fillOpacity:.07}}).bindPopup(popup(row)).addTo(polygons);
+      manual.add(row.pl_number);var layer=L.geoJSON({type:'FeatureCollection',features:fs});map.closePopup();map.fitBounds(layer.getBounds(),{padding:[24,24],maxZoom:17});draw();
+
     }catch(e){status.textContent='גבול תכנית '+row.pl_number+' אינו זמין כרגע; הנקודה והקישור למקור נשארים זמינים.';}
   }
-  function syncFilter(){if(!map)return;map.closePopup();var active=selected();if(active.length)map.fitBounds(L.latLngBounds(active.map(function(i){return i.marker.getLatLng();})),{padding:[30,30],maxZoom:16,animate:false});boundaries();}
+  function syncFilter(){if(!map)return;manual.clear();map.closePopup();var active=selected();if(active.length)map.fitBounds(L.latLngBounds(active.map(function(i){return i.marker.getLatLng();})),{padding:[30,30],maxZoom:16,animate:false});boundaries();}
   document.addEventListener('plans-filtered',syncFilter);
+  toggle.addEventListener('change',function(){manual.clear();if(map)boundaries();});
   document.getElementById('map-legend-toggle').onclick=function(){var box=document.getElementById('map-legend');box.hidden=!box.hidden;this.setAttribute('aria-expanded',String(!box.hidden));};
   async function init(){
     if(map){setTimeout(function(){map.invalidateSize();},0);return;}if(loading)return;loading=true;status.textContent='טוען מפת תכניות…';

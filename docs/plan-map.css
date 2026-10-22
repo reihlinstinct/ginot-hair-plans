@@ -6,3 +6,5 @@
 .plan-marker span{display:block;width:14px;height:14px;border:2px solid #101f5b;box-sizing:border-box;border-radius:50%;box-shadow:0 0 0 2px #fff}
 .plan-map-panel .leaflet-control-zoom a{min-width:44px;min-height:44px;line-height:44px}.plan-map-panel .leaflet-popup-content{font:14px system-ui;color:#101f5b}
 @media(max-width:700px){#plan-map{height:370px}.plan-map-panel{padding:10px}.plan-map-panel p{font-size:14px}}
+
+.map-boundary-control{display:flex;gap:8px;align-items:center;min-height:44px;margin:12px 0;color:#101f5b;font-weight:600}.map-boundary-control input{width:22px;height:22px;accent-color:#101f5b}

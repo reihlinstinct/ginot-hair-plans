@@ -401,6 +401,16 @@ def test_map_lazy_filter_legend_and_live_boundary(page):
     page.locator("#fq").fill("200-1")
     page.wait_for_function("document.querySelector('#map-status').textContent.includes('גבולות') && !document.querySelector('#map-status').textContent.includes('טוען')")
     assert page.locator(".leaflet-overlay-pane path").count() == 11
+    assert page.locator("#map-boundaries").is_checked()
+    page.uncheck("#map-boundaries")
+    assert page.locator(".leaflet-overlay-pane path").count() == 0
+    assert page.locator(".leaflet-marker-icon").count() == 11
+    page.locator(".leaflet-marker-icon").first.click()
+    page.get_by_role("button", name="טען גבול תכנית", exact=True).click()
+    page.wait_for_function("document.querySelectorAll('.leaflet-overlay-pane path').length===1")
+    assert not page.locator("#map-boundaries").is_checked()
+    page.check("#map-boundaries")
+    assert page.locator(".leaflet-overlay-pane path").count() == 11
     page.locator("#fq").fill("does-not-exist")
     assert page.locator(".leaflet-marker-icon").count() == 0
     assert page.locator(".leaflet-overlay-pane path").count() == 0
