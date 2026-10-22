@@ -2,7 +2,7 @@
 // Free Cloudflare Worker: no storage, no secrets, no writes. Fetches the
 // public data.json from GitHub Pages (edge-cached 5 min), filters per query
 // params, CORS open. Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
-
+import { securityTxtResponse } from "./securitytxt.mjs";
 const ORIGIN = "https://reihlinstinct.github.io/ginot-hair-plans";
 const CACHE_TTL = 300; // seconds, edge cache for the upstream data.json
 const MAX_LIMIT = 500;
@@ -91,6 +91,8 @@ const INDEX = {
 };
 
 export async function handleRequest(request, fetchImpl = fetch) {
+  const sec = securityTxtResponse(request);
+  if (sec) return sec;
   const url = new URL(request.url);
   if (request.method === "OPTIONS") return json({});
   if (request.method !== "GET") return json({ error: "GET only" }, { status: 405 });

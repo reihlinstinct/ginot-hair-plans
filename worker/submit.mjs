@@ -6,6 +6,7 @@
 // GITHUB_TOKEN (secret, Issues write on the inbox repo only), INBOX_REPO,
 // DISABLED="1" (kill switch).
 
+import { securityTxtResponse } from "./securitytxt.mjs";
 const DATA = "https://reihlinstinct.github.io/ginot-hair-plans/data.json";
 const PROTOCOL = "2024-11-05";
 export const LIMITS = { minChars: 40, maxChars: 1500, maxBody: 8192, perIpHour: 5, perDay: 50, nameMax: 40 };
@@ -90,6 +91,8 @@ const H = { "access-control-allow-origin": "*", "access-control-allow-headers": 
 const out = (b, s = 200) => new Response(b === null ? null : JSON.stringify(b), { status: s, headers: { ...H, "content-type": "application/json; charset=utf-8" } });
 
 export async function handleRequest(request, env, fetchImpl = fetch) {
+  const sec = securityTxtResponse(request);
+  if (sec) return sec;
   if (request.method === "OPTIONS") return out(null, 204);
   if (request.method !== "POST") return out({ error: "POST JSON-RPC" }, 405);
   const raw = await request.text();

@@ -3,7 +3,7 @@
 // public data.json on GitHub Pages. Objection dates are DERIVED, not official.
 import { filterPlans } from "./api.mjs";
 import { CHECKLIST, PROMPT, promptText } from "./checklist.mjs";
-
+import { securityTxtResponse } from "./securitytxt.mjs";
 const ORIGIN = "https://reihlinstinct.github.io/ginot-hair-plans/data.json";
 const POINTS_URL = "https://reihlinstinct.github.io/ginot-hair-plans/plan-points.json";
 const REVIEW_BASE = "https://reihlinstinct.github.io/ginot-hair-plans/reviews/talking_points_";
@@ -130,6 +130,8 @@ const out = (body, status = 200) => new Response(body === null ? null : JSON.str
   { status, headers: { ...H, "content-type": "application/json; charset=utf-8" } });
 
 export async function handleRequest(request, fetchImpl = fetch) {
+  const sec = securityTxtResponse(request);
+  if (sec) return sec;
   if (request.method === "OPTIONS") return out(null, 204);
   if (request.method !== "POST") return out({ error: "POST JSON-RPC to /mcp; see README" }, 405);
   let msg;
