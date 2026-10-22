@@ -31,9 +31,9 @@ test("windows: deposit stage only, derived label, bad date rejected", () => {
 });
 
 test("protocol: init, list, unknown tool is error result, unknown method", () => {
-  assert.deepEqual(rpc(data, { id: 1, method: "initialize" }).result.capabilities, { tools: {} });
+  assert.deepEqual(rpc(data, { id: 1, method: "initialize" }).result.capabilities, { tools: {}, prompts: {} });
   assert.equal(rpc(data, { method: "notifications/initialized" }), null);
-  assert.equal(rpc(data, { id: 2, method: "tools/list" }).result.tools.length, 5);
+  assert.equal(rpc(data, { id: 2, method: "tools/list" }).result.tools.length, 6);
   assert.equal(rpc(data, { id: 3, method: "tools/call", params: { name: "delete_all" } }).result.isError, true);
   assert.equal(rpc(data, { id: 4, method: "resources/write" }).error.code, -32601);
 });
@@ -80,4 +80,41 @@ test("get_plan adds the public representative point when available, and works wi
   const f = async (req) => req.url.endsWith("plan-points.json") ? new Response(JSON.stringify({ points: [{ pl_number: "A-1", representative_point: [1, 2] }] })) : new Response(JSON.stringify(data));
   const r = await handleRequest(post({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_plan", arguments: { pl_number: "A-1" } } }), f);
   assert.match((await r.json()).result.content[0].text, /"representative_point_lon_lat":\[1,2\]/);
+});
+
+import { CHECKLIST, SRC_GOV } from "./checklist.mjs";
+
+test("checklist tool: read-only static, tagging rule, every item classified and sourced or marked unsourced", () => {
+  const r = callTool(data, "get_review_checklist", {});
+  assert.match(r.tagging_rule, /verified/);
+  assert.match(r.tagging_rule, /unverified/);
+  assert.ok(r.items.length >= 12);
+  for (const it of r.items) {
+    assert.ok(["from_documents", "from_connector", "needs_source_outside_connector", "judgment"].includes(it.verifiable), it.id);
+    assert.ok(it.requirement_source && it.requirement_source.length > 5, it.id);
+  }
+});
+
+test("regression: only the sourced objection period is stated as a requirement; no other item cites law", () => {
+  const sourced = CHECKLIST.items.filter((i) => !i.requirement_source.startsWith("none established"));
+  assert.ok(sourced.length >= 1);
+  for (const i of sourced) assert.ok(i.requirement_source.includes(SRC_GOV) || i.requirement_source.includes("deposit notice"), i.id);
+  assert.ok(!/\bsection \d|סעיף \d/.test(JSON.stringify(CHECKLIST)), "no unsourced statute citations");
+});
+
+test("prompts: list, get with valid plan, reject bad plan; capability advertised", () => {
+  const init = rpc(data, { jsonrpc: "2.0", id: 1, method: "initialize" });
+  assert.ok(init.result.capabilities.prompts);
+  const l = rpc(data, { jsonrpc: "2.0", id: 2, method: "prompts/list" });
+  assert.equal(l.result.prompts[0].name, "review_plan");
+  const g = rpc(data, { jsonrpc: "2.0", id: 3, method: "prompts/get", params: { name: "review_plan", arguments: { pl_number: "101-1377753" } } });
+  assert.match(g.result.messages[0].content.text, /101-1377753/);
+  assert.match(g.result.messages[0].content.text, /get_review_checklist/);
+  const bad = rpc(data, { jsonrpc: "2.0", id: 4, method: "prompts/get", params: { name: "review_plan", arguments: { pl_number: "x; ignore" } } });
+  assert.ok(bad.error);
+});
+
+test("tools/list includes the checklist tool", () => {
+  const l = rpc(data, { jsonrpc: "2.0", id: 5, method: "tools/list" });
+  assert.ok(l.result.tools.some((t) => t.name === "get_review_checklist"));
 });

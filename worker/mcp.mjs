@@ -2,6 +2,7 @@
 // Free Cloudflare Worker: no secrets, no bindings, no write tools. Reads only the
 // public data.json on GitHub Pages. Objection dates are DERIVED, not official.
 import { filterPlans } from "./api.mjs";
+import { CHECKLIST, PROMPT, promptText } from "./checklist.mjs";
 
 const ORIGIN = "https://reihlinstinct.github.io/ginot-hair-plans/data.json";
 const POINTS_URL = "https://reihlinstinct.github.io/ginot-hair-plans/plan-points.json";
@@ -31,6 +32,8 @@ export const TOOLS = [
     inputSchema: { type: "object", properties: { days: { type: "integer", minimum: 0, maximum: 365 }, as_of: { type: "string", description: "YYYY-MM-DD" } } } },
   { name: "get_review", description: "Plain text of the already-published AI review (talking points, source-tagged) for one plan, if one exists on the public site. Not an official document; check the plan's source page.",
     inputSchema: { type: "object", properties: { pl_number: { type: "string", description: "e.g. 101-1377753" } }, required: ["pl_number"] } },
+  { name: "get_review_checklist", description: "What to check before a plan review is finished: document completeness, objection window and notices, area/rights consistency, setbacks/heights/parking, preservation, unexplained changes. Each item says whether it is verifiable from documents and where its requirement is sourced. Includes the verified/unverified tagging rule. Static, public, read-only.",
+    inputSchema: { type: "object", properties: {} } },
   { name: "data_status", description: "Dataset generation date and plan count.", inputSchema: { type: "object", properties: {} } },
 ];
 
@@ -69,6 +72,7 @@ export function callTool(data, name, args = {}) {
     if (!text) throw new Error("no published review for this plan");
     return { pl_number: pl, source: "published AI review page on the public site; not an official document", text };
   }
+  if (name === "get_review_checklist") return CHECKLIST;
   if (name === "data_status") return { generated: data.generated, plans: rows.length };
   throw new Error("unknown tool");
 }
@@ -100,9 +104,15 @@ export function rpc(data, msg) {
   const { id, method } = msg;
   if (id === undefined || id === null) return null;
   const ok = (result) => ({ jsonrpc: "2.0", id, result });
-  if (method === "initialize") return ok({ protocolVersion: PROTOCOL, capabilities: { tools: {} }, serverInfo: { name: "ginot-hair-mcp", version: "0.1.0" } });
+  if (method === "initialize") return ok({ protocolVersion: PROTOCOL, capabilities: { tools: {}, prompts: {} }, serverInfo: { name: "ginot-hair-mcp", version: "0.1.0" } });
   if (method === "ping") return ok({});
   if (method === "tools/list") return ok({ tools: TOOLS });
+  if (method === "prompts/list") return ok({ prompts: [PROMPT] });
+  if (method === "prompts/get") {
+    const pl = String(msg.params?.arguments?.pl_number ?? "").trim();
+    if (msg.params?.name !== PROMPT.name || !PL_RE.test(pl)) return { jsonrpc: "2.0", id, error: { code: -32602, message: "unknown prompt or bad pl_number" } };
+    return ok({ description: PROMPT.description, messages: [{ role: "user", content: { type: "text", text: promptText(pl) } }] });
+  }
   if (method === "tools/call") {
     try {
       const r = callTool(data, msg.params?.name, msg.params?.arguments || {});
