@@ -23,7 +23,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks"
+        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks; recheck = re-scan active (or rotation) parcels only"
         required: true
         default: "scan"
       include_unenriched:
@@ -38,6 +38,10 @@ on:
         description: "Parcels to scan in this batch (scan) or tiks to enrich (enrich)"
         required: true
         default: "60"
+      recheck_tier:
+        description: "recheck mode: active = parcels with changeable requests; rotation = oldest-checked other parcels (limit = cap)"
+        required: false
+        default: "active"
       offset:
         description: "Parcel list offset"
         required: true
@@ -74,12 +78,12 @@ jobs:
           if ev == "push":
               d = json.load(open("data/backfill_request.json"))
               src = {k: str(d.get(k, "")).lower() if isinstance(d.get(k), bool) else str(d.get(k, ""))
-                     for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+                     for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
           elif ev == "workflow_dispatch":
               ins = json.loads(os.environ["INPUTS_JSON"])
-              src = {k: str(ins.get(k) or "") for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+              src = {k: str(ins.get(k) or "") for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
           else:
-              src = {k: "" for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset")}
+              src = {k: "" for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
           for k, v in src.items():
               assert "\n" not in v and len(v) < 20, k
               print(f"REQ_{k.upper()}={v}")
@@ -101,7 +105,7 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Resolve batch parameters (schedule -> next offset)
-        if: ${{ env.REQ_MODE != 'enrich' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' }}
         run: |
           if [ -n "${{ env.REQ_LIMIT }}" ]; then
             echo "LIMIT=${{ env.REQ_LIMIT }}" >> "$GITHUB_ENV"
@@ -120,7 +124,7 @@ jobs:
           fi
 
       - name: Scan parcel batch for permit requests
-        if: ${{ env.REQ_MODE != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -136,6 +140,22 @@ jobs:
           # lost runner no longer wipes hours of scanning. GH_TOKEN is needed
           # by the checkpoint push; sudo -E preserves it.
           sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}" --checkpoint --resume
+
+      - name: Re-check active (or rotation) parcels only (tiered re-check, issue #346)
+        if: ${{ env.REQ_MODE == 'recheck' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          TIER="${{ env.REQ_RECHECK_TIER }}"
+          case "$TIER" in active|rotation) ;; *) TIER=active ;; esac
+          CAP="${{ env.REQ_LIMIT }}"; CAP="${CAP:-150}"
+          python3 scripts/vpn/recheck_select.py --tier "$TIER" --cap "$CAP" > /tmp/recheck_parcels.json
+          python3 -c "import json;print(len(json.load(open('/tmp/recheck_parcels.json'))),'parcels in tier')"
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          # list mode never reads or writes the scan-checkpoint branch
+          sudo -E python3 scripts/vpn/permit_feed.py --parcel-list /tmp/recheck_parcels.json
 
       - name: Enrich mirror tiks with s.149 publication dates
         if: ${{ env.REQ_MODE == 'enrich' }}
@@ -206,11 +226,14 @@ jobs:
           done
           gh pr merge "$PR" --squash --delete-branch
           # Batch fully published - drop the mid-run checkpoint branch (#155)
-          gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/scan-checkpoint" || true
+          # A recheck must leave the backfill's checkpoint alone.
+          if [ "${{ env.REQ_MODE }}" != "recheck" ]; then
+            gh api -X DELETE "repos/${{ github.repository }}/git/refs/heads/scan-checkpoint" || true
+          fi
           gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
 
       - name: Dispatch read-only Go auditor after scan publication
-        if: ${{ success() && env.REQ_MODE != 'enrich' && env.BACKFILL_COMPLETE != 'true' }}
+        if: ${{ success() && env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.PARCEL_AUDIT_DISPATCH_TOKEN }}
         run: |
