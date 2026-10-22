@@ -75,6 +75,8 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead tr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 #plans thead th{display:block;background:#fff;border:1px solid #51b89a;border-radius:16px;padding:0;position:static;color:#101f5b}
 #plans thead th button{color:#101f5b}
+#plans thead th:nth-child(8){display:none}
+
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
