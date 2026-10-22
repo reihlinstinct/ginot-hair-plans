@@ -789,7 +789,8 @@ def review_social_meta(pl_number, plan_name, base_url, has_image):
 
 
 def render_review(pl_number: str, md_text: str, generated: str, council_name: str,
-                  base_url: str = "", plan_name: str = "", preview_image: bool = False) -> str:
+                  base_url: str = "", plan_name: str = "", preview_image: bool = False,
+                  external_html: str = "") -> str:
     """Render a plan's AI talking-points markdown as a styled site page
     (issue #177). The .md stays the source of truth in the repo; the site
     render converts it - no separate Action. Clearly labelled AI content."""
@@ -812,6 +813,7 @@ def render_review(pl_number: str, md_text: str, generated: str, council_name: st
 <article class="review-body">
 {body}
 </article>
+{external_html}
 <p><a href="../index.html">חזרה לעמוד הראשי</a> &middot; עודכן: {_e(generated)}</p>
 <footer dir="rtl"><p>
 אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
@@ -832,7 +834,8 @@ def render_feed(changes: list[dict], generated: str, council_name: str, base_url
 def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                 council_name: str = "גינות העיר", base_url: str = "",
                 permits_path: str | None = None, council_geojson: str | None = None,
-                plans_dir: str = "plans"):
+                plans_dir: str = "plans",
+                external_reviews_path: str = "data/external_reviews.json"):
     import glob
     import os
     import re as _re
@@ -869,6 +872,10 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
                               base_url=base_url, preview_image=has_img, reviews=reviews,
                               rows_file=f"{out_dir}/rows.html",
                               permits_file=f"{out_dir}/permits.html"))
+    from . import external_reviews as _er
+    external = _er.load(external_reviews_path)
+    if _er.validate_entries(external):
+        external = []  # never render an invalid file
     if review_pages:
         os.makedirs(f"{out_dir}/reviews", exist_ok=True)
         row_by_number = {r.get("pl_number"): r for r in rows}
@@ -877,7 +884,8 @@ def render_site(rows: list[dict], changes: list[dict], out_dir: str,
             review_image = preview.render_review_preview(row, generated, f"{out_dir}/reviews/og_{pl}.png")
             with open(f"{out_dir}/reviews/talking_points_{pl}.html", "w", encoding="utf-8") as fh:
                 fh.write(render_review(pl, md_text, generated, council_name, base_url,
-                                       row.get("pl_name") or "", review_image))
+                                       row.get("pl_name") or "", review_image,
+                                       _er.render_section(external, pl)))
     with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
         fh.write(render_about(generated, council_name))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:

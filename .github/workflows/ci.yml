@@ -23,6 +23,11 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt ruff pytest-cov
       - run: ruff check src tests refresh.py
+      - name: External reviews append-only guard
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin main
+          python scripts/ci/check_external_reviews.py --base FETCH_HEAD
       - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
       - name: Test run summary
         if: ${{ always() }}
