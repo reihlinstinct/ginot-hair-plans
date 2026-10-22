@@ -41,7 +41,7 @@ def _setup(tmp_path, monkeypatch, with_prior_address=True):
 
 
 def test_parcel_list_scans_only_listed_known_parcels(tmp_path, monkeypatch):
-    out, scanned, _ = _setup(tmp_path, monkeypatch)
+    _out, scanned, _ = _setup(tmp_path, monkeypatch)
     assert pf.main() == 0
     assert scanned == [(2, 2)]
 
@@ -62,6 +62,6 @@ def test_parcel_list_reuses_cached_address_and_refreshes_status(tmp_path, monkey
 
 
 def test_parcel_list_fetches_address_when_not_cached(tmp_path, monkeypatch):
-    out, _, addr = _setup(tmp_path, monkeypatch, with_prior_address=False)
+    _out, _, addr = _setup(tmp_path, monkeypatch, with_prior_address=False)
     assert pf.main() == 0
     assert addr == ["T1"]
