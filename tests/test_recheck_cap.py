@@ -10,3 +10,10 @@ def test_daily_recheck_cap_fits_step_timeout():
     assert m, "daily re-check step not found"
     cap = int(m.group(1))
     assert cap * 40 <= 60 * 60, f"cap {cap} x 40s exceeds the 60 minute step limit"
+
+
+def test_publish_merges_blocked_green_pr_with_admin():
+    # Runs 39755426256 / 39804643780 failed on BLOCKED (required review).
+    assert 'gh pr merge "$PR" --squash --admin --delete-branch' in WF
+    assert '"$STATE" = "BLOCKED"' in WF
+    assert "grep -c -E \"pending|fail|queued\"" in WF
