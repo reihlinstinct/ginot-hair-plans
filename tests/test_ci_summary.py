@@ -10,7 +10,7 @@ spec.loader.exec_module(summary)
 def test_summary_counts_nested_junit_without_double_counting(tmp_path):
     report = tmp_path / 'tests.xml'
     report.write_text('''<testsuites><testsuite tests="99"><testsuite>
-    <testcase/><testcase><failure>private failure text</failure></testcase>
+    <testcase/><testcase><failure>token=privatevalue</failure></testcase>
     <testcase><error/></testcase><testcase><skipped/></testcase>
     </testsuite></testsuite></testsuites>''')
     coverage = tmp_path / 'coverage.json'
@@ -18,7 +18,7 @@ def test_summary_counts_nested_junit_without_double_counting(tmp_path):
     text = summary.render(report, coverage)
     assert '| 4 | 1 | 1 | 1 | 1 |' in text
     assert '72.12%' in text
-    assert 'private failure text' not in text
+    assert 'privatevalue' not in text
 
 
 def test_summary_missing_reports_are_unknown_not_zero(tmp_path):
@@ -43,3 +43,24 @@ def test_every_ci_test_job_has_always_summary_and_report():
     assert '--junitxml=test-results.xml' in text
     assert '--junitxml=browser-results.xml' in text
     assert '--test-reporter=junit' in text
+
+
+def test_per_test_lists_failure_skip_reasons_first_and_escapes_content(tmp_path):
+    report = tmp_path / 'results.xml'
+    report.write_text('''<testsuite>
+      <testcase classname="checks" name="test_pass" time=".1"/>
+      <testcase classname="checks" name="test_skip"><skipped message="optional browser unavailable"/></testcase>
+      <testcase classname="checks" name="test_failure"><failure message="expected &lt;safe&gt;, got token=abc123"/></testcase>
+    </testsuite>''')
+    text = summary.render(report)
+    assert text.index('<b>FAILED') < text.index('<b>SKIPPED') < text.index('<b>PASSED')
+    assert 'optional browser unavailable' in text
+    assert 'expected &lt;safe&gt;' in text and 'abc123' not in text
+    assert 'Check: pass' in text and '<details>' in text
+
+
+def test_diagnostic_redaction_and_length_limit():
+    text = summary.safe('email a@example.invalid IP 192.0.2.1 password=foo github_pat_abcd')
+    assert 'a@example.invalid' not in text and '192.0.2.1' not in text
+    assert 'foo' not in text and 'github_pat_abcd' not in text
+    assert '[truncated]' in summary.safe('x' * 1500)
