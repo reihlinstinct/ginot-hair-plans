@@ -19,6 +19,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/council_ginot_hair.geojson"
   },
   {
+   "name": "external_reviews.json",
+   "path": "data/external_reviews.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 16,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/external_reviews.json"
+  },
+  {
    "name": "ginot_hair_parcels.geojson",
    "path": "data/ginot_hair_parcels.geojson",
    "kind": "geojson",
