@@ -49,7 +49,9 @@ def per_test(cases):
             element = case.find(tag)
             if element is not None:
                 state, priority = label, rank
-                detail = element.get('message') or element.text or 'No reason supplied by test runner.'
+                detail = '\n'.join(dict.fromkeys(part.strip() for part in
+                    (element.get('message', ''), element.text or '') if part.strip()))
+                detail = detail or 'No reason supplied by test runner.'
                 break
         name = case.get('name', '(unnamed)')
         qualified = '.'.join(filter(None, [case.get('classname'), name]))

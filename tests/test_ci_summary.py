@@ -49,7 +49,7 @@ def test_per_test_lists_failure_skip_reasons_first_and_escapes_content(tmp_path)
     report = tmp_path / 'results.xml'
     report.write_text('''<testsuite>
       <testcase classname="checks" name="test_pass" time=".1"/>
-      <testcase classname="checks" name="test_skip"><skipped message="optional browser unavailable"/></testcase>
+      <testcase classname="checks" name="test_skip"><skipped message="collection skipped">optional browser unavailable</skipped></testcase>
       <testcase classname="checks" name="test_failure"><failure message="expected &lt;safe&gt;, got token=abc123"/></testcase>
     </testsuite>''')
     text = summary.render(report)
