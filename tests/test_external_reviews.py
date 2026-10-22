@@ -70,3 +70,9 @@ def test_review_page_shows_section_after_our_review(entries, shown):
     assert ("external-reviews" in out) is shown
     if shown:
         assert out.index("our review") < out.index("external-reviews")
+
+
+def test_external_review_css_is_in_generated_stylesheet(tmp_path):
+    page.render_site([], [], str(tmp_path), external_reviews_path=str(tmp_path / "none.json"))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    assert ".external-reviews" in css and ".ext-meta" in css
