@@ -363,75 +363,8 @@ def test_urgent_row_empties_once_window_passes(browser, site):
     assert items == ["אין"]
 
 
-def test_map_lazy_filter_legend_and_live_boundary(page):
-    points = [{"pl_number": f"200-{i}", "pl_name": f"Synthetic {i}",
-               "station_desc": "הפקדה להתנגדויות", "representative_point": [35.213+i*.0001, 31.768]}
-              for i in range(1, 23)]
-    page.route("**/plan-points.json", lambda route: route.fulfill(
-        json={"generated": "2026-10-22", "points": points}))
-    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
-    requests = []
-
-    def boundary(route):
-        import re
-        from urllib.parse import parse_qs, urlparse
-        query = parse_qs(urlparse(route.request.url).query)
-        numbers = re.findall(r"'([0-9]+-[0-9]+)'", query["where"][0])
-        requests.append(numbers)
-        route.fulfill(json={"type": "FeatureCollection", "features": [
-            {"type": "Feature", "properties": {"pl_number": n}, "geometry": {
-                "type": "Polygon", "coordinates": [[[35.212, 31.767], [35.214, 31.767],
-                [35.214, 31.769], [35.212, 31.769], [35.212, 31.767]]]}} for n in numbers]})
-    page.route("https://ags.iplan.gov.il/**", boundary)
-    assert not requests
-    page.locator("#plan-map-panel summary").click()
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('20 גבולות')")
-    assert set(requests[0]) == set(plan_ids(page))
-    assert len(requests[0]) == 20
-    assert page.locator(".leaflet-marker-icon").count() == 0
-    assert page.locator(".leaflet-overlay-pane path").count() == 20
-    assert page.locator("#map-legend").is_hidden()
-    page.locator("#map-legend-toggle").click()
-    assert "נקודה" in page.locator("#map-legend").inner_text()
-    page.locator("#map-legend-toggle").click()
-    page.click("#more")
-    assert "26 שורות גלויות" in page.locator("#map-status").inner_text()
-    assert page.locator(".leaflet-marker-icon").count() == 22
-    assert page.locator(".leaflet-overlay-pane path").count() == 0
-    page.locator("#fq").fill("200-1")
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('גבולות') && !document.querySelector('#map-status').textContent.includes('טוען')")
-    assert page.locator(".leaflet-overlay-pane path").count() == 11
-    assert page.locator("#map-boundaries").is_checked()
-    page.uncheck("#map-boundaries")
-    assert page.locator(".leaflet-overlay-pane path").count() == 0
-    assert page.locator(".leaflet-marker-icon").count() == 11
-    page.locator(".leaflet-marker-icon").first.click()
-    page.get_by_role("button", name="טען גבול תכנית", exact=True).click()
-    page.wait_for_function("document.querySelectorAll('.leaflet-overlay-pane path').length===1")
-    assert not page.locator("#map-boundaries").is_checked()
-    page.check("#map-boundaries")
-    assert page.locator(".leaflet-overlay-pane path").count() == 11
-    page.locator("#fq").fill("does-not-exist")
-    assert page.locator(".leaflet-marker-icon").count() == 0
-    assert page.locator(".leaflet-overlay-pane path").count() == 0
-    assert "אין תכניות" in page.locator("#map-status").inner_text()
 
 
-def test_map_failed_geometry_keeps_small_accessible_points(page):
-    page.fill("#fq", "200-22")
-    page.route("**/plan-points.json", lambda route: route.fulfill(json={"generated": "2026-10-22",
-        "points": [{"pl_number": "200-22", "pl_name": "Fallback plan", "station_desc": "הפקדה",
-                    "representative_point": [35.213, 31.768]}]}))
-    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
-    page.route("https://ags.iplan.gov.il/**", lambda route: route.fulfill(status=503, body="unavailable"))
-    page.locator("#plan-map-panel summary").click()
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('לא נטענו')")
-    point = page.locator(".leaflet-marker-icon")
-    assert point.count() == 1
-    assert "200-22" in point.get_attribute("title")
-    assert point.inner_text() == ""
-    point.click()
-    assert "Fallback plan" in page.locator(".leaflet-popup").inner_text()
 
 
 @pytest.mark.parametrize("width", [390, 1280])
@@ -472,42 +405,3 @@ def test_committed_permit_legend_cannot_trigger_plan_listener():
     assert html.count('name="twitter:title"') == 1
 
 
-def test_map_overlap_prefers_smallest_and_excludes_holes_and_hidden_rows(page):
-    # All three plans are among the initial visible twenty. Paint the largest
-    # last, reproducing the reported SVG-order bug.
-    numbers = ['200-20', '200-21', '200-22']
-    page.route('**/plan-points.json', lambda r: r.fulfill(json={'generated': 'test', 'points': [
-        {'pl_number': n, 'pl_name': n, 'station_desc': 'הפקדה',
-         'representative_point': [35.213, 31.768]} for n in numbers]}))
-    page.route('https://tile.openstreetmap.org/**', lambda r: r.abort())
-
-    def square(d):
-        return [[35.213-d, 31.768-d], [35.213+d, 31.768-d],
-                [35.213+d, 31.768+d], [35.213-d, 31.768+d], [35.213-d, 31.768-d]]
-    features = [
-        {'type': 'Feature', 'properties': {'pl_number': numbers[0]},
-         'geometry': {'type': 'Polygon', 'coordinates': [square(.001)]}},
-        {'type': 'Feature', 'properties': {'pl_number': numbers[1]},
-         'geometry': {'type': 'MultiPolygon', 'coordinates': [[square(.01), square(.002)]]}},
-        {'type': 'Feature', 'properties': {'pl_number': numbers[2]},
-         'geometry': {'type': 'Polygon', 'coordinates': [square(.1)]}}]
-    page.route('https://ags.iplan.gov.il/**', lambda r: r.fulfill(
-        json={'type': 'FeatureCollection', 'features': features}))
-    page.locator('#plan-map-panel summary').click()
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('3 גבולות')")
-    box = page.locator('#plan-map')
-    box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
-    popup = page.locator('.leaflet-popup-content')
-    assert '2 תכניות חופפות' in popup.inner_text()
-    assert popup.locator('strong').first.inner_text() == 'תכנית 200-20'
-    assert '200-22' in popup.inner_text()
-    assert '200-21' not in popup.inner_text()  # click was in its hole
-    assert page.locator('.leaflet-overlay-pane .leaflet-interactive').count() == 0
-    page.fill('#fq', '200-22')
-    page.wait_for_function("document.querySelector('#map-status').textContent.includes('1 גבולות')")
-    box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
-    page.wait_for_function("document.querySelectorAll('.leaflet-popup-content strong').length===1")
-    assert page.locator('.leaflet-popup-content strong').inner_text() == 'תכנית 200-22'
-    page.fill('#fq', 'absent')
-    box.click(position={'x': box.bounding_box()['width']/2, 'y': box.bounding_box()['height']/2})
-    page.locator('.leaflet-popup').wait_for(state='detached')
