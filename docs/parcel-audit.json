@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "source_commit": "a0f900a346c22b6c87ec3ecc98364cd5fb93f7bd",
+  "source_run": "39715986613",
+  "auditor_run": "39741535246",
+  "source_digest": "da4f76d9775506b11a670d53f72a91a23daffe554f3090622716b7eaca3090c6",
+  "total_unique_parcels": 4739,
+  "published_cursor": 680,
+  "remaining": 4059,
+  "cursor_percent": 14.349018780333404,
+  "warning": "Cursor/range progress only, not proof that every query succeeded."
+}

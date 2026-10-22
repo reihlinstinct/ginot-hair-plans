@@ -67,6 +67,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_tracked_plans.json"
   },
   {
+   "name": "parcel_audit.json",
+   "path": "data/parcel_audit.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 441,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/parcel_audit.json"
+  },
+  {
    "name": "permit_enrich_spotcheck.json",
    "path": "data/permit_enrich_spotcheck.json",
    "kind": "json",
