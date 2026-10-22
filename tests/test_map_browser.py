@@ -177,6 +177,7 @@ def test_map_off_prevents_auto_fetch_and_keyboard_loads_single_plan(page, map_ne
     page.get_by_role('button', name='טען גבול תכנית', exact=True).click()
     page.wait_for_function("document.querySelectorAll('.leaflet-overlay-pane path').length===1")
     assert len(map_network) == 1 and len(map_network[0]) == 1
+    page.locator(".leaflet-popup").wait_for(state="detached")  # #258: close before fitting bounds
     assert not page.locator('#map-boundaries').is_checked()
 
 

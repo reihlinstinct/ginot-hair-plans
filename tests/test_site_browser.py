@@ -405,3 +405,15 @@ def test_committed_permit_legend_cannot_trigger_plan_listener():
     assert html.count('name="twitter:title"') == 1
 
 
+
+
+def test_mobile_ai_header_hidden_review_links_preserved(browser, served):
+    """#244: hide the non-sort chip, not the actual review links."""
+    ctx = browser.new_context(viewport={"width": 390, "height": 844})
+    pg = ctx.new_page()
+    pg.goto(served + "/index.html")
+    pg.wait_for_function("window.__rowsLoaded === true")
+    assert pg.locator("#plans thead th:nth-child(8)").is_hidden()
+    assert pg.locator("#plans thead th button").first.is_visible()
+    assert pg.locator("#plans tbody tr").first.locator("td:nth-child(8)").is_visible()
+    ctx.close()

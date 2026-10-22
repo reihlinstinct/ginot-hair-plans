@@ -18,3 +18,34 @@ Map coverage was split into a dedicated module and CI target by #272.
 No test-only follow-up issue is needed for these fixes: all are automated.
 
 - #285: `tests/test_permit_pipeline.py::test_checkpoint_large_payload_uses_stdin_not_argv` covers oversized checkpoint transport; `test_feed_reuses_only_complete_same_day_unchanged_details` covers freshness and changed/missing detail rejection. `tests/test_scan_checkpoint.py::test_complete_scan_resumes_details_and_checkpoints_them` covers durable detail resume.
+
+## Historical audit,2026-10-22
+
+Reviewed27 recorded incidents:17 closed issues carrying `bug`, plus10 historical
+fix/incident records missing that label. Follow-up tests use synthetic data and
+mock commands, never trigger scans or change live settings.
+
+| Records | Regression evidence |
+| --- | --- |
+| #44 job-level kill switch parsing | `test_historical_regressions.py::test_mavat_kill_switch_uses_valid_job_vars_context` |
+| #45 curl content type contains spaces | `test_discovery_parses_content_type_with_spaces` |
+| #59 browser install/launch path; #61 runner-user execution | `test_mavat_browser_install_launch_share_path_and_runner_user` |
+| #79 timeout; #147 oversized batch | `test_refresh_timeout_and_bounded_scan_size`; `test_parcel_schedule.py` |
+| #83 unexplained ~1h cancellation | `test_vpn_rekeys_before_default_one_hour_expiry`; `test_vpn_watch.py`. Preventive configuration/diagnostics covered. Remote cancellation cause remains unproved, cannot be reproduced offline or claimed fixed by this test. |
+| #85 approval-gated CI; #132 attempted self-approval | `test_refresh_inline_tests_precede_merge_without_approval_gated_dispatch` protects current inline refresh CI and permit explicit dispatch-run selection |
+| #138 zero open-window share count | Existing `test_page.py::test_preview_counts_open_objection_windows` |
+| #155 lost runner output; #251 incomplete detail resume | Existing `test_scan_checkpoint.py` checkpoint/retry/fail-stop/resume tests |
+| #170 stale PR; #187 invalid jq; #277 Mavat stale PR | `test_publish_wait_executes_clean_conflict_timeout_paths`: extracted real shell, mocked gh, nine workflow/state cases. CLEAN succeeds, DIRTY fails, BLOCKED times out after45checks. |
+| #186 index drift | Existing `test_site_index.py::test_committed_index_matches_repo_folder_state` |
+| #227 stale mirror lease | `test_refresh_mirror_fetches_lease_ref_before_force_push` |
+| #244 inert mobile AI chip | `test_site_browser.py::test_mobile_ai_header_hidden_review_links_preserved` |
+| #258 inaccessible popup after boundary fit | Explicit popup-closed assertion added to existing keyboard boundary-loading browser test |
+| #256/#260/#264/#265/#269/#273 | Existing evidence in table above |
+| #283 random citywide interior clicks | Existing `test_map_browser.py::test_map_excludes_style_hidden_row_and_keeps_boundary_click` and outside-polygon test |
+| #285 oversized checkpoint/fresh detail cache | Existing large-stdin and freshness tests noted above |
+
+New test cases:17 (nine shell state/workflow cases, seven other historical
+checks, one mobile browser check), plus one stronger existing browser test.
+No production code or visual design changed. Source-site outages, runner
+cancellation signals and VPN-provider behavior cannot be faithfully reproduced
+by offline regression tests; the #83 distinction above is intentional.
