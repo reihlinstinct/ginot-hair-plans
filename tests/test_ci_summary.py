@@ -91,3 +91,12 @@ def test_description_lookup_is_module_qualified():
     lookup = summary.descriptions()
     assert 'tests.test_ci_summary.test_summary_counts_nested_junit_without_double_counting' in lookup
     assert 'test_summary_counts_nested_junit_without_double_counting' not in lookup
+
+
+def test_browser_skip_plain_reason_names_only_verified_replacement_job():
+    text = summary.skip_explanation('tests.test_map_browser', "No module named 'playwright'")
+    assert 'does not install Playwright' in text
+    assert 'site-browser job' in text
+    assert 'not a browser pass' in text
+    other = summary.skip_explanation('tests.test_unknown', 'conditional skip')
+    assert 'No alternative job is confirmed' in other

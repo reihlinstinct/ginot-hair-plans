@@ -60,7 +60,29 @@ def descriptions():
     return found
 
 
-def check_detail(info, state, detail):
+def skip_explanation(name, detail):
+    """Only name a replacement job when its checked-in workflow verifies it."""
+    browser_modules = ('tests.test_site_browser', 'tests.test_map_browser')
+    workflow = Path('.github/workflows/ci.yml')
+    config = workflow.read_text() if workflow.exists() else ''
+    if (any(name.startswith(module) for module in browser_modules)
+            and "No module named 'playwright'" in detail
+            and 'pip install -r requirements.txt playwright' in config
+            and 'tests/test_site_browser.py tests/test_map_browser.py' in config):
+        return ('This Python job does not install Playwright, so browser test modules '
+                'are skipped here. They run instead in the separate site-browser job '
+                'in this CI run, where Playwright and Chromium are installed. '
+                'Check that job for their individual results; this skip is not a browser pass.')
+    if 'browser binary' in detail.lower() or 'executable doesn' in detail.lower():
+        return ('The browser runtime required by this test is unavailable in this job. '
+                'The runner reason is shown below. No alternative successful execution '
+                'is verified from this report.')
+    return ('The test runner marked this entry skipped, so its checks were not executed here. '
+            'The reported condition is shown below. No alternative job is confirmed '
+            'for this entry; the reason is not being inferred.')
+
+
+def check_detail(info, state, detail, name):
     lines = ['', '<details><summary>Exact check: inputs, steps, assertions and result</summary>', '']
     lines += ['<p>Inputs and expected values below are the checked-in test definition, '
               'not a capture of private runtime objects. Runtime values are shown only '
@@ -73,6 +95,8 @@ def check_detail(info, state, detail):
     else:
         result = 'Runner result: ' + state.lower() + '. Available expected/actual diagnostic follows.'
     lines.append('<p>' + safe(result) + '</p>')
+    if state == 'SKIPPED':
+        lines.append('<p>' + safe(skip_explanation(name, detail)) + '</p>')
     if detail:
         lines.append('<pre>' + safe(detail, 6000) + '</pre>')
     if not info:
@@ -116,7 +140,7 @@ def per_test(cases):
     for _, name, state, detail, description, duration, info in sorted(records, key=lambda r: r[:2]):
         lines += [f'- <b>{state}</b> <code>{safe(name)}</code> ({safe(duration)}s)',
                   f'  <br>Check: {safe(description)}']
-        lines.extend(check_detail(info, state, detail))
+        lines.extend(check_detail(info, state, detail, name))
     lines += ['', '</details>', '']
     return lines
 
