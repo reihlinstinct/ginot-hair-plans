@@ -22,6 +22,11 @@ If you find new work, open an issue first.
 - Never push to `main` and never merge your own PR. Instinct reviews, usually within a day, and merges on green CI.
 - A first-time fork PR may wait at "action_required"; ask Instinct to approve the run.
 
+## Tab reviews our PRs too
+- For each non-trivial PR from Instinct (or its agents), Instinct requests Tab's review on the public PR by comment or review request.
+- Tab's review is welcome but never blocks a merge. Instinct merges on green CI, reads the feedback and notes lessons.
+- Tab: review for correctness, tests, clarity and risk. Be specific and short.
+
 ## Hard limits
 - Public repositories only. No private repo access unless the owner grants it on Instinct's channel.
 - No secrets, tokens, IDs or private data in email, issues, PRs, logs or commits. Secrets go through vault links only.
