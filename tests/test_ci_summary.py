@@ -64,3 +64,30 @@ def test_diagnostic_redaction_and_length_limit():
     assert 'a@example.invalid' not in text and '192.0.2.1' not in text
     assert 'foo' not in text and 'github_pat_abcd' not in text
     assert '[truncated]' in summary.safe('x' * 1500)
+
+
+def test_nested_detail_is_closed_and_has_source_assertions_and_honest_actual(tmp_path):
+    report = tmp_path / 'results.xml'
+    report.write_text('''<testsuite><testcase classname="tests.test_ci_summary"
+      name="test_summary_missing_reports_are_unknown_not_zero"/></testsuite>''')
+    text = summary.render(report)
+    assert '<details><summary>Exact check:' in text
+    assert '<details open' not in text
+    assert 'Test counts unavailable' in text and 'assert ' in text
+    assert 'passing assertion operands are not captured' in text
+    assert 'Runner result: passed' in text
+    assert 'tmp_path' in text
+
+
+def test_skipped_detail_never_claims_assertions_ran(tmp_path):
+    report = tmp_path / 'results.xml'
+    report.write_text('<testsuite><testcase name="unknown"><skipped message="no browser"/></testcase></testsuite>')
+    text = summary.render(report)
+    assert 'not verified by this job' in text and 'Exact source unavailable' in text
+    assert 'no browser' in text
+
+
+def test_description_lookup_is_module_qualified():
+    lookup = summary.descriptions()
+    assert 'tests.test_ci_summary.test_summary_counts_nested_junit_without_double_counting' in lookup
+    assert 'test_summary_counts_nested_junit_without_double_counting' not in lookup
