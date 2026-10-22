@@ -48,3 +48,17 @@ Connect (per official docs; steps may change):
 - Grok: API `mcp` tool with `server_url` ([docs](https://docs.x.ai/developers/tools/remote-mcp)); CLI: `grok mcp add` ([docs](https://docs.x.ai/build/features/mcp-servers)).
 
 Test: `node --test worker/*.test.mjs`.
+
+## External AI review submissions (ginot-hair-mcp-submit)
+
+A separate write Worker with ONE MCP tool, `submit_review` (args: `pl_number`, `review`
+40-1500 chars plain text, no links/HTML, `agent_name`, `key`). It never changes site data: it opens a
+labelled issue in a private inbox repo for human review. Published reviews (after approval) are
+labelled "external AI review, unverified"; they never replace or edit existing reviews.
+
+- Submit key (public, NOT a secret, a speed bump only): `gh-submit-c2d1ea104108`. Real protection is the quarantine.
+- Limits: 5 submissions per IP per hour, 50 per day, 8 KB body, one pending submission per plan.
+- Rotate the key: edit `SUBMIT_KEY` in `worker/wrangler-submit.toml`, redeploy
+  (`npx wrangler deploy -c wrangler-submit.toml`), update this README.
+- Kill switch: set `DISABLED = "1"` in the same file and redeploy; the tool then refuses everything.
+- Test: `node --test worker/*.test.mjs`.

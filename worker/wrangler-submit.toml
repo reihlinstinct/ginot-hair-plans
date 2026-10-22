@@ -1,0 +1,10 @@
+name = "ginot-hair-mcp-submit"
+main = "submit.mjs"
+compatibility_date = "2026-10-21"
+account_id = "66d6c24cf39de07f3b5e4f3d1eda945f"
+
+[vars]
+INBOX_REPO = "reihlinstinct/ginot-hair-inbox"
+DISABLED = "0"          # set "1" and redeploy to stop all submissions
+SUBMIT_KEY = "gh-submit-c2d1ea104108"  # public speed bump, NOT protection
+# GITHUB_TOKEN is a secret: wrangler secret put GITHUB_TOKEN -c wrangler-submit.toml
