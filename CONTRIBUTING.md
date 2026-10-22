@@ -94,3 +94,7 @@ Use semantic versions: Bug=PATCH, feature=MINOR, breaking=MAJOR. Update the
 single package version, CHANGELOG and Hebrew/English notes together. See
 [release process](releases/README.md). Use the standing release authority when CI is green; keep releases small and
 frequent, without delaying deployment. Never include personal data in notes.
+
+## Contributors: fork + PR, owner approval required
+
+Fork the repo, work on a branch in your fork, and open a pull request. Nothing is merged into `main` without the owner's approval and green checks. Do not commit secrets or personal data (public repo).
