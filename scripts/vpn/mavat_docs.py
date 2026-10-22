@@ -166,8 +166,14 @@ def main():
                 with open(doc_list_path, encoding="utf-8") as fh:
                     direct_docs = json.load(fh)["docs"]
             except Exception as exc:
-                print(f"doc list unreadable ({type(exc).__name__})", flush=True)
-                return 1
+                if os.environ.get("MAVAT_FETCH_MODE") == "clickdocs" and isinstance(exc, FileNotFoundError):
+                    # UI discovery needs no precomputed eid list. Never use another
+                    # plan's list as a substitute for a missing optional file.
+                    print("no optional doc list; discovering this plan through its UI", flush=True)
+                    doc_list_path = ""
+                else:
+                    print(f"doc list unreadable ({type(exc).__name__})", flush=True)
+                    return 1
 
         # --- 2. open the SV4 page ---
         page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=60000)
