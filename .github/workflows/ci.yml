@@ -21,7 +21,10 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt ruff pytest-cov
       - run: ruff check src tests refresh.py
-      - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json
+      - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python ${{ matrix.python-version }}"
       # Coverage gate (issue #105). Report-only until .github/qa-gates.json
       # has "enforce": true - flipping that one value is the whole
       # November switch-on. The floor can only be raised.
@@ -44,7 +47,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: node --test worker/*.test.mjs
+      - run: node --test --test-reporter=junit --test-reporter-destination=worker-results.xml worker/*.test.mjs
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python3 scripts/ci/test_summary.py --junit worker-results.xml --title "Worker tests"
 
   site-browser:
     # Headless Chromium tests of the built site (issue #106). Separate job so the
@@ -58,4 +64,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt playwright
       - run: python -m playwright install --with-deps chromium
-      - run: python -m pytest -q tests/test_site_browser.py tests/test_map_browser.py
+      - run: python -m pytest -q tests/test_site_browser.py tests/test_map_browser.py --junitxml=browser-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit browser-results.xml --title "Browser tests"
