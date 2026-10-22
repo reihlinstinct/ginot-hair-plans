@@ -145,6 +145,19 @@ the permit dataset is a work-in-progress parcel scan, backfilled in two
 280-parcel windows daily (03:00 + 09:00 UTC) until all 4,739 parcels are
 covered (see the permits section caveat on the site); the rate limit is best-effort, not contractual.
 
+### Permit scan recovery
+
+While a scan runs, it commits `data/permit_requests.json` to the scratch
+`scan-checkpoint` branch every 15 parcels, then every 15 detail records and at
+completion. A restart with the same offset and limit resumes saved parcels and
+skips details already present. Completed parcel checkpoints also resume details.
+Checkpoint writes retry three times, then stop rather than continue unprotected.
+The last successful remote checkpoint survives cancellation, timeout or runner
+loss; unfinished work since that checkpoint must be fetched again. A blocked
+Actions account delays the restart, but does not delete remote checkpoints or
+published data. The old checkpoint format is preserved. Already-running jobs
+keep their checked-out code; the hardening applies to subsequent runs (#251).
+
 ### גישה לנתונים (API) - תקציר
 
 שתי שכבות, שתיהן לקריאה בלבד, ציבוריות ובחינם, עם CORS פתוח. הכל מתעדכן

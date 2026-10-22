@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-22
+
+- Harden permit scan recovery: resume completed parcel checkpoints, persist
+  detail progress, retry failed checkpoint writes and stop if no durable save
+  is confirmed. Existing checkpoint format and scan schedule unchanged (#251).
+
 Notable changes to the tracker and the public site. Every change also has an
 issue + PR record in this repo.
 
