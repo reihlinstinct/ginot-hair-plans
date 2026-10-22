@@ -23,3 +23,14 @@ page.
 ## Test
 
 `node --test worker/*.test.mjs` (no dependencies; runs in CI).
+
+## Hosted MCP (ginot-hair-mcp)
+
+Read-only remote MCP (Streamable HTTP, stateless) over the same public data: tools
+`search_plans`, `get_plan`, `upcoming_objection_windows` (derived, not official),
+`data_status`. No secrets, no writes. Source: `mcp.mjs`, config: `wrangler-mcp.toml`
+(deploy: `npx wrangler deploy -c wrangler-mcp.toml`). Endpoint: `POST <workers.dev URL>/mcp`.
+
+Connect (Claude Code): `claude mcp add --transport http ginot-hair <workers.dev URL>/mcp`.
+Claude Desktop: Settings > Connectors > add custom connector with that URL
+(or use the stdio server in the repo README). Test: `node --test worker/*.test.mjs`.

@@ -1,0 +1,5 @@
+name = "ginot-hair-mcp"
+main = "mcp.mjs"
+compatibility_date = "2026-10-21"
+# Stateless, read-only, no secrets, no bindings. Free plan.
+account_id = "66d6c24cf39de07f3b5e4f3d1eda945f"
