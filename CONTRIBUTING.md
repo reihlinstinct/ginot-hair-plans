@@ -120,3 +120,4 @@ The same scheme is used in every public repo. Do not add parallel label schemes.
 2. Within a milestone, take `priority: high` first, then medium, then low. Prefer `good first issue` if you are new.
 3. Skip anything with `status: blocked`, `status: held` or `status: in-progress`.
 4. Comment "taking this" on the issue, then work from a fork and open a PR that references it.
+Collaboration docs (working with Tab, phishing handling, the shared label scheme) live in https://github.com/reihlinstinct/collaboration-docs.
