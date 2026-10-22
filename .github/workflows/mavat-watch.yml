@@ -121,6 +121,18 @@ jobs:
           done
           RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId')
           gh run watch "$RUN_ID" --exit-status --interval 20
+          # The check can take twenty minutes; main may advance while it runs.
+          # Strict required checks need a current branch, not merely a green
+          # workflow_dispatch run on the original head. Never bypass policy.
+          gh pr update-branch "$PR" || true
+          for i in $(seq 1 45); do
+            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
+            echo "merge state: $STATE"
+            [ "$STATE" = "CLEAN" ] && break
+            [ "$STATE" = "DIRTY" ] && { echo "PR has conflicts"; exit 1; }
+            [ "$i" = "45" ] && { echo "timed out waiting for a mergeable state ($STATE)"; exit 1; }
+            sleep 10
+          done
           gh pr merge "$PR" --squash --delete-branch
 
       - name: Tear down tunnel and remove generated secret material
