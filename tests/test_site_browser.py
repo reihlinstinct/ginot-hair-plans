@@ -453,3 +453,10 @@ def test_committed_site_includes_permit_filter_script():
     html = (ROOT / 'docs/index.html').read_text()
     assert 'window.__permitsLoaded=true' in html
     assert "document.getElementById('pfstatus')" in html
+
+
+def test_committed_permit_legend_cannot_trigger_plan_listener():
+    html = (ROOT / 'docs/index.html').read_text()
+    assert 'plegend' not in html
+    assert html.count('class="legend plan-legend"') == 1
+    assert html.count('name="twitter:title"') == 1
