@@ -27,7 +27,7 @@ page.
 ## Hosted MCP (ginot-hair-mcp)
 
 Read-only remote MCP (Streamable HTTP, stateless) over the same public data: tools
-`search_plans`, `get_plan`, `upcoming_objection_windows` (derived, not official),
+`search_plans`, `get_plan` (with the public map point), `get_review` (text of the already-published AI review, if one exists), `upcoming_objection_windows` (derived, not official),
 `data_status`. No secrets, no writes. Source: `mcp.mjs`, config: `wrangler-mcp.toml`
 (deploy: `npx wrangler deploy -c wrangler-mcp.toml`). Endpoint: `POST <workers.dev URL>/mcp`.
 

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { callTool, rpc, handleRequest } from "./mcp.mjs";
+import { callTool, rpc, handleRequest, reviewText, loadReviews } from "./mcp.mjs";
 
 const data = { generated: "2026-10-22", rows: [
   { pl_number: "A-1", pl_name: "Alpha", station_desc: "הפקדה להתנגדויות", objection_deadline_derived_60d_from_publication: "2026-11-05", private_note: "SECRET" },
@@ -33,7 +33,7 @@ test("windows: deposit stage only, derived label, bad date rejected", () => {
 test("protocol: init, list, unknown tool is error result, unknown method", () => {
   assert.deepEqual(rpc(data, { id: 1, method: "initialize" }).result.capabilities, { tools: {} });
   assert.equal(rpc(data, { method: "notifications/initialized" }), null);
-  assert.equal(rpc(data, { id: 2, method: "tools/list" }).result.tools.length, 4);
+  assert.equal(rpc(data, { id: 2, method: "tools/list" }).result.tools.length, 5);
   assert.equal(rpc(data, { id: 3, method: "tools/call", params: { name: "delete_all" } }).result.isError, true);
   assert.equal(rpc(data, { id: 4, method: "resources/write" }).error.code, -32601);
 });
@@ -46,4 +46,38 @@ test("http: POST works, GET refused, garbage 400, upstream failure 502, batch ca
   assert.equal((await handleRequest(post({ id: 1, method: "ping" }), async () => new Response("", { status: 500 }))).status, 502);
   assert.equal((await handleRequest(post(Array(11).fill({ id: 1, method: "ping" })), fake)).status, 400);
   assert.equal((await handleRequest(post({ method: "notifications/initialized" }), fake)).status, 202);
+});
+
+test("get_review: strict plan pattern, text only, capped, missing is an error", async () => {
+  const html = "<html><style>.x{}</style><script>alert(1)</script><h1>Title &amp; more</h1><p>Point one</p></html>";
+  assert.equal(reviewText(html), "Title & more\nPoint one");
+  assert.ok(reviewText("a".repeat(99999)).length <= 30000);
+  const seen = [];
+  const f = async (req) => { seen.push(req.url); return new Response(html); };
+  const msgs = [
+    { id: 1, method: "tools/call", params: { name: "get_review", arguments: { pl_number: "101-1377753" } } },
+    { id: 2, method: "tools/call", params: { name: "get_review", arguments: { pl_number: "https://evil.example/x" } } },
+    { id: 3, method: "tools/call", params: { name: "get_review", arguments: { pl_number: "../../secret" } } },
+  ];
+  const reviews = await loadReviews(msgs, f);
+  assert.deepEqual(Object.keys(reviews), ["101-1377753"]);
+  assert.equal(seen.length, 1);
+  assert.match(seen[0], /^https:\/\/reihlinstinct\.github\.io\/ginot-hair-plans\/reviews\/talking_points_101-1377753\.html$/);
+  assert.match(callTool({ reviews }, "get_review", { pl_number: "101-1377753" }).text, /Point one/);
+  assert.throws(() => callTool({ reviews }, "get_review", { pl_number: "101-1111111" }), /no published review/);
+  assert.throws(() => callTool({ reviews }, "get_review", { pl_number: "../x" }), /must look like/);
+});
+
+test("get_review end to end through handleRequest, 404 review is a tool error", async () => {
+  const f = async (req) => req.url.endsWith("data.json") ? new Response(JSON.stringify(data)) : new Response("nope", { status: 404 });
+  const r = await handleRequest(post({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_review", arguments: { pl_number: "101-1377753" } } }), f);
+  assert.equal((await r.json()).result.isError, true);
+});
+
+test("get_plan adds the public representative point when available, and works without it", async () => {
+  assert.deepEqual(callTool({ rows: [{ pl_number: "A-1" }], points: { "A-1": [35.2, 31.7] } }, "get_plan", { pl_number: "A-1" }).representative_point_lon_lat, [35.2, 31.7]);
+  assert.equal("representative_point_lon_lat" in callTool({ rows: [{ pl_number: "A-1" }], points: { "A-1": "bad" } }, "get_plan", { pl_number: "A-1" }), false);
+  const f = async (req) => req.url.endsWith("plan-points.json") ? new Response(JSON.stringify({ points: [{ pl_number: "A-1", representative_point: [1, 2] }] })) : new Response(JSON.stringify(data));
+  const r = await handleRequest(post({ jsonrpc: "2.0", id: 1, method: "tools/call", params: { name: "get_plan", arguments: { pl_number: "A-1" } } }), f);
+  assert.match((await r.json()).result.content[0].text, /"representative_point_lon_lat":\[1,2\]/);
 });
