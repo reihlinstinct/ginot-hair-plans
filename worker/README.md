@@ -31,6 +31,20 @@ Read-only remote MCP (Streamable HTTP, stateless) over the same public data: too
 `data_status`. No secrets, no writes. Source: `mcp.mjs`, config: `wrangler-mcp.toml`
 (deploy: `npx wrangler deploy -c wrangler-mcp.toml`). Endpoint: `POST <workers.dev URL>/mcp`.
 
-Connect (Claude Code): `claude mcp add --transport http ginot-hair <workers.dev URL>/mcp`.
-Claude Desktop: Settings > Connectors > add custom connector with that URL
-(or use the stdio server in the repo README). Test: `node --test worker/*.test.mjs`.
+**Live endpoint:** `https://ginot-hair-mcp.reihlinstinct.workers.dev/mcp` (no auth, read-only, public data).
+
+Verified with a generic HTTP client (2026-10-22): `initialize`, `tools/list` (4 tools),
+`tools/call` (data_status, upcoming_objection_windows), notification -> 202, CORS preflight
+-> 204 with `access-control-allow-origin: *`, GET -> 405 (POST-only, no SSE stream).
+Replies are plain JSON (no sessions). NOT yet tested from the Claude, ChatGPT or Grok apps themselves.
+
+Connect (per official docs; steps may change):
+- Claude Code: `claude mcp add --transport http ginot-hair https://ginot-hair-mcp.reihlinstinct.workers.dev/mcp`
+- Claude (web/Desktop): Settings > Connectors > Add custom connector, paste the URL
+  ([docs](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp); free plan allows one custom connector).
+- ChatGPT: enable developer mode, then add the URL as a custom MCP server
+  ([docs](https://developers.openai.com/api/docs/guides/custom-mcp-server), [help](https://help.openai.com/en/articles/12584461)).
+  OpenAI API: Responses API `mcp` tool with `server_url` set to the endpoint.
+- Grok: API `mcp` tool with `server_url` ([docs](https://docs.x.ai/developers/tools/remote-mcp)); CLI: `grok mcp add` ([docs](https://docs.x.ai/build/features/mcp-servers)).
+
+Test: `node --test worker/*.test.mjs`.
