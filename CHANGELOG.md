@@ -59,3 +59,6 @@ issue + PR record in this repo.
 - Cloudflare Pages mirror at https://ginot-hair-plans.pages.dev (GitHub-app integration on this repo only; reports builds as the "Cloudflare Pages" check run).
 - Quota limiting (owner request): the mirror's production branch is `mirror`; the weekly-refresh publish step pushes main to `mirror` after merging, so the mirror builds only on the weekly refresh or a manual run - not on every push. PR previews disabled in the project's branch controls.
 - README: "Mirrors" section documents the setup.
+
+- Fix statistics bar charts: restore visible track/fill CSS with responsive label
+  widths and text counts; regression checks at 390px and 1280px (#256).

@@ -60,6 +60,8 @@ footer{margin-top:24px;padding-top:10px;border-top:1px solid #dde4f6;font-size:1
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:1em}
 .stats>div{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:10px}
 .bars .bar{display:flex;align-items:center;gap:6px;margin:2px 0}
+.bars .bl{flex:0 0 10em;overflow-wrap:anywhere}.bars .bt{display:block;flex:1;min-width:30px;height:14px;background:#e1e7ed;border-radius:4px;overflow:hidden}.bars .bf{display:block;height:100%;background:#101f5b;border-radius:4px}.bars .bv{flex:0 0 3ch;text-align:left;font-variant-numeric:tabular-nums}
+
 @media (max-width:700px){
 body{margin:.5em auto;padding:0 .75em;font-size:16px;line-height:1.45}
 h1{font-size:22px;line-height:1.3}h2{font-size:19px}

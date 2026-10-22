@@ -393,3 +393,16 @@ def test_map_lazy_filter_legend_and_live_boundary(page):
     assert page.locator(".leaflet-marker-icon").count() == 0
     assert "אין תכניות" in page.locator("#map-status").inner_text()
     assert page.locator(".leaflet-overlay-pane path").count() == 0
+
+
+@pytest.mark.parametrize("width", [390, 1280])
+def test_statistics_have_visible_tracks_and_fills(page, width):
+    page.set_viewport_size({"width": width, "height": 900})
+    page.locator("#stats summary").click()
+    track = page.locator("#stats .bt").first.bounding_box()
+    fill = page.locator("#stats .bf").first.bounding_box()
+    assert track["width"] >= 30 and track["height"] >= 14
+    assert fill["width"] > 0 and fill["height"] >= 14
+    assert page.locator("#stats .bf").first.evaluate(
+        "e => getComputedStyle(e).backgroundColor") != "rgba(0, 0, 0, 0)"
+    assert page.locator("#stats .bv").first.inner_text().isdigit()
