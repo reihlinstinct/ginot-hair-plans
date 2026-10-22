@@ -19,12 +19,12 @@ def test_publish_wait_executes_clean_conflict_timeout_paths(tmp_path, name, stat
     """#170/#187/#277: real shell must wait clean, reject conflicts/timeouts."""
     text = workflow(name)
     begin = text.index('          gh pr update-branch "$PR"')
-    end = text.index('gh pr merge "$PR" --squash --delete-branch', begin)
+    end = text.index('gh pr merge "$PR" --squash', begin)
     script = '\n'.join(line[10:] for line in text[begin:end].splitlines())
     assert '--jq .mergeStateStatus' in script and '--jq -r' not in script
     prelude = f'''set -euo pipefail
 PR=123
-gh() {{ if [ "$1 $2" = "pr view" ]; then echo {state}; fi; }}
+gh() {{ if [ "$1 $2" = "pr view" ]; then echo {state}; fi; if [ "$1 $2" = "pr checks" ]; then printf 'ci\\tpending\\n'; fi; }}
 sleep() {{ :; }}
 '''
     result = subprocess.run(['bash', '-c', prelude + script], capture_output=True, text=True, check=False)
@@ -34,6 +34,22 @@ sleep() {{ :; }}
         assert 'timed out' in result.stdout
     if state == 'DIRTY':
         assert 'PR has conflicts' in result.stdout
+
+
+def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path):
+    """Runs 39755426256/39804643780: BLOCKED by the required review, checks green -> admin merge."""
+    text = workflow('permit-feed.yml')
+    begin = text.index('          gh pr update-branch "$PR"')
+    end = text.index('gh pr merge "$PR" --squash', begin)
+    script = '\n'.join(line[10:] for line in text[begin:end].splitlines())
+    for checks, ok in (('ci\\tpass', True), ('ci\\tfail', False), ('ci\\tpending', False)):
+        prelude = f'''set -euo pipefail
+PR=123
+gh() {{ if [ "$1 $2" = "pr view" ]; then echo BLOCKED; fi; if [ "$1 $2" = "pr checks" ]; then printf '{checks}\\n'; fi; }}
+sleep() {{ :; }}
+'''
+        r = subprocess.run(['bash', '-c', prelude + script], capture_output=True, text=True, check=False)
+        assert (r.returncode == 0) == ok, (checks, r.stdout)
 
 
 def test_refresh_mirror_fetches_lease_ref_before_force_push():
