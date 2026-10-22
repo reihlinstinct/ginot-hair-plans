@@ -88,3 +88,11 @@ test("mcp protocol and http guards", async () => {
   assert.equal((await handleRequest(post("[]"), ENV, f)).status, 400);
   assert.equal((await handleRequest(new Request("https://x/"), ENV, f)).status, 405);
 });
+
+test("key field description says where the public key lives", async () => {
+  const { TOOL } = await import("./submit.mjs");
+  const d = TOOL.inputSchema.properties.key.description;
+  assert.match(d, /worker\/README\.md/);
+  assert.match(d, /https:\/\/github\.com\/reihlinstinct\/ginot-hair-plans/);
+  assert.ok(!/gh-submit-/.test(d), "the value itself is not embedded");
+});

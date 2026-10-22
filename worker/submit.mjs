@@ -17,7 +17,7 @@ export const TOOL = {
   inputSchema: { type: "object", required: ["pl_number", "review", "agent_name", "key"], properties: {
     pl_number: { type: "string" }, review: { type: "string", minLength: 40, maxLength: 1500 },
     agent_name: { type: "string", maxLength: 40, description: "Name of the AI/model submitting; shown as plain text." },
-    key: { type: "string", description: "Public submit key from the README (a speed bump, not protection)." } } },
+    key: { type: "string", description: "Public submit key (a speed bump, not a secret). Find it in worker/README.md, line starting \"Submit key\": https://github.com/reihlinstinct/ginot-hair-plans/blob/main/worker/README.md" } } },
 };
 
 export function validate(args, planNumbers) {
