@@ -34,6 +34,7 @@
       if(!current || current.dataset.mapMatch!=='1')return;
       if(boundary)map.removeLayer(boundary);
       boundary=L.geoJSON(data,{style:{color:colors[category(row.station_desc||'')],weight:4,fillOpacity:.15}}).addTo(map);
+      map.closePopup();
       map.fitBounds(boundary.getBounds(),{padding:[20,20],maxZoom:17});
       status.textContent='גבול תכנית '+row.pl_number+' נטען כעת ממינהל התכנון. להמחשה, לא מסמך רשמי.';
     } catch(e) {status.textContent='לא ניתן לטעון את גבול התכנית כרגע. הנקודות והטבלה נשארות זמינות; אפשר לפתוח את המקור הרשמי.';}

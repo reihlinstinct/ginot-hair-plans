@@ -389,6 +389,7 @@ def test_map_lazy_filter_legend_and_live_boundary(page):
     page.get_by_role("button", name="טען גבול תכנית", exact=True).click()
     page.wait_for_function("document.querySelector('#map-status').textContent.includes('נטען כעת')")
     assert page.locator(".leaflet-overlay-pane path").count() == 1
+    assert page.locator(".leaflet-popup").count() == 0
     page.locator("#fq").fill("does-not-exist")
     assert page.locator(".leaflet-marker-icon").count() == 0
     assert "אין תכניות" in page.locator("#map-status").inner_text()
