@@ -239,7 +239,13 @@ def _urgent_ul(html):
 
 def test_urgent_window_server_fallback(tmp_path):
     import datetime
-    t = datetime.date.today()
+
+    from ginot.dates import today_il
+    # Anchor to the site's clock, not the runner's: render_site anchors the
+    # urgent window to today_il(), which leads UTC by a day from 21:00-24:00
+    # UTC (summer) and broke this test on runners in that window (run
+    # 40041184013, issue #388; same class as #331).
+    t = today_il()
 
     def dl(days):
         return (t + datetime.timedelta(days=days)).isoformat()
@@ -255,6 +261,25 @@ def test_urgent_window_server_fallback(tmp_path):
     assert ">4</a>" not in ul                        # past deadline: outside
     assert ">5</a>" not in ul                        # no deadline: outside
     assert ul.index(">1</a>") < ul.index(">2</a>")   # nearest deadline first
+
+
+def test_urgent_window_anchors_to_jerusalem_date(tmp_path, monkeypatch):
+    """Run 40041184013 (#388): the server fallback must window against
+    today_il(); pin it with a fixed Jerusalem date so no wall clock is involved."""
+    import datetime
+    fixed = datetime.date(2026, 1, 1)
+    monkeypatch.setattr(page, "today_il", lambda: fixed)
+
+    def dl(days):
+        return (fixed + datetime.timedelta(days=days)).isoformat()
+    rows = [_row(1, "הפקדה", dep=dl(-55), deadline=dl(5)),
+            _row(2, "הפקדה", dep=dl(-55), deadline=dl(30)),
+            _row(3, "הפקדה", dep=dl(-55), deadline=dl(31)),
+            _row(4, "הפקדה", dep=dl(-55), deadline=dl(-1))]
+    page.render_site(rows, [], str(tmp_path))
+    ul = _urgent_ul((tmp_path / "index.html").read_text(encoding="utf-8"))
+    assert ">1</a>" in ul and ">2</a>" in ul
+    assert ">3</a>" not in ul and ">4</a>" not in ul
 
 
 def test_urgent_client_side_machinery(tmp_path):
