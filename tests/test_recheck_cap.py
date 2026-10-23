@@ -17,3 +17,11 @@ def test_publish_merges_blocked_green_pr_with_admin():
     assert 'gh pr merge "$PR" --squash --admin --delete-branch' in WF
     assert '"$STATE" = "BLOCKED"' in WF
     assert "grep -c -E \"pending|fail|queued\"" in WF
+
+
+def test_audit_result_merges_blocked_green_pr_with_admin():
+    # Run 39879582801: green checks, BLOCKED by the required review, step exit 1.
+    wf = (Path(__file__).resolve().parents[1] / ".github/workflows/audit-result.yml").read_text(encoding="utf-8")
+    assert 'gh pr merge "$PR" --squash --admin --delete-branch' in wf
+    assert 'if [ "$STATE" = BLOCKED ]' in wf
+    assert 'grep -c -E "pending|fail|queued"' in wf
