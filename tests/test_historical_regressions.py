@@ -36,7 +36,7 @@ sleep() {{ :; }}
         assert 'PR has conflicts' in result.stdout
 
 
-@pytest.mark.parametrize('name', ['permit-feed.yml', 'mirror-ingest.yml'])
+@pytest.mark.parametrize('name', ['permit-feed.yml', 'mirror-ingest.yml', 'mavat-watch.yml', 'weekly-refresh.yml'])
 def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path, name):
     """Runs 39755426256/39804643780/39897078238: BLOCKED by the required review, checks green -> admin merge."""
     text = workflow(name)
