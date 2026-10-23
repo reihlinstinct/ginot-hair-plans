@@ -13,7 +13,7 @@ def workflow(name):
     return (ROOT / '.github/workflows' / name).read_text()
 
 
-@pytest.mark.parametrize('name', ['weekly-refresh.yml', 'permit-feed.yml', 'mavat-watch.yml'])
+@pytest.mark.parametrize('name', ['weekly-refresh.yml', 'permit-feed.yml', 'mavat-watch.yml', 'mirror-ingest.yml'])
 @pytest.mark.parametrize('state,ok', [('CLEAN', True), ('DIRTY', False), ('BLOCKED', False)])
 def test_publish_wait_executes_clean_conflict_timeout_paths(tmp_path, name, state, ok):
     """#170/#187/#277: real shell must wait clean, reject conflicts/timeouts."""
@@ -36,9 +36,10 @@ sleep() {{ :; }}
         assert 'PR has conflicts' in result.stdout
 
 
-def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path):
-    """Runs 39755426256/39804643780: BLOCKED by the required review, checks green -> admin merge."""
-    text = workflow('permit-feed.yml')
+@pytest.mark.parametrize('name', ['permit-feed.yml', 'mirror-ingest.yml'])
+def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path, name):
+    """Runs 39755426256/39804643780/39897078238: BLOCKED by the required review, checks green -> admin merge."""
+    text = workflow(name)
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = '\n'.join(line[10:] for line in text[begin:end].splitlines())
