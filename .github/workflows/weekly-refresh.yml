@@ -93,7 +93,10 @@ jobs:
           # main can move during the long fetch (issue #170): bring the PR up
           # to date and wait for the ruleset to go green before merging.
           gh pr update-branch "$PR" || true
-          for i in $(seq 1 45); do
+          # Poll budget: update-branch restarts pull_request CI, which took
+          # ~10 min under runner queue load in run 39900080019 and missed the
+          # old 45-poll budget by 10s. 90 polls (~20 min) gives >2x headroom (#380).
+          for i in $(seq 1 90); do
             STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
             echo "merge state: $STATE"
             [ "$STATE" = "CLEAN" ] && break
@@ -105,7 +108,7 @@ jobs:
               [ "$BAD" = "0" ] && break
             fi
             [ "$STATE" = "DIRTY" ] && { echo "PR has conflicts"; exit 1; }
-            [ "$i" = "45" ] && { echo "timed out waiting for a mergeable state ($STATE)"; exit 1; }
+            [ "$i" = "90" ] && { echo "timed out waiting for a mergeable state ($STATE)"; gh pr checks "$PR" || true; exit 1; }
             sleep 10
           done
           gh pr merge "$PR" --squash --admin --delete-branch

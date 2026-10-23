@@ -50,7 +50,10 @@ jobs:
           done
           gh pr checks "$PR" --watch --interval 10
           gh pr update-branch "$PR" || true
-          for i in $(seq 1 45); do
+          # Poll budget: update-branch restarts pull_request CI, which took
+          # ~10 min under runner queue load in run 39900080019 and missed the
+          # old 45-poll budget by 10s. 90 polls (~20 min) gives >2x headroom (#380).
+          for i in $(seq 1 90); do
             STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
             [ "$STATE" = CLEAN ] && break
             [ "$STATE" = DIRTY ] && exit 1
@@ -60,7 +63,7 @@ jobs:
               BAD=$(gh pr checks "$PR" 2>&1 | cut -f2 | grep -c -E "pending|fail|queued" || true)
               [ "$BAD" = "0" ] && break
             fi
-            [ "$i" = 45 ] && exit 1
+            [ "$i" = 90 ] && { echo "timed out waiting for a mergeable state ($STATE)"; gh pr checks "$PR" || true; exit 1; }
             sleep 10
           done
           gh pr merge "$PR" --squash --admin --delete-branch

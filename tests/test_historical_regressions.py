@@ -30,7 +30,7 @@ sleep() {{ :; }}
     result = subprocess.run(['bash', '-c', prelude + script], capture_output=True, text=True, check=False)
     assert (result.returncode == 0) == ok
     if state == 'BLOCKED':
-        assert result.stdout.count('merge state:') == 45
+        assert result.stdout.count('merge state:') == 90
         assert 'timed out' in result.stdout
     if state == 'DIRTY':
         assert 'PR has conflicts' in result.stdout
@@ -51,6 +51,26 @@ sleep() {{ :; }}
 '''
         r = subprocess.run(['bash', '-c', prelude + script], capture_output=True, text=True, check=False)
         assert (r.returncode == 0) == ok, (checks, r.stdout)
+
+
+@pytest.mark.parametrize('name', ['weekly-refresh.yml', 'permit-feed.yml', 'mavat-watch.yml', 'mirror-ingest.yml'])
+def test_publish_poll_survives_ci_restart_near_miss(tmp_path, name):
+    """Run 39900080019 (#380): update-branch restarts pull_request CI; checks
+    pending past the old 45-poll budget then green must still merge."""
+    text = workflow(name)
+    begin = text.index('          gh pr update-branch "$PR"')
+    end = text.index('gh pr merge "$PR" --squash', begin)
+    script = '\n'.join(line[10:] for line in text[begin:end].splitlines())
+    count = tmp_path / 'checks_calls'
+    count.write_text('0')
+    prelude = f'''set -euo pipefail
+PR=123
+gh() {{ if [ "$1 $2" = "pr view" ]; then echo BLOCKED; fi; if [ "$1 $2" = "pr checks" ]; then n=$(cat "{count}"); n=$((n+1)); echo "$n" > "{count}"; if [ "$n" -le 50 ]; then printf 'ci\\tpending\\n'; else printf 'ci\\tpass\\n'; fi; fi; }}
+sleep() {{ :; }}
+'''
+    result = subprocess.run(['bash', '-c', prelude + script], capture_output=True, text=True, check=False)
+    assert result.returncode == 0, result.stdout
+    assert 'timed out' not in result.stdout
 
 
 def test_refresh_mirror_fetches_lease_ref_before_force_push():
