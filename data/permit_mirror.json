@@ -118348,7 +118348,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2025-02-10",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "1989/0750.09",
@@ -165800,7 +165802,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2025-07-20",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "2004/0139.00",
@@ -176529,7 +176533,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2026-08-02",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "2008/0554.09",
@@ -198839,7 +198845,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2026-10-21",
+   "publication_end_planned": "2026-11-29"
   },
   {
    "tik_num": "2017/0341.00",
@@ -202535,7 +202543,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "2019/0571.00",
@@ -207569,7 +207579,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2024-05-27",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "2024/0179.00",
@@ -208602,7 +208614,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2026-05-17",
+   "publication_end_planned": ""
   },
   {
    "tik_num": "2025/0067.01",
@@ -209864,7 +209878,9 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": ""
+   "mirror_last_seen": "",
+   "publication_start": "2026-10-21",
+   "publication_end_planned": "2026-11-29"
   },
   {
    "tik_num": "2026/0245.00",

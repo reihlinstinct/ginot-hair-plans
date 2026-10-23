@@ -86,8 +86,8 @@
    "name": "permit_enrich_spotcheck.json",
    "path": "data/permit_enrich_spotcheck.json",
    "kind": "json",
-   "records": 10,
-   "bytes": 15015,
+   "records": 1,
+   "bytes": 1875,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_enrich_spotcheck.json"
   },
   {
