@@ -113,3 +113,14 @@ def test_browser_skip_plain_reason_names_only_verified_replacement_job():
     assert "not a browser pass" in text
     other = summary.skip_explanation("tests.test_unknown", "conditional skip")
     assert "No alternative job is confirmed" in other
+
+
+def test_e2e_evidence_upload_includes_hidden_artifacts_dir():
+    """Regression (#426): upload-artifact v4 defaults include-hidden-files to
+    false; tests/.artifacts is a dot-directory, so the evidence upload silently
+    retained nothing. The step must opt into hidden files and fail loudly if
+    the directory is missing."""
+    text = (ROOT / ".github/workflows/ci.yml").read_text()
+    step = text.split("Upload E2E evidence", 1)[1]
+    assert "include-hidden-files: true" in step
+    assert "if-no-files-found: error" in step

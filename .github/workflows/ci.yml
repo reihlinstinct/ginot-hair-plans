@@ -94,5 +94,6 @@ jobs:
         with:
           name: site-e2e-evidence-${{ matrix.browser }}
           path: tests/.artifacts/
-          if-no-files-found: ignore
+          if-no-files-found: error
+          include-hidden-files: true  # tests/.artifacts is a dot-dir (issue #426)
           retention-days: 30
