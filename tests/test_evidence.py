@@ -1,12 +1,11 @@
 """Unit tests for the E2E evidence helpers (issue #422)."""
 
 import pytest
-
 from evidence import (
     artifact_root,
     browser_engine,
-    keep_heavy_evidence,
     evidence_dir,
+    keep_heavy_evidence,
 )
 
 

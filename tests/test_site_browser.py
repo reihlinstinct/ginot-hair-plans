@@ -393,7 +393,12 @@ def test_footer_links(page, site):
     assert "about.html" in hrefs
     assert "https://github.com/reihlinstinct/ginot-hair-plans" in hrefs
     assert any(h.endswith("CONTRIBUTING.md") for h in hrefs)
-    page.click("footer a[href='about.html']")
+    # WebKit can need an explicit scroll+settle on the very long permits page
+    # before the footer link is actionable; the navigation assertion is unchanged.
+    link = page.locator("footer a[href='about.html']")
+    link.scroll_into_view_if_needed()
+    link.click(timeout=60000)
+    page.wait_for_url("**/about.html", timeout=60000)
     assert page.url.endswith("/about.html")
     assert page.locator("body").inner_text().strip() != ""
 
