@@ -9,6 +9,11 @@ name: Jerusalem permit publication probe (VPN)
 
 on:
   workflow_dispatch:
+    inputs:
+      tik:
+        description: "Permit tik to probe (default: 1993/0664.03, Alfasi 9 from #53)"
+        required: false
+        default: "1993/0664.03"
 
 permissions:
   contents: read
@@ -35,6 +40,8 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Probe publication data for one public permit request
+        env:
+          PROBE_TIK: ${{ inputs.tik }}
         run: sudo python3 scripts/vpn/permit_publication_probe.py
 
       - name: Tear down tunnel and remove generated secret material

@@ -14,13 +14,17 @@ Exit codes: 0 = all calls served JSON; 2 = anti-bot challenge/throttle
 """
 
 import json
+import os
 import subprocess
 import sys
 import time
 
 IFACE = "ppp43"
 URL = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
-TIK = "1993/0664.03"
+# Probe target tik: PROBE_TIK env (workflow_dispatch input) overrides the
+# default Alfasi 9 tik from #53. Format-guarded like the feed inputs.
+TIK = os.environ.get("PROBE_TIK", "1993/0664.03")
+assert "\n" not in TIK and '"' not in TIK and len(TIK) < 20, "bad PROBE_TIK"
 SYS = "26400046"  # Rishui (permit licensing) system id in the viewer
 
 PROCS = [
