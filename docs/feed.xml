@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="he">
-<title>תכניות חדשות - גינות העיר</title><id>https://reihlinstinct.github.io/ginot-hair-plans</id>
-<updated>2026-10-22T00:00:00Z</updated></feed>
+<title>תכניות חדשות - גינות העיר</title><id>https://reihlinstinct.github.io/ginot-hair-plans/</id>
+<updated>2026-10-24T00:00:00Z</updated><entry><title>status_change: 101-1431808 התחדשות עירונית ברחוב בן טבאי 6,8,10 - ירושלים</title>
+<link href="https://mavat.iplan.gov.il/SV4/1/1005439596/310"/><id>urn:ginot:101-1431808:status_change:2026-10-24</id>
+<updated>2026-10-24T00:00:00Z</updated></entry><entry><title>status_change: 101-1487560 שינוי קווי בניין לשם שינוי תכנון ללא תוספת שטחים-מבוא יורם 1</title>
+<link href="https://mavat.iplan.gov.il/SV4/1/1005473546/310"/><id>urn:ginot:101-1487560:status_change:2026-10-24</id>
+<updated>2026-10-24T00:00:00Z</updated></entry><entry><title>new: 101-1566306 רחוב חלפתא 3 בירושלים הרחבת דיור לדירה קיימת</title>
+<link href="https://mavat.iplan.gov.il/SV4/1/1005522198/310"/><id>urn:ginot:101-1566306:new:2026-10-24</id>
+<updated>2026-10-24T00:00:00Z</updated></entry></feed>

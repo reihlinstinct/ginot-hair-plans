@@ -11,7 +11,7 @@
  "pl_last_deposit_date": "",
  "pl_date_advertise": "",
  "pl_date_8_approval": "",
- "objection_deadline_derived_60d_from_publication": "2026-11-07",
+ "objection_deadline_derived_60d_from_publication": "",
  "pl_area_dunam": 26.859,
  "intersection_dunam": 26.9,
  "inside_flag": "inside",
@@ -19,5 +19,5 @@
  "mp_id": 1005267674.0,
  "jurstiction_area_name": "ירושלים",
  "last_update_date": "2026-09-09",
- "advisory_urgent": true
+ "advisory_urgent": false
 }

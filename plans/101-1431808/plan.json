@@ -1,13 +1,13 @@
 {
  "pl_number": "101-1431808",
  "pl_name": "התחדשות עירונית ברחוב בן טבאי 6,8,10 - ירושלים",
- "station_desc": "בבדיקה תכנונית",
- "internet_short_status": "קיום תנאי סף",
+ "station_desc": "במילוי תנאים להפקדה",
+ "internet_short_status": "החלטה בדיון",
  "entity_subtype_desc": "תכנית מתאר מקומית",
  "receiving_date": "2025-07-06",
  "open_date": "",
  "date_saf": "2026-04-20",
- "depositing_date": "",
+ "depositing_date": "2026-10-21",
  "pl_last_deposit_date": "",
  "pl_date_advertise": "",
  "pl_date_8_approval": "",
@@ -18,6 +18,6 @@
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005439596/310",
  "mp_id": 1005439596.0,
  "jurstiction_area_name": "ירושלים",
- "last_update_date": "2026-04-20",
+ "last_update_date": "2026-10-22",
  "advisory_urgent": false
 }

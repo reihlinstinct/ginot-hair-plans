@@ -1,8 +1,8 @@
 {
  "pl_number": "101-1487560",
- "pl_name": "שינוי קווי בנין עבור בינוי ברח' מבוא יורם 1 , ירושלים.",
- "station_desc": "בבדיקה תכנונית",
- "internet_short_status": "קיום תנאי סף",
+ "pl_name": "שינוי קווי בניין לשם שינוי תכנון ללא תוספת שטחים-מבוא יורם 1",
+ "station_desc": "הפקדה להתנגדויות/השגות",
+ "internet_short_status": "פרסום הפקדה",
  "entity_subtype_desc": "תכנית מתאר מקומית",
  "receiving_date": "2026-05-18",
  "open_date": "",
@@ -18,6 +18,6 @@
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005473546/310",
  "mp_id": 1005473546.0,
  "jurstiction_area_name": "ירושלים",
- "last_update_date": "2026-05-18",
+ "last_update_date": "2026-10-22",
  "advisory_urgent": false
 }
