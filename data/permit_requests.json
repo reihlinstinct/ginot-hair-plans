@@ -3186,7 +3186,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 43
+   "helka": 43,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 13 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0504.00",
@@ -3195,7 +3199,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 22 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0565.00",
@@ -3204,7 +3212,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 40
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  21 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0764.00",
@@ -3213,7 +3225,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0872.00",
@@ -3222,7 +3238,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 47
+   "helka": 47,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שדה יצחק 6 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0872.01",
@@ -3231,7 +3251,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 47
+   "helka": 47,
+   "publication_start": "",
+   "publication_end_planned": "2003-12-15",
+   "address": "שדה יצחק 6 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0872.02",
@@ -3240,7 +3264,11 @@
    "status": "שולמה מקדמה",
    "status_date": "",
    "gush": 30169,
-   "helka": 47
+   "helka": 47,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שדה יצחק 6 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1986/0873.00",
@@ -3249,7 +3277,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.00",
@@ -3258,7 +3290,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.01",
@@ -3267,7 +3303,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.02",
@@ -3276,7 +3316,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "2001-09-25",
+   "address": "קנאי הגליל 31 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.03",
@@ -3285,7 +3329,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.04",
@@ -3294,7 +3342,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "2004-04-04",
+   "address": "קנאי הגליל 31 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.05",
@@ -3303,7 +3355,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "2014-12-10",
+   "address": "קנאי הגליל 31 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0102.06",
@@ -3312,7 +3368,11 @@
    "status": "שולמה מקדמה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0317.00",
