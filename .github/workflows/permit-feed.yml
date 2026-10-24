@@ -216,7 +216,12 @@ jobs:
           fi
           git checkout -b "$BRANCH"
           python3 scripts/build_site_index.py || echo "site index rebuild failed (non-fatal)"
-          git add data/ docs/index.json docs/badge/parcel-*.json
+          # #405: the feed's data update must rebuild the permits fragment in
+          # the same run - a newly published permit goes live immediately,
+          # and a render failure fails the run (set -e) instead of shipping
+          # stale rows silently.
+          python3 scripts/render_permits_page.py
+          git add data/ docs/index.json docs/badge/parcel-*.json docs/permits.html
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
