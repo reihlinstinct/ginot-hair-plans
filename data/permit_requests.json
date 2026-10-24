@@ -6111,7 +6111,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "2004-03-18",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0918.05",
@@ -6120,7 +6124,11 @@
    "status": "נדונה בועדת ערר",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "2004-09-26",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0918.06",
@@ -6129,7 +6137,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0918.07",
@@ -6138,7 +6150,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "2007-01-23",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0918.08",
@@ -6147,7 +6163,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "2008-09-05",
+   "address": "אלכסנדריון 20 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0918.09",
@@ -6156,7 +6176,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 20 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0940.00",
@@ -6165,7 +6189,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 28
+   "helka": 28,
+   "publication_start": "",
+   "publication_end_planned": "1992-03-05",
+   "address": "הנוטרים 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0940.01",
@@ -6174,7 +6202,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 28
+   "helka": 28,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0940.02",
@@ -6183,7 +6215,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 28
+   "helka": 28,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/0940.03",
@@ -6192,7 +6228,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 28
+   "helka": 28,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.00",
@@ -6201,7 +6241,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.01",
@@ -6210,7 +6254,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.02",
@@ -6219,7 +6267,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.03",
@@ -6228,7 +6280,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.04",
@@ -6237,7 +6293,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1991/1090.05",
