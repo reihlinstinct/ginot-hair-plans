@@ -9283,7 +9283,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ניות 56 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2012/0901.01",
@@ -9292,7 +9296,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ניות 56 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/0048.00",
@@ -9301,7 +9309,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 2
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 1 רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/0764.00",
@@ -9310,7 +9322,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 53
+   "helka": 53,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שדה יצחק 4 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/0847.00",
@@ -9319,7 +9335,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 150
+   "helka": 150,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 29 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/0847.01",
@@ -9328,7 +9348,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 150
+   "helka": 150,
+   "publication_start": "",
+   "publication_end_planned": "2014-06-30",
+   "address": "קנאי הגליל 29 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/0847.02",
@@ -9337,7 +9361,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 150
+   "helka": 150,
+   "publication_start": "2017-12-17",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 29 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/1042.00",
@@ -9346,7 +9374,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 184
+   "helka": 184,
+   "publication_start": "",
+   "publication_end_planned": "2014-01-28",
+   "address": "נתאי הארבלי 34 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2013/1042.01",
@@ -9355,7 +9387,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 184
+   "helka": 184,
+   "publication_start": "2016-01-28",
+   "publication_end_planned": "",
+   "address": "נתאי הארבלי 34 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0260.00",
@@ -9364,7 +9400,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 177
+   "helka": 177,
+   "publication_start": "",
+   "publication_end_planned": "2014-05-28",
+   "address": "קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0260.01",
@@ -9373,7 +9413,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 177
+   "helka": 177,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 32 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0260.02",
@@ -9382,7 +9426,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 177
+   "helka": 177,
+   "publication_start": "2021-05-11",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 32 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0328.00",
@@ -9391,7 +9439,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0328.01",
@@ -9400,7 +9452,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "2019-01-24",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0329.00",
@@ -9409,7 +9465,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2014/0329.01",
