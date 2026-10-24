@@ -229,11 +229,10 @@ def test_map_overlap_prefers_smallest_and_excludes_holes_and_hidden_rows(page):
     page.locator(".leaflet-popup").wait_for(state="detached")
 
 
-@pytest.fixture
-def map_network(page):
+def _stub_map_network(pg):
     numbers = [f"200-{i}" for i in range(1, 23)] + [f"300-{i}" for i in range(1, 5)]
     requests = []
-    page.route(
+    pg.route(
         "**/plan-points.json",
         lambda r: r.fulfill(
             json={
@@ -250,7 +249,7 @@ def map_network(page):
             }
         ),
     )
-    page.route("https://tile.openstreetmap.org/**", lambda r: r.abort())
+    pg.route("https://tile.openstreetmap.org/**", lambda r: r.abort())
 
     def respond(route):
         import re
@@ -286,8 +285,18 @@ def map_network(page):
             }
         )
 
-    page.route("https://ags.iplan.gov.il/**", respond)
+    pg.route("https://ags.iplan.gov.il/**", respond)
     return requests
+
+
+@pytest.fixture
+def map_network(page):
+    return _stub_map_network(page)
+
+
+@pytest.fixture
+def map_network_mobile(mobile_page):
+    return _stub_map_network(mobile_page)
 
 
 def test_map_sort_status_reset_and_no_numbered_markers(page, map_network):
@@ -466,3 +475,25 @@ def test_map_excludes_style_hidden_row_and_keeps_boundary_click(page, map_networ
     box = canvas.bounding_box()
     canvas.click(position={"x": box["width"] / 2, "y": box["height"] / 2})
     assert page.locator(".leaflet-popup").count() == 0
+
+
+@pytest.mark.evidence
+def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_mobile):
+    """Phone-sized flow: open the map, boundaries draw, tapping one opens its
+    plan popup (issue #428). Touch path via touchscreen.tap, not mouse."""
+    mobile_page.fill("#fq", "200-22")
+    mobile_page.locator("#plan-map-panel summary").tap()
+    mobile_page.wait_for_function(
+        "document.querySelector('#map-status').textContent.includes('1 גבולות')"
+    )
+    assert mobile_page.locator(".leaflet-container").is_visible()
+    assert mobile_page.locator(".leaflet-overlay-pane path").count() == 1
+    point = mobile_page.locator(".leaflet-overlay-pane path").evaluate("""e=>{
+      var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
+      return {x:p.x,y:p.y};}""")
+    mobile_page.touchscreen.tap(point["x"], point["y"])
+    mobile_page.locator(".leaflet-popup-content strong").wait_for()
+    assert (
+        mobile_page.locator(".leaflet-popup-content strong").inner_text()
+        == "תכנית 200-22"
+    )

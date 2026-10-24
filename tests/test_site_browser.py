@@ -231,6 +231,61 @@ def page(browser, served, request):
         assert errors == [], f"JavaScript errors on the page: {errors}"
 
 
+@contextlib.contextmanager
+def recorded_mobile_page(browser, request):
+    """recorded_page at a phone viewport with touch (issue #428).
+
+    390x844 iPhone-class viewport, is_mobile and has_touch so taps go through
+    the touch path. Evidence lands in the same per-test artifact dir, so the
+    retained videos of evidence-marked tests are phone-sized.
+    """
+    engine = evidence.browser_engine()
+    out = evidence.evidence_dir(
+        evidence.artifact_root(), engine, request.node.nodeid
+    )
+    out.mkdir(parents=True, exist_ok=True)
+    ctx = browser.new_context(
+        viewport={"width": 390, "height": 844},
+        is_mobile=True,
+        has_touch=True,
+        record_video_dir=str(out / "video"),
+    )
+    ctx.tracing.start(screenshots=True, snapshots=True)
+    pg = ctx.new_page()
+    errors = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    try:
+        yield pg, errors
+    finally:
+        passed = bool(getattr(request.node, "_e2e_passed", False)) and errors == []
+        marked = request.node.get_closest_marker("evidence") is not None
+        pg.screenshot(path=str(out / "screenshot.png"), full_page=True)
+        keep = evidence.keep_heavy_evidence(passed, marked)
+        video = pg.video
+        if keep:
+            ctx.tracing.stop(path=str(out / "trace.zip"))
+        else:
+            ctx.tracing.stop()
+        ctx.close()  # finalizes the video file
+        if keep and video:
+            shutil.copy(str(video.path()), str(out / "video.webm"))
+        shutil.rmtree(str(out / "video"), ignore_errors=True)
+
+
+@pytest.fixture
+def mobile_page(browser, served, request):
+    with recorded_mobile_page(browser, request) as (pg, errors):
+        pg.goto(served + "/index.html")
+        pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+        pg.wait_for_function(
+            "window.__permitsLoaded === true || window.__permitsFailed === true"
+        )
+        assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
+        assert pg.evaluate("window.__permitsLoaded") is True, "permits.html failed to load"
+        yield pg
+        assert errors == [], f"JavaScript errors on the page: {errors}"
+
+
 def visible_plans(pg):
     return pg.locator("#plans tbody tr:not(.filtered-out)").count()
 
@@ -442,6 +497,44 @@ def test_statistics_collapsed_by_default_and_expandable(page):
     assert d.locator("h3").count() == 4
     d.locator("summary").click()
     assert not d.locator(".stats").is_visible()
+
+
+@pytest.mark.evidence
+def test_mobile_search_tap_finds_plan(mobile_page):
+    """Phone-sized flow: type in the free-text search, one plan stays (issue #428)."""
+    mobile_page.tap("#fq")
+    mobile_page.fill("#fq", "300-2")
+    assert plan_ids(mobile_page) == ["300-2"]
+    assert (
+        mobile_page.evaluate("document.documentElement.scrollWidth") <= 391
+    ), "horizontal scroll appeared on 390px"
+
+
+@pytest.mark.evidence
+def test_mobile_legend_chip_tap_toggles_status(mobile_page):
+    """Phone-sized flow: tapping a legend chip toggles the status filter (issue #428)."""
+    chip = mobile_page.locator(".legend .chip", has_text="בדיקה תכנונית").first
+    chip.tap()
+    assert mobile_page.locator("#fstatus").input_value() == "בדיקה תכנונית"
+    assert visible_plans(mobile_page) == 4
+    assert "sel" in chip.get_attribute("class")
+    chip.tap()  # second tap clears
+    assert mobile_page.locator("#fstatus").input_value() == ""
+    assert visible_plans(mobile_page) == 20
+
+
+def test_mobile_permit_search_and_chip(mobile_page):
+    mobile_page.tap("#pfq")
+    mobile_page.fill("#pfq", "אלפסי")
+    assert (
+        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
+    )
+    mobile_page.tap("#pfreset")
+    mobile_page.locator("#permits .legend .chip", has_text="בבדיקה").first.tap()
+    assert mobile_page.locator("#pfstatus").input_value() == "בבדיקה"
+    assert (
+        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
+    )
 
 
 @pytest.mark.parametrize("w,h", [(390, 844), (360, 800)])
