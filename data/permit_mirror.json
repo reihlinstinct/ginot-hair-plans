@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-23",
+ "generated": "2026-10-24",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
@@ -118348,9 +118348,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2025-02-10",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "1989/0750.09",
@@ -135705,21 +135703,6 @@
    "mirror_last_seen": ""
   },
   {
-   "tik_num": "1992/0524.01",
-   "status": "הופק-הוצא היתר בניה",
-   "status_date": "1994-03-22",
-   "sugbakasha": "תוכנית שינויים",
-   "mahut": "בנית מחסן חלוקה פנימית ומדרגות חיצוניות והגדלת מרפסת.",
-   "address": "הורקניה 11 גונן ה",
-   "gush": 30171,
-   "parcels": [
-    78
-   ],
-   "mirror_sample_date": "2026-08-02",
-   "mirror_first_seen": "2026-08-02T23:36:36.523898+00:00",
-   "mirror_last_seen": ""
-  },
-  {
    "tik_num": "1992/0524.06",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2016-02-01",
@@ -150028,6 +150011,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "1997/0062.00",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "1998-02-04",
+   "sugbakasha": "בניית מרפסת",
+   "mahut": "בניית מרפסת סוכה.",
+   "address": "הורקניה 8 גבעת אורן",
+   "gush": 30121,
+   "parcels": [
+    15
+   ],
+   "mirror_sample_date": "2026-08-02",
+   "mirror_first_seen": "2026-08-02T23:36:39.425855+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "1997/0062.02",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2002-12-23",
@@ -154540,21 +154538,6 @@
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:40.227209+00:00",
-   "mirror_last_seen": ""
-  },
-  {
-   "tik_num": "1998/0935.01",
-   "status": "הופק-הוצא היתר בניה",
-   "status_date": "2000-01-27",
-   "sugbakasha": "תוכנית שינויים",
-   "mahut": "תוכנית שינויים",
-   "address": "י. אלפסי 35 רחביה",
-   "gush": 30025,
-   "parcels": [
-    101
-   ],
-   "mirror_sample_date": "2026-08-02",
-   "mirror_first_seen": "2026-08-02T23:36:40.645482+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -165445,21 +165428,6 @@
    "mirror_last_seen": ""
   },
   {
-   "tik_num": "2004/0073.06",
-   "status": "הופק-הוצא היתר בניה",
-   "status_date": "2011-10-26",
-   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
-   "mahut": "תוספת בניה לדירה בקומת הקרקע",
-   "address": "יהושע בן גמלא 16 קטמון הישנה",
-   "gush": 30004,
-   "parcels": [
-    172
-   ],
-   "mirror_sample_date": "2026-08-02",
-   "mirror_first_seen": "2026-08-02T23:36:42.796825+00:00",
-   "mirror_last_seen": ""
-  },
-  {
    "tik_num": "2004/0073.07",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2016-04-13",
@@ -165802,9 +165770,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2025-07-20",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2004/0139.00",
@@ -169935,6 +169901,21 @@
    "gush": 30182,
    "parcels": [
     16
+   ],
+   "mirror_sample_date": "2026-08-02",
+   "mirror_first_seen": "2026-08-02T23:36:43.637309+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2005/0675.00",
+   "status": "נדונה ברשות הרישוי",
+   "status_date": "2006-02-16",
+   "sugbakasha": "בניית מרפסת",
+   "mahut": "בניית מרפסות סוכה ויציאה לגג.",
+   "address": "בוסתנאי 34 קטמון הישנה",
+   "gush": 30007,
+   "parcels": [
+    161
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:43.637309+00:00",
@@ -176533,9 +176514,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2026-08-02",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2008/0554.09",
@@ -191484,6 +191463,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2014/0597.00",
+   "status": "הבקשה נסגרה",
+   "status_date": "2020-06-25",
+   "sugbakasha": "בניית מרפסת",
+   "mahut": "תוספת מרפסת זיז ללא תוספת שטח.",
+   "address": "מחלקי המים 12 קטמון הישנה",
+   "gush": 30006,
+   "parcels": [
+    28
+   ],
+   "mirror_sample_date": "2026-08-02",
+   "mirror_first_seen": "2026-08-02T23:36:47.792627+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2014/0608.00",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2015-06-03",
@@ -198788,21 +198782,6 @@
    "mirror_last_seen": ""
   },
   {
-   "tik_num": "2017/0332.01",
-   "status": "הופק-הוצא היתר בניה",
-   "status_date": "2026-05-06",
-   "sugbakasha": "בניה חדשה / בניין חדש",
-   "mahut": "תוספת 2 קומות על קרקעיות ו-2 קומות תת קרקעיות לבניין מאושר ע''''פי היתר 2017/332.00",
-   "address": "ניקנור 32 קטמון הישנה",
-   "gush": 30122,
-   "parcels": [
-    34
-   ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
-   "mirror_last_seen": ""
-  },
-  {
    "tik_num": "2017/0340.00",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2018-06-14",
@@ -198845,9 +198824,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2026-10-21",
-   "publication_end_planned": "2026-11-29"
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2017/0341.00",
@@ -202543,9 +202520,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2019/0571.00",
@@ -207579,9 +207554,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2024-05-27",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2024/0179.00",
@@ -208614,9 +208587,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2026-05-17",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2025/0067.01",
@@ -209878,9 +209849,7 @@
    ],
    "mirror_sample_date": "2026-10-23",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "2026-10-21",
-   "publication_end_planned": "2026-11-29"
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2026/0245.00",
