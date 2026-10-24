@@ -23,6 +23,8 @@ import pytest
 
 sync_api = pytest.importorskip("playwright.sync_api")
 
+import evidence  # issue #422: per-test E2E evidence capture
+
 ROOT = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
@@ -152,11 +154,12 @@ def site(tmp_path_factory):
 
 @pytest.fixture(scope="module")
 def browser():
+    engine = evidence.browser_engine()  # SITE_BROWSER: chromium (default) or webkit
     with sync_api.sync_playwright() as p:
         try:
-            b = p.chromium.launch()
+            b = getattr(p, engine).launch()
         except sync_api.Error as exc:  # browser binary missing
-            pytest.skip(f"chromium not installed: {exc}")
+            pytest.skip(f"{engine} not installed: {exc}")
         yield b
         b.close()
 
@@ -175,21 +178,57 @@ def served(site):
         yield f"http://127.0.0.1:{srv.server_address[1]}"
 
 
-@pytest.fixture
-def page(browser, served):
-    pg = browser.new_page()
+import contextlib
+
+
+@contextlib.contextmanager
+def recorded_page(browser, request):
+    """New page inside an evidence-recording context (issue #422).
+
+    Every test keeps its final screenshot (success evidence). Video and
+    Playwright trace are heavier: kept on failure, or on success for tests
+    marked @pytest.mark.evidence (representative user-repro flows).
+    """
+    engine = evidence.browser_engine()
+    out = evidence.evidence_dir(
+        evidence.artifact_root(), engine, request.node.nodeid
+    )
+    out.mkdir(parents=True, exist_ok=True)
+    ctx = browser.new_context(record_video_dir=str(out / "video"))
+    ctx.tracing.start(screenshots=True, snapshots=True)
+    pg = ctx.new_page()
     errors = []
     pg.on("pageerror", lambda e: errors.append(str(e)))
-    pg.goto(served + "/index.html")
-    pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
-    pg.wait_for_function(
-        "window.__permitsLoaded === true || window.__permitsFailed === true"
-    )
-    assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
-    assert pg.evaluate("window.__permitsLoaded") is True, "permits.html failed to load"
-    yield pg
-    assert errors == [], f"JavaScript errors on the page: {errors}"
-    pg.close()
+    try:
+        yield pg, errors
+    finally:
+        passed = bool(getattr(request.node, "_e2e_passed", False)) and errors == []
+        marked = request.node.get_closest_marker("evidence") is not None
+        pg.screenshot(path=str(out / "screenshot.png"), full_page=True)
+        keep = evidence.keep_heavy_evidence(passed, marked)
+        video = pg.video
+        if keep:
+            ctx.tracing.stop(path=str(out / "trace.zip"))
+        else:
+            ctx.tracing.stop()
+        ctx.close()  # finalizes the video file
+        if keep and video:
+            shutil.copy(str(video.path()), str(out / "video.webm"))
+        shutil.rmtree(str(out / "video"), ignore_errors=True)
+
+
+@pytest.fixture
+def page(browser, served, request):
+    with recorded_page(browser, request) as (pg, errors):
+        pg.goto(served + "/index.html")
+        pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+        pg.wait_for_function(
+            "window.__permitsLoaded === true || window.__permitsFailed === true"
+        )
+        assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
+        assert pg.evaluate("window.__permitsLoaded") is True, "permits.html failed to load"
+        yield pg
+        assert errors == [], f"JavaScript errors on the page: {errors}"
 
 
 def visible_plans(pg):
@@ -553,7 +592,8 @@ def _permit(tik, status, sug="היתר", addr="הרצל 5"):
     }
 
 
-def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path):
+@pytest.mark.evidence
+def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path, request):
     """Regression (#414): the weekly shell and the feed-updated fragment drift
     apart between Tuesdays (legend said (1) while 8 rows carried the status on
     the live site, 2026-10-24). Legend chips, filter options and the closed
@@ -589,8 +629,7 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path):
     handler = functools.partial(_Quiet, directory=str(tmp_path))
     with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
-        pg = browser.new_page()
-        try:
+        with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
             pg.wait_for_function(
                 "window.__permitsLoaded === true || window.__permitsFailed === true"
@@ -610,11 +649,10 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path):
             # selecting the new status filters to exactly its rows
             pg.select_option("#pfstatus", new_status)
             assert pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
-        finally:
-            pg.close()
 
 
-def test_search_matches_hebrew_punctuation_variants(browser, tmp_path):
+@pytest.mark.evidence
+def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
     """Regression (#413): the user's exact spelling הפלמ״ח (geresh) returned 0
     on the live site 2026-10-24 while the municipal address spells הפלמח
     without geresh. Geresh, gershayim, apostrophes, quotes and maqaf/hyphen
@@ -643,8 +681,7 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path):
     handler = functools.partial(_Quiet, directory=str(tmp_path))
     with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
-        pg = browser.new_page()
-        try:
+        with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
             pg.wait_for_function(
                 "window.__permitsLoaded === true || window.__permitsFailed === true"
@@ -659,5 +696,3 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path):
                 assert len(texts) == 1 and "2026/0439.00" in texts[0], (
                     f"{variant!r} should find exactly the הפלמח 41 row, got {texts}"
                 )
-        finally:
-            pg.close()

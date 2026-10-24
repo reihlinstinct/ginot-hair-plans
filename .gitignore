@@ -4,3 +4,4 @@ __pycache__/
 data/plan_status.json
 .coverage
 coverage.json
+tests/.artifacts/
