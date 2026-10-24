@@ -1041,7 +1041,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 6
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שד בן צבי יצחק רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/0674.01",
@@ -1050,7 +1054,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 6
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שד בן צבי יצחק רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/0866.00",
@@ -1059,7 +1067,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1020.00",
@@ -1068,7 +1080,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 62
+   "helka": 62,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1376.00",
@@ -1077,7 +1093,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 12
+   "helka": 12,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "3",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1389.00",
@@ -1086,7 +1106,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 13 קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1389.01",
@@ -1095,7 +1119,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30165,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1390.00",
@@ -1104,7 +1132,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 15 קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1390.01",
@@ -1113,7 +1145,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30165,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1972/1390.02",
@@ -1122,7 +1158,11 @@
    "status": "נדונה ברשות הרישוי",
    "status_date": "",
    "gush": 30165,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 15 קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0150.00",
@@ -1131,7 +1171,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0150.01",
@@ -1140,7 +1184,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0150.02",
@@ -1149,7 +1197,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0384.00",
@@ -1158,7 +1210,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0384.01",
@@ -1167,7 +1223,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1973/0534.00",
