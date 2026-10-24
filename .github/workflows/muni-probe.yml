@@ -87,12 +87,11 @@ jobs:
         run: python3 scripts/vpn/muni_api_probe4.py
 
 
-      - name: Probe public SPA API v5 (optical archive, parameterized tik)
-        if: inputs.mode == 'api5'
+      - name: Probe public SPA API v6 (archive 404 retries)
+        if: inputs.mode == 'api6'
         env:
           PYTHONUNBUFFERED: "1"
-          TIK_NUM: ${{ inputs.urls }}
-        run: python3 scripts/vpn/muni_api_probe5.py
+        run: python3 scripts/vpn/muni_api_probe6.py
 
       - name: Upload probe artifact
         if: always()
