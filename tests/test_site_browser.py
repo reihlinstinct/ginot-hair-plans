@@ -536,3 +536,79 @@ def test_mobile_ai_header_hidden_review_links_preserved(browser, served):
     assert pg.locator("#plans thead th button").first.is_visible()
     assert pg.locator("#plans tbody tr").first.locator("td:nth-child(8)").is_visible()
     ctx.close()
+
+
+def _permit(tik, status, sug="היתר", addr="הרצל 5"):
+    return {
+        "tik_num": tik,
+        "mahut": "x",
+        "sugbakasha": sug,
+        "status": status,
+        "status_date": "2026-10-01",
+        "gush": 30007,
+        "helka": 12,
+        "address": addr,
+        "publication_start": "",
+        "publication_end_planned": "",
+    }
+
+
+def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path):
+    """Regression (#414): the weekly shell and the feed-updated fragment drift
+    apart between Tuesdays (legend said (1) while 8 rows carried the status on
+    the live site, 2026-10-24). Legend chips, filter options and the closed
+    count must derive from the loaded fragment, not the stale shell."""
+    from ginot import page as _page
+
+    shell_permits = [_permit("2020/0001.00", "בבדיקה")]
+    live_permits = shell_permits + [
+        _permit("2026/0439.00", "תחילת פרסום הבקשה להקלה", addr="הפלמח 41 קטמון הישנה"),
+        _permit("2026/0439.01", "תחילת פרסום הבקשה להקלה", addr="הפלמח 43 קטמון הישנה"),
+        _permit("1990/0002.00", "הבקשה נסגרה"),
+    ]
+    pf = tmp_path / "permits.json"
+    pf.write_text(
+        json.dumps({"requests": shell_permits}, ensure_ascii=False), encoding="utf-8"
+    )
+    plan = {
+        "pl_number": "1",
+        "pl_name": "תכנית 1",
+        "station_desc": "הפקדה",
+        "receiving_date": "",
+        "pl_last_deposit_date": "",
+        "depositing_date": "",
+        "objection_deadline_derived_60d_from_publication": "",
+        "pl_area_dunam": 1.0,
+        "inside_flag": "inside",
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+    _page.render_site([plan], [], str(tmp_path), permits_path=str(pf))
+    # feed publish re-renders ONLY the fragment from newer data (#412 flow)
+    _page._permits_section(live_permits, rows_file=str(tmp_path / "permits.html"))
+
+    handler = functools.partial(_Quiet, directory=str(tmp_path))
+    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        pg = browser.new_page()
+        try:
+            pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
+            pg.wait_for_function(
+                "window.__permitsLoaded === true || window.__permitsFailed === true"
+            )
+            assert pg.evaluate("window.__permitsLoaded") is True
+            new_status = "תחילת פרסום הבקשה להקלה"
+            # dropdown gains the status that only exists in the live fragment
+            options = pg.locator("#pfstatus option").all_text_contents()
+            assert new_status in options
+            # legend chip count comes from the fragment rows, not the shell
+            chips = pg.locator("#permits .legend .chip").all_text_contents()
+            assert f"{new_status} (2)" in chips
+            assert "בבדיקה (1)" in chips
+            # closed count label follows the fragment
+            label = pg.locator("#pfilters label", has_text="הצג בקשות שהסתיימו")
+            assert "(1)" in label.inner_text()
+            # selecting the new status filters to exactly its rows
+            pg.select_option("#pfstatus", new_status)
+            assert pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
+        finally:
+            pg.close()

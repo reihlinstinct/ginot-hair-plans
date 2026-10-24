@@ -518,23 +518,73 @@ document.getElementById('pfreset').addEventListener('click',function(){
   pfclosed.checked=false;expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});
-fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
-  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
-  tb.innerHTML=h;
-  rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
-  apply();
-  window.__permitsLoaded=true;
-}).catch(function(){window.__permitsFailed=true;});
-document.querySelectorAll('#permits .legend .chip').forEach(function(c){
-  c.addEventListener('click',function(){
+function statusClass(st){
+  st=st||'';
+  if(st.indexOf('נסגרה')!==-1)return 'c-closed';
+  if(st.indexOf('הופק')!==-1)return 'c-approved';
+  if(st.indexOf('פרסום')!==-1||st.indexOf('הודעות לפני תקנה')!==-1)return 'c-deposit';
+  if(st.indexOf('וועד')!==-1||st.indexOf('ועדת')!==-1||st.indexOf('רשות הרישוי')!==-1)return 'c-review';
+  if(st.indexOf('טיוטת היתר')!==-1)return 'c-cond';
+  return 'c-inproc';
+}
+function rebuildDerived(){
+  // #414: legend chips, filter options and the closed count derive from the
+  // loaded fragment rows (the live source), not the weekly index.html shell -
+  // after a feed batch they must agree with the actual rows immediately.
+  var counts={},sugs={},closed=0,i,st,sug;
+  for(i=0;i<rows.length;i++){
+    st=rows[i].getAttribute('data-status')||'';
+    if(st)counts[st]=(counts[st]||0)+1;
+    sug=rows[i].getAttribute('data-sug')||'';
+    if(sug)sugs[sug]=1;
+    if(rows[i].getAttribute('data-active')==='0')closed++;
+  }
+  var legend=document.querySelector('#permits .legend');
+  if(legend){
+    legend.querySelectorAll('.chip').forEach(function(c){c.remove();});
+    Object.keys(counts).sort().forEach(function(v){
+      var c=document.createElement('span');
+      c.className='chip '+statusClass(v)+(pfstatus.value===v?' sel':'');
+      c.setAttribute('data-status',v);
+      c.textContent=v+' ('+counts[v]+')';
+      legend.appendChild(document.createTextNode(' '));
+      legend.appendChild(c);
+    });
+  }
+  function refill(sel,first,values){
+    var keep=sel.value;
+    sel.innerHTML='';
+    var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    sel.value=values.indexOf(keep)!==-1?keep:'';
+  }
+  refill(pfstatus,'כל הסטטוסים',Object.keys(counts).sort());
+  refill(pfsug,'כל הסוגים',Object.keys(sugs).sort());
+  if(pfclosed&&pfclosed.parentNode&&pfclosed.parentNode.lastChild){
+    pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';
+  }
+}
+var legend=document.querySelector('#permits .legend');
+if(legend){
+  legend.addEventListener('click',function(ev){
+    var c=ev.target.closest?ev.target.closest('.chip'):null;
+    if(!c||!legend.contains(c))return;
     var st=c.getAttribute('data-status');
     pfstatus.value=(pfstatus.value===st)?'':st;
-    document.querySelectorAll('#permits .legend .chip').forEach(function(x){
+    legend.querySelectorAll('.chip').forEach(function(x){
       x.classList.toggle('sel',x.getAttribute('data-status')===pfstatus.value);
     });
     expanded=false;apply();
   });
-});
+}
+fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
+  tb.innerHTML=h;
+  rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  rebuildDerived();
+  apply();
+  window.__permitsLoaded=true;
+}).catch(function(){window.__permitsFailed=true;});
 apply();
 })();
 """
