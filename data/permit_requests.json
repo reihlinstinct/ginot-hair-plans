@@ -651,7 +651,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30144,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 17 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1969/0556.05",
@@ -660,7 +664,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1969/0804.00",
@@ -669,7 +677,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30169,
-   "helka": 56
+   "helka": 56,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 3 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1969/1200.00",
@@ -678,7 +690,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 32
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1969/1429.00",
@@ -687,7 +703,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 50
+   "helka": 50,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0057.00",
@@ -696,7 +716,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 12
+   "helka": 12,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 15 גונן ד",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0057.01",
@@ -705,7 +729,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 12
+   "helka": 12,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 15 גונן ד",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0073.00",
@@ -714,7 +742,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30165,
-   "helka": 9
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קרית וולפסון",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0082.00",
@@ -723,7 +755,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0082.01",
@@ -732,7 +768,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.00",
@@ -741,7 +781,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 18 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.01",
@@ -750,7 +794,11 @@
    "status": "ממתין לאישור נוסח פרסום",
    "status_date": "",
    "gush": 30169,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.02",
@@ -759,7 +807,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "1995-08-30",
+   "address": "הנוטרים 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.03",
@@ -768,7 +820,11 @@
    "status": "נדונה בועדת ערר",
    "status_date": "",
    "gush": 30169,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.04",
@@ -777,7 +833,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "1998-12-28",
+   "address": "הנוטרים 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1970/0308.05",
