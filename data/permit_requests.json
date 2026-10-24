@@ -7333,7 +7333,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "1999-12-27",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.05",
@@ -7342,7 +7346,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1996/0822.02",
@@ -7351,7 +7359,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 197
+   "helka": 197,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 26 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1996/0822.03",
@@ -7360,7 +7372,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 197
+   "helka": 197,
+   "publication_start": "2016-08-02",
+   "publication_end_planned": "2016-08-16",
+   "address": "קנאי הגליל 26 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0118.00",
@@ -7369,7 +7385,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 16
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דוידזון 8 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0118.01",
@@ -7378,7 +7398,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 16
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דוידזון 8 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0425.00",
@@ -7387,7 +7411,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 14 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0425.01",
@@ -7396,7 +7424,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 14 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.00",
@@ -7405,7 +7437,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.01",
@@ -7414,7 +7450,11 @@
    "status": "נדונה בועדת ערר",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.02",
@@ -7423,7 +7463,11 @@
    "status": "ממתין לאישור נוסח פרסום",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.03",
@@ -7432,7 +7476,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.04",
@@ -7441,7 +7489,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.05",
@@ -7450,7 +7502,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "2011-11-06",
+   "address": "אלכסנדריון 16 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.06",
@@ -7459,7 +7515,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 גונן ו",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0427.07",
