@@ -42,7 +42,7 @@ jobs:
       - name: Probe publication data for one public permit request
         env:
           PROBE_TIK: ${{ inputs.tik }}
-        run: sudo python3 scripts/vpn/permit_publication_probe.py
+        run: sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py
 
       - name: Tear down tunnel and remove generated secret material
         if: always()
