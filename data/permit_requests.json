@@ -8308,7 +8308,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 9
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "חוסה דה סן מרטין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0742.02",
@@ -8317,7 +8321,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 9
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "2012-03-23",
+   "address": "חוסה דה סן מרטין 1 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0806.00",
@@ -8326,7 +8334,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 6
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 9 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0841.00",
@@ -8335,7 +8347,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 185
+   "helka": 185,
+   "publication_start": "",
+   "publication_end_planned": "2007-07-15",
+   "address": "נתאי הארבלי 36 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0841.03",
@@ -8344,7 +8360,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 185
+   "helka": 185,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נתאי הארבלי 36 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2006/0384.00",
@@ -8353,7 +8373,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 56
+   "helka": 56,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קרית האומה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2006/0616.00",
@@ -8362,7 +8386,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 2
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 1 רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2006/0616.01",
@@ -8371,7 +8399,11 @@
    "status": "נפתח תיק רישוי",
    "status_date": "",
    "gush": 30165,
-   "helka": 2
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 1 רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2006/0616.02",
@@ -8380,7 +8412,11 @@
    "status": "אושר ע\"י מהנדס העיר",
    "status_date": "",
    "gush": 30165,
-   "helka": 2
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.ל. דיסקין 1 רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2007/0332.07",
@@ -8389,7 +8425,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 33
+   "helka": 33,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דרך רופין נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2007/0332.08",
@@ -8398,7 +8438,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 33
+   "helka": 33,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אביגד נחמן 1 קרית האומה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2007/0639.00",
@@ -8407,7 +8451,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 150
+   "helka": 150,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  31 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2008/0218.00",
@@ -8416,7 +8464,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אברהם גרנות 999 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2008/0218.02",
@@ -8425,7 +8477,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אברהם גרנות 999 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2008/0218.03",
@@ -8434,7 +8490,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "2019-02-20",
+   "publication_end_planned": "2019-03-05",
+   "address": "ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2008/0600.00",
