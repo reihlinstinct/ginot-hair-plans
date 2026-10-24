@@ -8893,7 +8893,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "2022-09-13",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0362.02",
@@ -8902,7 +8906,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "2022-11-13",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0362.03",
@@ -8911,7 +8919,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "2024-07-14",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0362.04",
@@ -8920,7 +8932,11 @@
    "status": "תחילת פרסום הבקשה להקלה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "2026-09-23",
+   "publication_end_planned": "2026-11-08",
+   "address": "אלעזר בן יאיר  23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0565.00",
@@ -8929,7 +8945,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 15
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 5 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0565.01",
@@ -8938,7 +8958,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 15
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 5 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0819.00",
@@ -8947,7 +8971,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "2011-11-03",
+   "address": "אברהם גרנות 1 קרית האומה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0819.01",
@@ -8956,7 +8984,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אברהם גרנות 1 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0928.00",
@@ -8965,7 +8997,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0928.01",
@@ -8974,7 +9010,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0928.02",
@@ -8983,7 +9023,11 @@
    "status": "אושר ע\"י מהנדס העיר",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0928.03",
@@ -8992,7 +9036,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0930.00",
@@ -9001,7 +9049,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0930.01",
@@ -9010,7 +9062,11 @@
    "status": "אושר ע\"י מהנדס העיר",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0930.02",
@@ -9019,7 +9075,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 79
+   "helka": 79,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2011/0931.00",
