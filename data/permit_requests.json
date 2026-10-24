@@ -2406,7 +2406,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.08",
@@ -2415,7 +2419,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "2020-06-16",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0160.00",
@@ -2424,7 +2432,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 22 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0171.00",
@@ -2433,7 +2445,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0241.00",
@@ -2442,7 +2458,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30144,
-   "helka": 110
+   "helka": 110,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0385.00",
@@ -2451,7 +2471,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 גונן ו",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0385.01",
@@ -2460,7 +2484,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0426.00",
@@ -2469,7 +2497,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 36 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0713.00",
@@ -2478,7 +2510,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 59
+   "helka": 59,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "יעקב ברגר 5 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0985.00",
@@ -2487,7 +2523,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 46
+   "helka": 46,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  28 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0985.01",
@@ -2496,7 +2536,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 46
+   "helka": 46,
+   "publication_start": "",
+   "publication_end_planned": "1998-01-22",
+   "address": "אלעזר בן יאיר  28 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0985.02",
@@ -2505,7 +2549,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 46
+   "helka": 46,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  28 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0985.03",
@@ -2514,7 +2562,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 46
+   "helka": 46,
+   "publication_start": "",
+   "publication_end_planned": "2006-03-12",
+   "address": "אלעזר בן יאיר  28 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/1010.00",
@@ -2523,7 +2575,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 45
+   "helka": 45,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  26 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/1010.01",
@@ -2532,7 +2588,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 45
+   "helka": 45,
+   "publication_start": "",
+   "publication_end_planned": "2013-07-22",
+   "address": "אלעזר בן יאיר  26 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/1014.00",
