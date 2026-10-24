@@ -45,13 +45,15 @@ jobs:
         # tee the output: run logs can be served late or partially by the
         # log API (runs 40110869554/40112570108 never served this step), and
         # a green run whose content cannot be verified is not a verification.
-        run: sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py | tee probe-output.txt
+        run: |
+          set -o pipefail
+          sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py | tee probe-output.txt
 
       - name: Upload probe output
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: probe-output-${{ inputs.tik }}
+          name: probe-output
           path: probe-output.txt
           if-no-files-found: error
           retention-days: 14
