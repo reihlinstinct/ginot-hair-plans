@@ -2211,7 +2211,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  23 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0013.00",
@@ -2220,7 +2224,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 23
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 16 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0061.00",
@@ -2229,7 +2237,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0096.00",
@@ -2238,7 +2250,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 40
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  21 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0101.00",
@@ -2247,7 +2263,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 12 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0101.01",
@@ -2256,7 +2276,11 @@
    "status": "נדונה ברשות הרישוי",
    "status_date": "",
    "gush": 30169,
-   "helka": 20
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 7 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0136.00",
@@ -2265,7 +2289,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 57
+   "helka": 57,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0310.05",
@@ -2274,7 +2302,11 @@
    "status": "הגשה מקוונת הושלמה",
    "status_date": "",
    "gush": 30165,
-   "helka": 34
+   "helka": 34,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "שד בן צבי יצחק 47 רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0766.00",
@@ -2283,7 +2315,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1980/0988.00",
@@ -2292,7 +2328,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 32
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 6 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.00",
@@ -2301,7 +2341,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.01",
@@ -2310,7 +2354,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.02",
@@ -2319,7 +2367,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.03",
@@ -2328,7 +2380,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "2007-12-16",
+   "address": "קנאי הגליל 23 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.04",
@@ -2337,7 +2393,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 23 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1981/0084.05",
