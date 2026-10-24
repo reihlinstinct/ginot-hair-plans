@@ -10,6 +10,10 @@ def test_probe_step_preserves_probe_tik_through_sudo():
     ).read_text()
     assert "PROBE_TIK: ${{ inputs.tik }}" in workflow
     assert "sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py" in workflow
-    assert "sudo python3 scripts/vpn/permit_publication_probe.py" not in workflow.replace(
-        "--preserve-env=PROBE_TIK ", ""
-    )
+    unguarded = [
+        line
+        for line in workflow.splitlines()
+        if "sudo python3 scripts/vpn/permit_publication_probe.py" in line
+        and "--preserve-env=PROBE_TIK" not in line
+    ]
+    assert not unguarded
