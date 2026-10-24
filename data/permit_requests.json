@@ -3576,7 +3576,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.01",
@@ -3585,7 +3589,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.02",
@@ -3594,7 +3602,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "1992-04-08",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.03",
@@ -3603,7 +3615,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "1994-08-28",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.04",
@@ -3612,7 +3628,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.05",
@@ -3621,7 +3641,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "2004-05-05",
+   "address": "אלעזר בן יאיר  19 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.06",
@@ -3630,7 +3654,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 קטמון הישנה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.07",
@@ -3639,7 +3667,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "2020-10-11",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 פת",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0608.08",
@@ -3648,7 +3680,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 39
+   "helka": 39,
+   "publication_start": "2021-06-21",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  19 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.00",
@@ -3657,7 +3693,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.01",
@@ -3666,7 +3706,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.02",
@@ -3675,7 +3719,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.03",
@@ -3684,7 +3732,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "1997-03-26",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.04",
@@ -3693,7 +3745,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.05",
@@ -3702,7 +3758,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 24
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 20 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1987/0672.06",
