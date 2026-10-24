@@ -6943,7 +6943,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 4
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "2013-07-31",
+   "address": "השומר 2 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1994/0826.03",
@@ -6952,7 +6956,11 @@
    "status": "נדונה בועדת ערר",
    "status_date": "",
    "gush": 30169,
-   "helka": 4
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 2 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.00",
@@ -6961,7 +6969,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.01",
@@ -6970,7 +6982,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.02",
@@ -6979,7 +6995,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.03",
@@ -6988,7 +7008,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.04",
@@ -6997,7 +7021,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.05",
@@ -7006,7 +7034,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.06",
@@ -7015,7 +7047,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "1998-11-16",
+   "address": "י.צ. מיכאלסון 5 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.07",
@@ -7024,7 +7060,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0233.08",
@@ -7033,7 +7073,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30146,
-   "helka": 80
+   "helka": 80,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "י.צ. מיכאלסון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0375.00",
@@ -7042,7 +7086,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 22
+   "helka": 22,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 15 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.00",
@@ -7051,7 +7099,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.01",
@@ -7060,7 +7112,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 70
+   "helka": 70,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.02",
@@ -7069,7 +7125,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.03",
