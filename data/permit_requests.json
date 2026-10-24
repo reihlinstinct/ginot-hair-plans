@@ -7138,7 +7138,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "1999-08-08",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.04",
@@ -7147,7 +7151,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.05",
@@ -7156,7 +7164,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "2000-10-24",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.06",
@@ -7165,7 +7177,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.07",
@@ -7174,7 +7190,11 @@
    "status": "נדונה ברשות הרישוי",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.08",
@@ -7183,7 +7203,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.09",
@@ -7192,7 +7216,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 70
+   "helka": 70,
+   "publication_start": "",
+   "publication_end_planned": "2005-12-25",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.10",
@@ -7201,7 +7229,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.11",
@@ -7210,7 +7242,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "2012-12-30",
+   "address": "דב הוז 10 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.12",
@@ -7219,7 +7255,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "2025-04-21",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0533.13",
@@ -7228,7 +7268,11 @@
    "status": "נדונה בועדת ערר",
    "status_date": "",
    "gush": 30169,
-   "helka": 11
+   "helka": 11,
+   "publication_start": "2024-05-16",
+   "publication_end_planned": "",
+   "address": "דב הוז 10 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.00",
@@ -7237,7 +7281,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.01",
@@ -7246,7 +7294,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.02",
@@ -7255,7 +7307,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.03",
@@ -7264,7 +7320,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "מרגולין 1 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1995/0729.04",
