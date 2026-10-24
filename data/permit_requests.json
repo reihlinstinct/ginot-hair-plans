@@ -8113,7 +8113,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 22
+   "helka": 22,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 18 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2004/0289.00",
@@ -8122,7 +8126,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דוידזון 12 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2004/0499.00",
@@ -8131,7 +8139,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 2
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 4",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0287.00",
@@ -8140,7 +8152,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 13
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0292.03",
@@ -8149,7 +8165,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30169,
-   "helka": 16
+   "helka": 16,
+   "publication_start": "2025-07-31",
+   "publication_end_planned": "",
+   "address": "הנוטרים 14 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0434.00",
@@ -8158,7 +8178,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0434.01",
@@ -8167,7 +8191,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0434.02",
@@ -8176,7 +8204,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 73
+   "helka": 73,
+   "publication_start": "",
+   "publication_end_planned": "2008-12-01",
+   "address": "דב הוז 8 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0504.00",
@@ -8185,7 +8217,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 56
+   "helka": 56,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "יעקב ברגר 2 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0547.00",
@@ -8194,7 +8230,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 10
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דב הוז 8 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0693.00",
@@ -8203,7 +8243,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30169,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 13 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0693.01",
@@ -8212,7 +8256,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "2007-07-19",
+   "address": "השומר 13 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0693.02",
@@ -8221,7 +8269,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "2013-12-04",
+   "address": "השומר 13 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0693.03",
@@ -8230,7 +8282,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "2021-11-29",
+   "publication_end_planned": "",
+   "address": "השומר 13 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0742.00",
@@ -8239,7 +8295,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 9
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "2006-03-30",
+   "address": "חוסה דה סן מרטין 1 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "2005/0742.01",
