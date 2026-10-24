@@ -2601,7 +2601,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 58
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "יעקב ברגר 3 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0047.00",
@@ -2610,7 +2614,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 43
+   "helka": 43,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 19 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.01",
@@ -2619,7 +2627,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "34 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.02",
@@ -2628,7 +2640,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ניות 34 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.03",
@@ -2637,7 +2653,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ע. רינגלבלום 34 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.04",
@@ -2646,7 +2666,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ע. רינגלבלום 34 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.05",
@@ -2655,7 +2679,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "ע. רינגלבלום 34 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0065.06",
@@ -2664,7 +2692,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30145,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "34 ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0106.00",
@@ -2673,7 +2705,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 41
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0335.00",
@@ -2682,7 +2718,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0335.01",
@@ -2691,7 +2731,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0335.02",
@@ -2700,7 +2744,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 26
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "2007-11-22",
+   "address": "אלכסנדריון 26 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0335.03",
@@ -2709,7 +2757,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 123
+   "helka": 123,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 26 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0335.04",
@@ -2718,7 +2770,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 123
+   "helka": 123,
+   "publication_start": "",
+   "publication_end_planned": "2013-09-02",
+   "address": "אלכסנדריון 26 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0495.00",
@@ -2727,7 +2783,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 51
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1982/0496.00",
