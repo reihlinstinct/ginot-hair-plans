@@ -612,3 +612,52 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path):
             assert pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
         finally:
             pg.close()
+
+
+def test_search_matches_hebrew_punctuation_variants(browser, tmp_path):
+    """Regression (#413): the user's exact spelling הפלמ״ח (geresh) returned 0
+    on the live site 2026-10-24 while the municipal address spells הפלמח
+    without geresh. Geresh, gershayim, apostrophes, quotes and maqaf/hyphen
+    normalize away on both the query and the indexed row text."""
+    from ginot import page as _page
+
+    permits = [
+        _permit("2026/0439.00", "תחילת פרסום הבקשה להקלה", addr="הפלמח 41 קטמון הישנה"),
+        _permit("2020/0001.00", "בבדיקה", addr="הרצל 5"),
+    ]
+    pf = tmp_path / "permits.json"
+    pf.write_text(json.dumps({"requests": permits}, ensure_ascii=False), encoding="utf-8")
+    plan = {
+        "pl_number": "1",
+        "pl_name": "תכנית 1",
+        "station_desc": "הפקדה",
+        "receiving_date": "",
+        "pl_last_deposit_date": "",
+        "depositing_date": "",
+        "objection_deadline_derived_60d_from_publication": "",
+        "pl_area_dunam": 1.0,
+        "inside_flag": "inside",
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+    _page.render_site([plan], [], str(tmp_path), permits_path=str(pf))
+    handler = functools.partial(_Quiet, directory=str(tmp_path))
+    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        pg = browser.new_page()
+        try:
+            pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
+            pg.wait_for_function(
+                "window.__permitsLoaded === true || window.__permitsFailed === true"
+            )
+            assert pg.evaluate("window.__permitsLoaded") is True
+            for variant in ['הפלמ״ח', 'הפלמ"ח', "הפלמ'ח", "הפלמח", "הפלמח 41"]:
+                pg.fill("#pfq", "")
+                pg.fill("#pfq", variant)
+                pg.dispatch_event("#pfq", "input")
+                visible = pg.locator("#permits-table tbody tr:not(.filtered-out)")
+                texts = visible.all_text_contents()
+                assert len(texts) == 1 and "2026/0439.00" in texts[0], (
+                    f"{variant!r} should find exactly the הפלמח 41 row, got {texts}"
+                )
+        finally:
+            pg.close()
