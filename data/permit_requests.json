@@ -7528,7 +7528,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 21
+   "helka": 21,
+   "publication_start": "2024-12-12",
+   "publication_end_planned": "",
+   "address": "אלכסנדריון 16 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.00",
@@ -7537,7 +7541,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "1997-09-16",
+   "address": "השומר 21 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.01",
@@ -7546,7 +7554,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "1999-06-15",
+   "address": "השומר 21 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.02",
@@ -7555,7 +7567,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 21 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.03",
@@ -7564,7 +7580,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "2000-10-23",
+   "address": "השומר 21 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.04",
@@ -7573,7 +7593,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "2008-12-08",
+   "address": "השומר 21 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.05",
@@ -7582,7 +7606,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 21 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.06",
@@ -7591,7 +7619,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 21 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.07",
@@ -7600,7 +7632,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "",
+   "publication_end_planned": "2013-11-21",
+   "address": "השומר 21 גונן ט",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.08",
@@ -7609,7 +7645,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "2021-09-02",
+   "publication_end_planned": "",
+   "address": "השומר 21 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0467.09",
@@ -7618,7 +7658,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 38
+   "helka": 38,
+   "publication_start": "2022-05-02",
+   "publication_end_planned": "2022-05-17",
+   "address": "השומר 21 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0569.00",
@@ -7627,7 +7671,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 49
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0569.01",
@@ -7636,7 +7684,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 49
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "השומר 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0569.02",
@@ -7645,7 +7697,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 49
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "2004-03-31",
+   "address": "השומר 9 גונן ח",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0569.03",
@@ -7654,7 +7710,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 49
+   "helka": 49,
+   "publication_start": "2017-11-28",
+   "publication_end_planned": "2017-12-12",
+   "address": "השומר 9 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1997/0739.00",
