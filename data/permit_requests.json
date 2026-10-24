@@ -4,7 +4,7 @@
  "batch": {
   "offset": 3200,
   "limit": 280,
-  "done": 45
+  "done": 60
  },
  "requests": [
   {
@@ -51,6 +51,24 @@
    "status_date": "",
    "gush": 30144,
    "helka": 27
+  },
+  {
+   "tik_num": "1958/0388.00",
+   "mahut": "שינויים",
+   "sugbakasha": "שינויים בבנין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30144,
+   "helka": 88
+  },
+  {
+   "tik_num": "1958/0388.01",
+   "mahut": "תוספת לדירות",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30144,
+   "helka": 88
   },
   {
    "tik_num": "1962/0142.00",
@@ -690,6 +708,15 @@
    "status_date": "",
    "gush": 30144,
    "helka": 24
+  },
+  {
+   "tik_num": "1981/0241.00",
+   "mahut": ".",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30144,
+   "helka": 110
   },
   {
    "tik_num": "1981/0385.00",
