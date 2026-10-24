@@ -53,3 +53,47 @@ for label, proc, params in CALLS:
     print(f"{label}: status={status} bytes={len(raw)} blocked={blocked}", flush=True)
     if blocked:
         raise SystemExit("AKAMAI BLOCK - stopping per policy")
+
+# Phase 2: download every document the archive listed, through the tunnel.
+import time
+
+DOCS_DIR = f"{OUT}/docs"
+os.makedirs(DOCS_DIR, exist_ok=True)
+content_path = f"{OUT}/v5_archiv_content_{TIK.replace('/', '-')}.json"
+try:
+    docs = json.load(open(content_path))
+except Exception as e:
+    print(f"doc-list parse: ERROR {e}", flush=True)
+    docs = []
+
+manifest = []
+for i, d in enumerate(docs, 1):
+    url = d.get("urlDoc")
+    descr = d.get("documentDescr", "")
+    if not url:
+        continue
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+            "Referer": "https://ykpubdata.jerusalem.muni.il/",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            raw, status, ctype = r.read(), r.status, r.headers.get("Content-Type", "")
+    except urllib.error.HTTPError as e:
+        raw, status, ctype = e.read(), e.code, ""
+    except Exception as e:
+        print(f"doc{i}: ERROR {e}", flush=True)
+        manifest.append({"i": i, "descr": descr, "error": str(e)})
+        continue
+    ext = "dwfx" if d.get("docExtension") == "dwfx" else ("pdf" if "pdf" in ctype.lower() or raw[:5] == b"%PDF-" else "bin")
+    fn = f"{i:02d}.{ext}"
+    open(f"{DOCS_DIR}/{fn}", "wb").write(raw)
+    blocked = b"Access Denied" in raw[:4000] and b"edgesuite" in raw[:4000]
+    print(f"doc{i} [{descr}]: status={status} bytes={len(raw)} ctype={ctype} ext={ext} blocked={blocked}", flush=True)
+    manifest.append({"i": i, "file": fn, "descr": descr, "dateIn": d.get("dateIn"), "status": status, "bytes": len(raw), "ctype": ctype, "blocked": blocked})
+    time.sleep(1)
+
+json.dump(manifest, open(f"{OUT}/v5_docs_manifest.json", "w"), ensure_ascii=False, indent=1)
