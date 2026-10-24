@@ -225,11 +225,13 @@ def test_status_legends_clickable(tmp_path):
     # permits legend carries counts
     assert "נפתח תיק רישוי (1)" in html
     # click bindings for both tables
-    assert ".legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
+    assert ".plan-legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
     assert (
-        "#permits .legend .chip" in html
+        "#permits .legend" in html
         and "pfstatus.value=(pfstatus.value===st)" in html
     )
+    # #414: legend/options/counts derive from the loaded fragment client-side
+    assert "rebuildDerived" in html and "statusClass" in html
 
 
 def test_permit_status_chips(tmp_path):
