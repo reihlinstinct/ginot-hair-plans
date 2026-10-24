@@ -26,6 +26,7 @@ import json
 import re
 import sys
 import time
+from zoneinfo import ZoneInfo
 
 TRACKED = "data/mavat_tracked_plans.json"
 OUT = "data/mavat_plan_status.json"
@@ -343,7 +344,7 @@ def main():
         browser.close()
 
     payload = {
-        "generated": datetime.date.today().isoformat(),
+        "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date().isoformat(),  # issue #331: IL not runner UTC
         "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
         "changed_since_previous": changed,
         "plans": result,

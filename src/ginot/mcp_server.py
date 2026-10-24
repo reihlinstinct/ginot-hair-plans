@@ -11,6 +11,8 @@ import json
 import sys
 from pathlib import Path
 
+from .dates import today_il
+
 PROTOCOL = "2024-11-05"
 DERIVED_NOTE = (
     "Derived from publication dates (60 days); not a verified official "
@@ -118,7 +120,7 @@ def call_tool(data, name, args):
             start = (
                 datetime.date.fromisoformat(args["as_of"])
                 if args.get("as_of")
-                else datetime.date.today()
+                else today_il()
             )
         except ValueError:
             raise ToolError("as_of must be YYYY-MM-DD")

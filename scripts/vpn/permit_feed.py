@@ -22,6 +22,7 @@ import os
 import subprocess
 import sys
 import time
+from zoneinfo import ZoneInfo
 
 IFACE = "ppp43"
 URL = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
@@ -315,7 +316,7 @@ def main():
     # Reuse only complete details checked today for unchanged search metadata.
     # Active publication steps can change even without a status change, so old
     # days and legacy rows without a check timestamp must always refresh.
-    today = datetime.date.today().isoformat()
+    today = datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date().isoformat()  # issue #331: IL not runner UTC
     try:
         previous = {
             r["tik_num"]: r
@@ -456,7 +457,7 @@ def main():
     if list_mode:
         batch_cursor = prior_batch_cursor(args.out, batch_cursor)
     payload = {
-        "generated": datetime.date.today().isoformat(),
+        "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date().isoformat(),  # issue #331: IL not runner UTC
         "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
         "batch": batch_cursor,
         "requests": sorted(requests.values(), key=lambda r: r["tik_num"]),
