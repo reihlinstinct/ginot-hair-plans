@@ -14,7 +14,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 5
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 1",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1910/0490.04",
@@ -23,7 +27,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 34
+   "helka": 34,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 1",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1910/0571.06",
@@ -32,7 +40,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 37
+   "helka": 37,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1910/0857.01",
@@ -41,7 +53,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30169,
-   "helka": 78
+   "helka": 78,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "הנוטרים 1",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1910/2009.01",
@@ -50,7 +66,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 49
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "קנאי הגליל 31",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1953/0248.00",
@@ -59,7 +79,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30146,
-   "helka": 47
+   "helka": 47,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1956/0762.00",
@@ -68,7 +92,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 16
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "בית צפפה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1958/0329.00",
@@ -77,7 +105,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נתאי הארבלי גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1958/0329.01",
@@ -86,7 +118,11 @@
    "status": "הופק היתר מוארך",
    "status_date": "",
    "gush": 30144,
-   "helka": 27
+   "helka": 27,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נתאי הארבלי גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1958/0388.00",
@@ -95,7 +131,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 88
+   "helka": 88,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1958/0388.01",
@@ -104,7 +144,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 88
+   "helka": 88,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1959/0188.06",
@@ -113,7 +157,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 188
+   "helka": 188,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "נתאי הארבלי 38 גוננים",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1962/0142.00",
@@ -122,7 +170,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30025,
-   "helka": 126
+   "helka": 126,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דרך עזה רחביה",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1962/0220.00",
@@ -131,7 +183,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30144,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  24 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1962/0220.01",
@@ -140,7 +196,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30144,
-   "helka": 44
+   "helka": 44,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "אלעזר בן יאיר  24 גונן ג",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1962/0530.00",
@@ -149,7 +209,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 19
+   "helka": 19,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "address": "דוידזון נוה שאנן/ניות",
+   "details_checked_on": "2026-10-24"
   },
   {
    "tik_num": "1962/0531.00",
