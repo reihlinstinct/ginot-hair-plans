@@ -561,12 +561,12 @@ def main():
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(requests)} requests")
     inverted = count_inverted_publication_dates(requests.values())
-    if inverted:
-        # #463: counted line only - the rows stay in the feed unchanged.
-        print(
-            f"{inverted} feed row(s) with planned publication end before "
-            "publication start (source anomaly, preserved as-is)"
-        )
+    # #463: always printed (a 0 confirms the check ran); counted line only -
+    # the rows stay in the feed unchanged.
+    print(
+        f"{inverted} feed row(s) with planned publication end before "
+        "publication start (source anomaly, preserved as-is)"
+    )
     if _STATS["unparseable_responses"] or _STATS["detail_fetch_failures"]:
         # #399: run-summary count for the two production-path sites that
         # keep a tested silent/non-fatal return contract (see call() and the
