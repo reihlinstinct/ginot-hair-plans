@@ -30,36 +30,42 @@ by changing the default date. No code changed by this document.
 1. published-in-window (65 today): shown. (Future-dated starts count inside.)
 2. published-older (946 today): hidden by default, recoverable via the date
    input. This is exactly the user's rule.
-3. published-but-date-unknown (73 of the active undated today): evidence of
-   publication exists (status "תום תקופת פרסום" / "פורסמה בקשה להקלה" or a
-   planned publication end) but no start date. NOT treated as old (nothing
-   proves age) and NOT treated as never-published. Shown by default with a
+3. published-but-date-unknown (1,391 of all undated today; 73 active /
+   75 late / 1,243 terminal): positive evidence of publication exists
+   (status "תום תקופת פרסום" / "פורסמה בקשה להקלה" or a planned publication
+   end) but no start date. NOT treated as old (nothing proves age) and NOT
+   treated as never-published. Non-terminal rows shown by default with a
    visible "תאריך פרסום חסר" marker + live count.
-4. not-yet-published pipeline (652 of the active undated today): pre-
-   publication stages (נדונה בוועדת המשנה 249, נדונה ברשות הרישוי 158,
-   הגשה מקוונת הושלמה 81, נדונה בועדת ערר 76, נפתח תיק רישוי 70, ממתין
-   לאישור נוסח פרסום 61, ...). The user's rule does not apply to these at
-   all - they are current pipeline items, shown under the existing status
-   filters, never lumped with "unknown recent publication".
-5. terminal / late-stage: existing default-hide rules unchanged.
+4. no publication evidence in the current feed (8,635 of all undated today;
+   652 active / 3,112 late / 4,871 terminal): a status-based classification
+   ONLY - it does NOT prove the request was never published; historical
+   publications may exist that our data does not carry. Kept explicit as
+   uncertainty on the page, never hardened into a "legitimately no date"
+   fact, and never lumped with "unknown recent publication". The user's
+   rule does not target these: they stay under the existing status rules
+   (active/late shown, terminal hidden), marked as date-unknown.
+5. terminal / late-stage: existing default-hide rules unchanged; the
+   categories above apply within every class, and terminal rows stay
+   default-hidden regardless of category.
 
 ## What the numbers say about the options
 - Filter with unknowns always visible (A): hides only 253 of 4,229 default
   rows today (6%) - declutter intent mostly fails while 91% are undated.
 - Filter hiding all unknowns (B): default collapses to ~64 rows but wrongly
   hides 725 active requests, 652 of which are simply not published yet.
-- Enrich-first correction (measured): the published-but-date-unknown active
-  set is only 73 tiks - small. The other 652 are pre-publication: enrich
-  there would mostly CONFIRM absence of publication (a real but negative
-  result), not reveal dates. Enrich throughput honesty: one measured enrich
+- Enrich-first correction (measured): the published-but-date-unknown
+  set is 1,391 tiks overall (73 active) - the active slice is small. The
+  no-evidence rows may simply lack publication in our data; enrich there
+  would often CONFIRM absence (a real but negative result), not reveal dates. Enrich throughput honesty: one measured enrich
   window took 152 min (run 39380975772); per-tik rate is not directly
   measured, so no promise of "1-2 runs"; any enrich dispatch respects the
   existing runtime caps and 3s spacing.
 
 ## Minimal remaining user choice
-Only category 3's default treatment: show-with-marker (recommended, zero
-risk of hiding something actionable) vs hide-with-count-badge. Everything
-else follows the instruction directly. Enrich of the 73 evidence-tiks is a
+Only category 3's default treatment for NON-terminal rows (73 active + 75
+late today): show-with-marker (recommended, zero risk of hiding something
+actionable) vs hide-with-count-badge. Everything else follows the
+instruction or existing rules directly. Enrich of the evidence-tiks is a
 small, independent improvement either way.
 
 ## Interaction with existing behavior
