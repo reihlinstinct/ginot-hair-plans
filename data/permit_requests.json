@@ -2,7 +2,7 @@
  "generated": "2026-10-25",
  "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
  "batch": {
-  "offset": 4040,
+  "offset": 4320,
   "limit": 280
  },
  "requests": [
@@ -119,7 +119,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שבטי ישראל 14",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1910/0490.04",
@@ -1120,6 +1120,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1920/2228.02",
+   "mahut": "בקשה לקבלת רשיון עסק חורג.",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אל משיה",
+   "mispBait": "999",
+   "schunaName": "",
+   "address": "אל משיה 999",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1945/1743.00",
    "mahut": "שינויים בבנין קיים",
    "sugbakasha": "שינויים בבנין קיים",
@@ -1635,7 +1651,7 @@
    "publication_start": "2026-06-07",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1949/0126.02",
@@ -1648,7 +1664,7 @@
    "publication_start": "2026-06-04",
    "publication_end_planned": "",
    "address": "אפודי 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1949/0456.00",
@@ -1866,7 +1882,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1949/1729.01",
@@ -1879,7 +1895,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1949/1730.00",
@@ -1983,7 +1999,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1950/0031.03",
@@ -1996,7 +2012,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1950/0031.04",
@@ -2350,7 +2366,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1950/1028.01",
@@ -2363,7 +2379,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1950/1049.00",
@@ -3321,7 +3337,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1951/0983.01",
@@ -3334,7 +3350,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1951/1009.00",
@@ -4543,7 +4559,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבן עזרא רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1953/0670.00",
@@ -5168,7 +5184,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0584.01",
@@ -5181,7 +5197,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0598.00",
@@ -5207,7 +5223,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדרות הרצל רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0630.01",
@@ -5220,7 +5236,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדרות הרצל רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0643.00",
@@ -5300,7 +5316,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0771.01",
@@ -5313,7 +5329,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1954/0774.00",
@@ -5530,7 +5546,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0057.01",
@@ -5543,7 +5559,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0057.02",
@@ -5556,7 +5572,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0061.00",
@@ -5867,7 +5883,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0503.00",
@@ -5918,7 +5934,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0514.01",
@@ -5931,7 +5947,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0514.02",
@@ -5944,7 +5960,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1955/0541.00",
@@ -6214,7 +6230,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0432.00",
@@ -6344,7 +6360,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0462.01",
@@ -6357,7 +6373,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0462.02",
@@ -6370,7 +6386,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0463.01",
@@ -6472,7 +6488,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0502.00",
@@ -6846,7 +6862,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1956/0643.00",
@@ -8720,7 +8736,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 10 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1957/0941.00",
@@ -9253,7 +9269,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 14 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0184.01",
@@ -9266,7 +9282,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 14 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0234.00",
@@ -9512,7 +9528,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0362.01",
@@ -9525,7 +9541,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0362.02",
@@ -9538,7 +9554,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0366.00",
@@ -9746,7 +9762,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0476.01",
@@ -9759,7 +9775,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0482.00",
@@ -9811,7 +9827,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1958/0486.00",
@@ -11740,7 +11756,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 11 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0126.01",
@@ -11753,7 +11769,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 11 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0126.02",
@@ -11766,7 +11782,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 11 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0135.00",
@@ -11801,11 +11817,11 @@
    "status": "הופק היתר מוארך",
    "status_date": "",
    "gush": 30025,
-   "helka": 40,
+   "helka": 104,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0146.01",
@@ -11818,7 +11834,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0146.02",
@@ -11831,7 +11847,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0146.03",
@@ -11844,7 +11860,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1960/0206.00",
@@ -13151,7 +13167,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 56 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1961/0383.01",
@@ -13164,7 +13180,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 56 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1961/0399.00",
@@ -14064,7 +14080,7 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30025,
-   "helka": 1,
+   "helka": 6,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
@@ -14198,7 +14214,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1962/0243.04",
@@ -14211,7 +14227,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1962/0243.05",
@@ -14224,7 +14240,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1962/0271.00",
@@ -14453,7 +14469,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 33 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1962/0405.01",
@@ -16215,7 +16231,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1963/0561.00",
@@ -17128,7 +17144,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1964/0243.01",
@@ -17141,7 +17157,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1964/0243.02",
@@ -17154,7 +17170,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1964/0267.00",
@@ -18380,7 +18396,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 27 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1965/0271.00",
@@ -19217,7 +19233,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1965/0947.00",
@@ -21049,7 +21065,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1967/0481.00",
@@ -27433,7 +27449,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1970/0784.00",
@@ -27644,7 +27660,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1970/0865.01",
@@ -27657,7 +27673,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1970/0876.00",
@@ -27722,7 +27738,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1970/0940.00",
@@ -28848,6 +28864,22 @@
    "address": "ריש לקיש 12 קטמון הישנה"
   },
   {
+   "tik_num": "1971/0288.00",
+   "mahut": "גן ילדים",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "משה נובומיסקי",
+   "mispBait": "",
+   "schunaName": "גונן ט",
+   "address": "משה נובומיסקי",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1971/0290.00",
    "mahut": "",
    "sugbakasha": "תוספת בניה לדירות",
@@ -28963,6 +28995,22 @@
    "publication_end_planned": "",
    "address": "קליין 14 מושבה גרמנית",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "1971/0319.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1971/0332.00",
@@ -30222,12 +30270,15 @@
    "sugbakasha": "בניה חדשה / בניין חדש",
    "status": "הבקשה נסגרה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 14,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "מרגולין גונן ח",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "מרגולין",
+   "mispBait": "",
+   "schunaName": "גונן ח",
+   "address": "מרגולין",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1972/0061.00",
@@ -30660,7 +30711,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 38 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1972/0298.00",
@@ -33345,7 +33396,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1973/0207.01",
@@ -33358,7 +33409,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1973/0207.02",
@@ -33371,7 +33422,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1973/0213.00",
@@ -33748,6 +33799,86 @@
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 39 גונן ו",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "1973/0413.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1973/0414.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1973/0415.00",
+   "mahut": "",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1973/0416.00",
+   "mahut": "",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1973/0417.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1973/0427.00",
@@ -35350,6 +35481,22 @@
    "address": "בילו 7 קטמון הישנה"
   },
   {
+   "tik_num": "1974/0291.00",
+   "mahut": "תו",
+   "sugbakasha": "שינויים בבנין קיים",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1974/0298.00",
    "mahut": "",
    "sugbakasha": "בניה חדשה / בניין חדש",
@@ -36019,7 +36166,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 17 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1974/0446.01",
@@ -36032,7 +36179,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 17 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1974/0446.02",
@@ -36045,7 +36192,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 17 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1974/0446.03",
@@ -36058,7 +36205,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 17 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1974/0447.00",
@@ -36315,7 +36462,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רוממה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1974/0619.00",
@@ -37075,7 +37222,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.01",
@@ -37088,7 +37235,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.02",
@@ -37101,7 +37248,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-02-20",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.03",
@@ -37114,7 +37261,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.04",
@@ -37127,7 +37274,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.05",
@@ -37140,7 +37287,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.06",
@@ -37153,7 +37300,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.07",
@@ -37166,7 +37313,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.08",
@@ -37179,7 +37326,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-04-02",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0187.09",
@@ -37192,7 +37339,7 @@
    "publication_start": "2025-01-05",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 40 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1975/0199.00",
@@ -38367,6 +38514,22 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 32 מושבה גרמנית",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1975/0766.04",
+   "mahut": "שימוש חורג בקומה תחתונה לאולם מופעים.",
+   "sugbakasha": "שנוי יעוד המבנה",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 188,
+   "publication_start": "",
+   "publication_end_planned": "2001-12-20",
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "2",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "זאב ז'בוטינסקי 2",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -42043,6 +42206,38 @@
    "address": "אלעזר המודעי קטמון הישנה"
   },
   {
+   "tik_num": "1977/0456.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "15",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1977/0463.00",
+   "mahut": "בח",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דוד המלך",
+   "mispBait": "3",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "דוד המלך 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1977/0463.01",
    "mahut": "החלפת גגון",
    "sugbakasha": "שינויים בבנין קיים",
@@ -42054,6 +42249,86 @@
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי 22 טלביה/המוגרבים",
    "details_checked_on": "2026-10-23"
+  },
+  {
+   "tik_num": "1977/0463.10",
+   "mahut": "בניה מחדש של גגון זכוכית בכניסה למלון",
+   "sugbakasha": "הקמת סככה",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "",
+   "publication_end_planned": "2012-06-14",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1977/0463.11",
+   "mahut": "בניית מרפסת.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "נדונה ברשות הרישוי",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "",
+   "publication_end_planned": "2014-02-05",
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "3",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "זאב ז'בוטינסקי 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1977/0463.12",
+   "mahut": "תוספת בניה למלון קיים, הריסות ושינויים לצורך נגישות וחיזוק הבנין לרעידות אדמה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "3",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "זאב ז'בוטינסקי 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1977/0463.13",
+   "mahut": "תוכנית שינויים לתיק 12.463/1977 הרחבת מוצעת לחדר אשפה + מרפסת גג מוצעת",
+   "sugbakasha": "",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "2023-03-22",
+   "publication_end_planned": "",
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "3",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "זאב ז'בוטינסקי 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1977/0463.14",
+   "mahut": "הרחבת חדר אוכל במפלס כניסה",
+   "sugbakasha": "",
+   "status": "נדונה ברשות הרישוי",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 124,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "3",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "זאב ז'בוטינסקי 3",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1977/0486.00",
@@ -43241,12 +43516,15 @@
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30002,
+   "gush": 30198,
    "helka": 49,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "גנרל פייר קניג 20 תלפיות תעשיה",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1978/0060.02",
@@ -43254,12 +43532,15 @@
    "sugbakasha": "הכשרת שטח לחניה",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30002,
+   "gush": 30198,
    "helka": 49,
    "publication_start": "",
    "publication_end_planned": "1998-06-20",
-   "address": "גנרל פייר קניג 20 תלפיות תעשיה",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1978/0060.03",
@@ -45771,7 +46052,7 @@
    "status": "הופק היתר מוארך",
    "status_date": "",
    "gush": 30025,
-   "helka": 1,
+   "helka": 22,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחביה",
@@ -47509,6 +47790,22 @@
    "address": "מבצע קדש קטמון הישנה"
   },
   {
+   "tik_num": "1979/0371.00",
+   "mahut": "תדד",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1979/0401.00",
    "mahut": "",
    "sugbakasha": "בניה חדשה / בניין חדש",
@@ -48071,7 +48368,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0538.01",
@@ -48084,7 +48381,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0539.00",
@@ -48440,7 +48737,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 53 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0652.01",
@@ -48453,7 +48750,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 53 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0652.02",
@@ -48466,7 +48763,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0652.03",
@@ -48479,7 +48776,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0660.01",
@@ -48978,7 +49275,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0748.01",
@@ -48991,7 +49288,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1979/0757.05",
@@ -51574,6 +51871,102 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1980/0710.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1980/0710.01",
+   "mahut": "תוספת בניה לשתי דירות ומחסן",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1980/0710.02",
+   "mahut": "תוספת בניה לדירה בקומה א'",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "1993-04-02",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1980/0710.03",
+   "mahut": "בנית מחסן",
+   "sugbakasha": "בנית מחסן/מחסנים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1980/0710.04",
+   "mahut": "בנית מחסן",
+   "sugbakasha": "בנית מחסן/מחסנים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "1996-01-29",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1980/0710.05",
+   "mahut": "תוספת בניה בקומה שלישית מעל תוספת קיימת.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "6",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 6",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1980/0714.00",
    "mahut": "",
    "sugbakasha": "סגירת מרפסת",
@@ -52309,7 +52702,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 51 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1980/0942.01",
@@ -52322,7 +52715,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 51 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1980/0942.02",
@@ -52335,7 +52728,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 51 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1980/0942.03",
@@ -52348,7 +52741,7 @@
    "publication_start": "2025-01-02",
    "publication_end_planned": "",
    "address": "רמבן 51 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1980/0942.04",
@@ -52361,7 +52754,7 @@
    "publication_start": "2025-01-08",
    "publication_end_planned": "",
    "address": "רמבן 51 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1980/0961.00",
@@ -56084,7 +56477,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1981/1055.01",
@@ -56097,7 +56490,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1981/1061.00",
@@ -58941,7 +59334,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0190.01",
@@ -58954,7 +59347,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0190.02",
@@ -58967,7 +59360,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0192.04",
@@ -60081,7 +60474,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0595.01",
@@ -60094,7 +60487,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0595.02",
@@ -60107,7 +60500,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 38 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0621.00",
@@ -60250,6 +60643,38 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גונן ד",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1983/0662.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "15",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1983/0662.01",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "15",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 15",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -60965,6 +61390,38 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1983/0924.00",
+   "mahut": "",
+   "sugbakasha": "סגירת מרפסת",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 23,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "11",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1983/0924.01",
+   "mahut": "תוספת מרפסת",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 23,
+   "publication_start": "2023-02-21",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "11",
+   "schunaName": "גוננים",
+   "address": "רבי צדוק 11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1983/0932.00",
    "mahut": "",
    "sugbakasha": "בניית מרפסת",
@@ -61014,7 +61471,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0935.01",
@@ -61027,7 +61484,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0935.02",
@@ -61040,7 +61497,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1983/0963.00",
@@ -61999,7 +62456,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0142.00",
@@ -63054,7 +63511,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0369.00",
@@ -63561,7 +64018,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהודה אלחריזי 22 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0476.06",
@@ -63574,7 +64031,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהודה אלחריזי 22 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0478.00",
@@ -64673,6 +65130,86 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1984/0751.01",
+   "mahut": "תספת בניה.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "4",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1984/0751.02",
+   "mahut": "ריצוף גינה ובניית מעקה מסביב.",
+   "sugbakasha": "ריצוף חצר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "4",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1984/0751.03",
+   "mahut": "התקנת פרגולה",
+   "sugbakasha": "פרגולה",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "4",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1984/0751.04",
+   "mahut": "מרפסת סוכה.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2012-05-16",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "4",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1984/0751.05",
+   "mahut": "בקשה לשמוש חורג ממחסן למספרה.",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2012-05-16",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "4",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1984/0754.00",
    "mahut": "",
    "sugbakasha": "בניית מרפסת",
@@ -64774,7 +65311,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0781.01",
@@ -64787,7 +65324,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1984/0782.00",
@@ -66789,7 +67326,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.01",
@@ -66802,7 +67339,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.02",
@@ -66815,7 +67352,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.03",
@@ -66828,7 +67365,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.04",
@@ -66841,7 +67378,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחוב המלך גורג",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.05",
@@ -66854,7 +67391,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.06",
@@ -66867,7 +67404,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-04-28",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.07",
@@ -66880,7 +67417,7 @@
    "publication_start": "2016-08-22",
    "publication_end_planned": "2016-09-06",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.08",
@@ -66893,7 +67430,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.09",
@@ -66906,7 +67443,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0509.10",
@@ -66919,7 +67456,7 @@
    "publication_start": "2025-04-24",
    "publication_end_planned": "",
    "address": "רשב\"א 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0528.00",
@@ -67579,7 +68116,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0664.01",
@@ -67592,7 +68129,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0664.02",
@@ -67605,7 +68142,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 4 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0668.00",
@@ -67748,7 +68285,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0733.01",
@@ -67761,7 +68298,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0733.02",
@@ -67774,7 +68311,7 @@
    "publication_start": "2026-05-14",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1985/0760.00",
@@ -70139,7 +70676,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1986/0727.01",
@@ -70152,7 +70689,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1986/0727.02",
@@ -70165,7 +70702,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-11-16",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1986/0727.03",
@@ -70178,7 +70715,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1986/0727.04",
@@ -70191,7 +70728,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1986/0757.00",
@@ -71724,7 +72261,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1987/0258.01",
@@ -71737,7 +72274,7 @@
    "publication_start": "",
    "publication_end_planned": "1991-07-19",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1987/0258.02",
@@ -71750,7 +72287,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-10-13",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1987/0258.03",
@@ -71763,7 +72300,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1987/0276.00",
@@ -78685,6 +79222,38 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1988/0784.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 17,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "7",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 7",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1988/0784.01",
+   "mahut": "תוספת בניה על גג קיים.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "התקבל תיק ורוד / מסמכים חתומים",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 17,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "7",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 7",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1988/0786.00",
    "mahut": "",
    "sugbakasha": "שנוי יעוד המבנה",
@@ -79360,6 +79929,38 @@
    "address": "חנניה 6 מושבה גרמנית"
   },
   {
+   "tik_num": "1988/0994.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 19,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "11",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1988/0994.01",
+   "mahut": "בניית תוספת לדירה בקומה א ומעטפת בקומת הקרקע.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 19,
+   "publication_start": "",
+   "publication_end_planned": "2006-07-06",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "11",
+   "schunaName": "גוננים",
+   "address": "חוסה דה סן מרטין 11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1988/1004.00",
    "mahut": "",
    "sugbakasha": "תוספת בניה לדירות",
@@ -79769,7 +80370,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 27 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0078.01",
@@ -79782,7 +80383,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 27 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0078.02",
@@ -79795,7 +80396,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 27 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0078.03",
@@ -79808,7 +80409,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 27 קרית משה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0078.04",
@@ -79821,7 +80422,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-04-23",
    "address": "שד בן מימון (הרמב\"ם) 27 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0101.00",
@@ -80998,7 +81599,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0364.00",
@@ -83153,6 +83754,38 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1989/0699.00",
+   "mahut": "",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 22,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "13",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 13",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1989/0699.01",
+   "mahut": "שינוי מקום מרפסת מאושרת",
+   "sugbakasha": "תוכנית שינויים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 22,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "13",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 13",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1989/0700.00",
    "mahut": "תוספת",
    "sugbakasha": "תוספת בניה לדירות",
@@ -83487,7 +84120,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0769.01",
@@ -83500,7 +84133,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0769.02",
@@ -83513,7 +84146,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0769.03",
@@ -83526,7 +84159,7 @@
    "publication_start": "2026-10-18",
    "publication_end_planned": "2026-11-24",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0784.00",
@@ -83710,7 +84343,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0814.06",
@@ -83775,7 +84408,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גאולה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0819.03",
@@ -83788,7 +84421,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0819.04",
@@ -83801,7 +84434,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-12-02",
    "address": "רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0823.00",
@@ -84476,7 +85109,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0928.01",
@@ -84489,7 +85122,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-10-05",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0928.02",
@@ -84502,7 +85135,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-06-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0928.03",
@@ -84515,7 +85148,7 @@
    "publication_start": "2017-03-19",
    "publication_end_planned": "2017-04-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0928.04",
@@ -84528,7 +85161,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1989/0931.00",
@@ -85843,12 +86476,15 @@
    "sugbakasha": "עבודות סלילה",
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
-   "gush": 30027,
-   "helka": 104,
+   "gush": 30197,
+   "helka": 122,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "זאב ז'בוטינסקי טלביה",
-   "details_checked_on": "2026-10-23"
+   "rehovName": "זאב ז'בוטינסקי",
+   "mispBait": "",
+   "schunaName": "טלביה",
+   "address": "זאב ז'בוטינסקי",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1990/0171.00",
@@ -89323,6 +89959,22 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1990/0719.09",
+   "mahut": "סגירת חורף והחלפת ריצוף קיים בכניסה למסעדה.",
+   "sugbakasha": "סגירת חורף",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 119,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "עמק רפאים",
+   "mispBait": "38",
+   "schunaName": "מושבה גרמנית",
+   "address": "עמק רפאים 38",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1990/0721.00",
    "mahut": "תוספת בניה לגן ילדים",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -89890,6 +90542,38 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "1990/0873.00",
+   "mahut": "תוספת בניה עבור 18 דיירים",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 18,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "9",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 9",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/0873.01",
+   "mahut": "תוספת בניה עבור שתי דירות בדילוג על קומת קרקע",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 18,
+   "publication_start": "",
+   "publication_end_planned": "1991-09-13",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "9",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 9",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1990/0875.00",
    "mahut": "תוספת בניה בצמוד לבנין קיים",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -90303,6 +90987,54 @@
    "publication_end_planned": "",
    "address": "האר\"י 20 רחביה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "1990/0935.00",
+   "mahut": "תוספת בניה סטנדרטית עבור ארבעה דיירים",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "3",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/0935.01",
+   "mahut": "בנית מחסן",
+   "sugbakasha": "בנית מחסן/מחסנים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "1995-06-20",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "3",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/0935.02",
+   "mahut": "בניית מדרגות בין דירה קיימת למחסן קיים.",
+   "sugbakasha": "תוכנית שינויים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "3",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי 3",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1990/0946.00",
@@ -91009,6 +91741,86 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1990/1091.00",
+   "mahut": "הוספת קומה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/1091.01",
+   "mahut": "הוספת קומה , בנית מקלט וחניה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/1091.02",
+   "mahut": "שימוש חורג למרכז משרדים לתמיכה וליווי תושבים נכים.",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "2005-09-22",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/1091.03",
+   "mahut": "התקנת מעלית פנימית ושינויים פנימיים.",
+   "sugbakasha": "התקנת מעלית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1990/1091.04",
+   "mahut": "שימוש חורג ממסחר למרכז משרדים לתמיכה וליווי תושבים נכים ופרגולה",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 16,
+   "publication_start": "",
+   "publication_end_planned": "2013-01-29",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1990/1101.00",
    "mahut": "שמוש חורג ממשרד למרפאת שיניים",
    "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
@@ -91235,8 +92047,8 @@
    "sugbakasha": "תוספת בניה לדירות",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30173,
-   "helka": 153,
+   "gush": 30198,
+   "helka": 5,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 108 גוננים",
@@ -95240,17 +96052,36 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1991/0710.00",
+   "mahut": "תוספת בניה סטנדרטית ל- 24 - דיירים",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "143",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 143",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1991/0748.00",
    "mahut": "פיתוח שטח לפארק ,מגרשי ספורט , ואמפי תאטרון.",
    "sugbakasha": "הכשרת שטח לגן ציבורי",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 15,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "מרגולין 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "מרגולין",
+   "mispBait": "1",
+   "schunaName": "גונן ט",
+   "address": "מרגולין 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0748.01",
@@ -95258,12 +96089,15 @@
    "sugbakasha": "ריצוף חצר",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 14,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "מרגולין 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "מרגולין",
+   "mispBait": "1",
+   "schunaName": "גונן ט",
+   "address": "מרגולין 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0748.02",
@@ -95271,12 +96105,15 @@
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 15,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "רבי צדוק 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "רבי צדוק",
+   "mispBait": "1",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0748.03",
@@ -95284,12 +96121,15 @@
    "sugbakasha": "תוכנית שינויים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 15,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "רבי צדוק 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "רבי צדוק",
+   "mispBait": "1",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0748.04",
@@ -95297,12 +96137,15 @@
    "sugbakasha": "פרגולה",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 15,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "רבי צדוק 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "רבי צדוק",
+   "mispBait": "1",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0783.00",
@@ -95602,6 +96445,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1991/0898.00",
+   "mahut": "הגדלת שטח גן הילדים ע\"ח מרפסות קיימות",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "מעגלי יבנה",
+   "mispBait": "",
+   "schunaName": "מקור חיים",
+   "address": "מעגלי יבנה",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1991/0914.00",
    "mahut": "תוספת בניה ומחסן לדירה בקומת הקרקע",
    "sugbakasha": "תוספת בניה לדירות",
@@ -95742,7 +96601,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0920.01",
@@ -95755,7 +96614,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כיכר מגנס 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0920.02",
@@ -95768,7 +96627,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-10-18",
    "address": "כיכר מגנס 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0920.03",
@@ -95781,7 +96640,7 @@
    "publication_start": "2017-06-07",
    "publication_end_planned": "2017-07-04",
    "address": "מעלה יצחק שריון 2 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1991/0927.00",
@@ -96391,6 +97250,22 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1991/1044.00",
+   "mahut": "תוספת בניה לשישה דיירים",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 8,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "144",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 144",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1991/1051.00",
    "mahut": "תוספת בניה למוסך",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -96806,7 +97681,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1992/0071.01",
@@ -96819,7 +97694,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-10-11",
    "address": "סעדיה גאון 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1992/0071.02",
@@ -96832,7 +97707,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 16 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1992/0072.00",
@@ -99915,12 +100790,9 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30197,
-   "helka": 11,
+   "helka": 123,
    "publication_start": "",
    "publication_end_planned": "1993-09-29",
-   "rehovName": "יצחק אלחנן",
-   "mispBait": "4",
-   "schunaName": "עומריה",
    "address": "יצחק אלחנן 4",
    "details_checked_on": "2026-10-25"
   },
@@ -100956,7 +101828,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-12-26",
    "address": "רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1993/0727.01",
@@ -100969,7 +101841,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1993/0791.00",
@@ -101437,6 +102309,22 @@
    "publication_end_planned": "",
    "address": "הרכב 14 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "1994/0014.00",
+   "mahut": "תוספת בניה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "ממתין לאישור נוסח פרסום",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "14",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 14",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0017.00",
@@ -102261,7 +103149,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 45 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0483.01",
@@ -102274,7 +103162,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-11-21",
    "address": "רמבן 45 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0483.02",
@@ -102287,7 +103175,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 45 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0483.03",
@@ -102300,7 +103188,39 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 45 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1994/0494.00",
+   "mahut": "חטיבה עליונה (תוספת אגף )",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1994/0494.01",
+   "mahut": "תוספת בניה ושינויים",
+   "sugbakasha": "שינויים בבנין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0507.00",
@@ -102476,7 +103396,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-02-05",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.01",
@@ -102489,7 +103409,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.02",
@@ -102502,7 +103422,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-01-06",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.03",
@@ -102515,7 +103435,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.04",
@@ -102528,7 +103448,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.05",
@@ -102541,7 +103461,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.06",
@@ -102554,7 +103474,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.07",
@@ -102567,7 +103487,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0667.08",
@@ -102580,7 +103500,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0675.00",
@@ -102606,7 +103526,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 13 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1994/0706.00",
@@ -103291,7 +104211,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1995/0014.01",
@@ -103304,7 +104224,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1995/0020.00",
@@ -105255,6 +106175,54 @@
    "details_checked_on": "2026-10-22"
   },
   {
+   "tik_num": "1995/0703.00",
+   "mahut": "תוספת בניה לדירה בקומת הקרקע",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "147",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 147",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1995/0703.01",
+   "mahut": "הרחבת דירה ע\"פ תב\"ע.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "147",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 147",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1995/0703.02",
+   "mahut": "תוספת בניה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 48,
+   "publication_start": "",
+   "publication_end_planned": "2000-05-03",
+   "rehovName": "בר יוחאי",
+   "mispBait": "48",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 48",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1995/0718.00",
    "mahut": "תוספת בניה",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -106266,6 +107234,22 @@
    "details_checked_on": "2026-10-22"
   },
   {
+   "tik_num": "1995/0883.00",
+   "mahut": "תוספת בניה ל- 20 דיירים בעמודות שלמות",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 11,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "146",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 146",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1995/0914.00",
    "mahut": "בנין חדש",
    "sugbakasha": "בניה חדשה / בניין חדש",
@@ -106534,7 +107518,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-03-19",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0016.01",
@@ -106547,7 +107531,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0016.02",
@@ -106560,7 +107544,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0016.03",
@@ -106573,7 +107557,7 @@
    "publication_start": "2025-05-15",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0046.00",
@@ -106785,7 +107769,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0100.01",
@@ -106798,7 +107782,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-03-19",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0100.02",
@@ -106811,7 +107795,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0100.03",
@@ -106824,7 +107808,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-11-15",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0100.04",
@@ -106837,7 +107821,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0100.05",
@@ -106850,7 +107834,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/0104.00",
@@ -108479,6 +109463,22 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "1996/0649.00",
+   "mahut": "תוספת בניה ל-18 דירות",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 26,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "17",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 17",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1996/0655.00",
    "mahut": "התקנת מעלית בבנין קיים",
    "sugbakasha": "התקנת מעלית",
@@ -109450,7 +110450,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1066.01",
@@ -109463,7 +110463,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-08-16",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1066.02",
@@ -109476,7 +110476,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1066.03",
@@ -109489,7 +110489,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1066.04",
@@ -109502,7 +110502,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1066.05",
@@ -109515,7 +110515,23 @@
    "publication_start": "",
    "publication_end_planned": "2014-09-03",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1996/1071.00",
+   "mahut": "הרחבת דירות בעמודות שלמות ע\"פ תב\"ע.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 24,
+   "publication_start": "",
+   "publication_end_planned": "1996-12-22",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "15",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 15",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1996/1072.00",
@@ -111653,6 +112669,38 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "1997/0914.00",
+   "mahut": "הרחבת דירה בקומת העמודים ובניית גשר.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 7,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "148",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 148",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1997/0914.01",
+   "mahut": "תוספת חדר לדירה בקומת העמודים.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 7,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "148",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 148",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1997/0924.00",
    "mahut": "החלפת הגג הקיים והריסת גלריות פנימיות.",
    "sugbakasha": "יציקת תקרה",
@@ -112157,7 +113205,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0136.01",
@@ -112170,7 +113218,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0136.02",
@@ -112183,7 +113231,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-11-10",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0146.00",
@@ -112472,6 +113520,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1998/0325.00",
+   "mahut": "הרחבת דירות ב 4 עמודות.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "נדונה בועדת ערר",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "1998-07-16",
+   "rehovName": "רבי צדוק",
+   "mispBait": "13",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 13",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1998/0325.01",
+   "mahut": "הרחבות 8 דירות + מחסנים בשתי עמודות.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "13",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 13",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1998/0339.00",
    "mahut": "תוספת בניה בבנין קיים.",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -112482,7 +113562,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0339.01",
@@ -112495,7 +113575,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0339.02",
@@ -112508,7 +113588,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0339.03",
@@ -112521,7 +113601,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0339.04",
@@ -112534,7 +113614,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-07-15",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1998/0348.00",
@@ -113274,6 +114354,22 @@
    "mispBait": "4",
    "schunaName": "תלפיות תעשיה",
    "address": "מעשה חושב 4",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1998/0965.00",
+   "mahut": "סלילת כביש, הקמת קירות וגשרים, פיתוח נוף.",
+   "sugbakasha": "עבודות בדרכים",
+   "status": "התקבל תיק ורוד / מסמכים חתומים",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 50,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "שדרות מנחם בגין",
+   "mispBait": "1",
+   "schunaName": "בית וגן",
+   "address": "שדרות מנחם בגין 1",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -114034,7 +115130,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-06-09",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "1999/0294.00",
@@ -115128,6 +116224,102 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "1999/0811.01",
+   "mahut": "תוספת בניה עבור 3 יח\"ד",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 51,
+   "publication_start": "",
+   "publication_end_planned": "2008-12-09",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "15",
+   "schunaName": "מקור חיים",
+   "address": "גנרל פייר קניג 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1999/0822.00",
+   "mahut": "תוספת חדר לדירה בקומת עמודים.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "145",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 145",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1999/0822.01",
+   "mahut": "תוספת בניה על גג קיים.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "נדונה בועדת ערר",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "145",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 145",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1999/0822.02",
+   "mahut": "הריסת חלקי בנין ותוספת בניה לדירה קיימת בקומת קרקע.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "145",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 145",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1999/0822.03",
+   "mahut": "תוספת חדר מגורים לדירה קיימת.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "2007-01-16",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "145",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 145",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "1999/0822.04",
+   "mahut": "תוספת בנייה",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "2014-08-21",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "145",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 145",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "1999/0858.00",
    "mahut": "תרספת שתי קומות מעל בנין קיים",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -115415,12 +116607,15 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30169,
-   "helka": 2,
+   "gush": 30199,
+   "helka": 43,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "דב הוז 999 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "דב הוז",
+   "mispBait": "999",
+   "schunaName": "גונן ח",
+   "address": "דב הוז 999",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2000/0138.00",
@@ -116830,6 +118025,150 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2000/0861.00",
+   "mahut": "תוספת בניה ל-20 דירות.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.01",
+   "mahut": "תוספת בניה ל-17 יח דיור.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.02",
+   "mahut": "תוספת בניה לדירה קיימת ועבודות פיתוח בשתי חצרות.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.03",
+   "mahut": "תוספת חדר בקומת העמודים.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.04",
+   "mahut": "בניית חדר מדרגות מדירה קיימת לגג הבנין.",
+   "sugbakasha": "תוכנית שינויים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "2006-06-15",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.06",
+   "mahut": "בניית גשר גישה ופיתוח חצר.",
+   "sugbakasha": "פיתוח חצר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "2007-04-15",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.08",
+   "mahut": "תוספת ממ\"דים, תוספת מרפסות ושינוי בפיתוח השטח",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.09",
+   "mahut": "תוספת בניה(הכשרת בנייה קיימת).",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "8",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 8",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2000/0861.10",
+   "mahut": "תוספת בנייה עפ\"י תב\"ע",
+   "sugbakasha": "",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 18",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2000/0904.00",
    "mahut": "בנית פיר למעלית ופודסט",
    "sugbakasha": "התקנת מעלית",
@@ -116893,6 +118232,22 @@
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  4 מושבה גרמנית",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2000/0958.00",
+   "mahut": "הרחבת 20 דירות ע\"פ תב\"ע.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 33,
+   "publication_start": "",
+   "publication_end_planned": "2001-01-14",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "22",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 22",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2000/1015.00",
@@ -117398,7 +118753,7 @@
    "publication_start": "",
    "publication_end_planned": "2001-04-01",
    "address": "שד בן מימון (הרמב\"ם) 54 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0043.01",
@@ -117411,7 +118766,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-12-02",
    "address": "שד בן מימון (הרמב\"ם) 54 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0043.02",
@@ -117424,7 +118779,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 54 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0043.03",
@@ -117437,7 +118792,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 54 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0051.00",
@@ -117656,7 +119011,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0220.01",
@@ -117669,7 +119024,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0220.02",
@@ -117682,7 +119037,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-07-28",
    "address": "שד בן מימון (הרמב\"ם) 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0220.03",
@@ -117695,7 +119050,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 42 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0250.00",
@@ -118684,12 +120039,9 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30197,
-   "helka": 12,
+   "helka": 129,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "יצחק אלחנן",
-   "mispBait": "4",
-   "schunaName": "טלביה/המוגרבים",
    "address": "יצחק אלחנן 4",
    "details_checked_on": "2026-10-25"
   },
@@ -118968,6 +120320,22 @@
    "publication_end_planned": "",
    "address": "עמק רפאים 44 מושבה גרמנית",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2001/0567.01",
+   "mahut": "סוכך עונתי המגן על היושבים בבית העסק",
+   "sugbakasha": "סגירת חורף",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 119,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "עמק רפאים",
+   "mispBait": "44",
+   "schunaName": "מושבה גרמנית",
+   "address": "עמק רפאים 44",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2001/0567.02",
@@ -119363,6 +120731,54 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 7 קטמון הישנה"
+  },
+  {
+   "tik_num": "2002/0084.00",
+   "mahut": "שימוש חורג לחניון למשאיות+כלי רכב בשטח פנוי המיועד למגורים 5 ודרך",
+   "sugbakasha": "הכשרת שטח לחניה",
+   "status": "נדונה בועדת ערר",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2002-06-27",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2002/0084.01",
+   "mahut": "הצבת מבנה לשמירה יביל מתועש.",
+   "sugbakasha": "מבנה ארעי / מנ\"ד",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2004-04-16",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2002/0084.02",
+   "mahut": "בניית מבנה יביל לשומר.",
+   "sugbakasha": "מבנה ארעי / מנ\"ד",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2002/0087.00",
@@ -120795,6 +122211,54 @@
    "details_checked_on": "2026-10-22"
   },
   {
+   "tik_num": "2003/0213.00",
+   "mahut": "תוספת בניה עבור 10 דיירים בעמודות שלמות",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "106",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 106",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2003/0213.01",
+   "mahut": "היתר מתוקן ל-תוספת בניה ל-10 יח\"ד בשתי עמודות ללא ממדי\"ם.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "106",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 106",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2003/0213.02",
+   "mahut": "תוספת בניה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "106",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 106",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2003/0233.00",
    "mahut": "בנית פיר למעלית וחדר מכונות על גג הבנין",
    "sugbakasha": "התקנת מעלית",
@@ -120987,7 +122451,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 58 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2003/0350.00",
@@ -121053,6 +122517,22 @@
    "publication_end_planned": "2004-03-28",
    "address": "הלה 13 קטמון הישנה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2003/0392.00",
+   "mahut": "הריסת בנין קיים בן שתי קומות",
+   "sugbakasha": "עבודות הריסה",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 102,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "עמק רפאים",
+   "mispBait": "2",
+   "schunaName": "עומריה",
+   "address": "עמק רפאים 2",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2003/0393.00",
@@ -121732,6 +123212,38 @@
    "publication_end_planned": "",
    "address": "הנשיא 6 רחביה",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2004/0057.01",
+   "mahut": "שימוש חורג מתעשייה למסחר ( מחסני חשמל )",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2004/0057.02",
+   "mahut": "שימוש חורג מתעשייה למסחר, תיק עסק 1023147",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0061.00",
@@ -122504,7 +124016,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0247.01",
@@ -122517,7 +124029,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0249.00",
@@ -122674,6 +124186,70 @@
    "publication_end_planned": "",
    "address": "דוידזון 12 ניות",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2004/0290.01",
+   "mahut": "תוספת בניה.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 14,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "53",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 53",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2004/0290.02",
+   "mahut": "בנית מטבח בקומת עמודים כדוגמת הקיים במספר רב של דירות ברחוב.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 14,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2004/0290.03",
+   "mahut": "תוספת ממ\"ד וחדר לפי תב\"ע קיימת.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 14,
+   "publication_start": "",
+   "publication_end_planned": "2013-10-30",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2004/0290.04",
+   "mahut": "חידוש היתר לתיק מס' 2004/290.3",
+   "sugbakasha": "חידוש היתר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 14,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 5",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0300.00",
@@ -123307,7 +124883,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 39 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0630.01",
@@ -123320,7 +124896,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 39 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0653.00",
@@ -123398,7 +124974,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-04-26",
    "address": "רשב\"א 18 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0662.01",
@@ -123411,7 +124987,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 18 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0662.02",
@@ -123424,7 +125000,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 18 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0663.00",
@@ -123489,7 +125065,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-01-13",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0668.01",
@@ -123502,7 +125078,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-12-16",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2004/0689.00",
@@ -125090,7 +126666,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0447.01",
@@ -125103,7 +126679,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-11-22",
    "address": "רשב\"א 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0447.02",
@@ -125116,7 +126692,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0447.03",
@@ -125129,7 +126705,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0447.04",
@@ -125142,7 +126718,7 @@
    "publication_start": "2017-03-22",
    "publication_end_planned": "",
    "address": "רשב\"א 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0447.05",
@@ -125155,7 +126731,7 @@
    "publication_start": "2017-02-08",
    "publication_end_planned": "2017-02-21",
    "address": "רשב\"א 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2005/0454.00",
@@ -127389,6 +128965,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2006/0232.00",
+   "mahut": "שימוש חורג מתעשיה למסחר",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2006/0233.00",
+   "mahut": "שימוש חורג מתעשיה למסחר)טיפולים לא רפואים בגוף האדם(",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2006/0254.00",
    "mahut": "תוספת קומה להרחבת דירה קיימת.",
    "sugbakasha": "תוספת בניה לדירות",
@@ -128159,6 +129767,22 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "2006/0644.02",
+   "mahut": "תוספת לבנין קיים.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "2013-04-25",
+   "rehovName": "בר יוחאי",
+   "mispBait": "12",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 12",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2006/0684.00",
    "mahut": "הגבהת גדר קיים בשני שורות אבן.",
    "sugbakasha": "בניית גדר גבוהה מ 1.5 מטר",
@@ -128326,6 +129950,38 @@
    "publication_end_planned": "",
    "address": "יהודה אלקלעי 6 טלביה/המוגרבים",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2006/0796.00",
+   "mahut": "תוספת בניה על גג קיים",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 17,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "7",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 7",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2006/0802.00",
+   "mahut": "תוספות בניה ומרפסות .",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 8,
+   "publication_start": "",
+   "publication_end_planned": "2007-06-13",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "144",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 144",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2006/0809.00",
@@ -128859,6 +130515,54 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "2007/0104.00",
+   "mahut": "בניית מרפסת לדירה בקומה ב.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "802",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 802",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0104.01",
+   "mahut": "בניית מרפסת זיז.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "2009-01-29",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "802",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 802",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0104.02",
+   "mahut": "ריצוף חצר קיימת בדק עץ",
+   "sugbakasha": "ריצוף חצר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 5,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "802",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 802",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2007/0109.00",
    "mahut": "בניית מרפסת לדירה בקומה ג",
    "sugbakasha": "בניית מרפסת",
@@ -129169,7 +130873,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.01",
@@ -129182,7 +130886,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.02",
@@ -129195,7 +130899,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-02-11",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.03",
@@ -129208,7 +130912,7 @@
    "publication_start": "2017-07-25",
    "publication_end_planned": "2017-08-08",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.04",
@@ -129221,7 +130925,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.05",
@@ -129234,7 +130938,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.06",
@@ -129247,7 +130951,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0187.07",
@@ -129260,7 +130964,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 32 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0213.00",
@@ -129573,6 +131277,86 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2007/0339.00",
+   "mahut": "שימוש חורג מתעשיה למסחר.",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "2007-11-19",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0339.01",
+   "mahut": "שימוש חורג משטח תעשיה לחנות ספורט",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "2008-03-18",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "מקור חיים",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0339.02",
+   "mahut": "שימוש חורג מתעשיה למסחר לצמיתות",
+   "sugbakasha": "",
+   "status": "תום תקופת פרסום",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "2019-01-09",
+   "publication_end_planned": "2019-01-22",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות תעשיה",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0339.03",
+   "mahut": "שימוש חורג ממסחר לתיכון בנים",
+   "sugbakasha": "",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0339.04",
+   "mahut": "שימוש חורג ממסחר לתיכון בנים",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 49,
+   "publication_start": "2026-03-08",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "תלפיות",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2007/0340.00",
    "mahut": "שימוש חורג מתעשיה למסחר ) מכירת רהיטים (",
    "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
@@ -129714,6 +131498,38 @@
    "publication_end_planned": "2008-05-06",
    "address": "הרכבת 40 מושבה גרמנית",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2007/0390.00",
+   "mahut": "תוספת בניה ומחסן לדירה קיימת.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 1,
+   "publication_start": "",
+   "publication_end_planned": "2007-10-25",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "5",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2007/0390.01",
+   "mahut": "בניית מרפסת",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 1,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "5",
+   "schunaName": "קטמון הישנה",
+   "address": "רבן יוחנן בן זכאי 5",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2007/0395.00",
@@ -130608,6 +132424,22 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "2008/0273.00",
+   "mahut": "תוספת בניה לדירה בקומת קרקע.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "52",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 52",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2008/0288.00",
    "mahut": "תוספת קומה הכוללת 2 דירות",
    "sugbakasha": "תוספת בניה לדירות",
@@ -130683,7 +132515,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-09-22",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.01",
@@ -130696,7 +132528,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.02",
@@ -130709,7 +132541,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.03",
@@ -130722,7 +132554,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.04",
@@ -130735,7 +132567,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-08-31",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.05",
@@ -130748,7 +132580,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0357.06",
@@ -130761,7 +132593,7 @@
    "publication_start": "2018-01-03",
    "publication_end_planned": "2018-01-16",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0387.00",
@@ -130788,6 +132620,22 @@
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 26 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2008/0387.02",
+   "mahut": "חידוש היתר מס' 102477 בתיק מספר 08/387.1",
+   "sugbakasha": "חידוש היתר",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 18,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "26",
+   "schunaName": "מושבה גרמנית",
+   "address": "גנרל פייר קניג 26",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0387.03",
@@ -130840,6 +132688,22 @@
    "publication_end_planned": "",
    "address": "רחל אמנו 1 המושבה היוונית",
    "details_checked_on": "2026-10-22"
+  },
+  {
+   "tik_num": "2008/0395.00",
+   "mahut": "הטמנת צובר גז",
+   "sugbakasha": "התקנת מתקנים מיוחדים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 119,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "עמק רפאים",
+   "mispBait": "27",
+   "schunaName": "מושבה גרמנית",
+   "address": "עמק רפאים 27",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0401.00",
@@ -130926,7 +132790,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0474.00",
@@ -131515,6 +133379,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2008/0653.00",
+   "mahut": "תוספת בניה בחזית דרומית ליח\"ד אחת בקומת הקרקע.",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 33,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "22",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 22",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2008/0653.01",
+   "mahut": "תוספת בניה בקומת כניסה + משטח מרוצף לא מקורה ומרתף",
+   "sugbakasha": "",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 33,
+   "publication_start": "2022-06-07",
+   "publication_end_planned": "2022-08-09",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "22",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 22",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2008/0654.00",
    "mahut": "שימוש חורג מתעשייה למסחר ( מזנון בורקס) תיק עסק 1015547",
    "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
@@ -131675,6 +133571,38 @@
    "publication_end_planned": "",
    "address": "חרלפ 58 גבעת הורדים",
    "details_checked_on": "2026-10-23"
+  },
+  {
+   "tik_num": "2008/0732.00",
+   "mahut": "תוספת בניה ל4 יח' דיור ומחסנים",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "1",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 1",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2008/0732.01",
+   "mahut": "בניית מחסן וריצוף",
+   "sugbakasha": "בנית מחסן/מחסנים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "1",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2008/0740.00",
@@ -132394,6 +134322,22 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "2009/0325.00",
+   "mahut": "חידוש היתר לתורן ועליו 4 אנטנות + אנטנת מיקרו",
+   "sugbakasha": "מתקן שידור / אנטנה סלולרית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 18,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "20",
+   "schunaName": "מושבה גרמנית",
+   "address": "גנרל פייר קניג 20",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2009/0338.00",
    "mahut": "תוספת ושינויים כדלקמן: תוספת  2 יח\"ד, הפיכת שטח חניה ומחסנים לקומת מסחר והרחבת דיור קיימות.",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -132997,6 +134941,86 @@
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 40 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2009/0641.00",
+   "mahut": "שיפוץ והרחבת מגרש ספורט-כדורגל קיים ופיתוח שטח.",
+   "sugbakasha": "הכשרת מגרשי ספורט",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 22,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "52",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 52",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2009/0648.00",
+   "mahut": "תוספת בניה, מחסן, ממ\"ד ריצוף חצר ופרגולה עבור יח\"ד אחת",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "2010-06-07",
+   "rehovName": "בר יוחאי",
+   "mispBait": "13",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 13",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2009/0648.01",
+   "mahut": "תוספת בניה לדירה בקומת הקרקע",
+   "sugbakasha": "תוספת בניה לדירות",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "10",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 10",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2009/0648.02",
+   "mahut": "תוספת בניה",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "14",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 14",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2009/0648.03",
+   "mahut": "תוספת בניה / הרחבה לבניין קיים",
+   "sugbakasha": "",
+   "status": "ממתין לאישור נוסח פרסום",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 3,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "10",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 10",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2009/0672.00",
@@ -134166,6 +136190,22 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "2010/0492.00",
+   "mahut": "בניית גדר בחלקה המשמשת כבית עלמין",
+   "sugbakasha": "בניית גדר גבוהה מ 1.5 מטר",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 119,
+   "publication_start": "",
+   "publication_end_planned": "2010-09-21",
+   "rehovName": "עמק רפאים",
+   "mispBait": "39",
+   "schunaName": "מושבה גרמנית",
+   "address": "עמק רפאים 39",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2010/0523.00",
    "mahut": "תוספת ממ'ד ומחסן לדירה קיימת",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -134202,6 +136242,22 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרכבת 32 מושבה גרמנית"
+  },
+  {
+   "tik_num": "2010/0584.00",
+   "mahut": "תוספת בנייה.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "33",
+   "schunaName": "גונן ט",
+   "address": "אברהם אלמליח 33",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2010/0593.00",
@@ -134772,6 +136828,38 @@
    "publication_end_planned": "",
    "address": "רמבן 47 רחביה",
    "details_checked_on": "2026-10-23"
+  },
+  {
+   "tik_num": "2010/0875.00",
+   "mahut": "תוספת בינוי לבניין קיים.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 7,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "21",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 21",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2010/0875.01",
+   "mahut": "בקשה לתוספת בנייה + מחסן",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 7,
+   "publication_start": "",
+   "publication_end_planned": "2012-07-20",
+   "rehovName": "בר יוחאי",
+   "mispBait": "21",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 21",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2010/0884.00",
@@ -135986,7 +138074,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-04-27",
    "address": "רמבן 45 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0174.02",
@@ -136544,6 +138632,22 @@
    "address": "קטמון הישנה"
   },
   {
+   "tik_num": "2011/0399.00",
+   "mahut": "הרחבת יח\"ד",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "2011-07-18",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "גונן ט",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2011/0420.00",
    "mahut": "מבנה טרומי יביל המשמש משרד למגרש מכירת רכב",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -136656,7 +138760,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0472.00",
@@ -136827,6 +138931,22 @@
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ט",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2011/0567.00",
+   "mahut": "ביה\"ס יסודי  24 כיתות",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 181,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0586.00",
@@ -137171,7 +139291,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-09-12",
    "address": "בנימין מטודלה 34 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0727.01",
@@ -137184,7 +139304,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 34 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0730.00",
@@ -137420,6 +139540,22 @@
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 78 גבעת הורדים",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2011/0787.00",
+   "mahut": "תוספת בניה לדירה בקומת הקרקע",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 17,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "3",
+   "schunaName": "גונן ט",
+   "address": "בר יוחאי 3",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0792.00",
@@ -137812,6 +139948,22 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "2011/0899.00",
+   "mahut": "תוספת מרפסת על עמודים ללא תוספת שטח.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 20,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבי צדוק",
+   "mispBait": "15",
+   "schunaName": "גונן ט",
+   "address": "רבי צדוק 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2011/0926.00",
    "mahut": "תוספת פיר מעלית פנימית ללא חדר מכונות.",
    "sugbakasha": "התקנת מעלית",
@@ -137991,7 +140143,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0967.01",
@@ -138004,7 +140156,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0967.02",
@@ -138017,7 +140169,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0967.03",
@@ -138030,7 +140182,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 31 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2011/0968.00",
@@ -138538,7 +140690,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-03-12",
    "address": "שד בן מימון (הרמב\"ם) 60 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2012/0139.01",
@@ -138551,7 +140703,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-11-13",
    "address": "שד בן מימון (הרמב\"ם) 60 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2012/0154.00",
@@ -141399,6 +143551,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2013/0565.00",
+   "mahut": "פתיחת חלונות בדירה קיימת",
+   "sugbakasha": "שינויים בקירות חזית במבנים קיימים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "קטמון הישנה",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2013/0569.00",
+   "mahut": "שימוש חורג משטח ציבורי למגרש לשטיפת מכוניות, תיק עסק 8034879",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 59,
+   "publication_start": "",
+   "publication_end_planned": "2013-10-10",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "999",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 999",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2013/0574.00",
    "mahut": "שימוש חורג משטח שירות בחניון לקרטינג, תיק עסק 1023396",
    "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
@@ -141412,6 +143596,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2013/0577.00",
+   "mahut": "תוספת מגורים",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 7,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "גוננים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2013/0577.01",
    "mahut": "שימוש חורג לקארטינג, תיק עסק 1023396",
    "sugbakasha": "",
@@ -141423,6 +143623,22 @@
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2013/0607.00",
+   "mahut": "הצבת מבנה יביל מתועש",
+   "sugbakasha": "מבנה ארעי / מנ\"ד",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0616.00",
@@ -141537,6 +143753,38 @@
    "publication_start": "2020-07-22",
    "publication_end_planned": "",
    "address": "לויד גורג 13 מושבה גרמנית",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2013/0687.00",
+   "mahut": "בקשה ל3- מרפסות חופפות",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2013-12-11",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "1",
+   "schunaName": "קטמון הישנה",
+   "address": "אברהם אלמליח 1",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2013/0687.01",
+   "mahut": "בקשה למרפסות חופופת.",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "",
+   "publication_end_planned": "2014-06-12",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "1",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 1",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -141683,7 +143931,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 59 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0785.01",
@@ -141696,7 +143944,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 59 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0785.02",
@@ -141709,7 +143957,7 @@
    "publication_start": "2017-03-21",
    "publication_end_planned": "2017-04-04",
    "address": "רמבן 59 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0785.03",
@@ -141722,7 +143970,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 59 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0785.04",
@@ -141735,7 +143983,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 59 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2013/0805.00",
@@ -142913,6 +145161,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2014/0256.00",
+   "mahut": "בניית תוספות בהתאם לתמ\"א 38 לחיזוק הבניין מפני רעידות אדמה.",
+   "sugbakasha": "תמ\"א 38 - תוספות",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "2014-05-21",
+   "rehovName": "בר יוחאי",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 18",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2014/0260.00",
    "mahut": "תוספת בניה לשני יחידות דיור עפ\"י תב\"ע 4565ב'",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
@@ -144005,7 +146269,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2014/0749.01",
@@ -144018,7 +146282,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2014/0798.00",
@@ -144083,6 +146347,22 @@
    "publication_start": "",
    "publication_end_planned": "2015-09-09",
    "address": "קטמון הישנה"
+  },
+  {
+   "tik_num": "2014/0842.00",
+   "mahut": "שימוש חורג מתעשיה למסחר.",
+   "sugbakasha": "רישוי בניה - שימוש חורג מהיתר",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "",
+   "publication_end_planned": "2014-12-08",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "גבעת המטוס",
+   "address": "",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2014/0847.00",
@@ -144302,7 +146582,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"א 17 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0031.00",
@@ -144431,7 +146711,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-03-02",
    "address": "דרך עזה 54 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0073.00",
@@ -144509,7 +146789,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-05-14",
    "address": "אבן עזרא 26 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0107.00",
@@ -144593,6 +146873,38 @@
    "mispBait": "18",
    "schunaName": "נוה שאנן/ניות",
    "address": "ניות 18",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2015/0139.00",
+   "mahut": "פריצת פתחים להנגשה ושיפוץ מעונות יום הגדלת פתחים קיימים.",
+   "sugbakasha": "ביצוע שיפור הנגישות לבניין ובתוכו",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "גוננים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2015/0139.01",
+   "mahut": "פריצת פתחים חדשים הגדלת חלונות שינויים פנימיים במבנה ובניית רמפה לצורך הנגשה",
+   "sugbakasha": "שינויים בקירות חזית במבנים קיימים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 21,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 5",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -144773,7 +147085,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-04-23",
    "address": "שד בן מימון (הרמב\"ם) 39 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0209.01",
@@ -144786,7 +147098,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 39 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0209.02",
@@ -144799,7 +147111,7 @@
    "publication_start": "2021-08-31",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 39 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0210.00",
@@ -145603,6 +147915,22 @@
    "address": "ריש לקיש 10 המושבה היוונית"
   },
   {
+   "tik_num": "2015/0591.00",
+   "mahut": "בניית תוספות בניה בהתאם לתמ\"א 38 ותכנית 10038 - חיזוק הבניין מפני רעידות אדמה.",
+   "sugbakasha": "תמ\"א 38 - תוספות",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "15",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2015/0626.00",
    "mahut": "בקשה לתוספת בניה לבניין קיים, שינוי שטח משירות לעיקרי ותוספת מרפסת זיז",
    "sugbakasha": "בניית מרפסת",
@@ -145692,6 +148020,22 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "2015/0683.00",
+   "mahut": "בניית תוספות בהתאם לתמ\"א 38 ותכנית 10038 - חיזוק הבניין מפני רעידות אדמה.",
+   "sugbakasha": "תמ\"א 38 - תוספות",
+   "status": "הבקשה נגנזה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 8,
+   "publication_start": "",
+   "publication_end_planned": "2015-12-21",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "144",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 144",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2015/0701.00",
    "mahut": "תוספת שערים, בולדרים לחנייה ומחסן טרומי פריק",
    "sugbakasha": "מחסן טרומי פריק",
@@ -145702,7 +148046,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0701.01",
@@ -145715,7 +148059,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0718.00",
@@ -145844,6 +148188,54 @@
    "publication_end_planned": "",
    "address": "אנטיגנוס 31 גוננים",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2015/0763.00",
+   "mahut": "בניית תוספות בהתאם לתמ\"א 38 ותכנית 10038 - חיזוק הבניין מפני רעידת אדמה.",
+   "sugbakasha": "תמ\"א 38 - תוספות",
+   "status": "אושר ע\"י מהנדס העיר",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 9,
+   "publication_start": "2019-06-17",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "32",
+   "schunaName": "גוננים",
+   "address": "חוסה דה סן מרטין 32",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2015/0763.01",
+   "mahut": "חידוש היתר מס 337611 - בניית תוספות בהתאם לתמא 38 ותכנית 10038 - חיזוק הבנין בפני רעידות אדמה.",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "32",
+   "schunaName": "גוננים",
+   "address": "חוסה דה סן מרטין 32",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2015/0763.02",
+   "mahut": "תכנית שינויים לתיק 15/763 - תמ\"א 38",
+   "sugbakasha": "",
+   "status": "אושר ע\"י מהנדס העיר",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 9,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "32",
+   "schunaName": "גוננים",
+   "address": "חוסה דה סן מרטין 32",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2015/0784.00",
@@ -146734,7 +149126,7 @@
    "publication_start": "2020-01-09",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/0212.01",
@@ -146747,7 +149139,55 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0226.00",
+   "mahut": "שימוש חורג ממגורים  למכירה והשכרת רכב , תיק עסק 1023817",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 1,
+   "publication_start": "2016-02-28",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "תלפיות תעשיה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0226.01",
+   "mahut": "שימוש חורג מייעוד מגורים לחניון כלי רכב ומכירתם ושימוש חורג ממבנה יביל מתועש למשרד מכירות.\r\nתיק עסק מס 1023817",
+   "sugbakasha": "",
+   "status": "תום תקופת פרסום",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 1,
+   "publication_start": "2024-07-17",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0226.02",
+   "mahut": "שמוש חורג ממגורים לתעשייה, חניון רכבים, אחסנה פתוחה ועבודות פיתוח: חציבה ומילוי, אספלט, מדרגות ומסלעה",
+   "sugbakasha": "",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 212,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "26",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 26",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/0237.00",
@@ -146893,6 +149333,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2016/0302.00",
+   "mahut": "תוספת מרפסות סוכה לחמש יחידות דיור",
+   "sugbakasha": "בניית מרפסת",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 2,
+   "publication_start": "2016-05-22",
+   "publication_end_planned": "2016-06-07",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "1",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 1",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2016/0309.00",
    "mahut": "הריסה מבנה קיים והקמת בניין בן 6 קומות מעל קומת חניה + מחסנים תת קרקעית למגורים בהתאם לתמ\"א 38 ותכנית 10038 - חיזוק הבניין מפני רעידות אדמה.",
    "sugbakasha": "תמ\"א 38 - תוספות",
@@ -146997,6 +149453,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2016/0358.00",
+   "mahut": "תוספת ממ\"ד וחדר לפי תב\"ע קיימת",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 14,
+   "publication_start": "2017-06-20",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2016/0397.00",
    "mahut": "בניית תוספות בהתאם לתמ\"א 38 ותכנית 10038 - חיזוק הבניין מפני רעידות אדמה.",
    "sugbakasha": "תמ\"א 38 - תוספות",
@@ -147020,6 +149492,38 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יד חרוצים 5 תלפיות"
+  },
+  {
+   "tik_num": "2016/0419.00",
+   "mahut": "בנין מגורים בן 3 קומות, עליית גג  ומרתף, 3 יח\"ד, פיתוח שטח וגדרות.",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 201,
+   "publication_start": "2017-08-27",
+   "publication_end_planned": "2017-09-19",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "מושבה גרמנית",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0419.01",
+   "mahut": "חידוש היתר מס' 112944",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 201,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "סגן כהן",
+   "mispBait": "1",
+   "schunaName": "מושבה גרמנית",
+   "address": "סגן כהן 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/0420.00",
@@ -147244,7 +149748,7 @@
    "publication_start": "2017-02-02",
    "publication_end_planned": "",
    "address": "י. אלפסי 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/0534.00",
@@ -147615,7 +150119,7 @@
    "publication_start": "2016-09-27",
    "publication_end_planned": "2016-11-08",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/0785.00",
@@ -147826,6 +150330,54 @@
    "details_checked_on": "2026-10-25"
   },
   {
+   "tik_num": "2016/0876.00",
+   "mahut": "תיאטרון ומשרדים לתאטרון הקרון",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 198,
+   "publication_start": "2016-08-03",
+   "publication_end_planned": "2016-08-16",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0876.01",
+   "mahut": "חפירה עבור תאטרון הקרון (ת.ב. 2016/876)",
+   "sugbakasha": "חפירה ומילוי",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 198,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0876.02",
+   "mahut": "תכנית שינויים בסמכות מהנדס עיר לתאטרון הקרון ת.ב 2016/876",
+   "sugbakasha": "",
+   "status": "אושר ע\"י מהנדס העיר",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 198,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2016/0883.00",
    "mahut": "התקנת מעלית פנימית בפיר מדרגות בבניין קיים",
    "sugbakasha": "התקנת מעלית",
@@ -147904,6 +150456,22 @@
    "publication_start": "2019-02-25",
    "publication_end_planned": "2019-03-12",
    "address": "ניקנור 27 גוננים",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2016/0924.00",
+   "mahut": "דרכים-סלילת כביש חדש,  בניית גדר אבן בגובה 1.50 מ'",
+   "sugbakasha": "עבודות בדרכים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30285,
+   "helka": 207,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "מעמל א תלג",
+   "mispBait": "",
+   "schunaName": "בית צפפה",
+   "address": "מעמל א תלג",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -148136,6 +150704,22 @@
    "publication_end_planned": "",
    "address": "צרת 1 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2016/1060.00",
+   "mahut": "שימוש חורג מפנימייה לבית אבות, תיק עסק 7023010",
+   "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30286,
+   "helka": 58,
+   "publication_start": "2017-02-06",
+   "publication_end_planned": "",
+   "rehovName": "דרך משה ברעם",
+   "mispBait": "29",
+   "schunaName": "בית צפפה",
+   "address": "דרך משה ברעם 29",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/1083.00",
@@ -148771,6 +151355,22 @@
    "publication_start": "2017-02-07",
    "publication_end_planned": "2017-02-21",
    "address": "יורדי הסירה 7 קטמון הישנה"
+  },
+  {
+   "tik_num": "2016/1352.00",
+   "mahut": "תוספת בנייה, מרפסת וממ\"ד ליח\"ד קיימת.",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 2,
+   "publication_start": "2017-03-07",
+   "publication_end_planned": "2017-03-28",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "1",
+   "schunaName": "המושבה היוונית",
+   "address": "רבן יוחנן בן זכאי 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2016/1363.00",
@@ -150168,6 +152768,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2017/0668.00",
+   "mahut": "תוספת ע\"פ תב\"ע + ממ\"ד",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 13,
+   "publication_start": "2017-12-11",
+   "publication_end_planned": "2017-12-26",
+   "rehovName": "בר יוחאי",
+   "mispBait": "7",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 7",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2017/0669.00",
    "mahut": "שינויי בפתחים: הארכת 5 פתחים קיימים בחזית בניין בית ספר סאלד",
    "sugbakasha": "שינויים בקירות חזית במבנים קיימים",
@@ -150798,12 +153414,15 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הבקשה נסגרה",
    "status_date": "",
-   "gush": 30139,
-   "helka": 403,
+   "gush": 30285,
+   "helka": 1,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "אשר וינר רמת רחל",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "אשר וינר",
+   "mispBait": "",
+   "schunaName": "רמת רחל",
+   "address": "אשר וינר",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2017/0976.01",
@@ -150811,12 +153430,15 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30139,
-   "helka": 403,
+   "gush": 30285,
+   "helka": 1,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "אשר וינר 0 רמת רחל",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "אשר וינר",
+   "mispBait": "0",
+   "schunaName": "רמת רחל",
+   "address": "אשר וינר 0",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2017/0978.00",
@@ -150927,8 +153549,8 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30172,
-   "helka": 147,
+   "gush": 30200,
+   "helka": 18,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת יעקב פת",
@@ -151023,7 +153645,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2018/0027.01",
@@ -151036,7 +153658,7 @@
    "publication_start": "2025-09-17",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2018/0045.00",
@@ -152188,6 +154810,22 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2019/0124.00",
+   "mahut": "עבודות מקדימות עבור הרכבת הקלה - הקו הכחול",
+   "sugbakasha": "",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 64,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דוד אילון",
+   "mispBait": "0",
+   "schunaName": "מנחת",
+   "address": "דוד אילון 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2019/0129.00",
    "mahut": "היתר ע\"פ תב\"ע",
    "sugbakasha": "",
@@ -152225,6 +154863,22 @@
    "publication_end_planned": "",
    "address": "דרך עזה 30 רחביה",
    "details_checked_on": "2026-10-23"
+  },
+  {
+   "tik_num": "2019/0143.00",
+   "mahut": "עבודות מקדימות עבור הרכבת הקלה - jnet",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 64,
+   "publication_start": "2019-06-16",
+   "publication_end_planned": "2019-06-21",
+   "rehovName": "דוד אילון",
+   "mispBait": "0",
+   "schunaName": "מנחת",
+   "address": "דוד אילון 0",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2019/0164.00",
@@ -152583,6 +155237,38 @@
    "publication_end_planned": "",
    "address": "הפלמח 25 קטמון הישנה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2019/0514.02",
+   "mahut": "היתר שינויים לתיק 00.514/2019, התאמות תכנון תוספת מחסנים ושטחי שירות, ושלביות איכלוס.",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 97,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "",
+   "schunaName": "קטמון הישנה",
+   "address": "חוסה דה סן מרטין",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2019/0514.03",
+   "mahut": "היתר שינוים עבור תוספת מחסנים בקומות חניון קרקע וגלריה והתאמות תכנון בניין B",
+   "sugbakasha": "",
+   "status": "הבקשה נסגרה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 97,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "",
+   "schunaName": "קטמון הישנה",
+   "address": "חוסה דה סן מרטין",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2019/0526.00",
@@ -153296,6 +155982,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2020/0288.00",
+   "mahut": "חדרי שירותים ציבוריים למשתמשי פארק אלמליח ותחנת ארנה",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 64,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דוד אילון",
+   "mispBait": "0",
+   "schunaName": "מנחת",
+   "address": "דוד אילון 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2020/0322.00",
+   "mahut": "הריסת מגרשי טניס וקירוי קל קיים, וחפירה.",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 36,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דוד אילון",
+   "mispBait": "0",
+   "schunaName": "גוננים",
+   "address": "דוד אילון 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2020/0325.00",
    "mahut": "תוספת בנייה, תוספת עמודת ממ\"דים ומרפסות, וכן שינויים בפתחים הקיימים.",
    "sugbakasha": "",
@@ -153319,7 +156037,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2020/0333.00",
@@ -153359,6 +156077,22 @@
    "publication_end_planned": "",
    "address": "דרך בית לחם 152 תלפיות",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2020/0345.00",
+   "mahut": "מרכז טניס הכולל מגרשי ספורט שימושים תומכים ומסחר.",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 36,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דוד אילון",
+   "mispBait": "0",
+   "schunaName": "גוננים",
+   "address": "דוד אילון 0",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2020/0355.00",
@@ -153423,6 +156157,38 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלזה לסקר שילר 1 נוה שאנן/ניות",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2020/0361.00",
+   "mahut": "פינוי בינוי- בניית שתי בנייני מגורים בני 17 ו- 9 קומות ע\"ג מסד מסחרי- 126 יח\"ד",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 95,
+   "publication_start": "2020-12-17",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "3",
+   "schunaName": "גונן ט",
+   "address": "חוסה דה סן מרטין 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2020/0361.02",
+   "mahut": "שינויים לחניון ת\"ק עקב דרישה לשימור עץ ותוספת 4 יח\"ד בבנין 1 למאושר בהיתר 117898 (ללא תוספת שטחים עבור יח\"ד)",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 103,
+   "publication_start": "2023-07-26",
+   "publication_end_planned": "2023-08-08",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "3",
+   "schunaName": "קטמון הישנה",
+   "address": "חוסה דה סן מרטין 3",
    "details_checked_on": "2026-10-25"
   },
   {
@@ -153554,6 +156320,22 @@
    "publication_end_planned": "",
    "address": "בנימין מטודלה 8 רחביה",
    "details_checked_on": "2026-10-23"
+  },
+  {
+   "tik_num": "2020/0502.00",
+   "mahut": "תוספת בניה",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 9,
+   "publication_start": "2020-12-06",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "19",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 19",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2020/0521.00",
@@ -154416,8 +157198,8 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30172,
-   "helka": 167,
+   "gush": 30200,
+   "helka": 33,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת יעקב 0 תלפיות",
@@ -154525,7 +157307,7 @@
    "publication_start": "2021-10-31",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 28 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2021/0333.00",
@@ -154761,7 +157543,7 @@
    "publication_start": "2021-12-20",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2021/0507.01",
@@ -154774,7 +157556,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2021/0507.02",
@@ -154787,7 +157569,7 @@
    "publication_start": "2026-06-30",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2021/0535.00",
@@ -155210,6 +157992,54 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2022/0246.00",
+   "mahut": "היתר הריסה חפירה ודיפון עבור 210 יח\"ד- התחדשות עירונית",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "15",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2022/0246.01",
+   "mahut": "היתר ראשי לבניין 1 מתכנית פינוי בינוי סה\"כ 210 יח\"ד",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "15",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2022/0246.02",
+   "mahut": "תוספת 3 קומות מגורים עם ניוד של 7 יח\"ד מכלל הפרויקט ותוספת 7 ממ\"דים. תוספת מחסנים וחניות במרתפים בהתאם לתוספת יח\"ד.  שינוי בחלוקה בקומת קרקע.",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 40,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "15",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 15",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2022/0287.00",
    "mahut": "שינוי יעוד מחסנים חדר הסקה ומסדרון ליחידת מוזאון לאומנות מקומית כחלק מתמ\"א 38",
    "sugbakasha": "",
@@ -155555,12 +158385,9 @@
    "status": "הגשה מקוונת הושלמה",
    "status_date": "",
    "gush": 30197,
-   "helka": 79,
+   "helka": 161,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "דרך בית לחם",
-   "mispBait": "0",
-   "schunaName": "טלביה/המוגרבים",
    "address": "דרך בית לחם 0",
    "details_checked_on": "2026-10-25"
   },
@@ -155571,12 +158398,9 @@
    "status": "שולמה מקדמה",
    "status_date": "",
    "gush": 30197,
-   "helka": 79,
+   "helka": 161,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "דרך בית לחם",
-   "mispBait": "0",
-   "schunaName": "מושבה גרמנית",
    "address": "דרך בית לחם 0",
    "details_checked_on": "2026-10-25"
   },
@@ -155692,12 +158516,15 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30141,
-   "helka": 134,
+   "gush": 30198,
+   "helka": 47,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "גנרל פייר קניג 1 תלפיות",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "גנרל פייר קניג",
+   "mispBait": "1",
+   "schunaName": "תלפיות",
+   "address": "גנרל פייר קניג 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2022/0606.00",
@@ -156017,8 +158844,8 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30014,
-   "helka": 98,
+   "gush": 30197,
+   "helka": 101,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 0 מושבה גרמנית",
@@ -156116,6 +158943,38 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2023/0326.00",
+   "mahut": "היתר הריסה, חפירה ודיפון, פינוי בינוי עבור 210 יח\"ד",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "13-11",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 13-11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2023/0326.01",
+   "mahut": "היתר ראשי לבניין 2-3 מתכנית פינוי בינוי, 426 יח\"ד, מתוכם 148 דירות תמורה.",
+   "sugbakasha": "",
+   "status": "נדונה ברשות הרישוי",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 10,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "13,11",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 13,11",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2023/0329.00",
    "mahut": "תמ\"א 38 הריסה ובניה",
    "sugbakasha": "",
@@ -156129,18 +158988,63 @@
    "details_checked_on": "2026-10-24"
   },
   {
+   "tik_num": "2023/0335.00",
+   "mahut": "הקמת קירוי לשם הצללת מגרש ספורט בשב\"צ ומעליו תאים פוטו וולטאיים",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 15,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דב יוסף",
+   "mispBait": "0",
+   "schunaName": "גוננים",
+   "address": "דב יוסף 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2023/0338.00",
+   "mahut": "הקמת קירוי לשם הצללת מגרש ספורט בשצ\"פ ומעליו תאים פוטו וולטאיים",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 197,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דרך בית לחם",
+   "mispBait": "0",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "דרך בית לחם 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2023/0339.00",
+   "mahut": "הקמת קירוי לשם הצללת מגרש ספורט בשצ\"פ ובשב\"צ ומעליו תאים פוטו וולטאיים",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30197,
+   "helka": 127,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "דרך בית לחם",
+   "mispBait": "0",
+   "schunaName": "טלביה/המוגרבים",
+   "address": "דרך בית לחם 0",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2023/0357.00",
    "mahut": "עבודות מקדימות עבור הרכבת הקלה - הקו הכחול",
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30197,
-   "helka": 66,
+   "helka": 116,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "",
-   "mispBait": "",
-   "schunaName": "גאולים - בקעה",
    "address": "",
    "details_checked_on": "2026-10-25"
   },
@@ -156229,12 +159133,9 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30197,
-   "helka": 59,
+   "helka": 122,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "קרן היסוד",
-   "mispBait": "0",
-   "schunaName": "מרכז העיר",
    "address": "קרן היסוד 0",
    "details_checked_on": "2026-10-25"
   },
@@ -156480,7 +159381,7 @@
    "publication_start": "2024-07-07",
    "publication_end_planned": "",
    "address": "דרך עזה 56 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2023/0555.00",
@@ -156705,8 +159606,8 @@
    "sugbakasha": "",
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
-   "gush": 30014,
-   "helka": 103,
+   "gush": 30198,
+   "helka": 2,
    "publication_start": "2024-09-18",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 2-4 גאולים - בקעה",
@@ -156718,8 +159619,8 @@
    "sugbakasha": "",
    "status": "הגשה מקוונת הושלמה",
    "status_date": "",
-   "gush": 30014,
-   "helka": 103,
+   "gush": 30198,
+   "helka": 18,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 2 גוננים",
@@ -157092,7 +159993,23 @@
    "publication_start": "2025-02-03",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2024/0234.00",
+   "mahut": "בניית שני חדרי שנאים תת-קרקעיים",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30198,
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "רבן יוחנן בן זכאי",
+   "mispBait": "1",
+   "schunaName": "גוננים",
+   "address": "רבן יוחנן בן זכאי 1",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2024/0236.00",
@@ -157126,12 +160043,15 @@
    "sugbakasha": "",
    "status": "תום תקופת פרסום",
    "status_date": "",
-   "gush": 30169,
-   "helka": 35,
+   "gush": 30199,
+   "helka": 14,
    "publication_start": "2026-05-12",
    "publication_end_planned": "",
-   "address": "רבי צדוק גוננים",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "רבי צדוק",
+   "mispBait": "",
+   "schunaName": "גוננים",
+   "address": "רבי צדוק",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2024/0273.00",
@@ -157222,7 +160142,7 @@
    "publication_start": "2024-12-11",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2024/0333.00",
@@ -157275,6 +160195,22 @@
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2024/0349.00",
+   "mahut": "הקמת שני מבני מגורים חדשים מעל קומות מסחריות ומבנה ציבור וחניונים במסגרת פינוי בינוי",
+   "sugbakasha": "",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "חוסה דה סן מרטין",
+   "mispBait": "28",
+   "schunaName": "גוננים",
+   "address": "חוסה דה סן מרטין 28",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2024/0352.00",
@@ -157474,7 +160410,39 @@
    "publication_start": "2025-01-01",
    "publication_end_planned": "",
    "address": "רשב\"א 11 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2024/0527.00",
+   "mahut": "בניית 2 מגדלי מגורים (430 יח\"ד) 35 קומות לפי תכנית פינוי בינוי, משולבים מסחר, מבני ציבור ושצ\"פ מעל 4 קומות מרתף",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 21,
+   "publication_start": "2024-12-18",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "7-5",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 7-5",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2024/0527.01",
+   "mahut": "היתר הריסה, חפירה ודיפון עבור פינוי בינוי עבור 430 יח\"ד",
+   "sugbakasha": "",
+   "status": "תחילת הודעות לפני תקנה 36",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 13,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "5-7",
+   "schunaName": "קטמון הישנה",
+   "address": "בר יוחאי 5-7",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2024/0528.00",
@@ -157682,7 +160650,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 38 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2025/0005.00",
@@ -157834,6 +160802,38 @@
    "details_checked_on": "2026-10-23"
   },
   {
+   "tik_num": "2025/0115.00",
+   "mahut": "הריסת 6 מבני מגורים, עבודות דיפון חפירה וביסוס עבור התחדשות עירונית כ-667 יח\"ד",
+   "sugbakasha": "",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "143",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 143",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2025/0115.01",
+   "mahut": "תכנית התחדשות עירונית המציעה רובע עירוני חדש הכולל ארבעה מגדלי מגורים,שטחים ציבוריים פתוחים, שטחי מסחר ושטחים בנויים לציבור.",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 6,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "143",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 143",
+   "details_checked_on": "2026-10-25"
+  },
+  {
    "tik_num": "2025/0126.00",
    "mahut": "שינוי בפתחי חזית",
    "sugbakasha": "",
@@ -157931,12 +160931,9 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30197,
-   "helka": 68,
+   "helka": 163,
    "publication_start": "",
    "publication_end_planned": "",
-   "rehovName": "דוד המלך",
-   "mispBait": "1",
-   "schunaName": "טלביה/המוגרבים",
    "address": "דוד המלך 1",
    "details_checked_on": "2026-10-25"
   },
@@ -158040,8 +161037,8 @@
    "sugbakasha": "",
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
-   "gush": 30173,
-   "helka": 45,
+   "gush": 30198,
+   "helka": 1,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 33 גוננים",
@@ -158059,6 +161056,38 @@
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 43 גוננים",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2025/0261.00",
+   "mahut": "הקמת שני מגדלי מגורים חדשים מעל קומות מסחריות מבנה ציבור וחניונים במסגרת פינוי בינוי",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30200,
+   "helka": 17,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "1, 3",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 1, 3",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2025/0274.00",
+   "mahut": "תוספת יח\"ד כולל תוספת שטח",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "2026-01-25",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "19",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 19",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2025/0275.00",
@@ -158098,6 +161127,22 @@
    "publication_end_planned": "",
    "address": "הסדנא 0 תלפיות",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2025/0299.00",
+   "mahut": "תוספת יח\"ד כולל תוספת שטח",
+   "sugbakasha": "",
+   "status": "נפתח תיק רישוי",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "2025-10-27",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "14",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 14",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2025/0333.00",
@@ -158163,6 +161208,38 @@
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
    "details_checked_on": "2026-10-24"
+  },
+  {
+   "tik_num": "2025/0370.00",
+   "mahut": "תוספת ממ\"ד לדירת קומת קרקע",
+   "sugbakasha": "",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 18",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2025/0370.01",
+   "mahut": "תוספת יח\"ד כולל תוספת שטח.",
+   "sugbakasha": "",
+   "status": "שולמה מקדמה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 4,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אברהם אלמליח",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "אברהם אלמליח 18",
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2025/0378.00",
@@ -158859,7 +161936,7 @@
    "publication_start": "2026-07-16",
    "publication_end_planned": "",
    "address": "סעדיה גאון 12 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-10-25"
   },
   {
    "tik_num": "2026/0271.00",
@@ -158911,6 +161988,38 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2026/0314.00",
+   "mahut": "התחדשות עירונית - פינוי בינוי, הריסה, חפירה, דיפון ושטח התארגנות עבור מגדל בן 32 קומות ובניין מרקמי בן 9 קומות ע\"ב 5 קומות מסד סה\"כ 301 יח\"ד",
+   "sugbakasha": "",
+   "status": "תום תקופת פרסום",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 18",
+   "details_checked_on": "2026-10-25"
+  },
+  {
+   "tik_num": "2026/0314.01",
+   "mahut": "בניית מגדל בגובה של 32 קומות, לצד מבנה מרקמי של 9 קומות על גבי מסד בן 5 קומות בעירוב שימושים הכוללים 301 יח\"ד",
+   "sugbakasha": "",
+   "status": "שולמה מקדמה",
+   "status_date": "",
+   "gush": 30199,
+   "helka": 32,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "בר יוחאי",
+   "mispBait": "18",
+   "schunaName": "גוננים",
+   "address": "בר יוחאי 18",
    "details_checked_on": "2026-10-25"
   },
   {
