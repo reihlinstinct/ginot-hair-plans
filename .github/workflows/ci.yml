@@ -31,12 +31,17 @@ jobs:
       - name: Commit identity guard (issue #473)
         if: github.event_name == 'pull_request'
         run: |
-          git fetch --depth=1 origin "${{ github.base_ref }}"
+          # The guard walks base..head, so depth-1 is not enough (empirically
+          # verified: depth-1 checkout + depth-1 base fetch shows the guard
+          # only 1 commit, passing vacuously). Fetch full history of both
+          # ends; fall back to a 500-deep window if already unshallow.
+          git fetch --unshallow origin "${{ github.base_ref }}:base-ref" "+refs/pull/${{ github.event.pull_request.number }}/head:pr-head" \
+            || git fetch --depth=500 origin "${{ github.base_ref }}:base-ref" "+refs/pull/${{ github.event.pull_request.number }}/head:pr-head"
           FORK_ARG=""
           if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
             FORK_ARG="--fork-author ${{ github.event.pull_request.user.login }}"
           fi
-          python scripts/ci/check_commit_identities.py --base FETCH_HEAD $FORK_ARG
+          python scripts/ci/check_commit_identities.py --base base-ref --head pr-head $FORK_ARG
       - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
       - name: Test run summary
         if: ${{ always() }}
