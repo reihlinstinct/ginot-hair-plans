@@ -6,6 +6,10 @@ name: Jerusalem permit feed pilot (VPN)
 # all4739 parcels. Resolve cursor at execution time; checkpoints survive
 # runner loss. A larger batch previously exceeded the355-minute timeout.
 # Oct22 approval: four daily windows, unchanged request spacing.
+# address-backfill mode (issue #452): one-off manual dispatch for the raw
+# permit address fields - same tunnel, spacing and stop-on-challenge
+# contract; a challenge (exit 2) fails the job and is never retried on a
+# schedule, only by a fresh manual dispatch after review.
 
 on:
   # Backfill request by code (issue #102): editing data/backfill_request.json
@@ -23,7 +27,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks; recheck = re-scan active (or rotation) parcels only"
+        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks; recheck = re-scan active (or rotation) parcels only; address-backfill = one-off raw address fields (#452)"
         required: true
         default: "scan"
       include_unenriched:
@@ -105,7 +109,7 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Resolve batch parameters (schedule -> next offset)
-        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' }}
         run: |
           if [ -n "${{ env.REQ_LIMIT }}" ]; then
             echo "LIMIT=${{ env.REQ_LIMIT }}" >> "$GITHUB_ENV"
@@ -124,7 +128,7 @@ jobs:
           fi
 
       - name: Scan parcel batch for permit requests
-        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.BACKFILL_COMPLETE != 'true' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' && env.BACKFILL_COMPLETE != 'true' }}
         env:
           PYTHONUNBUFFERED: "1"
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -162,7 +166,7 @@ jobs:
         # (the selector returns only active requests not checked today). It can
         # never lose the batch: continue-on-error, capped, and list mode writes
         # the feed only at the end. Never touches the scan-checkpoint branch.
-        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' }}
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' }}
         continue-on-error: true
         timeout-minutes: 60
         env:
@@ -192,6 +196,35 @@ jobs:
           if [ "${{ env.REQ_INCLUDE_UNENRICHED }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
           if [ "${{ env.REQ_INCLUDE_LATE_STAGES }}" = "true" ]; then ARGS="$ARGS --include-late-stages"; fi
           sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
+
+      - name: Backfill raw permit address fields (one-off, issue #452)
+        if: ${{ env.REQ_MODE == 'address-backfill' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          # Default chunk 800 (~50 min at the approved 3s spacing, well
+          # inside the 355-min timeout); --limit 0 dispatches the full set.
+          # Rows already enriched are skipped by the script itself, and the
+          # committed checkpoint (data/.address-backfill-checkpoint.json)
+          # carries --resume progress between dispatches.
+          LIMIT="${{ env.REQ_LIMIT }}"; LIMIT="${LIMIT:-800}"
+          set +e
+          sudo -E python3 scripts/vpn/permit_address_backfill.py --limit "$LIMIT" --resume
+          RC=$?
+          set -e
+          # Exit 2 = anti-bot challenge / access denied: fail the job so
+          # nothing publishes and nobody mistakes the stop for completion;
+          # a retry is a fresh manual dispatch after review, never a
+          # schedule. Exit 0/1 publish what was enriched - failed tiks lack
+          # the raw fields, so the next dispatch retries them naturally.
+          if [ "$RC" = "2" ]; then exit 2; fi
+          echo "address backfill finished rc=$RC (0=clean, 1=some failures - retried next dispatch)"
 
       - name: Publish changes as a PR, merge on green CI, rebuild Pages
         if: ${{ success() }}  # no-op when data is unchanged (git diff check inside)
