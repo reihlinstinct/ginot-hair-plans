@@ -90,11 +90,16 @@ def _is_ancestor(anc, desc):
 
 
 def boundary_commits(base, head):
-    """Grafted (shallow-cut) commits inside the base..head range. A grafted
+    """Grafted (shallow-cut) commits on head's side of the range. A grafted
     commit's parents are missing, so the walk silently stops there; a
     non-empty result means commit_records saw only part of the range.
     (rev-list --boundary does not flag graft cuts, so detect them directly:
-    an entry in .git/shallow that is an ancestor of head but not of base.)"""
+    an entry in .git/shallow that is an ancestor of head but not of base.)
+    Cuts shared with base sit below the merge-base on both sides and keep
+    base..head exact (grafts are repo-global, so both walks stop there), so
+    they are not incomplete history for this check. A base-side cut ABOVE the
+    branch point instead leaves no merge-base at all; main() fails closed on
+    that case separately."""
     path = subprocess.run(
         ["git", "rev-parse", "--git-path", "shallow"],
         capture_output=True,
@@ -115,6 +120,18 @@ def main(argv=None):
     ap.add_argument("--fork-author", default="")
     args = ap.parse_args(argv)
     problems = []
+    mb = subprocess.run(
+        ["git", "merge-base", args.base, args.head],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if mb.returncode != 0:
+        problems.append(
+            "no merge-base between base and head: history truncated above the "
+            "branch point (or unrelated histories); refusing to pass on an "
+            "unverifiable commit set - fetch full history"
+        )
     truncated = boundary_commits(args.base, args.head)
     if truncated:
         problems.append(

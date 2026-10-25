@@ -113,3 +113,24 @@ def test_boundary_detected_and_main_fails_closed_on_shallow(tmp_path, monkeypatc
     assert rc == 1
     out = capsys.readouterr().out
     assert "shallow boundary" in out
+
+
+def test_no_merge_base_fails_closed(tmp_path, monkeypatch, capsys):
+    """Base truncated ABOVE the branch point while head is complete: no
+    merge-base exists, base..head silently includes shared commits, so the
+    guard must refuse to pass (CodeRabbit #474 round 4 audit)."""
+    src = _make_repo(tmp_path)
+    _git(src, "checkout", "-q", "main")
+    for i in (2, 3, 4):
+        (src / f"m{i}.txt").write_text(str(i))
+        _git(src, "add", ".")
+        _git(src, "commit", "-q", "-m", f"m{i}")
+    clone = tmp_path / "mixed"
+    _git(tmp_path, "clone", "-q", "--depth", "2", "-b", "feature", f"file://{src}", str(clone))
+    _git(clone, "fetch", "-q", "--deepen=10", "origin", "feature")  # head complete
+    _git(clone, "fetch", "-q", "--depth=2", "origin", "main:base-ref")  # base cut above M
+    monkeypatch.chdir(clone)
+    assert cci.boundary_commits("base-ref", "HEAD") == []  # cut is not head-side
+    rc = cci.main(["--base", "base-ref", "--head", "HEAD"])
+    assert rc == 1
+    assert "no merge-base" in capsys.readouterr().out
