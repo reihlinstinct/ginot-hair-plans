@@ -7,15 +7,18 @@
 > calendar months in the visitor's browser local timezone; older recoverable
 > by editing the default date input; terminal default-hide unchanged;
 > pure client-side, no heavier site, no new assets; mobile checked before merge.
-> Categories (counts from 2026-10-25 feed): 1 published-in-window 65 shown;
-> 2 published-older 946 hidden-by-default/recoverable; 3 published-but-date-
-> unknown 1,391 (73 active + 75 late visible today);
-> 4 no-publication-evidence 8,635 (status-based only, NOT proof of never-
-> published) - shown under existing rules, marked date-unknown;
+> Categories (counts from 2026-10-25 feed; total vs default-visible under
+> the adopted option A): 1 published-in-window 65 total / 64 default-visible;
+> 2 published-older 946 total / 0 default-visible (253 non-terminal rows
+> recoverable via the date input); 3 published-but-date-unknown 1,391 total /
+> 148 default-visible (73 active + 75 late); 4 no-publication-evidence 8,635
+> total / 3,764 default-visible (652 active + 3,112 late) (status-based only,
+> NOT proof of never-published) - shown under existing rules, marked
+> date-unknown;
 > 5 terminal/late rules unchanged.
 > RESOLVED decision (was the only meaning-changing one): category-3
 > non-terminal default = A show-with-marker, ADOPTED. Rationale (Tab review,
-> verified): 91.5% of the 4,229 visible rows have no publication date and
+> verified): 92.5% of the 4,229 visible rows have no publication date and
 > that absence concentrates in one legitimate stage (draft permit prepared:
 > 2,672 of 2,692 undated) - hiding undated rows hides requests that have not
 > reached a publication milestone, which is not recency; B's ~64-row default
@@ -29,10 +32,11 @@
 > No implementation before the discussion closes.
 
 ## Status
-Design draft for discussion before implementation (design-first rule, Tab
-discussion pending). User instruction 2026-10-25: permit requests published
+Design discussion CLOSED 2026-10-25 (decision recorded below); implemented
+in #448 and live. User instruction 2026-10-25: permit requests published
 more than six months ago should NOT appear by default; they remain viewable
-by changing the default date. No code changed by this document.
+by changing the default date. This document records the design; it changes
+no code itself.
 
 ## Semantics (locked by the instruction)
 - Date field: `publication_start` (s.149 publication start) ONLY - actual
@@ -59,9 +63,11 @@ by changing the default date. No code changed by this document.
 2. published-older (946 today): hidden by default, recoverable via the date
    input. This is exactly the user's rule.
 3. published-but-date-unknown (1,391 of all undated today; 73 active /
-   75 late / 1,243 terminal): positive evidence of publication exists
-   (status "תום תקופת פרסום" / "פורסמה בקשה להקלה" or a planned publication
-   end) but no start date. NOT treated as old (nothing proves age) and NOT
+   75 late / 1,243 terminal): positive evidence the request entered the
+   publication STAGE exists (status "תום תקופת פרסום" / "פורסמה בקשה להקלה"
+   or a planned publication end) but no start date. A planned end alone is
+   evidence of a scheduled window, not proof a publication completed - see
+   the Decision section. NOT treated as old (nothing proves age) and NOT
    treated as never-published. Non-terminal rows shown by default with a
    visible "תאריך פרסום חסר" marker + live count.
 4. no publication evidence in the current feed (8,635 of all undated today;
@@ -78,7 +84,7 @@ by changing the default date. No code changed by this document.
 
 ## What the numbers say about the options
 - Filter with unknowns always visible (A): hides only 253 of 4,229 default
-  rows today (6%) - declutter intent mostly fails while 91% are undated.
+  rows today (6%) - declutter intent mostly fails while 92.5% are undated.
 - Filter hiding all unknowns (B): default collapses to ~64 rows but wrongly
   hides 725 active requests, 652 of which are simply not published yet.
 - Enrich-first correction (measured): the published-but-date-unknown
@@ -92,7 +98,7 @@ by changing the default date. No code changed by this document.
 ## Decision (resolved by design discussion 2026-10-25)
 Category 3 default treatment for NON-terminal rows: **A - show with marker**,
 per the recommendation above and the design review's verified quantified
-reasoning (91.5% of visible rows undated, concentrated in the draft-permit
+reasoning (92.5% of visible rows undated, concentrated in the draft-permit
 stage; B would misrepresent pipeline activity; C rejected as extra UI state).
 No user schema question remains; everything else follows the instruction or
 existing rules. Adopted refinement: the date-unknown counter splits
@@ -110,9 +116,11 @@ honest option.
   client-side (#169) - pure client-side filter in `_permits_section` +
   `docs/permits.html`; no scan/pipeline change.
 - The undated/dated live counts (split per category 3 vs 4) stay visible in
-  the section header so the blind spot is explicit on the page; they
-  recompute on EVERY filter change following the existing `refill()`/closed-
-  count pattern in `page.py`, not only on the recency toggle; older rows
+  the section header so the blind spot is explicit on the page. Unlike the
+  `refill()`/closed-count pattern (which counts all loaded rows), the split
+  counters count only rows matching the CURRENT filter set (the `match()`
+  result): they recompute on EVERY filter change - search, status, sug,
+  dates, terminal toggle - not only on the recency toggle; older rows
   always recoverable via the date input.
 - DST: the window boundary is computed at a specific instant in the
   visitor's local timezone; day-granularity DST drift is accepted as a
@@ -128,7 +136,11 @@ honest option.
    in feed: 2026-10-28), malformed/partial `publication_start` (defensive
    parser - the field is scraper-sourced and could regress), and an explicit
    month-end rolling-subtraction case (Aug 31 -> Feb class, the classic
-   setMonth overflow); regression that 2026/0439.00 stays visible by default
+   setMonth overflow) - expected outcome: subtraction CLAMPS to the last
+   day of the target month (Aug 31 rolls to Feb 28, never Mar 3); a
+   malformed or partial `publication_start` is treated as NO date: the row
+   stays visible as date-unknown under option A and never gets a bogus
+   date; regression that 2026/0439.00 stays visible by default
    PLUS a category-4 undated-active fixture (e.g. a draft-prepared row) that
    must stay visible under A - 0439.00 is dated (2026-10-18, category 1) and
    does not exercise the undated decision on its own; desktop + mobile
