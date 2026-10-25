@@ -19,6 +19,7 @@ import base64
 import datetime
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -47,6 +48,22 @@ CHECKPOINT_BRANCH = "scan-checkpoint"  # issue #155: survives runner loss
 # checked by test_call_garbage_body_is_none and relied on by
 # test_publication_dates_tolerates_odd_payloads), so the count lives here
 # as a side channel, reset per run and printed in main()'s summary.
+ISO_DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+
+
+def count_inverted_publication_dates(rows):
+    """#463: count rows whose planned publication end precedes publication
+    start - a source anomaly preserved as-is (no inferred correction);
+    surfaced only as a run-summary count, no data change."""
+    return sum(
+        1
+        for r in rows
+        if ISO_DATE.match(r.get("publication_start") or "")
+        and ISO_DATE.match(r.get("publication_end_planned") or "")
+        and r["publication_end_planned"] < r["publication_start"]
+    )
+
+
 _STATS = {"unparseable_responses": 0, "detail_fetch_failures": 0}
 
 
@@ -537,6 +554,13 @@ def main():
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(requests)} requests")
+    inverted = count_inverted_publication_dates(requests.values())
+    if inverted:
+        # #463: counted line only - the rows stay in the feed unchanged.
+        print(
+            f"{inverted} feed row(s) with planned publication end before "
+            "publication start (source anomaly, preserved as-is)"
+        )
     if _STATS["unparseable_responses"] or _STATS["detail_fetch_failures"]:
         # #399: run-summary count for the two production-path sites that
         # keep a tested silent/non-fatal return contract (see call() and the
