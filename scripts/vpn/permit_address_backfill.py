@@ -26,6 +26,7 @@ Exit codes: 0 = done (or dry run), 2 = anti-bot challenge (stop), 1 = other.
 """
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import os
@@ -38,11 +39,42 @@ _spec = importlib.util.spec_from_file_location("permit_feed", _HERE / "permit_fe
 _feed = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_feed)
 
-address_of = _feed.address_of  # procedure 242700455, tunnel-paced client
 street_address = _feed.street_address
 PACE_SECONDS = _feed.PACE_SECONDS
+MAX_CONSECUTIVE_FAILURES = _feed.MAX_CONSECUTIVE_FAILURES
 
 RAW_FIELDS = ("rehovName", "mispBait", "schunaName")
+ADDRESS_PROC = 242700455
+
+
+def address_fields_strict(tik):
+    """Raw address fields for the tik from procedure 242700455, WITHOUT
+    permit_feed.address_of's None-tolerance: a failed/unparseable response
+    raises ValueError (counted as a failure, retried on the next run) while
+    a genuine empty result stores empty fields. A failure must never be
+    persisted as "no address" - that would clear a good legacy address and
+    skip the retry (#452 review)."""
+    rows = _feed.call(
+        ADDRESS_PROC, {"systemId": _feed.SYS, "tikNum": tik}
+    )
+    if rows is None:
+        raise ValueError(f"proc {ADDRESS_PROC}: no usable response")
+    if isinstance(rows, list) and rows:
+        r = rows[0]
+        return {
+            "rehovName": str(r.get("rehovName") or "").strip(),
+            "mispBait": str(r.get("mispBait") or "").strip(),
+            "schunaName": str(r.get("schunaName") or "").strip(),
+        }
+    return {"rehovName": "", "mispBait": "", "schunaName": ""}
+
+
+def data_fingerprint(payload):
+    """Binds a checkpoint to the exact data generation it enriched: if the
+    data file is replaced (e.g. a weekly refresh lands mid-backfill), a
+    stale checkpoint must not skip re-enrichment."""
+    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()
+    return hashlib.sha256(raw).hexdigest()
 
 
 def has_house_number(address):
@@ -74,12 +106,19 @@ def apply_fields(row, fields):
     row["address"] = street_address(fields)
 
 
-def load_checkpoint(path):
-    """Tiks already enriched in an earlier run; missing/garbage file means
-    a fresh start (reported, not fatal)."""
+def load_checkpoint(path, fingerprint):
+    """Tiks already enriched in an earlier run of THE SAME data generation.
+    A missing/garbage file - or a checkpoint written against a different
+    data file (e.g. a weekly refresh landed mid-backfill) - means a fresh
+    start (reported, not fatal); a stale checkpoint must never skip
+    re-enrichment of replaced rows."""
     try:
         with open(path, encoding="utf-8") as fh:
-            done = json.load(fh).get("done") or []
+            cp = json.load(fh)
+        if cp.get("data_sha256") != fingerprint:
+            print("checkpoint was written against a different data file (fresh start)")
+            return set()
+        done = cp.get("done") or []
         print(f"checkpoint: resuming with {len(done)} tiks already done")
         return set(done)
     except FileNotFoundError:
@@ -89,8 +128,13 @@ def load_checkpoint(path):
         return set()
 
 
-def save_checkpoint(path, done):
-    payload = {"checkpoint": True, "kind": "permit-address-backfill", "done": sorted(done)}
+def save_checkpoint(path, done, fingerprint):
+    payload = {
+        "checkpoint": True,
+        "kind": "permit-address-backfill",
+        "data_sha256": fingerprint,
+        "done": sorted(done),
+    }
     _atomic_write(path, payload)
 
 
@@ -137,37 +181,50 @@ def main():
 
     if args.limit:
         targets = targets[: args.limit]
-    done = load_checkpoint(args.checkpoint_file) if args.resume else set()
+    fingerprint = data_fingerprint(payload)
+    done = load_checkpoint(args.checkpoint_file, fingerprint) if args.resume else set()
     pending = [t for t in targets if t not in done]
     print(f"targets {len(targets)}; pending after checkpoint {len(pending)}")
 
     by_tik = {r["tik_num"]: r for r in rows}
-    enriched = failures = 0
+    enriched = failures = consecutive_failures = 0
     for i, tik in enumerate(pending, 1):
         time.sleep(PACE_SECONDS)
         try:
-            fields = address_of(tik)
-        except RuntimeError:
-            # anti-bot challenge: stop immediately, no workaround - progress
-            # is already durable via the periodic flush/checkpoint below.
+            fields = address_fields_strict(tik)
+        except (RuntimeError, PermissionError):
+            # anti-bot challenge or access denied: stop immediately, no
+            # workaround - progress is durable via the flush/checkpoint.
             flush_data(args.data, payload)
-            save_checkpoint(args.checkpoint_file, done)
-            print(f"anti-bot challenge at tik {tik} - stopped after {enriched} enriched")
+            save_checkpoint(args.checkpoint_file, done, fingerprint)
+            print(f"access wall at tik {tik} - stopped after {enriched} enriched")
             return 2
-        except Exception as exc:  # one bad tik must not kill the batch (#399 pattern)
+        except Exception as exc:  # noqa: BLE001 - one bad tik must not kill the batch (#399 pattern)
             failures += 1
+            consecutive_failures += 1
             print(f"tik {tik}: address fetch failed ({exc}) - counted, continuing")
+            if consecutive_failures >= MAX_CONSECUTIVE_FAILURES:
+                # systemic failure (tunnel down, endpoint broken) looks like
+                # per-tik failures; never report a failed run as done.
+                flush_data(args.data, payload)
+                save_checkpoint(args.checkpoint_file, done, fingerprint)
+                print(
+                    f"{consecutive_failures} consecutive failures - aborting; "
+                    f"enriched {enriched}, NOT done"
+                )
+                return 1
             continue
+        consecutive_failures = 0
         apply_fields(by_tik[tik], fields)
         done.add(tik)
         enriched += 1
         if i % args.flush_every == 0:
             flush_data(args.data, payload)
-            save_checkpoint(args.checkpoint_file, done)
+            save_checkpoint(args.checkpoint_file, done, fingerprint)
             print(f"progress {i}/{len(pending)} (enriched {enriched}, failures {failures})")
 
     flush_data(args.data, payload)
-    save_checkpoint(args.checkpoint_file, done)
+    save_checkpoint(args.checkpoint_file, done, fingerprint)
     print(f"done: enriched {enriched}, failures {failures}, targets {len(targets)}")
     return 0
 
