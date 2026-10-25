@@ -7,8 +7,10 @@ more than six months ago should NOT appear by default; they remain viewable
 by changing the default date. No code changed by this document.
 
 ## Semantics (locked by the instruction)
-- Date field: `publication_start` (s.149 publication start) ONLY. Never
-  `status_date`, application creation, or `details_checked_on`.
+- Date field: `publication_start` (s.149 publication start) ONLY - actual
+  publication provenance, filled solely by the direct-scanner enrich path.
+  Never `status_date`, application creation, or `details_checked_on`; the
+  over.org.il mirror carries no publication dates at all.
 - Rolling window: six calendar months, computed client-side at page load as
   today minus six months in the visitor's browser local timezone. No fixed
   date is baked into the build, the HTML, or the data.
@@ -17,53 +19,73 @@ by changing the default date. No code changed by this document.
   restores the rolling default. This is the "change the default date" path
   the user asked for.
 
-## Load-bearing gap: missing publication dates (measured 2026-10-25)
-Only 1,011 of 11,037 published rows (9%) currently carry `publication_start`.
-The enrich backfill (s.149 dates for mirror-diff tiks) is shrinking this set
-but is not complete. Rules:
-- Rows without `publication_start` are NEVER hidden by the recency filter.
-- No invented fallback date (not status_date, not first-seen, nothing).
-- They render with a visible "ללא תאריך פרסום" marker, and the section header
-  shows a live count of dated vs undated rows so the filter's blind spot is
-  explicit on the page.
+## Measured data cut (feed of 2026-10-25, cutoff 2026-04-25)
+11,037 rows total. Default view today (non-terminal) = 4,229 rows.
+- Dated (publication_start present): 1,011 rows = 694 terminal / 21 late /
+  296 active. Inside the 6-month window: only 65 (64 active + 1 terminal).
+  Older than the window: 946.
+- Undated: 10,026 rows = 6,114 terminal / 3,187 late-stage / 725 active.
 
-### Decision point for the discussion (recommendation A)
-- A (recommended): unknown-date rows always visible + marker + header count.
-  Zero risk of hiding something actionable; declutter effect limited until
-  enrich coverage grows.
-- B: unknowns hidden with the old ones, revealed by a separate toggle with a
-  visible hidden-count badge. Better declutter, real risk of hiding an
-  actionable request whose date we simply lack.
-- C: unknowns in their own collapsed group with a count. Middle ground,
-  more UI complexity.
+## Resolved semantic categories (the filter's world)
+1. published-in-window (65 today): shown. (Future-dated starts count inside.)
+2. published-older (946 today): hidden by default, recoverable via the date
+   input. This is exactly the user's rule.
+3. published-but-date-unknown (73 of the active undated today): evidence of
+   publication exists (status "תום תקופת פרסום" / "פורסמה בקשה להקלה" or a
+   planned publication end) but no start date. NOT treated as old (nothing
+   proves age) and NOT treated as never-published. Shown by default with a
+   visible "תאריך פרסום חסר" marker + live count.
+4. not-yet-published pipeline (652 of the active undated today): pre-
+   publication stages (נדונה בוועדת המשנה 249, נדונה ברשות הרישוי 158,
+   הגשה מקוונת הושלמה 81, נדונה בועדת ערר 76, נפתח תיק רישוי 70, ממתין
+   לאישור נוסח פרסום 61, ...). The user's rule does not apply to these at
+   all - they are current pipeline items, shown under the existing status
+   filters, never lumped with "unknown recent publication".
+5. terminal / late-stage: existing default-hide rules unchanged.
+
+## What the numbers say about the options
+- Filter with unknowns always visible (A): hides only 253 of 4,229 default
+  rows today (6%) - declutter intent mostly fails while 91% are undated.
+- Filter hiding all unknowns (B): default collapses to ~64 rows but wrongly
+  hides 725 active requests, 652 of which are simply not published yet.
+- Enrich-first correction (measured): the published-but-date-unknown active
+  set is only 73 tiks - small. The other 652 are pre-publication: enrich
+  there would mostly CONFIRM absence of publication (a real but negative
+  result), not reveal dates. Enrich throughput honesty: one measured enrich
+  window took 152 min (run 39380975772); per-tik rate is not directly
+  measured, so no promise of "1-2 runs"; any enrich dispatch respects the
+  existing runtime caps and 3s spacing.
+
+## Minimal remaining user choice
+Only category 3's default treatment: show-with-marker (recommended, zero
+risk of hiding something actionable) vs hide-with-count-badge. Everything
+else follows the instruction directly. Enrich of the 73 evidence-tiks is a
+small, independent improvement either way.
 
 ## Interaction with existing behavior
-- Terminal-status default-hide (#permits checkbox) stays independent:
-  shown(row) = (terminal rule) AND (no publication_start OR
-  publication_start >= cutoff). Search/status/sug filters unchanged.
-- Rows already carry `data-pub` and the full set loads client-side (#169) -
-  no data-pipeline or scan change. Pure client-side filter in
-  `_permits_section` output + `docs/permits.html` script.
-- Future-dated `publication_start` (observed, e.g. 2026-10-28) counts as
-  inside the window.
+- shown(row) = (terminal rule) AND (category rule above). Search/status/sug
+  filters unchanged. Rows already carry `data-pub` and the full set loads
+  client-side (#169) - pure client-side filter in `_permits_section` +
+  `docs/permits.html`; no scan/pipeline change.
+- The undated/dated live count stays visible in the section header so the
+  blind spot is explicit on the page; older rows always recoverable via the
+  date input.
 
 ## Implementation sketch (after approval)
-1. `_permits_section`: add the date input + reset + markers/counts markup.
-2. Page script: compute rolling cutoff on load (local tz), filter on
-   `data-pub`, wire the input and the terminal checkbox through one
-   predicate. Invalid manual input falls back to the rolling default and is
-   flagged, never silently ignored.
-3. Tests: predicate unit tests (dated-inside, dated-outside, unknown,
-   terminal interplay, future date, invalid input); regression test that a
-   currently-publishable tik (e.g. 2026/0439.00) stays visible by default;
-   visual check desktop + mobile before merge (screenshot evidence).
+1. `_permits_section`: date input + reset + category markers/counts markup.
+2. Page script: rolling cutoff on load (local tz), one predicate covering
+   terminal + recency categories, invalid manual input falls back to the
+   rolling default with a visible flag.
+3. Tests: predicate unit tests per category incl. future date and invalid
+   input; regression that 2026/0439.00 stays visible by default; desktop +
+   mobile visual proof before merge.
 
 ## Coordination and scope
-- Related: PR #432 (spatial features + permit-case integration design) -
-  orthogonal; any permit-case cards it adds must apply the same default rule.
-- Related issues: #405 (permits page), #169 (client-side full row set).
-- Out of scope: scan/enrich pipeline changes; the statutory plans table is
-  untouched; no change to what is published, only to default display.
+- PR #432 (spatial features + permit-case integration): orthogonal; any
+  future permit-case cards apply the same default rule.
+- Issues: #405 (permits page), #169 (client-side full row set).
+- Out of scope: scan/enrich pipeline changes; statutory plans table
+  untouched; only default display changes, nothing is unpublished.
 - Visitor clock caveat: a wrong device date shifts the rolling window;
   documented in the page note, same trust model as the existing client-side
   deadline derivation.
