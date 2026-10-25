@@ -19,9 +19,11 @@ online. Researched 2026-10-25; every channel below names its source.
 2. **A sign posted on the property.** This is what the owner photographed
    on 2026-10-25 for 2026/0439.00 - see
    `docs/reviews/s149_notice_2026-0439.00.md`.
-3. **Newspaper advertisement.** Municipal instruction pages for s.149
-   publication uniformly require ads in two Hebrew daily newspapers, at
-   least one widely circulated; the applicant arranges and pays.
+3. **Newspaper advertisement.** The municipal instruction pages
+   retrieved for this research (Herzliya, Omer, Ashkelon - not Jerusalem)
+   each require ads in two Hebrew daily newspapers, at least one widely
+   circulated; the applicant arranges and pays. Jerusalem's current
+   newspaper requirement is UNVERIFIED (see Open ends).
    Sources: Herzliya engineering portal
    <https://handasa.herzliya.muni.il/construclicens/noticeofrelief/>;
    Omer publication procedure
@@ -43,8 +45,14 @@ online. Researched 2026-10-25; every channel below names its source.
    (`scripts/vpn/permit_feed.py`). The viewer exposes each request's
    process steps, including the actual s.149 publication milestones
    ("תחילת פרסום בפועל" / "השלמת פרסום"). Request 2026/0439.00 is listed
-   there: our feed row shows status "תחילת פרסום הבקשה להקלה",
-   publication_start 2026-10-18 (row checked 2026-10-24).
+   there: our feed row shows status "תחילת פרסום בפועל"-derived
+   publication_start 2026-10-18 (row checked 2026-10-24). Caveat: the
+   feed pipeline fills publication_start from the municipality's
+   "תחילת פרסום בפועל" process step, but whether the municipality
+   recorded an actual or a planned start in that step cannot be
+   distinguished from the data alone (no separate execution-date field
+   is exposed); the one-day gap to the handwritten posting date
+   (19.10) is consistent with either reading.
    The notice itself directs the public online: the scanned request is on
    the municipality website under "תכנון ובנייה > תיק רישוי בניה", and
    objections are filed via the online form
@@ -70,8 +78,10 @@ online. Researched 2026-10-25; every channel below names its source.
 
 - Online: listed in the official ykpubdata viewer (verified via our
   feed); expected in the over.org.il archive (unverified per-tik).
-- Offline: site sign photographed 2026-10-25 (posted 19.10.26);
-  neighbor notices by mail; newspaper ad(s) expected but not verified.
+- Offline: site sign photographed 2026-10-25 (posted 19.10.26).
+  Neighbor notices by mail are a statutory requirement, but their actual
+  delivery for this request is UNVERIFIED. Newspaper ad(s) expected but
+  not verified.
 - Objections until 13.11.2026 via the municipality's online objection
   form (see the evidence note for the verified notice text).
 
