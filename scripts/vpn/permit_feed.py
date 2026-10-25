@@ -261,14 +261,31 @@ def publication_dates(tik):
 
 
 def address_of(tik):
+    """Raw address fields for the tik, preserving source provenance (#408).
+
+    Returns {"rehovName", "mispBait", "schunaName"} exactly as procedure
+    242700455 reports them (empty strings when absent) - the renderer
+    decides how to display a partial address; the feed never invents one.
+    """
     rows = call(242700455, {"systemId": SYS, "tikNum": tik}) or []
     if isinstance(rows, list) and rows:
         r = rows[0]
-        parts = [
-            x for x in (r.get("rehovName"), r.get("mispBait"), r.get("schunaName")) if x
-        ]
-        return " ".join(str(x) for x in parts)
-    return ""
+        return {
+            "rehovName": str(r.get("rehovName") or "").strip(),
+            "mispBait": str(r.get("mispBait") or "").strip(),
+            "schunaName": str(r.get("schunaName") or "").strip(),
+        }
+    return {"rehovName": "", "mispBait": "", "schunaName": ""}
+
+
+def street_address(fields):
+    """Street address only when a street name exists; a neighborhood name
+    is not an address (#408)."""
+    street = (fields.get("rehovName") or "").strip()
+    if not street:
+        return ""
+    num = (fields.get("mispBait") or "").strip()
+    return f"{street} {num}".strip()
 
 
 def load_parcel_list(path, known):
@@ -461,9 +478,14 @@ def main():
             requests[tik]["publication_end_planned"] = end
             if list_mode and prior.get("address"):
                 requests[tik]["address"] = prior["address"]  # address does not change
+                for f in ("rehovName", "mispBait", "schunaName"):
+                    if prior.get(f):
+                        requests[tik][f] = prior[f]
             else:
                 time.sleep(PACE_SECONDS)
-                requests[tik]["address"] = address_of(tik)
+                fields = address_of(tik)
+                requests[tik].update(fields)
+                requests[tik]["address"] = street_address(fields)
             requests[tik]["details_checked_on"] = today
         except RuntimeError:
             print("anti-bot challenge during detail fetch - stopping (no workaround)")
