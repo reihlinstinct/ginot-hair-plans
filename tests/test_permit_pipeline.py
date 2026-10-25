@@ -600,3 +600,18 @@ def test_feed_reuses_only_complete_same_day_unchanged_details(
     row = json.loads(out.read_text())["requests"][0]
     assert row["details_checked_on"] == feed.datetime.date.today().isoformat()
     assert row["address"] == ("cached" if reuse else "")
+
+
+def test_inverted_publication_dates_counted():
+    # #463: source anomaly rows (planned end before publication start) are
+    # preserved as-is but counted for the run summary.
+    rows = [
+        {"publication_start": "2026-11-24", "publication_end_planned": "2026-10-18"},
+        {"publication_start": "2026-10-18", "publication_end_planned": "2026-11-24"},
+        {"publication_start": "", "publication_end_planned": "2026-11-24"},
+        {"publication_start": "18.10.2026", "publication_end_planned": "24.11.2026"},
+        {"publication_start": 20261124, "publication_end_planned": 20261018},
+        {"publication_start": "2026-02-31", "publication_end_planned": "2026-02-30"},
+        {"publication_start": ["2026-11-24"], "publication_end_planned": None},
+    ]
+    assert feed.count_inverted_publication_dates(rows) == 1
