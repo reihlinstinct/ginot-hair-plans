@@ -3,91 +3,7 @@
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
-   "plan": "101-1095330",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1214279",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1386671",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1348069",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1185578",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1215656",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1377753",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1293554",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1350594",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1409366",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1451699",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1500909",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1158146",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
    "plan": "101-1315423",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1432244",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -1300,8 +1216,8 @@
   "101-1315423": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "fc09379caef17e7d",
-   "page_chars": 1289,
+   "fingerprint": "3d48ed3bf3042a78",
+   "page_chars": 1535,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001097285117|חוות דעת כלכלית|26/02/2025|",
@@ -1429,6 +1345,79 @@
     "fingerprint": "49d909a6bc2b9af6"
    },
    "mp_id": "1005439868"
+  },
+  "101-0617134": {
+   "deadline_text": "",
+   "station_text": "בבדיקה תכנונית",
+   "fingerprint": "f7b163099b69b2d7",
+   "page_chars": 1200,
+   "api": {
+    "docs": [
+     "rsPlanDocsAdd|6000298162249|קבצי התכנית (SHP)|04/11/2025|",
+     "rsPlanDocsAdd|6000298162253|דוח תאי שטח לתכנית (XLS)|04/11/2025|",
+     "rsPlanDocsAdd|6000298162255|גבול התכנית(KML)\n לצפיה ב google earth|04/11/2025|",
+     "rsPlanDocsAdd|77000001171044|קו כחול|22/05/2025|",
+     "rsPlanDocsAdd|77000001171048|תאי שטח|22/05/2025|",
+     "rsPlanDocsAdd|77000002258724|בינוי|12/06/2025|נספח בינוי",
+     "rsPlanDocsAdd|77000003621582|זכויות והוראות בניה XLS|10/11/2025|זכויות והוראות בניה XLS",
+     "rsPlanDocsAdd|77000003740002|שמירה על עצים בוגרים|03/03/2022|סקר עצים על גבי פיתוח",
+     "rsPlanDocsAdd|77000003740006|שמירה על עצים בוגרים|03/03/2022|סקר עצים על גבי מדידה",
+     "rsPlanDocsAdd|77000003740054|שמירה על עצים בוגרים|03/03/2022|סקר עצים",
+     "rsPlanDocsAdd|77000003740066|תסקיר השפעה על הסביבה|04/07/2024|דו''ח מיקרו אקלים",
+     "rsPlanDocsAdd|77000003741124|ניהול מי נגר|27/06/2024|דו''ח הידרולוגי לניהול מי נגר",
+     "rsPlanDocsAdd|77000003741140|ניקוז|24/06/2024|נספח ניקוז",
+     "rsPlanDocsAdd|77000003741158|ביוב|27/06/2024|נספח מים וביוב",
+     "rsPlanDocsAdd|77000003741162|ביוב|26/06/2024|נספח תשתיות מים וביוב",
+     "rsPlanDocsAdd|77000004162678|פיתוח|06/04/2025|תכנית פיתוח",
+     "rsPlanDocsAdd|77000004228146|תנועה|05/10/2025|",
+     "rsPlanDocsAdd|77000004484634|מצב מאושר|04/11/2025|",
+     "rsPlanDocsAdd|77000004495110|פרוטוקול / החלטות|10/11/2025|פרוטוקול זכויות חתימה-פרימה",
+     "rsPlanDocsAdd|77000004644088|תשריט מצב מוצע חתום|27/01/2026|",
+     "rsPlanDocsGen|6000298162249|קבצי התכנית (SHP)|04/11/2025|",
+     "rsPlanDocsGen|6000298162253|דוח תאי שטח לתכנית (XLS)|04/11/2025|",
+     "rsPlanDocsGen|6000298162255|גבול התכנית(KML)\n לצפיה ב google earth|04/11/2025|",
+     "rsPlanDocsGen|6000298190407|הוראות התכנית|04/11/2025|",
+     "rsPlanDocsGen|6000991553027|תוצאות חיתוך מול תמ\"א (DXF)|04/11/2025|",
+     "rsPlanDocsGen|77000001171044|קו כחול|22/05/2025|",
+     "rsPlanDocsGen|77000001171048|תאי שטח|22/05/2025|",
+     "rsPlanDocsGen|77000002258724|בינוי|12/06/2025|נספח בינוי",
+     "rsPlanDocsGen|77000003621582|זכויות והוראות בניה XLS|10/11/2025|זכויות והוראות בניה XLS",
+     "rsPlanDocsGen|77000003740002|שמירה על עצים בוגרים|03/03/2022|סקר עצים על גבי פיתוח",
+     "rsPlanDocsGen|77000003740006|שמירה על עצים בוגרים|03/03/2022|סקר עצים על גבי מדידה",
+     "rsPlanDocsGen|77000003740054|שמירה על עצים בוגרים|03/03/2022|סקר עצים",
+     "rsPlanDocsGen|77000003740066|תסקיר השפעה על הסביבה|04/07/2024|דו''ח מיקרו אקלים",
+     "rsPlanDocsGen|77000003741124|ניהול מי נגר|27/06/2024|דו''ח הידרולוגי לניהול מי נגר",
+     "rsPlanDocsGen|77000003741140|ניקוז|24/06/2024|נספח ניקוז",
+     "rsPlanDocsGen|77000003741158|ביוב|27/06/2024|נספח מים וביוב",
+     "rsPlanDocsGen|77000003741162|ביוב|26/06/2024|נספח תשתיות מים וביוב",
+     "rsPlanDocsGen|77000004162678|פיתוח|06/04/2025|תכנית פיתוח",
+     "rsPlanDocsGen|77000004228146|תנועה|05/10/2025|",
+     "rsPlanDocsGen|77000004484634|מצב מאושר|04/11/2025|",
+     "rsPlanDocsGen|77000004495110|פרוטוקול / החלטות|10/11/2025|פרוטוקול זכויות חתימה-פרימה",
+     "rsPlanDocsGen|77000004644088|תשריט מצב מוצע חתום|27/01/2026|",
+     "rsPlanDocsGen|77001133950539|תשריט מצב מוצע|04/11/2025|תשריט מצב מוצע",
+     "rsPlanDocs|6000298190407|הוראות התכנית|04/11/2025|",
+     "rsPlanDocs|77001133950539|תשריט מצב מוצע|04/11/2025|תשריט מצב מוצע"
+    ],
+    "decisions": [
+     "2026018|12/10/2026|ועדה מחוזית לתכנון ולבניה מחוז ירושלים - ועדת משנה נקודתית|ועדה מחוזית לתכנון ולבניה מחוז ירושלים|ועדת משנה נקודתית",
+     "2026020|25/10/2026|ועדה מחוזית לתכנון ולבניה מחוז ירושלים - ועדת משנה נקודתית|ועדה מחוזית לתכנון ולבניה מחוז ירושלים|ועדת משנה נקודתית"
+    ],
+    "internet": [
+     "בדיקת תנאי סף-קיום תנאי סף|10/02/2026|",
+     "קבלת תכנית|24/11/2025|"
+    ],
+    "quantities": [
+     "AUTHORISED_QUANTITY=+213|AUTHORISED_QUANTITY_ADD=+17|DETAILED_PLAN=|ID=1000240768|IMPLEMENTATION=230|LAST_UPDATE=06/01/2026 11:30|LAST_UPDATER=emmanuelk|QUANTITY_CODE=100|QUANTITY_DESC=חדרי מלון / תיירות (חדר)|REMARK=|ROW_NUM=|UNIT_DESC=חדר",
+     "AUTHORISED_QUANTITY=+7,795|AUTHORISED_QUANTITY_ADD=-45|DETAILED_PLAN=|ID=1000240766|IMPLEMENTATION=7,750|LAST_UPDATE=06/01/2026 11:31|LAST_UPDATER=emmanuelk|QUANTITY_CODE=105|QUANTITY_DESC=חדרי מלון / תיירות (מ\"ר)|REMARK=|ROW_NUM=|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+11,400|DETAILED_PLAN=|ID=1000240770|IMPLEMENTATION=11,400|LAST_UPDATE=06/01/2026 11:31|LAST_UPDATER=emmanuelk|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=|ROW_NUM=|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+110|DETAILED_PLAN=|ID=1000240772|IMPLEMENTATION=110|LAST_UPDATE=10/11/2025 14:41|LAST_UPDATER=MTM-BLADE-WCF$|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=|ROW_NUM=|UNIT_DESC=יח\"ד",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+1|DETAILED_PLAN=|ID=1001797435|IMPLEMENTATION=1|LAST_UPDATE=02/02/2026 09:40|LAST_UPDATER=emmanuelk|QUANTITY_CODE=203|QUANTITY_DESC=* פרוגרמה - 30-39 קומות|REMARK=|ROW_NUM=1|UNIT_DESC=מספר מבנים"
+    ],
+    "oppositions_count": 0,
+    "fingerprint": "6aef69de3df7deb0"
+   },
+   "mp_id": "1000923331"
   }
  }
 }
