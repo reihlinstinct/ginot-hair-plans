@@ -1,5 +1,25 @@
 # Permit requests: default recency filter design (user instruction 2026-10-25)
 
+> REVIEW SUMMARY (current semantics, commit 8702cf7, 2026-10-25 07:12 IDT)
+> Locked by user instruction: filter on `publication_start` ONLY; rolling 6
+> calendar months in the visitor's browser local timezone; older recoverable
+> by editing the default date input; terminal default-hide unchanged;
+> pure client-side, no heavier site, no new assets; mobile checked before merge.
+> Categories (counts from 2026-10-25 feed): 1 published-in-window 65 shown;
+> 2 published-older 946 hidden-by-default/recoverable; 3 published-but-date-
+> unknown 1,391 (73 active + 75 late visible today) - OPEN POLICY POINT;
+> 4 no-publication-evidence 8,635 (status-based only, NOT proof of never-
+> published) - shown under existing rules, marked date-unknown;
+> 5 terminal/late rules unchanged.
+> Open decision (only meaning-changing one): category-3 non-terminal default -
+> A show-with-marker (recommended) / B hide-with-count-badge / C collapsed
+> group. Rationale: A hides nothing actionable while 91% undated (hides only
+> 253 of 4,229 rows today); B declutters to ~64 rows but wrongly hides 725
+> active incl. 652 no-evidence; C adds UI complexity for little gain over A.
+> Enrich note: no "unknowns collapse" promise - enrich mostly confirms absence
+> for category 4; one measured enrich window 152 min, per-tik rate unmeasured.
+> No implementation before the discussion closes.
+
 ## Status
 Design draft for discussion before implementation (design-first rule, Tab
 discussion pending). User instruction 2026-10-25: permit requests published
