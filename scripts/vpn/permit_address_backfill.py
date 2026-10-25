@@ -59,8 +59,16 @@ def address_fields_strict(tik):
     )
     if rows is None:
         raise ValueError(f"proc {ADDRESS_PROC}: no usable response")
-    if isinstance(rows, list) and rows:
+    if not isinstance(rows, list):
+        # An error object or any other shape is a failed call, not "the tik
+        # has no address" - only an empty list is a genuine no-row result.
+        raise ValueError(
+            f"proc {ADDRESS_PROC}: unexpected response shape {type(rows).__name__}"
+        )
+    if rows:
         r = rows[0]
+        if not isinstance(r, dict):
+            raise ValueError(f"proc {ADDRESS_PROC}: non-dict row {type(r).__name__}")
         return {
             "rehovName": str(r.get("rehovName") or "").strip(),
             "mispBait": str(r.get("mispBait") or "").strip(),
@@ -226,7 +234,9 @@ def main():
     flush_data(args.data, payload)
     save_checkpoint(args.checkpoint_file, done, fingerprint)
     print(f"done: enriched {enriched}, failures {failures}, targets {len(targets)}")
-    return 0
+    # Failed tiks are not in the checkpoint's done set, so --resume retries
+    # them - but a partially failed batch must not report success.
+    return 0 if failures == 0 else 1
 
 
 if __name__ == "__main__":

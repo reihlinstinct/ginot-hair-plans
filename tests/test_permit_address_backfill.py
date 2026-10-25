@@ -95,6 +95,19 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
         raise AssertionError("None response must raise, not become empty fields")
     except ValueError:
         pass
+    for bad in ({"error": "nope"}, "garbage", 42):
+        monkeypatch.setattr(bf._feed, "call", lambda *a, _b=bad: _b)
+        try:
+            bf.address_fields_strict("2026/0001.01")
+            raise AssertionError(f"{type(bad).__name__} response must raise, not become empty fields")
+        except ValueError:
+            pass
+    monkeypatch.setattr(bf._feed, "call", lambda *a: ["not-a-dict"])
+    try:
+        bf.address_fields_strict("2026/0001.01")
+        raise AssertionError("non-dict row must raise")
+    except ValueError:
+        pass
     monkeypatch.setattr(bf._feed, "call", lambda *a: [])
     assert bf.address_fields_strict("2026/0001.01") == _fields()
 
@@ -187,7 +200,7 @@ def test_none_response_keeps_legacy_address_and_allows_retry(tmp_path, monkeypat
         return _fields(schuna="קריית שמואל")
 
     rc, out, cp = _run(tmp_path, rows, fake, monkeypatch)
-    assert rc == 0
+    assert rc == 1  # one failure below the consecutive threshold: batch not complete
     enriched = {r["tik_num"]: r for r in out["requests"]}
     assert enriched["a"]["address"] == "גוננים"  # legacy address NOT cleared
     assert "rehovName" not in enriched["a"]
