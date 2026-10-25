@@ -28,6 +28,26 @@ jobs:
         run: |
           git fetch --depth=1 origin "${{ github.base_ref }}"
           python scripts/ci/check_external_reviews.py --base FETCH_HEAD
+      - name: Commit identity guard (issue #473)
+        if: github.event_name == 'pull_request'
+        run: |
+          # The guard walks base..head, so depth-1 is not enough (empirically
+          # verified: depth-1 checkout + depth-1 base fetch shows the guard
+          # only 1 commit, passing vacuously). Fetch full history of both
+          # ends; the script fails closed if a shallow boundary remains.
+          # GitHub context arrives via env (template-injection hardening).
+          git fetch --unshallow origin "$BASE_REF:base-ref" "+refs/pull/$PR_NUMBER/head:pr-head" \
+            || git fetch --depth=500 origin "$BASE_REF:base-ref" "+refs/pull/$PR_NUMBER/head:pr-head"
+          FORK_ARG=""
+          if [ "$HEAD_REPO_FORK" = "true" ]; then
+            FORK_ARG="--fork-author $PR_AUTHOR"
+          fi
+          python scripts/ci/check_commit_identities.py --base base-ref --head pr-head $FORK_ARG
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REPO_FORK: ${{ github.event.pull_request.head.repo.fork }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
       - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
       - name: Test run summary
         if: ${{ always() }}
