@@ -59,3 +59,53 @@ def test_non_noreply_emails_pass_by_design():
 def test_case_insensitive_username_match():
     recs = [("h" * 40, "ReihlInstinct@users.noreply.github.com", "x@example.com")]
     assert violations(recs) == []
+
+
+# --- Shallow-history fail-closed tests (CodeRabbit #474 round 2) -------------
+
+import subprocess
+
+
+def _git(cwd, *args):
+    subprocess.run(["git", *args], cwd=cwd, check=True,
+                   capture_output=True, text=True)
+
+
+def _make_repo(tmp_path):
+    """Source repo: main at c1; feature branch adds c2, c3."""
+    src = tmp_path / "src"
+    src.mkdir()
+    _git(src, "init", "-q", "-b", "main")
+    _git(src, "config", "user.email", "t@example.com")
+    _git(src, "config", "user.name", "T")
+    for i in (1, 2, 3):
+        (src / f"f{i}.txt").write_text(str(i))
+        _git(src, "add", ".")
+        _git(src, "commit", "-q", "-m", f"c{i}")
+        if i == 1:
+            _git(src, "branch", "feature")
+    _git(src, "checkout", "-q", "feature")
+    return src
+
+
+def test_boundary_empty_on_full_history(tmp_path, monkeypatch):
+    src = _make_repo(tmp_path)
+    clone = tmp_path / "full"
+    _git(tmp_path, "clone", "-q", str(src), str(clone))
+    _git(clone, "fetch", "-q", "origin", "main:base-ref")
+    monkeypatch.chdir(clone)
+    assert cci.boundary_commits("base-ref", "origin/feature") == []
+
+
+def test_boundary_detected_and_main_fails_closed_on_shallow(tmp_path, monkeypatch, capsys):
+    src = _make_repo(tmp_path)
+    clone = tmp_path / "shallow"
+    _git(tmp_path, "clone", "-q", "--depth", "1", "-b", "feature", f"file://{src}", str(clone))
+    _git(clone, "fetch", "-q", "--depth=1", "origin", "main:base-ref")
+    monkeypatch.chdir(clone)
+    # the range walk sees commits but the history is truncated at the boundary
+    assert cci.boundary_commits("base-ref", "HEAD") != []
+    rc = cci.main(["--base", "base-ref", "--head", "HEAD"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "shallow boundary" in out

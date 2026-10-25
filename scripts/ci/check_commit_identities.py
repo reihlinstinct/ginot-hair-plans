@@ -13,9 +13,14 @@ Rule for every commit in --base..--head, applied to BOTH author and committer:
 - any other email: not resolvable offline; passes by design (linking requires
   the address owner to verify it on their own account).
 
-Usage: check_commit_identities.py --base REF [--head REF] [--fork-author LOGIN]"""
+Usage: check_commit_identities.py --base REF [--head REF] [--fork-author LOGIN]
+
+History completeness is fail-closed: if the base..head walk hits a shallow
+boundary (truncated clone/fetch), the guard reports a problem instead of
+passing on a partial commit set."""
 
 import argparse
+import pathlib
 import re
 import subprocess
 import sys
@@ -75,14 +80,50 @@ def commit_records(base, head):
     return out
 
 
+def _is_ancestor(anc, desc):
+    r = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", anc, desc],
+        capture_output=True,
+        check=False,
+    )
+    return r.returncode == 0
+
+
+def boundary_commits(base, head):
+    """Grafted (shallow-cut) commits inside the base..head range. A grafted
+    commit's parents are missing, so the walk silently stops there; a
+    non-empty result means commit_records saw only part of the range.
+    (rev-list --boundary does not flag graft cuts, so detect them directly:
+    an entry in .git/shallow that is an ancestor of head but not of base.)"""
+    path = subprocess.run(
+        ["git", "rev-parse", "--git-path", "shallow"],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+    try:
+        cuts = [l.strip() for l in pathlib.Path(path).read_text(encoding="utf-8").splitlines() if l.strip()]
+    except FileNotFoundError:
+        return []  # no shallow file: history is complete
+    return [c for c in cuts if _is_ancestor(c, head) and not _is_ancestor(c, base)]
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--base", required=True)
     ap.add_argument("--head", default="HEAD")
     ap.add_argument("--fork-author", default="")
     args = ap.parse_args(argv)
+    problems = []
+    truncated = boundary_commits(args.base, args.head)
+    if truncated:
+        problems.append(
+            f"history truncated at shallow boundary ({len(truncated)} boundary "
+            f"commit(s), first {truncated[0][:8]}): refusing to pass on a "
+            "partial commit set - fetch full history"
+        )
     records = commit_records(args.base, args.head)
-    problems = violations(records, fork_author=args.fork_author or None)
+    problems += violations(records, fork_author=args.fork_author or None)
     for p in problems:
         print("FAIL:", p)
     print(f"checked {len(records)} commits, {len(problems)} problems")
