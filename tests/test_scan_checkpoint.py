@@ -89,11 +89,15 @@ def test_complete_scan_resumes_details_and_checkpoints_them(monkeypatch, tmp_pat
     out = tmp_path / "out.json"
     requests = _reqs(3)
     first = min(requests)
+    # Pin the feed's operative date: the module stamps in Asia/Jerusalem
+    # (issue #331), so a naive date.today() races the runner's UTC date.
+    fixed_today = pf.datetime.date(2026, 3, 9)
+    monkeypatch.setattr(pf, "_today", lambda: fixed_today)
     requests[first].update(
         address="saved",
         publication_start="",
         publication_end_planned="",
-        details_checked_on=pf.datetime.date.today().isoformat(),
+        details_checked_on=fixed_today.isoformat(),
     )
     cp = pf.checkpoint_payload(requests, 0, 3, 3)
     monkeypatch.setenv("GH_TOKEN", "fake")
