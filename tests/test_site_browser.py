@@ -68,45 +68,51 @@ REVIEW = [feat(f"300-{i}", "בדיקה תכנונית") for i in range(1, 5)]
 APPROVED = [feat(f"400-{i}", "אישור") for i in range(1, 4)]
 FEATURES = DEPOSIT + REVIEW + APPROVED
 
-PERMITS = [
-    {
-        "tik_num": "2020/0001.01",
-        "status": "בבדיקה",
+def _permit(tik, status, address, pub=None, end=None):
+    p = {
+        "tik_num": tik,
+        "status": status,
         "mahut": "תוספת בניה",
         "sugbakasha": "היתר",
         "gush": 30000,
         "helka": 12,
-        "address": "אלפסי 9",
+        "address": address,
         "status_date": "2026-09-01",
-        "publication_start": "2026-09-05",
-        "publication_end_planned": "2026-09-19",
-    },
-    {
-        "tik_num": "2020/0002.01",
-        "status": "בבדיקה",
-        "mahut": "שימוש חורג",
-        "sugbakasha": "היתר",
-        "gush": 30000,
-        "helka": 13,
-        "address": "בן יהודה 1",
-        "status_date": "2026-09-02",
-        "publication_start": "",
-        "publication_end_planned": "",
-    },
-    {
-        "tik_num": "2020/0003.01",
-        "status": "הבקשה נסגרה",
-        "mahut": "סגורה",
-        "sugbakasha": "היתר",
-        "gush": 30000,
-        "helka": 14,
-        "address": "הרצל 5",
-        "status_date": "2026-08-01",
-        "publication_start": "",
-        "publication_end_planned": "",
-    },
-]
+        "publication_start": pub if pub is not None else "",
+        "publication_end_planned": end if end is not None else "",
+    }
+    return p
 
+
+def _d(days):
+    return (TODAY + datetime.timedelta(days=days)).isoformat()
+
+
+# Recency-filter fixture (design permit-recency-filter): every category of
+# the publication-date world is represented, dates relative to TODAY so the
+# rolling six-month default never ages out of the test.
+PERMITS = [
+    # regression: the permit that started the objection work stays visible
+    _permit("2026/0439.00", "בבדיקה", "הפלמ\"ח 41", pub=_d(-7)),
+    # category 1: published inside the six-month window -> visible
+    _permit("2020/0001.01", "בבדיקה", "אלפסי 9", pub=_d(-30), end=_d(-16)),
+    # category 4: no publication evidence -> visible, marked date-unknown
+    _permit("2020/0002.01", "בבדיקה", "בן יהודה 1"),
+    # terminal, undated -> hidden by the existing closed rule
+    _permit("2020/0003.01", "הבקשה נסגרה", "הרצל 5"),
+    # category 2: published before the window -> hidden by default, recoverable
+    _permit("2020/0004.01", "בבדיקה", "יפו 12", pub=_d(-200), end=_d(-186)),
+    # category 1 edge: future publication start (real case 2026-10-28) -> visible
+    _permit("2020/0005.01", "בבדיקה", "קינג ג'ורג' 3", pub=_d(3)),
+    # category 3: publication evidenced by status, date unknown -> visible, marked
+    _permit("2020/0006.01", "תום תקופת פרסום", "אמציה 2"),
+    # category 3 via planned publication end only -> visible, marked
+    _permit("2020/0007.01", "בבדיקה", "בצלאל 4", end=_d(10)),
+    # category 4: draft-permit stage (where undated rows concentrate) -> visible
+    _permit("2020/0008.01", "טיוטת היתר הוכנה", "נרקיסים 6"),
+    # malformed scraper date -> degrades to date-unknown, never a bogus date
+    _permit("2020/0009.01", "בבדיקה", "שמאי 8", pub="2026-13-45"),
+]
 
 @pytest.fixture(scope="module")
 def site(tmp_path_factory):
@@ -414,11 +420,12 @@ def test_plan_numbers_link_to_mavat(page):
 
 
 def test_permits_default_hides_closed_and_counts(page):
-    assert page.locator("#permits-table tbody tr").count() == 3
-    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
-    assert page.locator("#pfcount").inner_text() == "מציג 2 מתוך 2"
+    assert page.locator("#permits-table tbody tr").count() == 10
+    # 8 visible: everything except the terminal row and the pre-window dated row
+    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
+    assert page.locator("#pfcount").inner_text() == "מציג 8 מתוך 8"
     page.check("#pfclosed")
-    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 3
+    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 9
 
 
 def test_permit_search_and_status_chip(page):
@@ -427,26 +434,78 @@ def test_permit_search_and_status_chip(page):
     page.click("#pfreset")
     page.locator("#permits .legend .chip", has_text="בבדיקה").click()
     assert page.locator("#pfstatus").input_value() == "בבדיקה"
-    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
+    # 0439.00, 0001, 0002, 0005, 0008, 0009 (0004 is pre-window dated, hidden)
+    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 6
 
 
 def test_permit_publication_date_filter(page):
-    page.fill("#pffrom", "2026-09-01")
-    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
+    # Manual from-date filters DATED rows only; undated rows stay visible
+    # (design option A: the recency filter never hides date-unknown rows).
+    page.fill("#pffrom", _d(-10))
+    vis = page.locator("#permits-table tbody tr:not(.filtered-out)")
+    assert vis.count() == 7
+    assert vis.filter(has_text="2020/0001.01").count() == 0  # dated, before from
+    assert vis.filter(has_text="2020/0002.01").count() == 1  # undated, survives
+    assert vis.filter(has_text="2026/0439.00").count() == 1  # dated, after from
+
+
+def test_permits_recency_default_and_recovery(page):
+    # Default: rolling six-month cutoff in the from input (browser-local,
+    # month-end clamped), pre-window dated row hidden, every other
+    # category visible.
+    import calendar
+
+    y, m = TODAY.year, TODAY.month - 6
+    while m < 1:
+        y, m = y - 1, m + 12
+    day = min(TODAY.day, calendar.monthrange(y, m)[1])
+    expected = datetime.date(y, m, day).isoformat()
+    assert page.locator("#pffrom").input_value() == expected
+    vis = page.locator("#permits-table tbody tr:not(.filtered-out)")
+    assert vis.filter(has_text="2020/0004.01").count() == 0  # category 2 hidden
+    assert vis.filter(has_text="2026/0439.00").count() == 1  # regression
+    assert vis.filter(has_text="2020/0005.01").count() == 1  # future date, in-window
+    # undated rows visible with the marker
+    assert page.locator("#permits-table .pub-missing").count() >= 3
+    # split date-unknown counters: 2 published-date-unknown + 3 no-evidence
+    assert (
+        page.locator("#pfunknown").inner_text()
+        == "תאריך פרסום חסר: 2 (פורסם, תאריך לא ידוע) · 3 (אין ראיית פרסום)"
+    )
+    # Recover older rows by editing the default date, then reset restores it.
+    page.fill("#pffrom", _d(-300))
+    assert (
+        page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 9
+    )
     assert (
         page.locator("#permits-table tbody tr:not(.filtered-out)")
-        .inner_text()
-        .count("2020/0001.01")
+        .filter(has_text="2020/0004.01")
+        .count()
         == 1
     )
+    page.click("#pfreset")
+    assert page.locator("#pffrom").input_value() == expected
+    assert (
+        page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
+    )
+
+
+def test_permits_rolling_cutoff_month_end(page):
+    # The classic setMonth overflow: Aug 31 must roll to Feb 28, not Mar 3.
+    got = page.evaluate(
+        "(function(){var d=window.__permitCutoff(new Date(2026,7,31));"
+        "return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'"
+        "+('0'+d.getDate()).slice(-2);})()"
+    )
+    assert got == "2026-02-28"
 
 
 def test_permit_deep_links_point_to_municipality_file(page):
     links = page.locator("#permits-table tbody tr td:first-child a")
-    assert links.count() == 3
+    assert links.count() == 10
     href = links.first.get_attribute("href")
     assert href == (
-        "https://ykpubdata.jerusalem.muni.il/#/Details?TikNum=2020%2F0001.01"
+        "https://ykpubdata.jerusalem.muni.il/#/Details?TikNum=2026%2F0439.00"
         "&SystemCode=26400046&Page=BakashalInfo"
     )
     assert links.first.get_attribute("target") == "_blank"
@@ -549,7 +608,7 @@ def test_mobile_permit_search_and_chip(mobile_page):
     mobile_page.locator("#permits .legend .chip", has_text="בבדיקה").first.tap()
     assert mobile_page.locator("#pfstatus").input_value() == "בבדיקה"
     assert (
-        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 2
+        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 6
     )
 
 
