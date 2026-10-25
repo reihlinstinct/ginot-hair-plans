@@ -74,3 +74,71 @@ def test_stale_before_returns_only_unchecked_active_parcels_oldest_first():
         )
         == []
     )
+
+
+def test_all_parcels_of_skips_incomplete_and_sorts():
+    geo = {
+        "features": [
+            {"properties": {"gush": 30030, "helka": 12}},
+            {"properties": {"gush": 30025, "helka": 126}},
+            {"properties": {"gush": 30025}},  # missing helka
+            {"properties": {}},
+            {"properties": {"gush": 30025, "helka": 40}},
+        ]
+    }
+    assert rs.all_parcels_of(geo) == [(30025, 40), (30025, 126), (30030, 12)]
+
+
+def _write_feed(tmp_path, requests, offset=0, limit=0):
+    import json as _json
+
+    feed = tmp_path / "feed.json"
+    feed.write_text(_json.dumps(
+        {"requests": requests, "batch": {"offset": offset, "limit": limit}}
+    ))
+    return str(feed)
+
+
+def _write_parcels(tmp_path, pairs):
+    import json as _json
+
+    geo = tmp_path / "parcels.geojson"
+    geo.write_text(_json.dumps(
+        {"features": [{"properties": {"gush": g, "helka": h}} for g, h in pairs]}
+    ))
+    return str(geo)
+
+
+def test_main_active_tier_with_stale_before_and_cap(tmp_path, capsys, monkeypatch):
+    import json as _json
+
+    feed = _write_feed(tmp_path, [
+        req("1", "נפתח תיק רישוי", 1, 1, "2026-09-01"),
+        req("2", "נפתח תיק רישוי", 2, 2, "2026-10-20"),
+        req("3", "הבקשה נסגרה", 3, 3, ""),
+    ])
+    monkeypatch.setattr(
+        "sys.argv",
+        ["recheck_select.py", "--tier", "active", "--feed", feed,
+         "--stale-before", "2026-10-01", "--cap", "5"],
+    )
+    rs.main()
+    assert _json.loads(capsys.readouterr().out) == [[1, 1]]
+
+
+def test_main_rotation_tier_uses_scan_cursor(tmp_path, capsys, monkeypatch):
+    import json as _json
+
+    feed = _write_feed(tmp_path, [
+        req("1", "הבקשה נסגרה", 1, 1, "2026-10-01"),
+        req("2", "נפתח תיק רישוי", 2, 2, "2026-10-20"),
+    ], offset=1, limit=1)
+    parcels = _write_parcels(tmp_path, [(1, 1), (2, 2), (3, 3)])
+    monkeypatch.setattr(
+        "sys.argv",
+        ["recheck_select.py", "--tier", "rotation", "--feed", feed,
+         "--parcels", parcels, "--cap", "10"],
+    )
+    rs.main()
+    # cursor = offset+limit = 2 -> only (1,1),(2,2) scanned; (2,2) active excluded
+    assert _json.loads(capsys.readouterr().out) == [[1, 1]]
