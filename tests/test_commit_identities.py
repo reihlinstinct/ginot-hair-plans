@@ -72,19 +72,21 @@ def _git(cwd, *args):
 
 
 def _make_repo(tmp_path):
-    """Source repo: main at c1; feature branch adds c2, c3."""
+    """Source repo: main at c1; feature branch adds c2, c3 ON TOP of c1
+    (the PR shape: feature = base + new commits)."""
     src = tmp_path / "src"
     src.mkdir()
     _git(src, "init", "-q", "-b", "main")
     _git(src, "config", "user.email", "t@example.com")
     _git(src, "config", "user.name", "T")
-    for i in (1, 2, 3):
+    (src / "f1.txt").write_text("1")
+    _git(src, "add", ".")
+    _git(src, "commit", "-q", "-m", "c1")
+    _git(src, "checkout", "-q", "-b", "feature")
+    for i in (2, 3):
         (src / f"f{i}.txt").write_text(str(i))
         _git(src, "add", ".")
         _git(src, "commit", "-q", "-m", f"c{i}")
-        if i == 1:
-            _git(src, "branch", "feature")
-    _git(src, "checkout", "-q", "feature")
     return src
 
 
@@ -94,6 +96,8 @@ def test_boundary_empty_on_full_history(tmp_path, monkeypatch):
     _git(tmp_path, "clone", "-q", str(src), str(clone))
     _git(clone, "fetch", "-q", "origin", "main:base-ref")
     monkeypatch.chdir(clone)
+    # the range must be the two feature commits (non-vacuous check)
+    assert len(cci.commit_records("base-ref", "origin/feature")) == 2
     assert cci.boundary_commits("base-ref", "origin/feature") == []
 
 
