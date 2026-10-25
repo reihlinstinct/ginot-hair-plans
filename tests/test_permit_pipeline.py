@@ -611,6 +611,7 @@ def test_inverted_publication_dates_counted():
         {"publication_start": "", "publication_end_planned": "2026-11-24"},
         {"publication_start": "18.10.2026", "publication_end_planned": "24.11.2026"},
         {"publication_start": 20261124, "publication_end_planned": 20261018},
+        {"publication_start": "2026-02-31", "publication_end_planned": "2026-02-30"},
         {"publication_start": ["2026-11-24"], "publication_end_planned": None},
     ]
     assert feed.count_inverted_publication_dates(rows) == 1
