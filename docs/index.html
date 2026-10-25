@@ -287,6 +287,30 @@ function pubcat(r,pub){
   if(PUB_EVIDENCE[r.getAttribute('data-status')]||r.getAttribute('data-pubend'))return 'pub-nodate';
   return 'no-evidence';
 }
+// Default order (#451): dated rows newest-first, then date-unknown rows in
+// their own honest placement (pub-nodate before no-evidence), feed order
+// kept stable inside each group. Raw feed order is oldest-first, so without
+// this sort every recent permit sits behind the 20-row default cap and the
+// recency filter never actually surfaces recent rows.
+function pubRank(r){
+  var pub=r.getAttribute('data-pub')||'';
+  var c=pubcat(r,pub);
+  return c==='dated'?0:(c==='pub-nodate'?1:2);
+}
+function sortRows(){
+  rows.forEach(function(r,i){r.__seq=i;});
+  rows.sort(function(a,b){
+    var ra=pubRank(a),rb=pubRank(b);
+    if(ra!==rb)return ra-rb;
+    if(ra===0){
+      var pa=a.getAttribute('data-pub')||'',pb=b.getAttribute('data-pub')||'';
+      if(pa!==pb)return pa<pb?1:-1; // ISO strings: newest first
+    }
+    return a.__seq-b.__seq;
+  });
+  var tb=document.querySelector('#permits-table tbody');
+  if(tb)rows.forEach(function(r){tb.appendChild(r);});
+}
 pffrom.value=DEF_FROM;
 function normSearch(s){
   return (s||'').toLowerCase().replace(/[׳״־’”'"`-]/g,'');
@@ -401,10 +425,12 @@ fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r
   var tb=document.querySelector('#permits-table tbody');if(!tb)return;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  sortRows();
   rebuildDerived();
   apply();
   window.__permitsLoaded=true;
 }).catch(function(){window.__permitsFailed=true;});
+sortRows();
 apply();
 })();
 </script>
