@@ -55,11 +55,17 @@ def count_inverted_publication_dates(rows):
     """#463: count rows whose planned publication end precedes publication
     start - a source anomaly preserved as-is (no inferred correction);
     surfaced only as a run-summary count, no data change."""
+
+    def iso(value):
+        # API-sourced rows can carry truthy non-strings; re.match would
+        # raise TypeError on those - treat them as unparseable, not fatal.
+        return value if isinstance(value, str) else ""
+
     return sum(
         1
         for r in rows
-        if ISO_DATE.match(r.get("publication_start") or "")
-        and ISO_DATE.match(r.get("publication_end_planned") or "")
+        if ISO_DATE.match(iso(r.get("publication_start")))
+        and ISO_DATE.match(iso(r.get("publication_end_planned")))
         and r["publication_end_planned"] < r["publication_start"]
     )
 
