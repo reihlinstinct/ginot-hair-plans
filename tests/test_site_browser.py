@@ -454,8 +454,12 @@ def test_footer_links(page, site):
     link = page.locator("footer a[href='about.html']")
     link.scroll_into_view_if_needed()
     link.focus()
-    page.keyboard.press("Enter")
-    page.wait_for_url("**/about.html", timeout=60000)
+    # Register the navigation waiter BEFORE the keypress: pressing Enter and
+    # only then calling wait_for_url races the actual navigation commit and
+    # intermittently hangs 60s on WebKit (seen on CI run 40164675351 after
+    # three green same-content runs).
+    with page.expect_navigation(url="**/about.html", timeout=60000):
+        page.keyboard.press("Enter")
     assert page.url.endswith("/about.html")
     assert page.locator("body").inner_text().strip() != ""
 

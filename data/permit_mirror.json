@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-24",
+ "generated": "2026-10-25",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
@@ -1229,7 +1229,7 @@
    "parcels": [
     86
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -2119,7 +2119,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -2134,7 +2134,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -21486,7 +21486,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -23368,8 +23368,8 @@
   },
   {
    "tik_num": "1962/0029.01",
-   "status": "הוכנה טיוטת היתר בניה",
-   "status_date": "2026-10-14",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-10-22",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד",
    "mahut": "תוספת בניה לבניין קיים, חדר מחוזק, מרפסת זיז",
    "address": "דרך עזה 13 רחביה",
@@ -23377,8 +23377,8 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -29808,7 +29808,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -42542,7 +42542,7 @@
    "parcels": [
     41
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -45120,7 +45120,7 @@
    "parcels": [
     136
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -45625,7 +45625,7 @@
    "parcels": [
     56
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -47019,7 +47019,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -47034,7 +47034,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -48663,7 +48663,7 @@
    "parcels": [
     98
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -50320,7 +50320,7 @@
    "parcels": [
     139
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -53115,7 +53115,7 @@
    "parcels": [
     92
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -53280,7 +53280,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -53445,7 +53445,7 @@
    "parcels": [
     103
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -54353,8 +54353,8 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -54368,7 +54368,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -56293,7 +56293,7 @@
    "parcels": [
     9
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -59414,7 +59414,7 @@
    "parcels": [
     83
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -63426,7 +63426,7 @@
    "parcels": [
     78
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
    "mirror_last_seen": ""
   },
@@ -65063,7 +65063,7 @@
    "parcels": [
     133
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -65573,8 +65573,8 @@
    "parcels": [
     90
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -66515,7 +66515,7 @@
    "parcels": [
     105
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -66665,7 +66665,7 @@
    "parcels": [
     45
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -68053,7 +68053,7 @@
    "parcels": [
     115
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -70044,7 +70044,7 @@
    "parcels": [
     56
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:45.104176+00:00",
    "mirror_last_seen": ""
   },
@@ -72003,7 +72003,7 @@
    "parcels": [
     37
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -73715,7 +73715,7 @@
    "parcels": [
     54
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -76376,7 +76376,7 @@
    "parcels": [
     101
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -76616,7 +76616,7 @@
    "parcels": [
     75
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -76766,7 +76766,7 @@
    "parcels": [
     6
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:36.093851+00:00",
    "mirror_last_seen": ""
   },
@@ -76781,7 +76781,7 @@
    "parcels": [
     6
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -78242,7 +78242,7 @@
    "parcels": [
     156
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -78587,7 +78587,7 @@
    "parcels": [
     32
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -78602,7 +78602,7 @@
    "parcels": [
     32
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -79634,7 +79634,7 @@
    "parcels": [
     70
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -80080,7 +80080,7 @@
    "parcels": [
     110
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -81751,7 +81751,7 @@
    "parcels": [
     148
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -84551,7 +84551,7 @@
    "parcels": [
     182
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -89507,7 +89507,7 @@
    "parcels": [
     72
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -89522,7 +89522,7 @@
    "parcels": [
     72
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -89732,7 +89732,7 @@
    "parcels": [
     43
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -91586,7 +91586,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -94143,7 +94143,7 @@
    "parcels": [
     28
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -94729,7 +94729,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
    "mirror_last_seen": ""
   },
@@ -95489,7 +95489,7 @@
    "parcels": [
     43
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -98097,7 +98097,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -98652,7 +98652,7 @@
    "parcels": [
     39
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -99642,7 +99642,7 @@
    "parcels": [
     2
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -100827,7 +100827,7 @@
    "parcels": [
     95
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -101157,7 +101157,7 @@
    "parcels": [
     133
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -101757,7 +101757,7 @@
    "parcels": [
     1
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -103052,7 +103052,7 @@
    "parcels": [
     71
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -103832,7 +103832,7 @@
    "parcels": [
     202
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -104935,7 +104935,7 @@
    "parcels": [
     75
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
    "mirror_last_seen": ""
   },
@@ -105088,7 +105088,7 @@
    "parcels": [
     32
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -105929,7 +105929,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -107559,7 +107559,7 @@
    "parcels": [
     77
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -109050,7 +109050,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -111551,7 +111551,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -111566,7 +111566,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -111581,7 +111581,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -112382,8 +112382,8 @@
   },
   {
    "tik_num": "1988/0778.05",
-   "status": "הוכנה טיוטת היתר בניה",
-   "status_date": "2026-10-15",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-10-22",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "mahut": "תוספת בנייה+ממ\"ד",
    "address": "קנאי הגליל 24 גוננים",
@@ -112391,8 +112391,8 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -113713,14 +113713,14 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:45.104176+00:00",
    "mirror_last_seen": ""
   },
   {
    "tik_num": "1989/0060.02",
-   "status": "הגשה מקוונת הושלמה",
-   "status_date": "2026-07-05",
+   "status": "שולמה מקדמה",
+   "status_date": "2026-10-15",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד",
    "mahut": "תוספת עמודת ממדים ל-3 דירות.",
    "address": "הלה 20 קטמון הישנה",
@@ -113728,8 +113728,8 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -115132,7 +115132,7 @@
    "parcels": [
     57
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -116087,7 +116087,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -117486,7 +117486,7 @@
    "parcels": [
     104
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -118091,7 +118091,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -118106,7 +118106,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -118346,7 +118346,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -118466,7 +118466,7 @@
    "parcels": [
     135
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -119012,8 +119012,8 @@
   },
   {
    "tik_num": "1989/0847.07",
-   "status": "נדונה בוועדת המשנה",
-   "status_date": "2026-03-11",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "2026-10-18",
    "sugbakasha": "בניית מרפסת, תוכנית שינויים, תוספת בניה / הרחבה לבניין קיים",
    "mahut": "תכנית שינויים, בניית מרפסת ותוספת בנייה על הגג",
    "address": "אנטיגנוס 29 גוננים",
@@ -119021,8 +119021,8 @@
    "parcels": [
     54
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -119126,7 +119126,7 @@
    "parcels": [
     31
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -119261,7 +119261,7 @@
    "parcels": [
     55
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -121727,14 +121727,14 @@
    "parcels": [
     61
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:45.104176+00:00",
    "mirror_last_seen": ""
   },
   {
    "tik_num": "1990/0224.06",
-   "status": "הגשה מקוונת הושלמה",
-   "status_date": "2026-05-05",
+   "status": "נוסח פרסום אושר",
+   "status_date": "2026-10-19",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בניית מרפסת",
    "mahut": "בניית מרפסת + סגירת מרפסת",
    "address": "יוסי בן יועזר 61 גוננים",
@@ -121742,8 +121742,8 @@
    "parcels": [
     61
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -122087,7 +122087,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-07T23:16:13.765574+00:00",
    "mirror_last_seen": ""
   },
@@ -122102,7 +122102,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -122297,7 +122297,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-14T02:42:27.339427+00:00",
    "mirror_last_seen": ""
   },
@@ -122312,7 +122312,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -122882,7 +122882,7 @@
    "parcels": [
     43
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -123407,7 +123407,7 @@
    "parcels": [
     240
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -123557,7 +123557,7 @@
    "parcels": [
     80
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -125477,7 +125477,7 @@
    "parcels": [
     52
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -126798,7 +126798,7 @@
    "parcels": [
     206
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -126813,7 +126813,7 @@
    "parcels": [
     206
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:45.104176+00:00",
    "mirror_last_seen": ""
   },
@@ -127551,8 +127551,8 @@
   },
   {
    "tik_num": "1991/0255.08",
-   "status": "הוכנה טיוטת היתר בניה",
-   "status_date": "2026-10-07",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-10-22",
    "sugbakasha": "ממ\"ד",
    "mahut": "בקשה לתוספת ממ\"ד בקומת מרתף קיימת",
    "address": "בלפור 16 רחביה",
@@ -127560,8 +127560,8 @@
    "parcels": [
     72
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -127770,7 +127770,7 @@
    "parcels": [
     143
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -128435,7 +128435,7 @@
    "parcels": [
     37
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
    "mirror_last_seen": ""
   },
@@ -128819,7 +128819,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -128834,7 +128834,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -128951,7 +128951,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
    "mirror_last_seen": ""
   },
@@ -128966,7 +128966,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
    "mirror_last_seen": ""
   },
@@ -129709,7 +129709,7 @@
    "parcels": [
     26
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-12T21:19:39.105816+00:00",
    "mirror_last_seen": ""
   },
@@ -130762,8 +130762,8 @@
   },
   {
    "tik_num": "1991/0584.09",
-   "status": "חידוש טיפול בבקשה",
-   "status_date": "2026-08-24",
+   "status": "הבקשה נסגרה",
+   "status_date": "2026-10-24",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "mahut": "תוספת בניה על פי תב\"ע",
    "address": "יעקב ברגר 4 גוננים",
@@ -130771,8 +130771,8 @@
    "parcels": [
     55
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-29T21:13:36.093851+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -131461,7 +131461,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -131830,7 +131830,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -132635,7 +132635,7 @@
    "parcels": [
     114
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -133085,7 +133085,7 @@
    "parcels": [
     21
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -133115,7 +133115,7 @@
    "parcels": [
     21
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -134533,7 +134533,7 @@
    "parcels": [
     11
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -134653,7 +134653,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -134743,7 +134743,7 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -134758,7 +134758,7 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -134820,7 +134820,7 @@
    "parcels": [
     74
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -136298,7 +136298,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -136958,7 +136958,7 @@
    "parcels": [
     86
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -137776,7 +137776,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -138181,7 +138181,7 @@
    "parcels": [
     85
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:36.093851+00:00",
    "mirror_last_seen": ""
   },
@@ -140606,7 +140606,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -141313,7 +141313,7 @@
    "parcels": [
     139
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-04T23:04:46.121102+00:00",
    "mirror_last_seen": ""
   },
@@ -141373,7 +141373,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -141388,7 +141388,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:36.093851+00:00",
    "mirror_last_seen": ""
   },
@@ -141901,7 +141901,7 @@
    "parcels": [
     77
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -142955,7 +142955,7 @@
    "parcels": [
     36
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -143441,8 +143441,8 @@
   },
   {
    "tik_num": "1995/0533.12",
-   "status": "נדונה בוועדת המשנה",
-   "status_date": "2026-10-07",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "2026-10-18",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד",
    "mahut": "תוספת בניה לפי תב\"ע",
    "address": "דב הוז 10 גוננים",
@@ -143450,8 +143450,8 @@
    "parcels": [
     11
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -143600,7 +143600,7 @@
    "parcels": [
     181
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -143645,7 +143645,7 @@
    "parcels": [
     58
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
    "mirror_last_seen": ""
   },
@@ -143826,7 +143826,7 @@
    "parcels": [
     133
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:17.545751+00:00",
    "mirror_last_seen": ""
   },
@@ -145245,7 +145245,7 @@
    "parcels": [
     84
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -145723,7 +145723,7 @@
    "parcels": [
     53
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -146698,7 +146698,7 @@
    "parcels": [
     160
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -146848,7 +146848,7 @@
    "parcels": [
     18
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -147463,7 +147463,7 @@
    "parcels": [
     14
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -148851,7 +148851,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -149061,7 +149061,7 @@
    "parcels": [
     3
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -151131,7 +151131,7 @@
    "parcels": [
     21
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -152188,7 +152188,7 @@
    "parcels": [
     76
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -152563,7 +152563,7 @@
    "parcels": [
     41
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -154611,7 +154611,7 @@
    "parcels": [
     29
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -154761,7 +154761,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-07T23:16:13.765574+00:00",
    "mirror_last_seen": ""
   },
@@ -155122,7 +155122,7 @@
    "parcels": [
     18
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -156155,8 +156155,8 @@
   },
   {
    "tik_num": "1999/0519.05",
-   "status": "נפתח תיק רישוי",
-   "status_date": "2026-07-20",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-10-21",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בניית מרפסת, ממ\"ד",
    "mahut": "הרחבות לבניין קיים ותוספת על הגג ע\"פ תבע 6990 א הרחבת ממ\"ד , הפיכת שטח שרות לשטח עיקרי ומרפסות",
    "address": "רשב\"ג 16 גוננים",
@@ -156164,8 +156164,8 @@
    "parcels": [
     35
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-29T21:13:36.093851+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.041097+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -156779,7 +156779,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -156794,7 +156794,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -156919,7 +156919,7 @@
    "parcels": [
     106
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -157129,7 +157129,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -158250,7 +158250,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -160255,7 +160255,7 @@
    "parcels": [
     14
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -161611,7 +161611,7 @@
    "parcels": [
     83
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -161742,7 +161742,7 @@
    "parcels": [
     134
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -162879,7 +162879,7 @@
    "parcels": [
     60
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -163959,7 +163959,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -163974,7 +163974,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -165768,7 +165768,7 @@
    "parcels": [
     197
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -166008,7 +166008,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -166518,7 +166518,7 @@
    "parcels": [
     8
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -167118,7 +167118,7 @@
    "parcels": [
     1
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -168663,7 +168663,7 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -169773,7 +169773,7 @@
    "parcels": [
     29
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -169919,9 +169919,7 @@
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:43.637309+00:00",
-   "mirror_last_seen": "",
-   "publication_start": "",
-   "publication_end_planned": ""
+   "mirror_last_seen": ""
   },
   {
    "tik_num": "2005/0678.00",
@@ -170183,7 +170181,7 @@
    "parcels": [
     117
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -171222,6 +171220,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2006/0067.05",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-06-16",
+   "sugbakasha": "שינוי בפתחי חזית או במעטפת המבנה, שינויים ללא תוספת שטחים",
+   "mahut": "תוכנית שינויים עבור שינוי בפתחים",
+   "address": "בלפור 14 רחביה",
+   "gush": 30026,
+   "parcels": [
+    69
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2006/0079.00",
    "status": "הבקשה נסגרה",
    "status_date": "2010-03-17",
@@ -171457,7 +171470,7 @@
    "parcels": [
     21
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -171894,6 +171907,21 @@
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:43.877122+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2006/0283.05",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-07-20",
+   "sugbakasha": "שינויים בקירות חזית במבנים קיימים, תוכנית שינויים",
+   "mahut": "תכנית שינויים",
+   "address": "האר\"י 4 רחביה",
+   "gush": 30026,
+   "parcels": [
+    129
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -172930,7 +172958,7 @@
    "parcels": [
     185
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -173951,7 +173979,7 @@
    "parcels": [
     94
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -174577,7 +174605,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -174592,7 +174620,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-14T02:42:27.339427+00:00",
    "mirror_last_seen": ""
   },
@@ -174922,7 +174950,7 @@
    "parcels": [
     103
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:47.221410+00:00",
    "mirror_last_seen": ""
   },
@@ -175222,7 +175250,7 @@
    "parcels": [
     81
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -176514,7 +176542,7 @@
    "parcels": [
     100
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -176529,7 +176557,7 @@
    "parcels": [
     100
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:38.168170+00:00",
    "mirror_last_seen": ""
   },
@@ -177536,6 +177564,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2009/0185.02",
+   "status": "נדונה ברשות הרישוי",
+   "status_date": "2026-02-01",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד",
+   "mahut": "תוספת בנייה וממ\"ד בקומת מרתף.",
+   "address": "מחלקי המים 16 קטמון הישנה",
+   "gush": 30006,
+   "parcels": [
+    141
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2009/0198.00",
    "status": "הבקשה נסגרה",
    "status_date": "2011-07-19",
@@ -177816,7 +177859,7 @@
    "parcels": [
     84
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -178128,7 +178171,7 @@
    "parcels": [
     7
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -179266,7 +179309,7 @@
    "parcels": [
     8
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:38.168170+00:00",
    "mirror_last_seen": ""
   },
@@ -179452,8 +179495,8 @@
   },
   {
    "tik_num": "2010/0070.04",
-   "status": "הוכנה טיוטת היתר בניה",
-   "status_date": "2026-09-22",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-10-22",
    "sugbakasha": "התקנת מעלית חיצונית",
    "mahut": "הוספת מעלון חיצוני בבניין מגורים קיים",
    "address": "דוד שמעוני 62 גבעת הורדים",
@@ -179461,8 +179504,8 @@
    "parcels": [
     131
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -179587,8 +179630,8 @@
   },
   {
    "tik_num": "2010/0196.01",
-   "status": "נפתח תיק רישוי",
-   "status_date": "2026-07-21",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-10-21",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בנית מחסן/מחסנים, ממ\"ד, בניית מרפסת",
    "mahut": "תוספת בניה , ממ\"ד, מחסן",
    "address": "ניקנור 217 גוננים",
@@ -179596,8 +179639,8 @@
    "parcels": [
     196
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -180437,7 +180480,7 @@
    "parcels": [
     196
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -181695,8 +181738,8 @@
   },
   {
    "tik_num": "2010/1061.04",
-   "status": "שולמה מקדמה",
-   "status_date": "2026-02-24",
+   "status": "תחילת הודעות לפני תקנה 36",
+   "status_date": "2026-10-18",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "mahut": "סגירת מרפסת קיימת, ,תוספת בניה, סגירת החלל הכפול",
    "address": "רחל אמנו 23 קטמון הישנה",
@@ -181704,8 +181747,8 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -181839,7 +181882,7 @@
    "parcels": [
     72
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -181860,8 +181903,8 @@
   },
   {
    "tik_num": "2011/0028.01",
-   "status": "חידוש טיפול בבקשה",
-   "status_date": "2026-07-28",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-10-21",
    "sugbakasha": "בניית מרפסת, בנית מחסן/מחסנים, ממ\"ד, תוספת בניה / הרחבה לבניין קיים",
    "mahut": "תוספת בניה ומרפסת בקומת הקרקע, בנית ממ\"ד ומחסן בקומת המרתף.",
    "address": "הנוטרים 14 גוננים",
@@ -181869,8 +181912,8 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -182634,7 +182677,7 @@
    "parcels": [
     5
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:38.168170+00:00",
    "mirror_last_seen": ""
   },
@@ -182904,7 +182947,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.898211+00:00",
    "mirror_last_seen": ""
   },
@@ -182919,7 +182962,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -183354,7 +183397,7 @@
    "parcels": [
     129
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -183661,7 +183704,7 @@
   {
    "tik_num": "2011/0684.03",
    "status": "נדונה בוועדת המשנה",
-   "status_date": "2026-02-17",
+   "status_date": "2026-10-21",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, רישוי בניה - שימוש חורג מהיתר",
    "mahut": "שינוי שימוש  ע\"פ תב\"ע  ממסחר למגורים",
    "address": "בילו 1 קטמון הישנה",
@@ -183669,8 +183712,8 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-09-12T21:19:39.427647+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -184089,7 +184132,7 @@
    "parcels": [
     37
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-12T21:19:39.427647+00:00",
    "mirror_last_seen": ""
   },
@@ -184395,8 +184438,8 @@
   },
   {
    "tik_num": "2011/0847.03",
-   "status": "נדונה בוועדת המשנה",
-   "status_date": "2026-09-16",
+   "status": "תחילת הודעות לפני תקנה 36",
+   "status_date": "2026-10-21",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, עבודות הריסה, ממ\"ד",
    "mahut": "בניית ממ\"ד",
    "address": "איתמר בן אבי 7 קריית שמואל",
@@ -184404,8 +184447,8 @@
    "parcels": [
     149
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -185767,7 +185810,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -185782,7 +185825,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": ""
   },
@@ -186379,7 +186422,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -186544,7 +186587,7 @@
    "parcels": [
     134
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.898211+00:00",
    "mirror_last_seen": ""
   },
@@ -187231,7 +187274,7 @@
    "parcels": [
     74
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -187368,6 +187411,21 @@
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:46.764832+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2013/0020.06",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-05-06",
+   "sugbakasha": "בניית בריכה פרטית",
+   "mahut": "הנחת בריכה פרטית עם חדר מכונות מובנה על גג הדירות.",
+   "address": "שופן 14 מושבה גרמנית",
+   "gush": 30022,
+   "parcels": [
+    54
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -188343,7 +188401,7 @@
    "parcels": [
     45
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -191655,7 +191713,7 @@
    "parcels": [
     29
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:47.221410+00:00",
    "mirror_last_seen": ""
   },
@@ -192221,6 +192279,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2014/1000.01",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2025-12-01",
+   "sugbakasha": "חידוש היתר",
+   "mahut": "חידוש היתר לתיק 2014/1000.00",
+   "address": "חובבי ציון 9 טלביה",
+   "gush": 30021,
+   "parcels": [
+    7
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2014/1000.02",
    "status": "הבקשה נסגרה",
    "status_date": "2025-09-28",
@@ -192486,7 +192559,7 @@
    "parcels": [
     40
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:57.898211+00:00",
    "mirror_last_seen": ""
   },
@@ -193071,7 +193144,7 @@
    "parcels": [
     78
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -193434,7 +193507,7 @@
    "parcels": [
     28
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -193449,7 +193522,7 @@
    "parcels": [
     28
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:47.221410+00:00",
    "mirror_last_seen": ""
   },
@@ -193524,7 +193597,7 @@
    "parcels": [
     31
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -194444,7 +194517,7 @@
    "parcels": [
     34
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-19T21:06:20.208097+00:00",
    "mirror_last_seen": ""
   },
@@ -194684,7 +194757,7 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -194699,7 +194772,7 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:47.221410+00:00",
    "mirror_last_seen": ""
   },
@@ -195104,7 +195177,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -195119,7 +195192,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -195660,7 +195733,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -196696,7 +196769,7 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -196726,7 +196799,7 @@
    "parcels": [
     26
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -197623,7 +197696,7 @@
    "parcels": [
     243
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -197923,7 +197996,7 @@
    "parcels": [
     170
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:38.168170+00:00",
    "mirror_last_seen": ""
   },
@@ -198262,15 +198335,15 @@
    "tik_num": "2017/0158.01",
    "status": "נדונה בוועדת המשנה",
    "status_date": "2026-01-28",
-   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בנית מחסן/מחסנים",
+   "sugbakasha": "בנית מחסן/מחסנים",
    "mahut": "תוספת מחסן",
    "address": "הרב חן 6 קריית שמואל",
    "gush": 30024,
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -198509,7 +198582,7 @@
    "parcels": [
     69
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -198784,6 +198857,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2017/0332.01",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-05-06",
+   "sugbakasha": "בניה חדשה / בניין חדש",
+   "mahut": "תוספת 2 קומות על קרקעיות ו-2 קומות תת קרקעיות לבניין מאושר ע''''פי היתר 2017/332.00",
+   "address": "ניקנור 32 קטמון הישנה",
+   "gush": 30122,
+   "parcels": [
+    34
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2017/0340.00",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2018-06-14",
@@ -198824,7 +198912,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -198869,7 +198957,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -198974,7 +199062,7 @@
    "parcels": [
     153
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -199487,7 +199575,7 @@
    "parcels": [
     36
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": ""
   },
@@ -199607,7 +199695,7 @@
    "parcels": [
     173
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -200018,6 +200106,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2017/0851.01",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-07-01",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד, בנית מחסן/מחסנים, תוספת יח\"ד באמצעות תוספת בניה, בניית מרפסת",
+   "mahut": "תוספת בניה/ הרחבה לבניין קיים, תוספת יח\"ד, ממ\"ד ומרפסות.",
+   "address": "החי\"ש 8 קטמון הישנה",
+   "gush": 30006,
+   "parcels": [
+    45
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2017/0874.00",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "2019-01-03",
@@ -200123,6 +200226,21 @@
    "mirror_last_seen": ""
   },
   {
+   "tik_num": "2017/0894.01",
+   "status": "הופק-הוצא היתר בניה",
+   "status_date": "2026-03-18",
+   "sugbakasha": "בנית מחסן/מחסנים, ממ\"ד, תוספת בניה / הרחבה לבניין קיים, התקנת מעלית פנימית, בניית מרפסת",
+   "mahut": "תוספת בניה תוך הריסת חלקים לא מקוריים ושימור המבנה המקורי בהתאם לתכנית 2878",
+   "address": "יורדי הסירה 7 קטמון הישנה",
+   "gush": 30007,
+   "parcels": [
+    138
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_last_seen": ""
+  },
+  {
    "tik_num": "2017/0906.00",
    "status": "הבקשה נסגרה",
    "status_date": "2018-10-24",
@@ -200150,6 +200268,21 @@
    ],
    "mirror_sample_date": "2026-08-02",
    "mirror_first_seen": "2026-08-02T23:36:49.425916+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2017/0919.01",
+   "status": "שולמה מקדמה",
+   "status_date": "2026-04-09",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בניית מרפסת",
+   "mahut": "תוספת בניה/הרחבה לבניין קים, בניית מרפסת",
+   "address": "מבוא פינלס שמואל 6 פת",
+   "gush": 30501,
+   "parcels": [
+    39
+   ],
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -200511,7 +200644,7 @@
    "parcels": [
     125
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -200571,7 +200704,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -200766,7 +200899,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": ""
   },
@@ -201057,8 +201190,8 @@
   },
   {
    "tik_num": "2018/0428.01",
-   "status": "שולמה מקדמה",
-   "status_date": "2026-07-20",
+   "status": "נוסח פרסום אושר",
+   "status_date": "2026-10-18",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בניית מרפסת",
    "mahut": "ריצוף גינה והוספת מרפסת זיז",
    "address": "המעפילים 17 גבעת הורדים",
@@ -201066,8 +201199,8 @@
    "parcels": [
     181
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.231216+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -201583,7 +201716,7 @@
    "parcels": [
     200
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -201673,7 +201806,7 @@
    "parcels": [
     134
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202048,7 +202181,7 @@
    "parcels": [
     28
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202265,7 +202398,7 @@
    "parcels": [
     163
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202505,7 +202638,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202520,7 +202653,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -202565,7 +202698,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T22:32:12.089016+00:00",
    "mirror_last_seen": ""
   },
@@ -202610,7 +202743,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202715,7 +202848,7 @@
    "parcels": [
     132
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202927,7 +203060,7 @@
    "parcels": [
     66
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -202957,7 +203090,7 @@
    "parcels": [
     116
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203002,7 +203135,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203017,7 +203150,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -203032,7 +203165,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203212,7 +203345,7 @@
    "parcels": [
     155
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203274,7 +203407,7 @@
    "parcels": [
     69
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -203454,7 +203587,7 @@
    "parcels": [
     111
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203544,7 +203677,7 @@
    "parcels": [
     128
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -203574,7 +203707,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -203694,7 +203827,7 @@
    "parcels": [
     41
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203724,7 +203857,7 @@
    "parcels": [
     78
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203739,7 +203872,7 @@
    "parcels": [
     93
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-12T21:19:39.589821+00:00",
    "mirror_last_seen": ""
   },
@@ -203754,7 +203887,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203799,7 +203932,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203829,7 +203962,7 @@
    "parcels": [
     75
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203874,7 +204007,7 @@
    "parcels": [
     58
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -203889,7 +204022,7 @@
    "parcels": [
     58
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:39.676433+00:00",
    "mirror_last_seen": ""
   },
@@ -203934,7 +204067,7 @@
    "parcels": [
     37
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204058,7 +204191,7 @@
    "parcels": [
     50
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204073,7 +204206,7 @@
    "parcels": [
     50
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204148,7 +204281,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204163,7 +204296,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -204208,7 +204341,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204223,7 +204356,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:39.676433+00:00",
    "mirror_last_seen": ""
   },
@@ -204534,7 +204667,7 @@
    "parcels": [
     88
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204624,7 +204757,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -204639,7 +204772,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -204784,7 +204917,7 @@
    "parcels": [
     100
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204799,7 +204932,7 @@
    "parcels": [
     100
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -204859,7 +204992,7 @@
    "parcels": [
     137
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:58.022301+00:00",
    "mirror_last_seen": ""
   },
@@ -204889,7 +205022,7 @@
    "parcels": [
     100
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205118,7 +205251,7 @@
    "parcels": [
     92
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205133,7 +205266,7 @@
    "parcels": [
     91
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205193,7 +205326,7 @@
    "parcels": [
     165
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205208,7 +205341,7 @@
    "parcels": [
     201
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205268,7 +205401,7 @@
    "parcels": [
     84
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205410,7 +205543,7 @@
    "parcels": [
     127
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205425,7 +205558,7 @@
    "parcels": [
     84
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -205498,7 +205631,7 @@
    "parcels": [
     40
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:48.761894+00:00",
    "mirror_last_seen": ""
   },
@@ -205528,7 +205661,7 @@
    "parcels": [
     99
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205558,7 +205691,7 @@
    "parcels": [
     79
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205603,7 +205736,7 @@
    "parcels": [
     6
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205618,7 +205751,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205710,7 +205843,7 @@
    "parcels": [
     74
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205830,7 +205963,7 @@
    "parcels": [
     148
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205905,7 +206038,7 @@
    "parcels": [
     36
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205950,7 +206083,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205965,7 +206098,7 @@
    "parcels": [
     18
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -205980,7 +206113,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206025,7 +206158,7 @@
    "parcels": [
     106
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206160,7 +206293,7 @@
    "parcels": [
     152
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -206175,7 +206308,7 @@
    "parcels": [
     151
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -206190,7 +206323,7 @@
    "parcels": [
     130
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206241,7 +206374,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -206256,7 +206389,7 @@
    "parcels": [
     158
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206286,7 +206419,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206316,7 +206449,7 @@
    "parcels": [
     42
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206497,7 +206630,7 @@
    "parcels": [
     5
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206548,7 +206681,7 @@
    "parcels": [
     111
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206563,7 +206696,7 @@
    "parcels": [
     154
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206639,7 +206772,7 @@
    "parcels": [
     42
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206764,7 +206897,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206800,7 +206933,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206836,7 +206969,7 @@
    "parcels": [
     233
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206983,7 +207116,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -206998,7 +207131,7 @@
    "parcels": [
     143
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207013,7 +207146,7 @@
    "parcels": [
     143
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207073,7 +207206,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207103,7 +207236,7 @@
    "parcels": [
     106
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207118,7 +207251,7 @@
    "parcels": [
     2
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207163,7 +207296,7 @@
    "parcels": [
     124
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207178,7 +207311,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207208,7 +207341,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207253,7 +207386,7 @@
    "parcels": [
     115
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207268,7 +207401,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -207328,7 +207461,7 @@
    "parcels": [
     46
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:48.761894+00:00",
    "mirror_last_seen": ""
   },
@@ -207404,7 +207537,7 @@
    "parcels": [
     73
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207419,7 +207552,7 @@
    "parcels": [
     78
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207434,7 +207567,7 @@
    "parcels": [
     86
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207494,7 +207627,7 @@
    "parcels": [
     129
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207515,8 +207648,8 @@
   },
   {
    "tik_num": "2024/0164.00",
-   "status": "נדונה בוועדת המשנה",
-   "status_date": "2025-12-31",
+   "status": "הוכנה טיוטת היתר בניה",
+   "status_date": "2026-10-21",
    "sugbakasha": "בניה חדשה / בניין חדש, תחנת שנאים",
    "mahut": "הקמת תחנת טרנספורמציה תת קרקעית",
    "address": "רבן יוחנן בן זכאי 38 קטמון הישנה",
@@ -207524,8 +207657,8 @@
    "parcels": [
     94
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.359139+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -207539,7 +207672,7 @@
    "parcels": [
     93
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207554,7 +207687,7 @@
    "parcels": [
     57
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -207569,7 +207702,7 @@
    "parcels": [
     26
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -207599,7 +207732,7 @@
    "parcels": [
     40
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207629,7 +207762,7 @@
    "parcels": [
     154
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -207644,7 +207777,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207674,7 +207807,7 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207689,7 +207822,7 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-10-20",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -207704,7 +207837,7 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -207749,7 +207882,7 @@
    "parcels": [
     26
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207764,7 +207897,7 @@
    "parcels": [
     166
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207779,7 +207912,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207794,7 +207927,7 @@
    "parcels": [
     67
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207824,7 +207957,7 @@
    "parcels": [
     76
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207839,7 +207972,7 @@
    "parcels": [
     226
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207869,7 +208002,7 @@
    "parcels": [
     52
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207884,7 +208017,7 @@
    "parcels": [
     130
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:48.761894+00:00",
    "mirror_last_seen": ""
   },
@@ -207914,7 +208047,7 @@
    "parcels": [
     116
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207929,7 +208062,7 @@
    "parcels": [
     176
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207974,7 +208107,7 @@
    "parcels": [
     39
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -207989,7 +208122,7 @@
    "parcels": [
     29
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208041,7 +208174,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208056,7 +208189,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208071,7 +208204,7 @@
    "parcels": [
     50
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -208101,7 +208234,7 @@
    "parcels": [
     105
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208146,7 +208279,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -208161,7 +208294,7 @@
    "parcels": [
     156
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208191,7 +208324,7 @@
    "parcels": [
     212
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208221,7 +208354,7 @@
    "parcels": [
     20
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208236,7 +208369,7 @@
    "parcels": [
     36
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208251,7 +208384,7 @@
    "parcels": [
     75
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208295,7 +208428,7 @@
    "parcels": [
     106
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208310,7 +208443,7 @@
    "parcels": [
     7
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208325,7 +208458,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208340,7 +208473,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208355,7 +208488,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208370,7 +208503,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208385,7 +208518,7 @@
    "parcels": [
     159
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208400,7 +208533,7 @@
    "parcels": [
     156
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208445,7 +208578,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:48.761894+00:00",
    "mirror_last_seen": ""
   },
@@ -208460,7 +208593,7 @@
    "parcels": [
     56
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208587,7 +208720,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -208634,7 +208767,7 @@
    "parcels": [
     9
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208649,7 +208782,7 @@
    "parcels": [
     7
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208679,7 +208812,7 @@
    "parcels": [
     215
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208694,7 +208827,7 @@
    "parcels": [
     181
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -208709,7 +208842,7 @@
    "parcels": [
     58
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208724,7 +208857,7 @@
    "parcels": [
     51
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208739,7 +208872,7 @@
    "parcels": [
     2
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208754,7 +208887,7 @@
    "parcels": [
     43
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208784,7 +208917,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208799,7 +208932,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208814,7 +208947,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208844,7 +208977,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208859,7 +208992,7 @@
    "parcels": [
     207
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208874,7 +209007,7 @@
    "parcels": [
     207
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -208919,7 +209052,7 @@
    "parcels": [
     122
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208934,7 +209067,7 @@
    "parcels": [
     122
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208964,7 +209097,7 @@
    "parcels": [
     105
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -208994,7 +209127,7 @@
    "parcels": [
     18
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209009,7 +209142,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209039,7 +209172,7 @@
    "parcels": [
     80
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209054,7 +209187,7 @@
    "parcels": [
     74
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -209069,7 +209202,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209084,7 +209217,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209114,7 +209247,7 @@
    "parcels": [
     35
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209129,7 +209262,7 @@
    "parcels": [
     83
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209144,7 +209277,7 @@
    "parcels": [
     83
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209174,7 +209307,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209189,7 +209322,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -209204,7 +209337,7 @@
    "parcels": [
     89
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209219,7 +209352,7 @@
    "parcels": [
     16
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209234,7 +209367,7 @@
    "parcels": [
     91
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209249,7 +209382,7 @@
    "parcels": [
     197
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -209264,7 +209397,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209279,7 +209412,7 @@
    "parcels": [
     97
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209294,7 +209427,7 @@
    "parcels": [
     104
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-19T21:06:20.640005+00:00",
    "mirror_last_seen": ""
   },
@@ -209339,7 +209472,7 @@
    "parcels": [
     103
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.599923+00:00",
    "mirror_last_seen": ""
   },
@@ -209354,7 +209487,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209369,7 +209502,7 @@
    "parcels": [
     108
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209384,7 +209517,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209399,7 +209532,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209414,7 +209547,7 @@
    "parcels": [
     12
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-17T21:55:58.122466+00:00",
    "mirror_last_seen": ""
   },
@@ -209429,7 +209562,7 @@
    "parcels": [
     102
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209444,7 +209577,7 @@
    "parcels": [
     121
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209459,7 +209592,7 @@
    "parcels": [
     304
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209474,7 +209607,7 @@
    "parcels": [
     3
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209489,7 +209622,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209504,7 +209637,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209519,7 +209652,7 @@
    "parcels": [
     30
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209534,7 +209667,7 @@
    "parcels": [
     211
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209549,7 +209682,7 @@
    "parcels": [
     63
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-26T22:02:45.485464+00:00",
    "mirror_last_seen": ""
   },
@@ -209564,7 +209697,7 @@
    "parcels": [
     19
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -209579,7 +209712,7 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -209594,7 +209727,7 @@
    "parcels": [
     78
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-26T22:02:45.485464+00:00",
    "mirror_last_seen": ""
   },
@@ -209609,7 +209742,7 @@
    "parcels": [
     242
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209624,7 +209757,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209639,7 +209772,7 @@
    "parcels": [
     198
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-12T21:19:39.712488+00:00",
    "mirror_last_seen": ""
   },
@@ -209654,7 +209787,7 @@
    "parcels": [
     24
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-12T21:19:39.712488+00:00",
    "mirror_last_seen": ""
   },
@@ -209669,7 +209802,7 @@
    "parcels": [
     179
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209684,7 +209817,7 @@
    "parcels": [
     92
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-29T21:13:40.771934+00:00",
    "mirror_last_seen": ""
   },
@@ -209699,7 +209832,7 @@
    "parcels": [
     30
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -209714,7 +209847,7 @@
    "parcels": [
     131
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-11T23:51:05.796250+00:00",
    "mirror_last_seen": ""
   },
@@ -209729,7 +209862,7 @@
    "parcels": [
     41
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.599923+00:00",
    "mirror_last_seen": ""
   },
@@ -209744,7 +209877,7 @@
    "parcels": [
     40
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209759,7 +209892,7 @@
    "parcels": [
     183
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -209774,8 +209907,8 @@
    "parcels": [
     48
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.461561+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -209789,7 +209922,7 @@
    "parcels": [
     48
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209804,7 +209937,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T21:32:18.599923+00:00",
    "mirror_last_seen": ""
   },
@@ -209819,7 +209952,7 @@
    "parcels": [
     72
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209834,7 +209967,7 @@
    "parcels": [
     85
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209849,7 +209982,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-23T03:34:38.610044+00:00",
    "mirror_last_seen": ""
   },
@@ -209864,7 +209997,7 @@
    "parcels": [
     203
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209879,7 +210012,7 @@
    "parcels": [
     87
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-26T22:02:45.485464+00:00",
    "mirror_last_seen": ""
   },
@@ -209894,7 +210027,7 @@
    "parcels": [
     138
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209909,7 +210042,7 @@
    "parcels": [
     62
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209924,7 +210057,7 @@
    "parcels": [
     8
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209939,7 +210072,7 @@
    "parcels": [
     52
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -209954,7 +210087,7 @@
    "parcels": [
     76
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-11T23:51:05.796250+00:00",
    "mirror_last_seen": ""
   },
@@ -209969,7 +210102,7 @@
    "parcels": [
     71
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209984,7 +210117,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -209999,7 +210132,7 @@
    "parcels": [
     197
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210014,7 +210147,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210029,7 +210162,7 @@
    "parcels": [
     95
    ],
-   "mirror_sample_date": "2026-10-23",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -210044,7 +210177,7 @@
    "parcels": [
     95
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210059,7 +210192,7 @@
    "parcels": [
     17
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -210074,7 +210207,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-01T23:00:57.488193+00:00",
    "mirror_last_seen": ""
   },
@@ -210089,7 +210222,7 @@
    "parcels": [
     19
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210104,7 +210237,7 @@
    "parcels": [
     66
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210119,7 +210252,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210134,7 +210267,7 @@
    "parcels": [
     107
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210149,7 +210282,7 @@
    "parcels": [
     115
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -210164,7 +210297,7 @@
    "parcels": [
     92
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210179,7 +210312,7 @@
    "parcels": [
     117
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -210194,7 +210327,7 @@
    "parcels": [
     50
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -210209,7 +210342,7 @@
    "parcels": [
     151
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-05T20:43:49.864780+00:00",
    "mirror_last_seen": ""
   },
@@ -210239,14 +210372,14 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-09-19T21:06:20.640005+00:00",
    "mirror_last_seen": ""
   },
   {
    "tik_num": "2026/0439.00",
-   "status": "שולמה מקדמה",
-   "status_date": "2026-10-08",
+   "status": "תחילת פרסום הבקשה להקלה",
+   "status_date": "2026-10-18",
    "sugbakasha": "בניה חדשה / בניין חדש, עבודות הריסה",
    "mahut": "תכנית במתווה תמ\"א 38 הריסה ובנייה מחדש.",
    "address": "הפלמח 41 קטמון הישנה",
@@ -210254,8 +210387,8 @@
    "parcels": [
     12
    ],
-   "mirror_sample_date": "2026-10-17",
-   "mirror_first_seen": "2026-10-17T21:55:58.122466+00:00",
+   "mirror_sample_date": "2026-10-24",
+   "mirror_first_seen": "2026-10-24T22:07:10.461561+00:00",
    "mirror_last_seen": ""
   },
   {
@@ -210269,7 +210402,7 @@
    "parcels": [
     132
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -210284,7 +210417,7 @@
    "parcels": [
     30
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -210299,7 +210432,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -210314,7 +210447,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-10-17",
+   "mirror_sample_date": "2026-10-24",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   }
