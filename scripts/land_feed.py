@@ -59,7 +59,11 @@ def query_plan(plan_number):
     out = subprocess.run(cmd, capture_output=True, text=True, timeout=60).stdout
     try:
         data = json.loads(out)
-    except Exception:
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        # #399 production-path policy: a malformed response here already feeds
+        # the caller's own failures counter / abort-after-N-consecutive logic
+        # (see main()), so it is counted and reported there - no change needed
+        # beyond narrowing the caught type to what json.loads actually raises.
         return None
     plans = data.get("plansSmall") if isinstance(data, dict) else None
     if not plans:
@@ -76,7 +80,12 @@ def parse_status_date(raw):
         y = int(y)
         y = 2000 + y if y < 100 else y
         return datetime.date(int(y), int(m), int(d)).isoformat()
-    except Exception:
+    except ValueError:
+        # #399: tested reject-gracefully helper (test_land_status_date_parsing
+        # asserts "" for "", None, an invalid day, and garbage) - an absent or
+        # malformed status date is the normal case here, not a dropped
+        # record, so narrowed to the one exception str.split/int/date can
+        # raise and left returning "" (no behavior change).
         return ""
 
 
@@ -110,7 +119,12 @@ def main():
             time.sleep(PACE_SECONDS)
         try:
             hit = query_plan(num)
-        except Exception:
+        except (subprocess.SubprocessError, OSError):
+            # #399: query_plan's own body only risks a subprocess/OS failure
+            # here (its internal JSON parsing already narrows and returns
+            # None); a None `hit` is already counted via `failures` below and
+            # the run aborts after MAX_CONSECUTIVE_FAILURES - compliant,
+            # narrowed only.
             hit = None
         if hit is None:
             failures += 1

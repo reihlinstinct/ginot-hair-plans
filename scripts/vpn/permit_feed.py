@@ -41,6 +41,13 @@ CHALLENGE_MARKERS = (
 PUB_START_STEP = "תחילת פרסום בפועל"
 PUB_END_STEP = "השלמת פרסום"
 CHECKPOINT_BRANCH = "scan-checkpoint"  # issue #155: survives runner loss
+# #399 production-path policy: exceptions that could silently drop published
+# data must be counted and reported, not just swallowed. gh_api/call() keep
+# their existing tested contract (return None on a malformed response,
+# checked by test_call_garbage_body_is_none and relied on by
+# test_publication_dates_tolerates_odd_payloads), so the count lives here
+# as a side channel, reset per run and printed in main()'s summary.
+_STATS = {"unparseable_responses": 0, "detail_fetch_failures": 0}
 
 
 def gh_api(method, path, token, payload=None):
@@ -71,7 +78,11 @@ def gh_api(method, path, token, payload=None):
     )
     try:
         return json.loads(r.stdout)
-    except Exception:
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        # #399: a malformed checkpoint-API response already surfaces through
+        # the caller - push_checkpoint() retries 3x then raises on persistent
+        # failure, load_checkpoint() prints "checkpoint read failed (fresh
+        # start)" - so this is compliant already; narrowed only.
         return None
 
 
@@ -123,6 +134,12 @@ def _push_checkpoint_once(requests, offset, limit, done, token, slug):
         print(f"checkpoint pushed ({done}/{limit}): {'ok' if ok else 'FAILED'}")
         return ok
     except Exception as exc:
+        # #399: left broad - gh_api never checks the HTTP status code, so an
+        # error-shaped 2xx/4xx body (e.g. {"message": "Not Found"}) is valid
+        # JSON that reaches here as a KeyError/TypeError on the expected
+        # shape (main_ref["object"]["sha"], etc.), not just subprocess/JSON
+        # failures. Already counted (this print) and already fails loud:
+        # push_checkpoint() retries 3x then raises on persistent failure.
         print(f"checkpoint push failed: {exc}")
         return False
 
@@ -149,6 +166,11 @@ def load_checkpoint(token, slug):
         if r and r.get("content"):
             return json.loads(base64.b64decode(r["content"]))
     except Exception as exc:
+        # #399: same gh_api shape risk as _push_checkpoint_once (KeyError/
+        # TypeError on an error-shaped response, plus base64/JSON failures).
+        # A failed checkpoint read is an intentional non-fatal fallback to a
+        # fresh scan, not a data loss - already counted and reported (this
+        # print); left broad.
         print(f"checkpoint read failed (fresh start): {exc}")
     return None
 
@@ -200,7 +222,15 @@ def call(proc, params):
         raise PermissionError("access_denied")
     try:
         return json.loads(body)
-    except Exception:
+    except (json.JSONDecodeError, UnicodeDecodeError):
+        # #399: call()'s None-on-malformed-body return is the tested contract
+        # (test_call_garbage_body_is_none) and publication_dates()/
+        # address_of() are themselves tested to tolerate it silently
+        # (test_publication_dates_tolerates_odd_payloads) - so the return
+        # value is unchanged. Visibility is added as a side channel instead:
+        # counted here and printed in main()'s run summary.
+        _STATS["unparseable_responses"] += 1
+        print(f"proc {proc}: response body was not valid JSON ({len(body)} bytes)")
         return None
 
 
@@ -209,7 +239,12 @@ def ddmmyyyy(raw):
     try:
         d, m, y = raw.split("/")
         return f"{int(y):04d}-{int(m):02d}-{int(d):02d}"
-    except Exception:
+    except ValueError:
+        # #399: tested reject-gracefully helper (test_ddmmyyyy_parses_and_rejects
+        # asserts "" for "", None, an out-of-range date, and garbage) - an
+        # absent or malformed date here is the normal case, not a dropped
+        # record, so narrowed to the one exception str.split/int can raise
+        # and left returning "" (no behavior change).
         return ""
 
 
@@ -255,6 +290,8 @@ def prior_batch_cursor(path, default):
 
 
 def main():
+    _STATS["unparseable_responses"] = 0
+    _STATS["detail_fetch_failures"] = 0
     ap = argparse.ArgumentParser()
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
     ap.add_argument("--out", default="data/permit_requests.json")
@@ -359,7 +396,12 @@ def main():
         except RuntimeError:
             print("anti-bot challenge - stopping (no workaround)")
             return 2
-        except Exception as exc:
+        except (subprocess.SubprocessError, OSError) as exc:
+            # #399: call()'s own JSON parsing no longer escapes (narrowed and
+            # caught internally above), so the only exceptions that reach
+            # here are subprocess/OS failures - narrowed to match. Already
+            # counted via `failures` below and the run aborts after
+            # MAX_CONSECUTIVE_FAILURES - compliant.
             rows = None
             print(f"parcel {gush}/{helka}: {exc}")
         if rows is None:
@@ -427,6 +469,14 @@ def main():
             print("anti-bot challenge during detail fetch - stopping (no workaround)")
             return 2
         except Exception as exc:
+            # #399: left broad on purpose - test_feed_detail_failure_is_not_fatal
+            # asserts the batch must survive ANY failure fetching a single
+            # tik's publication/address details (the test injects a plain
+            # ValueError), so this cannot be narrowed to specific types
+            # without breaking that tested resilience. Now explicitly counted
+            # (in addition to the existing per-tik print) and surfaced in
+            # main()'s run summary below.
+            _STATS["detail_fetch_failures"] += 1
             print(f"{tik}: detail fetch failed: {exc}")
         detailed_since_checkpoint += 1
         if ckpt_on and detailed_since_checkpoint >= args.checkpoint_every:
@@ -465,6 +515,15 @@ def main():
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(requests)} requests")
+    if _STATS["unparseable_responses"] or _STATS["detail_fetch_failures"]:
+        # #399: run-summary count for the two production-path sites that
+        # keep a tested silent/non-fatal return contract (see call() and the
+        # detail-fetch except above) - printed and reported, not raised.
+        print(
+            f"{_STATS['unparseable_responses']} unparseable API response(s), "
+            f"{_STATS['detail_fetch_failures']} tik(s) missing publication/address "
+            "details this run (see above)"
+        )
     return 0
 
 

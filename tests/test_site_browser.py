@@ -169,11 +169,23 @@ class _Quiet(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+class _ThreadingServer(socketserver.ThreadingTCPServer):
+    # The test server must not serialize connections: browsers open
+    # speculative/parallel connections and the page issues an unconditional
+    # 8.1 MB permits.html fetch. A single-threaded TCPServer can sit blocked
+    # on an idle pre-connected socket (or a slow stream) while the about.html
+    # navigation request queues unserved -> 60s wait_for_url timeouts on
+    # WebKit (issue #438, run 40165507922). Real hosts (GitHub Pages) are
+    # concurrent, so the test double must be too.
+    daemon_threads = True
+    allow_reuse_address = True
+
+
 @pytest.fixture(scope="module")
 def served(site):
     # served over http (not file://) so the client-side rows.html fetch works (#164)
     handler = functools.partial(_Quiet, directory=str(site))
-    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         yield f"http://127.0.0.1:{srv.server_address[1]}"
 
@@ -731,7 +743,7 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path, r
     _page._permits_section(live_permits, rows_file=str(tmp_path / "permits.html"))
 
     handler = functools.partial(_Quiet, directory=str(tmp_path))
-    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
@@ -783,7 +795,7 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
     }
     _page.render_site([plan], [], str(tmp_path), permits_path=str(pf))
     handler = functools.partial(_Quiet, directory=str(tmp_path))
-    with socketserver.TCPServer(("127.0.0.1", 0), handler) as srv:
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
