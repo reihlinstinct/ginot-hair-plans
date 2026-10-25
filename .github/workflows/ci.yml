@@ -28,6 +28,15 @@ jobs:
         run: |
           git fetch --depth=1 origin "${{ github.base_ref }}"
           python scripts/ci/check_external_reviews.py --base FETCH_HEAD
+      - name: Commit identity guard (issue #473)
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin "${{ github.base_ref }}"
+          FORK_ARG=""
+          if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+            FORK_ARG="--fork-author ${{ github.event.pull_request.user.login }}"
+          fi
+          python scripts/ci/check_commit_identities.py --base FETCH_HEAD $FORK_ARG
       - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
       - name: Test run summary
         if: ${{ always() }}
