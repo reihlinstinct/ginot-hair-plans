@@ -51,6 +51,7 @@ padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-sha
 #more{margin:6px 0;padding:8px 16px}
 #freset,#pfreset{padding:6px 12px}
 tr.filtered-out{display:none}
+.pub-missing{color:#8a6d00;font-size:.85em;font-style:italic}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list li{margin:4px 0}
@@ -237,8 +238,16 @@ def _e(s):
 
 
 def _iso(d) -> str:
-    d = (d or "").strip()
-    return d if len(d) >= 10 and d[4] == "-" and d[7] == "-" else ""
+    d = (d or "").strip()[:10]
+    if len(d) < 10 or d[4] != "-" or d[7] != "-":
+        return ""
+    try:
+        m, day = int(d[5:7]), int(d[8:10])
+    except ValueError:
+        return ""
+    # scraper-sourced field: reject impossible months/days so a malformed
+    # publication_start degrades to "date unknown" instead of a bogus date
+    return d if 1 <= m <= 12 and 1 <= day <= 31 else ""
 
 
 def _fmt(d) -> str:
@@ -367,6 +376,13 @@ def _permit_status_class(status: str) -> str:
     return "c-inproc"
 
 
+_PERMIT_PUB_EVIDENCE_STATUSES = frozenset(
+    {
+        "תום תקופת פרסום",
+        "פורסמה בקשה להקלה",
+    }
+)
+
 _PERMIT_TERMINAL_STATUSES = frozenset(
     {
         "הבקשה נסגרה",
@@ -417,16 +433,28 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
                 ]
             ).lower()
         )
+        pub_end_iso = _iso(p.get("publication_end_planned"))
+        if pub_iso:
+            pubcat = "dated"
+        elif status in _PERMIT_PUB_EVIDENCE_STATUSES or pub_end_iso:
+            pubcat = "pub-nodate"
+        else:
+            pubcat = "no-evidence"
+        pub_cell = (
+            _date_cell(p.get("publication_start"))
+            if pub_iso
+            else "<span class='pub-missing'>תאריך פרסום חסר</span>"
+        )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
-            f" data-pub='{pub_iso}' data-search='{search}'>"
+            f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(p.get('address') or '')}</td>"
             f"<td>{_e(p.get('mahut') or '')}</td>"
             f"<td>{_e(sug)}</td>"
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
             f"<td>{_date_cell(p.get('status_date'))}</td>"
-            f"<td>{_date_cell(p.get('publication_start'))}</td>"
+            f"<td>{pub_cell}</td>"
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>"
         )
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
@@ -459,6 +487,9 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
 בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
+כברירת מחדל מוצגות רק בקשות שפורסמו בשישה החודשים האחרונים; ניתן לשנות את
+תאריך ברירת המחדל בשדה "מתאריך פרסום". בקשות ללא תאריך פרסום ידוע נשארות
+גלויות ומסומנות - היעדר התאריך אינו ראיה שהבקשה ישנה או שלא פורסמה.
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
 {plegend}
@@ -471,6 +502,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
 <button id="pfreset" type="button">נקה</button>
 <span id="pfcount"></span>
+<span id="pfunknown"></span>
+<span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
 </div>
 <table id="permits-table"><thead><tr>
 <th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
@@ -488,8 +521,38 @@ if(!rows.length){window.__permitsLoaded=true;return;}
 var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
 pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
 pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
-pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore');
+pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
+pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
 var expanded=false;
+// Rolling 6-calendar-month cutoff, visitor-local (design permit-recency-filter).
+// Month-end safe: Aug 31 rolls to the last day of Feb, not Mar 3.
+function rollingCutoff(now){
+  now=now||new Date();
+  var t=new Date(now.getFullYear(),now.getMonth()-6,1);
+  var dim=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();
+  return new Date(t.getFullYear(),t.getMonth(),Math.min(now.getDate(),dim));
+}
+window.__permitCutoff=rollingCutoff;
+function isoDate(d){
+  return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+}
+var DEF_FROM=isoDate(rollingCutoff());
+function validIso(v){
+  if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(v))return false;
+  var p=new Date(v+'T00:00:00');
+  return !isNaN(p)&&isoDate(p)===v;
+}
+// Category per design: dated / pub-nodate (published, date unknown) /
+// no-evidence. Rows from an older fragment lack data-pubcat - classify in JS.
+var PUB_EVIDENCE={'\u05ea\u05d5\u05dd \u05ea\u05e7\u05d5\u05e4\u05ea \u05e4\u05e8\u05e1\u05d5\u05dd':1,'\u05e4\u05d5\u05e8\u05e1\u05de\u05d4 \u05d1\u05e7\u05e9\u05d4 \u05dc\u05d4\u05e7\u05dc\u05d4':1};
+function pubcat(r,pub){
+  var c=r.getAttribute('data-pubcat');
+  if(c)return c;
+  if(pub)return 'dated';
+  if(PUB_EVIDENCE[r.getAttribute('data-status')]||r.getAttribute('data-pubend'))return 'pub-nodate';
+  return 'no-evidence';
+}
+pffrom.value=DEF_FROM;
 function normSearch(s){
   return (s||'').toLowerCase().replace(/[\u05F3\u05F4\u05BE\u2019\u201D'"`-]/g,'');
 }
@@ -500,8 +563,15 @@ function match(r){
   if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
   if(pfsug.value&&r.getAttribute('data-sug')!==pfsug.value)return false;
   var pub=r.getAttribute('data-pub');
-  if(pffrom.value&&!(pub&&pub>=pffrom.value))return false;
-  if(pfto.value&&!(pub&&pub<=pfto.value))return false;
+  if(pub&&!validIso(pub))pub='';
+  // Date filters apply to dated rows only (design option A): undated rows
+  // are never hidden by the recency filter, they stay visible and marked.
+  if(pub){
+    var effFrom=pffrom.value;
+    if(effFrom&&!validIso(effFrom))effFrom=DEF_FROM;
+    if(effFrom&&pub<effFrom)return false;
+    if(pfto.value&&pub>pfto.value)return false;
+  }
   return true;
 }
 function apply(){
@@ -514,13 +584,22 @@ function apply(){
   pmore.style.display=n>20?'':'none';
   pmore.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' הבקשות';
   pfcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;
+  // Split date-unknown counters (design): category 3 vs category 4, live.
+  var c3=0,c4=0;
+  rows.forEach(function(r){
+    if(r.classList.contains('filtered-out'))return;
+    var cat=pubcat(r,r.getAttribute('data-pub'));
+    if(cat==='pub-nodate')c3++;else if(cat==='no-evidence')c4++;
+  });
+  pfunknown.textContent=(c3||c4)?'תאריך פרסום חסר: '+c3+' (פורסם, תאריך לא ידוע) · '+c4+' (אין ראיית פרסום)':'';
+  pfflag.style.display=(pffrom.value&&!validIso(pffrom.value))?'':'none';
 }
 [pfq,pfstatus,pfsug,pffrom,pfto,pfclosed].forEach(function(el){
   var h=function(){expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
 document.getElementById('pfreset').addEventListener('click',function(){
-  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
+  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value=DEF_FROM;pfto.value='';
   pfclosed.checked=false;expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});

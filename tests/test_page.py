@@ -117,10 +117,10 @@ def test_status_chips_and_legend(tmp_path):
     assert "מקרא סטטוסים" in html and html.find("legend") < html.find("<table")
 
 
-def _permits(tmp_path):
+def _permits(tmp_path, custom=None):
     import json
 
-    reqs = {
+    reqs = {"requests": custom} if custom is not None else {
         "requests": [
             {
                 "tik_num": "2026/0001.01",
@@ -723,3 +723,51 @@ def test_sort_rows_deadline_equal_to_utc_today_is_not_open_in_israel(monkeypatch
     )
     out = page.sort_rows([row])
     assert out[0]["_open_obj"] is False
+
+def test_permits_recency_markup(tmp_path):
+    from ginot import page
+
+    def p(tik, status, pub="", end=""):
+        return {
+            "tik_num": tik,
+            "status": status,
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+            "address": "רחוב 1",
+            "status_date": "",
+            "publication_start": pub,
+            "publication_end_planned": end,
+        }
+
+    reqs = [
+        p("2020/1.01", "בבדיקה", pub="2026-10-01"),
+        p("2020/2.01", "תום תקופת פרסום"),
+        p("2020/3.01", "בבדיקה", end="2026-11-01"),
+        p("2020/4.01", "בבדיקה"),
+        p("2020/5.01", "בבדיקה", pub="2026-13-45"),
+    ]
+    page.render_site([], [], str(tmp_path), permits_path=_permits(tmp_path, reqs))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # categories land on rows for the client filter and the counters
+    assert "data-pubcat='dated'" in html
+    assert html.count("data-pubcat='pub-nodate'") == 2  # status + planned end
+    assert html.count("data-pubcat='no-evidence'") == 2  # plain + malformed date
+    # undated rows carry the visible marker
+    assert html.count("pub-missing") >= 4
+    assert "תאריך פרסום חסר" in html
+    # split counters + invalid-date flag placeholders and the page note
+    assert 'id="pfunknown"' in html and 'id="pfflag"' in html
+    assert "שישה החודשים האחרונים" in html
+    # rolling cutoff, month-end clamp and the default input assignment
+    assert "rollingCutoff" in html and "Math.min(now.getDate(),dim)" in html
+    assert "pffrom.value=DEF_FROM" in html
+
+
+def test_iso_rejects_malformed_dates():
+    from ginot import page
+
+    assert page._iso("2026-10-18") == "2026-10-18"
+    assert page._iso("2026-13-45") == ""  # impossible month/day
+    assert page._iso("2026-00-10") == ""
+    assert page._iso("18.10.2026") == ""
+    assert page._iso(None) == ""
