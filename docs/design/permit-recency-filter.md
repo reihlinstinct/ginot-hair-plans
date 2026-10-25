@@ -1,21 +1,29 @@
 # Permit requests: default recency filter design (user instruction 2026-10-25)
 
-> REVIEW SUMMARY (current semantics, commit 8702cf7, 2026-10-25 07:12 IDT)
+> REVIEW SUMMARY (current semantics, this commit, 2026-10-25 07:30 IDT,
+> design review closed - Tab review 2026-10-25 incorporated, all its data
+> claims independently recomputed and confirmed)
 > Locked by user instruction: filter on `publication_start` ONLY; rolling 6
 > calendar months in the visitor's browser local timezone; older recoverable
 > by editing the default date input; terminal default-hide unchanged;
 > pure client-side, no heavier site, no new assets; mobile checked before merge.
 > Categories (counts from 2026-10-25 feed): 1 published-in-window 65 shown;
 > 2 published-older 946 hidden-by-default/recoverable; 3 published-but-date-
-> unknown 1,391 (73 active + 75 late visible today) - OPEN POLICY POINT;
+> unknown 1,391 (73 active + 75 late visible today);
 > 4 no-publication-evidence 8,635 (status-based only, NOT proof of never-
 > published) - shown under existing rules, marked date-unknown;
 > 5 terminal/late rules unchanged.
-> Open decision (only meaning-changing one): category-3 non-terminal default -
-> A show-with-marker (recommended) / B hide-with-count-badge / C collapsed
-> group. Rationale: A hides nothing actionable while 91% undated (hides only
-> 253 of 4,229 rows today); B declutters to ~64 rows but wrongly hides 725
-> active incl. 652 no-evidence; C adds UI complexity for little gain over A.
+> RESOLVED decision (was the only meaning-changing one): category-3
+> non-terminal default = A show-with-marker, ADOPTED. Rationale (Tab review,
+> verified): 91.5% of the 4,229 visible rows have no publication date and
+> that absence concentrates in one legitimate stage (draft permit prepared:
+> 2,672 of 2,692 undated) - hiding undated rows hides requests that have not
+> reached a publication milestone, which is not recency; B's ~64-row default
+> would misrepresent a live pipeline on a civic-visibility page; C adds UI
+> state for no gain over A. Refinement adopted with A: the date-unknown
+> marker/counter is SPLIT per epistemic state - category 3 (known published,
+> date unknown) and category 4 (no publication evidence) get separate
+> counters, never one flattened number.
 > Enrich note: no "unknowns collapse" promise - enrich mostly confirms absence
 > for category 4; one measured enrich window 152 min, per-tik rate unmeasured.
 > No implementation before the discussion closes.
@@ -81,30 +89,51 @@ by changing the default date. No code changed by this document.
   measured, so no promise of "1-2 runs"; any enrich dispatch respects the
   existing runtime caps and 3s spacing.
 
-## Minimal remaining user choice
-Only category 3's default treatment for NON-terminal rows (73 active + 75
-late today): show-with-marker (recommended, zero risk of hiding something
-actionable) vs hide-with-count-badge. Everything else follows the
-instruction or existing rules directly. Enrich of the evidence-tiks is a
-small, independent improvement either way.
+## Decision (resolved by design discussion 2026-10-25)
+Category 3 default treatment for NON-terminal rows: **A - show with marker**,
+per the recommendation above and the design review's verified quantified
+reasoning (91.5% of visible rows undated, concentrated in the draft-permit
+stage; B would misrepresent pipeline activity; C rejected as extra UI state).
+No user schema question remains; everything else follows the instruction or
+existing rules. Adopted refinement: the date-unknown counter splits
+category 3 (published, date unknown) from category 4 (no publication
+evidence) - two labels, two counts. Enrich of the evidence-tiks is a small,
+independent improvement either way. No fallback date field exists in the
+current feed (verified): `status_date` is 0/11,037 populated today;
+`publication_end_planned` (1,749 rows, 1,388 without a start) is an
+independent estimate, not a publication proxy - A with clear marking is the
+honest option.
 
 ## Interaction with existing behavior
 - shown(row) = (terminal rule) AND (category rule above). Search/status/sug
   filters unchanged. Rows already carry `data-pub` and the full set loads
   client-side (#169) - pure client-side filter in `_permits_section` +
   `docs/permits.html`; no scan/pipeline change.
-- The undated/dated live count stays visible in the section header so the
-  blind spot is explicit on the page; older rows always recoverable via the
-  date input.
+- The undated/dated live counts (split per category 3 vs 4) stay visible in
+  the section header so the blind spot is explicit on the page; they
+  recompute on EVERY filter change following the existing `refill()`/closed-
+  count pattern in `page.py`, not only on the recency toggle; older rows
+  always recoverable via the date input.
+- DST: the window boundary is computed at a specific instant in the
+  visitor's local timezone; day-granularity DST drift is accepted as a
+  known, documented limitation (same trust model as the existing client-side
+  deadline derivation and the `?today=` debug override).
 
 ## Implementation sketch (after approval)
 1. `_permits_section`: date input + reset + category markers/counts markup.
 2. Page script: rolling cutoff on load (local tz), one predicate covering
    terminal + recency categories, invalid manual input falls back to the
    rolling default with a visible flag.
-3. Tests: predicate unit tests per category incl. future date and invalid
-   input; regression that 2026/0439.00 stays visible by default; desktop +
-   mobile visual proof before merge.
+3. Tests: predicate unit tests per category incl. future date (real case
+   in feed: 2026-10-28), malformed/partial `publication_start` (defensive
+   parser - the field is scraper-sourced and could regress), and an explicit
+   month-end rolling-subtraction case (Aug 31 -> Feb class, the classic
+   setMonth overflow); regression that 2026/0439.00 stays visible by default
+   PLUS a category-4 undated-active fixture (e.g. a draft-prepared row) that
+   must stay visible under A - 0439.00 is dated (2026-10-18, category 1) and
+   does not exercise the undated decision on its own; desktop + mobile
+   visual proof before merge, including the 6th filter-row control fitting
+   without wrapping on a narrow viewport.
 
 ## Coordination and scope
 - PR #432 (spatial features + permit-case integration): orthogonal; any
@@ -112,6 +141,10 @@ small, independent improvement either way.
 - Issues: #405 (permits page), #169 (client-side full row set).
 - Out of scope: scan/enrich pipeline changes; statutory plans table
   untouched; only default display changes, nothing is unpublished.
+- Pre-existing, unrelated follow-up surfaced by review: `docs/permits.html`
+  (8.1 MB, all 11,037 rows) is fetched unconditionally on every page load
+  (`page.py` unconditional `fetch('permits.html')`); this filter saves no
+  network weight. Deferred-fetch follow-up tracked in its own issue.
 - Visitor clock caveat: a wrong device date shifts the rolling window;
   documented in the page note, same trust model as the existing client-side
   deadline derivation.
