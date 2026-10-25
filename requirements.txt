@@ -1,4 +1,4 @@
-ezdxf>=1.4.4
+ezdxf>=1.4.5
 shapely>=2.2.0; python_version >= '3.11'
 shapely>=2.1; python_version < '3.11'
 pyproj>=3.8.0; python_version >= '3.12'
