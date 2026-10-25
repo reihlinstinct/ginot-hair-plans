@@ -142,11 +142,15 @@ def load_checkpoint(path, fingerprint):
         return set()
 
 
-def save_checkpoint(path, done, fingerprint):
+def save_checkpoint(path, done, data_payload):
+    """The fingerprint must be computed AT SAVE TIME from the just-flushed
+    data: the pre-run fingerprint goes stale the moment flush_data writes
+    enriched rows, and a stale checkpoint is discarded on the next --resume
+    (review finding), which would silently disable resume after any flush."""
     payload = {
         "checkpoint": True,
         "kind": "permit-address-backfill",
-        "data_sha256": fingerprint,
+        "data_sha256": data_fingerprint(data_payload),
         "done": sorted(done),
     }
     _atomic_write(path, payload)
@@ -210,7 +214,7 @@ def main():
             # anti-bot challenge or access denied: stop immediately, no
             # workaround - progress is durable via the flush/checkpoint.
             flush_data(args.data, payload)
-            save_checkpoint(args.checkpoint_file, done, fingerprint)
+            save_checkpoint(args.checkpoint_file, done, payload)
             print(f"access wall at tik {tik} - stopped after {enriched} enriched")
             return 2
         except Exception as exc:  # noqa: BLE001 - one bad tik must not kill the batch (#399 pattern)
@@ -221,7 +225,7 @@ def main():
                 # systemic failure (tunnel down, endpoint broken) looks like
                 # per-tik failures; never report a failed run as done.
                 flush_data(args.data, payload)
-                save_checkpoint(args.checkpoint_file, done, fingerprint)
+                save_checkpoint(args.checkpoint_file, done, payload)
                 print(
                     f"{consecutive_failures} consecutive failures - aborting; "
                     f"enriched {enriched}, NOT done"
@@ -234,11 +238,11 @@ def main():
         enriched += 1
         if i % args.flush_every == 0:
             flush_data(args.data, payload)
-            save_checkpoint(args.checkpoint_file, done, fingerprint)
+            save_checkpoint(args.checkpoint_file, done, payload)
             print(f"progress {i}/{len(pending)} (enriched {enriched}, failures {failures})")
 
     flush_data(args.data, payload)
-    save_checkpoint(args.checkpoint_file, done, fingerprint)
+    save_checkpoint(args.checkpoint_file, done, payload)
     print(f"done: enriched {enriched}, failures {failures}, targets {len(targets)}")
     # Failed tiks are not in the checkpoint's done set, so --resume retries
     # them - but a partially failed batch must not report success.

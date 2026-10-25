@@ -263,3 +263,22 @@ def test_dry_run_counts_without_calling_source(tmp_path, capsys, monkeypatch):
     assert "empty address 1" in text
     assert "no house number 1" in text
     assert "backfill targets 2" in text
+
+def test_checkpoint_fingerprint_matches_the_flushed_data(tmp_path, monkeypatch):
+    """Review finding (PR #464, outside-diff): the checkpoint used to store
+    the PRE-enrichment data fingerprint, so after the first flush it never
+    matched the data file and every --resume discarded it as 'stale'."""
+    rows = [_row("2026/0001.01", address="")]
+    fake_calls = []
+
+    def fake(tik):
+        fake_calls.append(tik)
+        return _fields("הפלמ״ח", "41", "קטמון")
+
+    rc, out, cp = _run(tmp_path, rows, fake, monkeypatch, extra_args=("--resume",))
+    assert rc == 0
+    saved = json.loads(pathlib.Path(cp).read_text(encoding="utf-8"))
+    assert saved["data_sha256"] == bf.data_fingerprint(out)
+    # And a resume of that pair loads the checkpoint instead of discarding it.
+    assert bf.load_checkpoint(cp, bf.data_fingerprint(out)) == {"2026/0001.01"}
+
