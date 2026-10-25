@@ -565,6 +565,10 @@ def test_checkpoint_large_payload_uses_stdin_not_argv(monkeypatch):
 def test_feed_reuses_only_complete_same_day_unchanged_details(
     monkeypatch, tmp_path, age, status, complete, reuse
 ):
+    # Pin the feed's operative date: the module stamps in Asia/Jerusalem
+    # (issue #331), so a naive date.today() races the runner's UTC date.
+    fixed_today = feed.datetime.date(2026, 3, 9)
+    monkeypatch.setattr(feed, "_today", lambda: fixed_today)
     parcels = parcels_file(tmp_path, [(100, 1)])
     out = tmp_path / "out.json"
     prior = {
@@ -579,7 +583,7 @@ def test_feed_reuses_only_complete_same_day_unchanged_details(
     }
     if age:
         prior["details_checked_on"] = (
-            feed.datetime.date.today().isoformat() if age == "today" else age
+            fixed_today.isoformat() if age == "today" else age
         )
     if not complete:
         del prior["address"]
@@ -598,7 +602,7 @@ def test_feed_reuses_only_complete_same_day_unchanged_details(
     )
     assert (242700451 not in seen) == reuse
     row = json.loads(out.read_text())["requests"][0]
-    assert row["details_checked_on"] == feed.datetime.date.today().isoformat()
+    assert row["details_checked_on"] == fixed_today.isoformat()
     assert row["address"] == ("cached" if reuse else "")
 
 

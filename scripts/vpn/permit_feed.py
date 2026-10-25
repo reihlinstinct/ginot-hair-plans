@@ -24,6 +24,12 @@ import sys
 import time
 from zoneinfo import ZoneInfo
 
+
+def _today():
+    """The feed's operative date (issue #331: Asia/Jerusalem, not runner
+    UTC). One helper so tests can pin the date deterministically."""
+    return datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date()
+
 IFACE = "ppp43"
 URL = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
 SYS = "26400046"  # Rishui (permit licensing)
@@ -394,7 +400,7 @@ def main():
     # Reuse only complete details checked today for unchanged search metadata.
     # Active publication steps can change even without a status change, so old
     # days and legacy rows without a check timestamp must always refresh.
-    today = datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date().isoformat()  # issue #331: IL not runner UTC
+    today = _today().isoformat()
     try:
         previous = {
             r["tik_num"]: r
@@ -553,7 +559,7 @@ def main():
     if list_mode:
         batch_cursor = prior_batch_cursor(args.out, batch_cursor)
     payload = {
-        "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date().isoformat(),  # issue #331: IL not runner UTC
+        "generated": _today().isoformat(),
         "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
         "batch": batch_cursor,
         "requests": sorted(requests.values(), key=lambda r: r["tik_num"]),
