@@ -50,7 +50,7 @@ def _setup(tmp_path, monkeypatch, with_prior_address=True):
     )
     addr = []
     monkeypatch.setattr(
-        pf, "address_of", lambda tik: addr.append(tik) or "Fetched St 2"
+        pf, "address_of", lambda tik: addr.append(tik) or {"rehovName": "Fetched St", "mispBait": "2", "schunaName": ""}
     )
     monkeypatch.setenv("GH_TOKEN", "fake")
     monkeypatch.setenv("GITHUB_REPOSITORY", "example/repo")

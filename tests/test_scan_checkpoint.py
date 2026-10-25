@@ -111,7 +111,7 @@ def test_complete_scan_resumes_details_and_checkpoints_them(monkeypatch, tmp_pat
     monkeypatch.setattr(
         pf, "publication_dates", lambda tik: fetched.append(tik) or ("", "")
     )
-    monkeypatch.setattr(pf, "address_of", lambda tik: "new")
+    monkeypatch.setattr(pf, "address_of", lambda tik: {"rehovName": "new", "mispBait": "", "schunaName": ""})
     saves = []
     monkeypatch.setattr(
         pf,

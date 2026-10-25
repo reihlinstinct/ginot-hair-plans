@@ -415,10 +415,33 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     ISO value kept in data-iso for filtering."""
     if not permits:
         return ""
+
+    def _address_display(p):
+        # #408: when the feed preserved the raw source fields, a street
+        # address shows only if a street name exists; a neighborhood is
+        # labeled as one, never disguised as an address. Rows from an older
+        # feed carry only the legacy joined "address" string - shown as-is.
+        if "rehovName" in p:
+            street = (p.get("rehovName") or "").strip()
+            if street:
+                num = (p.get("mispBait") or "").strip()
+                return f"{street} {num}".strip(), ""
+            schuna = (p.get("schunaName") or "").strip()
+            if schuna:
+                return f"שכונה: {schuna}", "לא צוינה כתובת מדויקת בתיק"
+            return "כתובת לא זמינה", ""
+        return (p.get("address") or "").strip(), ""
+
     rows = []
     for p in permits:
         status = p.get("status") or ""
         sug = p.get("sugbakasha") or ""
+        address_text, address_note = _address_display(p)
+        address_note_html = (
+            " <span class='pub-missing'>" + _e(address_note) + "</span>"
+            if address_note
+            else ""
+        )
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
         search = _e(
@@ -426,6 +449,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
                 [
                     p.get("tik_num") or "",
                     p.get("address") or "",
+                    p.get("schunaName") or "",
                     p.get("mahut") or "",
                     sug,
                     f"גוש {p.get('gush')}" if p.get("gush") else "",
@@ -449,7 +473,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
-            f"<td>{_e(p.get('address') or '')}</td>"
+            f"<td>{_e(address_text)}{address_note_html}</td>"
             f"<td>{_e(p.get('mahut') or '')}</td>"
             f"<td>{_e(sug)}</td>"
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'

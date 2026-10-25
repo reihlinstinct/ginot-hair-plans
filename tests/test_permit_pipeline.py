@@ -69,15 +69,28 @@ def test_publication_dates_tolerates_odd_payloads(monkeypatch, payload):
     assert feed.publication_dates("1/1") == ("", "")
 
 
-def test_address_of_joins_parts_and_handles_empty(monkeypatch):
+def test_address_of_preserves_raw_fields(monkeypatch):
+    # #408: provenance is preserved; joining/display is the renderer's call
     monkeypatch.setattr(
         feed,
         "call",
-        lambda *a: [{"rehovName": "אלפסי", "mispBait": 9, "schunaName": ""}],
+        lambda *a: [{"rehovName": "אלפסי", "mispBait": 9, "schunaName": "גינות העיר"}],
     )
-    assert feed.address_of("1/1") == "אלפסי 9"
+    assert feed.address_of("1/1") == {
+        "rehovName": "אלפסי",
+        "mispBait": "9",
+        "schunaName": "גינות העיר",
+    }
     monkeypatch.setattr(feed, "call", lambda *a: None)
-    assert feed.address_of("1/1") == ""
+    assert feed.address_of("1/1") == {"rehovName": "", "mispBait": "", "schunaName": ""}
+
+
+def test_street_address_only_when_street_exists():
+    # a neighborhood name is not an address (#408)
+    assert feed.street_address({"rehovName": "אלפסי", "mispBait": "9"}) == "אלפסי 9"
+    assert feed.street_address({"rehovName": "אלפסי"}) == "אלפסי"
+    assert feed.street_address({"rehovName": "", "schunaName": "גינות העיר"}) == ""
+    assert feed.street_address({"rehovName": "", "mispBait": "9"}) == ""
 
 
 def fake_curl(body):
