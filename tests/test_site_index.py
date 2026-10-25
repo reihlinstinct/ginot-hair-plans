@@ -63,3 +63,25 @@ def test_committed_index_matches_repo_folder_state(tmp_path):
         "datasets"
     ]
     assert fresh == committed
+
+
+def test_build_writes_payload_with_il_date(tmp_path):
+    (tmp_path / "data").mkdir()
+    out = tmp_path / "index.json"
+    payload = bsi.build(str(tmp_path / "data"), str(out))
+    data = json.loads(out.read_text(encoding="utf-8"))
+    assert payload["datasets"] == []
+    assert data["note"].startswith("auto-generated")
+    assert len(payload["generated"]) == 10  # YYYY-MM-DD, IL date (issue #331)
+
+
+def test_main_custom_paths_skips_badges(tmp_path, capsys, monkeypatch):
+    data = tmp_path / "data"
+    data.mkdir()
+    (data / "x.json").write_text(json.dumps({"requests": [1]}), encoding="utf-8")
+    out = tmp_path / "out" / "index.json"
+    out.parent.mkdir()
+    monkeypatch.setattr(sys, "argv", ["build_site_index.py", str(data), str(out)])
+    assert bsi.main() == 0
+    assert "wrote" in capsys.readouterr().out
+    assert json.loads(out.read_text())["datasets"][0]["records"] == 1
