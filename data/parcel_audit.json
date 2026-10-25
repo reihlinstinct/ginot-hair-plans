@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "source_commit": "0d6e6f7155c09547bf3b07a26a5c51cdbaa32b6d",
-  "source_run": "40133320558",
-  "auditor_run": "40147963746",
-  "source_digest": "2e0da4392194d1054b387c965cf13ba70a05ead83e7bb660bc7b51b05985339f",
+  "source_commit": "5726bcbbaf62819a77978588b83b6b349cac55f7",
+  "source_run": "40157534500",
+  "auditor_run": "40167306488",
+  "source_digest": "c0b2ba614103a14d0e90db4e59c2fdf55834435c8163ef6fbc07b36c905a0ca1",
   "total_unique_parcels": 4739,
-  "published_cursor": 3760,
-  "remaining": 979,
-  "cursor_percent": 79.34163325596117,
+  "published_cursor": 4040,
+  "remaining": 699,
+  "cursor_percent": 85.25005275374552,
   "warning": "Cursor/range progress only, not proof that every query succeeded."
 }
