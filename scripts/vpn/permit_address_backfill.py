@@ -69,6 +69,12 @@ def address_fields_strict(tik):
         r = rows[0]
         if not isinstance(r, dict):
             raise ValueError(f"proc {ADDRESS_PROC}: non-dict row {type(r).__name__}")
+        if not any(k in r for k in RAW_FIELDS):
+            # A list-wrapped error record such as [{"error": "..."}] is a
+            # failed call, not "the tik has no address": persisting its
+            # all-empty reads would clear a legacy address and --resume
+            # would never retry it (review finding, third round).
+            raise ValueError(f"proc {ADDRESS_PROC}: row has no address fields")
         return {
             "rehovName": str(r.get("rehovName") or "").strip(),
             "mispBait": str(r.get("mispBait") or "").strip(),

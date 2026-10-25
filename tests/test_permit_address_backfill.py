@@ -108,7 +108,20 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
         raise AssertionError("non-dict row must raise")
     except ValueError:
         pass
+    # Third-round review finding: a LIST-wrapped error record passes the
+    # list/dict shape checks but carries no raw fields - it is a failed
+    # call, not a genuine no-row result.
+    monkeypatch.setattr(bf._feed, "call", lambda *a: [{"error": "nope"}])
+    try:
+        bf.address_fields_strict("2026/0001.01")
+        raise AssertionError("error-record row must raise, not become empty fields")
+    except ValueError:
+        pass
+    # A genuine empty list means no row: empty fields stored.
     monkeypatch.setattr(bf._feed, "call", lambda *a: [])
+    assert bf.address_fields_strict("2026/0001.01") == _fields()
+    # A row with the raw keys present (even empty strings) is a genuine row.
+    monkeypatch.setattr(bf._feed, "call", lambda *a: [{"rehovName": "", "mispBait": "", "schunaName": ""}])
     assert bf.address_fields_strict("2026/0001.01") == _fields()
 
 
