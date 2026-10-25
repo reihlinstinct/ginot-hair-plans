@@ -26,8 +26,10 @@ jobs:
       - name: External reviews append-only guard
         if: github.event_name == 'pull_request'
         run: |
-          git fetch --depth=1 origin "${{ github.base_ref }}"
+          git fetch --depth=1 origin "$BASE_REF"
           python scripts/ci/check_external_reviews.py --base FETCH_HEAD
+        env:
+          BASE_REF: ${{ github.base_ref }}
       - name: Commit identity guard (issue #473)
         if: github.event_name == 'pull_request'
         run: |
