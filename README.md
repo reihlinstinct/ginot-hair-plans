@@ -193,7 +193,7 @@ keep their checked-out code; the hardening applies to subsequent runs (#251).
 
 ## Security & engineering
 
-Public repo. CI on every PR/push: pytest + ruff across Python 3.10-3.13
+Public repo. CI on every PR/push: pytest + ruff across Python 3.11-3.13
 (pinned action SHAs, `contents: read`). Branch protection on `main`: PRs +
 green CI required. Secret scanning + push protection, Dependabot alerts and
 updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
