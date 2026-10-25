@@ -32,7 +32,9 @@ def scan_lines(lines):
     run: bodies. Handles block scalars (run: |) and single-line runs; env:
     values are the SAFE location and are not scanned. Folded scalars
     (run: >) join lines with spaces, so block content is ALSO scanned
-    joined - a risky expression split across lines only matches folded."""
+    joined - a risky expression split across lines only matches folded.
+    Block membership is decided by indent BEFORE matching a new run: key,
+    so a shell line inside the block that starts with "run:" stays content."""
     hits = []
     in_run = False
     content_indent = None
@@ -47,35 +49,32 @@ def scan_lines(lines):
         block_lines.clear()
 
     for i, line in enumerate(lines, 1):
+        if in_run:
+            if not line.strip():
+                continue  # blank line stays inside the block
+            indent = len(line) - len(line.lstrip())
+            if content_indent is None:
+                content_indent = indent  # first block line sets the baseline
+            if indent >= content_indent:
+                block_lines.append(line.strip())
+                m = RISKY.search(line)
+                if m:
+                    hits.append((i, m.group(0)))
+                continue
+            flush_block()
+            in_run = False  # back at step level (env:, if:, next step, ...)
         m_run = RUN_LINE.match(line)
         if m_run:
-            flush_block()
-            in_run = False
             rest = re.sub(r"\s+#.*$", "", m_run.group(2)).strip()
             if rest in BLOCK_MARKERS:
                 in_run = True
                 content_indent = None
                 block_start = i
                 continue
-            if rest:  # single-line run: scan the command itself
-                m = RISKY.search(line)
+            if rest:  # single-line run: scan the comment-stripped command
+                m = RISKY.search(rest)
                 if m:
                     hits.append((i, m.group(0)))
-            continue
-        if in_run:
-            indent = len(line) - len(line.lstrip())
-            if line.strip():
-                if content_indent is None:
-                    content_indent = indent  # first block line sets the baseline
-                elif indent < content_indent:
-                    flush_block()
-                    in_run = False  # back at step level (env:, if:, next step, ...)
-        if in_run:
-            if line.strip():
-                block_lines.append(line.strip())
-            m = RISKY.search(line)
-            if m:
-                hits.append((i, m.group(0)))
     flush_block()
     return hits
 
@@ -152,5 +151,21 @@ def test_scanner_catches_folded_split_expression():
         "      - run: >",
         '          git fetch origin "${{',
         '          github.base_ref }}"',
+    ]
+    assert scan_lines(lines) != []
+
+
+def test_scanner_ignores_comment_after_single_line_command():
+    lines = ["      - run: echo safe # ${{ github.base_ref }}"]
+    assert scan_lines(lines) == []
+
+
+def test_scanner_block_content_run_key_stays_in_block():
+    # a shell line starting with "run:" inside a block scalar is content,
+    # not a new step key; the block must keep scanning after it
+    lines = [
+        "      - run: |",
+        "          run: echo starting",
+        '          git fetch origin "${{ github.base_ref }}"',
     ]
     assert scan_lines(lines) != []
