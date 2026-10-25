@@ -490,6 +490,31 @@ def test_permits_recency_default_and_recovery(page):
     )
 
 
+def test_permits_default_sort_dated_desc_undated_last(page):
+    # #451: the recency filter must actually surface recent rows. Default
+    # order is dated rows newest-first, then date-unknown rows in their own
+    # honest placement (pub-nodate before no-evidence), stable feed order
+    # inside each group.
+    ids = page.locator(
+        "#permits-table tbody tr:not(.filtered-out) td:first-child"
+    ).all_inner_texts()
+    # dated group newest-first: future +3d, then -7d, then -30d
+    assert ids[:3] == ["2020/0005.01", "2026/0439.00", "2020/0001.01"]
+    # then pub-nodate (status-evidenced, then end-only), then no-evidence,
+    # feed order kept inside each undated group
+    assert ids[3:5] == ["2020/0006.01", "2020/0007.01"]
+    assert ids[5:] == ["2020/0002.01", "2020/0008.01", "2020/0009.01"]
+    # Old rows stay reachable: widening the from-date reveals the
+    # pre-window dated row, still ordered with the dated group (before
+    # every undated row).
+    page.fill("#pffrom", _d(-300))
+    all_ids = page.locator(
+        "#permits-table tbody tr:not(.filtered-out) td:first-child"
+    ).all_inner_texts()
+    assert "2020/0004.01" in all_ids
+    assert all_ids.index("2020/0004.01") < all_ids.index("2020/0006.01")
+
+
 def test_permits_rolling_cutoff_month_end(page):
     # The classic setMonth overflow: Aug 31 must roll to Feb 28, not Mar 3.
     got = page.evaluate(
@@ -503,13 +528,18 @@ def test_permits_rolling_cutoff_month_end(page):
 def test_permit_deep_links_point_to_municipality_file(page):
     links = page.locator("#permits-table tbody tr td:first-child a")
     assert links.count() == 10
-    href = links.first.get_attribute("href")
+    # Order-independent since #451 (default sort is dated-desc): pick the
+    # 0439 row explicitly instead of assuming it is first.
+    link = page.locator(
+        "#permits-table tbody tr td:first-child a", has_text="2026/0439.00"
+    )
+    href = link.get_attribute("href")
     assert href == (
         "https://ykpubdata.jerusalem.muni.il/#/Details?TikNum=2026%2F0439.00"
         "&SystemCode=26400046&Page=BakashalInfo"
     )
-    assert links.first.get_attribute("target") == "_blank"
-    assert "noopener" in links.first.get_attribute("rel")
+    assert link.get_attribute("target") == "_blank"
+    assert "noopener" in link.get_attribute("rel")
 
 
 def test_footer_links(page, site):
@@ -871,3 +901,107 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
                 assert len(texts) == 1 and "2026/0439.00" in texts[0], (
                     f"{variant!r} should find exactly the הפלמח 41 row, got {texts}"
                 )
+
+
+@pytest.fixture(scope="module")
+def real_site(tmp_path_factory):
+    """Site built from the REAL feed (data/permit_requests.json) - #451
+    requires proving the sort surfaces 2026/0439.00 inside the default
+    20-row view on the real 11k-row dataset, not only on fixtures."""
+    tmp = tmp_path_factory.mktemp("realsite")
+    cwd = pathlib.Path.cwd()
+    (tmp / "data").mkdir()
+    shutil.copy(
+        ROOT / "data" / "council_ginot_hair.geojson", tmp / "data" / "council.geojson"
+    )
+    shutil.copy(
+        ROOT / "data" / "permit_requests.json", tmp / "data" / "permit_requests.json"
+    )
+    shutil.copytree(ROOT / "docs", tmp / "docs", ignore=shutil.ignore_patterns("badge"))
+    mp = pytest.MonkeyPatch()
+    mp.chdir(tmp)
+    mp.setattr(
+        refresh.iplan,
+        "query_plans",
+        lambda council, service="x", **kw: (
+            FEATURES if service == "xplan_without_77_78" else []
+        ),
+    )
+    mp.setattr(
+        sys,
+        "argv",
+        [
+            "refresh.py",
+            "--council",
+            "data/council.geojson",
+            "--out",
+            "out",
+            "--site",
+            "docs",
+            "--snapshots",
+            "snapshots",
+            "--status",
+            "data/plan_status.json",
+        ],
+    )
+    refresh.main()
+    mp.undo()
+    assert pathlib.Path.cwd() == cwd
+    return tmp / "docs"
+
+
+@pytest.fixture(scope="module")
+def real_served(real_site):
+    handler = functools.partial(_Quiet, directory=str(real_site))
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        yield f"http://127.0.0.1:{srv.server_address[1]}"
+
+
+def test_real_dataset_0439_in_default_visible_20(browser, real_served):
+    # No evidence capture here: the real dataset renders ~11k rows and a
+    # full-page screenshot would be enormous; the assertion is in-page JS.
+    ctx = browser.new_context()
+    pg = ctx.new_page()
+    errors = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    try:
+        pg.goto(real_served + "/index.html")
+        pg.wait_for_function(
+            "window.__permitsLoaded === true || window.__permitsFailed === true",
+            timeout=180000,
+        )
+        assert pg.evaluate("window.__permitsLoaded") is True, (
+            "permits.html failed to load"
+        )
+        res = pg.evaluate(
+            "(function(){"
+            "var vis=[].slice.call(document.querySelectorAll("
+            "'#permits-table tbody tr:not(.filtered-out)'));"
+            "var inFirst=vis.slice(0,20).some(function(r){"
+            "return (r.getAttribute('data-search')||'').indexOf('2026/0439.00')!==-1;});"
+            "var dated=vis.filter(function(r){return r.getAttribute('data-pub');});"
+            "var desc=dated.every(function(r,i){"
+            "return !i||dated[i-1].getAttribute('data-pub')>=r.getAttribute('data-pub');});"
+            "var firstUndated=vis.findIndex(function(r){return !r.getAttribute('data-pub');});"
+            "var lastDated=-1;vis.forEach(function(r,i){"
+            "if(r.getAttribute('data-pub'))lastDated=i;});"
+            "return {total:vis.length,dated:dated.length,inFirst:inFirst,"
+            "desc:desc,firstUndated:firstUndated,lastDated:lastDated};})()"
+        )
+        # The default view is capped at 20 visible rows; the real matching
+        # set shows in the counter (מציג 20 מתוך N, N in the thousands).
+        import re as _re
+
+        m = _re.search(r"מציג 20 מתוך ([0-9]+)", pg.locator("#pfcount").inner_text())
+        assert m and int(m.group(1)) > 4000, pg.locator("#pfcount").inner_text()
+        assert res["dated"] >= 20, res  # enough dated rows to fill the cap
+        assert res["inFirst"], (
+            "2026/0439.00 is not inside the default-visible 20 on the real"
+            f" dataset: {res}"
+        )
+        assert res["desc"], f"dated rows are not newest-first: {res}"
+        assert res["firstUndated"] == -1 or res["lastDated"] < res["firstUndated"], res
+        assert errors == [], f"JavaScript errors on the page: {errors}"
+    finally:
+        ctx.close()
