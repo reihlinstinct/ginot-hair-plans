@@ -13,24 +13,45 @@ on:
   schedule:
     - cron: "37 4 * * *"   # daily 04:37 UTC (~07:30 Jerusalem), off-peak
   workflow_dispatch:
+    inputs:
+      reuse_probe_run_id:
+        description: Existing successful probe run to reuse without a municipal request
+        required: false
+        type: string
 
 permissions:
   contents: write
+  pull-requests: write
+  actions: read
 
 jobs:
   rishui-publish-watch:
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
+      - name: Reuse verified probe output without fetching
+        if: ${{ inputs.reuse_probe_run_id != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROBE_RUN_ID: ${{ inputs.reuse_probe_run_id }}
+        run: |
+          [[ "$PROBE_RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PROBE_RUN_ID" > /tmp/probe-run.json
+          python3 -c 'import json; r=json.load(open("/tmp/probe-run.json")); assert r["status"] == "completed" and r["conclusion"] == "success" and r["path"].split("@", 1)[0] == ".github/workflows/rishui-publish-probe.yml", "not a successful completed publications probe"'
+          gh run download "$PROBE_RUN_ID" --repo "$GITHUB_REPOSITORY" -n publish-api -D /tmp/reused-probe
+          cp /tmp/reused-probe/publish-api.json /tmp/publish-new.json
+
       - name: Install VPN transport packages
+        if: ${{ inputs.reuse_probe_run_id == '' }}
         run: |
           sudo apt-get update -qq > /dev/null 2>&1
           sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
 
       - name: Bring up owner-operated L2TP/IPsec tunnel
+        if: ${{ inputs.reuse_probe_run_id == '' }}
         env:
           VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
           VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
@@ -39,12 +60,14 @@ jobs:
         run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
 
       - name: Fetch active publications list (single request)
+        if: ${{ inputs.reuse_probe_run_id == '' }}
         run: |
           set -o pipefail
           sudo python3 scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json 2>&1 | tee watch-output.txt
 
       - name: Diff against baseline and write alert file
         run: |
+          set -o pipefail
           python3 scripts/vpn/rishui_publish_watch.py \
             --old data/publications_active.json \
             --new /tmp/publish-new.json \
@@ -53,17 +76,10 @@ jobs:
             --out-active data/publications_active.json \
             --out-new data/publications_new_latest.json | tee -a watch-output.txt
 
-      - name: Commit updated publication data
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/publications_active.json data/publications_new_latest.json
-          if git diff --cached --quiet; then
-            echo "no publication changes"
-          else
-            git commit -m "Daily active-publications refresh (refs #527)"
-            git push
-          fi
+      - name: Publish through a checked data PR
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: python3 scripts/ci/publish_publications.py
 
       - name: Upload watch output
         if: always()
@@ -73,9 +89,11 @@ jobs:
           path: |
             watch-output.txt
             data/publications_new_latest.json
+            data/publications_active.json
+            /tmp/publish-new.json
           if-no-files-found: warn
           retention-days: 14
 
       - name: Tear down tunnel and remove generated secret material
-        if: always()
+        if: ${{ always() && inputs.reuse_probe_run_id == '' }}
         run: sudo python3 scripts/vpn/l2tp.py down

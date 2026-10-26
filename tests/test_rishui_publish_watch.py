@@ -96,5 +96,5 @@ def test_watch_workflow_contract():
     assert "scripts/vpn/l2tp.py up" in workflow
     assert "scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json" in workflow
     assert "rishui_publish_watch.py" in workflow
-    assert "git diff --cached --quiet" in workflow
+    assert "scripts/ci/publish_publications.py" in workflow
     assert "scripts/vpn/l2tp.py down" in workflow
