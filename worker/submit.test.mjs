@@ -199,3 +199,19 @@ test("#530: hitting the page cap fails closed instead of opening an issue", asyn
   assert.equal((await submit(ENV, GOOD, "11.0.0.4", f)).error, "inbox unavailable");
   assert.ok(!calls.some((c) => c.method === "POST"));
 });
+
+test("#530: a page request that throws or returns bad JSON fails closed", async () => {
+  reset();
+  const throwing = async (url, init = {}) => {
+    if (String(url).endsWith("data.json")) return new Response(JSON.stringify({ rows: [{ pl_number: "101-1" }] }));
+    if ((init.method || "GET") === "GET") throw new TypeError("network down");
+    return new Response("{}", { status: 201 });
+  };
+  assert.equal((await submit(ENV, GOOD, "11.0.0.5", throwing)).error, "inbox unavailable");
+  const badJson = async (url, init = {}) => {
+    if (String(url).endsWith("data.json")) return new Response(JSON.stringify({ rows: [{ pl_number: "101-1" }] }));
+    if ((init.method || "GET") === "GET") return new Response("not json");
+    return new Response("{}", { status: 201 });
+  };
+  assert.equal((await submit(ENV, GOOD, "11.0.0.6", badJson)).error, "inbox unavailable");
+});

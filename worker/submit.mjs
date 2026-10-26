@@ -67,14 +67,18 @@ async function gh(env, fetchImpl, path, init = {}) {
 
 // Titles of all open external-review issues, across every page (#530): one page
 // holds at most 100, so a single-page check would miss a pending duplicate past
-// that. Returns null (fail closed) if any page fails or the page cap is hit.
+// that. Returns null (fail closed) if any page fails, throws, is not a JSON
+// array, or the page cap is hit.
 export const MAX_PENDING_PAGES = 20;
 async function pendingTitles(env, fetchImpl) {
   const titles = new Set();
   for (let page = 1; page <= MAX_PENDING_PAGES; page++) {
-    const res = await gh(env, fetchImpl, `/issues?labels=external-review&state=open&per_page=100&page=${page}`);
-    if (!res.ok) return null;
-    const batch = await res.json();
+    let batch;
+    try {
+      const res = await gh(env, fetchImpl, `/issues?labels=external-review&state=open&per_page=100&page=${page}`);
+      if (!res.ok) return null;
+      batch = await res.json();
+    } catch { return null; }  // network error or bad JSON: fail closed, never throw past submit()
     if (!Array.isArray(batch)) return null;
     for (const i of batch) titles.add(i.title);
     if (batch.length < 100) return titles;
