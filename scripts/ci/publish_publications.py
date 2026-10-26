@@ -5,6 +5,17 @@ import subprocess
 import time
 from pathlib import Path
 
+EXPECTED_CHECKS = {'test (3.11)', 'test (3.12)', 'test (3.13)', 'Analyze (actions)',
+                   'Analyze (python)', 'worker', 'site-browser (chromium)',
+                   'site-browser (webkit)', 'CodeQL'}
+
+
+def checks_pass(checks):
+    names = {c.get('name') for c in checks}
+    return EXPECTED_CHECKS <= names and all(
+        c.get('conclusion') in ('SUCCESS', 'NEUTRAL', 'SKIPPED') for c in checks)
+
+
 FILES = ('data/publications_active.json', 'data/publications_new_latest.json')
 
 
@@ -47,7 +58,7 @@ def main():
         state = gh('pr', 'view', str(pr['number']), '--repo', repo,
                    '--json', 'headRefOid,statusCheckRollup')
         checks = state['statusCheckRollup']
-        if checks and all(c.get('conclusion') in ('SUCCESS', 'NEUTRAL', 'SKIPPED') for c in checks):
+        if checks_pass(checks):
             gh('pr', 'merge', str(pr['number']), '--repo', repo, '--squash', '--admin',
                '--match-head-commit', state['headRefOid'])
             return
