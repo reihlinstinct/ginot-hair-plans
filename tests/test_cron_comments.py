@@ -9,10 +9,13 @@ from pathlib import Path
 
 _WF_DIR = Path(__file__).parent.parent / ".github" / "workflows"
 WORKFLOWS = sorted([*_WF_DIR.glob("*.yml"), *_WF_DIR.glob("*.yaml")])
-# A clock time followed closely by a local-zone word: "06:00 Israel",
-# "6:00 IDT", "09:00 local time", "06:00 (Israel)".
+# A clock time next to a local-zone word, in either order: "06:00 Israel",
+# "6:00 IDT", "09:00 local time", "06:00 (Israel)", "Israel time: 06:00",
+# "local time 9:30".
+_CLOCK = r"\b\d{1,2}:\d{2}\b"
+_ZONE = r"\b(?:Israel|IDT|IST|local)\b"
 LOCAL_CLOCK = re.compile(
-    r"\b\d{1,2}:\d{2}\b[^\n]{0,12}?\b(Israel|IDT|IST|local)\b", re.IGNORECASE
+    rf"{_CLOCK}[^\n]{{0,12}}?{_ZONE}|{_ZONE}[^\n]{{0,12}}?{_CLOCK}", re.IGNORECASE
 )
 
 
@@ -28,6 +31,13 @@ def test_pattern_catches_the_original_comment():
     assert LOCAL_CLOCK.search(" runs at 9:30 local time")
     assert not LOCAL_CLOCK.search(" Israel local time shifts by an hour at DST")
     assert not LOCAL_CLOCK.search(" nightly 03:20 UTC mirror-diff")
+
+
+def test_pattern_catches_the_zone_before_the_clock():
+    # Review on #500: the reversed order must be caught too.
+    assert LOCAL_CLOCK.search(" Israel time: 06:00")
+    assert LOCAL_CLOCK.search(" local time: 06:00")
+    assert LOCAL_CLOCK.search(" batch 1 (IDT 06:00)")
 
 
 def test_workflows_have_comments():
