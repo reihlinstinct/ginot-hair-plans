@@ -41,13 +41,15 @@ jobs:
       - name: Fetch active publications list (single request)
         run: |
           set -o pipefail
-          sudo python3 scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json | tee watch-output.txt
+          sudo python3 scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json 2>&1 | tee watch-output.txt
 
       - name: Diff against baseline and write alert file
         run: |
           python3 scripts/vpn/rishui_publish_watch.py \
             --old data/publications_active.json \
             --new /tmp/publish-new.json \
+            --permits data/permit_requests.json \
+            --parcels data/ginot_hair_parcels.geojson \
             --out-active data/publications_active.json \
             --out-new data/publications_new_latest.json | tee -a watch-output.txt
 
