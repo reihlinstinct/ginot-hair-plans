@@ -75,6 +75,16 @@ def test_main_roundtrip(tmp_path):
     assert json.loads(out_new.read_text(encoding="utf-8")) == {"new_in_polygon": [], "unresolved_new": []}
 
 
+def test_unresolved_row_alerts_when_it_resolves_into_scope():
+    """#527: a baseline row with in_polygon=None whose tik later resolves to a
+    polygon parcel must alert on the transition, not slip in silently."""
+    before = [dict(UNRESOLVED_ROW, in_polygon=None)]
+    after = [dict(UNRESOLVED_ROW, in_polygon=True)]
+    _, payload, _ = watch.update(before, after)
+    assert payload["new_in_polygon"] == [after[0]]
+    assert payload["unresolved_new"] == []
+
+
 def test_watch_workflow_contract():
     """Daily schedule, single fetch through the tunnel, guarded data commit,
     tunnel always torn down (issue #527)."""
