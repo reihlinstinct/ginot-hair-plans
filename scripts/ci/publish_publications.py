@@ -18,7 +18,7 @@ def checks_pass(checks):
         for c in checks)
 
 
-FILES = ('data/publications_active.json', 'data/publications_new_latest.json')
+FILES = ('data/publications_active.json', 'data/publications_new_latest.json', 'docs/index.json')
 
 
 def gh(*args, payload=None):
@@ -36,6 +36,7 @@ def gh(*args, payload=None):
 
 
 def main():
+    subprocess.run(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
     repo = os.environ['GITHUB_REPOSITORY']
     root = f'repos/{repo}'
     base = gh('api', f'{root}/git/ref/heads/main')['object']['sha']
