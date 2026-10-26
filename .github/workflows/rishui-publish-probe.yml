@@ -40,7 +40,7 @@ jobs:
         # a verification (same pattern as permit-publication-probe).
         run: |
           set -o pipefail
-          sudo python3 scripts/vpn/rishui_publish.py fetch --out publish-api.json | tee probe-output.txt
+          sudo python3 scripts/vpn/rishui_publish.py fetch --out publish-api.json 2>&1 | tee probe-output.txt
 
       - name: Upload probe output
         if: always()
