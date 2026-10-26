@@ -217,19 +217,24 @@ def test_status_legends_clickable(tmp_path):
     ]
     page.render_site(rows, [], str(tmp_path), permits_path=_permits(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
-    # both legends exist and chips carry data-status for click filtering
-    assert html.count("מקרא סטטוסים") == 2
+    # plans legend: raw-status chips; permits legend (#521): status-group
+    # chips, objection groups selected by default, rest behind a disclosure
+    assert "מקרא סטטוסים" in html
+    assert '<b>סטטוסים:</b>' in html
     assert 'class="chip c-deposit" data-status="הפקדה להתנגדויות"' in html
-    assert 'data-status="נפתח תיק רישוי"' in html
-    assert 'data-status="הבקשה נסגרה"' in html
-    # permits legend carries counts
-    assert "נפתח תיק רישוי (1)" in html
+    assert 'class="chip c-deposit sel" data-group="obj"' in html
+    assert 'class="chip c-review sel" data-group="pre"' in html
+    assert "סטטוסים נוספים" in html and "more-statuses" in html
+    assert 'data-group="review"' in html and 'data-group="closed"' in html
+    # permits group chips carry counts (fixture: נפתח תיק רישוי -> review)
+    assert "בטיפול/דיונים (1)" in html and "סגור/אחר (1)" in html
+    # raw status still filterable via the select and visible per row
+    assert "data-status='נפתח תיק רישוי'" in html
+    assert "data-status='הבקשה נסגרה'" in html
+    assert "<option value='נפתח תיק רישוי'>" in html
     # click bindings for both tables
     assert ".plan-legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
-    assert (
-        "#permits .legend" in html
-        and "pfstatus.value=(pfstatus.value===st)" in html
-    )
+    assert 'id="pfgroups"' in html and "selectedGroups" in html
     # #414: legend/options/counts derive from the loaded fragment client-side
     assert "rebuildDerived" in html and "statusClass" in html
 
@@ -247,8 +252,9 @@ def test_permit_status_chips(tmp_path):
     # row status cells colour-coded like plan chips
     assert 'class="chip c-inproc"' in html  # נפתח תיק רישוי
     assert 'class="chip c-closed"' in html  # הבקשה נסגרה
-    # legend chips colour-coded and still clickable
-    assert 'class="chip c-closed" data-status="הבקשה נסגרה"' in html
+    # legend group chips colour-coded and clickable; raw status stays on rows
+    assert 'class="chip c-closed" data-group="closed"' in html
+    assert 'class="chip c-inproc" data-group="review"' in html
     # mapping covers every live status value
     from ginot.page import _PERMIT_TERMINAL_STATUSES, _permit_status_class
 
@@ -757,10 +763,12 @@ def test_permits_recency_markup(tmp_path):
     assert "תאריך פרסום חסר" in html
     # split counters + invalid-date flag placeholders and the page note
     assert 'id="pfunknown"' in html and 'id="pfflag"' in html
-    assert "שישה החודשים האחרונים" in html
-    # rolling cutoff, month-end clamp and the default input assignment
-    assert "rollingCutoff" in html and "Math.min(now.getDate(),dim)" in html
-    assert "pffrom.value=DEF_FROM" in html
+    # #521: the default view is objection-group + scope based; the recency
+    # date inputs stay but with no default cutoff (an open objection window
+    # must never be hidden by an arbitrary 6-month rule)
+    assert "הרלוונטיות להתנגדות" in html
+    assert "rollingCutoff" not in html
+    assert "pffrom.value=DEF_FROM" not in html
 
 
 def test_iso_rejects_malformed_dates():
@@ -804,3 +812,100 @@ def test_permit_partial_address_display(tmp_path):
     assert "<td>מחרוזת מדורת 7</td>" in html
     # neighborhood is searchable
     assert "גינות העיר" in html
+
+
+def test_permit_status_group_mapping_covers_live_statuses():
+    """#521: every status seen in the live feed maps to a defined group; an
+    unknown future status fails VISIBLE into the default-selected 'unmapped'
+    group (missing an objection window is worse than noise)."""
+    from ginot.page import PERMIT_STATUS_GROUPS, _permit_status_group
+
+    live = [
+        "הופק-הוצא היתר בניה", "הוכנה טיוטת היתר בניה", "הבקשה נסגרה",
+        "נדונה בוועדת המשנה", "התקבל תיק ורוד / מסמכים חתומים", "שולמה מקדמה",
+        "נדונה ברשות הרישוי", "נפתח תיק רישוי", "הופק היתר מוארך",
+        "נדונה בועדת ערר", "הגשה מקוונת הושלמה", "ממתין לאישור נוסח פרסום",
+        'אושר ע"י מהנדס העיר', "תום תקופת פרסום", "חידוש טיפול בבקשה",
+        "התקבל ערר", "הבקשה נגנזה", "תחילת פרסום הבקשה להקלה",
+        "נוסח פרסום אושר", "", "השלמת הודעות לפני תקנה 36",
+        "תחילת הודעות לפני תקנה 36", "פורסמה בקשה להקלה",
+        "התקבלה בקשה לדיון המועצה",
+    ]
+    mapped = set()
+    for _key, _label, statuses, _dv in PERMIT_STATUS_GROUPS:
+        mapped |= statuses
+    for st in live:
+        assert st in mapped, st
+    # every mapped status maps back to its own group
+    assert _permit_status_group("תחילת פרסום הבקשה להקלה") == ("obj", "פתוח להתנגדויות", True)
+    assert _permit_status_group("ממתין לאישור נוסח פרסום") == ("pre", "פרסום מתקרב", True)
+    assert _permit_status_group("הבקשה נסגרה") == ("closed", "סגור/אחר", False)
+    # unknown status: unmapped, default-visible
+    key, label, default_visible = _permit_status_group("סטטוס חדש מהעירייה")
+    assert (key, default_visible) == ("unmapped", True)
+    assert label
+
+
+def test_permit_scope_classification():
+    """#521: scope flag by the 7 neighbourhoods; schunaName definitive, legacy
+    address matched by trailing neighbourhood, no signal = unknown (visible)."""
+    from ginot.page import _permit_scope
+
+    assert _permit_scope({"schunaName": "קטמון הישנה"}) == "in"
+    assert _permit_scope({"schunaName": "גוננים"}) == "out"
+    assert _permit_scope({"address": "הפלמח 41 קטמון הישנה"}) == "in"
+    assert _permit_scope({"address": "דרך עזה 42 רחביה"}) == "in"
+    assert _permit_scope({"address": 'רשב"ג 52 גונן ב'}) == "out"
+    assert _permit_scope({"address": "אלכסנדריון 12 גונן ג"}) == "out"
+    assert _permit_scope({"address": "בר יוחאי 5-7"}) == "unknown"
+    assert _permit_scope({"address": ""}) == "unknown"
+    assert _permit_scope({}) == "unknown"
+
+
+def test_permits_default_view_markup(tmp_path):
+    """#521: rows carry data-group/data-scope; objection groups default-selected;
+    scope + open-deadline checkboxes present with counts."""
+    from ginot import page
+
+    reqs = [
+        {  # open objection, in scope -> default visible
+            "tik_num": "2026/0439.00", "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ", "sugbakasha": "היתר", "address": "הפלמח 41 קטמון הישנה",
+            "status_date": "", "publication_start": "2026-10-18",
+            "publication_end_planned": "2026-11-24", "gush": 30007, "helka": 12,
+        },
+        {  # open objection, out of scope (גוננים)
+            "tik_num": "2026/0223.00", "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ", "sugbakasha": "היתר", "address": "אלעזר בן יאיר 24 גוננים",
+            "status_date": "", "publication_start": "2026-10-21",
+            "publication_end_planned": "2026-11-29", "gush": 30143, "helka": 5,
+        },
+        {  # objection group but window closed -> hidden while pfopenonly on
+            "tik_num": "2024/0211.03", "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ", "sugbakasha": "היתר", "address": "יוסי בן יועזר 36 גוננים",
+            "status_date": "", "publication_start": "2026-09-17",
+            "publication_end_planned": "2026-10-04", "gush": 30143, "helka": 9,
+        },
+        {  # non-objection group, in scope
+            "tik_num": "2020/0001.01", "status": "נפתח תיק רישוי",
+            "mahut": "מ", "sugbakasha": "היתר", "address": "אלפסי 9 רחביה",
+            "status_date": "", "publication_start": "", "publication_end_planned": "",
+            "gush": 30001, "helka": 3,
+        },
+    ]
+    page.render_site([], [], str(tmp_path), permits_path=_permits(tmp_path, reqs))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "data-group='obj' data-scope='in'" in html
+    assert html.count("data-group='obj' data-scope='out'") == 2
+    assert "data-group='review' data-scope='in'" in html
+    # objection groups default-selected, others behind the disclosure
+    assert 'data-group="obj" data-default=\'1\'' in html
+    assert 'data-group="pre" data-default=\'1\'' in html
+    assert 'data-group="review" data-default' not in html
+    assert "סטטוסים נוספים" in html
+    # new filter controls with live counts
+    assert 'id="pfopenonly" checked' in html
+    assert 'id="pfscope"' in html and "הצג גם מחוץ ל-7 השכונות (2)" in html
+    # JS applies the deadline check only to the obj group against Jerusalem today
+    assert "todayJL" in html and "pe<TODAY" in html
+    assert "data-scope')==='out'" in html
