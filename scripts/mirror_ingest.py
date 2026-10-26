@@ -143,6 +143,25 @@ def fetch_rows(gushim):
         time.sleep(PACE_SECONDS)
 
 
+ENRICHED_FIELDS = ("publication_start", "publication_end_planned")
+
+
+def preserve_enriched_fields(records, old_records):
+    """Carry nightly-enriched publication fields (issue #76) across re-ingests.
+
+    map_record maps only mirror columns, so without this carry-over each
+    ingest wipes the enrichment's output - and unchanged tiks are never
+    re-enriched, because the diff selection is status-based. Empty-string
+    markers (checked, no dates found) are preserved too, so the
+    include-unenriched backfill does not refetch them."""
+    old_by_tik = {r["tik_num"]: r for r in old_records}
+    for tik, rec in records.items():
+        old = old_by_tik.get(tik) or {}
+        for key in ENRICHED_FIELDS:
+            if key in old:
+                rec[key] = old[key]
+
+
 def diff_records(old_records, new_records):
     """Change detection between the previous ingest and this one.
 
@@ -215,6 +234,8 @@ def main():
         rec = map_record(row, gush, hits)
         if rec["tik_num"]:
             records[rec["tik_num"]] = rec
+
+    preserve_enriched_fields(records, old_records)
 
     payload = {
         "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem"))
