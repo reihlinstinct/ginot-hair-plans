@@ -105,6 +105,22 @@
    "records": 12554,
    "bytes": 5209812,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
+  },
+  {
+   "name": "publications_active.json",
+   "path": "data/publications_active.json",
+   "kind": "json",
+   "records": 123,
+   "bytes": 49130,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_active.json"
+  },
+  {
+   "name": "publications_new_latest.json",
+   "path": "data/publications_new_latest.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 51,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_new_latest.json"
   }
  ]
 }
