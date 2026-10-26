@@ -76,6 +76,8 @@ jobs:
     timeout-minutes: 355
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Resolve run inputs (dispatch inputs, or data/backfill_request.json on push)
         run: |
@@ -109,7 +111,7 @@ jobs:
 
       - name: Install and check permit renderer dependencies
         run: |
-          python3 -m pip install "shapely>=2.2.0" "pyproj>=3.8.0"
+          python3 -m pip install --only-binary=:all: "shapely>=2.2.0" "pyproj>=3.8.0"
           python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Install VPN transport packages
@@ -257,6 +259,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git stash push --include-untracked -m feed-output -- data/
+          gh auth setup-git
           git fetch origin main
           git reset --hard origin/main
           if ! git stash pop; then
