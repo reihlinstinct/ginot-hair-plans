@@ -909,3 +909,16 @@ def test_permits_default_view_markup(tmp_path):
     # JS applies the deadline check only to the obj group against Jerusalem today
     assert "todayJL" in html and "pe<TODAY" in html
     assert "data-scope')==='out'" in html
+
+
+def test_permit_enrichment_coverage_panel_is_aggregate_and_honest():
+    from ginot.page import _PERMITS_JS, _permits_section
+
+    html = _permits_section([{"tik_num": "2026/0001.00", "status": "נפתח תיק רישוי"}])
+    assert 'id="permit-coverage"' in html
+    assert 'id="permit-coverage-counts"' in html
+    assert "סיום פרסום מתוכנן אינו מועד התנגדות מאומת" in html
+    assert "תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה" in html
+    assert "לפני סינון התצוגה" in html
+    assert "rows.length-dated" in _PERMITS_JS
+    assert "getAttribute('data-pubend')" in _PERMITS_JS
