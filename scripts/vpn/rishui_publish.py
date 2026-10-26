@@ -51,14 +51,28 @@ def is_challenge(status: int, body: str) -> bool:
     return any(marker in low for marker in CHALLENGE_MARKERS)
 
 
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    """Single-GET contract: never follow redirects. A redirect would turn the
+    one allowed request into several (and is how anti-bot systems bounce
+    clients), so it is surfaced as an HTTPError and stopped on."""
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+_OPENER = urllib.request.build_opener(_NoRedirect)
+
+
 def fetch_publish(url: str = PUBLISH_URL, timeout: int = 40) -> list[dict]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        with _OPENER.open(req, timeout=timeout) as resp:
             status = resp.status
             body = resp.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:
         body = exc.read().decode("utf-8", errors="replace") if exc.fp else ""
+        if 300 <= exc.code < 400:
+            raise ChallengeError(f"HTTP {exc.code} redirect (not followed)") from exc
         if is_challenge(exc.code, body):
             raise ChallengeError(f"HTTP {exc.code}") from exc
         raise
@@ -95,8 +109,17 @@ def parse_rows(payload: str) -> list[dict]:
         raise ValueError("publish API did not return a list")
     rows = []
     for item in data:
-        if not isinstance(item, dict) or "myIndex" not in item or "tik_num" not in item:
+        if not isinstance(item, dict):
             raise ValueError("unexpected publish API row shape")
+        # myIndex is the dedup key and tik_num the permit join key: both must
+        # be real scalars, not null/containers (a null myIndex would collapse
+        # detect_new's known-set onto one key).
+        my_index = item.get("myIndex")
+        tik_num = item.get("tik_num")
+        if isinstance(my_index, bool) or not isinstance(my_index, (int, str)) or my_index == "":
+            raise ValueError("unexpected publish API row shape: bad myIndex")
+        if not isinstance(tik_num, str) or not tik_num:
+            raise ValueError("unexpected publish API row shape: bad tik_num")
         rows.append(normalize_row(item))
     return rows
 

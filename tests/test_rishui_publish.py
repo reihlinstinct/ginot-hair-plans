@@ -117,3 +117,63 @@ def test_probe_workflow_keeps_stop_on_challenge_contract():
     assert "scripts/vpn/rishui_publish.py fetch --out publish-api.json" in workflow
     assert "if: always()" in workflow
     assert "scripts/vpn/l2tp.py down" in workflow
+
+
+def test_parse_rows_rejects_null_or_container_keys():
+    """myIndex is the dedup key and tik_num the permit join key: null or
+    container values must be rejected, not silently deduped/printed."""
+    for bad in (None, [], {}, True, ""):
+        row = dict(RAW_ROW, myIndex=bad)
+        with pytest.raises(ValueError):
+            rishui_publish.parse_rows(json.dumps([row]))
+    for bad in (None, 123, [], ""):
+        row = dict(RAW_ROW, tik_num=bad)
+        with pytest.raises(ValueError):
+            rishui_publish.parse_rows(json.dumps([row]))
+    # int and str myIndex are both fine (the live API returns ints)
+    assert len(rishui_publish.parse_rows(json.dumps([RAW_ROW]))) == 1
+    assert len(rishui_publish.parse_rows(json.dumps([dict(RAW_ROW, myIndex="x1")]))) == 1
+
+
+def test_fetch_hard_stops_on_redirect():
+    """Single-GET contract: a redirect must not be followed (CodeRabbit #528)."""
+    import urllib.error
+
+    class _Resp:
+        status = 200
+        def read(self):
+            return b"[]"
+        def __enter__(self):
+            return self
+        def __exit__(self, *a):
+            return False
+
+    calls = []
+
+    def fake_open(req, timeout=40):
+        calls.append(req.full_url)
+        raise urllib.error.HTTPError(req.full_url, 302, "Found", {"Location": "https://evil/"}, None)
+
+    rishui_publish._OPENER.open = fake_open
+    try:
+        with pytest.raises(rishui_publish.ChallengeError):
+            rishui_publish.fetch_publish("https://example/x")
+    finally:
+        pass
+    assert calls == ["https://example/x"]  # exactly one attempt, no follow
+
+
+def test_main_returns_2_on_challenge(tmp_path, capsys):
+    """Stop-on-challenge contract at the CLI boundary: exit 2, no output file."""
+    def boom(*a, **k):
+        raise rishui_publish.ChallengeError("HTTP 503")
+
+    orig = rishui_publish.fetch_publish
+    rishui_publish.fetch_publish = boom
+    try:
+        rc = rishui_publish.main(["fetch", "--out", str(tmp_path / "o.json")])
+    finally:
+        rishui_publish.fetch_publish = orig
+    assert rc == 2
+    assert not (tmp_path / "o.json").exists()
+    assert "CHALLENGE" in capsys.readouterr().err
