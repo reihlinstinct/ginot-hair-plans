@@ -28,15 +28,22 @@ page.
 
 Read-only remote MCP (Streamable HTTP, stateless) over the same public data: tools
 `search_plans`, `get_plan` (with the public map point), `get_review` (text of the already-published AI review, if one exists), `upcoming_objection_windows` (derived, not official),
-`data_status`. No secrets, no writes. Source: `mcp.mjs`, config: `wrangler-mcp.toml`
+`get_review_checklist` (static list of what to check before a plan review is finished, with the
+verified/unverified tagging rule; defined in `checklist.mjs`), `data_status` - 6 tools in all.
+One prompt, `review_plan` (required argument `pl_number`), served via `prompts/list` and `prompts/get`:
+review one plan with the checklist and strict verified/unverified tagging.
+No secrets, no writes. Source: `mcp.mjs`, config: `wrangler-mcp.toml`
 (deploy: `npx wrangler deploy -c wrangler-mcp.toml`). Endpoint: `POST <workers.dev URL>/mcp`.
 
 **Live endpoint:** `https://ginot-hair-mcp.reihlinstinct.workers.dev/mcp` (no auth, read-only, public data).
 
-Verified with a generic HTTP client (2026-10-22): `initialize`, `tools/list` (4 tools),
+Verified with a generic HTTP client (2026-10-22): `initialize`, `tools/list` (4 tools at the time),
 `tools/call` (data_status, upcoming_objection_windows), notification -> 202, CORS preflight
 -> 204 with `access-control-allow-origin: *`, GET -> 405 (POST-only, no SSE stream).
-Replies are plain JSON (no sessions). NOT yet tested from the Claude, ChatGPT or Grok apps themselves.
+Replies are plain JSON (no sessions).
+
+Connected from claude.ai as a custom connector (2026-10-26, no auth): all 6 tools loaded.
+Not yet tested from the ChatGPT or Grok apps themselves.
 
 Connect (per official docs; steps may change):
 - Claude Code: `claude mcp add --transport http ginot-hair https://ginot-hair-mcp.reihlinstinct.workers.dev/mcp`
