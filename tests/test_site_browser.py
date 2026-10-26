@@ -421,21 +421,26 @@ def test_plan_numbers_link_to_mavat(page):
 
 def test_permits_default_hides_closed_and_counts(page):
     assert page.locator("#permits-table tbody tr").count() == 10
-    # 8 visible: everything except the terminal row and the pre-window dated row
+    # 8 visible (#521 default: objection-relevant groups selected, no recency
+    # cutoff): hidden are the terminal row (closed group, also data-active=0)
+    # and the post-publication row (group behind "סטטוסים נוספים").
     assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
     assert page.locator("#pfcount").inner_text() == "מציג 8 מתוך 8"
+    # "הצג בקשות שהסתיימו" selects the closed+issued group chips and reveals
+    # the terminal row.
     page.check("#pfclosed")
     assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 9
 
 
-def test_permit_search_and_status_chip(page):
+def test_permit_search_and_status_select(page):
     page.fill("#pfq", "אלפסי")
     assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
     page.click("#pfreset")
-    page.locator("#permits .legend .chip", has_text="בבדיקה").click()
+    # #521: legend chips are status GROUPS; a raw status is picked in the select.
+    page.select_option("#pfstatus", "בבדיקה")
     assert page.locator("#pfstatus").input_value() == "בבדיקה"
-    # 0439.00, 0001, 0002, 0005, 0008, 0009 (0004 is pre-window dated, hidden)
-    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 6
+    # 0439.00, 0001, 0002, 0004, 0005, 0007, 0009 (no recency cutoff since #521)
+    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 7
 
 
 def test_permit_publication_date_filter(page):
@@ -443,86 +448,63 @@ def test_permit_publication_date_filter(page):
     # (design option A: the recency filter never hides date-unknown rows).
     page.fill("#pffrom", _d(-10))
     vis = page.locator("#permits-table tbody tr:not(.filtered-out)")
-    assert vis.count() == 7
+    # 6: the post-publication row sits in a default-off group since #521.
+    assert vis.count() == 6
     assert vis.filter(has_text="2020/0001.01").count() == 0  # dated, before from
     assert vis.filter(has_text="2020/0002.01").count() == 1  # undated, survives
     assert vis.filter(has_text="2026/0439.00").count() == 1  # dated, after from
 
 
-def test_permits_recency_default_and_recovery(page):
-    # Default: rolling six-month cutoff in the from input (browser-local,
-    # month-end clamped), pre-window dated row hidden, every other
-    # category visible.
-    import calendar
-
-    y, m = TODAY.year, TODAY.month - 6
-    while m < 1:
-        y, m = y - 1, m + 12
-    day = min(TODAY.day, calendar.monthrange(y, m)[1])
-    expected = datetime.date(y, m, day).isoformat()
-    assert page.locator("#pffrom").input_value() == expected
+def test_permits_no_recency_default_and_manual_date_filter(page):
+    # #521: the rolling six-month default was removed - it hid open תקנה 36
+    # windows. The from input starts empty, every dated row is visible by
+    # default (subject to the group chips), date-unknown rows stay visible
+    # and marked, and a typed from-date still narrows dated rows only.
+    assert page.locator("#pffrom").input_value() == ""
     vis = page.locator("#permits-table tbody tr:not(.filtered-out)")
-    assert vis.filter(has_text="2020/0004.01").count() == 0  # category 2 hidden
+    assert vis.filter(has_text="2020/0004.01").count() == 1  # pre-window dated: visible
     assert vis.filter(has_text="2026/0439.00").count() == 1  # regression
-    assert vis.filter(has_text="2020/0005.01").count() == 1  # future date, in-window
+    assert vis.filter(has_text="2020/0005.01").count() == 1  # future date
     # undated rows visible with the marker
     assert page.locator("#permits-table .pub-missing").count() >= 3
-    # split date-unknown counters: 2 published-date-unknown + 3 no-evidence
+    # split date-unknown counters over VISIBLE rows: 0007 is pub-nodate
+    # (0006 too, but its post-publication group is off by default), 3 no-evidence
     assert (
         page.locator("#pfunknown").inner_text()
-        == "תאריך פרסום חסר: 2 (פורסם, תאריך לא ידוע) · 3 (אין ראיית פרסום)"
+        == "תאריך פרסום חסר: 1 (פורסם, תאריך לא ידוע) · 3 (אין ראיית פרסום)"
     )
-    # Recover older rows by editing the default date, then reset restores it.
-    page.fill("#pffrom", _d(-300))
-    assert (
-        page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 9
-    )
+    # A typed from-date narrows dated rows; reset restores the empty default.
+    page.fill("#pffrom", _d(-10))
     assert (
         page.locator("#permits-table tbody tr:not(.filtered-out)")
         .filter(has_text="2020/0004.01")
         .count()
-        == 1
+        == 0
     )
     page.click("#pfreset")
-    assert page.locator("#pffrom").input_value() == expected
-    assert (
-        page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
-    )
+    assert page.locator("#pffrom").input_value() == ""
+    assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
 
 
 def test_permits_default_sort_dated_desc_undated_last(page):
-    # #451: the recency filter must actually surface recent rows. Default
-    # order is dated rows newest-first, then date-unknown rows in their own
-    # honest placement (pub-nodate before no-evidence), stable feed order
-    # inside each group.
+    # #451: default order is dated rows newest-first, then date-unknown rows
+    # in their own honest placement (pub-nodate before no-evidence), stable
+    # feed order inside each group. Since #521 there is no recency cutoff, so
+    # the pre-window dated row (0004) is in the default view too; the
+    # post-publication row (0006) is hidden by its default-off group chip.
     ids = page.locator(
         "#permits-table tbody tr:not(.filtered-out) td:first-child"
     ).all_inner_texts()
-    # dated group newest-first: future +3d, then -7d, then -30d
-    assert ids[:3] == ["2020/0005.01", "2026/0439.00", "2020/0001.01"]
-    # then pub-nodate (status-evidenced, then end-only), then no-evidence,
-    # feed order kept inside each undated group
-    assert ids[3:5] == ["2020/0006.01", "2020/0007.01"]
+    assert ids[:4] == ["2020/0005.01", "2026/0439.00", "2020/0001.01", "2020/0004.01"]
+    assert ids[4] == "2020/0007.01"
     assert ids[5:] == ["2020/0002.01", "2020/0008.01", "2020/0009.01"]
-    # Old rows stay reachable: widening the from-date reveals the
-    # pre-window dated row, still ordered with the dated group (before
-    # every undated row).
-    page.fill("#pffrom", _d(-300))
-    all_ids = page.locator(
+    # A typed from-date narrows without disturbing the dated-desc order.
+    page.fill("#pffrom", _d(-20))
+    narrow = page.locator(
         "#permits-table tbody tr:not(.filtered-out) td:first-child"
     ).all_inner_texts()
-    assert "2020/0004.01" in all_ids
-    assert all_ids.index("2020/0004.01") < all_ids.index("2020/0006.01")
-
-
-def test_permits_rolling_cutoff_month_end(page):
-    # The classic setMonth overflow: Aug 31 must roll to Feb 28, not Mar 3.
-    got = page.evaluate(
-        "(function(){var d=window.__permitCutoff(new Date(2026,7,31));"
-        "return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'"
-        "+('0'+d.getDate()).slice(-2);})()"
-    )
-    assert got == "2026-02-28"
+    assert narrow[:2] == ["2020/0005.01", "2026/0439.00"]
+    assert "2020/0001.01" not in narrow
 
 
 def test_permit_deep_links_point_to_municipality_file(page):
@@ -628,17 +610,18 @@ def test_mobile_legend_chip_tap_toggles_status(mobile_page):
     assert visible_plans(mobile_page) == 20
 
 
-def test_mobile_permit_search_and_chip(mobile_page):
+def test_mobile_permit_search_and_status_filter(mobile_page):
     mobile_page.tap("#pfq")
     mobile_page.fill("#pfq", "אלפסי")
     assert (
         mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
     )
     mobile_page.tap("#pfreset")
-    mobile_page.locator("#permits .legend .chip", has_text="בבדיקה").first.tap()
+    # #521: legend chips are status groups; a raw status goes in the select.
+    mobile_page.select_option("#pfstatus", "בבדיקה")
     assert mobile_page.locator("#pfstatus").input_value() == "בבדיקה"
     assert (
-        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 6
+        mobile_page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 7
     )
 
 
@@ -745,15 +728,22 @@ def test_statistics_have_visible_tracks_and_fills(page, width):
     assert page.locator("#stats .bv").first.inner_text().isdigit()
 
 
-def test_permit_closed_chip_is_explicit_and_does_not_change_plan_filter(page):
+def test_permit_closed_checkbox_is_explicit_and_does_not_change_plan_filter(page):
     assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
     before = plan_ids(page)
-    page.locator("#permits .legend .chip", has_text="הבקשה נסגרה").click()
-    assert page.locator("#pfstatus").input_value() == "הבקשה נסגרה"
-    assert page.locator("#permits-table tbody tr:visible").count() == 1
+    # #521: the closed raw-status chip is gone; the "הצג בקשות שהסתיימו"
+    # checkbox reveals terminal rows by selecting the closed+issued group chips.
+    page.check("#pfclosed")
+    assert "sel" in (
+        page.locator("#permits .legend .chip[data-group='closed']").get_attribute("class")
+    )
+    assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 1
     assert page.locator("#fstatus").input_value() == ""
     assert plan_ids(page) == before
     page.click("#pfreset")
+    assert "sel" not in (
+        page.locator("#permits .legend .chip[data-group='closed']").get_attribute("class")
+    )
     assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
 
 
@@ -844,10 +834,12 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path, r
             # dropdown gains the status that only exists in the live fragment
             options = pg.locator("#pfstatus option").all_text_contents()
             assert new_status in options
-            # legend chip count comes from the fragment rows, not the shell
+            # legend chip counts come from the fragment rows, not the shell;
+            # chips are status GROUPS since #521 (raw statuses fill the select)
             chips = pg.locator("#permits .legend .chip").all_text_contents()
-            assert f"{new_status} (2)" in chips
-            assert "בבדיקה (1)" in chips
+            assert "פתוח להתנגדויות (2)" in chips
+            assert "לא מסווג (1)" in chips
+            assert "סגור/אחר (1)" in chips
             # closed count label follows the fragment
             label = pg.locator("#pfilters label", has_text="הצג בקשות שהסתיימו")
             assert "(1)" in label.inner_text()
@@ -989,13 +981,13 @@ def test_real_dataset_0439_in_default_visible_20(browser, real_served):
             "return {total:vis.length,dated:dated.length,inFirst:inFirst,"
             "desc:desc,firstUndated:firstUndated,lastDated:lastDated};})()"
         )
-        # The default view is capped at 20 visible rows; the real matching
-        # set shows in the counter (מציג 20 מתוך N, N in the thousands).
+        # The default view is capped at 20 visible rows; since #521 the default
+        # pre-selects the objection-relevant groups in the 7 neighbourhoods, so
+        # the matching set is the objection workload, not the whole feed.
         import re as _re
 
         m = _re.search(r"מציג 20 מתוך ([0-9]+)", pg.locator("#pfcount").inner_text())
-        assert m and int(m.group(1)) > 4000, pg.locator("#pfcount").inner_text()
-        assert res["dated"] >= 20, res  # enough dated rows to fill the cap
+        assert m and int(m.group(1)) >= 20, pg.locator("#pfcount").inner_text()
         assert res["inFirst"], (
             "2026/0439.00 is not inside the default-visible 20 on the real"
             f" dataset: {res}"
