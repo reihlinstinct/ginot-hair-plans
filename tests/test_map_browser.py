@@ -389,15 +389,17 @@ def test_map_requests_survive_quick_filter_changes_without_stale_layers(
     assert page.locator(".leaflet-marker-icon").count() == 0
 
 
-def test_permit_status_chip_isolated_from_map_and_closed_hidden(page, map_network):
+def test_permit_closed_checkbox_isolated_from_map_and_closed_hidden(page, map_network):
     page.locator("#plan-map-panel summary").click()
     page.wait_for_function(
         "document.querySelector('#map-status').textContent.includes('20 גבולות')"
     )
     before = plan_ids(page)
     assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
-    page.locator("#permits .legend .chip", has_text="הבקשה נסגרה").click()
-    assert page.locator("#permits-table tbody tr:visible").count() == 1
+    # #521: terminal rows are revealed via the "הצג בקשות שהסתיימו" checkbox
+    # (the closed raw-status chip is gone; group chips replaced it).
+    page.check("#pfclosed")
+    assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 1
     assert plan_ids(page) == before
     assert page.locator(".leaflet-overlay-pane path").count() == 20
     page.click("#pfreset")
