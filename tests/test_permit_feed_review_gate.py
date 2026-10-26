@@ -29,3 +29,28 @@ def test_no_change_and_created_pr_both_explicitly_stop_publication_successors():
     created = publish.split('echo "opened $PR"', 1)[1]
     assert 'echo "merged=false" >> "$GITHUB_OUTPUT"' in created
     assert 'merged=true' not in publish
+
+
+def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_path):
+    import os
+    import subprocess
+
+    workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/permit-feed.yml').read_text()
+    step = workflow.split('- name: Stop while a permit-feed data PR awaits review', 1)[1].split('- name:', 1)[0]
+    shell = '\n'.join(line[10:] for line in step.split('run: |\n', 1)[1].splitlines())
+    assert workflow.index('Stop while a permit-feed') < workflow.index('Install VPN transport')
+    assert workflow.index('Stop while a permit-feed') < workflow.index('Bring up owner-operated')
+    gh = tmp_path / 'gh'
+    gh.write_text('#!/bin/bash\nprintf "%s\\n" "$*" > "$CALL_LOG"\nprintf "%s" "$PENDING_TEST"\nexit "$GH_EXIT"\n')
+    gh.chmod(0o755)
+    for pending, status, expected in [('', '0', 0), ('17\n18', '0', 1), ('', '42', 42)]:
+        env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
+                   GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
+                   PENDING_TEST=pending, GH_EXIT=status)
+        result = subprocess.run(['bash', '-c', shell], env=env, capture_output=True,
+                                text=True, check=False)
+        assert result.returncode == expected, result.stderr
+        call = (tmp_path / 'calls').read_text()
+        assert '--paginate' in call
+        assert 'state=open&base=main&per_page=100' in call
+        assert 'startswith("permit-feed/")' in call

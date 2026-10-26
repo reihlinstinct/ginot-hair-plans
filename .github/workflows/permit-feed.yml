@@ -103,6 +103,19 @@ jobs:
         env:
           INPUTS_JSON: ${{ toJSON(inputs) }}
 
+      - name: Stop while a permit-feed data PR awaits review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          # All pages, not just the first 30/100 PRs. API errors fail closed.
+          PENDING=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&per_page=100" \
+            --jq '.[] | select(.head.ref | startswith("permit-feed/")) | .number')
+          if [ -n "$PENDING" ]; then
+            echo "permit-feed data PR(s) awaiting review: $PENDING; stopping before VPN/network scan"
+            exit 1
+          fi
+
       - name: Install VPN transport packages
         run: |
           sudo apt-get update -qq > /dev/null 2>&1
