@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Isolated JSON-only branch; never changes main or dispatches scan workflows.
 set -euo pipefail
-cp "$1"/tests.json /tmp/tests-badge.json
-cp "$1"/coverage.json /tmp/coverage-badge.json
+STAGE=$(mktemp -d) # private staging: no predictable shared /tmp paths
+trap 'rm -rf "$STAGE"' EXIT
+cp "$1"/tests.json "$STAGE/tests.json"
+cp "$1"/coverage.json "$STAGE/coverage.json"
 WORK=$(mktemp -d)
 git fetch origin badge-data || true
 if git show-ref --verify --quiet refs/remotes/origin/badge-data; then
@@ -15,14 +17,29 @@ fi
 git -C "$WORK" config user.name 'github-actions[bot]'
 git -C "$WORK" config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
+# Returns 1 only for a clean index (nothing new to publish); every real
+# failure is an explicit fatal exit - publish runs in condition context,
+# where set -e would otherwise mask a failed cp/add/commit as "no changes".
 publish() {
-  cp /tmp/tests-badge.json "$WORK/tests.json"
-  cp /tmp/coverage-badge.json "$WORK/coverage.json"
-  git -C "$WORK" add tests.json coverage.json
+  cp "$STAGE/tests.json" "$WORK/tests.json" || {
+    echo "badge staging copy failed" >&2
+    exit 1
+  }
+  cp "$STAGE/coverage.json" "$WORK/coverage.json" || {
+    echo "badge staging copy failed" >&2
+    exit 1
+  }
+  git -C "$WORK" add tests.json coverage.json || {
+    echo "badge git add failed" >&2
+    exit 1
+  }
   if git -C "$WORK" diff --cached --quiet; then
     return 1 # nothing new to publish
   fi
-  git -C "$WORK" commit -m 'data: measured successful main CI badges' >/dev/null
+  git -C "$WORK" commit -m 'data: measured successful main CI badges' >/dev/null || {
+    echo "badge commit failed" >&2
+    exit 1
+  }
   return 0
 }
 

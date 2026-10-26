@@ -178,3 +178,79 @@ exec "$REAL_GIT" "$@"
     ).stdout
     assert "data: measured successful main CI badges" in log
     assert "competing badge push" in log  # retry built on the winner's commit
+
+
+def test_push_badges_fails_loud_when_staging_breaks(tmp_path):
+    """publish() runs in condition context, where set -e is suppressed:
+    a failing cp/add/commit must abort the run, not exit 0 as
+    'nothing new' (review on #497's fix)."""
+    import os
+    import shutil
+    import subprocess
+
+    git = shutil.which("git")
+    if not git:
+        pytest.skip("git not available")
+
+    def run(args, cwd=None):
+        return subprocess.run(args, cwd=cwd, capture_output=True, text=True, check=True)
+
+    bare = tmp_path / "remote.git"
+    run([git, "init", "--bare", str(bare)])
+    seed = tmp_path / "seed"
+    seed.mkdir()
+    run([git, "init"], cwd=seed)
+    run([git, "config", "user.name", "t"], cwd=seed)
+    run([git, "config", "user.email", "t@t"], cwd=seed)
+    run([git, "switch", "--orphan", "badge-data"], cwd=seed)
+    (seed / "tests.json").write_text('{"old": 1}\n')
+    (seed / "coverage.json").write_text('{"old": 1}\n')
+    run([git, "add", "."], cwd=seed)
+    run([git, "commit", "-m", "seed badges"], cwd=seed)
+    run([git, "remote", "add", "origin", str(bare)], cwd=seed)
+    run([git, "push", "origin", "badge-data"], cwd=seed)
+
+    work = tmp_path / "work"
+    work.mkdir()
+    run([git, "init"], cwd=work)
+    run([git, "remote", "add", "origin", str(bare)], cwd=work)
+
+    badges = tmp_path / "badges"
+    badges.mkdir()
+    (badges / "tests.json").write_text('{"new": 1}\n')
+    (badges / "coverage.json").write_text('{"new": 1}\n')
+
+    # git shim: every `add` fails -> the old script masked this as a
+    # clean-index exit 0; the fixed script must fail loudly.
+    shim_dir = tmp_path / "shim"
+    shim_dir.mkdir()
+    shim = shim_dir / "git"
+    shim.write_text(
+        """#!/usr/bin/env bash
+seen_add=""
+seen_coverage=""
+for a in "$@"; do
+  [ "$a" = "add" ] && seen_add=1
+  [ "$a" = "coverage.json" ] && seen_coverage=1
+done
+if [ -n "$seen_add" ] && [ -n "$seen_coverage" ]; then
+  echo "fatal: simulated index failure" >&2
+  exit 1
+fi
+exec "$REAL_GIT" "$@"
+"""
+    )
+    shim.chmod(0o755)
+
+    env = dict(os.environ)
+    env.update({"PATH": f"{shim_dir}:{os.environ['PATH']}", "REAL_GIT": git})
+    proc = subprocess.run(
+        ["bash", str(ROOT / "scripts/ci/push_badges.sh"), str(badges)],
+        check=False,
+        cwd=work,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
+    assert proc.returncode != 0
+    assert "badge git add failed" in proc.stderr
