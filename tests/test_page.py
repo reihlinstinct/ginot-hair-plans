@@ -53,7 +53,10 @@ def _row(n, status, recv="", dep="", deadline="", flag="inside"):
 def test_default_sort_deadline_desc():
     import datetime
 
-    today = datetime.date.today()
+    from ginot.dates import today_il
+
+    # sort_rows defaults to the Jerusalem clock; build the fixture on the same one.
+    today = today_il()
     near = (today + datetime.timedelta(days=10)).isoformat()
     far = (today + datetime.timedelta(days=40)).isoformat()
     rows = [

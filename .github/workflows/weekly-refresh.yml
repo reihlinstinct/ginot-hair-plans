@@ -87,7 +87,7 @@ jobs:
           # GITHUB_TOKEN cannot approve it, so the old dispatch+watch step
           # died with "already completed with action_required" on scheduled
           # runs. Same commands as ci.yml, run here on the branch worktree.
-          pip install -q ruff pytest
+          pip install -q ruff==0.16.9 pytest
           ruff check src tests refresh.py
           python -m pytest -q
           # main can move during the long fetch (issue #170): bring the PR up
