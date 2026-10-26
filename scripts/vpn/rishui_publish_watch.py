@@ -45,8 +45,18 @@ def update(old_rows: list[dict] | None, new_rows: list[dict]) -> tuple[list[dict
     if old_rows is None:
         return in_scope, {"new_in_polygon": [], "unresolved_new": []}, True
     fresh = detect_new(old_rows, new_rows)
+    # A baseline row whose tik later resolves (the tracker learns its parcel)
+    # is not "new" by myIndex, but entering the polygon IS alertable.
+    old_flags = {r.get("myIndex"): r.get("in_polygon") for r in old_rows}
+    resolved = [
+        r
+        for r in new_rows
+        if r["in_polygon"] is True
+        and r["myIndex"] in old_flags
+        and old_flags[r["myIndex"]] is not True
+    ]
     payload = {
-        "new_in_polygon": [r for r in fresh if r["in_polygon"] is True],
+        "new_in_polygon": [r for r in fresh if r["in_polygon"] is True] + resolved,
         "unresolved_new": [r for r in fresh if r["in_polygon"] is None],
     }
     return in_scope, payload, False
