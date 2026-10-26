@@ -16,5 +16,6 @@ before closing it.
 ## Verification
 
 - [ ] Applicable tests and CI are green
+- [ ] Every AI review finding is fixed (reply names the commit) or answered with a one-line reason (#454)
 - [ ] Visual UI changes inspected on mobile and desktop as applicable
 - [ ] No personal data, secrets or unapproved workflow dispatch

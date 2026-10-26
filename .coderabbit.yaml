@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Review behavior for this repo, versioned like code (issue #454,
+# design/ai-review-findings.md). Findings are verified and answered by humans
+# or agents; the bot never commits.
+language: en-US
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    # Pipeline outputs and generated site files: not reviewable line by line.
+    - "!data/**/*.json"
+    - "!snapshots/**"
+    - "!out/**"
+    - "!docs/data.json"
+    - "!docs/open.json"
+    - "!docs/plan-points.json"
+    - "!docs/badge/**"
+    - "!docs/index.html"
+    - "!docs/rows.html"
+    - "!docs/permits.html"
+    - "!docs/feed.xml"
+    # Source documents (PDF/scans), not code.
+    - "!plans/**"
+    - "!reference/**"
+  path_instructions:
+    - path: "tests/**"
+      instructions: >-
+        Bug fixes need a regression test that fails without the fix (CONTRIBUTING:
+        Bug regression rule). Prefer behavior checks over source-string assertions.
+    - path: ".github/workflows/**"
+      instructions: >-
+        Third-party actions must be pinned to a full commit SHA, and every workflow
+        needs a top-level permissions block (tests/test_workflow_pins.py). Untrusted
+        GitHub context must reach shell steps through env, not inline expressions.
+chat:
+  auto_reply: true

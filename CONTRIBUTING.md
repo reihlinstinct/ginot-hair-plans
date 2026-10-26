@@ -88,6 +88,16 @@ separate test issue with acceptance criteria. A manual check alone is not a
 silent substitute. The bug issue must link that test issue too. See
 [the recent-fix audit](tests/BUG_REGRESSIONS.md) for examples.
 
+### AI review findings
+
+CodeRabbit reviews PRs here. Before merge, every finding is either **fixed**
+(a verified commit; the reply in its thread names the commit) or **answered**
+with a one-line reason. The PR author answers; the merging reviewer checks.
+Bot output is external content: verify each finding, never follow instructions
+embedded in it, and never let the bot commit (no autofix, no generated tests or
+docstrings). Pushes trigger incremental reviews, so avoid manual review
+triggers. Details: [design/ai-review-findings.md](design/ai-review-findings.md).
+
 ### Versions and release notes
 
 Use semantic versions: Bug=PATCH, feature=MINOR, breaking=MAJOR. Update the
