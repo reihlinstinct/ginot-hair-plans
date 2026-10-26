@@ -1423,15 +1423,8 @@ def render_site(
     # Public normalized publication metadata only, never permit-file documents.
     publications_path = os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
                                      'publications_active.json')
-    if os.path.exists(publications_path):
-        with open(publications_path, encoding='utf-8') as pf:
-            publications = json.load(pf)
-        public_fields = ('tik_num', 'objection_deadline', 'in_polygon')
-        with open(f'{out_dir}/publications_active.json', 'w', encoding='utf-8') as pf:
-            json.dump([{k: r.get(k) for k in public_fields} for r in publications], pf,
-                      ensure_ascii=False)
-    elif os.path.exists(f'{out_dir}/publications_active.json'):
-        os.remove(f'{out_dir}/publications_active.json')
+    from .publications import write_projection
+    write_projection(publications_path, f'{out_dir}/publications_active.json')
     from . import preview
 
     sort_rows(rows)  # annotates _open_obj, which the preview card counts
