@@ -23,17 +23,19 @@ USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) ginot-hair-plans/1.0"
 CHALLENGE_STATUSES = {403, 429, 503}
 CHALLENGE_MARKERS = ("access denied", "akamai", "captcha", "challenge")
 
-# Neighborhoods in the Ginot HaIr council area tracked by this repo (issue #527).
+# The 7 Ginot HaIr council neighborhoods, user-confirmed 2026-10-26 against
+# ginothair.org.il/about-us (the exported council polygon is wider - issue to
+# tighten it is separate). Municipal spelling variants included.
 TRACKED_SCHN = frozenset(
     {
         "קטמון הישנה",
         "רחביה",
         "קריית שמואל",
-        "גבעת מרדכי",
         "מושבה גרמנית",
         "המושבה היוונית",
+        "טלביה",
         "טלביה/המוגרבים",
-        "ימין משה",
+        "נוה שאנן/ניות",
     }
 )
 
