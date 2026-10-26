@@ -590,6 +590,19 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
     )
+    def valid_coverage_date(value):
+        try:
+            datetime.date.fromisoformat(_iso(value))
+            return True
+        except (TypeError, ValueError):
+            return False
+
+    n_dated = sum(valid_coverage_date(p.get("publication_start")) for p in permits)
+    n_planned = sum(valid_coverage_date(p.get("publication_end_planned")) for p in permits)
+    coverage_text = (
+        f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
+        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits)-n_dated} ללא תאריך תחילת פרסום."
+    )
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
 
@@ -640,7 +653,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 {plegend}
 <details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
 <p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
-<span id="permit-coverage-counts"></span></p>
+<span id="permit-coverage-counts">{coverage_text}</span></p>
 <p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
 תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
 סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
@@ -833,8 +846,8 @@ function rebuildDerived(){
   var counts={},sugs={},closed=0,gcounts={},outscope=0,i,st,sug,g;
   var dated=0,planned=0;
   for(i=0;i<rows.length;i++){
-    if(rows[i].getAttribute('data-pub'))dated++;
-    if(rows[i].getAttribute('data-pubend'))planned++;
+    if(validIso(rows[i].getAttribute('data-pub')||''))dated++;
+    if(validIso(rows[i].getAttribute('data-pubend')||''))planned++;
     st=rows[i].getAttribute('data-status')||'';
     if(st)counts[st]=(counts[st]||0)+1;
     sug=rows[i].getAttribute('data-sug')||'';

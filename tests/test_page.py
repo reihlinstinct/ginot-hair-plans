@@ -922,3 +922,16 @@ def test_permit_enrichment_coverage_panel_is_aggregate_and_honest():
     assert "לפני סינון התצוגה" in html
     assert "rows.length-dated" in _PERMITS_JS
     assert "getAttribute('data-pubend')" in _PERMITS_JS
+
+
+def test_coverage_inline_full_set_and_invalid_dates():
+    from ginot.page import _PERMITS_JS, _permits_section
+
+    rows = [{"tik_num": str(i), "status": "נפתח תיק רישוי"} for i in range(25)]
+    rows[0]["publication_start"] = "2026-02-31"
+    rows[1]["publication_start"] = "2026-02-28"
+    rows[1]["publication_end_planned"] = "2026-04-31"
+    html = _permits_section(rows)
+    assert "25 בקשות במאגר; 1 עם תאריך תחילת פרסום; 0 עם סיום פרסום מתוכנן" in html
+    assert "24 ללא תאריך תחילת פרסום" in html
+    assert "if(validIso(rows[i].getAttribute('data-pub')||''))dated++" in _PERMITS_JS
