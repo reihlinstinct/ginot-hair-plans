@@ -88,6 +88,13 @@
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
 <div class="legend" id="pfgroups"><b>סטטוסים:</b> <span class="chip c-deposit sel" data-group="obj" data-default='1' data-label="פתוח להתנגדויות">פתוח להתנגדויות (20)</span> <span class="chip c-review sel" data-group="pre" data-default='1' data-label="פרסום מתקרב">פרסום מתקרב (78)</span> <details class="more-statuses"><summary>סטטוסים נוספים</summary> <span class="chip c-inproc" data-group="review" data-label="בטיפול/דיונים">בטיפול/דיונים (1301)</span> <span class="chip c-cond" data-group="draft" data-label="טיוטת היתר">טיוטת היתר (3278)</span> <span class="chip c-inproc" data-group="postpub" data-label="אחרי פרסום">אחרי פרסום (28)</span> <span class="chip c-approved" data-group="issued" data-label="הופק היתר">הופק היתר (4954)</span> <span class="chip c-closed" data-group="closed" data-label="סגור/אחר">סגור/אחר (2895)</span></details></div>
+<details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
+<p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
+<span id="permit-coverage-counts">12554 בקשות במאגר; 1191 עם תאריך תחילת פרסום; 2053 עם סיום פרסום מתוכנן; 11363 ללא תאריך תחילת פרסום.</span></p>
+<p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
+תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
+סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
+לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
 <select id="pfstatus"><option value=''>כל הסטטוסים</option><option value='אושר ע&quot;י מהנדס העיר'>אושר ע&quot;י מהנדס העיר</option><option value='הבקשה נגנזה'>הבקשה נגנזה</option><option value='הבקשה נסגרה'>הבקשה נסגרה</option><option value='הגשה מקוונת הושלמה'>הגשה מקוונת הושלמה</option><option value='הוכנה טיוטת היתר בניה'>הוכנה טיוטת היתר בניה</option><option value='הופק היתר מוארך'>הופק היתר מוארך</option><option value='הופק-הוצא היתר בניה'>הופק-הוצא היתר בניה</option><option value='השלמת הודעות לפני תקנה 36'>השלמת הודעות לפני תקנה 36</option><option value='התקבל ערר'>התקבל ערר</option><option value='התקבל תיק ורוד / מסמכים חתומים'>התקבל תיק ורוד / מסמכים חתומים</option><option value='התקבלה בקשה לדיון המועצה'>התקבלה בקשה לדיון המועצה</option><option value='חידוש טיפול בבקשה'>חידוש טיפול בבקשה</option><option value='ממתין לאישור נוסח פרסום'>ממתין לאישור נוסח פרסום</option><option value='נדונה בוועדת המשנה'>נדונה בוועדת המשנה</option><option value='נדונה בועדת ערר'>נדונה בועדת ערר</option><option value='נדונה ברשות הרישוי'>נדונה ברשות הרישוי</option><option value='נוסח פרסום אושר'>נוסח פרסום אושר</option><option value='נפתח תיק רישוי'>נפתח תיק רישוי</option><option value='פורסמה בקשה להקלה'>פורסמה בקשה להקלה</option><option value='שולמה מקדמה'>שולמה מקדמה</option><option value='תום תקופת פרסום'>תום תקופת פרסום</option><option value='תחילת הודעות לפני תקנה 36'>תחילת הודעות לפני תקנה 36</option><option value='תחילת פרסום הבקשה להקלה'>תחילת פרסום הבקשה להקלה</option></select>
@@ -416,7 +423,10 @@ function rebuildDerived(){
   // rows (the live source), not the weekly index.html shell; #521: the legend
   // counts are per status GROUP, raw statuses fill the select.
   var counts={},sugs={},closed=0,gcounts={},outscope=0,i,st,sug,g;
+  var dated=0,planned=0;
   for(i=0;i<rows.length;i++){
+    if(validIso(rows[i].getAttribute('data-pub')||''))dated++;
+    if(validIso(rows[i].getAttribute('data-pubend')||''))planned++;
     st=rows[i].getAttribute('data-status')||'';
     if(st)counts[st]=(counts[st]||0)+1;
     sug=rows[i].getAttribute('data-sug')||'';
@@ -426,6 +436,10 @@ function rebuildDerived(){
     gcounts[g]=(gcounts[g]||0)+1;
     if(rows[i].getAttribute('data-scope')==='out')outscope++;
   }
+  var coverage=document.getElementById('permit-coverage-counts');
+  if(coverage)coverage.textContent=rows.length+' בקשות במאגר; '+dated+
+    ' עם תאריך תחילת פרסום; '+planned+' עם סיום פרסום מתוכנן; '+
+    (rows.length-dated)+' ללא תאריך תחילת פרסום.';
   pfgroups.querySelectorAll('.chip').forEach(function(c){
     var k=c.getAttribute('data-group');
     c.textContent=c.getAttribute('data-label')+' ('+(gcounts[k]||0)+')';

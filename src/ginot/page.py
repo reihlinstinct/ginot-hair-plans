@@ -590,6 +590,19 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
     )
+    def valid_coverage_date(value):
+        try:
+            datetime.date.fromisoformat(_iso(value))
+            return True
+        except (TypeError, ValueError):
+            return False
+
+    n_dated = sum(valid_coverage_date(p.get("publication_start")) for p in permits)
+    n_planned = sum(valid_coverage_date(p.get("publication_end_planned")) for p in permits)
+    coverage_text = (
+        f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
+        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits)-n_dated} ללא תאריך תחילת פרסום."
+    )
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
 
@@ -638,6 +651,13 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
 {plegend}
+<details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
+<p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
+<span id="permit-coverage-counts">{coverage_text}</span></p>
+<p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
+תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
+סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
+לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
 <select id="pfstatus">{status_opts}</select>
@@ -824,7 +844,10 @@ function rebuildDerived(){
   // rows (the live source), not the weekly index.html shell; #521: the legend
   // counts are per status GROUP, raw statuses fill the select.
   var counts={},sugs={},closed=0,gcounts={},outscope=0,i,st,sug,g;
+  var dated=0,planned=0;
   for(i=0;i<rows.length;i++){
+    if(validIso(rows[i].getAttribute('data-pub')||''))dated++;
+    if(validIso(rows[i].getAttribute('data-pubend')||''))planned++;
     st=rows[i].getAttribute('data-status')||'';
     if(st)counts[st]=(counts[st]||0)+1;
     sug=rows[i].getAttribute('data-sug')||'';
@@ -834,6 +857,10 @@ function rebuildDerived(){
     gcounts[g]=(gcounts[g]||0)+1;
     if(rows[i].getAttribute('data-scope')==='out')outscope++;
   }
+  var coverage=document.getElementById('permit-coverage-counts');
+  if(coverage)coverage.textContent=rows.length+' בקשות במאגר; '+dated+
+    ' עם תאריך תחילת פרסום; '+planned+' עם סיום פרסום מתוכנן; '+
+    (rows.length-dated)+' ללא תאריך תחילת פרסום.';
   pfgroups.querySelectorAll('.chip').forEach(function(c){
     var k=c.getAttribute('data-group');
     c.textContent=c.getAttribute('data-label')+' ('+(gcounts[k]||0)+')';
