@@ -68,7 +68,7 @@ labelled issue in a private inbox repo for human review. Published reviews (afte
 labelled "external AI review, unverified"; they never replace or edit existing reviews.
 
 - Submit key (public, NOT a secret, a speed bump only): `gh-submit-c2d1ea104108`. Real protection is the quarantine.
-- Limits: 5 submissions per IP per hour, 50 per day, 8 KB body, one pending submission per plan or permit request.
+- Limits: 5 submissions per IP per hour, 50 per day, 8 KB body, one pending submission per plan or permit request (checked across every page of open submissions; if the inbox cannot be read in full, the submission is refused, #530).
 - Rotate the key: edit `SUBMIT_KEY` in `worker/wrangler-submit.toml`, redeploy
   (`npx wrangler deploy -c wrangler-submit.toml`), update this README.
 - Kill switch: set `DISABLED = "1"` in the same file and redeploy; the tool then refuses everything.

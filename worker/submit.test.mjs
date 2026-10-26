@@ -157,3 +157,61 @@ test("schema: tik_num offered, neither id field required on its own", async () =
   assert.ok(!TOOL.inputSchema.required.includes("pl_number"));
   assert.ok(!TOOL.inputSchema.required.includes("tik_num"));
 });
+
+// #530: the duplicate-pending check reads every page of open external-review issues.
+function paged(pages, { failPage = 0 } = {}) {
+  const calls = [];
+  const f = async (url, init = {}) => {
+    const u = String(url);
+    calls.push({ url: u, method: init.method || "GET" });
+    if (u.endsWith("data.json")) return new Response(JSON.stringify({ rows: [{ pl_number: "101-1" }] }));
+    if ((init.method || "GET") !== "GET") return new Response("{}", { status: 201 });
+    const page = Number(new URL(u).searchParams.get("page") || 1);
+    if (page === failPage) return new Response("{}", { status: 502 });
+    return new Response(JSON.stringify(pages[page - 1] || []));
+  };
+  return { f, calls };
+}
+const filler = (n, tag) => Array.from({ length: n }, (_, i) => ({ title: `[external-review] 101-${tag}${i}` }));
+
+test("regression #530: a pending duplicate on page 2 is still rejected", async () => {
+  reset();
+  const { f, calls } = paged([filler(100, "9"), [{ title: "[external-review] 101-1" }]]);
+  assert.match((await submit(ENV, GOOD, "11.0.0.1", f)).error, /already pending/);
+  assert.ok(calls.some((c) => /[?&]page=2\b/.test(c.url)));
+  assert.ok(!calls.some((c) => c.method === "POST"));
+});
+
+test("#530: a short first page ends the scan; a failed later page fails closed", async () => {
+  reset();
+  const one = paged([filler(3, "9")]);
+  assert.equal((await submit(ENV, GOOD, "11.0.0.2", one.f)).status, "received");
+  assert.ok(!one.calls.some((c) => /[?&]page=2\b/.test(c.url)));
+  const broken = paged([filler(100, "9")], { failPage: 2 });
+  assert.equal((await submit(ENV, GOOD, "11.0.0.3", broken.f)).error, "inbox unavailable");
+  assert.ok(!broken.calls.some((c) => c.method === "POST"));
+});
+
+test("#530: hitting the page cap fails closed instead of opening an issue", async () => {
+  reset();
+  const { MAX_PENDING_PAGES } = await import("./submit.mjs");
+  const { f, calls } = paged(Array.from({ length: MAX_PENDING_PAGES + 1 }, (_, p) => filler(100, `${p}x`)));
+  assert.equal((await submit(ENV, GOOD, "11.0.0.4", f)).error, "inbox unavailable");
+  assert.ok(!calls.some((c) => c.method === "POST"));
+});
+
+test("#530: a page request that throws or returns bad JSON fails closed", async () => {
+  reset();
+  const throwing = async (url, init = {}) => {
+    if (String(url).endsWith("data.json")) return new Response(JSON.stringify({ rows: [{ pl_number: "101-1" }] }));
+    if ((init.method || "GET") === "GET") throw new TypeError("network down");
+    return new Response("{}", { status: 201 });
+  };
+  assert.equal((await submit(ENV, GOOD, "11.0.0.5", throwing)).error, "inbox unavailable");
+  const badJson = async (url, init = {}) => {
+    if (String(url).endsWith("data.json")) return new Response(JSON.stringify({ rows: [{ pl_number: "101-1" }] }));
+    if ((init.method || "GET") === "GET") return new Response("not json");
+    return new Response("{}", { status: 201 });
+  };
+  assert.equal((await submit(ENV, GOOD, "11.0.0.6", badJson)).error, "inbox unavailable");
+});

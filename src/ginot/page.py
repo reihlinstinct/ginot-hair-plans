@@ -1411,7 +1411,11 @@ def render_site(
                 permits_file=f"{out_dir}/permits.html",
             )
         )
-    if permits:
+    if permits_path:
+        # Rewrite every run, even with zero requests (#530): an empty list is
+        # the correct state, and skipping the write would leave the previous
+        # ids published, so the submit worker would keep accepting reviews for
+        # requests no longer in the table.
         write_permit_ids(permits, f"{out_dir}/permit-ids.json")
     from . import external_reviews as _er
 
