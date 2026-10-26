@@ -159,6 +159,7 @@ exec "$REAL_GIT" "$@"
     )
     proc = subprocess.run(
         ["bash", str(ROOT / "scripts/ci/push_badges.sh"), str(badges)],
+        check=False,
         cwd=work,
         env=env,
         capture_output=True,
