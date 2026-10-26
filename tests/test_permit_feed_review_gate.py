@@ -32,6 +32,7 @@ def test_no_change_and_created_pr_both_explicitly_stop_publication_successors():
 
 
 def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_path):
+    import json
     import os
     import subprocess
 
@@ -43,14 +44,22 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
     gh = tmp_path / 'gh'
     gh.write_text('#!/bin/bash\nprintf "%s\\n" "$*" > "$CALL_LOG"\nprintf "%s" "$PENDING_TEST"\nexit "$GH_EXIT"\n')
     gh.chmod(0o755)
-    for pending, status, expected in [('', '0', 0), ('17\n18', '0', 1), ('', '42', 42)]:
+    def pr(repo, ref):
+        return {'number': 17, 'head': {'ref': ref, 'repo': {'full_name': repo}}}
+
+    cases = [([], '0', 0), ([pr('test/repo', 'permit-feed/batch')], '0', 1),
+             ([pr('fork/repo', 'permit-feed/batch')], '0', 0),
+             ([pr('test/repo', 'unrelated')], '0', 0),
+             ([], '42', 42)]
+    for pending, status, expected in cases:
         env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
                    GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
-                   PENDING_TEST=pending, GH_EXIT=status)
+                   PENDING_TEST=json.dumps(pending), GH_EXIT=status)
         result = subprocess.run(['bash', '-c', shell], env=env, capture_output=True,
                                 text=True, check=False)
         assert result.returncode == expected, result.stderr
         call = (tmp_path / 'calls').read_text()
         assert '--paginate' in call
         assert 'state=open&base=main&per_page=100' in call
-        assert 'startswith("permit-feed/")' in call
+    assert '.head.repo.full_name == $repo' in shell
+    assert 'startswith("permit-feed/")' in shell

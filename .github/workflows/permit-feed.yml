@@ -110,7 +110,7 @@ jobs:
           set -euo pipefail
           # All pages, not just the first 30/100 PRs. API errors fail closed.
           PENDING=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&per_page=100" \
-            --jq '.[] | select(.head.ref | startswith("permit-feed/")) | .number')
+            | jq -r --arg repo "$GITHUB_REPOSITORY" '.[] | select(.head.repo.full_name == $repo) | select(.head.ref | startswith("permit-feed/")) | .number')
           if [ -n "$PENDING" ]; then
             echo "permit-feed data PR(s) awaiting review: $PENDING; stopping before VPN/network scan"
             exit 1
