@@ -29,7 +29,9 @@ Regenerate the site from the committed inputs (same pinned clock):
     python scripts/ci/check_docs_fresh.py --write
 
 Exit codes: 0 fresh, 1 stale (or a rendered file is missing from docs/),
-2 the check itself could not run (missing input or no date stamp).
+2 the check itself could not run: a missing or unreadable input, a missing
+or invalid date stamp, or any unexpected error while rendering or comparing.
+CI fails on any nonzero exit.
 """
 from __future__ import annotations
 
@@ -64,7 +66,11 @@ class CheckError(Exception):
 
 
 def stamp_date(path: Path) -> str | None:
-    """The generated date stamped in a committed file, or None."""
+    """The generated date stamped in a committed file, or None when the file
+    carries no stamp. A stamp that is present but not a real date raises
+    CheckError: the clock cannot be pinned, so the check cannot run. (A
+    committed JSON output that does not parse has no stamp; it then compares
+    as stale against the render.)"""
     if not path.is_file():
         return None
     if path.suffix == ".json":
@@ -72,13 +78,20 @@ def stamp_date(path: Path) -> str | None:
             data = json.loads(path.read_text(encoding="utf-8"))
         except (ValueError, UnicodeDecodeError):
             return None
-        value = data.get("generated") if isinstance(data, dict) else None
-        return value if isinstance(value, str) and _iso(value) else None
-    if path.suffix not in (".html", ".xml"):
+        if not isinstance(data, dict) or "generated" not in data:
+            return None
+        value = data["generated"]
+    elif path.suffix in (".html", ".xml"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        m = (_FEED_STAMP if path.suffix == ".xml" else _HTML_STAMP).search(text)
+        if not m:
+            return None
+        value = m.group(1)
+    else:
         return None
-    text = path.read_text(encoding="utf-8", errors="replace")
-    m = (_FEED_STAMP if path.suffix == ".xml" else _HTML_STAMP).search(text)
-    return m.group(1) if m else None
+    if not (isinstance(value, str) and _iso(value)):
+        raise CheckError(f"invalid generated date stamp {value!r} in {path.name}")
+    return value
 
 
 def _iso(value: str) -> bool:
@@ -101,8 +114,12 @@ def render(out_dir: Path, date: str) -> None:
     missing = [str(p.relative_to(ROOT)) for p in inputs.values() if not p.is_file()]
     if missing:
         raise CheckError(f"missing committed input(s): {', '.join(missing)}")
-    rows = json.loads(inputs["snapshot"].read_text(encoding="utf-8"))["rows"]
-    changes = json.loads(inputs["changes"].read_text(encoding="utf-8"))["changes"]
+    try:
+        rows = json.loads(inputs["snapshot"].read_text(encoding="utf-8"))["rows"]
+        changes = json.loads(inputs["changes"].read_text(encoding="utf-8"))["changes"]
+        json.loads(inputs["permits"].read_text(encoding="utf-8"))["requests"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise CheckError(f"unreadable committed input: {type(exc).__name__}: {exc}") from exc
     pinned = datetime.date.fromisoformat(date)
     original = page.today_il
     page.today_il = lambda: pinned
@@ -215,6 +232,10 @@ def main(argv: list[str] | None = None) -> int:
         problems = check(docs, write=args.write)
     except CheckError as exc:
         print(f"docs freshness check could not run: {exc}", file=sys.stderr)
+        return 2
+    except Exception as exc:  # noqa: BLE001 - any other failure is "could not run", never "stale"
+        print(f"docs freshness check could not run: unexpected "
+              f"{type(exc).__name__}: {exc}", file=sys.stderr)
         return 2
     if args.write:
         print(f"regenerated covered files in {docs}")

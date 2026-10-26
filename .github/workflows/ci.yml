@@ -80,7 +80,7 @@ jobs:
     # Committed docs/ vs. a re-render from the committed inputs (issue #539):
     # catches a src/ginot change merged without its regenerated site (#531).
     # Hermetic: no network, clock pinned to the committed generated stamps.
-    # Measure-only until the repo variable DOCS_FRESH_GATE is 'enforce'.
+    # Blocking: any nonzero exit fails the job (1 = stale, 2 = could not run).
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -90,17 +90,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - name: Docs freshness
-        run: |
-          rc=0
-          python scripts/ci/check_docs_fresh.py || rc=$?
-          if [ "$rc" -eq 0 ]; then exit 0; fi
-          if [ "$rc" -eq 1 ] && [ "$DOCS_FRESH_GATE" != "enforce" ]; then
-            echo "::warning::docs/ is stale against src/ginot (report-only until DOCS_FRESH_GATE=enforce). Regenerate: python scripts/ci/check_docs_fresh.py --write"
-            exit 0
-          fi
-          exit "$rc"
-        env:
-          DOCS_FRESH_GATE: ${{ vars.DOCS_FRESH_GATE }}
+        run: python scripts/ci/check_docs_fresh.py
   worker:
     # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
     runs-on: ubuntu-latest

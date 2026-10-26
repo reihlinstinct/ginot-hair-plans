@@ -83,9 +83,9 @@ those dates, so a template change does not churn dates. Limits: it does not
 compare the PNG previews (font/matplotlib dependent), `data.json` (its
 `permits[]` is refreshed only by the weekly refresh), or `docs/` files other
 pipelines write; `--list-uncovered` prints them. The CI `docs-fresh` job
-reports stale files as a warning until the repository variable
-`DOCS_FRESH_GATE` is set to `enforce`; a check that cannot run (missing input
-or date stamp) always fails.
+fails on any nonzero exit: 1 means stale (regenerate and commit), 2 means the
+check could not run (missing or unreadable input, missing or invalid date
+stamp, or an unexpected error) and is never reported as stale or green.
 
 ## Diagrams
 

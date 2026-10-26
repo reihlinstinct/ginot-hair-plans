@@ -5,7 +5,9 @@ docs/, so the merge deployed nothing; #538 regenerated it by hand).
 The tests render from the repo's committed inputs into a temp docs/ tree with
 a pinned synthetic date, so they do not depend on the state of the real docs/.
 """
+import os
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -107,3 +109,80 @@ def test_missing_date_stamp_is_a_check_error_not_a_pass(tmp_path):
         fresh.check(docs)
     assert fresh.main(["--docs", str(docs)]) == 2
 
+
+
+# --- exit contract and the CI wrapper (review on #558) ----------------------
+
+CI_YML = ROOT / ".github" / "workflows" / "ci.yml"
+
+
+def _ci_docs_fresh_command():
+    """The run: line of the docs-fresh job's freshness step in ci.yml."""
+    text = CI_YML.read_text(encoding="utf-8")
+    job = text[text.index("\n  docs-fresh:\n"):]
+    job = job[: job.index("\n  worker:\n")]
+    runs = [ln.split("run:", 1)[1].strip() for ln in job.splitlines()
+            if ln.strip().startswith("run:") and "check_docs_fresh" in ln]
+    assert len(runs) == 1, runs
+    assert "||" not in job and "continue-on-error" not in job
+    return runs[0]
+
+
+def _run_ci_command(docs):
+    """Run the CI step's command the way Actions runs it (bash -e)."""
+    cmd = _ci_docs_fresh_command() + f" --docs '{docs}'"
+    # `python` must be this interpreter, as setup-python makes it in CI.
+    env = dict(os.environ, PATH=os.path.dirname(sys.executable) + os.pathsep
+               + os.environ.get("PATH", ""))
+    return subprocess.run(["bash", "-e", "-c", cmd], cwd=ROOT, env=env,
+                          capture_output=True, text=True, check=False)
+
+
+def test_ci_command_fails_on_stale_output(docs):
+    """The #531 incident must turn the CI step red, not a green warning."""
+    target = docs / "index.html"
+    target.write_bytes(target.read_bytes() + b"\n<!-- stale -->\n")
+    res = _run_ci_command(docs)
+    assert res.returncode == 1, res.stdout + res.stderr
+    assert "index.html: stale" in res.stdout
+
+
+def test_ci_command_passes_on_clean_tree(docs):
+    res = _run_ci_command(docs)
+    assert res.returncode == 0, res.stdout + res.stderr
+
+
+@pytest.mark.parametrize("bad", ["2026-13-45", "2026-02-30"])
+def test_invalid_html_date_stamp_cannot_run(docs, bad):
+    about = docs / "about.html"
+    about.write_text(about.read_text(encoding="utf-8").replace(DATE, bad), encoding="utf-8")
+    res = _run_ci_command(docs)
+    assert res.returncode == 2, res.stdout + res.stderr
+    assert "could not run" in res.stderr
+
+
+def test_invalid_json_generated_stamp_cannot_run(docs):
+    (docs / "open.json").write_text('{"generated": "not-a-date"}', encoding="utf-8")
+    assert fresh.main(["--docs", str(docs)]) == 2
+
+
+def test_malformed_required_input_cannot_run(docs, tmp_path, monkeypatch):
+    root = tmp_path / "root"
+    for rel in ("snapshots/latest.json", "out/changes.json", "data/permit_requests.json"):
+        (root / rel).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ROOT / rel, root / rel)
+    (root / "snapshots" / "latest.json").write_text("{not json", encoding="utf-8")
+    monkeypatch.setattr(fresh, "ROOT", root)
+    with pytest.raises(fresh.CheckError):
+        fresh.check(docs)
+    assert fresh.main(["--docs", str(docs)]) == 2
+
+
+def test_unexpected_render_error_cannot_run_not_stale(docs, monkeypatch, capsys):
+    def boom(out_dir, date):
+        raise RuntimeError("render exploded")
+
+    monkeypatch.setattr(fresh, "render", boom)
+    assert fresh.main(["--docs", str(docs)]) == 2
+    err = capsys.readouterr().err
+    assert "could not run" in err and "RuntimeError" in err
