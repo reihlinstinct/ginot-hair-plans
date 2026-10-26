@@ -23,10 +23,14 @@ USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) ginot-hair-plans/1.0"
 CHALLENGE_STATUSES = {403, 429, 503}
 CHALLENGE_MARKERS = ("access denied", "akamai", "captcha", "challenge")
 
-# The 7 Ginot HaIr council neighborhoods, user-confirmed 2026-10-26 against
-# ginothair.org.il/about-us (the exported council polygon is wider - issue to
-# tighten it is separate). Municipal spelling variants included.
-TRACKED_SCHN = frozenset(
+# Scope (issue #527, user-confirmed 2026-10-26): the Ginot HaIr council area is
+# the 7 neighborhoods listed by the council itself - המושבה הגרמנית, המושבה
+# היוונית, רחביה, טלביה, קטמון הישנה, קריית שמואל, ניות. A publication is in
+# scope iff BOTH: its neighborhood label is one of the 7 (with the municipal
+# spelling variants below) AND its tik resolves (via the tracker's permit rows)
+# to a parcel inside the council polygon parcel set. The exported polygon alone
+# is too wide (it spans the Katamonim/Givat Orden/San Simon/Talpiot belt).
+SCOPE_SCHN = frozenset(
     {
         "קטמון הישנה",
         "רחביה",
@@ -124,24 +128,75 @@ def parse_rows(payload: str) -> list[dict]:
     return rows
 
 
+def load_parcel_keys(parcels_geojson: Path) -> set[tuple[int, int]]:
+    data = json.loads(Path(parcels_geojson).read_text(encoding="utf-8"))
+    keys = set()
+    for feature in data["features"]:
+        props = feature.get("properties", {})
+        if props.get("gush") and props.get("helka"):
+            keys.add((int(props["gush"]), int(props["helka"])))
+    return keys
+
+
+def load_tik_parcels(permit_requests: Path) -> dict[str, tuple[int, int]]:
+    data = json.loads(Path(permit_requests).read_text(encoding="utf-8"))
+    rows = data if isinstance(data, list) else data.get("rows") or data.get("requests") or []
+    mapping = {}
+    for row in rows:
+        if row.get("tik_num") and row.get("gush") and row.get("helka"):
+            mapping[row["tik_num"]] = (int(row["gush"]), int(row["helka"]))
+    return mapping
+
+
+def resolve_in_polygon(
+    rows: list[dict],
+    tik_parcels: dict[str, tuple[int, int]],
+    parcel_keys: set[tuple[int, int]],
+) -> list[dict]:
+    """Stamp each row: in_polygon True (neighborhood in the 7 AND parcel inside
+    the polygon), False otherwise, or None when the tik is unknown (not yet in
+    the tracker) and must not be silently dropped."""
+    for row in rows:
+        parcel = tik_parcels.get(row["tik_num"])
+        if parcel is None:
+            row["in_polygon"] = None
+        else:
+            row["in_polygon"] = parcel in parcel_keys and row.get("neighborhood") in SCOPE_SCHN
+    return rows
+
+
 def detect_new(old_rows: list[dict], new_rows: list[dict]) -> list[dict]:
     known = {row["myIndex"] for row in old_rows}
     return [row for row in new_rows if row["myIndex"] not in known]
 
 
-def filter_tracked(rows: list[dict]) -> list[dict]:
-    return [row for row in rows if row.get("neighborhood") in TRACKED_SCHN]
-
-
 def summarize(rows: list[dict]) -> str:
-    lines = [f"active publications: {len(rows)}"]
-    tracked = filter_tracked(rows)
-    lines.append(f"in tracked neighborhoods: {len(tracked)}")
-    for row in tracked:
+    """Human summary of a fetch. Handles both scope-stamped rows (watch path,
+    every row carries in_polygon) and raw rows (probe path, falls back to the
+    neighborhood filter so the probe artifact stays meaningful)."""
+    if any("in_polygon" in row for row in rows):
+        inside = [r for r in rows if r.get("in_polygon") is True]
+        unresolved = [r for r in rows if r.get("in_polygon") is None]
+        lines = [
+            f"active publications: {len(rows)}",
+            (
+                f"inside Ginot HaIr polygon: {len(inside)}; "
+                f"unresolved tik (not in tracker): {len(unresolved)}"
+            ),
+        ]
+        shown = inside + unresolved
+    else:
+        shown = [r for r in rows if r.get("neighborhood") in SCOPE_SCHN]
+        lines = [
+            f"active publications: {len(rows)}",
+            f"in tracked neighborhoods: {len(shown)}",
+        ]
+    for row in shown:
         deadline = row["objection_deadline"] or "-"
+        marker = "" if row.get("in_polygon", True) else " [UNRESOLVED]"
         lines.append(
             f"  {row['tik_num']} | {row['street']} {row['house_number']} | "
-            f"{row['neighborhood']} | published {row['publication_date']} | deadline {deadline}"
+            f"{row['neighborhood']} | published {row['publication_date']} | deadline {deadline}{marker}"
         )
     return "\n".join(lines)
 
