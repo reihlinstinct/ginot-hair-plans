@@ -74,15 +74,26 @@ def test_detect_new_by_myindex():
     assert rishui_publish.detect_new(old, new) == [{"myIndex": 3}]
 
 
-def test_filter_tracked_keeps_council_neighborhoods():
+def test_resolve_in_polygon_requires_neighborhood_and_parcel():
     rows = [
-        {"neighborhood": "קטמון הישנה"},
-        {"neighborhood": "רחביה"},
-        {"neighborhood": "רמות"},
-        {"neighborhood": None},
+        {"tik_num": "a", "neighborhood": "קטמון הישנה"},
+        {"tik_num": "b", "neighborhood": "גוננים"},  # in polygon but out of the 7
+        {"tik_num": "c", "neighborhood": "רחביה"},  # parcel outside polygon
+        {"tik_num": "d", "neighborhood": None},  # unknown tik -> unresolved
     ]
-    kept = rishui_publish.filter_tracked(rows)
-    assert [r["neighborhood"] for r in kept] == ["קטמון הישנה", "רחביה"]
+    tik_parcels = {"a": (1, 1), "b": (1, 2), "c": (9, 9)}
+    parcel_keys = {(1, 1), (1, 2)}
+    rishui_publish.resolve_in_polygon(rows, tik_parcels, parcel_keys)
+    assert [r["in_polygon"] for r in rows] == [True, False, False, None]
+
+
+def test_scope_schn_is_the_seven_council_neighborhoods():
+    assert "גבעת מרדכי" not in rishui_publish.SCOPE_SCHN
+    assert "ימין משה" not in rishui_publish.SCOPE_SCHN
+    assert "גוננים" not in rishui_publish.SCOPE_SCHN
+    for name in ("קטמון הישנה", "רחביה", "מושבה גרמנית", "המושבה היוונית",
+                 "קריית שמואל", "טלביה", "נוה שאנן/ניות"):
+        assert name in rishui_publish.SCOPE_SCHN
 
 
 def test_challenge_on_status():
@@ -98,8 +109,9 @@ def test_challenge_on_body_markers():
     assert not rishui_publish.is_challenge(200, json.dumps([RAW_ROW], ensure_ascii=False))
 
 
-def test_summarize_lists_tracked_with_deadline():
+def test_summarize_lists_in_polygon_with_deadline():
     rows = rishui_publish.parse_rows(json.dumps([RAW_ROW]))
+    rows[0]["in_polygon"] = True
     text = rishui_publish.summarize(rows)
     assert "active publications: 1" in text
     assert "2026/0439.00" in text
