@@ -97,3 +97,90 @@ def test_count_only_prints_selection_without_fetching(tmp_path, capsys, monkeypa
         "publication_start"
         not in json.loads(mirror.read_text(encoding="utf-8"))["requests"][1]
     )
+
+
+def test_failed_fetch_queued_and_retried_after_field_preserved(tmp_path, monkeypatch):
+    """Issue #492: a failed publication fetch must be retried even though the
+    mirror record keeps its preserved publication dates and the nightly
+    ingest rewrites the diff."""
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    diff = tmp_path / "diff.json"
+    pending = tmp_path / "pending.json"
+    reqs = [
+        req(
+            "1",
+            "נפתח תיק רישוי",
+            publication_start="2026-01-01",
+            publication_end_planned="2026-02-15",
+        )
+    ]
+    mirror.write_text(json.dumps({"requests": reqs}), encoding="utf-8")
+    diff.write_text(
+        json.dumps({"new_tiks": [], "changed_tiks": ["1"]}), encoding="utf-8"
+    )
+    monkeypatch.setattr(permit_enrich.time, "sleep", lambda *_: None)
+
+    def boom(tik):
+        raise ConnectionError("tunnel down")
+
+    monkeypatch.setattr(permit_enrich, "publication_dates", boom)
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(diff),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0
+    assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == ["1"]
+
+    # Next run: the diff no longer lists the tik and the record still carries
+    # preserved dates - only the retry queue re-selects it.
+    diff.write_text(json.dumps({"new_tiks": [], "changed_tiks": []}), encoding="utf-8")
+    monkeypatch.setattr(
+        permit_enrich, "publication_dates", lambda tik: ("2026-01-05", "2026-02-19")
+    )
+    assert permit_enrich.main() == 0
+    assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == []
+    rec = json.loads(mirror.read_text(encoding="utf-8"))["requests"][0]
+    assert rec["publication_start"] == "2026-01-05"
+    assert rec["publication_end_planned"] == "2026-02-19"
+
+
+def test_pending_pruned_for_terminal_and_gone_tiks(tmp_path, monkeypatch):
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    reqs = [req("1", "הבקשה נסגרה"), req("2", "נפתח תיק רישוי")]
+    mirror.write_text(json.dumps({"requests": reqs}), encoding="utf-8")
+    pending.write_text(json.dumps({"pending": ["1", "2", "3"]}), encoding="utf-8")
+    monkeypatch.setattr(permit_enrich.time, "sleep", lambda *_: None)
+    monkeypatch.setattr(
+        permit_enrich, "publication_dates", lambda tik: ("2026-03-01", "2026-04-15")
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0
+    # Tik 1 went terminal and tik 3 left the mirror: both drop from the queue;
+    # tik 2 was re-fetched successfully and clears.
+    assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == []
