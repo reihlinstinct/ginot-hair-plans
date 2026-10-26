@@ -1,0 +1,79 @@
+name: Rishui149 active-publications watch (VPN)
+
+# Daily ingest of the municipality's active s.149 publications list (issue
+# #527) through the owner-operated L2TP tunnel: one GET per run, stop on
+# challenge (exit 2, no retry, no workaround). Rewrites the committed baseline
+# data/publications_active.json and writes new publications in the tracked
+# council neighborhoods (with PD900 objection deadlines) to
+# data/publications_new_latest.json for the alert path. Data-only commit via
+# GITHUB_TOKEN. Objection windows are short (~26 days), so a weekly cadence
+# can lose most of the window.
+
+on:
+  schedule:
+    - cron: "37 4 * * *"   # daily 04:37 UTC (~07:30 Jerusalem), off-peak
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rishui-publish-watch:
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Fetch active publications list (single request)
+        run: |
+          set -o pipefail
+          sudo python3 scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json | tee watch-output.txt
+
+      - name: Diff against baseline and write alert file
+        run: |
+          python3 scripts/vpn/rishui_publish_watch.py \
+            --old data/publications_active.json \
+            --new /tmp/publish-new.json \
+            --out-active data/publications_active.json \
+            --out-new data/publications_new_latest.json | tee -a watch-output.txt
+
+      - name: Commit updated publication data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/publications_active.json data/publications_new_latest.json
+          if git diff --cached --quiet; then
+            echo "no publication changes"
+          else
+            git commit -m "Daily active-publications refresh (refs #527)"
+            git push
+          fi
+
+      - name: Upload watch output
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: publish-watch
+          path: |
+            watch-output.txt
+            data/publications_new_latest.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
