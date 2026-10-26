@@ -61,7 +61,7 @@ def main():
                    '--json', 'headRefOid,statusCheckRollup')
         checks = state['statusCheckRollup']
         if checks_pass(checks):
-            gh('pr', 'merge', str(pr['number']), '--repo', repo, '--squash', '--admin',
+            gh('pr', 'merge', str(pr['number']), '--repo', repo, '--squash',
                '--match-head-commit', state['headRefOid'])
             return
         if any(c.get('conclusion') in ('FAILURE', 'CANCELLED', 'TIMED_OUT', 'ACTION_REQUIRED')

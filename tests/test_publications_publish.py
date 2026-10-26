@@ -14,6 +14,7 @@ def test_watch_uses_checked_text_only_pr_and_preserves_outputs():
     assert "git/trees" in script
     assert "if checks_pass(checks)" in script
     assert "--match-head-commit" in script
+    assert "--admin" not in script
     assert "FAILURE" in script
 
 
