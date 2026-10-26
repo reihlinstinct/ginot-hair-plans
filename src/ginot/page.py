@@ -638,7 +638,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     )
     return f"""
 <section id="permits" dir="rtl">
-<h2>בקשות היתר (טיוטה - DRAFT)</h2>
+<h2>בקשות היתר</h2>
 <p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
