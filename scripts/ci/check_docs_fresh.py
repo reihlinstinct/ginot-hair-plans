@@ -19,6 +19,9 @@ pages and fragments, style.css, the copied static assets, feed.xml and the
 JSON it writes, except data.json (see EXCLUDED). CRLF is normalized to LF before comparing, because permit
 descriptions carry CR LF that the committed copies do not keep.
 
+Orphans: a committed reviews/talking_points_*.html or vendor/ file that the
+render no longer produces is reported stale, and --write deletes it.
+
 Not covered (reported by --list-uncovered): data.json, the PNG previews (og.png,
 reviews/og_*.png; they depend on matplotlib and font versions), and the docs/
 files other pipelines write (index.json, plan-points.json, parcel-audit.json,
@@ -57,6 +60,11 @@ EXCLUDED = {
     # whose permits[] is only rewritten by the weekly refresh.
     "data.json": "permits[] is refreshed only by the weekly refresh, not by permit-feed batches",
 }
+# Paths only render_site writes. A committed file matching one that the render
+# no longer produces (a removed plans/*/analysis review, a dropped vendor
+# asset) is an orphan: still published, so it counts as stale and --write
+# deletes it. Other pipelines' files never match these patterns.
+RENDER_OWNED = ("reviews/talking_points_*.html", "vendor/**/*")
 _HTML_STAMP = re.compile(r"עודכן: (\d{4}-\d{2}-\d{2})")
 _FEED_STAMP = re.compile(r"<updated>(\d{4}-\d{2}-\d{2})T00:00:00Z</updated>")
 
@@ -198,7 +206,24 @@ def check(docs: Path, write: bool = False) -> list[str]:
                     f"{name}: stale (first difference at line {first_difference(a, b)}, "
                     f"rendered with generated={date})"
                 )
+        rendered = set(names)
+        for name in orphans(docs, rendered):
+            if write:
+                (docs / name).unlink()
+            else:
+                problems.append(f"{name}: no longer rendered (orphan; --write removes it)")
     return problems
+
+
+def orphans(docs: Path, rendered: set[str]) -> list[str]:
+    """Committed render-owned files the current render does not produce."""
+    found = set()
+    for pattern in RENDER_OWNED:
+        for p in docs.glob(pattern):
+            name = p.relative_to(docs).as_posix()
+            if p.is_file() and name not in rendered and not name.endswith(SKIP_SUFFIXES):
+                found.add(name)
+    return sorted(found)
 
 
 def uncovered(docs: Path) -> list[str]:

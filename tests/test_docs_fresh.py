@@ -186,3 +186,26 @@ def test_unexpected_render_error_cannot_run_not_stale(docs, monkeypatch, capsys)
     assert fresh.main(["--docs", str(docs)]) == 2
     err = capsys.readouterr().err
     assert "could not run" in err and "RuntimeError" in err
+
+
+def test_orphaned_render_owned_files_are_stale_and_write_removes_them(docs):
+    """A removed plans/*/analysis review or vendor asset must not stay
+    published while the check reports fresh."""
+    (docs / "reviews" / "talking_points_000-0000000.html").write_text("old", encoding="utf-8")
+    (docs / "vendor" / "leaflet" / "dropped.js").write_text("old", encoding="utf-8")
+    problems = fresh.check(docs)
+    assert sorted(p.split(":")[0] for p in problems) == [
+        "reviews/talking_points_000-0000000.html", "vendor/leaflet/dropped.js"]
+    assert all("orphan" in p for p in problems)
+    assert fresh.check(docs, write=True) == []
+    assert not (docs / "vendor" / "leaflet" / "dropped.js").exists()
+    assert fresh.check(docs) == []
+
+
+def test_other_pipelines_files_are_never_orphans(docs):
+    for rel in ("index.json", "badge/plans.json", "reviews/palmach41/README.md",
+                "reviews/s149_notice_x.md"):
+        (docs / rel).parent.mkdir(parents=True, exist_ok=True)
+        (docs / rel).write_text("x", encoding="utf-8")
+    assert fresh.check(docs) == []
+    assert (docs / "index.json").exists()

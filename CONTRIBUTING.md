@@ -79,7 +79,9 @@ The check re-runs `page.render_site` over the committed inputs
 `plans/*/analysis`, `data/external_reviews.json`) with no network, and pins
 the clock to the `generated` date already stamped in each committed file
 (files without a stamp use the date in `docs/index.html`). `--write` keeps
-those dates, so a template change does not churn dates. Limits: it does not
+those dates, so a template change does not churn dates. A committed
+`reviews/talking_points_*.html` or `vendor/` file the render no longer
+produces is reported as an orphan, and `--write` deletes it. Limits: it does not
 compare the PNG previews (font/matplotlib dependent), `data.json` (its
 `permits[]` is refreshed only by the weekly refresh), or `docs/` files other
 pipelines write; `--list-uncovered` prints them. The CI `docs-fresh` job
