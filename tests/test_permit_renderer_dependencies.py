@@ -19,6 +19,6 @@ def test_dependency_preflight_never_reads_or_writes_data(tmp_path):
     import sys
 
     result = subprocess.run([sys.executable, str(ROOT / 'scripts/render_permits_page.py'),
-                             '--check-dependencies'], cwd=tmp_path, capture_output=True, text=True)
+                             '--check-dependencies'], check=False, cwd=tmp_path, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     assert list(tmp_path.iterdir()) == []
