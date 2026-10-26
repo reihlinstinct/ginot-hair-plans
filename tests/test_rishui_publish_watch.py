@@ -42,7 +42,7 @@ def test_new_in_polygon_row_is_reported_and_outside_ignored():
 
 
 def test_unresolved_row_not_reflagged_daily():
-    baseline, payload, _ = watch.update(OLD, OLD + [UNRESOLVED_ROW])
+    baseline, _payload, _ = watch.update(OLD, OLD + [UNRESOLVED_ROW])
     _, payload2, _ = watch.update(baseline, baseline)
     assert payload2 == {"new_in_polygon": [], "unresolved_new": []}
 
