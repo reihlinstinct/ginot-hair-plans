@@ -27,6 +27,11 @@ def test_check_gate_waits_for_complete_expected_set():
     assert not module.checks_pass([{"name": "worker", "conclusion": "SUCCESS"}])
     checks = [{"name": name, "conclusion": "SUCCESS"} for name in module.EXPECTED_CHECKS]
     assert module.checks_pass(checks)
+    checks.append({"__typename": "StatusContext", "context": "CodeRabbit", "state": "SUCCESS"})
+    assert module.checks_pass(checks)
+    checks[-1]["state"] = "PENDING"
+    assert not module.checks_pass(checks)
+    checks.pop()
     checks[0]["conclusion"] = "FAILURE"
     assert not module.checks_pass(checks)
 

@@ -13,7 +13,9 @@ EXPECTED_CHECKS = {'test (3.11)', 'test (3.12)', 'test (3.13)', 'Analyze (action
 def checks_pass(checks):
     names = {c.get('name') for c in checks}
     return EXPECTED_CHECKS <= names and all(
-        c.get('conclusion') in ('SUCCESS', 'NEUTRAL', 'SKIPPED') for c in checks)
+        (c.get('state') == 'SUCCESS' if c.get('__typename') == 'StatusContext'
+         else c.get('conclusion') in ('SUCCESS', 'NEUTRAL', 'SKIPPED'))
+        for c in checks)
 
 
 FILES = ('data/publications_active.json', 'data/publications_new_latest.json')
@@ -62,7 +64,8 @@ def main():
             gh('pr', 'merge', str(pr['number']), '--repo', repo, '--squash', '--admin',
                '--match-head-commit', state['headRefOid'])
             return
-        if any(c.get('conclusion') in ('FAILURE', 'CANCELLED', 'TIMED_OUT', 'ACTION_REQUIRED') for c in checks):
+        if any(c.get('conclusion') in ('FAILURE', 'CANCELLED', 'TIMED_OUT', 'ACTION_REQUIRED')
+               or c.get('state') in ('FAILURE', 'ERROR') for c in checks):
             raise RuntimeError('Data PR has failed checks; left open for review')
         time.sleep(20)
     raise RuntimeError('Data PR checks did not settle; left open for review')
