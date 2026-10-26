@@ -18,7 +18,8 @@ def checks_pass(checks):
         for c in checks)
 
 
-FILES = ('data/publications_active.json', 'data/publications_new_latest.json', 'docs/index.json')
+FILES = ('data/publications_active.json', 'data/publications_new_latest.json',
+         'docs/publications_active.json', 'docs/index.json')
 
 
 def gh(*args, payload=None):
@@ -37,6 +38,12 @@ def gh(*args, payload=None):
 
 def main():
     subprocess.run(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
+    # Public deadline-only projection follows every daily publication refresh.
+    publications = json.loads(Path('data/publications_active.json').read_text(encoding='utf-8'))
+    public_fields = ('tik_num', 'objection_deadline', 'in_polygon')
+    Path('docs/publications_active.json').write_text(
+        json.dumps([{k: r.get(k) for k in public_fields} for r in publications],
+                   ensure_ascii=False) + '\n', encoding='utf-8')
     repo = os.environ['GITHUB_REPOSITORY']
     root = f'repos/{repo}'
     base = gh('api', f'{root}/git/ref/heads/main')['object']['sha']

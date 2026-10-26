@@ -219,12 +219,39 @@ function _renderUrgent(){
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:r.getAttribute('data-num')||'',
       name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
   });
+  document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
+    if(r.getAttribute('data-group')!=='obj'||r.getAttribute('data-scope')==='out')return;
+    var a=r.querySelector('td a'),num=a?a.textContent.trim():'';
+    function validDeadline(value){
+      if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value||''))return false;
+      var ms=Date.parse(value+'T00:00:00Z');
+      return isFinite(ms)&&new Date(ms).toISOString().slice(0,10)===value;
+    }
+    var candidate=(window.__permitOfficialDeadlines||{})[num];
+    var official=validDeadline(candidate)?candidate:'';
+    var planned=r.getAttribute('data-pubend');
+    var d=official||(validDeadline(planned)?planned:'');if(!d)return;
+    var parsed=Date.parse(d+'T00:00:00Z');
+    if(!isFinite(parsed)||new Date(parsed).toISOString().slice(0,10)!==d)return;
+    var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
+    items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
+      name:'בקשת היתר: '+(r.cells[1]?r.cells[1].textContent:''),
+      d:d.split('-').reverse().join('.'),permit:true,official:!!official});
+  });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - \u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05ea\u05e0\u05d2\u05d3\u05d5\u05ea (\u05de\u05e9\u05d5\u05e2\u05e8): '+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+           ' - '+(it.permit?(it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
+window.__renderUrgent=_renderUrgent;
 _renderUrgent();
+fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
+  var deadlines={};
+  list.forEach(function(r){
+    if(r.in_polygon===true&&r.objection_deadline)deadlines[r.tik_num]=r.objection_deadline;
+  });
+  window.__permitOfficialDeadlines=deadlines;_renderUrgent();
+}).catch(function(){/* Planned dates remain clearly labelled, never upgraded. */});
 fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   var tb=document.querySelector('#plans tbody');if(!tb)return;
   tb.innerHTML=h;
@@ -908,6 +935,7 @@ fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r
   sortRows();
   rebuildDerived();
   apply();
+  if(window.__renderUrgent)window.__renderUrgent();
   window.__permitsLoaded=true;
 }).catch(function(){window.__permitsFailed=true;});
 sortRows();
@@ -1382,6 +1410,18 @@ def render_site(
                 permits = json.load(pf).get("requests", [])
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
+    # Public normalized publication metadata only, never permit-file documents.
+    publications_path = os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
+                                     'publications_active.json')
+    if os.path.exists(publications_path):
+        with open(publications_path, encoding='utf-8') as pf:
+            publications = json.load(pf)
+        public_fields = ('tik_num', 'objection_deadline', 'in_polygon')
+        with open(f'{out_dir}/publications_active.json', 'w', encoding='utf-8') as pf:
+            json.dump([{k: r.get(k) for k in public_fields} for r in publications], pf,
+                      ensure_ascii=False)
+    elif os.path.exists(f'{out_dir}/publications_active.json'):
+        os.remove(f'{out_dir}/publications_active.json')
     from . import preview
 
     sort_rows(rows)  # annotates _open_obj, which the preview card counts

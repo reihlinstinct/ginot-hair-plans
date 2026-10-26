@@ -997,3 +997,41 @@ def test_real_dataset_0439_in_default_visible_20(browser, real_served):
         assert errors == [], f"JavaScript errors on the page: {errors}"
     finally:
         ctx.close()
+
+
+@pytest.mark.parametrize('official,expected_date,expected_label,expiry', [
+    ('2026-11-13', '13.11.2026', 'מועד התנגדות (פרסום עירוני)', '2026-11-14'),
+    ('2026-02-30', '24.11.2026', 'סיום פרסום מתוכנן (לא מאומת)', '2026-11-25'),
+    ('not-a-date', '24.11.2026', 'סיום פרסום מתוכנן (לא מאומת)', '2026-11-25'),
+])
+def test_urgent_permits_official_date_overrides_planned(
+        tmp_path, browser, official, expected_date, expected_label, expiry):
+    from ginot.page import render_site
+
+    permits = [{"tik_num": "2026/0439.00", "status": "תחילת פרסום הבקשה להקלה",
+            "address": "הפלמח 41 קטמון הישנה", "publication_end_planned": "2026-11-24"}]
+    source = tmp_path / 'input'
+    source.mkdir()
+    (source / 'permit_requests.json').write_text(json.dumps({'requests': permits}))
+    (source / 'publications_active.json').write_text(json.dumps([
+        {'tik_num': '2026/0439.00', 'in_polygon': True, 'objection_deadline': official}]))
+    out = tmp_path / 'site'
+    render_site([], [], str(out), permits_path=str(source / 'permit_requests.json'))
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(out))
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        page = browser.new_page()
+        page.goto(f'http://127.0.0.1:{server.server_port}/?today=2026-10-26')
+        page.wait_for_function('window.__permitsLoaded && window.__permitOfficialDeadlines')
+        text = page.locator('#urgent-list').inner_text()
+        assert '2026/0439.00' in text
+        assert expected_date in text
+        assert expected_label in text
+        if official == '2026-11-13':
+            assert '24.11.2026' not in text
+        page.goto(f'http://127.0.0.1:{server.server_port}/?today={expiry}')
+        page.wait_for_function('window.__permitsLoaded && window.__permitOfficialDeadlines')
+        assert '2026/0439.00' not in page.locator('#urgent-list').inner_text()
+    finally:
+        server.shutdown()

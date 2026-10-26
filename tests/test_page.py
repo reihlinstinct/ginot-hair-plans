@@ -951,3 +951,35 @@ def test_permit_ids_rewritten_when_permit_list_is_empty(tmp_path):
     page.render_site([_row("1", "אישור")], [], str(tmp_path), permits_path=str(permits))
     ids = json.loads((tmp_path / "permit-ids.json").read_text(encoding="utf-8"))
     assert ids == {"ids": []}
+
+
+def test_urgent_list_includes_permits_with_official_precedence():
+    from ginot.page import _JS, _PERMITS_JS
+
+    assert "#permits-table tbody tr" in _JS
+    assert "data-scope')==='out'" in _JS
+    assert "official||(validDeadline(planned)?planned:'')" in _JS
+    assert "סיום פרסום מתוכנן (לא מאומת)" in _JS
+    assert "מועד התנגדות (פרסום עירוני)" in _JS
+    assert "window.__renderUrgent" in _PERMITS_JS
+
+
+def test_render_site_removes_stale_official_projection(tmp_path):
+    from ginot.page import render_site
+
+    source = tmp_path / 'input'
+    source.mkdir()
+    permits_path = source / 'permit_requests.json'
+    permits_path.write_text('{"requests": []}')
+    publications_path = source / 'publications_active.json'
+    publications_path.write_text('[{"tik_num": "2026/0439.00", "in_polygon": true, '
+                                 '"objection_deadline": "2026-11-13", "private_note": "omit"}]')
+    out = tmp_path / 'site'
+    render_site([], [], str(out), permits_path=str(permits_path))
+    projection = out / 'publications_active.json'
+    import json
+    assert json.loads(projection.read_text()) == [{
+        'tik_num': '2026/0439.00', 'in_polygon': True, 'objection_deadline': '2026-11-13'}]
+    publications_path.unlink()
+    render_site([], [], str(out), permits_path=str(permits_path))
+    assert not projection.exists()
