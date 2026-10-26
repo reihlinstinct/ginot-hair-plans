@@ -36,9 +36,9 @@ def test_publication_projection_written_and_committed_with_index(tmp_path, monke
     def stop_before_network(*args, **kwargs):
         raise RuntimeError('network boundary reached')
     monkeypatch.setattr(module, 'gh', stop_before_network)
-    with patch.object(module.subprocess, 'run') as run:
-        with pytest.raises(RuntimeError, match='network boundary reached'):
-            module.main()
+    with patch.object(module.subprocess, 'run') as run, pytest.raises(
+            RuntimeError, match='network boundary reached'):
+        module.main()
     run.assert_called_once_with(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
     projection = json.loads((tmp_path / 'docs/publications_active.json').read_text())
     assert projection == [{'tik_num': '2026/0439.00', 'in_polygon': True,
