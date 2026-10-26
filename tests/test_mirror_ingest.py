@@ -81,3 +81,24 @@ def test_diff_records():
     ]
     d = mirror_ingest.diff_records(old, new)
     assert d == {"new_tiks": ["4"], "changed_tiks": ["2"], "gone_tiks": ["1"]}
+
+
+def test_preserve_enriched_fields_keeps_publication_dates():
+    old = [
+        {
+            "tik_num": "A/1",
+            "publication_start": "2026-10-18",
+            "publication_end_planned": "2026-11-24",
+        },
+        {"tik_num": "B/2", "publication_start": "", "publication_end_planned": ""},
+        {"tik_num": "C/3", "status": "x"},
+    ]
+    new = {t: {"tik_num": t} for t in ("A/1", "B/2", "C/3", "D/4")}
+    mirror_ingest.preserve_enriched_fields(new, old)
+    assert new["A/1"]["publication_start"] == "2026-10-18"
+    assert new["A/1"]["publication_end_planned"] == "2026-11-24"
+    # empty-string markers (enriched, no dates found) survive too, so the
+    # include-unenriched backfill does not refetch them
+    assert new["B/2"]["publication_start"] == ""
+    assert "publication_start" not in new["C/3"]
+    assert "publication_start" not in new["D/4"]
