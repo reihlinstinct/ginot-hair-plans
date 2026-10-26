@@ -29,8 +29,10 @@ ROOT = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
 import refresh
+from ginot.dates import today_il
 
-TODAY = datetime.date.today()
+# The page's "today" is Asia/Jerusalem (_todayIL); fixtures use the same clock.
+TODAY = today_il()
 MS_DAY = 86400 * 1000
 
 
