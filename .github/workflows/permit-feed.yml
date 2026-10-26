@@ -242,7 +242,10 @@ jobs:
         run: |
           set -euo pipefail
           if git diff --quiet data/; then
-            echo "no changes to permit data"
+            echo "no changes to permit data; no publication confirmed"
+            # Fail closed: an unchanged local scan does not prove a prior
+            # data PR was reviewed and merged. Do not advance audit/chaining.
+            echo "merged=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
