@@ -20,7 +20,10 @@ on:
     paths:
       - data/backfill_request.json
   schedule:
-    - cron: "0 3 * * *"   # daily backfill batch 1, 03:00 UTC (06:00 Israel)
+    # Four daily batches, every 6 hours, anchored in UTC on purpose (issue #420).
+    # Israel local time shifts by an hour at the DST transitions; both offsets
+    # stay deep off-peak for the source site, so no local time is stated here.
+    - cron: "0 3 * * *"
     - cron: "0 9 * * *"
     - cron: "0 15 * * *"
     - cron: "0 21 * * *"
