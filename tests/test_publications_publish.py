@@ -41,4 +41,15 @@ def test_reuse_requires_successful_probe_identity():
     workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/rishui-publish-watch.yml").read_text()
     assert 'r["status"] == "completed"' in workflow
     assert 'r["conclusion"] == "success"' in workflow
-    assert 'r["path"] == ".github/workflows/rishui-publish-probe.yml"' in workflow
+    assert 'r["path"].split("@", 1)[0] == ".github/workflows/rishui-publish-probe.yml"' in workflow
+
+
+def test_diff_step_propagates_failure_through_tee():
+    import subprocess
+
+    root = Path(__file__).resolve().parents[1]
+    workflow = (root / ".github/workflows/rishui-publish-watch.yml").read_text()
+    step = workflow.split("- name: Diff against baseline and write alert file")[1].split("- name:")[0]
+    assert "set -o pipefail" in step
+    result = subprocess.run(["bash", "-c", "set -o pipefail; false | tee /dev/null"], check=False)
+    assert result.returncode != 0
