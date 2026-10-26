@@ -11,6 +11,10 @@ import re
 from pathlib import Path
 
 REQUIRED = ("id", "pl_number", "agent_name", "text", "submitted", "approved")
+# A review targets a plan (pl_number) or a permit request (tik_num, #515): same fields,
+# with exactly one of the two target keys.
+REQUIRED_PERMIT = ("id", "tik_num", "agent_name", "text", "submitted", "approved")
+TIK_OK = re.compile(r"^\d{4}/\d{4}\.\d{2}$")
 MAX_TEXT = 1500
 BAD_TEXT = re.compile(
     r"https?:|www\.|<|>|\]\(|@\w+\.\w+|data:|javascript:", re.IGNORECASE
@@ -31,9 +35,13 @@ def validate_entries(entries: list[dict]) -> list[str]:
     problems, seen = [], set()
     for i, e in enumerate(entries):
         where = f"entry {i}"
-        if not isinstance(e, dict) or set(e) != set(REQUIRED):
-            problems.append(f"{where}: fields must be exactly {REQUIRED}")
+        if not isinstance(e, dict) or set(e) not in (set(REQUIRED), set(REQUIRED_PERMIT)):
+            problems.append(
+                f"{where}: fields must be exactly {REQUIRED} or {REQUIRED_PERMIT}"
+            )
             continue
+        if "tik_num" in e and not TIK_OK.match(str(e["tik_num"])):
+            problems.append(f"{where}: tik_num must look like 2026/0439.00")
         if e["id"] in seen:
             problems.append(f"{where}: duplicate id {e['id']}")
         seen.add(e["id"])
@@ -66,7 +74,7 @@ def check_append_only(base: list[dict], head: list[dict]) -> list[str]:
 
 def render_section(entries: list[dict], pl_number: str) -> str:
     """Collapsed, clearly labelled section; empty string when there is nothing to show."""
-    mine = [e for e in entries if e["pl_number"] == pl_number]
+    mine = [e for e in entries if e.get("pl_number") == pl_number]
     if not mine:
         return ""
     items = "".join(

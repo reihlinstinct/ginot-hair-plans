@@ -58,3 +58,23 @@ def test_refuses_to_overwrite_with_empty_feed(tmp_path):
     result = _run(tmp_path)
     assert result.returncode != 0
     assert not (tmp_path / "docs" / "permits.html").exists()
+
+
+def test_permit_ids_published_for_submit_worker(tmp_path):
+    """#515: the same run writes docs/permit-ids.json, the list the submit
+    worker checks tik_num against. Sorted, de-duplicated, malformed ids dropped."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    rows = [
+        {"tik_num": "2026/0439.00", "status": "תחילת פרסום הבקשה להקלה", "gush": 30007, "helka": 12},
+        {"tik_num": "1981/0696.03", "status": "הבקשה נסגרה", "gush": 30007, "helka": 12},
+        {"tik_num": "2026/0439.00", "status": "dup", "gush": 30007, "helka": 12},
+        {"tik_num": "not-a-tik", "status": "x", "gush": 1, "helka": 1},
+    ]
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": rows}, ensure_ascii=False), encoding="utf-8"
+    )
+    r = _run(tmp_path)
+    assert r.returncode == 0, r.stdout + r.stderr
+    ids = json.loads((tmp_path / "docs" / "permit-ids.json").read_text(encoding="utf-8"))["ids"]
+    assert ids == ["1981/0696.03", "2026/0439.00"]

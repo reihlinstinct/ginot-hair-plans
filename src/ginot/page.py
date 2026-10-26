@@ -14,6 +14,7 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 import datetime
 import html
 import json
+import re
 import urllib.parse as _urlparse_mod
 
 from . import __version__
@@ -404,6 +405,26 @@ def _permit_tik_link(tik_num: str | None) -> str:
         + "&SystemCode=26400046&Page=BakashalInfo"
     )
     return f"<a href='{url}' target='_blank' rel='noopener'>{_e(tik)}</a>"
+
+
+PERMIT_ID_RE = re.compile(r"^\d{4}/\d{4}\.\d{2}$")
+
+
+def write_permit_ids(permits: list[dict], path: str) -> int:
+    """Write the public list of permit request numbers (tik_num) the submit worker
+    validates external reviews against (#515). Sorted, de-duplicated, no timestamp,
+    so the file only changes when the set of requests changes. Returns the count."""
+    ids = sorted(
+        {
+            str(p.get("tik_num") or "").strip()
+            for p in permits
+            if PERMIT_ID_RE.match(str(p.get("tik_num") or "").strip())
+        }
+    )
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump({"ids": ids}, fh, ensure_ascii=False, separators=(",", ":"))
+        fh.write("\n")
+    return len(ids)
 
 
 def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
@@ -1220,6 +1241,8 @@ def render_site(
                 permits_file=f"{out_dir}/permits.html",
             )
         )
+    if permits:
+        write_permit_ids(permits, f"{out_dir}/permit-ids.json")
     from . import external_reviews as _er
 
     external = _er.load(external_reviews_path)
