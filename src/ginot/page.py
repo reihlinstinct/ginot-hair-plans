@@ -42,6 +42,8 @@ tbody tr:nth-child(even){background:#f3f6ff}
 .chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
+.more-statuses{display:inline}
+.more-statuses summary{display:inline-block;cursor:pointer;color:#101f5b;font-weight:700}
 .legend .chip.sel{outline:2px solid #101f5b;outline-offset:1px}
 .derived{color:#666}.new td{background:#fdf3d7}
 #filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
@@ -392,6 +394,82 @@ _PERMIT_TERMINAL_STATUSES = frozenset(
     }
 )
 
+# Issue #521: the feed carries ~25 raw request statuses; they group into a few
+# objection-workflow stages. Only the objection-relevant groups are selected by
+# default; the rest sit behind a "סטטוסים נוספים" disclosure. The raw status
+# stays on every row and in the status select.
+PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
+    ("obj", "פתוח להתנגדויות", frozenset({
+        "תחילת פרסום הבקשה להקלה", "פורסמה בקשה להקלה",
+        "תחילת הודעות לפני תקנה 36", "השלמת הודעות לפני תקנה 36"}), True),
+    ("pre", "פרסום מתקרב", frozenset({
+        "ממתין לאישור נוסח פרסום", "נוסח פרסום אושר"}), True),
+    ("review", "בטיפול/דיונים", frozenset({
+        "נפתח תיק רישוי", "הגשה מקוונת הושלמה", "נדונה בוועדת המשנה",
+        "נדונה ברשות הרישוי", "נדונה בועדת ערר", "התקבל ערר",
+        "התקבלה בקשה לדיון המועצה", "חידוש טיפול בבקשה", "שולמה מקדמה",
+        'אושר ע"י מהנדס העיר'}), False),
+    ("draft", "טיוטת היתר", frozenset({
+        "הוכנה טיוטת היתר בניה", "התקבל תיק ורוד / מסמכים חתומים"}), False),
+    ("postpub", "אחרי פרסום", frozenset({"תום תקופת פרסום"}), False),
+    ("issued", "הופק היתר", frozenset({
+        "הופק-הוצא היתר בניה", "הופק היתר מוארך"}), False),
+    ("closed", "סגור/אחר", frozenset({"הבקשה נסגרה", "הבקשה נגנזה", ""}), False),
+)
+
+_PERMIT_GROUP_CLASS = {
+    "obj": "c-deposit", "pre": "c-review", "review": "c-inproc",
+    "draft": "c-cond", "postpub": "c-inproc", "issued": "c-approved",
+    "closed": "c-closed", "unmapped": "c-inproc",
+}
+
+
+def _permit_status_group(status: str) -> tuple[str, str, bool]:
+    """(group key, group label, default-visible) for a raw permit status.
+    An unmapped (e.g. newly added) status fails VISIBLE: missing an objection
+    window is worse than extra noise (issue #521)."""
+    st = status or ""
+    for key, label, statuses, default_visible in PERMIT_STATUS_GROUPS:
+        if st in statuses:
+            return key, label, default_visible
+    return "unmapped", "לא מסווג", True
+
+
+# Issue #521 (+ #529): scope flag by the council's 7 neighbourhoods
+# (ginothair.org.il). "in" = one of the 7; "out" = another Jerusalem
+# neighbourhood seen in the feed; "unknown" = no usable neighbourhood signal
+# (kept visible by default - fail visible, never hide a possible objection).
+_PERMIT_SCOPE_IN = frozenset({
+    "קטמון הישנה", "רחביה", "קריית שמואל", "מושבה גרמנית",
+    "המושבה היוונית", "טלביה", "טלביה/המוגרבים", "נוה שאנן/ניות", "ניות",
+})
+_PERMIT_SCOPE_OUT = frozenset({
+    "בית וגן", "בית צפפה", "גאולים - בקעה", "גבעת אורן", "גבעת הורדים",
+    "גבעת המטוס", "גבעת הפורצים", "גבעת מרדכי", "גבעת רם",
+    "גונן ב", "גונן ג", "גונן ה", "גונן ו", "גונן ח", "גונן ט", "גוננים",
+    "גילה", "מנחת", "מקור חיים", "נוה גרנות", "סן סימון", "עומריה",
+    "פת", "קרית האומה", "שרפת", "תלפיות", "תלפיות תעשיה",
+})
+
+
+def _permit_scope(p: dict) -> str:
+    """Scope flag for a permit row: in / out / unknown (issue #521).
+    schunaName is definitive when present; otherwise the feed's legacy
+    address string ends with the neighbourhood ("הפלמח 41 קטמון הישנה")."""
+    schuna = (p.get("schunaName") or "").strip()
+    if schuna:
+        return "in" if schuna in _PERMIT_SCOPE_IN else "out"
+    address = (p.get("address") or "").strip()
+    if not address:
+        return "unknown"
+    for name in _PERMIT_SCOPE_IN:
+        if address.endswith(name):
+            return "in"
+    for name in _PERMIT_SCOPE_OUT:
+        if address.endswith(name):
+            return "out"
+    return "unknown"
+
 
 def _permit_tik_link(tik_num: str | None) -> str:
     """Link a permit request number to its file in the municipality's
@@ -456,6 +534,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     rows = []
     for p in permits:
         status = p.get("status") or ""
+        group_key, _group_label, _group_default = _permit_status_group(status)
+        scope = _permit_scope(p)
         sug = p.get("sugbakasha") or ""
         address_text, address_note = _address_display(p)
         address_note_html = (
@@ -492,6 +572,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
+            f" data-group='{group_key}' data-scope='{scope}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(address_text)}{address_note_html}</td>"
@@ -512,12 +593,29 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
 
-    _pcounts = _PCounter((p.get("status") or "") for p in permits)
-    plegend_chips = " ".join(
-        f'<span class="chip {_permit_status_class(v)}" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
-        for v in statuses
+    _gcounts = _PCounter(_permit_status_group(p.get("status") or "")[0] for p in permits)
+
+    def _gchip(key: str, label: str, default_on: bool) -> str:
+        sel = " sel" if default_on else ""
+        dflt = " data-default='1'" if default_on else ""
+        return (
+            f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
+            f'{dflt} data-label="{_e(label)}">{_e(label)} ({_gcounts.get(key, 0)})</span>'
+        )
+
+    main_chips, more_chips = [], []
+    for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
+        (main_chips if default_on else more_chips).append(_gchip(key, label, default_on))
+    if _gcounts.get("unmapped"):
+        main_chips.append(_gchip("unmapped", "לא מסווג", True))
+    plegend = (
+        '<div class="legend" id="pfgroups"><b>סטטוסים:</b> '
+        + " ".join(main_chips)
+        + ' <details class="more-statuses"><summary>סטטוסים נוספים</summary> '
+        + " ".join(more_chips)
+        + "</details></div>"
     )
-    plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>"
+    n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
     status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
@@ -532,9 +630,11 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
 בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
-כברירת מחדל מוצגות רק בקשות שפורסמו בשישה החודשים האחרונים; ניתן לשנות את
-תאריך ברירת המחדל בשדה "מתאריך פרסום". בקשות ללא תאריך פרסום ידוע נשארות
-גלויות ומסומנות - היעדר התאריך אינו ראיה שהבקשה ישנה או שלא פורסמה.
+כברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או
+לקראת פרסום - בשכונות גינות העיר; שאר הסטטוסים זמינים תחת "סטטוסים נוספים",
+ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
+בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
+שהבקשה ישנה או שלא פורסמה.
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
 {plegend}
@@ -544,6 +644,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
 <label>עד <input type="date" id="pfto"></label>
+<label><input type="checkbox" id="pfopenonly" checked> רק מועד התנגדות שלא עבר</label>
+<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
 <button id="pfreset" type="button">נקה</button>
 <span id="pfcount"></span>
@@ -566,22 +668,21 @@ if(!rows.length){window.__permitsLoaded=true;return;}
 var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
 pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
 pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
+pfopenonly=document.getElementById('pfopenonly'),pfscope=document.getElementById('pfscope'),
+pfgroups=document.getElementById('pfgroups'),
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
 pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
 var expanded=false;
-// Rolling 6-calendar-month cutoff, visitor-local (design permit-recency-filter).
-// Month-end safe: Aug 31 rolls to the last day of Feb, not Mar 3.
-function rollingCutoff(now){
-  now=now||new Date();
-  var t=new Date(now.getFullYear(),now.getMonth()-6,1);
-  var dim=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();
-  return new Date(t.getFullYear(),t.getMonth(),Math.min(now.getDate(),dim));
-}
-window.__permitCutoff=rollingCutoff;
 function isoDate(d){
   return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 }
-var DEF_FROM=isoDate(rollingCutoff());
+// Objection-window checks run against "today" in Asia/Jerusalem (the permit
+// deadline is local), recomputed at every page load (issue #153 pattern).
+function todayJL(){
+  try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jerusalem'}).format(new Date());}
+  catch(e){return isoDate(new Date());}
+}
+var TODAY=todayJL();
 function validIso(v){
   if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(v))return false;
   var p=new Date(v+'T00:00:00');
@@ -599,9 +700,7 @@ function pubcat(r,pub){
 }
 // Default order (#451): dated rows newest-first, then date-unknown rows in
 // their own honest placement (pub-nodate before no-evidence), feed order
-// kept stable inside each group. Raw feed order is oldest-first, so without
-// this sort every recent permit sits behind the 20-row default cap and the
-// recency filter never actually surfaces recent rows.
+// kept stable inside each group.
 function pubRank(r){
   var pub=r.getAttribute('data-pub')||'';
   var c=pubcat(r,pub);
@@ -621,11 +720,31 @@ function sortRows(){
   var tb=document.querySelector('#permits-table tbody');
   if(tb)rows.forEach(function(r){tb.appendChild(r);});
 }
-pffrom.value=DEF_FROM;
+// #521: group chips are the primary filter. Chips with data-default='1' start
+// selected (the objection-relevant groups); the rest sit behind the
+// "סטטוסים נוספים" disclosure and toggle the same way.
+function selectedGroups(){
+  var s={};
+  pfgroups.querySelectorAll('.chip.sel').forEach(function(c){s[c.getAttribute('data-group')]=1;});
+  return s;
+}
 function normSearch(s){
   return (s||'').toLowerCase().replace(/[\u05F3\u05F4\u05BE\u2019\u201D'"`-]/g,'');
 }
 function match(r){
+  var sel=selectedGroups();
+  var g=r.getAttribute('data-group')||'unmapped';
+  if(!sel[g])return false;
+  // Scope flag (#521): out-of-area rows are hidden until "הצג גם מחוץ ל-7
+  // השכונות" is checked; unknown-scope stays visible (fail visible).
+  if(pfscope&&!pfscope.checked&&r.getAttribute('data-scope')==='out')return false;
+  // "רק מועד התנגדות שלא עבר" applies to the open-objection group only:
+  // a row whose (planned) window already closed is hidden while checked;
+  // no end date = stays visible (deadline unknown, not elapsed).
+  if(g==='obj'&&pfopenonly&&pfopenonly.checked){
+    var pe=r.getAttribute('data-pubend');
+    if(pe&&pe<TODAY)return false;
+  }
   if(!pfclosed.checked&&!pfstatus.value&&r.getAttribute('data-active')!=='1')return false;
   var q=normSearch(pfq.value.trim());
   if(q&&(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search')))).indexOf(q)===-1)return false;
@@ -637,7 +756,7 @@ function match(r){
   // are never hidden by the recency filter, they stay visible and marked.
   if(pub){
     var effFrom=pffrom.value;
-    if(effFrom&&!validIso(effFrom))effFrom=DEF_FROM;
+    if(effFrom&&!validIso(effFrom))effFrom='';
     if(effFrom&&pub<effFrom)return false;
     if(pfto.value&&pub>pfto.value)return false;
   }
@@ -663,13 +782,18 @@ function apply(){
   pfunknown.textContent=(c3||c4)?'תאריך פרסום חסר: '+c3+' (פורסם, תאריך לא ידוע) · '+c4+' (אין ראיית פרסום)':'';
   pfflag.style.display=(pffrom.value&&!validIso(pffrom.value))?'':'none';
 }
-[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed].forEach(function(el){
+[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
+  if(!el)return;
   var h=function(){expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
 document.getElementById('pfreset').addEventListener('click',function(){
-  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value=DEF_FROM;pfto.value='';
-  pfclosed.checked=false;expanded=false;apply();
+  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
+  pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    c.classList.toggle('sel',c.getAttribute('data-default')==='1');
+  });
+  expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});
 function statusClass(st){
@@ -681,30 +805,39 @@ function statusClass(st){
   if(st.indexOf('טיוטת היתר')!==-1)return 'c-cond';
   return 'c-inproc';
 }
+var GROUP_LABELS={'unmapped':'לא מסווג'};
+var GROUP_CLASS={'unmapped':'c-inproc'};
 function rebuildDerived(){
-  // #414: legend chips, filter options and the closed count derive from the
-  // loaded fragment rows (the live source), not the weekly index.html shell -
-  // after a feed batch they must agree with the actual rows immediately.
-  var counts={},sugs={},closed=0,i,st,sug;
+  // #414: chips, filter options and counters derive from the loaded fragment
+  // rows (the live source), not the weekly index.html shell; #521: the legend
+  // counts are per status GROUP, raw statuses fill the select.
+  var counts={},sugs={},closed=0,gcounts={},outscope=0,i,st,sug,g;
   for(i=0;i<rows.length;i++){
     st=rows[i].getAttribute('data-status')||'';
     if(st)counts[st]=(counts[st]||0)+1;
     sug=rows[i].getAttribute('data-sug')||'';
     if(sug)sugs[sug]=1;
     if(rows[i].getAttribute('data-active')==='0')closed++;
+    g=rows[i].getAttribute('data-group')||'unmapped';
+    gcounts[g]=(gcounts[g]||0)+1;
+    if(rows[i].getAttribute('data-scope')==='out')outscope++;
   }
-  var legend=document.querySelector('#permits .legend');
-  if(legend){
-    legend.querySelectorAll('.chip').forEach(function(c){c.remove();});
-    Object.keys(counts).sort().forEach(function(v){
-      var c=document.createElement('span');
-      c.className='chip '+statusClass(v)+(pfstatus.value===v?' sel':'');
-      c.setAttribute('data-status',v);
-      c.textContent=v+' ('+counts[v]+')';
-      legend.appendChild(document.createTextNode(' '));
-      legend.appendChild(c);
-    });
-  }
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    var k=c.getAttribute('data-group');
+    c.textContent=c.getAttribute('data-label')+' ('+(gcounts[k]||0)+')';
+    delete gcounts[k];
+  });
+  // A group with no chip in the shell (only possible for an unmapped status
+  // that appeared in the feed after the weekly render) fails VISIBLE (#521).
+  Object.keys(gcounts).forEach(function(k){
+    var c=document.createElement('span');
+    c.className='chip '+(GROUP_CLASS[k]||'c-inproc')+' sel';
+    c.setAttribute('data-group',k);
+    c.setAttribute('data-default','1');
+    c.setAttribute('data-label',GROUP_LABELS[k]||k);
+    c.textContent=(GROUP_LABELS[k]||k)+' ('+gcounts[k]+')';
+    pfgroups.insertBefore(c,pfgroups.querySelector('.more-statuses'));
+  });
   function refill(sel,first,values){
     var keep=sel.value;
     sel.innerHTML='';
@@ -717,17 +850,15 @@ function rebuildDerived(){
   if(pfclosed&&pfclosed.parentNode&&pfclosed.parentNode.lastChild){
     pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';
   }
+  if(pfscope&&pfscope.parentNode&&pfscope.parentNode.lastChild){
+    pfscope.parentNode.lastChild.textContent=' הצג גם מחוץ ל-7 השכונות ('+outscope+')';
+  }
 }
-var legend=document.querySelector('#permits .legend');
-if(legend){
-  legend.addEventListener('click',function(ev){
+if(pfgroups){
+  pfgroups.addEventListener('click',function(ev){
     var c=ev.target.closest?ev.target.closest('.chip'):null;
-    if(!c||!legend.contains(c))return;
-    var st=c.getAttribute('data-status');
-    pfstatus.value=(pfstatus.value===st)?'':st;
-    legend.querySelectorAll('.chip').forEach(function(x){
-      x.classList.toggle('sel',x.getAttribute('data-status')===pfstatus.value);
-    });
+    if(!c||!pfgroups.contains(c))return;
+    c.classList.toggle('sel');
     expanded=false;apply();
   });
 }
