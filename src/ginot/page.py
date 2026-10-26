@@ -787,6 +787,18 @@ function apply(){
   var h=function(){expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
+// Checking "הצג בקשות שהסתיימו" also selects the closed+issued group chips:
+// the checkbox would otherwise reveal nothing while those groups are
+// unselected (both gates must pass for a terminal row to show).
+if(pfclosed&&pfgroups){
+  pfclosed.addEventListener('change',function(){
+    pfgroups.querySelectorAll('.chip').forEach(function(c){
+      var g=c.getAttribute('data-group');
+      if(g==='closed'||g==='issued')c.classList.toggle('sel',pfclosed.checked);
+    });
+    expanded=false;apply();
+  });
+}
 document.getElementById('pfreset').addEventListener('click',function(){
   pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
   pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
