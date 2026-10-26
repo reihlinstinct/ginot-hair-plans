@@ -2,8 +2,12 @@
 import json
 import os
 import subprocess
+import sys
 import time
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src'))
+from ginot.publications import write_projection
 
 EXPECTED_CHECKS = {'test (3.11)', 'test (3.12)', 'test (3.13)', 'Analyze (actions)',
                    'Analyze (python)', 'worker', 'site-browser (chromium)',
@@ -39,11 +43,8 @@ def gh(*args, payload=None):
 def main():
     subprocess.run(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
     # Public deadline-only projection follows every daily publication refresh.
-    publications = json.loads(Path('data/publications_active.json').read_text(encoding='utf-8'))
-    public_fields = ('tik_num', 'objection_deadline', 'in_polygon')
-    Path('docs/publications_active.json').write_text(
-        json.dumps([{k: r.get(k) for k in public_fields} for r in publications],
-                   ensure_ascii=False) + '\n', encoding='utf-8')
+    if not write_projection('data/publications_active.json', 'docs/publications_active.json'):
+        raise RuntimeError('Publication source unavailable; refusing to publish a data PR')
     repo = os.environ['GITHUB_REPOSITORY']
     root = f'repos/{repo}'
     base = gh('api', f'{root}/git/ref/heads/main')['object']['sha']
