@@ -111,3 +111,26 @@ def test_external_review_css_is_in_generated_stylesheet(tmp_path):
     )
     css = (tmp_path / "style.css").read_text(encoding="utf-8")
     assert ".external-reviews" in css and ".ext-meta" in css
+
+
+# #515: an approved review may target a permit request (tik_num) instead of a plan.
+PERMIT_OK = {k: v for k, v in OK.items() if k != "pl_number"} | {
+    "id": "p1",
+    "tik_num": "2026/0439.00",
+}
+
+
+def test_permit_entry_is_valid_and_exactly_one_target():
+    assert er.validate_entries([PERMIT_OK]) == []
+    assert er.validate_entries([OK, PERMIT_OK]) == []
+    both = PERMIT_OK | {"pl_number": "101-1"}
+    assert er.validate_entries([both])
+    neither = {k: v for k, v in PERMIT_OK.items() if k != "tik_num"}
+    assert er.validate_entries([neither])
+    bad = PERMIT_OK | {"tik_num": "2026-0439"}
+    assert any("tik_num" in p for p in er.validate_entries([bad]))
+
+
+def test_permit_entry_does_not_render_on_plan_pages():
+    assert er.render_section([PERMIT_OK], "101-1") == ""
+    assert "t" * 60 in er.render_section([OK, PERMIT_OK], "101-1")

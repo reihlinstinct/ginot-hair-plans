@@ -16,10 +16,11 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from ginot.page import _permits_section
+from ginot.page import _permits_section, write_permit_ids
 
 DATA = "data/permit_requests.json"
 OUT = "docs/permits.html"
+IDS_OUT = "docs/permit-ids.json"  # read by the submit worker (#515)
 
 
 def main() -> int:
@@ -32,6 +33,8 @@ def main() -> int:
         print("permits section render produced no output")
         return 1
     print(f"rendered {len(permits)} permit rows into {OUT}")
+    n = write_permit_ids(permits, IDS_OUT)
+    print(f"wrote {n} permit ids into {IDS_OUT}")
     return 0
 
 
