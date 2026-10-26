@@ -6,9 +6,9 @@ the tag change the code our workflows run with repository secrets."""
 import re
 from pathlib import Path
 
-WORKFLOWS = sorted(
-    (Path(__file__).parent.parent / ".github" / "workflows").glob("*.yml")
-)
+_WF_DIR = Path(__file__).parent.parent / ".github" / "workflows"
+# GitHub runs both extensions; a .yaml workflow must not slip past the checks.
+WORKFLOWS = sorted([*_WF_DIR.glob("*.yml"), *_WF_DIR.glob("*.yaml")])
 USES = re.compile(r"^\s*(?:-\s*)?uses:\s*([^\s#]+)")
 PINNED = re.compile(r"^[^@\s]+@[0-9a-f]{40}$")
 
