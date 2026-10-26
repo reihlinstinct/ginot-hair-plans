@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_feed_installs_geometry_and_smoke_checks_renderer_before_tunnel():
     workflow = (ROOT / '.github/workflows/permit-feed.yml').read_text()
-    install = workflow.index('pip install --only-binary=:all: "shapely>=2.2.0" "pyproj>=3.8.0"')
+    install = workflow.index('pip install --only-binary=:all: -r requirements.txt')
     smoke = workflow.index('python3 scripts/render_permits_page.py --check-dependencies')
     tunnel = workflow.index('- name: Bring up owner-operated L2TP/IPsec tunnel')
     assert install < smoke < tunnel
@@ -18,8 +18,26 @@ def test_dependency_preflight_never_reads_or_writes_data(tmp_path):
     import subprocess
     import sys
 
-    result = subprocess.run([sys.executable, str(ROOT / 'scripts/render_permits_page.py'),
-                             '--check-dependencies'], check=False, cwd=tmp_path, capture_output=True, text=True)
+    # Fail on attempted reads as well as writes, including absolute paths.
+    # runpy preserves the real script import path and command-line behavior.
+    probe = r"""
+import os, runpy, sys
+from pathlib import Path
+root = Path(sys.argv[1]).resolve()
+sys.path.insert(0, str(root / 'scripts'))
+sys.argv = [str(root / 'scripts/render_permits_page.py'), '--check-dependencies']
+blocked = [root / 'data', root / 'docs', Path.cwd() / 'data', Path.cwd() / 'docs']
+def audit(event, args):
+    if event != 'open' or not isinstance(args[0], (str, bytes, os.PathLike)):
+        return
+    path = Path(os.fsdecode(args[0])).resolve()
+    if any(path == base or base in path.parents for base in blocked):
+        raise AssertionError(f'preflight attempted data I/O: {path}')
+sys.addaudithook(audit)
+runpy.run_path(sys.argv[0], run_name='__main__')
+"""
+    result = subprocess.run([sys.executable, '-B', '-c', probe, str(ROOT)],
+                            check=False, cwd=tmp_path, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr
     assert list(tmp_path.iterdir()) == []
 

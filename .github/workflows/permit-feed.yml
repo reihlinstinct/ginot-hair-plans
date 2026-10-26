@@ -111,7 +111,7 @@ jobs:
 
       - name: Install and check permit renderer dependencies
         run: |
-          python3 -m pip install --only-binary=:all: "shapely>=2.2.0" "pyproj>=3.8.0"
+          python3 -m pip install --only-binary=:all: -r requirements.txt
           python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Install VPN transport packages
