@@ -179,8 +179,10 @@ def summarize(rows: list[dict]) -> str:
         unresolved = [r for r in rows if r.get("in_polygon") is None]
         lines = [
             f"active publications: {len(rows)}",
-            f"inside Ginot HaIr polygon: {len(inside)}; "
-            f"unresolved tik (not in tracker): {len(unresolved)}",
+            (
+                f"inside Ginot HaIr polygon: {len(inside)}; "
+                f"unresolved tik (not in tracker): {len(unresolved)}"
+            ),
         ]
         shown = inside + unresolved
     else:
