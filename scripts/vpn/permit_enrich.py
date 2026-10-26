@@ -76,6 +76,15 @@ def save_pending(pending, path=PENDING):
         json.dump({"pending": sorted(pending)}, fh, ensure_ascii=False, indent=1)
 
 
+def prune_pending(pending, by_tik):
+    """Drop retry-queue entries for tiks gone from the mirror or terminal."""
+    return {
+        t
+        for t in pending
+        if t in by_tik and by_tik[t]["status"] not in TERMINAL_STATUSES
+    }
+
+
 def select_tiks(requests, diff_tiks, include_unenriched, include_late_stages=False):
     """Tiks to (re)fetch publication dates for, in stable order."""
     selected = []
@@ -138,11 +147,14 @@ def main():
         f"{len(todo)} tiks selected; enriching batch of {len(batch)} "
         f"(offset={args.offset})"
     )
+    by_tik = {r["tik_num"]: r for r in requests}
     if not batch:
+        # Terminal/gone pending tiks are never selected, so an empty batch
+        # is exactly where dead entries would otherwise linger (#492).
+        save_pending(prune_pending(pending, by_tik), args.pending)
         print("nothing to enrich")
         return 0
 
-    by_tik = {r["tik_num"]: r for r in requests}
     done = 0
     spot = []
     failed = set()
@@ -179,11 +191,7 @@ def main():
 
     with open(args.mirror, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
-    new_pending = {
-        t
-        for t in (pending - succeeded) | failed
-        if t in by_tik and by_tik[t]["status"] not in TERMINAL_STATUSES
-    }
+    new_pending = prune_pending((pending - succeeded) | failed, by_tik)
     save_pending(new_pending, args.pending)
     if new_pending:
         print(f"{len(new_pending)} tiks queued for retry on the next enrich run")

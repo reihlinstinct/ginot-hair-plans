@@ -184,3 +184,30 @@ def test_pending_pruned_for_terminal_and_gone_tiks(tmp_path, monkeypatch):
     # Tik 1 went terminal and tik 3 left the mirror: both drop from the queue;
     # tik 2 was re-fetched successfully and clears.
     assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == []
+
+
+def test_empty_batch_still_prunes_dead_pending_entries(tmp_path, monkeypatch):
+    """Pending tiks that turned terminal or left the mirror are never
+    selected, so the empty-batch path must still prune them (#492)."""
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    reqs = [req("1", "הבקשה נסגרה"), req("2", "נדחתה")]
+    mirror.write_text(json.dumps({"requests": reqs}), encoding="utf-8")
+    pending.write_text(json.dumps({"pending": ["1", "2", "3"]}), encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0  # nothing selectable: empty batch
+    assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == []
