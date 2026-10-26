@@ -267,6 +267,9 @@ def mirror_file(tmp_path, rows):
 
 def run_enrich(monkeypatch, tmp_path, argv):
     monkeypatch.setattr(enrich, "SPOTCHECK", str(tmp_path / "spot.json"))
+    # The retry queue (issue #492) must land in tmp like the spot check:
+    # a CWD-relative write would dirty the repo for the site-index test.
+    monkeypatch.setattr(enrich, "PENDING", str(tmp_path / "pending.json"))
     monkeypatch.setattr(sys, "argv", ["permit_enrich.py"] + argv)
     return enrich.main()
 
@@ -389,6 +392,8 @@ def test_enrich_survives_single_fetch_failure(monkeypatch, tmp_path):
         out["2"]["publication_start"] == "2026-01-01"
         and "publication_start" not in out["1"]
     )
+    # the failed tik is queued for retry (issue #492)
+    assert json.loads((tmp_path / "pending.json").read_text())["pending"] == ["1"]
 
 
 # ---------- mirror_ingest ----------

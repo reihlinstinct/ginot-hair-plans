@@ -25,6 +25,7 @@ from permit_feed import PACE_SECONDS, SYS, call, publication_dates
 MIRROR = "data/permit_mirror.json"
 DIFF = "data/permit_mirror_diff.json"
 SPOTCHECK = "data/permit_enrich_spotcheck.json"
+PENDING = "data/permit_enrich_pending.json"
 SPOTCHECK_MAX = 10
 # statuses where no s.149 publication can still start (request is over)
 TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בניה", "הופק היתר מוארך", "נדחתה"}
@@ -60,6 +61,30 @@ def step_summary(tik):
     return out
 
 
+def load_pending(path=PENDING):
+    """Tiks whose last publication fetch failed (retry queue, issue #492)."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+        return {str(t) for t in data.get("pending", [])}
+    except (FileNotFoundError, json.JSONDecodeError):
+        return set()
+
+
+def save_pending(pending, path=PENDING):
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump({"pending": sorted(pending)}, fh, ensure_ascii=False, indent=1)
+
+
+def prune_pending(pending, by_tik):
+    """Drop retry-queue entries for tiks gone from the mirror or terminal."""
+    return {
+        t
+        for t in pending
+        if t in by_tik and by_tik[t]["status"] not in TERMINAL_STATUSES
+    }
+
+
 def select_tiks(requests, diff_tiks, include_unenriched, include_late_stages=False):
     """Tiks to (re)fetch publication dates for, in stable order."""
     selected = []
@@ -79,6 +104,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--mirror", default=MIRROR)
     ap.add_argument("--diff", default=DIFF)
+    ap.add_argument("--pending", default=PENDING)
     ap.add_argument("--include-unenriched", action="store_true")
     ap.add_argument(
         "--include-late-stages",
@@ -105,6 +131,10 @@ def main():
         diff_tiks = set(diff.get("new_tiks", []) + diff.get("changed_tiks", []))
     except (FileNotFoundError, json.JSONDecodeError):
         diff_tiks = set()
+    pending = load_pending(args.pending)
+    # Failed fetches ride the next run's selection even after the nightly
+    # ingest rewrites the diff (issue #492).
+    diff_tiks |= pending
 
     todo = select_tiks(
         requests, diff_tiks, args.include_unenriched, args.include_late_stages
@@ -117,13 +147,18 @@ def main():
         f"{len(todo)} tiks selected; enriching batch of {len(batch)} "
         f"(offset={args.offset})"
     )
+    by_tik = {r["tik_num"]: r for r in requests}
     if not batch:
+        # Terminal/gone pending tiks are never selected, so an empty batch
+        # is exactly where dead entries would otherwise linger (#492).
+        save_pending(prune_pending(pending, by_tik), args.pending)
         print("nothing to enrich")
         return 0
 
-    by_tik = {r["tik_num"]: r for r in requests}
     done = 0
     spot = []
+    failed = set()
+    succeeded = set()
     for i, tik in enumerate(batch):
         if i:
             time.sleep(PACE_SECONDS)
@@ -134,7 +169,9 @@ def main():
             return 2
         except Exception as exc:
             print(f"{tik}: publication fetch failed: {exc}")
+            failed.add(tik)
             continue
+        succeeded.add(tik)
         if not start and not end and len(spot) < SPOTCHECK_MAX:
             try:
                 spot.append(
@@ -154,6 +191,10 @@ def main():
 
     with open(args.mirror, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
+    new_pending = prune_pending((pending - succeeded) | failed, by_tik)
+    save_pending(new_pending, args.pending)
+    if new_pending:
+        print(f"{len(new_pending)} tiks queued for retry on the next enrich run")
     if spot:
         with open(SPOTCHECK, "w", encoding="utf-8") as fh:
             json.dump(
