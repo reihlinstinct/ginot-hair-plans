@@ -103,6 +103,15 @@ jobs:
         env:
           INPUTS_JSON: ${{ toJSON(inputs) }}
 
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Install and check permit renderer dependencies
+        run: |
+          python3 -m pip install "shapely>=2.2.0" "pyproj>=3.8.0"
+          python3 scripts/render_permits_page.py --check-dependencies
+
       - name: Install VPN transport packages
         run: |
           sudo apt-get update -qq > /dev/null 2>&1
