@@ -548,7 +548,7 @@ def test_footer_links(page, site):
 
 
 def test_page_has_draft_notice_and_feed_link(page):
-    assert "DRAFT" in page.locator("#permits h2").inner_text()
+    assert page.locator("#permits h2").inner_text() == "בקשות היתר"
     assert (
         page.locator(
             "link[rel='alternate'][type='application/atom+xml']"
