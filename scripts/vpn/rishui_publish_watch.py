@@ -16,7 +16,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from rishui_publish import (  # noqa: E402
+from rishui_publish import (
     detect_new,
     load_parcel_keys,
     load_tik_parcels,
