@@ -570,6 +570,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             if address_note
             else ""
         )
+        if p.get('_map_missing'):
+            address_note_html += " <span class='pub-missing'>אין מיקום</span>"
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
         search = _e(
@@ -599,7 +601,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
-            f" data-group='{group_key}' data-scope='{scope}'"
+            f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(address_text)}{address_note_html}</td>"
@@ -828,6 +830,7 @@ function apply(){
   });
   pfunknown.textContent=(c3||c4)?'תאריך פרסום חסר: '+c3+' (פורסם, תאריך לא ידוע) · '+c4+' (אין ראיית פרסום)':'';
   pfflag.style.display=(pffrom.value&&!validIso(pffrom.value))?'':'none';
+  document.dispatchEvent(new Event('permits-filtered'));
 }
 [pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
   if(!el)return;
@@ -1410,6 +1413,13 @@ def render_site(
                 permits = json.load(pf).get("requests", [])
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
+    from .mapdata import write_permit_points
+    permit_map = write_permit_points(
+        permits, os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
+                              'ginot_hair_parcels.geojson'),
+        f'{out_dir}/permit-points.json')
+    missing_positions = set(permit_map['missing_location'])
+    permits = [dict(p, _map_missing=p.get('tik_num') in missing_positions) for p in permits]
     # Public normalized publication metadata only, never permit-file documents.
     publications_path = os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
                                      'publications_active.json')

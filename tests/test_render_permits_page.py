@@ -78,3 +78,24 @@ def test_permit_ids_published_for_submit_worker(tmp_path):
     assert r.returncode == 0, r.stdout + r.stderr
     ids = json.loads((tmp_path / "docs" / "permit-ids.json").read_text(encoding="utf-8"))["ids"]
     assert ids == ["1981/0696.03", "2026/0439.00"]
+
+
+def test_feed_publishes_parcel_points_and_labels_unmatched_rows(tmp_path):
+    (tmp_path / 'data').mkdir()
+    (tmp_path / 'docs').mkdir()
+    permits = [{'tik_num': '2026/0439.00', 'gush': 30007, 'helka': 12},
+               {'tik_num': '2026/0001.00', 'gush': 1, 'helka': 1}]
+    (tmp_path / 'data/permit_requests.json').write_text(json.dumps({'requests': permits}))
+    (tmp_path / 'data/ginot_hair_parcels.geojson').write_text(json.dumps({'features': [{
+        'properties': {'gush': 30007, 'helka': 12},
+        'geometry': {'type': 'Polygon', 'coordinates': [[[35.21, 31.76], [35.22, 31.76],
+                       [35.22, 31.77], [35.21, 31.77], [35.21, 31.76]]]}}]}))
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    points = json.loads((tmp_path / 'docs/permit-points.json').read_text())
+    assert [p['tik_num'] for p in points['points']] == ['2026/0439.00']
+    assert points['missing_location'] == ['2026/0001.00']
+    fragment = (tmp_path / 'docs/permits.html').read_text()
+    rows = fragment.split('<tr ')[1:]
+    assert 'אין מיקום' not in rows[0]
+    assert 'אין מיקום' in rows[1]

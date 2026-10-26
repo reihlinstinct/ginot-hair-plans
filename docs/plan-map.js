@@ -4,6 +4,7 @@
   'use strict';
   var panel=document.getElementById('plan-map-panel');if(!panel)return;
   var items=[],drawn=[],pointsDate='',map,loading=false,polygons,controller,revision=0,timer;
+  var permitPositions=new Map(),permitMarkers=[],permitLayer;
   var cache=new Map(),failed=new Set(),manual=new Set(),MAX=20,MIN_ZOOM=11;
   var toggle=document.getElementById('map-boundaries');
   var status=document.getElementById('map-status');
@@ -75,6 +76,22 @@
     hits.slice(1).forEach(function(item){var detail=el('details');detail.append(el('summary','תכנית '+item.row.pl_number+' - '+item.row.pl_name),popup(item.row));box.append(detail);});
     L.popup({maxWidth:280,maxHeight:300}).setLatLng(event.latlng).setContent(box).openOn(map);
   }
+  function permitRows(){return Array.from(document.querySelectorAll('#permits-table tbody tr')).filter(function(r){return !r.classList.contains('filtered-out')&&r.getClientRects().length>0&&getComputedStyle(r).visibility!=='hidden';});}
+  function permitPopup(rows){
+    var box=el('div');box.dir='rtl';box.append(el('strong','בקשות היתר באותה חלקה'),el('p','נקודה מייצגת בחלקה לפי גוש וחלקה, לא כתובת כניסה.'));
+    rows.forEach(function(r){var item=el('p'),a=el('a',r.dataset.tik);a.href='#permits';
+      a.onclick=function(){r.scrollIntoView({block:'center'});};
+      item.append(a,document.createTextNode(' '+r.cells[1].textContent+' - '+r.dataset.status));box.append(item);});return box;
+  }
+  function drawPermits(){
+    permitLayer.clearLayers();permitMarkers=[];var visible=permitRows(),groups=new Map(),missing=0;
+    visible.forEach(function(r){var xy=permitPositions.get(r.dataset.tik);if(!xy){missing++;return;}
+      var key=xy.join(',');if(!groups.has(key))groups.set(key,{xy:xy,rows:[]});groups.get(key).rows.push(r);});
+    groups.forEach(function(g){var icon=L.divIcon({className:'permit-marker',html:'<span style="display:block;width:14px;height:14px;border:2px solid white;background:#9253c7;box-shadow:0 0 2px #222"></span>',iconSize:[14,14],iconAnchor:[7,7]});
+      var title='בקשות היתר: '+g.rows.map(function(r){return r.dataset.tik;}).join(', ');
+      var marker=L.marker([g.xy[1],g.xy[0]],{icon:icon,title:title,alt:title});marker.bindPopup(permitPopup(g.rows),{maxWidth:300,maxHeight:300});marker.addTo(permitLayer);permitMarkers.push(marker);});
+    return ' בקשות היתר: '+visible.length+' שורות גלויות, '+(visible.length-missing)+' עם מיקום בחלקה ('+groups.size+' נקודות), '+missing+' אין מיקום.';
+  }
   function draw(){
     var active=selected(),allowed=rows().length,automatic=toggle.checked&&active.length<=MAX&&map.getZoom()>=MIN_ZOOM;
     polygons.clearLayers();drawn=[];var count=0,points=0;
@@ -85,6 +102,7 @@
     });
     var note=!toggle.checked?' הצגת גבולות אוטומטית כבויה; ניתן לטעון גבול מתוך כל נקודה.':active.length>MAX?' יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.':map.getZoom()<MIN_ZOOM?' התקרבו במפה להצגת גבולות.':'';
     status.textContent=allowed===0?'אין תכניות התואמות לחיפוש או לסינון.':allowed+' שורות גלויות בטבלה: '+count+' גבולות, '+points+' נקודות, '+(allowed-active.length)+' ללא מיקום.'+note+' תאריך מיקומים: '+pointsDate+'.';
+    status.textContent+=drawPermits();
     if(failed.size&&automatic)status.textContent+=' חלק מהגבולות לא נטענו; הנקודות נשארות זמינות.';
   }
   async function boundaries(){
@@ -106,8 +124,9 @@
 
     }catch(e){status.textContent='גבול תכנית '+row.pl_number+' אינו זמין כרגע; הנקודה והקישור למקור נשארים זמינים.';}
   }
-  function syncFilter(){if(!map)return;manual.clear();map.closePopup();var active=selected();if(active.length)map.fitBounds(L.latLngBounds(active.map(function(i){return i.marker.getLatLng();})),{padding:[30,30],maxZoom:16,animate:false});boundaries();}
+  function syncFilter(){if(!map)return;manual.clear();map.closePopup();var active=selected();drawPermits();var locations=active.map(function(i){return i.marker.getLatLng();}).concat(permitMarkers.map(function(m){return m.getLatLng();}));if(locations.length)map.fitBounds(L.latLngBounds(locations),{padding:[30,30],maxZoom:16,animate:false});boundaries();}
   document.addEventListener('plans-filtered',syncFilter);
+  document.addEventListener('permits-filtered',syncFilter);
   toggle.addEventListener('change',function(){manual.clear();if(map)boundaries();});
   document.getElementById('map-legend-toggle').onclick=function(){var box=document.getElementById('map-legend');box.hidden=!box.hidden;this.setAttribute('aria-expanded',String(!box.hidden));};
   async function init(){
@@ -115,14 +134,16 @@
     try{
       await Promise.all([asset('link','href','vendor/leaflet/leaflet.css'),asset('script','src','vendor/leaflet/leaflet.js')]);
       var response=await fetch('plan-points.json');if(!response.ok)throw Error('points');var data=await response.json();
-      map=L.map('plan-map',{scrollWheelZoom:false}).setView([31.768,35.213],14);polygons=L.layerGroup().addTo(map);map.on('click',inspectPoint);map.on('popupopen',function(){map.getContainer().classList.add('has-popup');});map.on('popupclose',function(){map.getContainer().classList.remove('has-popup');});
+      map=L.map('plan-map',{scrollWheelZoom:false}).setView([31.768,35.213],14);polygons=L.layerGroup().addTo(map);permitLayer=L.layerGroup().addTo(map);map.on('click',inspectPoint);map.on('popupopen',function(){map.getContainer().classList.add('has-popup');});map.on('popupclose',function(){map.getContainer().classList.remove('has-popup');});
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,referrerPolicy:'strict-origin-when-cross-origin',attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'}).addTo(map);
+      try{var pr=await fetch('permit-points.json');if(pr.ok){var pd=await pr.json();(pd.points||[]).forEach(function(r){var xy=r.representative_point;if(Array.isArray(xy)&&xy.length===2&&xy.every(Number.isFinite)&&Math.abs(xy[0])<=180&&Math.abs(xy[1])<=90)permitPositions.set(r.tik_num,xy);});}}catch(e){/* Missing positions stay explicit; no guessed geocodes. */}
       var states=new Set();data.points.forEach(function(row){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||'סטטוס לא ידוע';states.add(s);
         var icon=L.divIcon({className:'plan-marker',html:'<span style="background:'+color(row)+'"></span>',iconSize:[14,14],iconAnchor:[7,7]});
         var marker=L.marker([xy[1],xy[0]],{icon:icon,title:'תכנית '+row.pl_number+' '+row.pl_name+' - '+s,alt:'תכנית '+row.pl_number+' '+row.pl_name});marker.bindPopup(popup(row),{maxWidth:240});marker.on('popupopen',function(){if(!rows().some(function(r){return r.dataset.num===row.pl_number;}))map.closePopup();});items.push({marker:marker,row:row});
       });
       var legend=document.getElementById('map-legend');legend.replaceChildren(el('p','קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.'));
+      legend.append(el('p','ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.'));
       Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.style.background=colors[category(s)];item.append(swatch,document.createTextNode(s));legend.append(item);});
       pointsDate=data.generated;syncFilter();map.on('zoomend',boundaries);
     }catch(e){status.textContent='לא ניתן לטעון את המפה כרגע. טבלת התכניות נשארת זמינה.';loading=false;}

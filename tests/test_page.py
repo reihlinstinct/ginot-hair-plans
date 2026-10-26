@@ -803,13 +803,13 @@ def test_permit_partial_address_display(tmp_path):
     page.render_site([], [], str(tmp_path), permits_path=_permits(tmp_path, reqs))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # street present -> plain street address
-    assert "<td>אלפסי 9</td>" in html
+    assert "<td>אלפסי 9 <span class='pub-missing'>אין מיקום</span></td>" in html
     # neighborhood only -> labeled neighborhood + explicit note
     assert "שכונה: גינות העיר" in html and "לא צוינה כתובת מדויקת בתיק" in html
     # neither -> explicit fallback, no invented value
     assert "כתובת לא זמינה" in html
     # legacy rows keep their stored address string as-is
-    assert "<td>מחרוזת מדורת 7</td>" in html
+    assert "<td>מחרוזת מדורת 7 <span class='pub-missing'>אין מיקום</span></td>" in html
     # neighborhood is searchable
     assert "גינות העיר" in html
 
