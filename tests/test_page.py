@@ -935,3 +935,19 @@ def test_coverage_inline_full_set_and_invalid_dates():
     assert "25 בקשות במאגר; 1 עם תאריך תחילת פרסום; 0 עם סיום פרסום מתוכנן" in html
     assert "24 ללא תאריך תחילת פרסום" in html
     assert "if(validIso(rows[i].getAttribute('data-pub')||''))dated++" in _PERMITS_JS
+
+
+def test_permit_ids_rewritten_when_permit_list_is_empty(tmp_path):
+    """Regression (#530): with zero permit requests, render_site must still
+    rewrite permit-ids.json. Otherwise the previous ids stay published and the
+    submit worker keeps accepting reviews for requests no longer listed."""
+    import json
+
+    (tmp_path / "permit-ids.json").write_text(
+        '{"ids":["2026/0439.00"]}\n', encoding="utf-8"
+    )
+    permits = tmp_path / "permit_requests.json"
+    permits.write_text('{"requests": []}', encoding="utf-8")
+    page.render_site([_row("1", "אישור")], [], str(tmp_path), permits_path=str(permits))
+    ids = json.loads((tmp_path / "permit-ids.json").read_text(encoding="utf-8"))
+    assert ids == {"ids": []}
