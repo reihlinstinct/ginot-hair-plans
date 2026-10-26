@@ -490,6 +490,7 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
     )
     assert mobile_page.locator(".leaflet-container").is_visible()
     assert mobile_page.locator(".leaflet-overlay-pane path").count() == 1
+    mobile_page.locator("#plan-map").scroll_into_view_if_needed()
     point = mobile_page.locator(".leaflet-overlay-pane path").evaluate("""e=>{
       var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
       return {x:p.x,y:p.y};}""")
@@ -499,3 +500,40 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
         mobile_page.locator(".leaflet-popup-content strong").inner_text()
         == "תכנית 200-22"
     )
+
+
+def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
+    page.wait_for_function('window.__permitsLoaded')
+    # Keep real public point projection shape, but use synthetic table rows.
+    page.evaluate('''() => {
+      const body=document.querySelector('#permits-table tbody');
+      body.innerHTML=['one','two','missing'].map(tik=>
+        `<tr data-tik="${tik}" data-status="פרסום" data-group="obj" data-scope="in"><td>${tik}</td><td>Synthetic address</td></tr>`).join('');
+    }''')
+    page.route('**/plan-points.json', lambda route: route.fulfill(json={'generated': '2026-10-26', 'points': []}))
+    page.route('**/permit-points.json', lambda route: route.fulfill(json={'points': [
+        {'tik_num': 'one', 'representative_point': [35.213, 31.768]},
+        {'tik_num': 'two', 'representative_point': [35.213, 31.768]}], 'missing_location': ['missing']}))
+    page.route('https://tile.openstreetmap.org/**', lambda route: route.abort())
+    page.locator('#plan-map-panel summary').click()
+    page.wait_for_function("document.querySelectorAll('.permit-marker').length===1")
+    assert '2 עם מיקום בחלקה (1 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()
+    marker = page.locator('.permit-marker')
+    assert 'one' in marker.get_attribute('title') and 'two' in marker.get_attribute('title')
+    marker.click()
+    assert 'one' in page.locator('.leaflet-popup').inner_text()
+    assert 'two' in page.locator('.leaflet-popup').inner_text()
+    page.evaluate('''() => {
+      document.querySelector('[data-tik="two"]').classList.add('filtered-out');
+      document.dispatchEvent(new Event('permits-filtered'));
+    }''')
+    from playwright.sync_api import expect
+    expect(page.locator('.leaflet-popup')).to_have_count(0)
+    assert 'two' not in page.locator('.permit-marker').get_attribute('title')
+    assert '1 עם מיקום בחלקה (1 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()
+    page.evaluate('''() => {
+      document.querySelector('[data-tik="one"]').classList.add('filtered-out');
+      document.dispatchEvent(new Event('permits-filtered'));
+    }''')
+    assert page.locator('.permit-marker').count() == 0
+    assert '0 עם מיקום בחלקה (0 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()

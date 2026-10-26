@@ -22,3 +22,5 @@ def test_publish_step_renders_and_commits_permits_fragment():
         if line.strip().startswith("git add") and "docs/index.json" in line
     )
     assert "docs/permits.html" in add_line
+
+    assert "docs/permit-points.json" in add_line

@@ -262,7 +262,7 @@ jobs:
           # and a render failure fails the run (set -e) instead of shipping
           # stale rows silently.
           python3 scripts/render_permits_page.py
-          git add data/ docs/index.json docs/badge/parcel-*.json docs/permits.html docs/permit-ids.json
+          git add data/ docs/index.json docs/badge/parcel-*.json docs/permits.html docs/permit-ids.json docs/permit-points.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \

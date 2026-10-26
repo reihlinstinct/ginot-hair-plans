@@ -16,6 +16,7 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
+from ginot.mapdata import write_permit_points
 from ginot.page import _permits_section, write_permit_ids
 
 DATA = "data/permit_requests.json"
@@ -29,6 +30,9 @@ def main() -> int:
     if not permits:
         print(f"{DATA} has no requests - refusing to empty the fragment")
         return 1
+    permit_map = write_permit_points(permits, 'data/ginot_hair_parcels.geojson', 'docs/permit-points.json')
+    missing = set(permit_map['missing_location'])
+    permits = [dict(p, _map_missing=p.get('tik_num') in missing) for p in permits]
     if not _permits_section(permits, rows_file=OUT):
         print("permits section render produced no output")
         return 1
