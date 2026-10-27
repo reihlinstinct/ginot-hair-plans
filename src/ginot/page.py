@@ -547,7 +547,20 @@ def _permit_review_cell(tik_num):
     return '<span class="derived">טרם פורסמה סקירה</span>'
 
 
-def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
+def _is_default_permit_candidate(group_default: bool, scope: str, active: str,
+                                 tik: str, evidence_tiks: frozenset) -> bool:
+    """#441: a row the default (no-interaction) view may need without the full
+    fragment. Default-visible groups (unmapped fails visible) that are active
+    and not out of scope, plus every active row whose tik has publication
+    evidence, because the #573 overlay can promote it into the "obj" group."""
+    if active != "1":
+        return False
+    return (group_default and scope != "out") or tik in evidence_tiks
+
+
+def _permits_section(permits: list[dict], rows_file: str | None = None,
+                     default_rows_file: str | None = None,
+                     evidence_tiks: frozenset = frozenset()) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
     textually distinct from the plans table. Terminal requests (closed /
@@ -574,6 +587,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         return (p.get("address") or "").strip(), ""
 
     rows = []
+    default_rows = []
     for p in permits:
         status = p.get("status") or ""
         group_key, _group_label, _group_default = _permit_status_group(status)
@@ -628,6 +642,12 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
             f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
+        if _is_default_permit_candidate(_group_default, scope, active,
+                                        p.get("tik_num") or "", evidence_tiks):
+            default_rows.append(rows[-1])
+    if default_rows_file:
+        with open(default_rows_file, "w", encoding="utf-8") as fh:
+            fh.write("".join(default_rows))
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
             fh.write("".join(rows))
