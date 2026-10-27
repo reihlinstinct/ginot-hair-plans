@@ -1295,6 +1295,7 @@ def test_new_unmapped_subset_status_is_visible_without_full_fetch(tmp_path, brow
                 replacement = original.replace("data-group='obj'", "data-group='unmapped'")
                 route.fulfill(body=replacement, content_type='text/html')
             pg.route('**/permits-default.html', new_status)
+            pg.route('**/permits.html', new_status)
             pg.goto(url)
             pg.wait_for_function('window.__permitsDefaultLoaded === true')
             chip = pg.locator('#pfgroups .chip[data-group="unmapped"]')
@@ -1304,6 +1305,13 @@ def test_new_unmapped_subset_status_is_visible_without_full_fetch(tmp_path, brow
             visible = pg.locator('#permits-table tbody tr:not(.filtered-out)')
             assert visible.count() == 3
             assert seen == {'permits.html': 0, 'permits-default.html': 1}
+            chip.click()
+            pg.wait_for_function('window.__permitsLoaded === true')
+            assert pg.locator('#pfgroups .chip[data-group="unmapped"]').count() == 1
+            pg.locator('#pfreset').click()
+            assert pg.locator('#permits-table tbody tr:not(.filtered-out)').count() == 3
+            assert 'sel' in chip.get_attribute('class')
+            assert seen['permits.html'] == 1
             assert errors == []
     finally:
         srv.shutdown()

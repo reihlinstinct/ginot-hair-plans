@@ -955,6 +955,7 @@ function ensureGroupChips(){
   });
 }
 function rebuildDerived(){
+  ensureGroupChips(); // One chip builder for subset and full-list paths (#625).
   // #414: chips, filter options and counters derive from the loaded fragment
   // rows (the live source), not the weekly index.html shell; #521: the legend
   // counts are per status GROUP, raw statuses fill the select.
@@ -980,17 +981,6 @@ function rebuildDerived(){
     var k=c.getAttribute('data-group');
     c.textContent=c.getAttribute('data-label')+' ('+(gcounts[k]||0)+')';
     delete gcounts[k];
-  });
-  // A group with no chip in the shell (only possible for an unmapped status
-  // that appeared in the feed after the weekly render) fails VISIBLE (#521).
-  Object.keys(gcounts).forEach(function(k){
-    var c=document.createElement('span');
-    c.className='chip '+(GROUP_CLASS[k]||'c-inproc')+' sel';
-    c.setAttribute('data-group',k);
-    c.setAttribute('data-default','1');
-    c.setAttribute('data-label',GROUP_LABELS[k]||k);
-    c.textContent=(GROUP_LABELS[k]||k)+' ('+gcounts[k]+')';
-    pfgroups.insertBefore(c,pfgroups.querySelector('.more-statuses'));
   });
   function refill(sel,first,values){
     var keep=sel.value;
