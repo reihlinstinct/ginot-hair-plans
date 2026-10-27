@@ -1281,3 +1281,29 @@ def test_old_evidence_outside_subset_does_not_load_full_list(tmp_path, browser, 
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_new_unmapped_subset_status_is_visible_without_full_fetch(tmp_path, browser, request):
+    """#622: a feed fragment can add a group absent from the weekly shell."""
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            def new_status(route):
+                original = route.fetch().text()
+                # Only the fragment changes, not index.html or its chips.
+                replacement = original.replace("data-group='obj'", "data-group='unmapped'")
+                route.fulfill(body=replacement, content_type='text/html')
+            pg.route('**/permits-default.html', new_status)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            chip = pg.locator('#pfgroups .chip[data-group="unmapped"]')
+            assert chip.count() == 1
+            assert 'sel' in chip.get_attribute('class')
+            assert chip.get_attribute('data-default') == '1'
+            visible = pg.locator('#permits-table tbody tr:not(.filtered-out)')
+            assert visible.count() == 3
+            assert seen == {'permits.html': 0, 'permits-default.html': 1}
+            assert errors == []
+    finally:
+        srv.shutdown()

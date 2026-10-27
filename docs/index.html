@@ -456,6 +456,24 @@ function statusClass(st){
 }
 var GROUP_LABELS={'unmapped':'לא מסווג'};
 var GROUP_CLASS={'unmapped':'c-inproc'};
+function ensureGroupChips(){
+  // #622: subset rows can introduce a status absent from the weekly shell.
+  // Add the selected fail-visible chip without inventing full-dataset counts.
+  var have={};
+  pfgroups.querySelectorAll('.chip').forEach(function(c){have[c.getAttribute('data-group')]=1;});
+  rows.forEach(function(r){
+    var k=r.getAttribute('data-group')||'unmapped';
+    if(have[k])return;
+    have[k]=1;
+    var c=document.createElement('span');
+    c.className='chip '+(GROUP_CLASS[k]||'c-inproc')+' sel';
+    c.setAttribute('data-group',k);
+    c.setAttribute('data-default','1');
+    c.setAttribute('data-label',GROUP_LABELS[k]||k);
+    c.textContent=GROUP_LABELS[k]||k;
+    pfgroups.insertBefore(c,pfgroups.querySelector('.more-statuses'));
+  });
+}
 function rebuildDerived(){
   // #414: chips, filter options and counters derive from the loaded fragment
   // rows (the live source), not the weekly index.html shell; #521: the legend
@@ -579,6 +597,7 @@ function installRows(h){
   var tb=document.querySelector('#permits-table tbody');if(!tb)return false;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  ensureGroupChips();
   applyPublicationEvidence();
   sortRows();
   return true;
