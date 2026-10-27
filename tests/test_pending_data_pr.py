@@ -167,13 +167,16 @@ def test_main_reports_false_when_clear(tmp_path, monkeypatch):
     assert out.read_text().splitlines() == ["pending=false", "pending_prs="]
 
 
-def test_real_fetch_fails_closed_on_gh_error(monkeypatch):
+@pytest.mark.parametrize("stdout", ["", "[]"])
+def test_real_fetch_fails_closed_on_gh_error(monkeypatch, stdout):
+    # #632: with stdout "[]" the JSON parse succeeds, so only the exit-code
+    # check in _gh_page can reject the page; "" keeps the original case.
     class Result:
         returncode = 1
-        stdout = ""
 
+    Result.stdout = stdout
     monkeypatch.setattr(guard.subprocess, "run", lambda *a, **k: Result())
-    with pytest.raises(guard.GuardError):
+    with pytest.raises(guard.GuardError, match=r"gh api failed on page 1 \(exit 1\)"):
         guard.pending_prs(REPO, PREFIX)
 
 
