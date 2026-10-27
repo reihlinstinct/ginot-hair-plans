@@ -63,6 +63,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead th:nth-child(8){display:none}
 
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
+#permits-table td:nth-child(9)::before{content:"סקירת AI"}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
