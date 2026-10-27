@@ -1339,3 +1339,68 @@ def test_full_install_failure_can_retry_after_table_returns(tmp_path, browser, r
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, request):
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pg.route('**/permits-default.html', lambda r: r.fulfill(status=503, body=''))
+            state = {'fail': True}
+
+            def full(route):
+                if state['fail']:
+                    route.fulfill(status=503, body='')
+                else:
+                    route.continue_()
+
+            pg.route('**/permits.html', full)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultFailed && window.__permitsFailed')
+            assert pg.locator('#pfretry').is_visible()
+            assert pg.locator('#pfcount').inner_text() == ''
+            state['fail'] = False
+            pg.locator('#pfretry').click()
+            pg.wait_for_function('window.__permitsLoaded')
+            assert pg.locator('#pfload').inner_text() == ''
+            assert pg.locator('#permits-table tbody tr:not(.filtered-out)').count() == 3
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_late_publication_overlay_refreshes_urgent_list(tmp_path, browser, request):
+    srv, url = _lazy_site(tmp_path, dated=True)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pending = []
+            count = {'n': 0}
+            deadline = (today_il() + datetime.timedelta(days=5)).isoformat()
+            evidence = [{'tik_num': '2026/0100.00', 'in_polygon': True,
+                         'publication_date': today_il().isoformat(),
+                         'objection_deadline': deadline}]
+
+            def publications(route):
+                count['n'] += 1
+                if count['n'] == 1:
+                    route.fulfill(content_type='application/json', body=json.dumps(evidence))
+                else:
+                    pending.append(route)
+
+            def subset(route):
+                text = route.fetch().text().replace("data-group='obj'", "data-group='review'")
+                route.fulfill(content_type='text/html', body=text)
+
+            pg.route('**/publications_active.json', publications)
+            pg.route('**/permits-default.html', subset)
+            pg.goto(url, wait_until='domcontentloaded')
+            pg.wait_for_function('window.__permitsDefaultLoaded && window.__permitOfficialDeadlines')
+            assert '2026/0100.00' not in pg.locator('#urgent-list').inner_text()
+            assert len(pending) == 1
+            pending[0].fulfill(content_type='application/json', body=json.dumps(evidence))
+            pg.wait_for_function('window.__permitPublicationEvidenceLoaded')
+            assert '2026/0100.00' in pg.locator('#urgent-list').inner_text()
+            assert pg.locator('tr[data-tik="2026/0100.00"]').get_attribute('data-group') == 'obj'
+            assert errors == []
+    finally:
+        srv.shutdown()

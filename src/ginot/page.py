@@ -877,6 +877,7 @@ function match(r){
   return true;
 }
 function apply(){
+  if(!fullLoaded&&window.__permitsDefaultFailed){showLoadState();return;}
   if(!fullLoaded&&!isDefaultView()){loadFullPermits();showLoadState();return;}
   pfload.textContent='';
   var n=0;
@@ -1049,6 +1050,7 @@ function currentEvidence(p){
 fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
   if(!Array.isArray(list))throw new Error('invalid publication list');
   publicationEvidence=list;applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+  if(window.__renderUrgent)window.__renderUrgent();
   window.__permitPublicationEvidenceLoaded=true;
   document.dispatchEvent(new Event('publication-evidence-loaded'));
 }).catch(function(){window.__permitPublicationEvidenceFailed=true;});
@@ -1082,7 +1084,7 @@ function isDefaultView(){
   return same;
 }
 function showLoadState(){
-  if(fullLoaded||isDefaultView()){pfload.textContent='';return;}
+  if(fullLoaded||(isDefaultView()&&!window.__permitsDefaultFailed)){pfload.textContent='';return;}
   rows.forEach(function(r){r.classList.add('filtered-out');});
   pmore.style.display='none';
   pfcount.textContent='';pfunknown.textContent='';
