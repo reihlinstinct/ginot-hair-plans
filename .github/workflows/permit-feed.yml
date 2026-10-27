@@ -105,6 +105,15 @@ jobs:
         env:
           INPUTS_JSON: ${{ toJSON(inputs) }}
 
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Install and check permit renderer dependencies
+        run: |
+          python3 -m pip install --only-binary=:all: -r requirements.txt
+          python3 scripts/render_permits_page.py --check-dependencies
+
       - name: Stop while a permit-feed data PR awaits review
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,15 +126,6 @@ jobs:
             echo "permit-feed data PR(s) awaiting review: $PENDING; stopping before VPN/network scan"
             exit 1
           fi
-
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: "3.12"
-
-      - name: Install and check permit renderer dependencies
-        run: |
-          python3 -m pip install --only-binary=:all: -r requirements.txt
-          python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Install VPN transport packages
         run: |
