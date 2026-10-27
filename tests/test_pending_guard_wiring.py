@@ -5,6 +5,7 @@ Each scheduled data workflow runs the shared fail-closed guard
 fetch, VPN or tunnel, and its data job runs only when the guard reached
 ``pending=false``.
 """
+
 from pathlib import Path
 
 import pytest
@@ -37,7 +38,14 @@ def test_guard_job_is_read_only_and_uses_the_pushed_prefix(name, job, var, prefi
     assert step["env"]["GH_TOKEN"] == "${{ github.token }}"
     # Guard steps never fetch, tunnel, push or use secrets.
     text = "\n".join(str(s) for s in guard["steps"])
-    for forbidden in ("secrets.", "l2tp", "git push", "refresh.py", "mirror_ingest", "mavat_check"):
+    for forbidden in (
+        "secrets.",
+        "l2tp",
+        "git push",
+        "refresh.py",
+        "mirror_ingest",
+        "mavat_check",
+    ):
         assert forbidden not in text
     # The prefix must be the one the data job actually pushes.
     runs = "\n".join(s.get("run", "") for s in load(name)["jobs"][job]["steps"])
@@ -61,8 +69,11 @@ def test_only_mavat_discover_mode_bypasses_the_guard():
     """Discover mode only probes endpoints and never stages a PR."""
     cond = load("mavat-watch.yml")["jobs"]["mavat-watch"]["if"]
     assert "inputs.mode == 'discover' ||" in cond
-    stage = next(s for s in load("mavat-watch.yml")["jobs"]["mavat-watch"]["steps"]
-                 if "gh pr create" in s.get("run", ""))
+    stage = next(
+        s
+        for s in load("mavat-watch.yml")["jobs"]["mavat-watch"]["steps"]
+        if "gh pr create" in s.get("run", "")
+    )
     assert "env.MODE == 'check'" in stage["if"]
     for name in ("weekly-refresh.yml", "mirror-ingest.yml"):
         cond = load(name)["jobs"][CASES[[c[0] for c in CASES].index(name)][1]]["if"]

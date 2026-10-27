@@ -10,6 +10,7 @@ spellings the per-PR lists miss.
 Known exceptions live in ALLOWLIST, each with a reason and, where it is
 reachable only after a reviewed merge, the gate its step must keep.
 """
+
 import re
 from pathlib import Path
 
@@ -35,10 +36,14 @@ RULES = [
     ("gh-workflow-run", r"\bgh workflow run\b"),
     ("gh-run-rerun", r"\bgh run rerun\b|/rerun(-failed-jobs)?\b"),
     ("pages", r"/pages/builds\b|/pages/deployments?\b|actions/deploy-pages\b"),
-    ("push-default-or-mirror",
-     r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:[\s:+](?:refs/heads/)?(?:main|mirror)\b)"),
-    ("push-force",
-     r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:\s--force(?:-with-lease)?\b|\s-f\b|\s\+\S)"),
+    (
+        "push-default-or-mirror",
+        r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:[\s:+](?:refs/heads/)?(?:main|mirror)\b)",
+    ),
+    (
+        "push-force",
+        r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:\s--force(?:-with-lease)?\b|\s-f\b|\s\+\S)",
+    ),
 ]
 
 FORBIDDEN_PERMISSIONS = {"actions": "write", "pages": "write", "id-token": "write"}
@@ -46,21 +51,36 @@ FORBIDDEN_PERMISSIONS = {"actions": "write", "pages": "write", "id-token": "writ
 # (file, rule id, substring of the normalized command, required substring of
 # the step's ``if`` or None, reason).
 ALLOWLIST = [
-    ("permit-feed.yml", "gh-workflow-run", "gh workflow run ci.yml --ref $BRANCH", None,
-     "runs CI on the PR branch just pushed; starts checks, merges nothing"),
-    ("permit-feed.yml", "gh-workflow-run",
-     "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit",
-     "steps.publish.outputs.merged == 'true'",
-     "read-only auditor, only after a reviewed merge (#562)"),
-    ("permit-feed.yml", "gh-workflow-run", "gh workflow run permit-feed.yml -f mode=enrich",
-     "steps.publish.outputs.merged == 'true'",
-     "enrich chain, only after a reviewed merge (#145, #562)"),
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        "gh workflow run ci.yml --ref $BRANCH",
+        None,
+        "runs CI on the PR branch just pushed; starts checks, merges nothing",
+    ),
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit",
+        "steps.publish.outputs.merged == 'true'",
+        "read-only auditor, only after a reviewed merge (#562)",
+    ),
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        "gh workflow run permit-feed.yml -f mode=enrich",
+        "steps.publish.outputs.merged == 'true'",
+        "enrich chain, only after a reviewed merge (#145, #562)",
+    ),
 ]
 
 # Workflow-level permissions that are known and reviewed elsewhere.
 PERMISSION_ALLOWLIST = {
     ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
-    ("permit-feed.yml", "pages"): "pre-existing; no Pages step remains (see #564 review note)",
+    (
+        "permit-feed.yml",
+        "pages",
+    ): "pre-existing; no Pages step remains (see #564 review note)",
 }
 
 
@@ -85,7 +105,10 @@ def _permission_violations(file, perms, where):
             out.append((file, "permissions", f"{where}: write-all"))
         return out
     for key, value in (perms or {}).items():
-        if FORBIDDEN_PERMISSIONS.get(key) == value and (file, key) not in PERMISSION_ALLOWLIST:
+        if (
+            FORBIDDEN_PERMISSIONS.get(key) == value
+            and (file, key) not in PERMISSION_ALLOWLIST
+        ):
             out.append((file, "permissions", f"{where}: {key}: {value}"))
     return out
 
@@ -106,7 +129,9 @@ def scan_workflow(file, text):
             command = normalize(run)
             for rule, pattern in RULES:
                 for m in re.finditer(pattern, command):
-                    line = command[command.rfind("\n", 0, m.start()) + 1:].split("\n", 1)[0]
+                    line = command[command.rfind("\n", 0, m.start()) + 1 :].split(
+                        "\n", 1
+                    )[0]
                     if not _allowed(file, rule, line, step.get("if")):
                         found.append((file, rule, line.strip()))
     return found
@@ -117,7 +142,7 @@ def scan_script(file, text):
     found = []
     for rule, pattern in RULES:
         for m in re.finditer(pattern, command):
-            line = command[command.rfind("\n", 0, m.start()) + 1:].split("\n", 1)[0]
+            line = command[command.rfind("\n", 0, m.start()) + 1 :].split("\n", 1)[0]
             found.append((file, rule, line.strip()))
     return found
 
@@ -127,7 +152,11 @@ def test_no_workflow_or_ci_script_can_bypass_review():
     for path in sorted(WORKFLOWS.glob("*.yml")):
         found += scan_workflow(path.name, path.read_text())
     for path in sorted(CI_SCRIPTS.iterdir()):
-        if path.is_file() and path.suffix in {".py", ".sh"} and path.name != "pending_data_pr.py":
+        if (
+            path.is_file()
+            and path.suffix in {".py", ".sh"}
+            and path.name != "pending_data_pr.py"
+        ):
             found += scan_script(path.name, path.read_text())
     assert found == []
 
@@ -163,8 +192,14 @@ jobs:
 """
 
 
-def planted(run=None, permissions=None, job_permissions=None, uses=None, file="planted.yml",
-            step_if=None):
+def planted(
+    run=None,
+    permissions=None,
+    job_permissions=None,
+    uses=None,
+    file="planted.yml",
+    step_if=None,
+):
     doc = yaml.safe_load(CLEAN)
     if permissions is not None:
         doc["permissions"] = permissions
@@ -192,28 +227,50 @@ PLANTED = [
     ("gh-pr-merge", {"run": 'gh  pr   merge "$PR"'}),  # double spaces
     ("gh-pr-merge", {"run": 'gh pr \\\n  merge "$PR"'}),  # line continuation
     ("gh-pr-merge", {"run": 'gh pr merge --auto --squash "$PR"'}),
-    ("admin-flag", {"run": 'gh pr create --admin'}),
+    ("admin-flag", {"run": "gh pr create --admin"}),
     ("gh-pr-review", {"run": 'gh pr review "$PR" --approve'}),
     ("update-branch", {"run": 'gh pr update-branch "$PR"'}),
-    ("update-branch", {"run": 'gh api -X PUT repos/o/r/pulls/1/update-branch'}),
-    ("graphql-merge", {"run": "gh api graphql -f query='mutation { mergePullRequest(input: {}) { clientMutationId } }'"}),
-    ("graphql-merge", {"run": "gh api graphql -f query='mutation { enablePullRequestAutoMerge(input: {}) { clientMutationId } }'"}),
+    ("update-branch", {"run": "gh api -X PUT repos/o/r/pulls/1/update-branch"}),
+    (
+        "graphql-merge",
+        {
+            "run": "gh api graphql -f query='mutation { mergePullRequest(input: {}) { clientMutationId } }'"
+        },
+    ),
+    (
+        "graphql-merge",
+        {
+            "run": "gh api graphql -f query='mutation { enablePullRequestAutoMerge(input: {}) { clientMutationId } }'"
+        },
+    ),
     ("rest-merge", {"run": 'gh api -X PUT "repos/$GITHUB_REPOSITORY/pulls/$N/merge"'}),
-    ("rest-merge", {"run": 'gh api -X POST repos/o/r/merges -f base=main -f head="$BRANCH"'}),
-    ("rest-approve-review", {"run": 'gh api repos/o/r/pulls/1/reviews -f event=APPROVE'}),
-    ("rest-approve-review", {"run": 'gh api -X POST repos/o/r/actions/runs/1/approve'}),
-    ("dispatch", {"run": 'gh api repos/o/r/actions/workflows/x.yml/dispatches -f ref=main'}),
-    ("dispatch", {"run": 'gh api repos/o/r/dispatches -f event_type=go'}),
-    ("gh-workflow-run", {"run": 'gh workflow run ci.yml'}),
+    (
+        "rest-merge",
+        {"run": 'gh api -X POST repos/o/r/merges -f base=main -f head="$BRANCH"'},
+    ),
+    (
+        "rest-approve-review",
+        {"run": "gh api repos/o/r/pulls/1/reviews -f event=APPROVE"},
+    ),
+    ("rest-approve-review", {"run": "gh api -X POST repos/o/r/actions/runs/1/approve"}),
+    (
+        "dispatch",
+        {"run": "gh api repos/o/r/actions/workflows/x.yml/dispatches -f ref=main"},
+    ),
+    ("dispatch", {"run": "gh api repos/o/r/dispatches -f event_type=go"}),
+    ("gh-workflow-run", {"run": "gh workflow run ci.yml"}),
     ("gh-run-rerun", {"run": 'gh run rerun "$RUN"'}),
-    ("gh-run-rerun", {"run": 'gh api -X POST repos/o/r/actions/runs/1/rerun-failed-jobs'}),
-    ("pages", {"run": 'gh api -X POST repos/o/r/pages/builds'}),
-    ("pages", {"uses": 'actions/deploy-pages@v4'}),
-    ("push-default-or-mirror", {"run": 'git push origin main'}),
-    ("push-default-or-mirror", {"run": 'git push origin HEAD:main'}),
-    ("push-default-or-mirror", {"run": 'git push origin HEAD:refs/heads/main'}),
+    (
+        "gh-run-rerun",
+        {"run": "gh api -X POST repos/o/r/actions/runs/1/rerun-failed-jobs"},
+    ),
+    ("pages", {"run": "gh api -X POST repos/o/r/pages/builds"}),
+    ("pages", {"uses": "actions/deploy-pages@v4"}),
+    ("push-default-or-mirror", {"run": "git push origin main"}),
+    ("push-default-or-mirror", {"run": "git push origin HEAD:main"}),
+    ("push-default-or-mirror", {"run": "git push origin HEAD:refs/heads/main"}),
     ("push-default-or-mirror", {"run": 'git push origin "$BRANCH":main'}),
-    ("push-default-or-mirror", {"run": 'git push origin origin/main:mirror'}),
+    ("push-default-or-mirror", {"run": "git push origin origin/main:mirror"}),
     ("push-default-or-mirror", {"run": 'git -C "$WORK" push origin HEAD:mirror'}),
     ("push-force", {"run": 'git push --force origin "$BRANCH"'}),
     ("push-force", {"run": 'git push -f origin "$BRANCH"'}),
@@ -223,26 +280,37 @@ PLANTED = [
     ("permissions", {"job_permissions": {"pages": "write"}}),
     ("permissions", {"permissions": "write-all"}),
     # Allowlisted command outside its file, or without its merge gate.
-    ("gh-workflow-run", {"run": 'gh workflow run permit-feed.yml -f mode=enrich'}),
-    ("gh-workflow-run", {"run": 'gh workflow run permit-feed.yml -f mode=enrich',
-                             "file": "permit-feed.yml", "step_if": "${{ success() }}"}),
+    ("gh-workflow-run", {"run": "gh workflow run permit-feed.yml -f mode=enrich"}),
+    (
+        "gh-workflow-run",
+        {
+            "run": "gh workflow run permit-feed.yml -f mode=enrich",
+            "file": "permit-feed.yml",
+            "step_if": "${{ success() }}",
+        },
+    ),
 ]
 
 
-@pytest.mark.parametrize("rule,kwargs", PLANTED, ids=[f"{r}-{i}" for i, (r, _) in enumerate(PLANTED)])
+@pytest.mark.parametrize(
+    "rule,kwargs", PLANTED, ids=[f"{r}-{i}" for i, (r, _) in enumerate(PLANTED)]
+)
 def test_planted_violation_is_caught(rule, kwargs):
     file, text = planted(**kwargs)
     assert rule in {r for _, r, _ in scan_workflow(file, text)}
 
 
 def test_gated_allowlist_entry_passes_only_in_its_file():
-    file, text = planted(run='gh workflow run permit-feed.yml -f mode=enrich',
-                         file="permit-feed.yml",
-                         step_if="${{ success() && steps.publish.outputs.merged == 'true' }}")
+    file, text = planted(
+        run="gh workflow run permit-feed.yml -f mode=enrich",
+        file="permit-feed.yml",
+        step_if="${{ success() && steps.publish.outputs.merged == 'true' }}",
+    )
     assert scan_workflow(file, text) == []
 
 
 def test_script_scanner_catches_planted_form(tmp_path):
-    assert {r for _, r, _ in scan_script("x.sh", 'git -C "$W" push origin HEAD:main\n')} == {
-        "push-default-or-mirror"}
+    assert {
+        r for _, r, _ in scan_script("x.sh", 'git -C "$W" push origin HEAD:main\n')
+    } == {"push-default-or-mirror"}
     assert scan_script("x.sh", 'git -C "$W" push origin HEAD:badge-data\n') == []
