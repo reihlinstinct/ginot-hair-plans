@@ -31,7 +31,17 @@ RULES = [
     ("update-branch", r"\bgh pr update-branch\b|/update-branch\b"),
     ("graphql-merge", r"\bmergePullRequest\b|\benablePullRequestAutoMerge\b"),
     ("rest-merge", r"/pulls/\S*/merge\b|/merges\b"),
-    ("rest-approve-review", r"\bevent=APPROVE\b|/approve\b"),
+    ("rest-approve-review", r"\bevent ?[=:] ?APPROVE\b|/approve\b"),
+    # Octokit calls in actions/github-script bodies (normalized, quotes removed).
+    (
+        "js-api",
+        (
+            r"\b(?:pulls\.(?:merge|updateBranch)"
+            r"|repos\.(?:merge|createDispatchEvent|requestPagesBuild|createPagesDeployment)"
+            r"|actions\.(?:createWorkflowDispatch|reRunWorkflow\w*|reRunJobForWorkflowRun"
+            r"|approveWorkflowRun))\b"
+        ),
+    ),
     ("dispatch", r"/dispatches\b"),
     ("gh-workflow-run", r"\bgh workflow run\b"),
     ("gh-run-rerun", r"\bgh run rerun\b|/rerun(-failed-jobs)?\b"),
@@ -91,10 +101,23 @@ def normalize(text):
     return re.sub(r"[ \t]+", " ", text)
 
 
+def _gate_holds(step_if, gate):
+    """True only if ``gate`` is an exact top-level ``&&`` conjunct of ``step_if``.
+
+    A substring check would also accept ``!(gate)``, ``merged != 'true'`` or
+    ``gate || always()``. Any ``||`` makes the gate optional, so it is rejected.
+    """
+    expr = re.sub(r"\s+", " ", (step_if or "").strip())
+    expr = re.sub(r"^\$\{\{(.*)\}\}$", r"\1", expr).strip().replace('"', "'")
+    if not expr or "||" in expr:
+        return False
+    return gate in (c.strip() for c in expr.split("&&"))
+
+
 def _allowed(file, rule, command, step_if):
     for a_file, a_rule, needle, gate, _reason in ALLOWLIST:
         if (a_file, a_rule) == (file, rule) and needle in command:
-            return gate is None or gate in (step_if or "")
+            return gate is None or _gate_holds(step_if, gate)
     return False
 
 
@@ -124,6 +147,8 @@ def scan_workflow(file, text):
             if re.search(RULES[[r[0] for r in RULES].index("pages")][1], uses):
                 found.append((file, "pages", uses))
             run = step.get("run")
+            if not run and "actions/github-script" in uses:
+                run = (step.get("with") or {}).get("script")
             if not run:
                 continue
             command = normalize(run)
@@ -169,7 +194,7 @@ def test_every_allowlist_entry_still_matches_a_real_step():
         hits = [s for s in steps if needle in normalize(s.get("run") or "")]
         assert len(hits) == 1, (file, needle)
         if gate:
-            assert gate in hits[0]["if"], (file, needle)
+            assert _gate_holds(hits[0].get("if"), gate), (file, needle)
 
 
 CLEAN = """
@@ -199,8 +224,11 @@ def planted(
     uses=None,
     file="planted.yml",
     step_if=None,
+    script=None,
 ):
     doc = yaml.safe_load(CLEAN)
+    if script is not None:
+        uses = "actions/github-script@v8"
     if permissions is not None:
         doc["permissions"] = permissions
     job = doc["jobs"]["data"]
@@ -213,6 +241,8 @@ def planted(
         step["uses"] = uses
     if step_if is not None:
         step["if"] = step_if
+    if script is not None:
+        step["with"] = {"script": script}
     if step:
         job["steps"].append(step)
     return file, yaml.safe_dump(doc, sort_keys=False)
@@ -289,6 +319,52 @@ PLANTED = [
             "step_if": "${{ success() }}",
         },
     ),
+    # The gate must be an exact positive top-level conjunct (CodeRabbit, #599).
+    *[
+        (
+            "gh-workflow-run",
+            {
+                "run": "gh workflow run permit-feed.yml -f mode=enrich",
+                "file": "permit-feed.yml",
+                "step_if": step_if,
+            },
+        )
+        for step_if in (
+            "${{ steps.publish.outputs.merged == 'true' || always() }}",
+            "${{ always() || steps.publish.outputs.merged == 'true' }}",
+            "${{ !(steps.publish.outputs.merged == 'true') }}",
+            "${{ success() && !(steps.publish.outputs.merged == 'true') }}",
+            "${{ steps.publish.outputs.merged == 'true-ish' }}",
+            "${{ format('{0}', steps.publish.outputs.merged == 'true') }}",
+        )
+    ],
+    # actions/github-script bodies (CodeRabbit, #599).
+    ("js-api", {"script": "await github.rest.pulls.merge({owner, repo, pull_number})"}),
+    ("js-api", {"script": "await github.rest.pulls.updateBranch({pull_number: n})"}),
+    (
+        "js-api",
+        {"script": "await github.rest.actions.createWorkflowDispatch({ref: 'main'})"},
+    ),
+    ("js-api", {"script": "await github.rest.repos.createDispatchEvent({event_type})"}),
+    (
+        "js-api",
+        {"script": "await github.rest.actions.reRunWorkflowFailedJobs({run_id})"},
+    ),
+    ("js-api", {"script": "await github.rest.actions.approveWorkflowRun({run_id})"}),
+    ("js-api", {"script": "await github.rest.repos.requestPagesBuild({owner, repo})"}),
+    (
+        "rest-approve-review",
+        {
+            "script": "await github.rest.pulls.createReview({pull_number, event: 'APPROVE'})"
+        },
+    ),
+    (
+        "graphql-merge",
+        {
+            "script": "await github.graphql(`mutation { mergePullRequest(input: $i) { x } }`)"
+        },
+    ),
+    ("rest-merge", {"script": "await github.request('PUT /repos/o/r/pulls/1/merge')"}),
 ]
 
 
@@ -305,6 +381,31 @@ def test_gated_allowlist_entry_passes_only_in_its_file():
         run="gh workflow run permit-feed.yml -f mode=enrich",
         file="permit-feed.yml",
         step_if="${{ success() && steps.publish.outputs.merged == 'true' }}",
+    )
+    assert scan_workflow(file, text) == []
+
+
+@pytest.mark.parametrize(
+    "step_if",
+    [
+        "steps.publish.outputs.merged == 'true'",
+        "${{ success() &&  steps.publish.outputs.merged == \"true\" && env.X != 'y' }}",
+        "${{ success()\n  && steps.publish.outputs.merged == 'true' }}",
+    ],
+)
+def test_gate_accepts_exact_positive_conjunct(step_if):
+    file, text = planted(
+        run="gh workflow run permit-feed.yml -f mode=enrich",
+        file="permit-feed.yml",
+        step_if=step_if,
+    )
+    assert scan_workflow(file, text) == []
+
+
+def test_harmless_github_script_passes():
+    file, text = planted(
+        script="await github.rest.issues.createComment({issue_number, body})\n"
+        "await github.rest.pulls.list({state: 'open'})"
     )
     assert scan_workflow(file, text) == []
 
