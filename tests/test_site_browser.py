@@ -1345,6 +1345,8 @@ def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, 
     srv, url = _lazy_site(tmp_path)
     try:
         with recorded_page(browser, request) as (pg, errors):
+            publications = []
+            pg.route('**/publications_active.json', lambda route: publications.append(route))
             pg.route('**/permits-default.html', lambda r: r.fulfill(status=503, body=''))
             state = {'fail': True}
 
@@ -1357,6 +1359,10 @@ def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, 
             pg.route('**/permits.html', full)
             pg.goto(url)
             pg.wait_for_function('window.__permitsDefaultFailed && window.__permitsFailed')
+            assert len(publications) == 2
+            for route in publications:
+                route.fulfill(content_type='application/json', body='[]')
+            pg.wait_for_function('window.__permitPublicationEvidenceLoaded')
             assert pg.locator('#pfretry').is_visible()
             assert pg.locator('#pfcount').inner_text() == ''
             pg.locator('#pfq').fill('ייחודי')
@@ -1436,10 +1442,13 @@ def test_failed_evidence_full_load_offers_retry_and_keeps_subset(tmp_path, brows
             pg.wait_for_function('window.__permitsFailed === true')
             assert pg.locator('#pfretry').is_visible()
             visible = pg.locator('#permits-table tbody tr:not(.filtered-out)')
-            assert visible.count() == 3  # the subset stays
+            subset_tiks = pg.locator('#permits-table tbody tr').evaluate_all(
+                '(rows) => rows.map(r => r.getAttribute("data-tik"))')
+            assert subset_tiks
+            assert visible.count() == len(subset_tiks)  # the subset stays
             pg.locator('#pfreset').click()  # a later apply() keeps the state
             assert pg.locator('#pfretry').is_visible()
-            assert visible.count() == 3
+            assert visible.count() == len(subset_tiks)
             state['fail'] = False
             pg.locator('#pfretry').click()
             pg.wait_for_function('window.__permitsLoaded === true')
