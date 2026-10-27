@@ -19,9 +19,10 @@ Rules:
   (``head.repo: null``), never count: these workflows only push same-repo
   branches.
 - Fails closed: a missing, failing or stalled (``GH_TIMEOUT_SECONDS``) ``gh``, non-JSON or non-list page,
-  malformed entry (including a ``head.repo`` without a string ``full_name``,
-  or a non-integer or boolean ``number``), or more than ``MAX_PAGES`` pages
-  exits 1 without a verdict.
+  malformed entry (including a ``head`` with no ``repo`` key, a ``head.repo``
+  without a string ``full_name``, a non-string ``ref`` or a non-integer or
+  boolean ``number``, checked even when ``head.repo`` is ``null``), or more
+  than ``MAX_PAGES`` pages exits 1 without a verdict.
 
 Callers need ``GH_TOKEN`` with ``pull-requests: read`` (wired separately from
 this helper).
