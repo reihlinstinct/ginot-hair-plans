@@ -63,12 +63,19 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
              ([pr('test/repo', 'unrelated')], '0', 0),
              ([], '42', 42)]
     for pending, status, expected in cases:
+        output = tmp_path / 'output'
+        output.unlink(missing_ok=True)
         env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
                    GITHUB_OUTPUT=str(tmp_path / 'output'), GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
                    PENDING_TEST=json.dumps(pending), GH_EXIT=status)
         result = subprocess.run(['bash', '-c', shell], env=env, capture_output=True,
                                 text=True, check=False)
         assert result.returncode == expected, result.stderr
+        if status != '0':
+            assert not output.exists()
+        else:
+            match = any((pr.get('head', {}).get('repo') or {}).get('full_name') == 'test/repo' and pr['head']['ref'].startswith('publications/') for pr in pending)
+            assert output.read_text().strip() == ('pending=true' if match else 'pending=false')
         call = (tmp_path / 'calls').read_text()
         assert '--paginate' in call
         assert 'state=open&base=main&per_page=100' in call
