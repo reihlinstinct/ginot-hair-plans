@@ -77,3 +77,10 @@ def test_publication_watch_prepares_renderer_before_any_network_work():
     assert smoke < reuse
     checkout = workflow.split('- uses: actions/checkout@', 1)[1].split('- uses:', 1)[0]
     assert 'persist-credentials: false' in checkout
+
+
+def test_publication_dependency_command_uses_yaml_block_scalar():
+    # The colon-space in --only-binary=:all: -r must not be a plain scalar.
+    workflow = (ROOT / '.github/workflows/rishui-publish-watch.yml').read_text()
+    install = workflow.split('- name: Install publication renderer dependencies', 1)[1].split('- name:', 1)[0]
+    assert 'run: |\n          pip install --only-binary=:all: -r requirements.txt' in install
