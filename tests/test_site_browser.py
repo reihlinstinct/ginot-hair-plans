@@ -1307,3 +1307,27 @@ def test_new_unmapped_subset_status_is_visible_without_full_fetch(tmp_path, brow
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_full_install_failure_can_retry_after_table_returns(tmp_path, browser, request):
+    """#623: an unavailable target must not latch the shared promise forever."""
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            pg.evaluate("""async () => {
+              window.__savedPermitBody=document.querySelector('#permits-table tbody');
+              window.__savedPermitBody.remove();
+              window.__firstInstallResult=await window.__loadFullPermits();
+              document.querySelector('#permits-table').appendChild(window.__savedPermitBody);
+            }""")
+            assert pg.evaluate('window.__firstInstallResult') is False
+            pg.evaluate('window.__loadFullPermits()')
+            pg.wait_for_function('window.__permitsLoaded === true', timeout=2000)
+            assert seen['permits.html'] == 2
+            assert pg.locator('#permits-table tbody tr').count() == 33
+            assert errors == []
+    finally:
+        srv.shutdown()

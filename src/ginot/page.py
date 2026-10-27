@@ -1111,7 +1111,7 @@ function loadFullPermits(){
   if(fullPromise)return fullPromise;
   fullFailed=false;window.__permitsFailed=false;
   fullPromise=fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
-    if(!installRows(h))return false;
+    if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;pfload.textContent='';
     rebuildDerived();
     apply();
