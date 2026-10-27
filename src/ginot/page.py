@@ -90,6 +90,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead th:nth-child(8){display:none}
 
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
+#permits-table td:nth-child(9)::before{content:"סקירת AI"}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
@@ -532,6 +533,20 @@ def write_permit_ids(permits: list[dict], path: str) -> int:
     return len(ids)
 
 
+# Only already-published public reviews are linked. External/unreviewed
+# submissions never become table links automatically.
+PERMIT_AI_REVIEWS = {
+    '2026/0439.00': 'reviews/palmach41/review-2026-0439.00.html',
+}
+
+
+def _permit_review_cell(tik_num):
+    url = PERMIT_AI_REVIEWS.get((tik_num or '').strip())
+    if url:
+        return f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
+    return '<span class="derived">טרם פורסמה סקירה</span>'
+
+
 def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
@@ -610,7 +625,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
             f"<td>{_date_cell(p.get('status_date'))}</td>"
             f"<td>{pub_cell}</td>"
-            f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>"
+            f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
+            f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
@@ -678,7 +694,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
 שהבקשה ישנה או שלא פורסמה.
 מספר הבקשה מקשר לתיק במערכת
-<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
+<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
+עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
 {plegend}
 <details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
 <p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
@@ -704,6 +721,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 <table id="permits-table"><thead><tr>
 <th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
 <th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
+<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>
 </tr></thead><tbody>{body}</tbody></table>
 <noscript><p>מוצגות {COLLAPSE_TOP} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="pmore" type="button"></button>

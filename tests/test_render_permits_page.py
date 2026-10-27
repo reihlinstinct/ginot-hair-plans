@@ -99,3 +99,23 @@ def test_feed_publishes_parcel_points_and_labels_unmatched_rows(tmp_path):
     rows = fragment.split('<tr ')[1:]
     assert 'אין מיקום' not in rows[0]
     assert 'אין מיקום' in rows[1]
+
+
+def test_permit_ai_review_column_links_published_review_and_labels_missing():
+    from ginot.page import _permits_section
+
+    html = _permits_section([{'tik_num': '2026/0439.00'}, {'tik_num': '2026/0001.00'}])
+    assert '<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>' in html
+    assert "href='reviews/palmach41/review-2026-0439.00.html'" in html
+    assert 'טרם פורסמה סקירה' in html
+    assert html.count('<td>') == 18
+    assert 'אינו מסמך רשמי' in html
+
+
+def test_permit_ai_review_mobile_label_and_no_sort_button():
+    from ginot.page import _CSS, _permits_section
+
+    assert '#permits-table td:nth-child(9)::before{content:"סקירת AI"}' in _CSS
+    header = _permits_section([{'tik_num': '2026/0439.00'}]).split('<thead>', 1)[1].split('</thead>', 1)[0]
+    assert 'סקירת AI' in header
+    assert '<button' not in header
