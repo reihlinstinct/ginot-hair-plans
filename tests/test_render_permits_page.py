@@ -119,3 +119,40 @@ def test_permit_ai_review_mobile_label_and_no_sort_button():
     header = _permits_section([{'tik_num': '2026/0439.00'}]).split('<thead>', 1)[1].split('</thead>', 1)[0]
     assert 'סקירת AI' in header
     assert '<button' not in header
+
+
+def test_default_subset_rendered_with_full_fragment(tmp_path):
+    """#441: the same batch writes docs/permits-default.html: active rows of a
+    default-visible group, plus active rows with in-polygon publication
+    evidence the #573 overlay may promote. Closed rows and evidence-less rows
+    of a non-default group stay only in the full fragment."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    rows = [
+        {"tik_num": "2026/0001.00", "status": "תחילת פרסום הבקשה להקלה", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0002.00", "status": "הבקשה נסגרה", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0003.00", "status": "נפתח תיק רישוי", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0004.00", "status": "נפתח תיק רישוי", "gush": 1, "helka": 1},
+    ]
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": rows}, ensure_ascii=False), encoding="utf-8"
+    )
+    (tmp_path / "data" / "publications_active.json").write_text(
+        json.dumps([
+            {"tik_num": "2026/0003.00", "in_polygon": True, "publication_date": "2026-10-01"},
+            {"tik_num": "2026/0004.00", "in_polygon": None, "publication_date": "2026-10-01"},
+        ]),
+        encoding="utf-8",
+    )
+    r = _run(tmp_path)
+    assert r.returncode == 0, r.stdout + r.stderr
+    full = (tmp_path / "docs" / "permits.html").read_text(encoding="utf-8")
+    subset = (tmp_path / "docs" / "permits-default.html").read_text(encoding="utf-8")
+    assert all(t["tik_num"] in full for t in rows)
+    assert "2026/0001.00" in subset
+    assert "2026/0003.00" in subset  # non-default group, in-polygon evidence
+    assert "2026/0002.00" not in subset
+    assert "2026/0004.00" not in subset
+    # every subset row is byte-identical to its full-fragment row
+    for line in subset.split("</tr>")[:-1]:
+        assert line + "</tr>" in full

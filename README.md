@@ -69,8 +69,9 @@ human reviewer.
    filters (status, inside/partial, date range, free text, objection-open)
    always operate over all rows. An "סקירת AI" column links plans that
    have an AI-generated talking-points review, rendered as styled site
-   pages from the repo markdown. A permit-requests section (DRAFT) loads
-   the same way from `permits.html`. Dates display as DD.MM.YYYY with ISO
+   pages from the repo markdown. The permit-requests section first loads
+   `permits-default.html`, then loads the full `permits.html` on demand
+   when a control needs the complete list. Dates display as DD.MM.YYYY with ISO
    values kept in data attributes. Colored status chips with a legend.
    Statistics, urgent section and recent changes (card) below the table;
    About + data sources + datasets list on a separate generated page;
