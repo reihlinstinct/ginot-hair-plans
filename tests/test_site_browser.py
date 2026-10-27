@@ -1037,3 +1037,36 @@ def test_urgent_permits_official_date_overrides_planned(
         assert '2026/0439.00' not in page.locator('#urgent-list').inner_text()
     finally:
         server.shutdown()
+
+def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser):
+    from ginot.page import render_site
+
+    source = tmp_path / 'source'
+    source.mkdir()
+    (source / 'permit_requests.json').write_text(json.dumps({'requests': [{
+        'tik_num': '1975/0743.02', 'status': 'שולמה מקדמה',
+        'address': 'תל חי 4 קטמון הישנה', 'publication_start': '',
+        'publication_end_planned': ''}]}))
+    (source / 'publications_active.json').write_text(json.dumps([{
+        'tik_num': '1975/0743.02', 'in_polygon': True,
+        'publication_date': '2026-10-26', 'objection_deadline': None}]))
+    out = tmp_path / 'site'
+    render_site([], [], str(out), permits_path=str(source / 'permit_requests.json'))
+    handler = functools.partial(http.server.SimpleHTTPRequestHandler, directory=str(out))
+    server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    page = browser.new_page()
+    try:
+        page.goto(f'http://127.0.0.1:{server.server_port}/')
+        page.wait_for_function('window.__permitsLoaded && window.__permitPublicationEvidenceLoaded')
+        page.locator('#pfq').fill('תל חי 4')
+        row = page.locator('tr[data-tik="1975/0743.02"]')
+        assert row.is_visible()
+        assert 'פרסום עירוני' in row.inner_text()
+        assert 'שולמה מקדמה' in row.inner_text()
+        assert row.get_attribute('data-pub') == '2026-10-26'
+        assert row.get_attribute('data-pubend') == ''
+        assert page.locator('#pfcount').inner_text() == 'מציג 1 מתוך 1'
+    finally:
+        page.close()
+        server.shutdown()
