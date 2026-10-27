@@ -1410,3 +1410,41 @@ def test_late_publication_overlay_refreshes_urgent_list(tmp_path, browser, reque
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_failed_evidence_full_load_offers_retry_and_keeps_subset(tmp_path, browser, request):
+    """A current publication for a permit missing from the subset makes the
+    page fetch the full list from the default view. If that fails, the subset
+    stays visible but the page must say so and offer retry, even after a
+    later apply() (CodeRabbit 4389333868)."""
+    srv, url = _lazy_site(tmp_path)
+    (tmp_path / 'site' / 'publications_active.json').write_text(json.dumps([
+        {'tik_num': '2026/0205.00', 'in_polygon': True,
+         'publication_date': today_il().isoformat(), 'objection_deadline': None}]))
+    state = {'fail': True}
+
+    def full(route):
+        if state['fail']:
+            route.fulfill(status=503, body='')
+        else:
+            route.continue_()
+
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pg.route('**/permits.html', full)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsFailed === true')
+            assert pg.locator('#pfretry').is_visible()
+            visible = pg.locator('#permits-table tbody tr:not(.filtered-out)')
+            assert visible.count() == 3  # the subset stays
+            pg.locator('#pfreset').click()  # a later apply() keeps the state
+            assert pg.locator('#pfretry').is_visible()
+            assert visible.count() == 3
+            state['fail'] = False
+            pg.locator('#pfretry').click()
+            pg.wait_for_function('window.__permitsLoaded === true')
+            assert pg.locator('#pfload').inner_text() == ''
+            pg.locator('tr[data-tik="2026/0205.00"]').wait_for(state='visible')
+            assert errors == []
+    finally:
+        srv.shutdown()

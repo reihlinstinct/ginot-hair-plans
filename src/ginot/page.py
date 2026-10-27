@@ -877,9 +877,9 @@ function match(r){
   return true;
 }
 function apply(){
-  if(!fullLoaded&&window.__permitsDefaultFailed){showLoadState();return;}
+  if(!fullLoaded&&defaultFailed){showLoadState();return;}
   if(!fullLoaded&&!isDefaultView()){loadFullPermits();showLoadState();return;}
-  pfload.textContent='';
+  showLoadState();
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
@@ -1061,6 +1061,8 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
 // default view. A non-default view never shows subset results: it shows a
 // loading state, and on failure a retry button while the subset stays.
 var fullLoaded=false,fullPromise=null,fullFailed=false;
+// Closure state; the window.__permits* flags are test hooks only.
+var defaultFailed=false,evidenceNeedsFull=false;
 var defaultLoaded=false,evidenceLoaded=false;
 var pfload=document.createElement('span');
 pfload.id='pfload';pfload.setAttribute('role','status');
@@ -1083,20 +1085,27 @@ function isDefaultView(){
   });
   return same;
 }
+function showRetry(){
+  pfload.textContent='טעינת הרשימה המלאה נכשלה. ';
+  var b=document.createElement('button');
+  b.type='button';b.id='pfretry';b.textContent='נסו שוב';
+  b.addEventListener('click',function(){loadFullPermits();});
+  pfload.appendChild(b);
+}
 function showLoadState(){
-  if(fullLoaded||(isDefaultView()&&!window.__permitsDefaultFailed)){pfload.textContent='';return;}
+  if(fullLoaded){pfload.textContent='';return;}
+  if(isDefaultView()&&!defaultFailed){
+    // The subset view stays visible. A full load the evidence safety net
+    // asked for (a current publication outside the subset) must still say
+    // when it failed, or that permit is silently missing.
+    if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
+    return;
+  }
   rows.forEach(function(r){r.classList.add('filtered-out');});
   pmore.style.display='none';
   pfcount.textContent='';pfunknown.textContent='';
-  if(fullFailed){
-    pfload.textContent='טעינת הרשימה המלאה נכשלה. ';
-    var b=document.createElement('button');
-    b.type='button';b.id='pfretry';b.textContent='נסו שוב';
-    b.addEventListener('click',function(){loadFullPermits();});
-    pfload.appendChild(b);
-  }else{
-    pfload.textContent='טוען את הרשימה המלאה…';
-  }
+  if(fullFailed)showRetry();
+  else pfload.textContent='טוען את הרשימה המלאה…';
 }
 function loadFullPermits(){
   if(fullLoaded)return Promise.resolve(true);
@@ -1130,7 +1139,7 @@ function evidenceOutsideSubset(){
   return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num];});
 }
 function checkSubsetAgainstEvidence(){
-  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset())loadFullPermits();
+  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset()){evidenceNeedsFull=true;loadFullPermits();}
 }
 document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
 fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
@@ -1142,7 +1151,7 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
   checkSubsetAgainstEvidence();
 }).catch(function(){
   // No subset (an older deploy, or a fetch error): fall back to the full list.
-  window.__permitsDefaultFailed=true;loadFullPermits();
+  defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
 });
 sortRows();
 apply();
