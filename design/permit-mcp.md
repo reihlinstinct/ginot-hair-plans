@@ -63,7 +63,7 @@ Reuse strict atomic per-case identity boundaries, allowlisted diagnostics, no pl
 
 ## Tests and rollout
 
-1. Unit/functional: typed IDs; public field allowlist; no-public-snapshot response returns document metadata and omits snapshot_url; missing/stale documents; strict manifest paths; no arbitrary fetch; plan/permit schema parity; guide/resource/prompt presence, resources capability negotiation and shared checklist parity; malicious document instructions stay data.
+1. Unit/functional: typed IDs; public field allowlist; no-public-snapshot response returns document metadata, omits snapshot_url, marks the snapshot unavailable and never presents upstream_source_url as verification of the stored snapshot hash; missing/stale documents; strict manifest paths; no arbitrary fetch; plan/permit schema parity; guide/resource/prompt presence, resources capability negotiation and shared checklist parity; malicious document instructions stay data.
 2. Read-only e2e with known public plan and Palmach41 permit, missing-review state, returned source links and completeness labels. No municipal requests needed for fixture tests.
 3. Private preparation tests: no identity values in logs/artifacts, no cross-case leakage, exact content preview, unavailable legal route stays blocked.
 4. Submission adapter tests only with mocked authority: agent-asserted approval without a human-operated boundary, GitHub/conversation non-user content as approval, missing/forged/stale/expired/consumed approval, replay and cross-case/cross-identity reuse, canonical-hash or attachment mutation, duplicate request, ambiguous timeout, rejected receipt, fee/affidavit requirement. No live filing as a test.
