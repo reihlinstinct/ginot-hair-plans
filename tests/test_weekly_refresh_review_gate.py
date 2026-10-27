@@ -11,7 +11,7 @@ def test_weekly_refresh_stages_data_without_self_merge_or_deployment():
     assert 'awaiting independent and exact-head Claude reviews' in workflow
     for forbidden in ('gh pr merge', '--admin', 'gh pr update-branch',
                       '/approve', '/pages/builds', 'refs/heads/mirror',
-                      '--force', 'gh workflow run'):
+                      '--force', 'gh workflow run', '/merge', 'HEAD:main'):
         assert forbidden not in workflow
     assert 'scripts/land_feed.py' in workflow
     assert 'python3 -u refresh.py' in workflow
@@ -25,3 +25,12 @@ def test_weekly_refresh_regenerates_after_reconciliation_before_commit():
     check = workflow.index('python3 scripts/ci/check_docs_fresh.py\n', render)
     commit = workflow.index('git commit -m')
     assert reset < render < check < commit
+
+
+def test_weekly_refresh_has_only_required_write_permissions():
+    workflow = (ROOT / '.github/workflows/weekly-refresh.yml').read_text()
+    permissions = workflow.split('permissions:\n', 1)[1].split('\njobs:', 1)[0]
+    assert 'actions: write' not in permissions
+    assert 'pages: write' not in permissions
+    assert 'contents: write' in permissions
+    assert 'pull-requests: write' in permissions
