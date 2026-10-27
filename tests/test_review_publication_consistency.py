@@ -20,6 +20,9 @@ def assert_no_future_publication(root):
             text = re.sub(r'(?m)^([ \t]*(?:[-+*] |#{1,6} |\|))', r'. \1', review.read_text())
             normalized = re.sub(r'[\s*_`]+', ' ', text)
             # A dot within a number/date is not a sentence terminator.
+            # Deliberate boundary: a terminal dot after a date ends the claim.
+            # Cross-sentence implications still require human review; this guard
+            # does not infer that "ב-25.10. טרם" refers to the preceding subject.
             gap = r'(?:[^.!?]|(?<=\d)\.(?=\d))*'
             stale = (
                 rf'חלון (?:ה)?התנגדויות{gap}טרם נפתח'
@@ -60,6 +63,9 @@ def _fixture(root, phrase='', duplicate_only=False):
     'פרסום בעיתונים טרם בוצע',
     'פרסום ההפקדה בעיתונים: עתידי',
     'חלון\nההתנגדויות טרם נפתח',
+    'חלון_ההתנגדויות טרם נפתח',
+    '`פרסום` בעיתונים טרם בוצע',
+    '**חלון** ההתנגדויות טרם נפתח',
     'פרסום בעיתונים, שתוכנן ל-16.10.2026, טרם בוצע',
     'חלון ההתנגדויות (60 יום מ-25.10) טרם נפתח',
     'חלון ההתנגדויות ' + 'לפי המידע הזמין כעת ' * 8 + 'טרם נפתח',
@@ -97,4 +103,9 @@ def test_checker_reads_only_the_given_root(tmp_path, monkeypatch):
         return real(path, *args, **kwargs)
 
     monkeypatch.setattr(Path, 'read_text', guarded)
+    assert_no_future_publication(tmp_path)
+
+
+def test_terminal_dot_is_a_documented_sentence_boundary(tmp_path):
+    _fixture(tmp_path, 'חלון ההתנגדויות ב-25.10. טרם נפתח')
     assert_no_future_publication(tmp_path)
