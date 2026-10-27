@@ -23,10 +23,12 @@ def assert_no_future_publication(root):
             # In-token punctuation (dates, URLs, abbreviations) is not a terminator.
             # Missing-space sentence punctuation is conservatively treated as
             # in-token punctuation: it can fail closed and needs human review.
-            # Deliberate boundary: a terminal dot after a date ends the claim.
+            # Ellipses fail closed even at real sentence ends.
+            # Deliberate boundary: a terminal dot after a date or abbreviation
+            # ends the claim; no linguistic abbreviation inference is attempted.
             # Cross-sentence implications still require human review; this guard
             # does not infer that "ב-25.10. טרם" refers to the preceding subject.
-            gap = r'(?:[^.!?]|[.!?](?=\S))*'
+            gap = r'(?:[^.!?]|[.!?](?=\S)|\.{2,}(?=\s))*'
             stale = (
                 rf'חלון (?:ה)?התנגדויות{gap}טרם נפתח'
                 rf'|פרסום (?:ההפקדה )?בעיתונים{gap}(?:עתידי|טרם בוצע)'
@@ -63,6 +65,7 @@ def _fixture(root, phrase='', duplicate_only=False):
 
 @pytest.mark.parametrize('phrase', [
     'חלון התנגדויות: **טרם נפתח**',
+    'חלון ההתנגדויות... טרם נפתח',
     'פרסום בעיתונים טרם בוצע',
     'פרסום בעיתונים https://mavat.iplan.gov.il/x טרם בוצע',
     'פרסום בעיתונים https://mavat.iplan.gov.il/x?q=a!b טרם בוצע',
@@ -133,3 +136,14 @@ def test_missing_space_period_conservatively_fails_closed(tmp_path):
     _fixture(tmp_path, 'חלון ההתנגדויות נפתח.השלב הבא טרם נפתח')
     with pytest.raises(AssertionError):
         assert_no_future_publication(tmp_path)
+
+
+def test_ellipsis_conservatively_fails_closed(tmp_path):
+    _fixture(tmp_path, 'חלון ההתנגדויות נפתח... השלב הבא טרם נפתח')
+    with pytest.raises(AssertionError):
+        assert_no_future_publication(tmp_path)
+
+
+def test_trailing_abbreviation_dot_is_a_documented_boundary(tmp_path):
+    _fixture(tmp_path, 'חלון ההתנגדויות לפי ת.ב.ע. המקומית טרם נפתח')
+    assert_no_future_publication(tmp_path)
