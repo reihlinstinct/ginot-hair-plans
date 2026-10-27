@@ -25,4 +25,13 @@ routing, not blanket authorization for every collector's successor.
 These changes preserve pending PR branches, data and checkpoints. They do not
 cancel old jobs automatically: any already-running old workflow still uses its
 old source. Check and stop a known bypass runner before trusting these changes.
-Weekly-refresh's equivalent review gate is tracked in #582.
+Weekly-refresh's equivalent review gate is proposed in PR #582; it is not
+enforced on main until that PR is reviewed and merged.
+
+## Enforcement limit
+
+This is a workflow/process gate, not a claim that administrative bypass is
+technically impossible. PRs created with REFRESH_DISPATCH_TOKEN can still be
+admin-merged by a sufficiently privileged owner or token if repository rules
+permit it. Follow-up #586 audits ruleset/branch protection and administrator
+bypass policy. Never use that privilege to skip the agreed reviews or CI.
