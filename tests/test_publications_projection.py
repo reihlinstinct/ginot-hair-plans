@@ -79,7 +79,13 @@ def test_publication_producer_updates_evidence_dependent_subset(tmp_path, monkey
     (tmp_path / 'docs').mkdir()
     permits = tmp_path / 'data/permit_requests.json'
     permits.write_text(json.dumps({'requests': [
-        {'tik_num': '2026/0999.00', 'status': 'שולמה מקדמה', 'address': 'בדיקה 1'}]}))
+        {'tik_num': '2026/0999.00', 'status': 'שולמה מקדמה', 'address': 'בדיקה 1',
+         'gush': 30007, 'helka': 12}]}))
+    (tmp_path / 'data/ginot_hair_parcels.geojson').write_text(json.dumps({
+        'type': 'FeatureCollection', 'features': [{
+            'type': 'Feature', 'properties': {'gush': 30007, 'helka': 12},
+            'geometry': {'type': 'Polygon', 'coordinates': [[[35.2, 31.7],
+                [35.21, 31.7], [35.21, 31.71], [35.2, 31.71], [35.2, 31.7]]]}}]}))
     publications = tmp_path / 'data/publications_active.json'
     publications.write_text('[]')
     render_site([], [], 'docs', permits_path=str(permits))
@@ -111,6 +117,7 @@ def test_publication_producer_updates_evidence_dependent_subset(tmp_path, monkey
         module.main()
     daily = subset.read_bytes()
     assert '2026/0999.00' in daily.decode()
+    assert 'אין מיקום' not in daily.decode()
     render_site([], [], str(tmp_path / 'expected'), permits_path=str(permits))
     assert daily == (tmp_path / 'expected/permits-default.html').read_bytes()
     assert 'docs/permits-default.html' in module.FILES
