@@ -2,7 +2,7 @@
 import json
 from pathlib import Path
 
-PUBLIC_FIELDS = ('tik_num', 'objection_deadline', 'in_polygon')
+PUBLIC_FIELDS = ('tik_num', 'objection_deadline', 'in_polygon', 'publication_date')
 
 
 def write_projection(source, destination):

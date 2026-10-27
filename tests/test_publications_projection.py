@@ -50,7 +50,7 @@ def test_daily_and_site_projection_bytes_identical(tmp_path, monkeypatch):
     assert path.read_bytes() == site_bytes
     rows = json.loads(site_bytes)
     assert len(rows) == 2  # Scope preserved, not silently narrowed to in_polygon=true.
-    assert all(set(row) == {'tik_num', 'in_polygon', 'objection_deadline'} for row in rows)
+    assert all(set(row) == {'tik_num', 'in_polygon', 'objection_deadline', 'publication_date'} for row in rows)
 
 
 def test_daily_publisher_refuses_invalid_source_before_network(tmp_path, monkeypatch):
