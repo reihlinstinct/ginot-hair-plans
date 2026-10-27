@@ -616,7 +616,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
-            f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}'"
+            f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}' data-statusdate='{_iso(p.get('status_date'))}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(address_text)}{address_note_html}</td>"
@@ -624,7 +624,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f"<td>{_e(sug)}</td>"
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
             f"<td>{_date_cell(p.get('status_date'))}</td>"
-            f"<td>{pub_cell}</td>"
+            f"<td data-publication-cell>{pub_cell}</td>"
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
             f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
@@ -693,6 +693,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
 בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
 שהבקשה ישנה או שלא פורסמה.
+פרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;
+אין בכך אישור למועד התנגדות שאינו ידוע.
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
 עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
@@ -810,7 +812,11 @@ function match(r){
   // no end date = stays visible (deadline unknown, not elapsed).
   if(g==='obj'&&pfopenonly&&pfopenonly.checked){
     var pe=r.getAttribute('data-pubend');
-    if(pe&&pe<TODAY)return false;
+    var evidence=r.getAttribute('data-publication-evidence')||'';
+    // Keep raw planned end, but a later official publication makes that old
+    // window stale. The new deadline remains unknown, not auto-extended.
+    var superseded=validIso(evidence)&&validIso(pe)&&evidence>pe;
+    if(pe&&pe<TODAY&&!superseded)return false;
   }
   if(!pfclosed.checked&&!pfstatus.value&&r.getAttribute('data-active')!=='1')return false;
   var q=normSearch(pfq.value.trim());
@@ -949,10 +955,52 @@ if(pfgroups){
     expanded=false;apply();
   });
 }
+// #573: a newer publication list can precede the permit-feed status update.
+// Overlay display evidence only. Never rewrite the raw source status or create
+// a deadline. Only confirmed in-scope, valid-dated, nonterminal rows qualify.
+// 90 days is a display-evidence freshness policy, NOT a legal deadline.
+var PUBLICATION_EVIDENCE_MAX_DAYS=90;
+var publicationEvidence=[];
+function applyPublicationEvidence(){
+  var byId={};
+  publicationEvidence.forEach(function(p){
+    if(p.in_polygon!==true||!validIso(p.publication_date))return;
+    var age=(Date.parse(TODAY+'T00:00:00Z')-Date.parse(p.publication_date+'T00:00:00Z'))/86400000;
+    if(age>=0&&age<=PUBLICATION_EVIDENCE_MAX_DAYS)byId[p.tik_num]=p;
+  });
+  rows.forEach(function(r){
+    var p=byId[r.getAttribute('data-tik')];
+    if(!p||r.getAttribute('data-active')!=='1')return;
+    var current=r.getAttribute('data-pub')||'';
+    // Feed status_date may be absent (all committed rows at this change);
+    // then only the recency/current-publication and conservative postpub guards apply.
+    var stage=r.getAttribute('data-statusdate')||'';
+    var group=r.getAttribute('data-group');
+    if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
+    if(validIso(stage)&&p.publication_date<=stage)return;
+    // An older/repeated listing cannot resurrect a later workflow state.
+    if(validIso(current)&&p.publication_date<=current)return;
+    r.setAttribute('data-group','obj');
+    r.setAttribute('data-publication-evidence',p.publication_date);
+    r.setAttribute('data-pub',p.publication_date);
+    r.setAttribute('data-pubcat','dated');
+    var cell=r.querySelector('[data-publication-cell]');
+    if(cell){
+      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני)';
+      cell.setAttribute('data-iso',p.publication_date);
+    }
+  });
+}
+fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
+  if(!Array.isArray(list))throw new Error('invalid publication list');
+  publicationEvidence=list;applyPublicationEvidence();sortRows();rebuildDerived();apply();
+  window.__permitPublicationEvidenceLoaded=true;
+}).catch(function(){window.__permitPublicationEvidenceFailed=true;});
 fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   var tb=document.querySelector('#permits-table tbody');if(!tb)return;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  applyPublicationEvidence();
   sortRows();
   rebuildDerived();
   apply();

@@ -982,7 +982,7 @@ def test_render_site_removes_stale_official_projection(tmp_path):
     projection = out / 'publications_active.json'
     import json
     assert json.loads(projection.read_text()) == [{
-        'tik_num': '2026/0439.00', 'in_polygon': True, 'objection_deadline': '2026-11-13'}]
+        'tik_num': '2026/0439.00', 'in_polygon': True, 'objection_deadline': '2026-11-13', 'publication_date': None}]
     publications_path.unlink()
     render_site([], [], str(out), permits_path=str(permits_path))
     assert not projection.exists()

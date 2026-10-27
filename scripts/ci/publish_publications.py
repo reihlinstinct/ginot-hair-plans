@@ -1,26 +1,12 @@
-"""Publish only the two watch data files through a checked, text-only PR."""
+"""Stage scoped public watch data for independent review; never self-merge."""
 import json
 import os
 import subprocess
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src'))
 from ginot.publications import write_projection
-
-EXPECTED_CHECKS = {'test (3.11)', 'test (3.12)', 'test (3.13)', 'Analyze (actions)',
-                   'Analyze (python)', 'worker', 'site-browser (chromium)',
-                   'site-browser (webkit)', 'CodeQL'}
-
-
-def checks_pass(checks):
-    names = {c.get('name') for c in checks}
-    return EXPECTED_CHECKS <= names and all(
-        (c.get('state') == 'SUCCESS' if c.get('__typename') == 'StatusContext'
-         else c.get('conclusion') in ('SUCCESS', 'NEUTRAL', 'SKIPPED'))
-        for c in checks)
-
 
 FILES = ('data/publications_active.json', 'data/publications_new_latest.json',
          'docs/publications_active.json', 'docs/index.json')
@@ -40,12 +26,27 @@ def gh(*args, payload=None):
         return result.stdout
 
 
+def pending_publication_prs(repo):
+    # Paginated same-repo heads only. API/JSON errors propagate: fail closed.
+    prs = gh('api', '--paginate', '--slurp',
+             f'repos/{repo}/pulls?state=open&base=main&per_page=100')
+    if not isinstance(prs, list) or any(not isinstance(page, list) for page in prs):
+        raise RuntimeError('Invalid pending PR response')
+    return [pr['number'] for page in prs for pr in page
+            if ((pr.get('head') or {}).get('repo') or {}).get('full_name') == repo
+            and (pr.get('head') or {}).get('ref', '').startswith('publications/')]
+
+
 def main():
     subprocess.run(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
     # Public deadline-only projection follows every daily publication refresh.
     if not write_projection('data/publications_active.json', 'docs/publications_active.json'):
         raise RuntimeError('Publication source unavailable; refusing to publish a data PR')
     repo = os.environ['GITHUB_REPOSITORY']
+    pending = pending_publication_prs(repo)
+    if pending:
+        print(f'publication PR(s) awaiting review: {pending}; no new PR or head update')
+        return
     root = f'repos/{repo}'
     base = gh('api', f'{root}/git/ref/heads/main')['object']['sha']
     tree = gh('api', f'{root}/git/commits/{base}')['tree']['sha']
@@ -62,22 +63,10 @@ def main():
     gh('api', f'{root}/git/refs', payload={'ref': 'refs/heads/' + branch, 'sha': commit['sha']})
     pr = gh('api', f'{root}/pulls', payload={
         'title': 'Daily publications refresh', 'head': branch, 'base': 'main',
-        'body': 'Automated public publication baseline and alert payload (refs #527). Text-only data update.'})
+        'body': 'Automated public publication baseline and alert payload (refs #527). Text-only data update. Requires independent and exact-head Claude reviews, green CI and eligible approval before normal manual merge.'})
     print(pr['html_url'], flush=True)
-    # Never merge an empty check set, pending checks, or a failed check.
-    for _ in range(90):
-        state = gh('pr', 'view', str(pr['number']), '--repo', repo,
-                   '--json', 'headRefOid,statusCheckRollup')
-        checks = state['statusCheckRollup']
-        if checks_pass(checks):
-            gh('pr', 'merge', str(pr['number']), '--repo', repo, '--squash',
-               '--match-head-commit', state['headRefOid'])
-            return
-        if any(c.get('conclusion') in ('FAILURE', 'CANCELLED', 'TIMED_OUT', 'ACTION_REQUIRED')
-               or c.get('state') in ('FAILURE', 'ERROR') for c in checks):
-            raise RuntimeError('Data PR has failed checks; left open for review')
-        time.sleep(20)
-    raise RuntimeError('Data PR checks did not settle; left open for review')
+    print('awaiting independent and exact-head Claude reviews, green CI and eligible approval; '
+          'staged PR is not publication', flush=True)
 
 
 if __name__ == '__main__':
