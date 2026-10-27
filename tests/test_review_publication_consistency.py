@@ -21,6 +21,8 @@ def assert_no_future_publication(root):
             text = re.sub(r'(?m)^([ \t]*(?:[-+*] |#{1,6} |\||> ))', r'. \1', text)
             normalized = re.sub(r'[\s*_`]+', ' ', text)
             # In-token punctuation (dates, URLs, abbreviations) is not a terminator.
+            # Missing-space sentence punctuation is conservatively treated as
+            # in-token punctuation: it can fail closed and needs human review.
             # Deliberate boundary: a terminal dot after a date ends the claim.
             # Cross-sentence implications still require human review; this guard
             # does not infer that "ב-25.10. טרם" refers to the preceding subject.
@@ -62,6 +64,9 @@ def _fixture(root, phrase='', duplicate_only=False):
 @pytest.mark.parametrize('phrase', [
     'חלון התנגדויות: **טרם נפתח**',
     'פרסום בעיתונים טרם בוצע',
+    'פרסום בעיתונים https://mavat.iplan.gov.il/x טרם בוצע',
+    'פרסום בעיתונים https://mavat.iplan.gov.il/x?q=a!b טרם בוצע',
+    '> חלון ההתנגדויות טרם נפתח',
     'פרסום ההפקדה בעיתונים ([מקור](https://mavat.iplan.gov.il/x)) טרם בוצע',
     'חלון ההתנגדויות לפי ת.ב.ע המקומית טרם נפתח',
     'פרסום ההפקדה בעיתונים: עתידי',
@@ -122,3 +127,9 @@ def test_checker_isolation_accepts_symlink_root(tmp_path, monkeypatch):
     link = tmp_path / 'linked'
     link.symlink_to(actual, target_is_directory=True)
     test_checker_reads_only_the_given_root(link, monkeypatch)
+
+
+def test_missing_space_period_conservatively_fails_closed(tmp_path):
+    _fixture(tmp_path, 'חלון ההתנגדויות נפתח.השלב הבא טרם נפתח')
+    with pytest.raises(AssertionError):
+        assert_no_future_publication(tmp_path)
