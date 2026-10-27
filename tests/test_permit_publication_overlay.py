@@ -1,5 +1,6 @@
 """Execute the deployed overlay JS against row/cell stubs without network."""
 import json
+import re
 import subprocess
 from pathlib import Path
 
@@ -9,9 +10,10 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_new_publication_overlays_stale_tel_hai_status_but_not_deadline():
     source = (ROOT / 'src/ginot/page.py').read_text()
     overlay = source.split('function applyPublicationEvidence(){', 1)[1].split("fetch('publications_active.json')", 1)[0]
-    js = '''
+    policy = re.search(r'var PUBLICATION_EVIDENCE_MAX_DAYS=\d+;', source).group(0)
+    # Pin the clock fixture, but execute the deployed policy constant verbatim.
+    js = policy + '''
 const TODAY='2026-10-27';
-const PUBLICATION_EVIDENCE_MAX_DAYS=90;
 const original={"data-tik":"1975/0743.02","data-group":"review","data-active":"1",
 "data-status":"שולמה מקדמה","data-pub":"","data-pubend":""};
 function validIso(s){return /^\\d{4}-\\d{2}-\\d{2}$/.test(s||'')&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;}
@@ -33,13 +35,17 @@ for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:date}];
  applyPublicationEvidence();stageResults.push({...row.a});
 }
-console.log(JSON.stringify({results,stageResults}));
+row.a={...original};
+publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:'2026-07-29'}];
+applyPublicationEvidence();
+console.log(JSON.stringify({results,stageResults,boundary:{...row.a}}));
 '''
     r = subprocess.run(['node', '-e', js], text=True, capture_output=True, check=False)
     assert r.returncode == 0, r.stderr
     payload = json.loads(r.stdout)
     results = payload['results']
     stages = payload['stageResults']
+    assert payload['boundary']['data-group'] == 'obj'  # exactly90 days accepted
     assert [x['data-group'] for x in stages] == ['postpub', 'postpub', 'review', 'obj']
     first = results[0]
     assert first['attrs']['data-group'] == 'obj'
