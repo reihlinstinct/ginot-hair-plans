@@ -63,3 +63,17 @@ def test_git_auth_is_only_enabled_after_dependency_preflight():
     assert workflow.count('gh auth setup-git') == 1
     assert workflow.index('gh auth setup-git') > workflow.index('--check-dependencies')
     assert workflow.index('gh auth setup-git') > workflow.index('- name: Publish changes as a PR')
+
+
+def test_publication_watch_prepares_renderer_before_any_network_work():
+    workflow = (ROOT / '.github/workflows/rishui-publish-watch.yml').read_text()
+    install = workflow.index('pip install --only-binary=:all: -r requirements.txt')
+    smoke = workflow.index('python3 scripts/render_permits_page.py --check-dependencies')
+    reuse = workflow.index('- name: Reuse verified probe output without fetching')
+    assert install < smoke < workflow.index('scripts/vpn/l2tp.py up')
+    assert smoke < workflow.index('scripts/ci/publish_publications.py')
+    assert 'actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0' in workflow
+    assert 'python-version: "3.12"' in workflow
+    assert smoke < reuse
+    checkout = workflow.split('- uses: actions/checkout@', 1)[1].split('- uses:', 1)[0]
+    assert 'persist-credentials: false' in checkout

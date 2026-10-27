@@ -52,6 +52,21 @@ jobs:
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         if: ${{ steps.pending.outputs.pending != 'true' }}
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v6
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        with:
+          python-version: "3.12"
+
+      - name: Install publication renderer dependencies
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        run: pip install --only-binary=:all: -r requirements.txt
+
+      - name: Check publication renderer dependencies before network work
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        run: python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Reuse verified probe output without fetching
         if: ${{ steps.pending.outputs.pending != 'true' && (inputs.reuse_probe_run_id != '') }}
