@@ -38,13 +38,18 @@ for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub
 row.a={...original};
 publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:'2026-07-29'}];
 applyPublicationEvidence();
-console.log(JSON.stringify({results,stageResults,boundary:{...row.a}}));
+const boundary={...row.a};
+row.a={...original};
+publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY}];
+applyPublicationEvidence();
+console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
 '''
     r = subprocess.run(['node', '-e', js], text=True, capture_output=True, check=False)
     assert r.returncode == 0, r.stderr
     payload = json.loads(r.stdout)
     results = payload['results']
     stages = payload['stageResults']
+    assert payload['today']['data-group'] == 'obj'  # same-day evidence accepted
     assert payload['boundary']['data-group'] == 'obj'  # exactly90 days accepted
     assert [x['data-group'] for x in stages] == ['postpub', 'postpub', 'review', 'obj']
     first = results[0]
