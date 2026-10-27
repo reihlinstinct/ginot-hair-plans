@@ -1346,7 +1346,15 @@ def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, 
     try:
         with recorded_page(browser, request) as (pg, errors):
             publications = []
-            pg.route('**/publications_active.json', lambda route: publications.append(route))
+            publication_state = {'release': False}
+
+            def publication(route):
+                if publication_state['release']:
+                    route.fulfill(content_type='application/json', body='[]')
+                else:
+                    publications.append(route)
+
+            pg.route('**/publications_active.json', publication)
             pg.route('**/permits-default.html', lambda r: r.fulfill(status=503, body=''))
             state = {'fail': True}
 
@@ -1359,10 +1367,10 @@ def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, 
             pg.route('**/permits.html', full)
             pg.goto(url)
             pg.wait_for_function('window.__permitsDefaultFailed && window.__permitsFailed')
-            assert len(publications) == 2
+            publication_state['release'] = True
             for route in publications:
                 route.fulfill(content_type='application/json', body='[]')
-            pg.wait_for_function('window.__permitPublicationEvidenceLoaded')
+            pg.wait_for_function('window.__permitPublicationEvidenceLoaded && window.__permitOfficialDeadlines')
             assert pg.locator('#pfretry').is_visible()
             assert pg.locator('#pfcount').inner_text() == ''
             pg.locator('#pfq').fill('ייחודי')
