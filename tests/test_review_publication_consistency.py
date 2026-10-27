@@ -17,13 +17,14 @@ def assert_no_future_publication(root):
             continue
         for review in path.parent.glob('analysis/*.md'):
             # Ignore Markdown emphasis and wrapping, not the claim's meaning.
-            text = re.sub(r'(?m)^([ \t]*(?:[-+*] |#{1,6} |\|))', r'. \1', review.read_text())
+            text = re.sub(r'(?m)^([ \t]*#{1,6} .*)$', r'\1. ', review.read_text())
+            text = re.sub(r'(?m)^([ \t]*(?:[-+*] |#{1,6} |\||> ))', r'. \1', text)
             normalized = re.sub(r'[\s*_`]+', ' ', text)
-            # A dot within a number/date is not a sentence terminator.
+            # In-token punctuation (dates, URLs, abbreviations) is not a terminator.
             # Deliberate boundary: a terminal dot after a date ends the claim.
             # Cross-sentence implications still require human review; this guard
             # does not infer that "ב-25.10. טרם" refers to the preceding subject.
-            gap = r'(?:[^.!?]|(?<=\d)\.(?=\d))*'
+            gap = r'(?:[^.!?]|[.!?](?=\S))*'
             stale = (
                 rf'חלון (?:ה)?התנגדויות{gap}טרם נפתח'
                 rf'|פרסום (?:ההפקדה )?בעיתונים{gap}(?:עתידי|טרם בוצע)'
@@ -49,7 +50,7 @@ def test_known_publication_dates_and_caveats():
 def _fixture(root, phrase='', duplicate_only=False):
     for number in ('101-1095330', '101-1386671'):
         plan = root / 'plans' / number
-        (plan / 'analysis').mkdir(parents=True)
+        (plan / 'analysis').mkdir(parents=True, exist_ok=True)
         status = 'אחר' if duplicate_only and number == '101-1386671' else 'פרסום להפקדה בעיתונים'
         (plan / 'plan.json').write_text(json.dumps({'land_status': status}))
         for filename in ('talking.md', 'objection.md'):
@@ -61,6 +62,8 @@ def _fixture(root, phrase='', duplicate_only=False):
 @pytest.mark.parametrize('phrase', [
     'חלון התנגדויות: **טרם נפתח**',
     'פרסום בעיתונים טרם בוצע',
+    'פרסום ההפקדה בעיתונים ([מקור](https://mavat.iplan.gov.il/x)) טרם בוצע',
+    'חלון ההתנגדויות לפי ת.ב.ע המקומית טרם נפתח',
     'פרסום ההפקדה בעיתונים: עתידי',
     'חלון\nההתנגדויות טרם נפתח',
     'חלון_ההתנגדויות טרם נפתח',
@@ -84,6 +87,8 @@ def test_review_floor_counts_plans_not_files(tmp_path):
 
 
 @pytest.mark.parametrize('text', [
+    '## חלון ההתנגדויות\n\nלתכנית אחרת: השלב הבא טרם נפתח',
+    '> חלון ההתנגדויות: ראו להלן\n> השלב הבא טרם נפתח',
     'חלון ההתנגדויות נפתח; פרסום ההפקדה בעיתונים בוצע. פיצוי עתידי דורש בדיקה.',
     'חלון ההתנגדויות נפתח ב-16.10.2026. השלב הבא טרם נפתח',
     '- חלון ההתנגדויות: ראו להלן\n- סטטוס התכנית: הפקדה; השלב הבא טרם נפתח',
@@ -99,7 +104,7 @@ def test_checker_reads_only_the_given_root(tmp_path, monkeypatch):
     real = Path.read_text
 
     def guarded(path, *args, **kwargs):
-        assert tmp_path in path.resolve().parents, path
+        assert tmp_path.resolve() in path.resolve().parents, path
         return real(path, *args, **kwargs)
 
     monkeypatch.setattr(Path, 'read_text', guarded)
@@ -109,3 +114,11 @@ def test_checker_reads_only_the_given_root(tmp_path, monkeypatch):
 def test_terminal_dot_is_a_documented_sentence_boundary(tmp_path):
     _fixture(tmp_path, 'חלון ההתנגדויות ב-25.10. טרם נפתח')
     assert_no_future_publication(tmp_path)
+
+
+def test_checker_isolation_accepts_symlink_root(tmp_path, monkeypatch):
+    actual = tmp_path / 'actual'
+    _fixture(actual)
+    link = tmp_path / 'linked'
+    link.symlink_to(actual, target_is_directory=True)
+    test_checker_reads_only_the_given_root(link, monkeypatch)
