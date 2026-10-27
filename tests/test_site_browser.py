@@ -70,6 +70,7 @@ REVIEW = [feat(f"300-{i}", "בדיקה תכנונית") for i in range(1, 5)]
 APPROVED = [feat(f"400-{i}", "אישור") for i in range(1, 4)]
 FEATURES = DEPOSIT + REVIEW + APPROVED
 
+
 def _permit(tik, status, address, pub=None, end=None):
     p = {
         "tik_num": tik,
@@ -115,6 +116,7 @@ PERMITS = [
     # malformed scraper date -> degrades to date-unknown, never a bogus date
     _permit("2020/0009.01", "בבדיקה", "שמאי 8", pub="2026-13-45"),
 ]
+
 
 @pytest.fixture(scope="module")
 def site(tmp_path_factory):
@@ -1037,6 +1039,7 @@ def test_urgent_permits_official_date_overrides_planned(
         assert '2026/0439.00' not in page.locator('#urgent-list').inner_text()
     finally:
         server.shutdown()
+
 
 def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser):
     from ginot.page import render_site

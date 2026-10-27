@@ -519,16 +519,22 @@ if(pfgroups){
 // #573: a newer publication list can precede the permit-feed status update.
 // Overlay display evidence only. Never rewrite the raw source status or create
 // a deadline. Only confirmed in-scope, valid-dated, nonterminal rows qualify.
+// 90 days is a display-evidence freshness policy, NOT a legal deadline.
+var PUBLICATION_EVIDENCE_MAX_DAYS=90;
 var publicationEvidence=[];
 function applyPublicationEvidence(){
   var byId={};
   publicationEvidence.forEach(function(p){
-    if(p.in_polygon===true&&validIso(p.publication_date))byId[p.tik_num]=p;
+    if(p.in_polygon!==true||!validIso(p.publication_date))return;
+    var age=(Date.parse(TODAY+'T00:00:00Z')-Date.parse(p.publication_date+'T00:00:00Z'))/86400000;
+    if(age>=0&&age<=PUBLICATION_EVIDENCE_MAX_DAYS)byId[p.tik_num]=p;
   });
   rows.forEach(function(r){
     var p=byId[r.getAttribute('data-tik')];
     if(!p||r.getAttribute('data-active')!=='1')return;
     var current=r.getAttribute('data-pub')||'';
+    // Feed status_date may be absent (all committed rows at this change);
+    // then only the recency/current-publication and conservative postpub guards apply.
     var stage=r.getAttribute('data-statusdate')||'';
     var group=r.getAttribute('data-group');
     if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
