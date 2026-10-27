@@ -10,6 +10,7 @@ code path as the weekly site build: no plan rows, no network. It runs in
 the permit-feed publish step under set -e, so a render failure fails the
 run red instead of silently shipping stale rows.
 """
+import argparse
 import json
 import os
 import sys
@@ -25,6 +26,13 @@ IDS_OUT = "docs/permit-ids.json"  # read by the submit worker (#515)
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check-dependencies', action='store_true',
+                        help='Check imports without reading or changing data')
+    args = parser.parse_args()
+    if args.check_dependencies:
+        print('permit renderer dependencies available')
+        return 0
     with open(DATA, encoding="utf-8") as fh:
         permits = json.load(fh).get("requests", [])
     if not permits:

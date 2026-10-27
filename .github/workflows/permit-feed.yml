@@ -76,6 +76,8 @@ jobs:
     timeout-minutes: 355
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
 
       - name: Resolve run inputs (dispatch inputs, or data/backfill_request.json on push)
         run: |
@@ -102,6 +104,15 @@ jobs:
           PY
         env:
           INPUTS_JSON: ${{ toJSON(inputs) }}
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Install and check permit renderer dependencies
+        run: |
+          python3 -m pip install --only-binary=:all: -r requirements.txt
+          python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Stop while a permit-feed data PR awaits review
         env:
@@ -265,6 +276,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git stash push --include-untracked -m feed-output -- data/
+          gh auth setup-git
           git fetch origin main
           git reset --hard origin/main
           if ! git stash pop; then
