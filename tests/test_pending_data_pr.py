@@ -103,6 +103,9 @@ def test_too_many_pages_fails_closed(monkeypatch):
             ]
         ),
         json.dumps([None]),
+        # a deleted fork (repo null) is still validated before it is skipped
+        json.dumps([{"number": 1, "head": {"repo": None}}]),
+        json.dumps([{"number": "1", "head": {"ref": "x", "repo": None}}]),
         # head without a repo key at all: only an explicit null means a deleted fork
         json.dumps([{"number": 1, "head": {"ref": "weekly-refresh/x"}}]),
         # head.repo present but without a usable full_name (LOW2, review 6438759110)

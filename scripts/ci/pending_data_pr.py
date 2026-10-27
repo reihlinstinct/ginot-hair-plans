@@ -87,6 +87,15 @@ def pending_prs(repo, prefix, base=None, fetch=_gh_page):
             if not isinstance(pr, dict) or not isinstance(pr.get("head"), dict):
                 raise GuardError(f"malformed PR entry on page {page}")
             head = pr["head"]
+            ref = head.get("ref")
+            number = pr.get("number")
+            # Validate every entry, a deleted fork included, before any skip.
+            if (
+                not isinstance(ref, str)
+                or isinstance(number, bool)
+                or not isinstance(number, int)
+            ):
+                raise GuardError(f"malformed PR entry on page {page}")
             if "repo" not in head:
                 raise GuardError(f"malformed head.repo on page {page}")
             head_repo = head["repo"]
@@ -95,14 +104,7 @@ def pending_prs(repo, prefix, base=None, fetch=_gh_page):
             if not isinstance(head_repo, dict):
                 raise GuardError(f"malformed head.repo on page {page}")
             full_name = head_repo.get("full_name")
-            ref = head.get("ref")
-            number = pr.get("number")
-            if (
-                not isinstance(full_name, str)
-                or not isinstance(ref, str)
-                or isinstance(number, bool)
-                or not isinstance(number, int)
-            ):
+            if not isinstance(full_name, str):
                 raise GuardError(f"malformed PR entry on page {page}")
             if full_name.lower() == repo.lower() and ref.startswith(prefix):
                 found.append(number)
