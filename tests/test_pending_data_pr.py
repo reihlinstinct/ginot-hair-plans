@@ -103,6 +103,25 @@ def test_too_many_pages_fails_closed(monkeypatch):
             ]
         ),
         json.dumps([None]),
+        # head.repo present but without a usable full_name (LOW2, review 6438759110)
+        json.dumps([{"number": 1, "head": {"ref": "weekly-refresh/x", "repo": {}}}]),
+        json.dumps(
+            [
+                {
+                    "number": 1,
+                    "head": {"ref": "weekly-refresh/x", "repo": {"full_name": None}},
+                }
+            ]
+        ),
+        # bool is an int subclass; True is not a PR number (NIT4)
+        json.dumps(
+            [
+                {
+                    "number": True,
+                    "head": {"ref": "weekly-refresh/x", "repo": {"full_name": REPO}},
+                }
+            ]
+        ),
     ],
 )
 def test_malformed_pages_fail_closed(page):
@@ -169,3 +188,54 @@ def test_real_fetch_requests_explicit_page_and_base(monkeypatch):
     assert seen == [
         ["gh", "api", f"repos/{REPO}/pulls?state=open&base=main&per_page=100&page=1"]
     ]
+
+
+def test_repo_name_comparison_ignores_case():
+    # LOW1 (review 6438759110): GitHub names are case-insensitive, so a case
+    # mismatch between --repo and head.repo.full_name must not fail open.
+    pages = [[pr(12, "weekly-refresh/x", repo="Owner/Data-Repo")]]
+    assert guard.pending_prs(REPO, PREFIX, fetch=fake(pages)) == [12]
+    assert guard.pending_prs(
+        "OWNER/DATA-REPO", PREFIX, fetch=fake([[pr(13, "weekly-refresh/y")]])
+    ) == [13]
+
+
+def test_draft_prs_count_as_pending():
+    entry = pr(14, "weekly-refresh/x")
+    entry["draft"] = True
+    assert guard.pending_prs(REPO, PREFIX, fetch=fake([[entry]])) == [14]
+
+
+def test_default_counts_prs_to_any_base(monkeypatch):
+    # LOW3: without --base, no base filter is sent, so a data PR that targets a
+    # non-default branch still counts as pending.
+    calls = []
+    assert guard.pending_prs(REPO, PREFIX, fetch=fake([[]], calls)) == []
+    assert calls == [(REPO, None, 1)]
+    seen = []
+
+    class Result:
+        returncode = 0
+        stdout = "[]"
+
+    def run(cmd, **kwargs):
+        seen.append(cmd)
+        return Result()
+
+    monkeypatch.setattr(guard.subprocess, "run", run)
+    assert guard.main(["--repo", REPO, "--prefix", PREFIX]) == 0
+    assert seen == [["gh", "api", f"repos/{REPO}/pulls?state=open&per_page=100&page=1"]]
+
+
+def test_missing_gh_fails_closed(monkeypatch, capsys):
+    # NIT5: a missing gh executable is a clean guard error, not a traceback.
+    def run(*args, **kwargs):
+        raise FileNotFoundError("gh")
+
+    monkeypatch.setattr(guard.subprocess, "run", run)
+    with pytest.raises(guard.GuardError):
+        guard.pending_prs(REPO, PREFIX)
+    assert guard.main(["--repo", REPO, "--prefix", PREFIX]) == 1
+    captured = capsys.readouterr()
+    assert "pending=" not in captured.out
+    assert "failed closed" in captured.err

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Report whether a same-repo data PR with a given branch prefix awaits review.
 
-Usage: pending_data_pr.py --repo OWNER/NAME --prefix weekly-refresh/ [--base main]
+Usage: pending_data_pr.py --repo OWNER/NAME --prefix weekly-refresh/ [--base BRANCH]
 
 Scheduled data workflows call this before any network fetch, VPN or tunnel so a
 run never stacks a second data PR while one is still waiting for independent
@@ -9,12 +9,22 @@ review (refs #564).
 
 Rules:
 - Lists open PRs page by page (``per_page=100&page=N``) until a short page.
+  Draft PRs are open PRs, so they count as pending too.
+- By default PRs targeting ANY base branch count: a data PR opened against a
+  non-default branch is still unreviewed data. ``--base`` narrows the check to
+  one base branch only when a caller explicitly wants that.
 - Counts only PRs whose head is in this same repository and whose head ref
-  starts with the prefix. Fork PRs, and PRs from deleted forks
+  starts with the prefix. The repository comparison ignores case, as GitHub
+  owner and repository names do. Fork PRs, and PRs from deleted forks
   (``head.repo: null``), never count: these workflows only push same-repo
   branches.
-- Fails closed: any ``gh`` error, non-JSON or non-list page, malformed entry,
-  or more than ``MAX_PAGES`` pages exits 1 without a verdict.
+- Fails closed: a missing or failing ``gh``, non-JSON or non-list page,
+  malformed entry (including a ``head.repo`` without a string ``full_name``,
+  or a non-integer or boolean ``number``), or more than ``MAX_PAGES`` pages
+  exits 1 without a verdict.
+
+Callers need ``GH_TOKEN`` with ``pull-requests: read`` (wired separately from
+this helper).
 
 Output: ``pending=true|false`` and ``pending_prs=<numbers>`` on stdout and, when
 set, appended to ``$GITHUB_OUTPUT``. Exit 0 whenever a verdict was reached.
@@ -36,14 +46,20 @@ class GuardError(Exception):
 
 
 def _gh_page(repo, base, page):
-    path = f"repos/{repo}/pulls?state=open&base={base}&per_page={PER_PAGE}&page={page}"
-    r = subprocess.run(["gh", "api", path], capture_output=True, text=True, check=False)
+    query = "state=open" + (f"&base={base}" if base else "")
+    path = f"repos/{repo}/pulls?{query}&per_page={PER_PAGE}&page={page}"
+    try:
+        r = subprocess.run(
+            ["gh", "api", path], capture_output=True, text=True, check=False
+        )
+    except OSError as exc:
+        raise GuardError(f"gh could not be started on page {page}") from exc
     if r.returncode != 0:
         raise GuardError(f"gh api failed on page {page} (exit {r.returncode})")
     return r.stdout
 
 
-def pending_prs(repo, prefix, base="main", fetch=_gh_page):
+def pending_prs(repo, prefix, base=None, fetch=_gh_page):
     """Return sorted numbers of same-repo open PRs whose head ref has prefix."""
     if not prefix:
         raise GuardError("empty branch prefix")
@@ -65,11 +81,17 @@ def pending_prs(repo, prefix, base="main", fetch=_gh_page):
                 continue  # deleted fork: cannot be one of our branches
             if not isinstance(head_repo, dict):
                 raise GuardError(f"malformed head.repo on page {page}")
+            full_name = head_repo.get("full_name")
             ref = head.get("ref")
             number = pr.get("number")
-            if not isinstance(ref, str) or not isinstance(number, int):
+            if (
+                not isinstance(full_name, str)
+                or not isinstance(ref, str)
+                or isinstance(number, bool)
+                or not isinstance(number, int)
+            ):
                 raise GuardError(f"malformed PR entry on page {page}")
-            if head_repo.get("full_name") == repo and ref.startswith(prefix):
+            if full_name.lower() == repo.lower() and ref.startswith(prefix):
                 found.append(number)
         if len(items) < PER_PAGE:
             return sorted(found)
@@ -80,7 +102,7 @@ def main(argv=None, fetch=_gh_page):
     ap = argparse.ArgumentParser()
     ap.add_argument("--repo", required=True)
     ap.add_argument("--prefix", required=True)
-    ap.add_argument("--base", default="main")
+    ap.add_argument("--base", default=None)
     args = ap.parse_args(argv)
     try:
         prs = pending_prs(args.repo, args.prefix, args.base, fetch=fetch)
