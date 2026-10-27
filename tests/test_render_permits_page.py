@@ -108,7 +108,7 @@ def test_permit_ai_review_column_links_published_review_and_labels_missing():
     assert '<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>' in html
     assert "href='reviews/palmach41/review-2026-0439.00.html'" in html
     assert 'טרם פורסמה סקירה' in html
-    assert html.count('<td>') == 18
+    assert html.count('<td') == 18
     assert 'אינו מסמך רשמי' in html
 
 

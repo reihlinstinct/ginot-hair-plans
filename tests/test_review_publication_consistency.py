@@ -17,10 +17,13 @@ def assert_no_future_publication(root):
             continue
         for review in path.parent.glob('analysis/*.md'):
             # Ignore Markdown emphasis and wrapping, not the claim's meaning.
-            normalized = re.sub(r'[\s*_`]+', ' ', review.read_text())
+            text = re.sub(r'(?m)^([ \t]*(?:[-+*] |#{1,6} |\|))', r'. \1', review.read_text())
+            normalized = re.sub(r'[\s*_`]+', ' ', text)
+            # A dot within a number/date is not a sentence terminator.
+            gap = r'(?:[^.!?]|(?<=\d)\.(?=\d))*'
             stale = (
-                r'חלון (?:ה)?התנגדויות[^.!?\n]*טרם נפתח'
-                r'|פרסום (?:ההפקדה )?בעיתונים[^.!?\n]*(?:עתידי|טרם בוצע)'
+                rf'חלון (?:ה)?התנגדויות{gap}טרם נפתח'
+                rf'|פרסום (?:ההפקדה )?בעיתונים{gap}(?:עתידי|טרם בוצע)'
             )
             assert not re.search(stale, normalized), str(review)
             checked.add(path.parent.name)
@@ -57,6 +60,8 @@ def _fixture(root, phrase='', duplicate_only=False):
     'פרסום בעיתונים טרם בוצע',
     'פרסום ההפקדה בעיתונים: עתידי',
     'חלון\nההתנגדויות טרם נפתח',
+    'פרסום בעיתונים, שתוכנן ל-16.10.2026, טרם בוצע',
+    'חלון ההתנגדויות (60 יום מ-25.10) טרם נפתח',
     'חלון ההתנגדויות ' + 'לפי המידע הזמין כעת ' * 8 + 'טרם נפתח',
     'פרסום בעיתונים ' + 'לפי המידע הזמין כעת ' * 8 + 'טרם בוצע',
 ])
@@ -72,15 +77,24 @@ def test_review_floor_counts_plans_not_files(tmp_path):
         assert_no_future_publication(tmp_path)
 
 
-def test_current_publication_and_unrelated_future_text_are_allowed(tmp_path):
-    _fixture(tmp_path,
-             'חלון ההתנגדויות נפתח; פרסום ההפקדה בעיתונים בוצע. פיצוי עתידי דורש בדיקה.')
+@pytest.mark.parametrize('text', [
+    'חלון ההתנגדויות נפתח; פרסום ההפקדה בעיתונים בוצע. פיצוי עתידי דורש בדיקה.',
+    'חלון ההתנגדויות נפתח ב-16.10.2026. השלב הבא טרם נפתח',
+    '- חלון ההתנגדויות: ראו להלן\n- סטטוס התכנית: הפקדה; השלב הבא טרם נפתח',
+    '| חלון ההתנגדויות: ראו להלן |\n| סטטוס התכנית: הפקדה; השלב הבא טרם נפתח |',
+])
+def test_current_publication_and_unrelated_future_text_are_allowed(tmp_path, text):
+    _fixture(tmp_path, text)
     assert_no_future_publication(tmp_path)
 
 
-def test_unit_fixture_does_not_read_repository_docs(tmp_path, monkeypatch):
-    def forbidden_read(*args, **kwargs):
-        raise AssertionError('unit fixture must not read live repository docs')
-
-    monkeypatch.setattr(Path, 'read_text', forbidden_read)
+def test_checker_reads_only_the_given_root(tmp_path, monkeypatch):
     _fixture(tmp_path)
+    real = Path.read_text
+
+    def guarded(path, *args, **kwargs):
+        assert tmp_path in path.resolve().parents, path
+        return real(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, 'read_text', guarded)
+    assert_no_future_publication(tmp_path)
