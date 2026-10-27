@@ -1359,6 +1359,12 @@ def test_subset_and_full_failure_offer_retry_in_default_view(tmp_path, browser, 
             pg.wait_for_function('window.__permitsDefaultFailed && window.__permitsFailed')
             assert pg.locator('#pfretry').is_visible()
             assert pg.locator('#pfcount').inner_text() == ''
+            pg.locator('#pfq').fill('ייחודי')
+            assert pg.locator('#pfretry').is_visible()
+            assert pg.locator('#pfcount').inner_text() == ''
+            pg.locator('#pfreset').click()
+            assert pg.locator('#pfretry').is_visible()
+            assert pg.locator('#pfcount').inner_text() == ''
             state['fail'] = False
             pg.locator('#pfretry').click()
             pg.wait_for_function('window.__permitsLoaded')
