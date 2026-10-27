@@ -196,20 +196,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16461134,
-    "tik_num": "1987/0225.03",
-    "street": "הקרן הקיימת לישראל",
-    "house_number": "28",
-    "neighborhood": "נחלאות, שערי חסד",
-    "place_description": null,
-    "publication_date": "2026-09-06",
-    "objection_deadline": null,
-    "ed700": "2026-09-03",
-    "connected_rec_id": 1262872,
-    "doc_id": "2a8ffb16-ebf2-4a82-938c-f10a56584934",
-    "in_polygon": null
-  },
-  {
     "myIndex": 16528167,
     "tik_num": "1989/0769.03",
     "street": "דרך עזה",
@@ -1718,7 +1704,7 @@
     "objection_deadline": "2026-11-13",
     "ed700": "2026-09-24",
     "connected_rec_id": null,
-    "doc_id": null,
+    "doc_id": "c47d28af-0588-4ae4-8aa2-056fac3210b6",
     "in_polygon": true
   }
 ]
