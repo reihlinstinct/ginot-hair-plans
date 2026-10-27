@@ -58,11 +58,12 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
     def pr(repo, ref):
         return {'number': 17, 'head': {'ref': ref, 'repo': {'full_name': repo}}}
 
-    cases = [([], '0', 0), ([pr('test/repo', 'publications/batch')], '0', 0),
-             ([pr('fork/repo', 'publications/batch')], '0', 0),
-             ([pr('test/repo', 'unrelated')], '0', 0),
-             ([], '42', 42)]
-    for pending, status, expected in cases:
+    cases = [([], '0', 0, 'pending=false'),
+             ([pr('test/repo', 'publications/batch')], '0', 0, 'pending=true'),
+             ([pr('fork/repo', 'publications/batch')], '0', 0, 'pending=false'),
+             ([pr('test/repo', 'unrelated')], '0', 0, 'pending=false'),
+             ([], '42', 42, None)]
+    for pending, status, expected, expected_output in cases:
         output = tmp_path / 'output'
         output.unlink(missing_ok=True)
         env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
@@ -74,8 +75,7 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
         if status != '0':
             assert not output.exists()
         else:
-            match = any((pr.get('head', {}).get('repo') or {}).get('full_name') == 'test/repo' and pr['head']['ref'].startswith('publications/') for pr in pending)
-            assert output.read_text().strip() == ('pending=true' if match else 'pending=false')
+            assert output.read_text().strip() == expected_output
         call = (tmp_path / 'calls').read_text()
         assert '--paginate' in call
         assert 'state=open&base=main&per_page=100' in call
