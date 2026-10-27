@@ -26,3 +26,26 @@ or successor workflow.
 This change does not remove the remaining legacy publication paths tracked in
 #564 (audit-result, mavat-watch and mirror-ingest). Those need their own reviewed
 fixes. Permit-feed successor routing remains fail-closed pending #565.
+
+## One pending data PR at a time (#564)
+
+weekly-refresh, mavat-watch (check mode) and mirror-ingest each start with a
+read-only `pending` job. It runs `scripts/ci/pending_data_pr.py` with the
+branch prefix that the workflow pushes (`weekly-refresh/`, `mavat-check/`,
+`mirror-ingest/`). The data job runs only after a `pending=false` verdict, so no
+fetch, VPN or tunnel starts and no second PR is stacked while one still waits
+for review.
+
+- **A PR is still open:** the run ends green with a `::notice::` that gives
+  only its PR numbers. Review and merge, or close, that PR. Do not cancel it
+  just to let a new fetch run.
+- **The guard can't decide:** the run is red and fetches nothing (fail
+  closed). This covers any API error, a malformed page, or more than 5,000
+  open PRs.
+- **Which PRs count:** all pages are read. Only same-repository heads count.
+  Fork PRs and PRs from deleted forks are ignored.
+
+Mavat discover mode never stages a PR, so it is exempt.
+`tests/test_no_review_bypass.py` scans every workflow and CI script for merge,
+approval, dispatch, re-run, Pages and default-branch or mirror push forms. Its
+allowlist names each remaining exception with a reason.

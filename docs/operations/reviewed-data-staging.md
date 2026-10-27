@@ -28,6 +28,10 @@ old source. Check and stop a known bypass runner before trusting these changes.
 Weekly-refresh's equivalent review gate is proposed in PR #582; it is not
 enforced on main until that PR is reviewed and merged.
 
+mavat-watch (check mode) and mirror-ingest skip a run while a PR from their
+own earlier run still awaits review. The guard is described in
+[data-publication.md](data-publication.md#one-pending-data-pr-at-a-time-564).
+
 ## Enforcement limit
 
 This is a workflow/process gate, not a claim that administrative bypass is
