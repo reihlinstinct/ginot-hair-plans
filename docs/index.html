@@ -397,6 +397,8 @@ function match(r){
   return true;
 }
 function apply(){
+  if(!fullLoaded&&!isDefaultView()){loadFullPermits();showLoadState();return;}
+  pfload.textContent='';
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
@@ -554,20 +556,97 @@ function applyPublicationEvidence(){
 }
 fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
   if(!Array.isArray(list))throw new Error('invalid publication list');
-  publicationEvidence=list;applyPublicationEvidence();sortRows();rebuildDerived();apply();
+  publicationEvidence=list;applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
   window.__permitPublicationEvidenceLoaded=true;
+  document.dispatchEvent(new Event('publication-evidence-loaded'));
 }).catch(function(){window.__permitPublicationEvidenceFailed=true;});
-fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
-  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
+// #441: the page first loads the small default-view subset
+// (permits-default.html: active default-group rows not out of scope, plus
+// rows with in-polygon publication evidence). The full permits.html loads
+// once, through one shared promise, on the first interaction that leaves the
+// default view. A non-default view never shows subset results: it shows a
+// loading state, and on failure a retry button while the subset stays.
+var fullLoaded=false,fullPromise=null,fullFailed=false;
+var defaultLoaded=false,evidenceLoaded=false;
+var pfload=document.createElement('span');
+pfload.id='pfload';pfload.setAttribute('role','status');
+if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
+function installRows(h){
+  var tb=document.querySelector('#permits-table tbody');if(!tb)return false;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
   applyPublicationEvidence();
   sortRows();
-  rebuildDerived();
+  return true;
+}
+function isDefaultView(){
+  if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
+  if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
+  var same=true;
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    if(c.classList.contains('sel')!==(c.getAttribute('data-default')==='1'))same=false;
+  });
+  return same;
+}
+function showLoadState(){
+  if(fullLoaded||isDefaultView()){pfload.textContent='';return;}
+  rows.forEach(function(r){r.classList.add('filtered-out');});
+  pmore.style.display='none';
+  pfcount.textContent='';
+  if(fullFailed){
+    pfload.textContent='טעינת הרשימה המלאה נכשלה. ';
+    var b=document.createElement('button');
+    b.type='button';b.id='pfretry';b.textContent='נסו שוב';
+    b.addEventListener('click',function(){loadFullPermits();});
+    pfload.appendChild(b);
+  }else{
+    pfload.textContent='טוען את הרשימה המלאה…';
+  }
+}
+function loadFullPermits(){
+  if(fullLoaded)return Promise.resolve(true);
+  if(fullPromise)return fullPromise;
+  fullFailed=false;window.__permitsFailed=false;
+  fullPromise=fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+    if(!installRows(h))return false;
+    fullLoaded=true;pfload.textContent='';
+    rebuildDerived();
+    apply();
+    if(window.__renderUrgent)window.__renderUrgent();
+    window.__permitsLoaded=true;
+    return true;
+  }).catch(function(){
+    fullPromise=null;fullFailed=true;window.__permitsFailed=true;
+    showLoadState();
+    return false;
+  });
+  showLoadState();
+  return fullPromise;
+}
+window.__loadFullPermits=loadFullPermits;
+// Safety net for the #573 overlay: the publication list refreshes daily,
+// independently of the permit render. An in-polygon tik missing from the
+// loaded subset means the subset is older than the evidence: load it all.
+function evidenceOutsideSubset(){
+  var have={};
+  rows.forEach(function(r){have[r.getAttribute('data-tik')]=1;});
+  return publicationEvidence.some(function(p){return p&&p.in_polygon===true&&!have[p.tik_num];});
+}
+function checkSubsetAgainstEvidence(){
+  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset())loadFullPermits();
+}
+document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
+fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  if(fullLoaded)return;
+  if(!installRows(h))return;
   apply();
   if(window.__renderUrgent)window.__renderUrgent();
-  window.__permitsLoaded=true;
-}).catch(function(){window.__permitsFailed=true;});
+  defaultLoaded=true;window.__permitsDefaultLoaded=true;
+  checkSubsetAgainstEvidence();
+}).catch(function(){
+  // No subset (an older deploy, or a fetch error): fall back to the full list.
+  window.__permitsDefaultFailed=true;loadFullPermits();
+});
 sortRows();
 apply();
 })();

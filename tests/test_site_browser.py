@@ -244,6 +244,8 @@ def page(browser, served, request):
     with recorded_page(browser, request) as (pg, errors):
         pg.goto(served + "/index.html")
         pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+        # #441: the full list loads on demand; these tests need all rows.
+        pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
         pg.wait_for_function(
             "window.__permitsLoaded === true || window.__permitsFailed === true"
         )
@@ -299,6 +301,8 @@ def mobile_page(browser, served, request):
     with recorded_mobile_page(browser, request) as (pg, errors):
         pg.goto(served + "/index.html")
         pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+        # #441: the full list loads on demand; these tests need all rows.
+        pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
         pg.wait_for_function(
             "window.__permitsLoaded === true || window.__permitsFailed === true"
         )
@@ -830,6 +834,8 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path, r
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
+            # #441: the full list loads on demand; these tests need all rows.
+            pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
             pg.wait_for_function(
                 "window.__permitsLoaded === true || window.__permitsFailed === true"
             )
@@ -884,6 +890,8 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
         threading.Thread(target=srv.serve_forever, daemon=True).start()
         with recorded_page(browser, request) as (pg, _errs):
             pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
+            # #441: the full list loads on demand; these tests need all rows.
+            pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
             pg.wait_for_function(
                 "window.__permitsLoaded === true || window.__permitsFailed === true"
             )
@@ -963,6 +971,8 @@ def test_real_dataset_0439_in_default_visible_20(browser, real_served):
     pg.on("pageerror", lambda e: errors.append(str(e)))
     try:
         pg.goto(real_served + "/index.html")
+        # #441: the full list loads on demand; these tests need all rows.
+        pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
         pg.wait_for_function(
             "window.__permitsLoaded === true || window.__permitsFailed === true",
             timeout=180000,
@@ -1027,7 +1037,7 @@ def test_urgent_permits_official_date_overrides_planned(
     try:
         page = browser.new_page()
         page.goto(f'http://127.0.0.1:{server.server_port}/?today=2026-10-26')
-        page.wait_for_function('window.__permitsLoaded && window.__permitOfficialDeadlines')
+        page.wait_for_function('window.__permitsDefaultLoaded && window.__permitOfficialDeadlines')
         text = page.locator('#urgent-list').inner_text()
         assert '2026/0439.00' in text
         assert expected_date in text
@@ -1035,7 +1045,7 @@ def test_urgent_permits_official_date_overrides_planned(
         if official == '2026-11-13':
             assert '24.11.2026' not in text
         page.goto(f'http://127.0.0.1:{server.server_port}/?today={expiry}')
-        page.wait_for_function('window.__permitsLoaded && window.__permitOfficialDeadlines')
+        page.wait_for_function('window.__permitsDefaultLoaded && window.__permitOfficialDeadlines')
         assert '2026/0439.00' not in page.locator('#urgent-list').inner_text()
     finally:
         server.shutdown()
@@ -1061,8 +1071,9 @@ def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser
     page = browser.new_page()
     try:
         page.goto(f'http://127.0.0.1:{server.server_port}/')
-        page.wait_for_function('window.__permitsLoaded && window.__permitPublicationEvidenceLoaded')
+        page.wait_for_function('window.__permitsDefaultLoaded && window.__permitPublicationEvidenceLoaded')
         page.locator('#pfq').fill('תל חי 4')
+        page.wait_for_function('window.__permitsLoaded')  # #441: search loads the full list
         row = page.locator('tr[data-tik="1975/0743.02"]')
         assert row.is_visible()
         assert 'פרסום עירוני' in row.inner_text()
@@ -1073,3 +1084,145 @@ def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser
     finally:
         page.close()
         server.shutdown()
+
+
+# --- #441: default subset first, full list lazily -------------------------
+
+_LAZY_OBJ = 'תחילת פרסום הבקשה להקלה'
+_LAZY_REVIEW = 'שולמה מקדמה'
+
+
+def _lazy_site(tmp_path, evidence=()):
+    """Synthetic site: 3 open objection rows (in the default subset) and 30
+    review-group rows (full list only), one with a unique search word."""
+    from ginot.page import render_site
+
+    source = tmp_path / 'source'
+    source.mkdir()
+    requests = [
+        {'tik_num': f'2026/01{i:02d}.00', 'status': _LAZY_OBJ, 'address': f'רחוב אלף {i}'}
+        for i in range(3)
+    ] + [
+        {'tik_num': f'2026/02{i:02d}.00', 'status': _LAZY_REVIEW,
+         'address': 'רחוב ייחודי 7' if i == 29 else f'רחוב בית {i}'}
+        for i in range(30)
+    ]
+    (source / 'permit_requests.json').write_text(
+        json.dumps({'requests': requests}, ensure_ascii=False), encoding='utf-8')
+    (source / 'publications_active.json').write_text(json.dumps(list(evidence)))
+    out = tmp_path / 'site'
+    render_site([], [], str(out), permits_path=str(source / 'permit_requests.json'))
+    handler = functools.partial(_Quiet, directory=str(out))
+    srv = _ThreadingServer(('127.0.0.1', 0), handler)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    return srv, f'http://127.0.0.1:{srv.server_address[1]}/index.html'
+
+
+def _count_requests(pg):
+    seen = {'permits.html': 0, 'permits-default.html': 0}
+
+    def on_request(req):
+        name = req.url.rsplit('/', 1)[-1].split('?', 1)[0]
+        if name in seen:
+            seen[name] += 1
+
+    pg.on('request', on_request)
+    return seen
+
+
+def test_default_load_fetches_only_the_subset(tmp_path, browser, request):
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            pg.wait_for_timeout(300)
+            assert seen == {'permits.html': 0, 'permits-default.html': 1}
+            visible = pg.locator('#permits-table tbody tr:not(.filtered-out)')
+            assert visible.count() == 3
+            assert pg.locator('#pfload').inner_text() == ''
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_search_outside_subset_loads_full_list_once(tmp_path, browser, request):
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            # a concurrent burst of triggers shares one request
+            pg.evaluate('Promise.all([window.__loadFullPermits(), window.__loadFullPermits()])')
+            pg.locator('#pfq').fill('ייחודי')
+            pg.wait_for_function('window.__permitsLoaded === true')
+            # the review group is not selected by default: select it
+            # (the chip sits behind the "more statuses" disclosure)
+            pg.evaluate('''document.querySelector('#pfgroups .chip[data-group="review"]').click()''')
+            row = pg.locator('tr[data-tik="2026/0229.00"]')
+            row.wait_for(state='visible')
+            pg.locator('#pfq').fill('רחוב')
+            pg.locator('#pmore').click()
+            assert seen == {'permits.html': 1, 'permits-default.html': 1}
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_full_list_failure_shows_retry_and_keeps_subset(tmp_path, browser, request):
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            state = {'fail': True}
+
+            def handle(route):
+                if state['fail']:
+                    route.fulfill(status=503, body='')
+                else:
+                    route.continue_()
+
+            pg.route('**/permits.html', handle)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            pg.locator('#pfq').fill('ייחודי')
+            pg.wait_for_function('window.__permitsFailed === true')
+            assert pg.locator('#pfretry').is_visible()
+            # a non-default view never shows subset results as if complete
+            assert pg.locator('#permits-table tbody tr:not(.filtered-out)').count() == 0
+            assert pg.locator('#permits-table tbody tr').count() == 3  # subset kept
+            state['fail'] = False
+            pg.locator('#pfretry').click()
+            pg.wait_for_function('window.__permitsLoaded === true')
+            assert pg.locator('#pfload').inner_text() == ''
+            assert pg.locator('#permits-table tbody tr').count() == 33
+            # back to the default view: same 3 rows as the subset showed
+            pg.locator('#pfreset').click()
+            assert pg.locator('#permits-table tbody tr:not(.filtered-out)').count() == 3
+            assert seen['permits.html'] == 2
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_evidence_outside_subset_triggers_full_load(tmp_path, browser, request):
+    # Evidence for a tik the render did not know: the subset is older than
+    # the daily publication list, so the page loads the full list itself.
+    srv, url = _lazy_site(tmp_path)
+    (tmp_path / 'site' / 'publications_active.json').write_text(json.dumps([
+        {'tik_num': '2026/0205.00', 'in_polygon': True,
+         'publication_date': today_il().isoformat(), 'objection_deadline': None}]))
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsLoaded === true')
+            row = pg.locator('tr[data-tik="2026/0205.00"]')
+            row.wait_for(state='visible')
+            assert row.get_attribute('data-group') == 'obj'
+            assert seen == {'permits.html': 1, 'permits-default.html': 1}
+            assert errors == []
+    finally:
+        srv.shutdown()

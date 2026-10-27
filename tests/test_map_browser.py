@@ -503,6 +503,7 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
 
 
 def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
+    page.evaluate('window.__loadFullPermits && window.__loadFullPermits()')
     page.wait_for_function('window.__permitsLoaded')
     # Keep real public point projection shape, but use synthetic table rows.
     page.evaluate('''() => {
