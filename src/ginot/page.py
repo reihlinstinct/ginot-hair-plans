@@ -1007,9 +1007,7 @@ var publicationEvidence=[];
 function applyPublicationEvidence(){
   var byId={};
   publicationEvidence.forEach(function(p){
-    if(p.in_polygon!==true||!validIso(p.publication_date))return;
-    var age=(Date.parse(TODAY+'T00:00:00Z')-Date.parse(p.publication_date+'T00:00:00Z'))/86400000;
-    if(age>=0&&age<=PUBLICATION_EVIDENCE_MAX_DAYS)byId[p.tik_num]=p;
+    if(currentEvidence(p))byId[p.tik_num]=p;
   });
   rows.forEach(function(r){
     var p=byId[r.getAttribute('data-tik')];
@@ -1033,6 +1031,12 @@ function applyPublicationEvidence(){
       cell.setAttribute('data-iso',p.publication_date);
     }
   });
+}
+function currentEvidence(p){
+  // The overlay window, shared with the #441 subset safety net.
+  if(!p||p.in_polygon!==true||!validIso(p.publication_date))return false;
+  var age=(Date.parse(TODAY+'T00:00:00Z')-Date.parse(p.publication_date+'T00:00:00Z'))/86400000;
+  return age>=0&&age<=PUBLICATION_EVIDENCE_MAX_DAYS;
 }
 fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
   if(!Array.isArray(list))throw new Error('invalid publication list');
@@ -1072,7 +1076,7 @@ function showLoadState(){
   if(fullLoaded||isDefaultView()){pfload.textContent='';return;}
   rows.forEach(function(r){r.classList.add('filtered-out');});
   pmore.style.display='none';
-  pfcount.textContent='';
+  pfcount.textContent='';pfunknown.textContent='';
   if(fullFailed){
     pfload.textContent='טעינת הרשימה המלאה נכשלה. ';
     var b=document.createElement('button');
@@ -1105,12 +1109,14 @@ function loadFullPermits(){
 }
 window.__loadFullPermits=loadFullPermits;
 // Safety net for the #573 overlay: the publication list refreshes daily,
-// independently of the permit render. An in-polygon tik missing from the
-// loaded subset means the subset is older than the evidence: load it all.
+// independently of the permit render. Evidence the overlay would apply today
+// for a tik missing from the subset means the subset may be older than the
+// evidence: load it all. Old evidence (outside the overlay window, e.g. for
+// closed requests) promotes nothing, so it must not cost the full fetch.
 function evidenceOutsideSubset(){
   var have={};
   rows.forEach(function(r){have[r.getAttribute('data-tik')]=1;});
-  return publicationEvidence.some(function(p){return p&&p.in_polygon===true&&!have[p.tik_num];});
+  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num];});
 }
 function checkSubsetAgainstEvidence(){
   if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset())loadFullPermits();

@@ -1195,6 +1195,9 @@ def test_full_list_failure_shows_retry_and_keeps_subset(tmp_path, browser, reque
             pg.locator('#pfq').fill('ייחודי')
             pg.wait_for_function('window.__permitsFailed === true')
             assert pg.locator('#pfretry').is_visible()
+            # no counters computed from the subset while the view is incomplete
+            assert pg.locator('#pfcount').inner_text() == ''
+            assert pg.locator('#pfunknown').inner_text() == ''
             # a non-default view never shows subset results as if complete
             assert pg.locator('#permits-table tbody tr:not(.filtered-out)').count() == 0
             assert pg.locator('#permits-table tbody tr').count() == 3  # subset kept
@@ -1254,6 +1257,27 @@ def test_default_view_urgency_and_map_rows_match_full_load(tmp_path, browser, re
             assert pg.evaluate(visible) == subset_rows
             assert pg.locator('#urgent-list').inner_text() == subset_urgent
             assert pg.locator('#pfcount').inner_text() == subset_count
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_old_evidence_outside_subset_does_not_load_full_list(tmp_path, browser, request):
+    """Evidence outside the overlay window (here: a closed request published
+    years ago) promotes nothing, so it must not trigger the 12 MB fetch. On
+    the committed data three such entries made every default load fetch it."""
+    srv, url = _lazy_site(tmp_path)
+    (tmp_path / 'site' / 'publications_active.json').write_text(json.dumps([
+        {'tik_num': '2019/0001.00', 'in_polygon': True,
+         'publication_date': '2019-04-17', 'objection_deadline': None}]))
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true '
+                                 '&& window.__permitPublicationEvidenceLoaded === true')
+            pg.wait_for_timeout(300)
+            assert seen == {'permits.html': 0, 'permits-default.html': 1}
             assert errors == []
     finally:
         srv.shutdown()
