@@ -18,7 +18,7 @@ Rules:
   owner and repository names do. Fork PRs, and PRs from deleted forks
   (``head.repo: null``), never count: these workflows only push same-repo
   branches.
-- Fails closed: a missing or failing ``gh``, non-JSON or non-list page,
+- Fails closed: a missing, failing or stalled (``GH_TIMEOUT_SECONDS``) ``gh``, non-JSON or non-list page,
   malformed entry (including a ``head.repo`` without a string ``full_name``,
   or a non-integer or boolean ``number``), or more than ``MAX_PAGES`` pages
   exits 1 without a verdict.
@@ -36,9 +36,11 @@ import json
 import os
 import subprocess
 import sys
+import urllib.parse
 
 PER_PAGE = 100
 MAX_PAGES = 50
+GH_TIMEOUT_SECONDS = 60
 
 
 class GuardError(Exception):
@@ -46,12 +48,21 @@ class GuardError(Exception):
 
 
 def _gh_page(repo, base, page):
-    query = "state=open" + (f"&base={base}" if base else "")
-    path = f"repos/{repo}/pulls?{query}&per_page={PER_PAGE}&page={page}"
+    params = {"state": "open"}
+    if base:
+        params["base"] = base
+    params.update(per_page=PER_PAGE, page=page)
+    path = f"repos/{repo}/pulls?{urllib.parse.urlencode(params)}"
     try:
         r = subprocess.run(
-            ["gh", "api", path], capture_output=True, text=True, check=False
+            ["gh", "api", path],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=GH_TIMEOUT_SECONDS,
         )
+    except subprocess.TimeoutExpired as exc:
+        raise GuardError(f"gh api timed out on page {page}") from exc
     except OSError as exc:
         raise GuardError(f"gh could not be started on page {page}") from exc
     if r.returncode != 0:

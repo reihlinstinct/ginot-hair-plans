@@ -239,3 +239,41 @@ def test_missing_gh_fails_closed(monkeypatch, capsys):
     captured = capsys.readouterr()
     assert "pending=" not in captured.out
     assert "failed closed" in captured.err
+
+
+def test_base_branch_is_url_encoded(monkeypatch):
+    # CodeRabbit 4387322758: an unencoded "+" in --base would be read as a
+    # space by the API, so a matching PR could be missed (pending=false).
+    seen = []
+
+    class Result:
+        returncode = 0
+        stdout = "[]"
+
+    def run(cmd, **kwargs):
+        seen.append(cmd)
+        return Result()
+
+    monkeypatch.setattr(guard.subprocess, "run", run)
+    assert guard.pending_prs(REPO, PREFIX, base="release+weekly&x") == []
+    assert seen == [
+        [
+            "gh",
+            "api",
+            f"repos/{REPO}/pulls?state=open&base=release%2Bweekly%26x&per_page=100&page=1",
+        ]
+    ]
+
+
+def test_stalled_gh_times_out_and_fails_closed(monkeypatch):
+    # CodeRabbit 4387322767: a hung gh must end in a guard error, not a hang.
+    seen = {}
+
+    def run(cmd, **kwargs):
+        seen.update(kwargs)
+        raise guard.subprocess.TimeoutExpired(cmd, kwargs.get("timeout"))
+
+    monkeypatch.setattr(guard.subprocess, "run", run)
+    with pytest.raises(guard.GuardError):
+        guard.pending_prs(REPO, PREFIX)
+    assert seen["timeout"] == guard.GH_TIMEOUT_SECONDS
