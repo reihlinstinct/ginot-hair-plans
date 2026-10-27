@@ -1092,7 +1092,7 @@ _LAZY_OBJ = 'תחילת פרסום הבקשה להקלה'
 _LAZY_REVIEW = 'שולמה מקדמה'
 
 
-def _lazy_site(tmp_path, evidence=()):
+def _lazy_site(tmp_path, evidence=(), dated=False):
     """Synthetic site: 3 open objection rows (in the default subset) and 30
     review-group rows (full list only), one with a unique search word."""
     from ginot.page import render_site
@@ -1107,6 +1107,11 @@ def _lazy_site(tmp_path, evidence=()):
          'address': 'רחוב ייחודי 7' if i == 29 else f'רחוב בית {i}'}
         for i in range(30)
     ]
+    if dated:  # open objection windows, so the urgency list is not empty
+        today = today_il()
+        for i, r in enumerate(requests[:3]):
+            r['publication_start'] = (today - datetime.timedelta(days=5)).isoformat()
+            r['publication_end_planned'] = (today + datetime.timedelta(days=5 + i)).isoformat()
     (source / 'permit_requests.json').write_text(
         json.dumps({'requests': requests}, ensure_ascii=False), encoding='utf-8')
     (source / 'publications_active.json').write_text(json.dumps(list(evidence)))
@@ -1223,6 +1228,32 @@ def test_evidence_outside_subset_triggers_full_load(tmp_path, browser, request):
             row.wait_for(state='visible')
             assert row.get_attribute('data-group') == 'obj'
             assert seen == {'permits.html': 1, 'permits-default.html': 1}
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_default_view_urgency_and_map_rows_match_full_load(tmp_path, browser, request):
+    """The map draws the visible permit rows (plan-map.js permitRows) and the
+    urgency list scans the obj rows: both must be the same on the subset as
+    after the full list loads, in the default view."""
+    srv, url = _lazy_site(tmp_path, dated=True)
+    visible = ("Array.from(document.querySelectorAll('#permits-table tbody tr'))"
+               ".filter(r=>!r.classList.contains('filtered-out')).map(r=>r.dataset.tik)")
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pg.goto(url)
+            pg.wait_for_function('window.__permitsDefaultLoaded === true')
+            subset_rows = pg.evaluate(visible)
+            subset_urgent = pg.locator('#urgent-list').inner_text()
+            subset_count = pg.locator('#pfcount').inner_text()
+            assert len(subset_rows) == 3
+            assert '2026/0100.00' in subset_urgent
+            pg.evaluate('window.__loadFullPermits()')
+            pg.wait_for_function('window.__permitsLoaded === true')
+            assert pg.evaluate(visible) == subset_rows
+            assert pg.locator('#urgent-list').inner_text() == subset_urgent
+            assert pg.locator('#pfcount').inner_text() == subset_count
             assert errors == []
     finally:
         srv.shutdown()
