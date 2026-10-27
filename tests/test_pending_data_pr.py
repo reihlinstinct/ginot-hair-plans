@@ -103,6 +103,8 @@ def test_too_many_pages_fails_closed(monkeypatch):
             ]
         ),
         json.dumps([None]),
+        # head without a repo key at all: only an explicit null means a deleted fork
+        json.dumps([{"number": 1, "head": {"ref": "weekly-refresh/x"}}]),
         # head.repo present but without a usable full_name (LOW2, review 6438759110)
         json.dumps([{"number": 1, "head": {"ref": "weekly-refresh/x", "repo": {}}}]),
         json.dumps(

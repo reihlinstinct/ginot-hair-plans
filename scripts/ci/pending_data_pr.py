@@ -87,7 +87,9 @@ def pending_prs(repo, prefix, base=None, fetch=_gh_page):
             if not isinstance(pr, dict) or not isinstance(pr.get("head"), dict):
                 raise GuardError(f"malformed PR entry on page {page}")
             head = pr["head"]
-            head_repo = head.get("repo")
+            if "repo" not in head:
+                raise GuardError(f"malformed head.repo on page {page}")
+            head_repo = head["repo"]
             if head_repo is None:
                 continue  # deleted fork: cannot be one of our branches
             if not isinstance(head_repo, dict):
