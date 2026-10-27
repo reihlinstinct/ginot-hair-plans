@@ -33,8 +33,8 @@ def pending_publication_prs(repo):
     if not isinstance(prs, list) or any(not isinstance(page, list) for page in prs):
         raise RuntimeError('Invalid pending PR response')
     return [pr['number'] for page in prs for pr in page
-            if pr.get('head', {}).get('repo', {}).get('full_name') == repo
-            and pr.get('head', {}).get('ref', '').startswith('publications/')]
+            if ((pr.get('head') or {}).get('repo') or {}).get('full_name') == repo
+            and (pr.get('head') or {}).get('ref', '').startswith('publications/')]
 
 
 def main():

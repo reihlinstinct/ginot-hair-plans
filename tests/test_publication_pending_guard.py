@@ -15,7 +15,7 @@ def test_publisher_pending_guard_pages_repo_prefix_and_fail_closed(monkeypatch):
     calls = []
     def fake(*args, **kwargs):
         calls.append(args)
-        return [[pr(1, 'fork/repo', 'publications/1')],
+        return [[pr(1, 'fork/repo', 'publications/1'), {'number': 5, 'head': {'repo': None, 'ref': 'feature'}}],
                 [pr(2, 'test/repo', 'other'), pr(3, 'test/repo', 'publications/3')]]
     monkeypatch.setattr(module, 'gh', fake)
     assert module.pending_publication_prs('test/repo') == [3]
@@ -34,6 +34,8 @@ def test_workflow_guard_stops_before_network_and_serializes():
     text = (ROOT / '.github/workflows/rishui-publish-watch.yml').read_text()
     assert 'group: rishui-publish-watch' in text
     assert 'cancel-in-progress: false' in text
+    assert 'pending=true' in text and '::notice::' in text
+    assert text.count("steps.pending.outputs.pending != 'true'") >= 8
     assert text.index('Stop while a publication') < text.index('actions/checkout')
     assert text.index('Stop while a publication') < text.index('Fetch active publications')
     assert '--paginate' in text
@@ -56,13 +58,13 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
     def pr(repo, ref):
         return {'number': 17, 'head': {'ref': ref, 'repo': {'full_name': repo}}}
 
-    cases = [([], '0', 0), ([pr('test/repo', 'publications/batch')], '0', 1),
+    cases = [([], '0', 0), ([pr('test/repo', 'publications/batch')], '0', 0),
              ([pr('fork/repo', 'publications/batch')], '0', 0),
              ([pr('test/repo', 'unrelated')], '0', 0),
              ([], '42', 42)]
     for pending, status, expected in cases:
         env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
-                   GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
+                   GITHUB_OUTPUT=str(tmp_path / 'output'), GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
                    PENDING_TEST=json.dumps(pending), GH_EXIT=status)
         result = subprocess.run(['bash', '-c', shell], env=env, capture_output=True,
                                 text=True, check=False)

@@ -51,9 +51,11 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
         (tmp_path / directory).mkdir()
     for path in module.FILES:
         (tmp_path / path).write_text('[]')
+    (tmp_path / 'data/publications_active.json').write_text(json.dumps([{'tik_num': '2026/0439.00', 'in_polygon': True, 'private_note': 'omit'}]))
     monkeypatch.setenv('GITHUB_REPOSITORY', 'synthetic/repo')
     monkeypatch.setenv('GITHUB_RUN_ID', '123')
-    monkeypatch.setattr(module.subprocess, 'run', lambda *a, **kw: None)
+    processes = []
+    monkeypatch.setattr(module.subprocess, 'run', lambda *a, **kw: processes.append((a, kw)))
     calls = []
     def fake_gh(*args, payload=None):
         calls.append((args, payload))
@@ -66,8 +68,10 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
         if '/git/commits/' in path:
             return {'tree': {'sha': 'b' * 40}}
         if path.endswith('/git/trees'):
-            assert {entry['path'] for entry in payload['tree']} == set(module.FILES)
-            assert all('private' not in entry['content'] for entry in payload['tree'])
+            assert {entry['path'] for entry in payload['tree']} == {'data/publications_active.json', 'data/publications_new_latest.json', 'docs/publications_active.json', 'docs/index.json'}
+            projection = next(entry for entry in payload['tree'] if entry['path'] == 'docs/publications_active.json')
+            assert 'private_note' not in projection['content']
+            assert '2026/0439.00' in projection['content']
             return {'sha': 'c' * 40}
         if path.endswith('/git/commits'):
             return {'sha': 'd' * 40}
@@ -80,4 +84,42 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
     monkeypatch.setattr(module, 'gh', fake_gh)
     module.main()
     assert len(calls) == 7
+    assert processes == [((['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'],), {'check': True})]
     assert 'staged PR is not publication' in capsys.readouterr().out
+
+
+def test_main_pending_and_no_change_never_write(tmp_path, monkeypatch, capsys):
+    import importlib.util
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location('wait_publisher', root / 'scripts/ci/publish_publications.py')
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    monkeypatch.chdir(tmp_path)
+    for directory in ('data', 'docs'):
+        (tmp_path / directory).mkdir()
+    for path in module.FILES:
+        (tmp_path / path).write_text('[]')
+    monkeypatch.setenv('GITHUB_REPOSITORY', 'synthetic/repo')
+    processes = []
+    monkeypatch.setattr(module.subprocess, 'run', lambda *a, **kw: processes.append((a, kw)))
+    for pending in (True, False):
+        calls = []
+        def gh(*args, _calls=calls, _pending=pending, **kwargs):
+            _calls.append(args)
+            assert args[0] == 'api'
+            path = args[-1]
+            if '/pulls?' in path:
+                return [[{'number': 9, 'head': {'repo': {'full_name': 'synthetic/repo'}, 'ref': 'publications/1'}}]] if _pending else [[]]
+            if path.endswith('git/ref/heads/main'):
+                return {'object': {'sha': 'a' * 40}}
+            if '/git/commits/' in path:
+                return {'tree': {'sha': 'b' * 40}}
+            if path.endswith('/git/trees'):
+                return {'sha': 'b' * 40}  # unchanged, no commit/ref/PR creation
+            raise AssertionError(args)
+        monkeypatch.setattr(module, 'gh', gh)
+        module.main()
+        assert len(calls) == (1 if pending else 4)
+        assert ('awaiting review' if pending else 'no publication changes') in capsys.readouterr().out
+    assert all(call[0][0] == ['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'] for call in processes)
