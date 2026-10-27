@@ -26,12 +26,27 @@ def gh(*args, payload=None):
         return result.stdout
 
 
+def pending_publication_prs(repo):
+    # Paginated same-repo heads only. API/JSON errors propagate: fail closed.
+    prs = gh('api', '--paginate', '--slurp',
+             f'repos/{repo}/pulls?state=open&base=main&per_page=100')
+    if not isinstance(prs, list) or any(not isinstance(page, list) for page in prs):
+        raise RuntimeError('Invalid pending PR response')
+    return [pr['number'] for page in prs for pr in page
+            if pr.get('head', {}).get('repo', {}).get('full_name') == repo
+            and pr.get('head', {}).get('ref', '').startswith('publications/')]
+
+
 def main():
     subprocess.run(['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'], check=True)
     # Public deadline-only projection follows every daily publication refresh.
     if not write_projection('data/publications_active.json', 'docs/publications_active.json'):
         raise RuntimeError('Publication source unavailable; refusing to publish a data PR')
     repo = os.environ['GITHUB_REPOSITORY']
+    pending = pending_publication_prs(repo)
+    if pending:
+        print(f'publication PR(s) awaiting review: {pending}; no new PR or head update')
+        return
     root = f'repos/{repo}'
     base = gh('api', f'{root}/git/ref/heads/main')['object']['sha']
     tree = gh('api', f'{root}/git/commits/{base}')['tree']['sha']

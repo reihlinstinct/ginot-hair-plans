@@ -58,7 +58,9 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
     def fake_gh(*args, payload=None):
         calls.append((args, payload))
         assert args[0] == 'api', 'publisher must not poll or merge a PR'
-        path = args[1]
+        path = args[-1]
+        if '/pulls?' in path:
+            return [[]]
         if path.endswith('git/ref/heads/main'):
             return {'object': {'sha': 'a' * 40}}
         if '/git/commits/' in path:
@@ -77,5 +79,5 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
         raise AssertionError(json.dumps(args))
     monkeypatch.setattr(module, 'gh', fake_gh)
     module.main()
-    assert len(calls) == 6
+    assert len(calls) == 7
     assert 'staged PR is not publication' in capsys.readouterr().out
