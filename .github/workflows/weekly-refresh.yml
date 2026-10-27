@@ -71,8 +71,8 @@ jobs:
           # Rebase/stash conflict recovery can preserve generated files from
           # an older source tree (#581). Render only after current main and
           # fetched data have been reconciled. No fresh municipal request.
-          python3 scripts/ci/check_docs_fresh.py --write
-          python3 scripts/ci/check_docs_fresh.py
+          python3 scripts/ci/check_docs_fresh.py --include-data-json --write
+          python3 scripts/ci/check_docs_fresh.py --include-data-json
           git add -A
           git commit -m "Weekly data refresh $(date +%Y-%m-%d) (refs #55)
 

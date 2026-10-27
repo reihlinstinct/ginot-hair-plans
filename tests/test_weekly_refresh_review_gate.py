@@ -21,8 +21,8 @@ def test_weekly_refresh_stages_data_without_self_merge_or_deployment():
 def test_weekly_refresh_regenerates_after_reconciliation_before_commit():
     workflow = (ROOT / '.github/workflows/weekly-refresh.yml').read_text()
     reset = workflow.index('git reset --hard origin/main')
-    render = workflow.index('python3 scripts/ci/check_docs_fresh.py --write')
-    check = workflow.index('python3 scripts/ci/check_docs_fresh.py\n', render)
+    render = workflow.index('python3 scripts/ci/check_docs_fresh.py --include-data-json --write')
+    check = workflow.index('python3 scripts/ci/check_docs_fresh.py --include-data-json\n', render)
     commit = workflow.index('git commit -m')
     assert reset < render < check < commit
 
