@@ -47,9 +47,8 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
     import subprocess
 
     workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/rishui-publish-watch.yml').read_text()
-    step = workflow.split('- name: Stop while a publication data PR awaits review', 1)[1].split('- name:', 1)[0]
+    step = workflow.split('- name: Stop while a publication data PR awaits review', 1)[1].split('      - uses:', 1)[0]
     shell = '\n'.join(line[10:] for line in step.split('run: |\n', 1)[1].splitlines())
-    assert workflow.index('Stop while a publication') < workflow.index('Fetch active publications list')
     assert workflow.index('Stop while a publication') < workflow.index('Fetch active publications list')
     gh = tmp_path / 'gh'
     gh.write_text('#!/bin/bash\nprintf "%s\\n" "$*" > "$CALL_LOG"\nprintf "%s" "$PENDING_TEST"\nexit "$GH_EXIT"\n')
