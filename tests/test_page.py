@@ -1021,3 +1021,27 @@ def test_default_permit_subset_holds_default_candidates_and_evidence_rows(tmp_pa
     # Every subset row is byte-identical to its row in the full fragment.
     full_rows = set(full.read_text(encoding="utf-8").split("</tr>"))
     assert all(r in full_rows for r in body.split("</tr>"))
+
+
+def test_publication_evidence_tiks_reads_in_polygon_entries_only(tmp_path):
+    """#441: only entries the #573 overlay can promote (in_polygon is True)
+    count, with no date filter; a missing or invalid list is no evidence."""
+    import json
+
+    from ginot.page import publication_evidence_tiks
+
+    path = tmp_path / "publications_active.json"
+    path.write_text(json.dumps([
+        {"tik_num": "2026/0001.00", "in_polygon": True, "publication_date": "2020-01-01"},
+        {"tik_num": "2026/0002.00", "in_polygon": None, "publication_date": "2026-10-01"},
+        {"tik_num": "2026/0003.00", "in_polygon": "true", "publication_date": "2026-10-01"},
+        {"tik_num": "", "in_polygon": True},
+        {"in_polygon": True},
+        "not-an-object",
+    ]), encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset({"2026/0001.00"})
+    assert publication_evidence_tiks(str(tmp_path / "missing.json")) == frozenset()
+    path.write_text("{", encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset()
+    path.write_text("{}", encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset()

@@ -24,3 +24,18 @@ def test_publish_step_renders_and_commits_permits_fragment():
     assert "docs/permits.html" in add_line
 
     assert "docs/permit-points.json" in add_line
+
+
+def test_publish_step_commits_default_permits_subset():
+    """#441: the page loads docs/permits-default.html first, so a feed batch
+    must commit it with the full fragment or new default rows go stale."""
+    workflow = (
+        Path(__file__).parent.parent / ".github/workflows/permit-feed.yml"
+    ).read_text()
+    publish = workflow.split("Publish changes as a PR", 1)[1]
+    add_line = next(
+        line
+        for line in publish.splitlines()
+        if line.strip().startswith("git add") and "docs/index.json" in line
+    )
+    assert "docs/permits-default.html" in add_line.split()

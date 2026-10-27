@@ -558,6 +558,27 @@ def _is_default_permit_candidate(group_default: bool, scope: str, active: str,
     return (group_default and scope != "out") or tik in evidence_tiks
 
 
+def publication_evidence_tiks(path: str) -> frozenset:
+    """#441: tiks the #573 overlay may promote, read from the normalized
+    publication list (data/publications_active.json). Every in-polygon entry
+    counts regardless of its date: the client applies the freshness window
+    against its own today, so the subset must not pre-filter by date. A missing
+    or invalid list yields no evidence, the same as the page, which then has
+    no overlay to apply."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            entries = json.load(fh)
+    except (FileNotFoundError, json.JSONDecodeError, UnicodeError):
+        return frozenset()
+    if not isinstance(entries, list):
+        return frozenset()
+    return frozenset(
+        e["tik_num"] for e in entries
+        if isinstance(e, dict) and e.get("in_polygon") is True
+        and isinstance(e.get("tik_num"), str) and e["tik_num"]
+    )
+
+
 def _permits_section(permits: list[dict], rows_file: str | None = None,
                      default_rows_file: str | None = None,
                      evidence_tiks: frozenset = frozenset()) -> str:
@@ -1073,6 +1094,8 @@ def render_index(
     reviews: dict[str, str] | None = None,
     rows_file: str | None = None,
     permits_file: str | None = None,
+    permits_default_file: str | None = None,
+    evidence_tiks: frozenset = frozenset(),
 ) -> str:
     reviews = reviews or {}
     from . import mapview
@@ -1225,7 +1248,7 @@ def render_index(
 <tbody>{body}</tbody></table>
 <noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
-{_permits_section(permits or [], rows_file=permits_file)}
+{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks)}
 {mapview.PANEL}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
@@ -1538,6 +1561,8 @@ def render_site(
                 reviews=reviews,
                 rows_file=f"{out_dir}/rows.html",
                 permits_file=f"{out_dir}/permits.html",
+                permits_default_file=f"{out_dir}/permits-default.html",
+                evidence_tiks=publication_evidence_tiks(publications_path),
             )
         )
     if permits_path:
