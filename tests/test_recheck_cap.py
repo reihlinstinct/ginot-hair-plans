@@ -14,11 +14,12 @@ def test_daily_recheck_cap_fits_step_timeout():
     assert cap * 40 <= 60 * 60, f"cap {cap} x 40s exceeds the 60 minute step limit"
 
 
-def test_publish_merges_blocked_green_pr_with_admin():
-    # Runs 39755426256 / 39804643780 failed on BLOCKED (required review).
-    assert 'gh pr merge "$PR" --squash --admin --delete-branch' in WF
-    assert '"$STATE" = "BLOCKED"' in WF
-    assert 'grep -c -E "pending|fail|queued"' in WF
+def test_publish_leaves_green_pr_for_required_reviews():
+    # #562 supersedes the historical admin bypass: even green checks do not
+    # authorize publication before independent and exact-head Claude review.
+    assert 'gh pr merge' not in WF
+    assert '--admin' not in WF
+    assert 'awaiting independent and exact-head Claude reviews' in WF
 
 
 def test_audit_result_merges_blocked_green_pr_with_admin():

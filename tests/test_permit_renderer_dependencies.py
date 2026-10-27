@@ -27,14 +27,20 @@ root = Path(sys.argv[1]).resolve()
 sys.path.insert(0, str(root / 'scripts'))
 sys.argv = [str(root / 'scripts/render_permits_page.py'), '--check-dependencies']
 blocked = [root / 'data', root / 'docs', Path.cwd() / 'data', Path.cwd() / 'docs']
+hits = []
 def audit(event, args):
-    if event != 'open' or not isinstance(args[0], (str, bytes, os.PathLike)):
+    if event not in ('open', 'os.listdir', 'os.scandir') or not isinstance(args[0], (str, bytes, os.PathLike)):
         return
     path = Path(os.fsdecode(args[0])).resolve()
     if any(path == base or base in path.parents for base in blocked):
+        hits.append(str(path))
         raise AssertionError(f'preflight attempted data I/O: {path}')
 sys.addaudithook(audit)
-runpy.run_path(sys.argv[0], run_name='__main__')
+try:
+    runpy.run_path(sys.argv[0], run_name='__main__')
+finally:
+    if hits:
+        os._exit(3)
 """
     result = subprocess.run([sys.executable, '-B', '-c', probe, str(ROOT)],
                             check=False, cwd=tmp_path, capture_output=True, text=True)
@@ -49,3 +55,11 @@ def test_checkout_does_not_leave_credentials_for_dependency_code():
     publish = workflow.split('- name: Publish changes as a PR', 1)[1]
     assert publish.index('gh auth setup-git') < publish.index('git fetch origin main')
     assert publish.index('gh auth setup-git') < publish.index('git push -u origin')
+
+
+def test_git_auth_is_only_enabled_after_dependency_preflight():
+    workflow = (ROOT / '.github/workflows/permit-feed.yml').read_text()
+    assert workflow.count('actions/checkout@') == 1
+    assert workflow.count('gh auth setup-git') == 1
+    assert workflow.index('gh auth setup-git') > workflow.index('--check-dependencies')
+    assert workflow.index('gh auth setup-git') > workflow.index('- name: Publish changes as a PR')
