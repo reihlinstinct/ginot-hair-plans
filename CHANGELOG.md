@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-28 - AI review process proposal (#645)
+
+- Separate the review-process design and diagram from held tool configuration
+  in #504. This is a proposal only, with no settings or enforcement change.
+
 ## 2026-10-28 - Reviewed data staging (#636, #564)
 
 - Weekly, audit-result, Mavat and mirror collection now stop at a PR for review.
