@@ -70,8 +70,38 @@ permissions:
   pages: write
 
 jobs:
-  permit-feed:
+  pending:
+    # #564: never stack a second data PR while one awaits review. Lists open
+    # same-repo PRs with the permit-feed/ head prefix (paginated, forks ignored).
+    # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pending: ${{ steps.guard.outputs.pending }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Check for a permit-feed/ data PR still awaiting review
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix permit-feed/
+
+      - name: Skip notice while a data PR awaits review
+        if: ${{ steps.guard.outputs.pending == 'true' }}
+        env:
+          PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
+        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+
+  permit-feed:
+    needs: pending
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
     runs-on: ubuntu-latest
     timeout-minutes: 355
     steps:
@@ -113,19 +143,6 @@ jobs:
         run: |
           python3 -m pip install --only-binary=:all: -r requirements.txt
           python3 scripts/render_permits_page.py --check-dependencies
-
-      - name: Stop while a permit-feed data PR awaits review
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -euo pipefail
-          # All pages, not just the first 30/100 PRs. API errors fail closed.
-          PENDING=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&per_page=100" \
-            | jq -r --arg repo "$GITHUB_REPOSITORY" '.[] | select(.head.repo.full_name == $repo) | select(.head.ref | startswith("permit-feed/")) | .number')
-          if [ -n "$PENDING" ]; then
-            echo "permit-feed data PR(s) awaiting review: $PENDING; stopping before VPN/network scan"
-            exit 1
-          fi
 
       - name: Install VPN transport packages
         run: |

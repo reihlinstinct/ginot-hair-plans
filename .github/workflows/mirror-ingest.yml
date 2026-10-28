@@ -16,16 +16,44 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write
-  pages: write
 
 concurrency:
   group: mirror-ingest
   cancel-in-progress: false
 
 jobs:
-  mirror-ingest:
+  pending:
+    # #564: never stack a second data PR while one awaits review. Lists open
+    # same-repo PRs with the mirror-ingest/ head prefix (paginated, forks ignored).
+    # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.MIRROR_INGEST_ENABLED != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pending: ${{ steps.guard.outputs.pending }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Check for a mirror-ingest/ data PR still awaiting review
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix mirror-ingest/
+
+      - name: Skip notice while a data PR awaits review
+        if: ${{ steps.guard.outputs.pending == 'true' }}
+        env:
+          PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
+        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+
+  mirror-ingest:
+    needs: pending
+    if: ${{ vars.MIRROR_INGEST_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
@@ -40,7 +68,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python3 scripts/mirror_ingest.py --validate-against data/permit_requests.json
 
-      - name: Publish changes as a PR, merge on green CI, rebuild Pages
+      - name: Stage changes as a PR for review
         env:
           GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
         run: |
@@ -70,46 +98,10 @@ jobs:
           dropped on ingest. Third-party data - verify at source."
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit mirror ingest $(date +%Y-%m-%d)" \
-            --body "Automated mirror ingest (refs #74). DRAFT third-party mirror data; personal-names column dropped. Merged automatically once CI is green." \
+            --body "Automated mirror ingest (refs #74). DRAFT third-party mirror data; personal-names column dropped. Requires independent and exact-head Claude reviews, green CI and normal manual merge." \
             --base main --head "$BRANCH")
           echo "opened $PR"
-          gh workflow run ci.yml --ref "$BRANCH"
-          sleep 15
-          # Bot-authored PRs get an approval-gated pull_request CI run
-          # (conclusion action_required). Approve those first so the watch
-          # below never dies on the approval gate (fixes #85).
-          for ID in $(gh run list --workflow ci.yml --branch "$BRANCH" --limit 5 --json databaseId,conclusion -q '.[] | select(.conclusion=="action_required") | .databaseId'); do
-            gh api -X POST "repos/${{ github.repository }}/actions/runs/$ID/approve" >/dev/null || true
-          done
-          RUN_ID=$(gh run list --workflow ci.yml --branch "$BRANCH" --event workflow_dispatch --limit 1 --json databaseId -q '.[0].databaseId')
-          gh run watch "$RUN_ID" --exit-status --interval 20
-          # main can move while CI runs (like #170): update the branch and
-          # wait for a mergeable state before merging.
-          gh pr update-branch "$PR" || true
-          # Poll budget: update-branch restarts pull_request CI, which took
-          # ~10 min under runner queue load in run 39900080019 and missed the
-          # old 45-poll budget by 10s. 90 polls (~20 min) gives >2x headroom (#380).
-          for i in $(seq 1 90); do
-            STATE=$(gh pr view "$PR" --json mergeStateStatus --jq .mergeStateStatus)
-            echo "merge state: $STATE"
-            [ "$STATE" = "CLEAN" ] && break
-            # Main requires 1 approving review, which the bot cannot give: when
-            # BLOCKED and every check is green, merge with the owner token's
-            # admin bypass (human PRs keep the review rule).
-            if [ "$STATE" = "BLOCKED" ]; then
-              BAD=$(gh pr checks "$PR" 2>&1 | cut -f2 | grep -c -E "pending|fail|queued" || true)
-              [ "$BAD" = "0" ] && break
-            fi
-            [ "$STATE" = "DIRTY" ] && { echo "PR has conflicts"; exit 1; }
-            [ "$i" = "90" ] && { echo "timed out waiting for a mergeable state ($STATE)"; gh pr checks "$PR" || true; exit 1; }
-            sleep 10
-          done
-          gh pr merge "$PR" --squash --admin --delete-branch
-          gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "pages build request failed (non-fatal)"
+          echo "awaiting independent and exact-head Claude reviews: $PR"
+          # PR creation is not publication. Do not dispatch a successor until
+          # a reviewed normal merge is confirmed (operations docs, #564/#565).
 
-      - name: Dispatch targeted publication-date enrichment
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh workflow run permit-feed.yml -f mode=enrich
-          echo "dispatched permit-feed enrich (no-ops when the diff is empty)"

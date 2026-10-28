@@ -24,6 +24,11 @@ def workflow(name):
 def test_publish_wait_executes_clean_conflict_timeout_paths(tmp_path, name, state, ok):
     """#170/#187/#277: real shell must wait clean, reject conflicts/timeouts."""
     text = workflow(name)
+    if 'gh pr merge' not in text:
+        assert 'awaiting independent and exact-head Claude reviews' in text
+        assert 'gh pr update-branch' not in text
+        assert '--admin' not in text
+        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -51,6 +56,11 @@ sleep() {{ :; }}
 def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path, name):
     """Runs 39755426256/39804643780/39897078238: BLOCKED by the required review, checks green -> admin merge."""
     text = workflow(name)
+    if 'gh pr merge' not in text:
+        assert 'awaiting independent and exact-head Claude reviews' in text
+        assert 'gh pr update-branch' not in text
+        assert '--admin' not in text
+        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -81,6 +91,11 @@ def test_publish_poll_survives_ci_restart_near_miss(tmp_path, name):
     """Run 39900080019 (#380): update-branch restarts pull_request CI; checks
     pending past the old 45-poll budget then green must still merge."""
     text = workflow(name)
+    if 'gh pr merge' not in text:
+        assert 'awaiting independent and exact-head Claude reviews' in text
+        assert 'gh pr update-branch' not in text
+        assert '--admin' not in text
+        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -101,6 +116,10 @@ sleep() {{ :; }}
 def test_refresh_mirror_fetches_lease_ref_before_force_push():
     """#227: force-with-lease must use a fresh tracking ref."""
     text = workflow("weekly-refresh.yml")
+    if 'git push origin origin/main:refs/heads/mirror' not in text:
+        assert 'awaiting independent and exact-head Claude reviews' in text
+        assert 'refs/heads/mirror' not in text
+        return  # #564 removes deployment from the fetch job entirely.
     fetch = text.index("git fetch origin mirror")
     push = text.index(
         "git push origin origin/main:refs/heads/mirror --force-with-lease"
@@ -112,8 +131,13 @@ def test_refresh_mirror_fetches_lease_ref_before_force_push():
 def test_refresh_inline_tests_precede_merge_without_approval_gated_dispatch():
     """#85/#132: current refresh avoids the impossible self-approval path."""
     text = workflow("weekly-refresh.yml")
-    assert text.index("python -m pytest -q") < text.index("gh pr merge")
-    assert text.index("ruff check") < text.index("gh pr merge")
+    if 'gh pr merge' in text:
+        assert text.index("python -m pytest -q") < text.index("gh pr merge")
+        assert text.index("ruff check") < text.index("gh pr merge")
+    else:
+        assert 'awaiting independent and exact-head Claude reviews' in text
+        assert 'gh pr update-branch' not in text
+        assert '--admin' not in text
     assert "gh workflow run ci.yml" not in text
     permit = workflow("permit-feed.yml")
     # Permit feed no longer merges or waits around the review gate (#562).

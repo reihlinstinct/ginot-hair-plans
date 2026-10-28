@@ -168,7 +168,7 @@ def first_difference(a: bytes, b: bytes) -> int:
     return min(a.count(b"\n"), b.count(b"\n")) + 1
 
 
-def check(docs: Path, write: bool = False) -> list[str]:
+def check(docs: Path, write: bool = False, include_data_json: bool = False) -> list[str]:
     """Return problems (empty when docs/ is fresh). With write=True,
     copy the regenerated files over docs/ instead."""
     base_date = stamp_date(docs / "index.html")
@@ -186,6 +186,8 @@ def check(docs: Path, write: bool = False) -> list[str]:
             return renders[date]
 
         names = _files(rendered_for(base_date))
+        if include_data_json:
+            names.append("data.json")
         for name in names:
             committed = docs / name
             date = stamp_date(committed) or base_date
@@ -247,6 +249,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="regenerate the covered files in docs/ instead of checking")
     ap.add_argument("--list-uncovered", action="store_true",
                     help="list docs/ files this check does not compare")
+    ap.add_argument("--include-data-json", action="store_true",
+                    help="also regenerate/check weekly data.json after reconciliation")
     args = ap.parse_args(argv)
     docs = Path(args.docs)
     try:
@@ -254,7 +258,7 @@ def main(argv: list[str] | None = None) -> int:
             for name in uncovered(docs):
                 print(name)
             return 0
-        problems = check(docs, write=args.write)
+        problems = check(docs, write=args.write, include_data_json=args.include_data_json)
     except CheckError as exc:
         print(f"docs freshness check could not run: {exc}", file=sys.stderr)
         return 2
