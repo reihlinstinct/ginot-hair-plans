@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'src'))
 from ginot.publications import write_projection
 
 FILES = ('data/publications_active.json', 'data/publications_new_latest.json',
-         'docs/publications_active.json', 'docs/index.json')
+         'docs/publications_active.json', 'docs/index.json', 'docs/permits-default.html')
 
 
 def gh(*args, payload=None):
@@ -42,6 +42,8 @@ def main():
     # Public deadline-only projection follows every daily publication refresh.
     if not write_projection('data/publications_active.json', 'docs/publications_active.json'):
         raise RuntimeError('Publication source unavailable; refusing to publish a data PR')
+    # #629: daily evidence changes the default subset as well as the projection.
+    subprocess.run(['python3', 'scripts/render_permits_page.py', '--default-only'], check=True)
     repo = os.environ['GITHUB_REPOSITORY']
     pending = pending_publication_prs(repo)
     if pending:

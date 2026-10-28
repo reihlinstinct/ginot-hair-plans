@@ -17,11 +17,15 @@ import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
-from ginot.mapdata import write_permit_points
-from ginot.page import _permits_section, write_permit_ids
+from ginot.mapdata import permit_points, write_permit_points
+from ginot.page import _permits_section, publication_evidence_tiks, write_permit_ids
 
 DATA = "data/permit_requests.json"
 OUT = "docs/permits.html"
+# #441: the small default-view subset the page loads first; the full list
+# above loads only on a non-default interaction. Same source, same batch.
+DEFAULT_OUT = "docs/permits-default.html"
+PUBLICATIONS = "data/publications_active.json"
 IDS_OUT = "docs/permit-ids.json"  # read by the submit worker (#515)
 
 
@@ -29,6 +33,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check-dependencies', action='store_true',
                         help='Check imports without reading or changing data')
+    parser.add_argument('--default-only', action='store_true',
+                        help='Rewrite only the evidence-dependent default subset (#629)')
     args = parser.parse_args()
     if args.check_dependencies:
         print('permit renderer dependencies available')
@@ -38,13 +44,24 @@ def main() -> int:
     if not permits:
         print(f"{DATA} has no requests - refusing to empty the fragment")
         return 1
-    permit_map = write_permit_points(permits, 'data/ginot_hair_parcels.geojson', 'docs/permit-points.json')
+    if args.default_only:
+        # Match render_site's map-missing labels without rewriting other files.
+        from pathlib import Path
+        parcels_path = Path('data/ginot_hair_parcels.geojson')
+        parcels = json.loads(parcels_path.read_text(encoding='utf-8')) if parcels_path.exists() else {}
+        permit_map = permit_points(permits, parcels)
+    else:
+        permit_map = write_permit_points(permits, 'data/ginot_hair_parcels.geojson', 'docs/permit-points.json')
     missing = set(permit_map['missing_location'])
     permits = [dict(p, _map_missing=p.get('tik_num') in missing) for p in permits]
-    if not _permits_section(permits, rows_file=OUT):
+    if not _permits_section(permits, rows_file=None if args.default_only else OUT, default_rows_file=DEFAULT_OUT,
+                            evidence_tiks=publication_evidence_tiks(PUBLICATIONS)):
         print("permits section render produced no output")
         return 1
-    print(f"rendered {len(permits)} permit rows into {OUT}")
+    if args.default_only:
+        print(f'rendered default permit subset into {DEFAULT_OUT}')
+        return 0
+    print(f"rendered {len(permits)} permit rows into {OUT} and the default subset into {DEFAULT_OUT}")
     n = write_permit_ids(permits, IDS_OUT)
     print(f"wrote {n} permit ids into {IDS_OUT}")
     return 0

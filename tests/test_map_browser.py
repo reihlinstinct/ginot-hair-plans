@@ -462,9 +462,18 @@ def test_map_excludes_style_hidden_row_and_keeps_boundary_click(page, map_networ
     canvas.scroll_into_view_if_needed()
     canvas.screenshot(path="/tmp/map-boundary-stable.png")
     # SVG path pixels give an actual edge to click, not a mocked map event.
-    point = page.locator(".leaflet-overlay-pane path").evaluate("""e=>{
-      var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
-      return {x:p.x,y:p.y};}""")
+    point = page.locator(".leaflet-overlay-pane path").evaluate("""async e=>{
+      // Status count can settle before Leaflet's projected screen edge does.
+      let previous=null,stable=0;
+      for(let frame=0;frame<120;frame++){
+        await new Promise(requestAnimationFrame);
+        const p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
+        stable=previous&&Math.abs(p.x-previous.x)<0.1&&Math.abs(p.y-previous.y)<0.1?stable+1:0;
+        previous={x:p.x,y:p.y};
+        if(stable>=3)return previous;
+      }
+      throw new Error('Boundary screen edge did not settle');
+    }""")
     page.mouse.click(point["x"], point["y"])
     page.locator(".leaflet-popup-content strong").wait_for()
     assert page.locator(".leaflet-popup-content strong").inner_text() == "תכנית 200-22"
@@ -503,6 +512,7 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
 
 
 def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
+    page.evaluate('window.__loadFullPermits && window.__loadFullPermits()')
     page.wait_for_function('window.__permitsLoaded')
     # Keep real public point projection shape, but use synthetic table rows.
     page.evaluate('''() => {

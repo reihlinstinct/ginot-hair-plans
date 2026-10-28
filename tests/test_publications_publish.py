@@ -68,7 +68,7 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
         if '/git/commits/' in path:
             return {'tree': {'sha': 'b' * 40}}
         if path.endswith('/git/trees'):
-            assert {entry['path'] for entry in payload['tree']} == {'data/publications_active.json', 'data/publications_new_latest.json', 'docs/publications_active.json', 'docs/index.json'}
+            assert {entry['path'] for entry in payload['tree']} == {'data/publications_active.json', 'data/publications_new_latest.json', 'docs/publications_active.json', 'docs/index.json', 'docs/permits-default.html'}
             projection = next(entry for entry in payload['tree'] if entry['path'] == 'docs/publications_active.json')
             assert 'private_note' not in projection['content']
             assert '2026/0439.00' in projection['content']
@@ -84,7 +84,8 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(tmp_path, monkey
     monkeypatch.setattr(module, 'gh', fake_gh)
     module.main()
     assert len(calls) == 7
-    assert processes == [((['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'],), {'check': True})]
+    assert processes == [((['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'],), {'check': True}),
+                         ((['python3', 'scripts/render_permits_page.py', '--default-only'],), {'check': True})]
     assert 'staged PR is not publication' in capsys.readouterr().out
 
 
@@ -122,4 +123,5 @@ def test_main_pending_and_no_change_never_write(tmp_path, monkeypatch, capsys):
         module.main()
         assert len(calls) == (1 if pending else 4)
         assert ('awaiting review' if pending else 'no publication changes') in capsys.readouterr().out
-    assert all(call[0][0] == ['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'] for call in processes)
+    assert all(call[0][0] in (['python3', 'scripts/build_site_index.py', 'data', 'docs/index.json'],
+                              ['python3', 'scripts/render_permits_page.py', '--default-only']) for call in processes)

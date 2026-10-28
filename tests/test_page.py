@@ -986,3 +986,62 @@ def test_render_site_removes_stale_official_projection(tmp_path):
     publications_path.unlink()
     render_site([], [], str(out), permits_path=str(permits_path))
     assert not projection.exists()
+
+
+def _subset_permit(tik, status, schuna="קטמון הישנה"):
+    return {"tik_num": tik, "status": status, "schunaName": schuna}
+
+
+def test_default_permit_subset_holds_default_candidates_and_evidence_rows(tmp_path):
+    """#441: the eagerly loaded subset must contain every row the default view,
+    the urgency list (#522) or the publication overlay (#573) can need."""
+    from ginot import page
+
+    obj, pre = "תחילת פרסום הבקשה להקלה", "נוסח פרסום אושר"
+    permits = [
+        _subset_permit("2026/0001.00", obj),
+        _subset_permit("2026/0002.00", pre),
+        _subset_permit("2026/0003.00", obj, schuna="גילה"),  # out of scope
+        _subset_permit("2026/0004.00", "הבקשה נסגרה"),  # terminal
+        _subset_permit("2026/0005.00", "תום תקופת פרסום"),  # non-default group
+        _subset_permit("2026/0006.00", "תום תקופת פרסום"),  # ... with evidence
+        _subset_permit("2026/0007.00", "סטטוס חדש שלא מופה"),  # unmapped: visible
+        _subset_permit("2026/0008.00", "הבקשה נסגרה"),  # terminal, evidence anyway
+    ]
+    full, subset = tmp_path / "permits.html", tmp_path / "permits-default.html"
+    page._permits_section(
+        permits,
+        rows_file=str(full),
+        default_rows_file=str(subset),
+        evidence_tiks=frozenset({"2026/0006.00", "2026/0008.00"}),
+    )
+    body = subset.read_text(encoding="utf-8")
+    included = {t for t in (p["tik_num"] for p in permits) if f"data-tik='{t}'" in body}
+    assert included == {"2026/0001.00", "2026/0002.00", "2026/0006.00", "2026/0007.00"}
+    # Every subset row is byte-identical to its row in the full fragment.
+    full_rows = set(full.read_text(encoding="utf-8").split("</tr>"))
+    assert all(r in full_rows for r in body.split("</tr>"))
+
+
+def test_publication_evidence_tiks_reads_in_polygon_entries_only(tmp_path):
+    """#441: only entries the #573 overlay can promote (in_polygon is True)
+    count, with no date filter; a missing or invalid list is no evidence."""
+    import json
+
+    from ginot.page import publication_evidence_tiks
+
+    path = tmp_path / "publications_active.json"
+    path.write_text(json.dumps([
+        {"tik_num": "2026/0001.00", "in_polygon": True, "publication_date": "2020-01-01"},
+        {"tik_num": "2026/0002.00", "in_polygon": None, "publication_date": "2026-10-01"},
+        {"tik_num": "2026/0003.00", "in_polygon": "true", "publication_date": "2026-10-01"},
+        {"tik_num": "", "in_polygon": True},
+        {"in_polygon": True},
+        "not-an-object",
+    ]), encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset({"2026/0001.00"})
+    assert publication_evidence_tiks(str(tmp_path / "missing.json")) == frozenset()
+    path.write_text("{", encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset()
+    path.write_text("{}", encoding="utf-8")
+    assert publication_evidence_tiks(str(path)) == frozenset()
