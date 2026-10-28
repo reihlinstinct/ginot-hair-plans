@@ -1,7 +1,7 @@
 """#564: repo-wide guard that no workflow can bypass review of data PRs.
 
 The per-workflow tests (#582, #584, #590) each keep their own forbidden-string
-list. This is the catch-all: it scans every ``.github/workflows/*.yml`` run
+list. This is the catch-all: it scans every ``.github/workflows/*.yml`` / ``*.yaml`` run
 step and every ``scripts/ci/*`` file the workflows call, after normalizing
 whitespace, quoting and line continuations, for merge, approval, dispatch,
 re-run, Pages and default-branch/mirror push forms, including the alternate
@@ -58,7 +58,7 @@ RULES = [
 
 FORBIDDEN_PERMISSIONS = {"actions": "write", "pages": "write", "id-token": "write"}
 
-# (file, rule id, substring of the normalized command, required substring of
+# (file, rule id, substring of the normalized command, required exact conjunct of
 # the step's ``if`` or None, reason).
 ALLOWLIST = [
     (
@@ -112,7 +112,7 @@ def _gate_holds(step_if, gate):
 
 def _allowed(file, rule, command, step_if):
     for a_file, a_rule, needle, gate, _reason in ALLOWLIST:
-        if (a_file, a_rule) == (file, rule) and needle in command:
+        if (a_file, a_rule) == (file, rule) and command.startswith(needle):
             return gate is None or _gate_holds(step_if, gate)
     return False
 
@@ -153,7 +153,9 @@ def scan_workflow(file, text):
                     line = command[command.rfind("\n", 0, m.start()) + 1 :].split(
                         "\n", 1
                     )[0]
-                    if not _allowed(file, rule, line, step.get("if")):
+                    # Start at THIS match, never at an earlier allowlisted command.
+                    matched_command = command[m.start():].split("\n", 1)[0]
+                    if not _allowed(file, rule, matched_command, step.get("if")):
                         found.append((file, rule, line.strip()))
     return found
 
@@ -170,7 +172,7 @@ def scan_script(file, text):
 
 def test_no_workflow_or_ci_script_can_bypass_review():
     found = []
-    for path in sorted(WORKFLOWS.glob("*.yml")):
+    for path in sorted(p for p in WORKFLOWS.iterdir() if p.suffix in {".yml", ".yaml"}):
         found += scan_workflow(path.name, path.read_text())
     for path in sorted(CI_SCRIPTS.iterdir()):
         if (
@@ -411,3 +413,24 @@ def test_script_scanner_catches_planted_form(tmp_path):
         r for _, r, _ in scan_script("x.sh", 'git -C "$W" push origin HEAD:main\n')
     } == {"push-default-or-mirror"}
     assert scan_script("x.sh", 'git -C "$W" push origin HEAD:badge-data\n') == []
+
+
+@pytest.mark.parametrize('separator', ['; ', ' && ', ' | ', ' '])
+@pytest.mark.parametrize('successor', [
+    'gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit',
+    'gh workflow run permit-feed.yml -f mode=enrich',
+])
+def test_ci_exception_never_covers_a_second_ungated_command(separator, successor):
+    text = CLEAN.replace('gh pr create --base main --head "$BRANCH"',
+                         'gh workflow run ci.yml --ref "$BRANCH"' + separator + successor)
+    found = scan_workflow('permit-feed.yml', text)
+    assert any(rule == 'gh-workflow-run' for _, rule, _ in found)
+
+
+def test_yaml_extension_cannot_hide_a_review_bypass(tmp_path, monkeypatch):
+    (tmp_path / 'auto.yaml').write_text(CLEAN.replace(
+        'gh pr create --base main --head "$BRANCH"', 'gh pr merge 17 --admin'))
+    monkeypatch.setitem(test_no_workflow_or_ci_script_can_bypass_review.__globals__,
+                        'WORKFLOWS', tmp_path)
+    with pytest.raises(AssertionError):
+        test_no_workflow_or_ci_script_can_bypass_review()

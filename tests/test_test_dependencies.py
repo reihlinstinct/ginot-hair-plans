@@ -43,13 +43,19 @@ def _local_modules(root):
 
 
 def collection_time_imports(source):
-    """Top-level module names imported at module level (not inside functions)."""
+    """Collection-time imports, including module blocks/classes, not functions."""
     names = set()
-    for node in ast.parse(source).body:
+    def visit(node):
+        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.Lambda)):
+            return
         if isinstance(node, ast.Import):
-            names |= {alias.name.split(".")[0] for alias in node.names}
+            names.update(alias.name.split(".")[0] for alias in node.names)
         elif isinstance(node, ast.ImportFrom) and node.level == 0 and node.module:
             names.add(node.module.split(".")[0])
+        for child in ast.iter_child_nodes(node):
+            visit(child)
+
+    visit(ast.parse(source))
     return names
 
 
@@ -108,3 +114,19 @@ def test_listed_stdlib_local_and_function_level_imports_pass(
     tmp_path, source, requirements
 ):
     assert missing_test_dependencies(_repo(tmp_path, source, requirements)) == []
+
+
+@pytest.mark.parametrize('source', [
+    'if True:\n    import yaml\n',
+    'try:\n    import yaml\nexcept ImportError:\n    pass\n',
+    'with open("x"):\n    import yaml\n',
+    'for x in []:\n    import yaml\n',
+    'class A:\n    import yaml\n',
+])
+def test_collection_blocks_report_unlisted_imports(tmp_path, source):
+    assert missing_test_dependencies(_repo(tmp_path, source)) != []
+
+
+def test_nested_functions_stay_out_of_collection_imports():
+    assert collection_time_imports('if True:\n    def f():\n        import yaml\n') == set()
+    assert collection_time_imports('class A:\n    async def f(self):\n        import yaml\n') == set()
