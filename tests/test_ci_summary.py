@@ -124,3 +124,60 @@ def test_e2e_evidence_upload_includes_hidden_artifacts_dir():
     step = text.split("Upload E2E evidence", 1)[1]
     assert "include-hidden-files: true" in step
     assert "if-no-files-found: error" in step
+
+
+def test_summary_byte_boundary_and_full_log(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    text = 'x' * (summary.SUMMARY_LIMIT_BYTES - 1)
+    summary.write_summary(text, target)
+    assert target.read_text(encoding="utf-8") == text
+    target.write_text('', encoding='utf-8')
+    oversized = 'א' * summary.SUMMARY_LIMIT_BYTES
+    summary.write_summary(oversized, target)
+    output = target.read_bytes()
+    assert len(output) <= summary.SUMMARY_LIMIT_BYTES < 1024 * 1024
+    assert 'truncated' in output.decode('utf-8')
+    assert 'step log' in output.decode('utf-8')
+    assert oversized in capsys.readouterr().out
+
+
+def test_summary_accounts_for_existing_bytes_and_keeps_full_report(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    existing = 'z' * (summary.SUMMARY_LIMIT_BYTES - 8)
+    target.write_text(existing, encoding="utf-8")
+    summary.write_summary('full report ' * 200, target)
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert target.read_text(encoding="utf-8").startswith(existing)
+    assert 'full report ' * 200 in capsys.readouterr().out
+
+
+def test_already_oversized_summary_is_not_appended(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    existing = b'x' * (1024 * 1024 + 1)
+    target.write_bytes(existing)
+    summary.write_summary('report', target)
+    assert target.read_bytes() == existing
+    assert 'report' in capsys.readouterr().out
+
+
+def test_exact_limit_and_one_byte_over(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    exact = 'x' * summary.SUMMARY_LIMIT_BYTES
+    summary.write_summary(exact, target)
+    assert target.read_text(encoding="utf-8") == exact
+    target.write_text('', encoding='utf-8')
+    summary.write_summary(exact + 'x', target)
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert 'truncated' in target.read_text(encoding="utf-8")
+    assert exact + 'x' in capsys.readouterr().out
+
+
+def test_truncated_summary_closes_details_and_logs_no_commands(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    text = '<details><summary>checks</summary>\n' + 'א\n' * summary.SUMMARY_LIMIT_BYTES
+    text += '::error::not a workflow command\n</details>\n'
+    summary.write_summary(text, target)
+    rendered = target.read_text(encoding="utf-8")
+    assert rendered.count('<details>') == rendered.count('</details>')
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert not any(line.startswith('::') for line in capsys.readouterr().out.splitlines())
