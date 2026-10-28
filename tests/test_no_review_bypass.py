@@ -87,10 +87,6 @@ ALLOWLIST = [
 # Workflow-level permissions that are known and reviewed elsewhere.
 PERMISSION_ALLOWLIST = {
     ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
-    (
-        "permit-feed.yml",
-        "pages",
-    ): "pre-existing; no Pages step remains (see #564 review note)",
 }
 
 

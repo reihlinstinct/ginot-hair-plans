@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## 2026-10-28 - Reviewed data staging (#636, #564)
 
 - Weekly, audit-result, Mavat and mirror collection now stop at a PR for review.

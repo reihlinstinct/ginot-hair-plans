@@ -77,7 +77,7 @@ jobs:
       - name: Run iplan refresh and render the site
         run: python3 -u refresh.py
 
-      - name: Publish changes as a PR for review
+      - name: Stage changes as a PR for review
         env:
           # Repo-scoped PAT: a GITHUB_TOKEN-opened
           # PR never triggers ci.yml, so the required checks never ran and the
