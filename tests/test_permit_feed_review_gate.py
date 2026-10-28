@@ -36,30 +36,52 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
     import os
     import subprocess
 
-    workflow = (Path(__file__).resolve().parents[1] / '.github/workflows/permit-feed.yml').read_text()
-    step = workflow.split('- name: Stop while a permit-feed data PR awaits review', 1)[1].split('- name:', 1)[0]
-    shell = '\n'.join(line[10:] for line in step.split('run: |\n', 1)[1].splitlines())
-    assert workflow.index('Stop while a permit-feed') < workflow.index('Install VPN transport')
-    assert workflow.index('Stop while a permit-feed') < workflow.index('Bring up owner-operated')
+    import yaml
+
+    root = Path(__file__).resolve().parents[1]
+    workflow = yaml.safe_load((root / '.github/workflows/permit-feed.yml').read_text())
+    pending = workflow['jobs']['pending']
+    data = workflow['jobs']['permit-feed']
+    assert data['needs'] == 'pending'
+    assert data['if'] == "${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}"
+    guard = next(s for s in pending['steps'] if s.get('id') == 'guard')
+    notice = next(s for s in pending['steps'] if '::notice::' in s.get('run', ''))
+    assert notice['if'] == "${{ steps.guard.outputs.pending == 'true' }}"
+    assert notice['env']['PENDING_PRS'] == '${{ steps.guard.outputs.pending_prs }}'
+    # Every VPN step is in the dependent data job, never the guard job.
+    assert 'l2tp' not in str(pending)
+    assert any('Bring up owner-operated' in s.get('name', '') for s in data['steps'])
     gh = tmp_path / 'gh'
-    gh.write_text('#!/bin/bash\nprintf "%s\\n" "$*" > "$CALL_LOG"\nprintf "%s" "$PENDING_TEST"\nexit "$GH_EXIT"\n')
+    gh.write_text('#!/bin/bash\nprintf "%s\n" "$*" > "$CALL_LOG"\nprintf "%s" "$PENDING_TEST"\nexit "$GH_EXIT"\n')
     gh.chmod(0o755)
+
     def pr(repo, ref):
         return {'number': 17, 'head': {'ref': ref, 'repo': {'full_name': repo}}}
 
-    cases = [([], '0', 0), ([pr('test/repo', 'permit-feed/batch')], '0', 1),
-             ([pr('fork/repo', 'permit-feed/batch')], '0', 0),
-             ([pr('test/repo', 'unrelated')], '0', 0),
-             ([], '42', 42)]
-    for pending, status, expected in cases:
+    cases = [(json.dumps([]), '0', 'false'),
+             (json.dumps([pr('test/repo', 'permit-feed/batch')]), '0', 'true'),
+             (json.dumps([pr('fork/repo', 'permit-feed/batch')]), '0', 'false'),
+             (json.dumps([pr('test/repo', 'unrelated')]), '0', 'false'),
+             (json.dumps([]), '42', None), ('not json', '0', None)]
+    for i, (body, status, verdict) in enumerate(cases):
+        output = tmp_path / f'output-{i}'
         env = dict(os.environ, PATH=f'{tmp_path}:{os.environ["PATH"]}',
                    GITHUB_REPOSITORY='test/repo', CALL_LOG=str(tmp_path / 'calls'),
-                   PENDING_TEST=json.dumps(pending), GH_EXIT=status)
-        result = subprocess.run(['bash', '-c', shell], env=env, capture_output=True,
-                                text=True, check=False)
-        assert result.returncode == expected, result.stderr
+                   PENDING_TEST=body, GH_EXIT=status, GITHUB_OUTPUT=str(output))
+        result = subprocess.run(['bash', '-eu', '-c', guard['run']], cwd=root,
+                                env=env, capture_output=True, text=True, check=False)
+        assert result.returncode == (1 if verdict is None else 0), result.stderr
         call = (tmp_path / 'calls').read_text()
-        assert '--paginate' in call
-        assert 'state=open&base=main&per_page=100' in call
-    assert '.head.repo.full_name == $repo' in shell
-    assert 'startswith("permit-feed/")' in shell
+        assert 'state=open&per_page=100&page=1' in call
+        if verdict is None:
+            assert not output.exists()
+            assert 'pending=' not in result.stdout
+            assert 'failed closed' in result.stderr
+        else:
+            assert f'pending={verdict}' in output.read_text().splitlines()
+            if verdict == 'true':
+                notice_result = subprocess.run(['bash', '-eu', '-c', notice['run']],
+                                               env=dict(env, PENDING_PRS='17'),
+                                               capture_output=True, text=True, check=False)
+                assert notice_result.returncode == 0
+                assert '::notice::data PR(s) 17' in notice_result.stdout

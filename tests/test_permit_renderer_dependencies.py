@@ -59,7 +59,9 @@ def test_checkout_does_not_leave_credentials_for_dependency_code():
 
 def test_git_auth_is_only_enabled_after_dependency_preflight():
     workflow = (ROOT / '.github/workflows/permit-feed.yml').read_text()
-    assert workflow.count('actions/checkout@') == 1
+    import yaml
+    steps = yaml.safe_load(workflow)['jobs']['permit-feed']['steps']
+    assert sum('actions/checkout@' in s.get('uses', '') for s in steps) == 1
     assert workflow.count('gh auth setup-git') == 1
     assert workflow.index('gh auth setup-git') > workflow.index('--check-dependencies')
     assert workflow.index('gh auth setup-git') > workflow.index('- name: Publish changes as a PR')
