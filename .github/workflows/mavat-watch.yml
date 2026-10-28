@@ -48,7 +48,7 @@ jobs:
     # same-repo PRs with the mavat-check/ head prefix (paginated, forks ignored).
     # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
       contents: read
@@ -76,7 +76,7 @@ jobs:
     # Kill switch: set repo variable MAVAT_WATCH_ENABLED=false to disable.
     needs: pending
     if: ${{ !cancelled() && vars.MAVAT_WATCH_ENABLED != 'false' && (inputs.mode == 'discover' || (needs.pending.result == 'success' && needs.pending.outputs.pending == 'false')) }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 50
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7

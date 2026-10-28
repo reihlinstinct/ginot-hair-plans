@@ -31,7 +31,7 @@ permissions:
 jobs:
   rishui-publish-watch:
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
       - name: Stop while a publication data PR awaits review
