@@ -71,14 +71,16 @@ ALLOWLIST = [
     (
         "permit-feed.yml",
         "gh-workflow-run",
-        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit",
+        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit --ref main -f source_sha=$SHA -f source_run=$GITHUB_RUN_ID",
         "steps.publish.outputs.merged == 'true'",
         "read-only auditor, only after a reviewed merge (#562)",
     ),
     (
         "permit-feed.yml",
         "gh-workflow-run",
-        "gh workflow run permit-feed.yml -f mode=enrich",
+        ("gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true "
+        "-f include_late_stages=${{ env.REQ_INCLUDE_LATE_STAGES }} "
+         "-f limit=${{ env.REQ_LIMIT }} -f offset=0"),
         "steps.publish.outputs.merged == 'true'",
         "enrich chain, only after a reviewed merge (#145, #562)",
     ),
@@ -112,7 +114,7 @@ def _gate_holds(step_if, gate):
 
 def _allowed(file, rule, command, step_if):
     for a_file, a_rule, needle, gate, _reason in ALLOWLIST:
-        if (a_file, a_rule) == (file, rule) and command.startswith(needle):
+        if (a_file, a_rule) == (file, rule) and command == needle:
             return gate is None or _gate_holds(step_if, gate)
     return False
 
@@ -154,7 +156,7 @@ def scan_workflow(file, text):
                         "\n", 1
                     )[0]
                     # Start at THIS match, never at an earlier allowlisted command.
-                    matched_command = command[m.start():].split("\n", 1)[0]
+                    matched_command = re.split(r"[;|&\n]", command[m.start():], maxsplit=1)[0].strip()
                     if not _allowed(file, rule, matched_command, step.get("if")):
                         found.append((file, rule, line.strip()))
     return found
@@ -376,7 +378,7 @@ def test_planted_violation_is_caught(rule, kwargs):
 
 def test_gated_allowlist_entry_passes_only_in_its_file():
     file, text = planted(
-        run="gh workflow run permit-feed.yml -f mode=enrich",
+        run=ALLOWLIST[2][2],
         file="permit-feed.yml",
         step_if="${{ success() && steps.publish.outputs.merged == 'true' }}",
     )
@@ -393,7 +395,7 @@ def test_gated_allowlist_entry_passes_only_in_its_file():
 )
 def test_gate_accepts_exact_positive_conjunct(step_if):
     file, text = planted(
-        run="gh workflow run permit-feed.yml -f mode=enrich",
+        run=ALLOWLIST[2][2],
         file="permit-feed.yml",
         step_if=step_if,
     )
@@ -434,3 +436,10 @@ def test_yaml_extension_cannot_hide_a_review_bypass(tmp_path, monkeypatch):
                         'WORKFLOWS', tmp_path)
     with pytest.raises(AssertionError):
         test_no_workflow_or_ci_script_can_bypass_review()
+
+
+@pytest.mark.parametrize('extra', [' --ref main', ' -R other/repo', ' --ref=$OTHER'])
+def test_allowlist_rejects_unreviewed_extra_dispatch_arguments(extra):
+    file, text = planted(run='gh workflow run ci.yml --ref "$BRANCH"' + extra,
+                         file='permit-feed.yml')
+    assert scan_workflow(file, text)

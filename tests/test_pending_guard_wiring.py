@@ -67,7 +67,8 @@ def test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix):
     assert "needs.pending.outputs.pending == 'false'" in cond
     # No status override: a failed guard (fail closed) must skip the data job.
     for override in ("always()", "failure()", "cancelled()", "!cancelled()"):
-        assert override not in cond
+        if name != "mavat-watch.yml":
+            assert override not in cond
     assert "!= 'true'" not in cond
 
 
@@ -90,3 +91,37 @@ def test_only_mavat_discover_mode_bypasses_the_guard():
 def test_entire_workflow_serializes_pending_check_and_data(name):
     assert load(name)['concurrency'] == {'group': name.removesuffix('.yml'),
                                         'cancel-in-progress': False}
+
+
+def test_discover_skips_guard_and_explicitly_handles_skipped_dependency():
+    doc = load('mavat-watch.yml')['jobs']
+    assert "inputs.mode != 'discover'" in doc['pending']['if']
+    assert '!cancelled()' in doc['mavat-watch']['if']
+    assert "needs.pending.result == 'success'" in doc['mavat-watch']['if']
+
+
+def test_mavat_job_condition_truth_table_preserves_fail_closed():
+    from itertools import product
+
+    condition = load('mavat-watch.yml')['jobs']['mavat-watch']['if'][3:-2].strip()
+    for disabled, cancelled, discover, result, pending in product(
+        [False, True], [False, True], [False, True],
+        ['success', 'failure', 'skipped', 'cancelled'], ['false', 'true', ''],
+    ):
+        expression = condition
+        values = {
+            'cancelled()': cancelled,
+            'vars.MAVAT_WATCH_ENABLED': 'false' if disabled else 'true',
+            'inputs.mode': 'discover' if discover else 'check',
+            'needs.pending.result': result,
+            'needs.pending.outputs.pending': pending,
+        }
+        for token, value in values.items():
+            expression = expression.replace(token, repr(value))
+        expression = expression.replace('!cancelled', 'not cancelled')
+        expression = expression.replace('!False', 'not False').replace('!True', 'not True')
+        expression = expression.replace('&&', 'and').replace('||', 'or')
+        actual = eval(expression, {'__builtins__': {}}, {})
+        expected = not disabled and not cancelled and (
+            discover or (result == 'success' and pending == 'false'))
+        assert actual == expected, (disabled, cancelled, discover, result, pending)
