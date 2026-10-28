@@ -67,8 +67,10 @@ def test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix):
     assert "needs.pending.outputs.pending == 'false'" in cond
     # No status override: a failed guard (fail closed) must skip the data job.
     for override in ("always()", "failure()", "cancelled()", "!cancelled()"):
-        if name != "mavat-watch.yml":
-            assert override not in cond
+        if name == "mavat-watch.yml" and override == "!cancelled()":
+            continue
+        checked = cond.replace("!cancelled()", "")
+        assert override not in checked
     assert "!= 'true'" not in cond
 
 
@@ -95,7 +97,7 @@ def test_entire_workflow_serializes_pending_check_and_data(name):
 
 def test_discover_skips_guard_and_explicitly_handles_skipped_dependency():
     doc = load('mavat-watch.yml')['jobs']
-    assert "inputs.mode != 'discover'" in doc['pending']['if']
+    assert doc['pending']['if'] == "${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}"
     assert '!cancelled()' in doc['mavat-watch']['if']
     assert "needs.pending.result == 'success'" in doc['mavat-watch']['if']
 
@@ -104,15 +106,15 @@ def test_mavat_job_condition_truth_table_preserves_fail_closed():
     from itertools import product
 
     condition = load('mavat-watch.yml')['jobs']['mavat-watch']['if'][3:-2].strip()
-    for disabled, cancelled, discover, result, pending in product(
-        [False, True], [False, True], [False, True],
+    for disabled, cancelled, mode, result, pending in product(
+        [False, True], [False, True], ['discover', 'check', ''],
         ['success', 'failure', 'skipped', 'cancelled'], ['false', 'true', ''],
     ):
         expression = condition
         values = {
             'cancelled()': cancelled,
             'vars.MAVAT_WATCH_ENABLED': 'false' if disabled else 'true',
-            'inputs.mode': 'discover' if discover else 'check',
+            'inputs.mode': mode,
             'needs.pending.result': result,
             'needs.pending.outputs.pending': pending,
         }
@@ -123,5 +125,26 @@ def test_mavat_job_condition_truth_table_preserves_fail_closed():
         expression = expression.replace('&&', 'and').replace('||', 'or')
         actual = eval(expression, {'__builtins__': {}}, {})
         expected = not disabled and not cancelled and (
-            discover or (result == 'success' and pending == 'false'))
-        assert actual == expected, (disabled, cancelled, discover, result, pending)
+            mode == 'discover' or (result == 'success' and pending == 'false'))
+        assert actual == expected, (disabled, cancelled, mode, result, pending)
+
+
+def test_discover_only_probes_get_endpoints_and_cannot_stage_prs():
+    import ast
+
+    source = (ROOT / 'scripts/vpn/mavat_discover.py').read_text()
+    probe = next(n for n in ast.parse(source).body
+                 if isinstance(n, ast.FunctionDef) and n.name == 'probe')
+    command = next(n.value for n in probe.body
+                   if isinstance(n, ast.Assign) and any(
+                       isinstance(t, ast.Name) and t.id == 'cmd' for t in n.targets))
+    constants = [n.value for n in command.elts if isinstance(n, ast.Constant)]
+    assert constants[0] == 'curl'
+    assert not {'-X', '--request', '-d', '--data', '--data-raw', '--data-binary',
+                '-F', '--form', '-T', '--upload-file'} & set(constants)
+    assert not any(token in source for token in ['gh pr', 'git push', 'gh workflow'])
+    steps = load('mavat-watch.yml')['jobs']['mavat-watch']['steps']
+    writers = [s for s in steps if 'gh pr create' in s.get('run', '')
+               or 'git push' in s.get('run', '')]
+    assert len(writers) == 1
+    assert writers[0]['if'] == "${{ env.MODE == 'check' && success() }}"

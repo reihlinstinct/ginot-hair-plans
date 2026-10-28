@@ -439,7 +439,18 @@ def test_yaml_extension_cannot_hide_a_review_bypass(tmp_path, monkeypatch):
 
 
 @pytest.mark.parametrize('extra', [' --ref main', ' -R other/repo', ' --ref=$OTHER'])
-def test_allowlist_rejects_unreviewed_extra_dispatch_arguments(extra):
-    file, text = planted(run='gh workflow run ci.yml --ref "$BRANCH"' + extra,
-                         file='permit-feed.yml')
+@pytest.mark.parametrize('entry', ALLOWLIST)
+def test_allowlist_rejects_unreviewed_extra_dispatch_arguments(extra, entry):
+    file, _rule, needle, gate, _reason = entry
+    file, text = planted(run=needle + extra, file=file,
+                         step_if="${{ " + gate + " }}" if gate else None)
     assert scan_workflow(file, text)
+
+
+@pytest.mark.parametrize('separator', ['; ', ' && ', ' | '])
+@pytest.mark.parametrize('entry', ALLOWLIST)
+def test_complete_allowlist_command_accepts_shell_separator(separator, entry):
+    file, _rule, needle, gate, _reason = entry
+    file, text = planted(run=needle + separator + 'echo done', file=file,
+                         step_if="${{ " + gate + " }}" if gate else None)
+    assert scan_workflow(file, text) == []
