@@ -69,7 +69,7 @@ def test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix):
     for override in ("always()", "failure()", "cancelled()", "!cancelled()"):
         if name == "mavat-watch.yml" and override == "!cancelled()":
             continue
-        checked = cond.replace("!cancelled()", "")
+        checked = cond.replace("!cancelled()", "") if override == "cancelled()" else cond
         assert override not in checked
     assert "!= 'true'" not in cond
 
@@ -148,3 +148,18 @@ def test_discover_only_probes_get_endpoints_and_cannot_stage_prs():
                or 'git push' in s.get('run', '')]
     assert len(writers) == 1
     assert writers[0]['if'] == "${{ env.MODE == 'check' && success() }}"
+
+
+@pytest.mark.parametrize('case', [c for c in CASES if c[0] != 'mavat-watch.yml'])
+def test_non_mavat_status_override_mutation_is_rejected(monkeypatch, case):
+    from copy import deepcopy
+
+    name, job, var, prefix = case
+    mutated = deepcopy(load(name))
+    mutated['jobs'][job]['if'] = mutated['jobs'][job]['if'].replace(
+        '${{ ', '${{ !cancelled() && ', 1)
+    original_load = load
+    monkeypatch.setitem(test_data_job_runs_only_after_a_false_verdict.__globals__,
+                        'load', lambda target: mutated if target == name else original_load(target))
+    with pytest.raises(AssertionError):
+        test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix)
