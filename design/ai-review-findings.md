@@ -1,7 +1,7 @@
-# AI review findings in the pipeline (issue #454)
+# AI review findings in the pipeline (#454 design, #645 docs split)
 
 ## Status
-Proposal, for discussion with Tab before it becomes the rule. The draft PR that
+Proposal, for discussion with Tab before it becomes the rule. Draft PR #504
 originally combined this proposal with `.coderabbit.yaml`, a PR-template
 checkbox and a CONTRIBUTING change. This docs-only split (#645) changes no
 review configuration or enforcement. Those pieces stay held in #504.
