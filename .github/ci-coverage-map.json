@@ -4,8 +4,13 @@
       "pattern": "src/**",
       "checks": [
         "test",
-        "worker",
         "docs-fresh"
+      ]
+    },
+    {
+      "pattern": "worker/**",
+      "checks": [
+        "worker"
       ]
     },
     {
