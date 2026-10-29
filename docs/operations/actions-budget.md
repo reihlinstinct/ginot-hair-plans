@@ -28,10 +28,10 @@ Public-repo minutes are not counted in the monthly cap. Visibility is read today
 
 ## Checking the numbers
 
-Read-only, uses the billing usage API:
+Read-only, uses the billing usage API (current month; pass another `--year` and `--month` for a past one):
 
 ```
-GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year 2026 --month 10
+GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year $(date -u +%Y) --month $(date -u +%-m)
 python3 scripts/ci/actions_budget.py --check-timeouts
 ```
 

@@ -49,9 +49,14 @@ def test_api_shaped_items_match_case_insensitively_and_by_full_name():
 
 def test_repos_not_private_today_are_reported_not_counted():
     items = [item("was-private", 300), item("priv", 20), item("owner/gone", 5, product="Actions", unit="Minutes")]
-    other = ab.uncounted_minutes(items, {"priv"})
+    other = ab.uncounted_minutes(items, {"priv"}, CFG["minute_multipliers"])
     assert other == {"was-private": 300, "gone": 5}
     assert ab.private_minutes(items, {"priv"}, CFG["minute_multipliers"]) == {"priv": 20}
+
+
+def test_uncounted_minutes_apply_runner_multipliers():
+    items = [item("went-public", 200, sku="Actions macOS 3-core")]
+    assert ab.uncounted_minutes(items, set(), CFG["minute_multipliers"]) == {"went-public": 2000}
 
 
 def test_macos_minutes_use_the_multiplier():

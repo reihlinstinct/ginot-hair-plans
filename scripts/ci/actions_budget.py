@@ -14,7 +14,7 @@ Exit codes: 0 ok or warn, 2 stop threshold crossed, 3 jobs without a timeout
 (only with --check-timeouts).
 
 Usage:
-  GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year 2026 --month 10
+  GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year $(date -u +%Y) --month $(date -u +%-m)
   python3 scripts/ci/actions_budget.py --usage-file usage.json --private-repo name ...
   python3 scripts/ci/actions_budget.py --check-timeouts
 """
@@ -70,11 +70,12 @@ def private_minutes(items: list, private_repos: set, multipliers: dict) -> dict:
     return out
 
 
-def uncounted_minutes(items: list, private_repos: set) -> dict:
+def uncounted_minutes(items: list, private_repos: set, multipliers: dict) -> dict:
     """Actions minutes of repos not currently private (public now, or deleted).
 
     Visibility is read today, not for the billing month. A repo that was private
     earlier in the month and is public now lands here, so it stays visible.
+    Runner multipliers apply, so the figure is comparable to the private total.
     """
     private = {repo_key(r) for r in private_repos}
     out: dict = {}
@@ -85,7 +86,8 @@ def uncounted_minutes(items: list, private_repos: set) -> dict:
             continue
         repo = repo_key(item.get("repositoryName"))
         if repo not in private:
-            out[repo] = out.get(repo, 0) + item["quantity"]
+            minutes = item["quantity"] * multiplier(item.get("sku", ""), multipliers)
+            out[repo] = out.get(repo, 0) + minutes
     return out
 
 
@@ -180,7 +182,7 @@ def main(argv=None) -> int:
         print(f"private-repo minutes: {total:.0f} of {cfg['monthly_private_minutes_included']} ({state})")
         for repo, minutes in sorted(per_repo.items(), key=lambda kv: -kv[1]):
             print(f"  {repo}: {minutes:.0f}")
-        other = uncounted_minutes(items, private)
+        other = uncounted_minutes(items, private, cfg["minute_multipliers"])
         if other:
             top = ", ".join(f"{r} {m:.0f}" for r, m in sorted(other.items(), key=lambda kv: -kv[1])[:5])
             print(
