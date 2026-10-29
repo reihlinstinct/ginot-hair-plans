@@ -28,6 +28,9 @@ Everything in this repo is public - treat it that way.
 2. **Small, focused PRs** referencing the issue (`fixes #N` / `refs #N`).
 3. **Green CI required**: pytest matrix (3.10-3.13). Run `pytest` locally
   before pushing; `pip install -r requirements.txt` first.
+   Claims in a PR that are not proven yet go in
+   `docs/operations/unverified-capabilities.md`; private-repo Actions minutes
+   follow `docs/operations/actions-budget.md` (stop and ask at the cap).
 4. **Squash merge** once checks pass. Commit messages explain the why and
    reference the issue.
 

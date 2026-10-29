@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-10-29 - Unverified registry and Actions minute budget (#680)
+
+- Add a registry of capabilities we rely on but have not proven, each with a
+  verification command (`docs/operations/unverified-capabilities.md`).
+- Add the stop-and-ask Actions minute budget and a read-only reporter,
+  `scripts/ci/actions_budget.py`, with tests. No workflow, setting or secret
+  change and no CI enforcement.
+- Ideas adapted from OpenADLC (Apache-2.0); documentation read only, no code
+  copied.
+
 ## 2026-10-28 - AI review process proposal (#645)
 
 - Separate the review-process design and diagram from held tool configuration
