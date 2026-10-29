@@ -217,6 +217,14 @@ updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
 - Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
   (see issues); nothing is downloaded or auto-filed.
 
+### Permit ordering
+
+Permits are ordered by publication category (dated, published without a date,
+then no publication evidence), newest date first, then permit number ascending
+for ties. With JavaScript enabled, the 20-row cap applies after sorting
+(#451, #676). Without JavaScript, only the generated fallback subset is shown;
+the browser-side sort and filters do not run.
+
 ### Table search
 
 Both tables' free-text search ignores only the following marks and spacing differences:
