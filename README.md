@@ -274,3 +274,21 @@ Claude Desktop `claude_desktop_config.json` (or `.mcp.json` for Claude Code):
 
 Claude Code one-liner: `claude mcp add ginot-hair-plans -e PYTHONPATH=src -- python3 -m ginot.mcp_server --data docs/data.json`
 (run it from the repo root). Restart the client; the four tools then appear.
+
+### Filter links
+
+On the homepage, "העתק קישור לסינון" copies both tables' current controls
+into a public URL (`filters=1`). Hebrew searches, selected groups, checkboxes,
+dates, plan sort and expanded rows round-trip. No filter params means the
+usual defaults; unknown versions/values are ignored. Non-default permit links
+wait for the full permit list, using the same load/filter path as manual input.
+If clipboard access is unavailable or denied, a selectable link is shown.
+Links expose the search text and filters to anyone with the URL. Copying is
+explicit; the page does not automatically rewrite history or share anything.
+
+Parameter names: `plan.` + `fq`, `fstatus`, `fflag`, `fobj`, `ffrom`, `fto`,
+`fappr`, `expanded`, `sort`, `dir`; `permit.` + `pfq`, `pfstatus`, `pfsug`,
+`pffrom`, `pfto`, `pfclosed`, `pfopenonly`, `pfscope`, `expanded`, `groups`.
+Booleans use `0`/`1`, dates ISO YYYY-MM-DD, selected groups comma-separated;
+defaults are omitted. Unknown params and anchors are preserved when copying.
+No synonym/alias matching is added (#468 is separate).

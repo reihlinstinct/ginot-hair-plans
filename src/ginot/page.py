@@ -211,7 +211,21 @@ document.querySelectorAll('.plan-legend .chip').forEach(function(c){
     expanded=false;apply();
   });
 });
-resort();
+var planLink=window.GinotFilterLinks.register('plan',
+  {fq:1,fstatus:1,fflag:1,fobj:1,ffrom:1,fto:1,fappr:1}, {
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var k=p.get(n+'.sort'),d=p.get(n+'.dir');
+    if(['num','name','status','recv','dep','obj','area'].indexOf(k)!==-1)sortKey=k;
+    if(d==='1'||d==='-1')sortDir=Number(d);
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    if(sortKey!=='obj')p.set(n+'.sort',sortKey);
+    if(sortDir!==-1)p.set(n+'.dir',String(sortDir));
+  }
+});
+planLink.restore();resort();
 var URGENT_DAYS=30;
 function _todayIL(){
   var q=new URLSearchParams(location.search).get('today');
@@ -768,6 +782,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
 <label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
 <button id="pfreset" type="button">נקה</button>
+<button id="copy-permit-link" type="button">העתק קישור לסינון</button>
 <span id="pfcount"></span>
 <span id="pfunknown"></span>
 <span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
@@ -1071,7 +1086,7 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
 var fullLoaded=false,fullPromise=null,fullFailed=false;
 // Closure state; the window.__permits* flags are test hooks only.
 var defaultFailed=false,evidenceNeedsFull=false;
-var defaultLoaded=false,evidenceLoaded=false;
+var defaultLoaded=false,evidenceLoaded=false,pendingUrlState=false,permitLink=null;
 var pfload=document.createElement('span');
 pfload.id='pfload';pfload.setAttribute('role','status');
 if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
@@ -1085,6 +1100,7 @@ function installRows(h){
   return true;
 }
 function isDefaultView(){
+  if(pendingUrlState)return false;
   if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
   if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
   var same=true;
@@ -1123,6 +1139,7 @@ function loadFullPermits(){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;pfload.textContent='';
     rebuildDerived();
+    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;}
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
     window.__permitsLoaded=true;
@@ -1161,8 +1178,29 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
   // No subset (an older deploy, or a fetch error): fall back to the full list.
   defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
 });
-sortRows();
-apply();
+permitLink=window.GinotFilterLinks.register('permit',
+  {pfq:1,pfstatus:1,pfsug:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var raw=p.get(n+'.groups');
+    if(raw!==null&&raw.length<=500){
+      var wanted=raw?raw.split(','):[],chips=Array.from(pfgroups.querySelectorAll('.chip'));
+      if(wanted.every(function(k){return chips.some(function(c){return c.getAttribute('data-group')===k;});})){
+        chips.forEach(function(c){c.classList.toggle('sel',wanted.indexOf(c.getAttribute('data-group'))!==-1);});
+      }
+    }
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    var chips=Array.from(pfgroups.querySelectorAll('.chip'));
+    if(chips.some(function(c){return c.classList.contains('sel')!==(c.getAttribute('data-default')==='1');})){
+      p.set(n+'.groups',chips.filter(function(c){return c.classList.contains('sel');}).map(function(c){return c.getAttribute('data-group');}).sort().join(','));
+    }
+  }
+});
+pendingUrlState=permitLink.hasState;
+if(pendingUrlState)loadFullPermits();
+sortRows();apply();
 })();
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
@@ -1348,6 +1386,7 @@ def render_index(
 <label>מתאריך <input type="date" id="ffrom"></label>
 <label>עד <input type="date" id="fto"></label>
 <button id="freset" type="button">נקה סינון</button>
+<button id="copy-plan-link" type="button">העתק קישור לסינון</button>
 <span id="fcount"></span>
 </div>
 <table id="plans"><thead><tr><th><button type="button" data-sort="num">מספר תכנית</button></th>
@@ -1372,6 +1411,7 @@ def render_index(
 &middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
+<script src="filter-links.js"></script>
 <script>{_JS}{_PERMITS_JS}</script>
 </body></html>"""
 
