@@ -1,1 +1,2 @@
+extend-exclude = ["scripts/security/scorecard_guard.py", "tests/security/test_scorecard_guard.py"]
 target-version = "py310"

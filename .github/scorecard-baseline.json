@@ -1,0 +1,301 @@
+{
+ "version": 1,
+ "findings": [
+  {
+   "path": ".github/workflows/scorecard.yml",
+   "rule": "job-write",
+   "scope": "analysis",
+   "evidence": "security-events: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Approved job-scoped SARIF upload to GitHub code scanning; no code or secrets write."
+  },
+  {
+   "path": ".github/workflows/audit-result.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/audit-result.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "job-write",
+   "scope": "test",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "CI test job pushes updated CI badges to the repo; job-scoped; reviewed."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install -r requirements.txt ruff==0.16.9 pytest-cov",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install -r requirements.txt",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install -r requirements.txt playwright",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/codeql.yml",
+   "rule": "job-write",
+   "scope": "analyze",
+   "evidence": "security-events: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Standard CodeQL SARIF upload to code scanning; job-scoped; reviewed."
+  },
+  {
+   "path": ".github/workflows/mavat-docs.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install playwright",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/mavat-url-probe.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install playwright '>' /dev/null '2>'",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/mavat-watch.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/mavat-watch.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/mavat-watch.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install playwright",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/mirror-ingest.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/mirror-ingest.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/muni-probe.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install playwright '>' /dev/null '2>'",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/permit-feed-router.yml",
+   "rule": "privileged-pr-checkout",
+   "scope": "workflow",
+   "evidence": "pull_request_target combined with actions/checkout",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Deliberate safe pattern: pull_request_target[closed] with checkout pinned to pull_request.base.sha; workflow documents the never-checkout-PR-head rule; reviewed under PR #703."
+  },
+  {
+   "path": ".github/workflows/permit-feed.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/permit-feed.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/permit-feed.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "actions: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/permit-feed.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install --only-binary=:all: -r requirements.txt",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/permit-xhr-capture.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install --quiet playwright",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/rishui-publish-watch.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/rishui-publish-watch.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/rishui-publish-watch.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install --only-binary=:all: -r requirements.txt",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/weekly-refresh.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "contents: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/weekly-refresh.yml",
+   "rule": "top-level-write",
+   "scope": "workflow",
+   "evidence": "pull-requests: write",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+  },
+  {
+   "path": ".github/workflows/weekly-refresh.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install -r requirements.txt",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "ezdxf>=1.4.5",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "shapely>=2.2.0",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "pyproj>=3.8.0; python_version >= '3.12'",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "pyproj>=3.5; python_version < '3.12'",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "openpyxl>=3.1.5",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "pytest>=9.1.1",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "Pillow>=13.0.0",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "markdown>=3.11.2",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  },
+  {
+   "path": "requirements.txt",
+   "rule": "unhashed-requirement",
+   "scope": "dependencies",
+   "evidence": "pyyaml>=6.0.3",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "Pre-existing requirement entry without exact version and sha256 hash; tracked for hash pinning in this issue."
+  }
+ ]
+}
