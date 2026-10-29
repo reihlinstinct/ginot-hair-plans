@@ -67,3 +67,10 @@ var document={querySelector:()=>null};
         '2026/0002', '2026/0009', '2026/0001',
         '2026/0003', '2026/0008', '2026/0004', '2026/0007',
     ]
+
+
+def test_permit_order_help_qualifies_javascript_cap():
+    text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    section = text.split('### Permit ordering', 1)[1].split('### ', 1)[0]
+    assert 'With JavaScript enabled, the 20-row cap applies after sorting' in section
+    assert 'Without JavaScript' in section
