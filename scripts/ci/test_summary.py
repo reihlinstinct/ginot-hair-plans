@@ -19,7 +19,7 @@ def safe(text, limit=1200):
         str(text),
     )
     text = re.sub(
-        r"\b(?:gh[pousr]_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+)\b", "[redacted]", text
+        r"\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_.-]+", "[redacted]", text
     )
     text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[email redacted]", text)
     text = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", "[IP redacted]", text)

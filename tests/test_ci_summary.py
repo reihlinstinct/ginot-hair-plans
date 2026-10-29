@@ -181,3 +181,19 @@ def test_truncated_summary_closes_details_and_logs_no_commands(tmp_path, capsys)
     assert rendered.count('<details>') == rendered.count('</details>')
     assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
     assert not any(line.startswith('::') for line in capsys.readouterr().out.splitlines())
+
+
+def test_stateless_github_token_is_redacted_as_one_opaque_value():
+    """#643: synthetic JWT segments never survive redaction or truncation."""
+    token = 'ghs_12345_' + 'A' * 100 + '.' + 'B' * 300 + '.' + 'C' * 108
+    for candidate in [token, token + '_-long' * 200]:
+        result = summary.safe('before ' + candidate + ' after', limit=10000)
+        assert result == 'before [redacted] after'
+        assert 'B' * 20 not in result and 'C' * 20 not in result
+
+
+def test_github_token_alphabets_and_surrounding_prose():
+    for prefix in ['ghp_', 'gho_', 'ghu_', 'ghs_', 'ghr_', 'github_pat_']:
+        token = prefix + 'abc_123-DEF.xyz-456_SIG'
+        assert summary.safe('(' + token + '), next') == '([redacted]), next'
+    assert summary.safe('classic ghp_abc123 remains prose') == 'classic [redacted] remains prose'
