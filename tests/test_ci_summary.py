@@ -197,3 +197,17 @@ def test_github_token_alphabets_and_surrounding_prose():
         token = prefix + 'abc_123-DEF.xyz-456_SIG'
         assert summary.safe('(' + token + '), next') == '([redacted]), next'
     assert summary.safe('classic ghp_abc123 remains prose') == 'classic [redacted] remains prose'
+
+
+def test_summary_title_is_redacted_before_render_and_retained_log(tmp_path, capsys):
+    report = tmp_path / 'results.xml'
+    report.write_text('<testsuite><testcase name="ok"/></testsuite>', encoding='utf-8')
+    secret = 'ghs_synthetic.payload_signature.more-signature'
+    text = summary.render(report, title='<script> ' + secret + ' a@example.invalid')
+    assert secret not in text and 'a@example.invalid' not in text
+    assert '&lt;script&gt;' in text
+    target = tmp_path / 'summary'
+    summary.write_summary(text + 'x' * summary.SUMMARY_LIMIT_BYTES, target)
+    output = capsys.readouterr().out
+    assert secret not in output and 'a@example.invalid' not in output
+    assert '[redacted]' in output

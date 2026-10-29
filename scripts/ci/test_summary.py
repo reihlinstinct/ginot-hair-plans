@@ -226,7 +226,7 @@ def per_test(cases):
 
 
 def render(junit, coverage=None, title="Test results"):
-    lines = [f"## {title}", ""]
+    lines = [f"## {safe(title)}", ""]
     cases = []
     try:
         root = ET.parse(junit).getroot()
