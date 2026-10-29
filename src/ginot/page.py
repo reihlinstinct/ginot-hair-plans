@@ -211,7 +211,22 @@ document.querySelectorAll('.plan-legend .chip').forEach(function(c){
     expanded=false;apply();
   });
 });
-resort();
+var planLink=window.GinotFilterLinks.register('plan',
+  {fq:1,fstatus:1,fflag:1,fobj:1,ffrom:1,fto:1,fappr:1}, {
+  keys:['expanded','sort','dir'],
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var k=p.get(n+'.sort'),d=p.get(n+'.dir');
+    if(['num','name','status','recv','dep','obj','area'].indexOf(k)!==-1)sortKey=k;
+    if(d==='1'||d==='-1')sortDir=Number(d);
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    if(sortKey!=='obj')p.set(n+'.sort',sortKey);
+    if(sortDir!==-1)p.set(n+'.dir',String(sortDir));
+  }
+});
+planLink.restore();resort();
 var URGENT_DAYS=30;
 function _todayIL(){
   var q=new URLSearchParams(location.search).get('today');
@@ -768,6 +783,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
 <label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
 <button id="pfreset" type="button">נקה</button>
+<button id="copy-permit-link" type="button">העתק קישור לסינון</button>
 <span id="pfcount"></span>
 <span id="pfunknown"></span>
 <span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
@@ -794,6 +810,9 @@ pfgroups=document.getElementById('pfgroups'),
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
 pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
 var expanded=false;
+function cancelPendingUrlState(){
+  if(pendingUrlState){pendingUrlState=false;setFilterLinksPending(false);}
+}
 function isoDate(d){
   return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 }
@@ -836,6 +855,8 @@ function sortRows(){
       var pa=a.getAttribute('data-pub')||'',pb=b.getAttribute('data-pub')||'';
       if(pa!==pb)return pa<pb?1:-1; // ISO strings: newest first
     }
+    var ta=a.getAttribute('data-tik')||'',tb=b.getAttribute('data-tik')||'';
+    if(ta!==tb)return ta<tb?-1:1;
     return a.__seq-b.__seq;
   });
   var tb=document.querySelector('#permits-table tbody');
@@ -910,7 +931,7 @@ function apply(){
 }
 [pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
   if(!el)return;
-  var h=function(){expanded=false;apply();};
+  var h=function(){cancelPendingUrlState();expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
 // Checking "הצג בקשות שהסתיימו" also selects the closed+issued group chips:
@@ -918,6 +939,7 @@ function apply(){
 // unselected (both gates must pass for a terminal row to show).
 if(pfclosed&&pfgroups){
   pfclosed.addEventListener('change',function(){
+    cancelPendingUrlState();
     pfgroups.querySelectorAll('.chip').forEach(function(c){
       var g=c.getAttribute('data-group');
       if(g==='closed'||g==='issued')c.classList.toggle('sel',pfclosed.checked);
@@ -926,6 +948,7 @@ if(pfclosed&&pfgroups){
   });
 }
 document.getElementById('pfreset').addEventListener('click',function(){
+  cancelPendingUrlState();
   pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
   pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
   pfgroups.querySelectorAll('.chip').forEach(function(c){
@@ -933,7 +956,7 @@ document.getElementById('pfreset').addEventListener('click',function(){
   });
   expanded=false;apply();
 });
-pmore.addEventListener('click',function(){expanded=!expanded;apply();});
+pmore.addEventListener('click',function(){cancelPendingUrlState();expanded=!expanded;apply();});
 function statusClass(st){
   st=st||'';
   if(st.indexOf('נסגרה')!==-1)return 'c-closed';
@@ -1011,7 +1034,7 @@ if(pfgroups){
   pfgroups.addEventListener('click',function(ev){
     var c=ev.target.closest?ev.target.closest('.chip'):null;
     if(!c||!pfgroups.contains(c))return;
-    c.classList.toggle('sel');
+    cancelPendingUrlState();c.classList.toggle('sel');
     expanded=false;apply();
   });
 }
@@ -1071,7 +1094,10 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
 var fullLoaded=false,fullPromise=null,fullFailed=false;
 // Closure state; the window.__permits* flags are test hooks only.
 var defaultFailed=false,evidenceNeedsFull=false;
-var defaultLoaded=false,evidenceLoaded=false;
+var defaultLoaded=false,evidenceLoaded=false,pendingUrlState=false,permitLink=null;
+function setFilterLinksPending(v){
+  ['copy-plan-link','copy-permit-link'].forEach(function(id){var b=document.getElementById(id);if(b)b.disabled=v;});
+}
 var pfload=document.createElement('span');
 pfload.id='pfload';pfload.setAttribute('role','status');
 if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
@@ -1085,6 +1111,7 @@ function installRows(h){
   return true;
 }
 function isDefaultView(){
+  if(pendingUrlState)return false;
   if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
   if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
   var same=true;
@@ -1123,6 +1150,7 @@ function loadFullPermits(){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;pfload.textContent='';
     rebuildDerived();
+    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
     window.__permitsLoaded=true;
@@ -1161,8 +1189,33 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
   // No subset (an older deploy, or a fetch error): fall back to the full list.
   defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
 });
-sortRows();
-apply();
+permitLink=window.GinotFilterLinks.register('permit',
+  {pfq:1,pfstatus:1,pfsug:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
+  keys:['expanded','groups'],
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var raw=p.get(n+'.groups'),chips=Array.from(pfgroups.querySelectorAll('.chip'));
+    var wanted=raw&&raw.length<=500?raw.split(','):[];
+    var valid=raw!==null&&raw.length<=500&&wanted.every(function(k){
+      return chips.some(function(c){return c.getAttribute('data-group')===k;});
+    });
+    if(valid){
+      chips.forEach(function(c){c.classList.toggle('sel',wanted.indexOf(c.getAttribute('data-group'))!==-1);});
+    }else if(pfclosed.checked){
+      chips.forEach(function(c){var g=c.getAttribute('data-group');if(g==='closed'||g==='issued')c.classList.add('sel');});
+    }
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    var chips=Array.from(pfgroups.querySelectorAll('.chip'));
+    if(pfclosed.checked||chips.some(function(c){return c.classList.contains('sel')!==(c.getAttribute('data-default')==='1');})){
+      p.set(n+'.groups',chips.filter(function(c){return c.classList.contains('sel');}).map(function(c){return c.getAttribute('data-group');}).sort().join(','));
+    }
+  }
+});
+pendingUrlState=permitLink.hasState;
+if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
+sortRows();apply();
 })();
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
@@ -1348,6 +1401,7 @@ def render_index(
 <label>מתאריך <input type="date" id="ffrom"></label>
 <label>עד <input type="date" id="fto"></label>
 <button id="freset" type="button">נקה סינון</button>
+<button id="copy-plan-link" type="button">העתק קישור לסינון</button>
 <span id="fcount"></span>
 </div>
 <table id="plans"><thead><tr><th><button type="button" data-sort="num">מספר תכנית</button></th>
@@ -1372,6 +1426,7 @@ def render_index(
 &middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
+<script src="filter-links.js"></script>
 <script>{_JS}{_PERMITS_JS}</script>
 </body></html>"""
 
