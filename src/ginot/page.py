@@ -852,6 +852,8 @@ function sortRows(){
       var pa=a.getAttribute('data-pub')||'',pb=b.getAttribute('data-pub')||'';
       if(pa!==pb)return pa<pb?1:-1; // ISO strings: newest first
     }
+    var ta=a.getAttribute('data-tik')||'',tb=b.getAttribute('data-tik')||'';
+    if(ta!==tb)return ta<tb?-1:1;
     return a.__seq-b.__seq;
   });
   var tb=document.querySelector('#permits-table tbody');

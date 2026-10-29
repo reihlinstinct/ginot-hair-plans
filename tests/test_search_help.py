@@ -47,3 +47,44 @@ def test_missing_node_fails_ci(monkeypatch):
     monkeypatch.setenv('CI', 'true')
     with pytest.raises(pytest.fail.Exception, match='Node.js is required in CI'):
         _node_runtime()
+
+
+def test_permit_sort_ties_use_tik_num_not_feed_order():
+    source = (ROOT / 'src/ginot/page.py').read_text(encoding='utf-8')
+    fn = 'function sortRows(){' + source.split('function sortRows(){', 1)[1].split('\n}', 1)[0] + '\n}'
+    script = '''
+function row(tik, date, rank) {
+  return {getAttribute: k => ({'data-tik':tik,'data-pub':date})[k], rank:rank};
+}
+var rows=[row('2026/0009','2026-10-18',0),row('2026/0002','2026-10-18',0),
+ row('2026/0001','2026-10-17',0),row('2026/0008','',1),row('2026/0003','',1),
+ row('2026/0007','',2),row('2026/0004','',2)];
+function pubRank(r){return r.rank;}
+var document={querySelector:()=>null};
+''' + fn + '\nsortRows();console.log(JSON.stringify(rows.map(r=>r.getAttribute("data-tik"))));'
+    result = subprocess.run([_node_runtime(), '-e', script], check=True, capture_output=True, text=True)
+    assert json.loads(result.stdout) == [
+        '2026/0002', '2026/0009', '2026/0001',
+        '2026/0003', '2026/0008', '2026/0004', '2026/0007',
+    ]
+
+
+def test_permit_order_help_qualifies_javascript_cap():
+    text = (ROOT / 'README.md').read_text(encoding='utf-8')
+    section = text.split('### Permit ordering', 1)[1].split('### ', 1)[0]
+    assert 'With JavaScript enabled, the 20-row cap applies after sorting' in section
+    assert 'Without JavaScript' in section
+
+
+def test_permit_sort_duplicate_tik_keeps_explicit_sequence():
+    source = (ROOT / 'src/ginot/page.py').read_text(encoding='utf-8')
+    fn = 'function sortRows(){' + source.split('function sortRows(){', 1)[1].split('\n}', 1)[0] + '\n}'
+    script = '''
+function row(label){return {label:label,getAttribute:k=>({'data-tik':'2026/0005','data-pub':'2026-10-18'})[k]};}
+var rows=[row('first'),row('second')],signs=[];
+rows.sort=function(compare){signs=[compare(this[0],this[1]),compare(this[1],this[0])];return Array.prototype.sort.call(this,compare);};
+function pubRank(r){return 0;}
+var document={querySelector:()=>null};
+''' + fn + '\nsortRows();console.log(JSON.stringify({labels:rows.map(r=>r.label),signs:signs}));'
+    result = subprocess.run([_node_runtime(), '-e', script], check=True, capture_output=True, text=True)
+    assert json.loads(result.stdout) == {'labels': ['first', 'second'], 'signs': [-1, 1]}
