@@ -452,7 +452,11 @@ def main():
             verdict, numbers, cp = lifecycle_gate(
                 token, slug, prior_batch_cursor(args.out, None)
             )
-        except checkpoint_lifecycle.LifecycleError as exc:
+        except (
+            checkpoint_lifecycle.LifecycleError,
+            subprocess.SubprocessError,  # gh_api's curl timeout
+            OSError,  # curl missing or not executable
+        ) as exc:
             print(
                 f"checkpoint lifecycle check failed ({exc}); stopping before "
                 "any municipal request (fail closed, #566)"

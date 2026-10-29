@@ -459,3 +459,17 @@ def test_unchanged_feed_writes_no_provenance(monkeypatch, tmp_path):
     rc, _ = _run(monkeypatch, tmp_path, gh)
     assert rc == 0 and feed.read_text() == settled
     assert not prov.exists()
+
+
+@pytest.mark.parametrize(
+    "exc",
+    [pf.subprocess.TimeoutExpired("curl", 45), FileNotFoundError("curl")],
+)
+def test_gate_transport_failure_uses_the_stop_exit(monkeypatch, tmp_path, exc):
+    _main_feed(tmp_path)
+
+    def boom(*a, **k):
+        raise exc
+
+    rc, calls = _run(monkeypatch, tmp_path, boom)
+    assert rc == pf.LIFECYCLE_STOP and calls == []
