@@ -869,6 +869,13 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
     permits = [
         _permit("2026/0439.00", "תחילת פרסום הבקשה להקלה", addr="הפלמח 41 קטמון הישנה"),
         _permit("2020/0001.00", "בבדיקה", addr="הרצל 5"),
+        # #468 row-side folding: pointed letters, a typographic quote, NBSP and
+        # an RLM in the stored address must fold like the query does.
+        _permit(
+            "2020/0002.00",
+            "בבדיקה",
+            addr="\u200fהַמֶּלֶךְ\u00a0ג\u2018ורג\u2018  60",
+        ),
     ]
     pf = tmp_path / "permits.json"
     pf.write_text(json.dumps({"requests": permits}, ensure_ascii=False), encoding="utf-8")
@@ -911,6 +918,15 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
                 texts = visible.all_text_contents()
                 assert len(texts) == 1 and "2026/0439.00" in texts[0], (
                     f"{variant!r} should find exactly the הפלמח 41 row, got {texts}"
+                )
+            for variant in ["המלך גורג 60", "המלך ג'ורג' 60", "ג׳ורג׳"]:
+                pg.fill("#pfq", "")
+                pg.fill("#pfq", variant)
+                pg.dispatch_event("#pfq", "input")
+                visible = pg.locator("#permits-table tbody tr:not(.filtered-out)")
+                texts = visible.all_text_contents()
+                assert len(texts) == 1 and "2020/0002.00" in texts[0], (
+                    f"{variant!r} should find exactly the pointed-address row, got {texts}"
                 )
 
 
