@@ -12,6 +12,7 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-24.04
+    timeout-minutes: 15
     strategy:
       matrix:
         python-version: ['3.11', '3.12', '3.13']
@@ -82,6 +83,7 @@ jobs:
     # Hermetic: no network, clock pinned to the committed generated stamps.
     # Blocking: any nonzero exit fails the job (1 = stale, 2 = could not run).
     runs-on: ubuntu-24.04
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -94,6 +96,7 @@ jobs:
   worker:
     # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: node --test --test-reporter=junit --test-reporter-destination=worker-results.xml worker/*.test.mjs
@@ -107,6 +110,7 @@ jobs:
     # Chromium and WebKit; per-test evidence (screenshot always, video+trace on
     # failure or @pytest.mark.evidence) uploads as an artifact.
     runs-on: ubuntu-24.04
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
