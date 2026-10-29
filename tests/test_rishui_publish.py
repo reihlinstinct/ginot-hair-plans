@@ -189,3 +189,81 @@ def test_main_returns_2_on_challenge(tmp_path, capsys):
     assert rc == 2
     assert not (tmp_path / "o.json").exists()
     assert "CHALLENGE" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize('kind', ['http', 'transport', 'timeout'])
+@pytest.mark.parametrize('existing', [False, True])
+def test_main_fetch_errors_fail_closed_without_retry_or_output_change(
+    tmp_path, capsys, monkeypatch, kind, existing,
+):
+    import urllib.error
+
+    output = tmp_path / 'baseline.json'
+    if existing:
+        output.write_text('preserved baseline', encoding='utf-8')
+    calls = []
+
+    def fail(*args, **kwargs):
+        calls.append(1)
+        if kind == 'http':
+            raise urllib.error.HTTPError('https://private.invalid', 500, 'secret body', {}, None)
+        if kind == 'transport':
+            raise urllib.error.URLError('private network value')
+        raise TimeoutError('private timeout value')
+
+    monkeypatch.setattr(rishui_publish, 'fetch_publish', fail)
+    assert rishui_publish.main(['fetch', '--out', str(output)]) == 1
+    assert calls == [1]
+    assert output.read_text(encoding='utf-8') == 'preserved baseline' if existing else not output.exists()
+    diagnostic = capsys.readouterr().err
+    assert 'FETCH_FAILED:' in diagnostic and 'no retry' in diagnostic
+    assert 'private' not in diagnostic and 'secret body' not in diagnostic
+    assert '500' in diagnostic if kind == 'http' else 'transport' in diagnostic
+
+
+@pytest.mark.parametrize('status', [302, 403, 429, 503])
+def test_hard_stop_status_does_not_read_error_body(status, tmp_path, capsys, monkeypatch):
+    import urllib.error
+
+    class Unreadable:
+        def read(self, *args):
+            pytest.fail('known hard-stop status must not read body')
+
+        def close(self):
+            pass
+
+    def fail(*args, **kwargs):
+        raise urllib.error.HTTPError('https://example.invalid', status, 'private', {}, Unreadable())
+
+    monkeypatch.setattr(rishui_publish._OPENER, 'open', fail)
+    output = tmp_path / 'baseline.json'
+    output.write_text('preserved')
+    assert rishui_publish.main(['fetch', '--out', str(output)]) == 2
+    assert output.read_text() == 'preserved'
+    assert 'CHALLENGE' in capsys.readouterr().err
+
+
+def test_truncated_http500_has_fixed_diagnostic(tmp_path, capsys, monkeypatch):
+    import http.client
+    import io
+    import urllib.error
+
+    class Socket:
+        def makefile(self, *args):
+            return io.BytesIO(b'HTTP/1.1 500 PRIVATE_REASON\r\nContent-Length: 100\r\n\r\nshort')
+
+    response = http.client.HTTPResponse(Socket())
+    response.begin()
+    calls = []
+
+    def fail(*args, **kwargs):
+        calls.append(1)
+        raise urllib.error.HTTPError('https://example.invalid', 500, 'PRIVATE_REASON', {}, response)
+
+    monkeypatch.setattr(rishui_publish._OPENER, 'open', fail)
+    output = tmp_path / 'baseline.json'
+    output.write_text('preserved')
+    assert rishui_publish.main(['fetch', '--out', str(output)]) == 1
+    assert calls == [1]
+    assert output.read_text() == 'preserved'
+    assert capsys.readouterr().err == 'FETCH_FAILED: malformed or incomplete HTTP response; no retry; output unchanged\n'
