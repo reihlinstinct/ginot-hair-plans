@@ -1,0 +1,73 @@
+{
+  "mappings": [
+    {
+      "pattern": "src/**",
+      "checks": [
+        "test",
+        "docs-fresh"
+      ]
+    },
+    {
+      "pattern": "worker/**",
+      "checks": [
+        "worker"
+      ]
+    },
+    {
+      "pattern": "tests/**",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": "scripts/**",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": "refresh.py",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": "requirements*.txt",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": ".github/workflows/**",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": "docs/**",
+      "checks": [
+        "docs-fresh",
+        "site-browser"
+      ]
+    },
+    {
+      "pattern": "data/**",
+      "checks": [
+        "test"
+      ]
+    },
+    {
+      "pattern": "snapshots/**",
+      "checks": [
+        "docs-fresh",
+        "test"
+      ]
+    },
+    {
+      "pattern": "out/**",
+      "checks": [
+        "docs-fresh"
+      ]
+    }
+  ]
+}

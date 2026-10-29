@@ -105,3 +105,21 @@ jobs:
       uses: github/codeql-action/analyze@9b3254085494b55a0f7c4c2b3d2d52cc712ce370 # v4.39.1
       with:
         category: "/language:${{matrix.language}}"
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [analyze]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

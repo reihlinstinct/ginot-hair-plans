@@ -103,6 +103,8 @@ def test_complete_scan_resumes_details_and_checkpoints_them(monkeypatch, tmp_pat
     monkeypatch.setenv("GH_TOKEN", "fake")
     monkeypatch.setenv("GITHUB_REPOSITORY", "example/repo")
     monkeypatch.setattr(pf, "load_checkpoint", lambda *_: cp)
+    # #566: no data PR is bound to this checkpoint, so the gate lets it resume.
+    monkeypatch.setattr(pf, "lifecycle_gate", lambda *_: ("unbound", [], cp))
     monkeypatch.setattr(pf.time, "sleep", lambda _: None)
     monkeypatch.setattr(
         pf,
