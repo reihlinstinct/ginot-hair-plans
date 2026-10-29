@@ -24,11 +24,15 @@ import sys
 import time
 from zoneinfo import ZoneInfo
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import checkpoint_lifecycle  # (#566) sibling module, after the sys.path line
+
 
 def _today():
     """The feed's operative date (issue #331: Asia/Jerusalem, not runner
     UTC). One helper so tests can pin the date deterministically."""
     return datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).date()
+
 
 IFACE = "ppp43"
 URL = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
@@ -47,6 +51,8 @@ CHALLENGE_MARKERS = (
 PUB_START_STEP = "תחילת פרסום בפועל"
 PUB_END_STEP = "השלמת פרסום"
 CHECKPOINT_BRANCH = "scan-checkpoint"  # issue #155: survives runner loss
+
+
 # #399 production-path policy: exceptions that could silently drop published
 # data must be counted and reported, not just swallowed. gh_api/call() keep
 # their existing tested contract (return None on a malformed response,
@@ -78,6 +84,11 @@ def count_inverted_publication_dates(rows):
 
 
 _STATS = {"unparseable_responses": 0, "detail_fetch_failures": 0}
+# #566: commit SHA of the last confirmed checkpoint push this run, written to
+# data/permit_scan_provenance.json so the data PR carries the binding.
+_LAST_CHECKPOINT = {"commit": None}
+# Exit code for a run stopped by the checkpoint lifecycle gate (#566).
+LIFECYCLE_STOP = 3
 
 
 def gh_api(method, path, token, payload=None):
@@ -161,6 +172,8 @@ def _push_checkpoint_once(requests, offset, limit, done, token, slug):
             "PUT", f"/repos/{slug}/contents/data/permit_requests.json", token, body
         )
         ok = bool(r and r.get("commit"))
+        if ok:
+            _LAST_CHECKPOINT["commit"] = r["commit"].get("sha")
         print(f"checkpoint pushed ({done}/{limit}): {'ok' if ok else 'FAILED'}")
         return ok
     except Exception as exc:
@@ -203,6 +216,24 @@ def load_checkpoint(token, slug):
         # print); left broad.
         print(f"checkpoint read failed (fresh start): {exc}")
     return None
+
+
+def lifecycle_gate(token, slug, main_batch):
+    """#566: ``(verdict, pr_numbers, checkpoint)`` for the scan checkpoint.
+
+    The checkpoint content is read at the exact head SHA the verdict is about.
+    Raises checkpoint_lifecycle.LifecycleError when GitHub's answer cannot be
+    trusted; the caller stops."""
+    lc = checkpoint_lifecycle
+    sha, date = lc.checkpoint_head(gh_api, token, slug, CHECKPOINT_BRANCH)
+    if sha is None:
+        return "none", [], None
+    cp = lc.read_checkpoint(gh_api, token, slug, sha)
+    if not (isinstance(cp, dict) and cp.get("checkpoint")):
+        return "none", [], None  # no resumable checkpoint on the branch
+    prs = lc.candidate_prs(gh_api, token, slug, date)
+    verdict, numbers = lc.decide(sha, cp.get("batch"), main_batch, prs)
+    return verdict, numbers, cp
 
 
 def resume_start(cp, offset, limit, batch_len):
@@ -411,8 +442,36 @@ def main():
         previous = {}
     requests, failures = {}, 0
     start = 0
+    cp = None
+    _LAST_CHECKPOINT["commit"] = None
+    if (args.resume or ckpt_on) and token and slug and not list_mode:
+        # #566: before any municipal request, refuse to resume or overwrite a
+        # checkpoint whose data PR was closed unmerged. Nothing is deleted or
+        # restarted here; recovery is the manual #562 path (README).
+        try:
+            verdict, numbers, cp = lifecycle_gate(
+                token, slug, prior_batch_cursor(args.out, None)
+            )
+        except (
+            checkpoint_lifecycle.LifecycleError,
+            subprocess.SubprocessError,  # gh_api's curl timeout
+            OSError,  # curl missing or not executable
+        ) as exc:
+            print(
+                f"checkpoint lifecycle check failed ({exc}); stopping before "
+                "any municipal request (fail closed, #566)"
+            )
+            return LIFECYCLE_STOP
+        prs = ", ".join(f"#{n}" for n in numbers) or "none"
+        print(f"checkpoint lifecycle: {verdict} (bound PRs: {prs})")
+        if verdict not in checkpoint_lifecycle.PROCEED:
+            print(
+                f"scan-checkpoint is {verdict}; stopping before any municipal "
+                "request. A human must inspect/archive the scan-checkpoint "
+                "branch and decide a fresh restart (README, #562/#566)."
+            )
+            return LIFECYCLE_STOP
     if args.resume and token and slug and not list_mode:
-        cp = load_checkpoint(token, slug)
         start = resume_start(cp, args.offset, args.limit, len(batch))
         if start:
             requests = {
@@ -564,9 +623,36 @@ def main():
         "batch": batch_cursor,
         "requests": sorted(requests.values(), key=lambda r: r["tik_num"]),
     }
+    try:
+        with open(args.out, "rb") as fh:
+            before = fh.read()
+    except FileNotFoundError:
+        before = None
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(requests)} requests")
+    with open(args.out, "rb") as fh:
+        feed_changed = fh.read() != before
+    if ckpt_on and _LAST_CHECKPOINT["commit"] and feed_changed:
+        # #566: the publish step's `git add data/` commits this with the feed,
+        # binding the data PR to the checkpoint it was built from. Only when
+        # the feed changed, so the provenance alone never opens a data PR.
+        prov_path = os.path.join(
+            os.path.dirname(args.out) or ".", checkpoint_lifecycle.PROVENANCE_NAME
+        )
+        with open(prov_path, "w", encoding="utf-8") as fh:
+            json.dump(
+                checkpoint_lifecycle.provenance(
+                    _LAST_CHECKPOINT["commit"],
+                    args.offset,
+                    args.limit,
+                    os.environ.get("GITHUB_RUN_ID"),
+                ),
+                fh,
+                indent=1,
+            )
+            fh.write("\n")
+        print(f"wrote {prov_path}: checkpoint {_LAST_CHECKPOINT['commit'][:7]}")
     inverted = count_inverted_publication_dates(requests.values())
     # #463: always printed (a 0 confirms the check ran); counted line only -
     # the rows stay in the feed unchanged.

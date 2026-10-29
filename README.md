@@ -178,6 +178,20 @@ Actions account delays the restart, but does not delete remote checkpoints or
 published data. The old checkpoint format is preserved. Already-running jobs
 keep their checked-out code; the hardening applies to subsequent runs (#251).
 
+A checkpointed scan also writes `data/permit_scan_provenance.json`, which
+names the commit of its last confirmed checkpoint push and its batch. That
+file goes into the data PR with the feed (#566). Before any municipal request,
+the next scan reads the checkpoint head and every same-repo `permit-feed/` PR
+opened since that commit, at each PR's exact head SHA. If a bound PR was
+closed unmerged and `main`'s cursor has not reached that batch, the run stops
+with exit 3. It does not resume, overwrite or delete the checkpoint, and it
+starts no new requests. A bound PR that is still open, a batch that disagrees
+with the checkpoint, or an unreadable GitHub answer stops the run the same
+way. Recovery is manual (#562): pause the feed, inspect and archive the
+`scan-checkpoint` branch, and decide on a fresh restart before re-enabling
+the schedule. Data PRs opened before #566 carry no provenance and are
+treated as unbound, as before.
+
 ### גישה לנתונים (API) - תקציר
 
 שתי שכבות, שתיהן לקריאה בלבד, ציבוריות ובחינם, עם CORS פתוח. הכל מתעדכן
