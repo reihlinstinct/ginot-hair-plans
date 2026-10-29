@@ -25,3 +25,9 @@ def test_early_review_banner_does_not_claim_official_documents():
     rendered = render_review('101-1590439', text, '2026-10-29', 'גינות העיר')
     assert 'מתוך מסמכי התכנית הרשמיים' not in rendered
     assert 'לא נבדקה תכנית מפורטת' in rendered
+
+
+def test_early_review_has_no_cross_project_or_registry_claims():
+    text = (ROOT / 'plans/101-1590439/analysis/talking_points_101-1590439.md').read_text()
+    for claim in ('1377753', '0439.00', '3.231', '25.10.2026', 'קבלת תכנית'):
+        assert claim not in text

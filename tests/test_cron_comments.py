@@ -11,10 +11,11 @@ _WF_DIR = Path(__file__).parent.parent / ".github" / "workflows"
 WORKFLOWS = sorted([*_WF_DIR.glob("*.yml"), *_WF_DIR.glob("*.yaml")])
 # A clock time next to a local-zone word, in either order: "06:00 Israel",
 # "6:00 IDT", "09:00 local time", "06:00 (Israel)", "Israel time: 06:00",
-# "local time 9:30", "Israel daylight-saving time: 06:00". The gap allows up
-# to 40 characters, so longer zone phrasings are caught too (review on #500).
+# "local time 9:30", "Israel daylight-saving time: 06:00", "07:30 Jerusalem".
+# The gap allows up to 40 characters, so longer zone phrasings are caught too
+# (review on #500). "Jerusalem" names the same local zone (#688).
 _CLOCK = r"\b\d{1,2}:\d{2}\b"
-_ZONE = r"\b(?:Israel|IDT|IST|local)\b"
+_ZONE = r"\b(?:Israel|Jerusalem|IDT|IST|local)\b"
 LOCAL_CLOCK = re.compile(
     rf"{_CLOCK}[^\n]{{0,40}}?{_ZONE}|{_ZONE}[^\n]{{0,40}}?{_CLOCK}", re.IGNORECASE
 )
@@ -47,6 +48,13 @@ def test_pattern_catches_a_long_zone_phrase():
     assert LOCAL_CLOCK.search(" 06:00 in Israel daylight-saving time")
     assert not LOCAL_CLOCK.search(" Israel local time shifts by an hour at DST")
     assert not LOCAL_CLOCK.search(" nightly 03:20 UTC mirror-diff")
+
+
+def test_pattern_catches_the_city_name():
+    # #688: "Jerusalem" states the same local clock as "Israel".
+    assert LOCAL_CLOCK.search(" daily 04:37 UTC (~07:30 Jerusalem), off-peak")
+    assert LOCAL_CLOCK.search(" Jerusalem time: 07:30")
+    assert not LOCAL_CLOCK.search(" Jerusalem permit feed, stop on challenge")
 
 
 def test_workflows_have_comments():
