@@ -170,6 +170,8 @@ def main(argv=None) -> int:
                 ap.error("--live needs GITHUB_TOKEN, --year and --month")
             items, private = live_inputs(token, args.year, args.month)
         else:
+            if not args.private_repo:
+                ap.error("--usage-file needs at least one --private-repo (an empty list would report 0 minutes)")
             items = json.loads(pathlib.Path(args.usage_file).read_text())["usageItems"]
             private = set(args.private_repo)
         per_repo = private_minutes(items, private, cfg["minute_multipliers"])

@@ -22,7 +22,7 @@ All values live in `.github/actions-budget.json`. Only the owner raises them.
 | --- | --- | --- |
 | Monthly private-repo minutes | 2,000 (owner policy) | At 50 percent: warn in the weekly triage. At 80 percent (1,600): **stop** starting private-repo runs and ask the owner. |
 | Per task | 60 runner-minutes | Estimate before starting a task that dispatches workflows (sum of jobs, matrix included). Over 60: ask first. |
-| Per job | `timeout-minutes` on every job | A job without one has no cap. Verified as U-004 (2026-10-29, #684) in the [registry](unverified-capabilities.md). |
+| Per job | `timeout-minutes` on every job | A job without one uses GitHub's default of 360 minutes, so set it explicitly. Verified as U-004 (2026-10-29, #684) in the [registry](unverified-capabilities.md). |
 
 Public-repo minutes are not counted in the monthly cap. Visibility is read today, not for the billing month: the reporter prints the minutes of repos that are not private now, so a repo that changed visibility this month is visible and can be counted by hand.
 

@@ -136,6 +136,14 @@ def test_cli_ok_exit_code(tmp_path):
     assert ab.main(["--usage-file", str(usage), "--private-repo", "p"]) == 0
 
 
+def test_usage_file_without_private_repo_is_rejected(tmp_path):
+    usage = tmp_path / "u.json"
+    usage.write_text(json.dumps({"usageItems": [item("p", 1700)]}))
+    with pytest.raises(SystemExit) as exc:
+        ab.main(["--usage-file", str(usage)])
+    assert exc.value.code == 2
+
+
 def test_live_requires_token(monkeypatch):
     monkeypatch.delenv("GITHUB_TOKEN", raising=False)
     with pytest.raises(SystemExit):
