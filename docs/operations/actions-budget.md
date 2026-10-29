@@ -24,7 +24,7 @@ All values live in `.github/actions-budget.json`. Only the owner raises them.
 | Per task | 60 runner-minutes | Estimate before starting a task that dispatches workflows (sum of jobs, matrix included). Over 60: ask first. |
 | Per job | `timeout-minutes` on every job | A job without one has no cap. Verified as U-004 (2026-10-29, #684) in the [registry](unverified-capabilities.md). |
 
-Public-repo minutes are not counted in the monthly cap.
+Public-repo minutes are not counted in the monthly cap. Visibility is read today, not for the billing month: the reporter prints the minutes of repos that are not private now, so a repo that changed visibility this month is visible and can be counted by hand.
 
 ## Checking the numbers
 

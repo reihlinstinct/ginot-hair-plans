@@ -47,6 +47,13 @@ def test_api_shaped_items_match_case_insensitively_and_by_full_name():
     assert got == {"private-a": 50}
 
 
+def test_repos_not_private_today_are_reported_not_counted():
+    items = [item("was-private", 300), item("priv", 20), item("owner/gone", 5, product="Actions", unit="Minutes")]
+    other = ab.uncounted_minutes(items, {"priv"})
+    assert other == {"was-private": 300, "gone": 5}
+    assert ab.private_minutes(items, {"priv"}, CFG["minute_multipliers"]) == {"priv": 20}
+
+
 def test_macos_minutes_use_the_multiplier():
     items = [item("app", 10, sku="Actions macOS 3-core"), item("app", 10)]
     assert ab.private_minutes(items, {"app"}, CFG["minute_multipliers"]) == {"app": 110}
