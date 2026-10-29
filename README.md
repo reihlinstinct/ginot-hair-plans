@@ -217,6 +217,17 @@ updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
 - Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
   (see issues); nothing is downloaded or auto-filed.
 
+### Table search
+
+Both tables' free-text search matches the same text however it is punctuated:
+geresh/gershayim and ASCII or typographic quotes and primes (`׳ ״ ' " ’ “ ′`),
+hyphens, maqaf and dashes, niqqud, invisible direction marks and repeated or
+non-breaking spaces are ignored on both the query and the row (#413, #468).
+Plans are searched by number and official name, permits by their listed
+fields. There are no hand-written aliases: a colloquial name that the source
+data does not contain (for example a street name missing from a plan's
+official name) does not match.
+
 ### Optional plan map
 
 The collapsed map below the tables uses locally hosted Leaflet (BSD-2-Clause)
