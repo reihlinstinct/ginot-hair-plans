@@ -35,6 +35,7 @@ PROVENANCE_KEYS = {"note", "checkpoint_commit", "batch", "source_run"}
 RUN_EVENTS = {"schedule", "workflow_dispatch", "push"}
 MARKER = "<!-- permit-router: routed "
 GH_TIMEOUT_SECONDS = 60
+PER_PAGE = 100
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 RUN_ID = re.compile(r"[1-9][0-9]{0,19}\Z")
 
@@ -119,16 +120,17 @@ def approved_at_head(pr, reviews):
     if not isinstance(reviews, list):
         raise RouterError("malformed reviews")
     author = (pr.get("user") or {}).get("login")
+    latest = {}  # reviewer -> last decisive review; the API lists reviews oldest first
     for review in reviews:
         if not isinstance(review, dict) or not isinstance(review.get("user"), dict):
             raise RouterError("malformed reviews")
-        if (
-            review.get("state") == "APPROVED"
-            and review.get("commit_id") == pr["head"]["sha"]
-            and review["user"].get("login") != author
-        ):
-            return True
-    return False
+        login = review["user"].get("login")
+        if review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
+            latest[login] = review
+    states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]
+    if any(state == "CHANGES_REQUESTED" for state, _ in states):
+        return False
+    return ("APPROVED", pr["head"]["sha"]) in states
 
 
 def decide(repo, pr, read):
@@ -177,6 +179,12 @@ def github_reader(repo, gh=_gh):
             raise RouterError("GitHub record unreadable")
         return value
 
+    def complete(items):
+        # One page only: a full page may hide a later review or the dedup marker.
+        if not isinstance(items, list) or len(items) >= PER_PAGE:
+            raise RouterError("list response incomplete or malformed")
+        return items
+
     def read(kind, *args):
         if kind == "ancestor":
             cmp = need(gh(f"repos/{repo}/compare/{args[0]}...{args[1]}"))
@@ -194,11 +202,9 @@ def github_reader(repo, gh=_gh):
         if kind == "run":
             return need(gh(f"repos/{repo}/actions/runs/{args[0]}"))
         if kind == "reviews":
-            return need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page=100"))
+            return complete(need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}")))
         if kind == "markers":
-            comments = need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page=100"))
-            if not isinstance(comments, list):
-                raise RouterError("malformed comments")
+            comments = complete(need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}")))
             return "\n".join(c.get("body", "") for c in comments if isinstance(c, dict)
                              and isinstance(c.get("body"), str))
         raise RouterError("unknown question")

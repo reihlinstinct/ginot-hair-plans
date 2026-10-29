@@ -240,3 +240,27 @@ def test_router_workflow_is_read_only_dry_run_and_never_runs_pr_code():
                       "workflow run", "workflow_dispatch", "dispatches", "write"):
         body = text.split("\non:", 1)[1]
         assert forbidden not in body.replace("startsWith(github.event.pull_request.head.ref", ""), forbidden
+
+
+@pytest.mark.parametrize("revs,verdict", [
+    (reviews() + [{"state": "CHANGES_REQUESTED", "commit_id": HEAD, "user": {"login": "zz-reviewer"}}], "hold"),
+    (reviews() + [{"state": "DISMISSED", "commit_id": HEAD, "user": {"login": "zz-reviewer"}}], "hold"),
+    (reviews() + [{"state": "CHANGES_REQUESTED", "commit_id": HEAD, "user": {"login": "zz-other"}}], "hold"),
+    (reviews() + [{"state": "COMMENTED", "commit_id": HEAD, "user": {"login": "zz-reviewer"}}], "route-scan-audit"),
+    ([{"state": "CHANGES_REQUESTED", "commit_id": BASE, "user": {"login": "zz-reviewer"}}] + reviews(), "route-scan-audit"),
+    (reviews() + [{"state": "CHANGES_REQUESTED", "commit_id": HEAD, "user": {"login": "zz-bot"}}], "route-scan-audit"),
+])
+def test_only_the_latest_decisive_review_per_reviewer_counts(revs, verdict):
+    w = World()
+    w.reviews = revs
+    assert decide(w=w)[0] == verdict
+
+
+@pytest.mark.parametrize("which", ["/reviews", "/comments"])
+def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, capsys):
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    full = [{"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}, "body": ""} for i in range(100)]
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"],
+                       gh=lambda path: full if which in path else gh(path)) == 1
+    assert "incomplete" in capsys.readouterr().out
