@@ -1560,11 +1560,16 @@ def render_about(generated: str, council_name: str) -> str:
 </body></html>"""
 
 
-def review_social_meta(pl_number, plan_name, base_url, has_image):
+def review_social_meta(pl_number, plan_name, base_url, has_image, early_intent=False):
     title = f"סקירת AI - {pl_number}" + (f" | {plan_name}" if plan_name else "")
     desc = (
         "נקודות לדיון מתוך מסמכי התכנית. סיכום אוטומטי, לא מסמך רשמי ולא ייעוץ מקצועי."
     )
+    if early_intent:
+        desc = (
+            "הכנה מוקדמת בלבד מרישום ציבורי. לא נבדקה תכנית מפורטת; "
+            "אין תחזית הפקדה. סיכום אוטומטי, לא מסמך רשמי ולא ייעוץ מקצועי."
+        )
     tags = [
         ("property", "og:type", "article"),
         ("property", "og:locale", "he_IL"),
@@ -1614,7 +1619,10 @@ def render_review(
     body = markdown.markdown(
         md_text, extensions=["tables", "fenced_code", "sane_lists"]
     )
-    social = review_social_meta(pl_number, plan_name, base_url, preview_image)
+    early_intent = "<!-- review-stage: early-intent -->" in md_text
+    social = review_social_meta(pl_number, plan_name, base_url, preview_image, early_intent)
+    basis = ("הכנה מוקדמת מרישום ציבורי בלבד; לא נבדקה תכנית מפורטת."
+             if early_intent else "מתוך מסמכי התכנית הרשמיים.")
     return f"""<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1627,7 +1635,7 @@ def render_review(
 <meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="../style.css"></head><body>
 <div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
-מתוך מסמכי התכנית הרשמיים. התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
+{basis} התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
 <article class="review-body">
 {body}
 </article>
