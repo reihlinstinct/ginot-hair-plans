@@ -14,7 +14,7 @@ Exit codes: 0 ok or warn, 2 stop threshold crossed, 3 jobs without a timeout
 (only with --check-timeouts).
 
 Usage:
-  GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year $(date -u +%Y) --month $(date -u +%-m)
+  GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year $(date -u +%Y) --month $(date -u +%m)
   python3 scripts/ci/actions_budget.py --usage-file usage.json --private-repo name ...
   python3 scripts/ci/actions_budget.py --check-timeouts
 """
