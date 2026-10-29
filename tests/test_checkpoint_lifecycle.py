@@ -77,6 +77,11 @@ def test_open_bound_pr_is_pending():
     assert lc.decide(CP, CP_BATCH, MAIN_BEFORE, prs) == ("pending", [7, 9])
 
 
+def test_open_bound_pr_blocks_even_beside_a_merged_one():
+    prs = [_pr(8, merged=True, prov=_prov()), _pr(9, state="open", prov=_prov())]
+    assert lc.decide(CP, CP_BATCH, MAIN_BEFORE, prs) == ("pending", [8, 9])
+
+
 @pytest.mark.parametrize(
     "prov",
     [
@@ -261,6 +266,9 @@ def test_gate_pages_until_short_page(monkeypatch):
         "malformed_pr",
         "provenance_error",
         "provenance_garbage",
+        "contents_error",
+        "contents_empty",
+        "contents_garbage",
         "too_many_pages",
     ],
 )
@@ -282,6 +290,13 @@ def test_gate_fails_closed(monkeypatch, breakage):
             return {"message": "Server Error"}
         if breakage == "provenance_garbage" and lc.PROVENANCE_NAME in path:
             return {"content": base64.b64encode(b"not json").decode()}
+        checkpoint_read = "/contents/data/permit_requests.json" in path
+        if breakage == "contents_error" and checkpoint_read:
+            return {"message": "API rate limit exceeded"}
+        if breakage == "contents_empty" and checkpoint_read:
+            return {"sha": "blob", "content": "", "encoding": "none"}
+        if breakage == "contents_garbage" and checkpoint_read:
+            return {"content": base64.b64encode(b"{not json").decode()}
         if breakage == "too_many_pages" and "/pulls?" in path:
             return [dict(gh.prs[0], head=dict(gh.prs[0]["head"], ref="other/x"))] * 100
         return real(self, method, path, token, payload)

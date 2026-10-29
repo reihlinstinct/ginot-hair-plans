@@ -82,10 +82,12 @@ def decide(cp_commit, cp_batch, main_batch, prs):
     ]
     if bad:
         return "mismatch", sorted(bad)
-    if any(p["merged"] for p in bound):
-        return "consumed", numbers
+    # An open bound PR blocks even when another bound PR merged: the batch
+    # still has unreviewed data in flight.
     if any(p["state"] == "open" for p in bound):
         return "pending", numbers
+    if any(p["merged"] for p in bound):
+        return "consumed", numbers
     # Every bound PR is closed unmerged. If main's cursor already reached this
     # batch (a re-authored replacement landed it) or moved past it, the
     # checkpoint can no longer be resumed: stale, not rejected.
@@ -115,6 +117,22 @@ def checkpoint_head(gh, token, slug, branch):
     _require(isinstance(sha, str) and len(sha) == 40, "bad checkpoint head sha")
     _require(isinstance(date, str) and date, "bad checkpoint head date")
     return sha, date
+
+
+def read_checkpoint(gh, token, slug, sha):
+    """The checkpoint payload at commit ``sha``, or None when that commit has
+    no ``data/permit_requests.json``. Any other unreadable answer (error body,
+    an empty ``content`` such as a file over the contents API's 1 MB limit,
+    bad base64 or JSON) raises: an unread checkpoint is not an absent one."""
+    r = gh("GET", f"/repos/{slug}/contents/data/permit_requests.json?ref={sha}", token)
+    if isinstance(r, dict) and r.get("message") == "Not Found":
+        return None
+    try:
+        content = r["content"]
+        _require(isinstance(content, str) and content, "empty checkpoint content")
+        return json.loads(base64.b64decode(content))
+    except (KeyError, TypeError, ValueError) as exc:
+        raise LifecycleError(f"unreadable checkpoint at {sha[:7]} ({exc!r})") from None
 
 
 def _pr_provenance(gh, token, slug, head_sha):

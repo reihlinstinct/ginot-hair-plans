@@ -199,11 +199,11 @@ def push_checkpoint(requests, offset, limit, done, token, slug):
     )
 
 
-def load_checkpoint(token, slug, ref=CHECKPOINT_BRANCH):
+def load_checkpoint(token, slug):
     try:
         r = gh_api(
             "GET",
-            f"/repos/{slug}/contents/data/permit_requests.json?ref={ref}",
+            f"/repos/{slug}/contents/data/permit_requests.json?ref={CHECKPOINT_BRANCH}",
             token,
         )
         if r and r.get("content"):
@@ -228,7 +228,7 @@ def lifecycle_gate(token, slug, main_batch):
     sha, date = lc.checkpoint_head(gh_api, token, slug, CHECKPOINT_BRANCH)
     if sha is None:
         return "none", [], None
-    cp = load_checkpoint(token, slug, sha)
+    cp = lc.read_checkpoint(gh_api, token, slug, sha)
     if not (isinstance(cp, dict) and cp.get("checkpoint")):
         return "none", [], None  # no resumable checkpoint on the branch
     prs = lc.candidate_prs(gh_api, token, slug, date)
