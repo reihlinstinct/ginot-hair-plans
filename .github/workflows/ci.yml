@@ -138,3 +138,21 @@ jobs:
           if-no-files-found: error
           include-hidden-files: true  # tests/.artifacts is a dot-dir (issue #426)
           retention-days: 30
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [test, docs-fresh, worker, site-browser]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py
