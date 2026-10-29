@@ -22,7 +22,7 @@ Claude's GitHub actions run through the owner's account, so they appear as **`re
 - If blocked, stop and say so on the issue: what was tried, what is missing. Never guess past a blocker.
 
 ## Rules for PRs
-- One focused change per PR, tests included, description follows the repo's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or equivalent): the `Fixes #N` line, the regression-evidence fields required for every bug fix, and the verification checklist.
+- One focused change per PR, tests included (or, when an automated test is not feasible, the explanation and linked test issue from the regression-test rule above), description follows the repo's PR template (`.github/PULL_REQUEST_TEMPLATE.md` or equivalent): the `Fixes #N` line, the regression-evidence fields required for every bug fix, and the verification checklist.
 - Never push to `main`, never merge or approve your own PR, never close issues or change labels and milestones unless asked in that thread.
 - CI must be green before asking for review. Fix failures your PR caused; on unrelated failures, comment once with the evidence.
 - Feedback on your PR: fix it on the same branch, re-run checks, reply with the commit SHA.
