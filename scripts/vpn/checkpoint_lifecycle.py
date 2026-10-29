@@ -123,16 +123,19 @@ def read_checkpoint(gh, token, slug, sha):
     """The checkpoint payload at commit ``sha``, or None when that commit has
     no ``data/permit_requests.json``. Any other unreadable answer (error body,
     an empty ``content`` such as a file over the contents API's 1 MB limit,
-    bad base64 or JSON) raises: an unread checkpoint is not an absent one."""
+    bad base64 or JSON, JSON that is not an object) raises: an unread
+    checkpoint is not an absent one."""
     r = gh("GET", f"/repos/{slug}/contents/data/permit_requests.json?ref={sha}", token)
     if isinstance(r, dict) and r.get("message") == "Not Found":
         return None
     try:
         content = r["content"]
         _require(isinstance(content, str) and content, "empty checkpoint content")
-        return json.loads(base64.b64decode(content))
+        data = json.loads(base64.b64decode(content))
     except (KeyError, TypeError, ValueError) as exc:
         raise LifecycleError(f"unreadable checkpoint at {sha[:7]} ({exc!r})") from None
+    _require(isinstance(data, dict), f"checkpoint at {sha[:7]} is not an object")
+    return data
 
 
 def _pr_provenance(gh, token, slug, head_sha):

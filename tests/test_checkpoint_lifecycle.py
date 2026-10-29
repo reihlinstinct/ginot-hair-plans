@@ -269,6 +269,8 @@ def test_gate_pages_until_short_page(monkeypatch):
         "contents_error",
         "contents_empty",
         "contents_garbage",
+        "contents_null",
+        "contents_list",
         "too_many_pages",
     ],
 )
@@ -297,6 +299,9 @@ def test_gate_fails_closed(monkeypatch, breakage):
             return {"sha": "blob", "content": "", "encoding": "none"}
         if breakage == "contents_garbage" and checkpoint_read:
             return {"content": base64.b64encode(b"{not json").decode()}
+        if breakage in ("contents_null", "contents_list") and checkpoint_read:
+            raw = b"null" if breakage == "contents_null" else b"[]"
+            return {"content": base64.b64encode(raw).decode()}
         if breakage == "too_many_pages" and "/pulls?" in path:
             return [dict(gh.prs[0], head=dict(gh.prs[0]["head"], ref="other/x"))] * 100
         return real(self, method, path, token, payload)
