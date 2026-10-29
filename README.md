@@ -29,6 +29,8 @@ derived objection deadlines.
 
 **Live page: https://reihlinstinct.github.io/ginot-hair-plans/**
 
+Every workflow ends with a `Run summary` job that writes a summary to the top of the run page: which jobs ran, their result and duration, what was skipped and why, the commits and files the run changed, and which checks cover those changes (`.github/ci-coverage-map.json` declares the coverage; files matching no mapping are flagged). The script is `scripts/ci/run_summary.py`.
+
 ## Purpose
 
 Built to help the Ginot HaIr community urban planner follow plans in the
