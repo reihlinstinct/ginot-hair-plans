@@ -158,16 +158,31 @@ def decide(repo, pr, read):
     return "route-scan-audit", "verified"
 
 
+class GitHubHTTPError(RouterError):
+    """GitHub returned an HTTP failure, with its status preserved."""
+
+    def __init__(self, status):
+        self.status = status
+        super().__init__(f"GitHub HTTP {status}")
+
+
 def _gh(path):
     try:
-        r = subprocess.run(["gh", "api", path], capture_output=True, text=True,
+        r = subprocess.run(["gh", "api", "--include", path], capture_output=True, text=True,
                            check=False, timeout=GH_TIMEOUT_SECONDS)
     except (subprocess.TimeoutExpired, OSError) as exc:
         raise RouterError("gh api unavailable") from exc
+    header, separator, body = r.stdout.replace("\r\n", "\n").partition("\n\n")
+    status = re.match(r"HTTP/\S+ ([0-9]{3})(?: |$)", header)
+    if not separator or status is None:
+        raise RouterError("GitHub HTTP status unreadable")
+    code = int(status.group(1))
+    if not 200 <= code < 300:
+        raise GitHubHTTPError(code)
     if r.returncode != 0:
-        return None
+        raise RouterError("gh api failed")
     try:
-        return json.loads(r.stdout)
+        return json.loads(body)
     except ValueError as exc:
         raise RouterError("gh api returned non-JSON") from exc
 
@@ -190,9 +205,20 @@ def github_reader(repo, gh=_gh):
             cmp = need(gh(f"repos/{repo}/compare/{args[0]}...{args[1]}"))
             return isinstance(cmp, dict) and cmp.get("status") in ("ahead", "identical")
         if kind == "provenance":
-            meta = gh(f"repos/{repo}/contents/{PROVENANCE_PATH}?ref={args[0]}")
-            if meta is None:
-                return None  # 404: a PR without the #566 binding
+            ref = args[0]
+            if not _sha(ref):
+                raise RouterError("malformed provenance ref")
+            try:
+                meta = gh(f"repos/{repo}/contents/{PROVENANCE_PATH}?ref={ref}")
+            except GitHubHTTPError as exc:
+                if exc.status != 404:
+                    raise
+                # A contents 404 can also mean the ref is unavailable. Verify it
+                # independently before treating only the file as absent.
+                commit = need(gh(f"repos/{repo}/git/commits/{ref}"))
+                if not isinstance(commit, dict) or commit.get("sha") != ref:
+                    raise RouterError("provenance ref unreadable")
+                return None
             if not isinstance(meta, dict) or meta.get("encoding") != "base64":
                 raise RouterError("malformed provenance file")
             try:

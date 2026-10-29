@@ -232,7 +232,7 @@ def test_router_workflow_is_read_only_dry_run_and_never_runs_pr_code():
     assert job["permissions"] == {"contents": "read", "pull-requests": "read", "actions": "read"}
     assert "github.event.pull_request.merged == true" in job["if"]
     checkout, step = job["steps"]
-    assert checkout["with"] == {"ref": "${{ github.sha }}", "persist-credentials": False}
+    assert checkout["with"] == {"ref": "${{ github.event.pull_request.base.sha }}", "persist-credentials": False}
     assert step["env"] == {"GH_TOKEN": "${{ github.token }}", "PR_NUMBER": "${{ github.event.pull_request.number }}"}
     assert step["run"].startswith("set -euo pipefail\n")
     assert "permit_router.py" in step["run"]
@@ -264,3 +264,67 @@ def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, cap
     assert pr_mod.main(["--repo", REPO, "--pr", "7"],
                        gh=lambda path: full if which in path else gh(path)) == 1
     assert "incomplete" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize('status', [403, 429, 500, 503])
+def test_provenance_http_failures_stop(status):
+    def gh(path):
+        raise pr_mod.GitHubHTTPError(status)
+    with pytest.raises(pr_mod.RouterError):
+        pr_mod.github_reader(REPO, gh)('provenance', HEAD)
+
+
+def test_provenance_absent_only_on_404_with_verified_ref():
+    def gh(path):
+        if '/contents/' in path:
+            raise pr_mod.GitHubHTTPError(404)
+        assert path == f'repos/{REPO}/git/commits/{HEAD}'
+        return {'sha': HEAD}
+    assert pr_mod.github_reader(REPO, gh)('provenance', HEAD) is None
+
+
+@pytest.mark.parametrize('response', [None, {}, {'sha': BASE}])
+def test_provenance_404_with_unverified_ref_stops(response):
+    def gh(path):
+        if '/contents/' in path:
+            raise pr_mod.GitHubHTTPError(404)
+        return response
+    with pytest.raises(pr_mod.RouterError):
+        pr_mod.github_reader(REPO, gh)('provenance', HEAD)
+
+
+def test_provenance_unreadable_is_not_absent():
+    with pytest.raises(pr_mod.RouterError):
+        pr_mod.github_reader(REPO, lambda path: None)('provenance', HEAD)
+
+
+@pytest.mark.parametrize('status', [403, 404, 500, 503])
+def test_gh_preserves_http_status(monkeypatch, status):
+    import subprocess
+    monkeypatch.setattr(pr_mod.subprocess, 'run', lambda *a, **k:
+                        subprocess.CompletedProcess(a, 1, f'HTTP/2.0 {status} Error\n\n{{}}', ''))
+    with pytest.raises(pr_mod.GitHubHTTPError) as exc:
+        pr_mod._gh('test')
+    assert exc.value.status == status
+
+
+@pytest.mark.parametrize('body', ['', '{}', 'HTTP/2.0 200 OK\n\nnot-json'])
+def test_gh_unreadable_response_stops(monkeypatch, body):
+    import subprocess
+    monkeypatch.setattr(pr_mod.subprocess, 'run', lambda *a, **k:
+                        subprocess.CompletedProcess(a, 0, body, ''))
+    with pytest.raises(pr_mod.RouterError):
+        pr_mod._gh('test')
+
+
+def test_gh_reads_successful_response_and_fails_on_transport_error(monkeypatch):
+    import subprocess
+    monkeypatch.setattr(pr_mod.subprocess, 'run', lambda *a, **k:
+                        subprocess.CompletedProcess(a, 0, 'HTTP/2.0 200 OK\r\n\r\n{"ok":true}', ''))
+    assert pr_mod._gh('test') == {'ok': True}
+
+    def unavailable(*args, **kwargs):
+        raise OSError('offline')
+    monkeypatch.setattr(pr_mod.subprocess, 'run', unavailable)
+    with pytest.raises(pr_mod.RouterError, match='unavailable'):
+        pr_mod._gh('test')

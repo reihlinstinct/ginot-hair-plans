@@ -8,11 +8,10 @@ name: Permit feed post-merge router (dry-run)
 # Never checks out or runs PR code, never reads the PR title or body.
 
 on:
-  # pull_request_target on purpose: the router script and this file come from
-  # main (github.sha is the base tip), never from the PR, so a data PR cannot
-  # change the checks that judge it. Keep it that way: never check out PR code
-  # and never put PR-controlled fields into run:. No secret is used in v1;
-  # adding one makes this a privileged context and needs a separate review.
+  # Read the router from the pre-merge base SHA, not github.sha, which can
+  # include this merged PR. A data PR must not change the code that judges it.
+  # Never check out PR head code or interpolate PR-controlled fields into run:.
+  # No secret is used in v1; adding one needs separate approval and review.
   pull_request_target:
     types: [closed]
     branches: [main]
@@ -36,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.base.sha }}
           persist-credentials: false
 
       - name: Decide (dry-run, no dispatch)
