@@ -189,3 +189,33 @@ def test_main_returns_2_on_challenge(tmp_path, capsys):
     assert rc == 2
     assert not (tmp_path / "o.json").exists()
     assert "CHALLENGE" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize('kind', ['http', 'transport', 'timeout'])
+@pytest.mark.parametrize('existing', [False, True])
+def test_main_fetch_errors_fail_closed_without_retry_or_output_change(
+    tmp_path, capsys, monkeypatch, kind, existing,
+):
+    import urllib.error
+
+    output = tmp_path / 'baseline.json'
+    if existing:
+        output.write_text('preserved baseline', encoding='utf-8')
+    calls = []
+
+    def fail(*args, **kwargs):
+        calls.append(1)
+        if kind == 'http':
+            raise urllib.error.HTTPError('https://private.invalid', 500, 'secret body', {}, None)
+        if kind == 'transport':
+            raise urllib.error.URLError('private network value')
+        raise TimeoutError('private timeout value')
+
+    monkeypatch.setattr(rishui_publish, 'fetch_publish', fail)
+    assert rishui_publish.main(['fetch', '--out', str(output)]) == 1
+    assert calls == [1]
+    assert output.read_text(encoding='utf-8') == 'preserved baseline' if existing else not output.exists()
+    diagnostic = capsys.readouterr().err
+    assert 'FETCH_FAILED:' in diagnostic and 'no retry' in diagnostic
+    assert 'private' not in diagnostic and 'secret body' not in diagnostic
+    assert '500' in diagnostic if kind == 'http' else 'transport' in diagnostic

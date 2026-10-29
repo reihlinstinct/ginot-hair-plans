@@ -213,6 +213,14 @@ def main(argv: list[str] | None = None) -> int:
         except ChallengeError as exc:
             print(f"CHALLENGE: {exc}; hard stop, no retry", file=sys.stderr)
             return 2
+        except urllib.error.HTTPError as exc:
+            print(f"FETCH_FAILED: upstream HTTP {exc.code}; no retry; output unchanged",
+                  file=sys.stderr)
+            return 1
+        except (urllib.error.URLError, OSError):
+            print("FETCH_FAILED: transport error; no retry; output unchanged",
+                  file=sys.stderr)
+            return 1
         Path(args.out).write_text(
             json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
