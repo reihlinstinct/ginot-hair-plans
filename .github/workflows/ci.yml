@@ -11,7 +11,7 @@ jobs:
   test:
     permissions:
       contents: write
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         python-version: ['3.11', '3.12', '3.13']
@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: pip install -r requirements.txt ruff pytest-cov
+      - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov
       - run: ruff check src tests refresh.py
       - name: External reviews append-only guard
         if: github.event_name == 'pull_request'
@@ -76,9 +76,24 @@ jobs:
                   sys.exit(msg)
               print("::warning::" + msg + " (report-only, gate not enforced yet)")
           PY
+  docs-fresh:
+    # Committed docs/ vs. a re-render from the committed inputs (issue #539):
+    # catches a src/ginot change merged without its regenerated site (#531).
+    # Hermetic: no network, clock pinned to the committed generated stamps.
+    # Blocking: any nonzero exit fails the job (1 = stale, 2 = could not run).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Docs freshness
+        run: python scripts/ci/check_docs_fresh.py
   worker:
     # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - run: node --test --test-reporter=junit --test-reporter-destination=worker-results.xml worker/*.test.mjs
@@ -91,7 +106,7 @@ jobs:
     # so the 4-version test matrix does not each download a browser. Runs on
     # Chromium and WebKit; per-test evidence (screenshot always, video+trace on
     # failure or @pytest.mark.evidence) uploads as an artifact.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:

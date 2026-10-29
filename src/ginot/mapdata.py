@@ -68,3 +68,63 @@ def feature_collection(features):
             }
         )
     return result
+
+
+def permit_points(permits, parcels):
+    """Join public parcel IDs to interior WGS84 points, never guess an address.
+
+    Multiple parts of the same cadastral parcel are unioned before choosing an
+    interior point. Only identifiers and representative coordinates leave here.
+    """
+    from shapely.geometry import shape
+    from shapely.ops import unary_union
+
+    def identifier(value):
+        text = str(value).strip()
+        return str(int(text)) if text.isascii() and text.isdigit() else None
+
+    geometries = {}
+    for feature in parcels.get('features', []):
+        props = feature.get('properties') or {}
+        key = (identifier(props.get('gush')), identifier(props.get('helka')))
+        if None in key:
+            continue
+        try:
+            geometry = shape(feature.get('geometry'))
+            if (geometry.is_empty or not geometry.is_valid
+                    or geometry.geom_type not in ('Polygon', 'MultiPolygon')):
+                continue
+            west, south, east, north = geometry.bounds
+            if not (-180 <= west <= east <= 180 and -90 <= south <= north <= 90):
+                continue
+        except (TypeError, ValueError, AttributeError):
+            continue
+        geometries.setdefault(key, []).append(geometry)
+    positions = {}
+    for key, parts in geometries.items():
+        point = unary_union(parts).representative_point()
+        positions[key] = [point.x, point.y]
+    points, missing = [], []
+    for permit in permits:
+        tik = permit.get('tik_num')
+        if not tik:
+            continue
+        key = (identifier(permit.get('gush')), identifier(permit.get('helka')))
+        if key not in positions:
+            missing.append(tik)
+        else:
+            points.append({'tik_num': tik, 'representative_point': positions[key]})
+    return {'points': points, 'missing_location': missing,
+            'source': 'Public cadastral parcel join (gush/helka); interior point, not entrance'}
+
+
+def write_permit_points(permits, parcels_path, output_path):
+    """Write a public points projection; missing source clears old positions."""
+    import json
+    from pathlib import Path
+
+    path = Path(parcels_path)
+    parcels = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+    data = permit_points(permits, parcels)
+    Path(output_path).write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+    return data

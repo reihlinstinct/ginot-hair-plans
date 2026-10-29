@@ -19,7 +19,7 @@ def safe(text, limit=1200):
         str(text),
     )
     text = re.sub(
-        r"\b(?:gh[pousr]_[A-Za-z0-9_]+|github_pat_[A-Za-z0-9_]+)\b", "[redacted]", text
+        r"\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_.-]+", "[redacted]", text
     )
     text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[email redacted]", text)
     text = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", "[IP redacted]", text)
@@ -226,7 +226,7 @@ def per_test(cases):
 
 
 def render(junit, coverage=None, title="Test results"):
-    lines = [f"## {title}", ""]
+    lines = [f"## {safe(title)}", ""]
     cases = []
     try:
         root = ET.parse(junit).getroot()
@@ -259,6 +259,38 @@ def render(junit, coverage=None, title="Test results"):
     return "\n".join(lines) + "\n"
 
 
+# Leave 64 KiB below GitHub's 1024 KiB per-step summary upload limit.
+SUMMARY_LIMIT_BYTES = 960 * 1024
+TRUNCATION_NOTE = "\n\nReport truncated to fit GitHub's summary limit; see the full report in this step log.\n"
+
+
+def write_summary(text, target):
+    """Append UTF-8 within the byte budget; retain complete detail in the log."""
+    target = Path(target)
+    used = target.stat().st_size if target.exists() else 0
+    remaining = max(0, SUMMARY_LIMIT_BYTES - used)
+    raw = text.encode('utf-8')
+    if len(raw) > remaining:
+        # Prefix every log line so report content cannot become a workflow command.
+        for line in text.splitlines():
+            print('REPORT: ' + line)
+        print('Report truncated in job summary; full report printed above.')
+        note = TRUNCATION_NOTE.encode('utf-8')
+        if remaining < len(note):
+            return  # Existing content is not ours to truncate or overwrite.
+        # Keep complete Markdown/HTML lines, close any open detail sections.
+        budget = max(0, remaining - len(note) - 4096)
+        prefix = raw[:budget].decode('utf-8', errors='ignore')
+        prefix = prefix.rsplit('\n', 1)[0] if '\n' in prefix else ''
+        opened = max(0, prefix.count('<details>') - prefix.count('</details>'))
+        clipped = prefix + '\n' + '</details>\n' * opened + TRUNCATION_NOTE
+        raw = clipped.encode('utf-8')
+        if len(raw) > remaining:
+            raw = note
+    with target.open('ab') as output:
+        output.write(raw)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--junit", required=True)
@@ -268,8 +300,7 @@ def main():
     text = render(args.junit, args.coverage, args.title)
     target = os.environ.get("GITHUB_STEP_SUMMARY")
     if target:
-        with open(target, "a") as summary:
-            summary.write(text)
+        write_summary(text, target)
     else:
         print(text, end="")
 

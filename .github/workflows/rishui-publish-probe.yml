@@ -1,0 +1,58 @@
+name: Rishui149 active-publications probe (VPN)
+
+# One-shot manual probe (issue #519): fetch the municipality's active s.149
+# publications list through the owner-operated L2TP tunnel - a single GET,
+# stop-on-challenge (exit 2, no retry, no workaround). Verifies the endpoint
+# and field semantics before a daily ingest is wired up (issue #527).
+# The payload holds only public notice fields (tik, street, house number,
+# neighborhood, dates) - no personal data.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rishui-publish-probe:
+    if: ${{ vars.PERMIT_PROBE_ENABLED != 'false' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Fetch active publications list (single request)
+        # tee the output: run logs can be served late or partially by the
+        # log API, and a green run whose content cannot be verified is not
+        # a verification (same pattern as permit-publication-probe).
+        run: |
+          set -o pipefail
+          sudo python3 scripts/vpn/rishui_publish.py fetch --out publish-api.json 2>&1 | tee probe-output.txt
+
+      - name: Upload probe output
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: publish-api
+          path: |
+            publish-api.json
+            probe-output.txt
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down

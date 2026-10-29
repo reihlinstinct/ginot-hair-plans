@@ -11,7 +11,7 @@
  "pl_last_deposit_date": "",
  "pl_date_advertise": "",
  "pl_date_8_approval": "",
- "objection_deadline_derived_60d_from_publication": "2026-10-16",
+ "objection_deadline_derived_60d_from_publication": "",
  "pl_area_dunam": 7.311,
  "intersection_dunam": 7.3,
  "inside_flag": "inside",
@@ -19,9 +19,8 @@
  "mp_id": 1005389744.0,
  "jurstiction_area_name": null,
  "last_update_date": "2026-10-20",
- "land_status": "פרסום הפקדה לפי סעיף 106ב ברשומות",
- "land_status_date": "2026-08-17",
+ "land_status": "פרסום לתוקף בעיתונים",
+ "land_status_date": "2026-10-22",
  "land_plan_id": 1056431,
- "deadline_source_note": "max(iplan, land.gov.il) publication + 60d",
  "advisory_urgent": false
 }

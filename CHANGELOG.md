@@ -1,5 +1,20 @@
 # Changelog
 
+## 2026-10-28 - AI review process proposal (#645)
+
+- Separate the review-process design and diagram from held tool configuration
+  in #504. This is a proposal only, with no settings or enforcement change.
+
+## 2026-10-28 - Reviewed data staging (#636, #564)
+
+- Weekly, audit-result, Mavat and mirror collection now stop at a PR for review.
+- Read-only shared pending checks prevent stacked weekly, Mavat, mirror and
+  permit-feed data PRs; pending is a green notice, guard errors fail closed.
+- Weekly reconciliation refreshes data.json through an explicit freshness opt-in.
+- Add bypass-scanner and test-dependency regressions; retain normal merge,
+  exact-head review, CI and eligible approval gates. Permit-feed successor
+  routing remains held for #565.
+
 ## [0.2.1] - 2026-10-22
 
 - #283: Fix random-area citywide popups; preserve displayed-plan boundary clicks

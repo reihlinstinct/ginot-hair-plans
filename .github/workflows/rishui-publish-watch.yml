@@ -1,0 +1,138 @@
+name: Rishui149 active-publications watch (VPN)
+
+# Daily ingest of the municipality's active s.149 publications list (issue
+# #527) through the owner-operated L2TP tunnel: one GET per run, stop on
+# challenge (exit 2, no retry, no workaround). Rewrites the committed baseline
+# data/publications_active.json and writes new publications in the tracked
+# council neighborhoods (with PD900 objection deadlines) to
+# data/publications_new_latest.json for the alert path. Data staged as a reviewed PR via
+# a repo-scoped token. Objection windows are short (~26 days), so a weekly cadence
+# can lose most of the window.
+
+on:
+  schedule:
+    - cron: "37 4 * * *"   # daily 04:37 UTC (~07:30 Jerusalem), off-peak
+  workflow_dispatch:
+    inputs:
+      reuse_probe_run_id:
+        description: Existing successful probe run to reuse without a municipal request
+        required: false
+        type: string
+
+concurrency:
+  group: rishui-publish-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  rishui-publish-watch:
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - name: Stop while a publication data PR awaits review
+        id: pending
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          PENDING=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&per_page=100" \
+            | jq -r --arg repo "$GITHUB_REPOSITORY" '.[] | select(.head.repo.full_name == $repo) | select(.head.ref | startswith("publications/")) | .number')
+          if [ -n "$PENDING" ]; then
+            echo "publication data PR(s) awaiting review: $PENDING; stopping before fetch"
+            echo "pending=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::Waiting for review; collection paused until existing PR merges"
+            exit 0
+          fi
+          echo "pending=false" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        with:
+          python-version: "3.12"
+
+      - name: Install publication renderer dependencies
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        run: |
+          pip install --only-binary=:all: -r requirements.txt
+
+      - name: Check publication renderer dependencies before network work
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        run: python3 scripts/render_permits_page.py --check-dependencies
+
+      - name: Reuse verified probe output without fetching
+        if: ${{ steps.pending.outputs.pending != 'true' && (inputs.reuse_probe_run_id != '') }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROBE_RUN_ID: ${{ inputs.reuse_probe_run_id }}
+        run: |
+          [[ "$PROBE_RUN_ID" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$PROBE_RUN_ID" > /tmp/probe-run.json
+          python3 -c 'import json; r=json.load(open("/tmp/probe-run.json")); assert r["status"] == "completed" and r["conclusion"] == "success" and r["path"].split("@", 1)[0] == ".github/workflows/rishui-publish-probe.yml", "not a successful completed publications probe"'
+          gh run download "$PROBE_RUN_ID" --repo "$GITHUB_REPOSITORY" -n publish-api -D /tmp/reused-probe
+          cp /tmp/reused-probe/publish-api.json /tmp/publish-new.json
+
+      - name: Install VPN transport packages
+        if: ${{ steps.pending.outputs.pending != 'true' && (inputs.reuse_probe_run_id == '') }}
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        if: ${{ steps.pending.outputs.pending != 'true' && (inputs.reuse_probe_run_id == '') }}
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Fetch active publications list (single request)
+        if: ${{ steps.pending.outputs.pending != 'true' && (inputs.reuse_probe_run_id == '') }}
+        run: |
+          set -o pipefail
+          sudo python3 scripts/vpn/rishui_publish.py fetch --out /tmp/publish-new.json 2>&1 | tee watch-output.txt
+
+      - name: Diff against baseline and write alert file
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        run: |
+          set -o pipefail
+          python3 scripts/vpn/rishui_publish_watch.py \
+            --old data/publications_active.json \
+            --new /tmp/publish-new.json \
+            --permits data/permit_requests.json \
+            --parcels data/ginot_hair_parcels.geojson \
+            --out-active data/publications_active.json \
+            --out-new data/publications_new_latest.json | tee -a watch-output.txt
+
+      - name: Stage publication data PR for review
+        if: ${{ steps.pending.outputs.pending != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: python3 scripts/ci/publish_publications.py
+
+      - name: Upload watch output
+        if: ${{ steps.pending.outcome == 'success' && steps.pending.outputs.pending != 'true' && (always()) }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: publish-watch
+          path: |
+            watch-output.txt
+            data/publications_new_latest.json
+            data/publications_active.json
+            /tmp/publish-new.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Tear down tunnel and remove generated secret material
+        if: ${{ steps.pending.outcome == 'success' && steps.pending.outputs.pending != 'true' && (always() && inputs.reuse_probe_run_id == '') }}
+        run: sudo python3 scripts/vpn/l2tp.py down

@@ -58,3 +58,101 @@ def test_refuses_to_overwrite_with_empty_feed(tmp_path):
     result = _run(tmp_path)
     assert result.returncode != 0
     assert not (tmp_path / "docs" / "permits.html").exists()
+
+
+def test_permit_ids_published_for_submit_worker(tmp_path):
+    """#515: the same run writes docs/permit-ids.json, the list the submit
+    worker checks tik_num against. Sorted, de-duplicated, malformed ids dropped."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    rows = [
+        {"tik_num": "2026/0439.00", "status": "תחילת פרסום הבקשה להקלה", "gush": 30007, "helka": 12},
+        {"tik_num": "1981/0696.03", "status": "הבקשה נסגרה", "gush": 30007, "helka": 12},
+        {"tik_num": "2026/0439.00", "status": "dup", "gush": 30007, "helka": 12},
+        {"tik_num": "not-a-tik", "status": "x", "gush": 1, "helka": 1},
+    ]
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": rows}, ensure_ascii=False), encoding="utf-8"
+    )
+    r = _run(tmp_path)
+    assert r.returncode == 0, r.stdout + r.stderr
+    ids = json.loads((tmp_path / "docs" / "permit-ids.json").read_text(encoding="utf-8"))["ids"]
+    assert ids == ["1981/0696.03", "2026/0439.00"]
+
+
+def test_feed_publishes_parcel_points_and_labels_unmatched_rows(tmp_path):
+    (tmp_path / 'data').mkdir()
+    (tmp_path / 'docs').mkdir()
+    permits = [{'tik_num': '2026/0439.00', 'gush': 30007, 'helka': 12},
+               {'tik_num': '2026/0001.00', 'gush': 1, 'helka': 1}]
+    (tmp_path / 'data/permit_requests.json').write_text(json.dumps({'requests': permits}))
+    (tmp_path / 'data/ginot_hair_parcels.geojson').write_text(json.dumps({'features': [{
+        'properties': {'gush': 30007, 'helka': 12},
+        'geometry': {'type': 'Polygon', 'coordinates': [[[35.21, 31.76], [35.22, 31.76],
+                       [35.22, 31.77], [35.21, 31.77], [35.21, 31.76]]]}}]}))
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    points = json.loads((tmp_path / 'docs/permit-points.json').read_text())
+    assert [p['tik_num'] for p in points['points']] == ['2026/0439.00']
+    assert points['missing_location'] == ['2026/0001.00']
+    fragment = (tmp_path / 'docs/permits.html').read_text()
+    rows = fragment.split('<tr ')[1:]
+    assert 'אין מיקום' not in rows[0]
+    assert 'אין מיקום' in rows[1]
+
+
+def test_permit_ai_review_column_links_published_review_and_labels_missing():
+    from ginot.page import _permits_section
+
+    html = _permits_section([{'tik_num': '2026/0439.00'}, {'tik_num': '2026/0001.00'}])
+    assert '<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>' in html
+    assert "href='reviews/palmach41/review-2026-0439.00.html'" in html
+    assert 'טרם פורסמה סקירה' in html
+    assert html.count('<td') == 18
+    assert 'אינו מסמך רשמי' in html
+
+
+def test_permit_ai_review_mobile_label_and_no_sort_button():
+    from ginot.page import _CSS, _permits_section
+
+    assert '#permits-table td:nth-child(9)::before{content:"סקירת AI"}' in _CSS
+    header = _permits_section([{'tik_num': '2026/0439.00'}]).split('<thead>', 1)[1].split('</thead>', 1)[0]
+    assert 'סקירת AI' in header
+    assert '<button' not in header
+
+
+def test_default_subset_rendered_with_full_fragment(tmp_path):
+    """#441: the same batch writes docs/permits-default.html: active rows of a
+    default-visible group, plus active rows with in-polygon publication
+    evidence the #573 overlay may promote. Closed rows and evidence-less rows
+    of a non-default group stay only in the full fragment."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    rows = [
+        {"tik_num": "2026/0001.00", "status": "תחילת פרסום הבקשה להקלה", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0002.00", "status": "הבקשה נסגרה", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0003.00", "status": "נפתח תיק רישוי", "gush": 1, "helka": 1},
+        {"tik_num": "2026/0004.00", "status": "נפתח תיק רישוי", "gush": 1, "helka": 1},
+    ]
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": rows}, ensure_ascii=False), encoding="utf-8"
+    )
+    (tmp_path / "data" / "publications_active.json").write_text(
+        json.dumps([
+            {"tik_num": "2026/0003.00", "in_polygon": True, "publication_date": "2026-10-01"},
+            {"tik_num": "2026/0004.00", "in_polygon": None, "publication_date": "2026-10-01"},
+        ]),
+        encoding="utf-8",
+    )
+    r = _run(tmp_path)
+    assert r.returncode == 0, r.stdout + r.stderr
+    full = (tmp_path / "docs" / "permits.html").read_text(encoding="utf-8")
+    subset = (tmp_path / "docs" / "permits-default.html").read_text(encoding="utf-8")
+    assert all(t["tik_num"] in full for t in rows)
+    assert "2026/0001.00" in subset
+    assert "2026/0003.00" in subset  # non-default group, in-polygon evidence
+    assert "2026/0002.00" not in subset
+    assert "2026/0004.00" not in subset
+    # every subset row is byte-identical to its full-fragment row
+    for line in subset.split("</tr>")[:-1]:
+        assert line + "</tr>" in full

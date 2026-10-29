@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-26",
+ "generated": "2026-10-29",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -39,7 +39,7 @@
    "path": "data/land_plan_status.json",
    "kind": "json",
    "records": null,
-   "bytes": 59493,
+   "bytes": 60561,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/land_plan_status.json"
   },
   {
@@ -103,8 +103,24 @@
    "path": "data/permit_requests.json",
    "kind": "json",
    "records": 12554,
-   "bytes": 5209812,
+   "bytes": 5209849,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
+  },
+  {
+   "name": "publications_active.json",
+   "path": "data/publications_active.json",
+   "kind": "json",
+   "records": 122,
+   "bytes": 48730,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_active.json"
+  },
+  {
+   "name": "publications_new_latest.json",
+   "path": "data/publications_new_latest.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 51,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_new_latest.json"
   }
  ]
 }

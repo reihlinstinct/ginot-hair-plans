@@ -15,6 +15,8 @@ tbody tr:nth-child(even){background:#f3f6ff}
 .chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
+.more-statuses{display:inline}
+.more-statuses summary{display:inline-block;cursor:pointer;color:#101f5b;font-weight:700}
 .legend .chip.sel{outline:2px solid #101f5b;outline-offset:1px}
 .derived{color:#666}.new td{background:#fdf3d7}
 #filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
@@ -61,6 +63,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead th:nth-child(8){display:none}
 
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
+#permits-table td:nth-child(9)::before{content:"סקירת AI"}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}

@@ -69,8 +69,9 @@ human reviewer.
    filters (status, inside/partial, date range, free text, objection-open)
    always operate over all rows. An "סקירת AI" column links plans that
    have an AI-generated talking-points review, rendered as styled site
-   pages from the repo markdown. A permit-requests section (DRAFT) loads
-   the same way from `permits.html`. Dates display as DD.MM.YYYY with ISO
+   pages from the repo markdown. The permit-requests section first loads
+   `permits-default.html`, then loads the full `permits.html` on demand
+   when a control needs the complete list. Dates display as DD.MM.YYYY with ISO
    values kept in data attributes. Colored status chips with a legend.
    Statistics, urgent section and recent changes (card) below the table;
    About + data sources + datasets list on a separate generated page;
@@ -84,25 +85,33 @@ The site is published twice: **GitHub Pages** (primary,
 `reihlinstinct.github.io/ginot-hair-plans`) and a **Cloudflare Pages**
 mirror (`ginot-hair-plans.pages.dev`). To stay inside the free build quota,
 the mirror's production branch is `mirror`, not `main`: Cloudflare builds
-only when the weekly refresh workflow (or a manual run of it) pushes
-`main` to `mirror` after merging its publish PR - ordinary pushes to
-`main` do not trigger a mirror build. PR preview deployments are disabled
-in the Cloudflare project (Settings > Builds > Branch control).
+only when the `mirror` branch advances. The weekly refresh no longer pushes
+that branch, requests a Pages build, or merges its data PR. Ordinary `main`
+pushes do not advance the Cloudflare mirror, so it may lag until a maintainer
+verifies the reviewed main commit and performs a separate continuation.
+See [reviewed publication](docs/operations/data-publication.md) for the procedure.
+PR preview deployments are disabled in the Cloudflare project.
 
 ## Weekly refresh
 
-Runs every **Tuesday morning** from an external scheduler (the owner's
-assistant on a weekly wake - GitHub Actions scheduling is intentionally not
-used for the recurring run). It re-queries iplan, diffs against
-`snapshots/latest.json`, regenerates `out/` + `docs/`, and commits the result
-to this repo. New/changed plans are surfaced on the page ("new this week"),
-in `feed.xml`, and in a summary ping to the owner.
+The workflow uses GitHub Actions cron `7 4 * * 2` (Tuesdays at 04:07 UTC),
+not an external assistant wake. The repository kill switch and shared pending
+PR guard run before collection. A pending weekly data PR produces a green
+skip notice; a guard error fails closed.
+
+When clear to run, it re-queries iplan and the land feed, diffs against
+`snapshots/latest.json`, regenerates `out/` + `docs/`, and stages a PR. It
+stops there for independent review and green CI before a normal merge. PR
+creation is not publication. GitHub Pages may deploy the reviewed merge;
+mirror continuation is separate. Do not rerun a collector just to publish
+already-reviewed data. See the
+[publication procedure](docs/operations/data-publication.md).
 
 ## Run it yourself
 
     pip install -r requirements.txt
     python3 refresh.py          # writes out/, docs/, snapshots/latest.json
-    python3 -m pytest -q        # 12 tests, no network needed
+    python3 -m pytest -q        # current unit/integration suite; browser jobs are separate
 
 See [CHANGELOG.md](CHANGELOG.md) for notable changes. Only re-deriving the boundary from a fresh DWG export needs LibreDWG's
 `dwg2dxf` (build notes in the wiki of the git history; the committed GeoJSON

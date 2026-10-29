@@ -389,15 +389,17 @@ def test_map_requests_survive_quick_filter_changes_without_stale_layers(
     assert page.locator(".leaflet-marker-icon").count() == 0
 
 
-def test_permit_status_chip_isolated_from_map_and_closed_hidden(page, map_network):
+def test_permit_closed_checkbox_isolated_from_map_and_closed_hidden(page, map_network):
     page.locator("#plan-map-panel summary").click()
     page.wait_for_function(
         "document.querySelector('#map-status').textContent.includes('20 גבולות')"
     )
     before = plan_ids(page)
     assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 0
-    page.locator("#permits .legend .chip", has_text="הבקשה נסגרה").click()
-    assert page.locator("#permits-table tbody tr:visible").count() == 1
+    # #521: terminal rows are revealed via the "הצג בקשות שהסתיימו" checkbox
+    # (the closed raw-status chip is gone; group chips replaced it).
+    page.check("#pfclosed")
+    assert page.locator('#permits-table tbody tr[data-active="0"]:visible').count() == 1
     assert plan_ids(page) == before
     assert page.locator(".leaflet-overlay-pane path").count() == 20
     page.click("#pfreset")
@@ -460,9 +462,18 @@ def test_map_excludes_style_hidden_row_and_keeps_boundary_click(page, map_networ
     canvas.scroll_into_view_if_needed()
     canvas.screenshot(path="/tmp/map-boundary-stable.png")
     # SVG path pixels give an actual edge to click, not a mocked map event.
-    point = page.locator(".leaflet-overlay-pane path").evaluate("""e=>{
-      var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
-      return {x:p.x,y:p.y};}""")
+    point = page.locator(".leaflet-overlay-pane path").evaluate("""async e=>{
+      // Status count can settle before Leaflet's projected screen edge does.
+      let previous=null,stable=0;
+      for(let frame=0;frame<120;frame++){
+        await new Promise(requestAnimationFrame);
+        const p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
+        stable=previous&&Math.abs(p.x-previous.x)<0.1&&Math.abs(p.y-previous.y)<0.1?stable+1:0;
+        previous={x:p.x,y:p.y};
+        if(stable>=3)return previous;
+      }
+      throw new Error('Boundary screen edge did not settle');
+    }""")
     page.mouse.click(point["x"], point["y"])
     page.locator(".leaflet-popup-content strong").wait_for()
     assert page.locator(".leaflet-popup-content strong").inner_text() == "תכנית 200-22"
@@ -488,6 +499,7 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
     )
     assert mobile_page.locator(".leaflet-container").is_visible()
     assert mobile_page.locator(".leaflet-overlay-pane path").count() == 1
+    mobile_page.locator("#plan-map").scroll_into_view_if_needed()
     point = mobile_page.locator(".leaflet-overlay-pane path").evaluate("""e=>{
       var p=e.getPointAtLength(e.getTotalLength()/2).matrixTransform(e.getScreenCTM());
       return {x:p.x,y:p.y};}""")
@@ -497,3 +509,41 @@ def test_mobile_map_opens_and_boundary_tap_shows_plan(mobile_page, map_network_m
         mobile_page.locator(".leaflet-popup-content strong").inner_text()
         == "תכנית 200-22"
     )
+
+
+def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
+    page.evaluate('window.__loadFullPermits && window.__loadFullPermits()')
+    page.wait_for_function('window.__permitsLoaded')
+    # Keep real public point projection shape, but use synthetic table rows.
+    page.evaluate('''() => {
+      const body=document.querySelector('#permits-table tbody');
+      body.innerHTML=['one','two','missing'].map(tik=>
+        `<tr data-tik="${tik}" data-status="פרסום" data-group="obj" data-scope="in"><td>${tik}</td><td>Synthetic address</td></tr>`).join('');
+    }''')
+    page.route('**/plan-points.json', lambda route: route.fulfill(json={'generated': '2026-10-26', 'points': []}))
+    page.route('**/permit-points.json', lambda route: route.fulfill(json={'points': [
+        {'tik_num': 'one', 'representative_point': [35.213, 31.768]},
+        {'tik_num': 'two', 'representative_point': [35.213, 31.768]}], 'missing_location': ['missing']}))
+    page.route('https://tile.openstreetmap.org/**', lambda route: route.abort())
+    page.locator('#plan-map-panel summary').click()
+    page.wait_for_function("document.querySelectorAll('.permit-marker').length===1")
+    assert '2 עם מיקום בחלקה (1 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()
+    marker = page.locator('.permit-marker')
+    assert 'one' in marker.get_attribute('title') and 'two' in marker.get_attribute('title')
+    marker.click()
+    assert 'one' in page.locator('.leaflet-popup').inner_text()
+    assert 'two' in page.locator('.leaflet-popup').inner_text()
+    page.evaluate('''() => {
+      document.querySelector('[data-tik="two"]').classList.add('filtered-out');
+      document.dispatchEvent(new Event('permits-filtered'));
+    }''')
+    from playwright.sync_api import expect
+    expect(page.locator('.leaflet-popup')).to_have_count(0)
+    assert 'two' not in page.locator('.permit-marker').get_attribute('title')
+    assert '1 עם מיקום בחלקה (1 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()
+    page.evaluate('''() => {
+      document.querySelector('[data-tik="one"]').classList.add('filtered-out');
+      document.dispatchEvent(new Event('permits-filtered'));
+    }''')
+    assert page.locator('.permit-marker').count() == 0
+    assert '0 עם מיקום בחלקה (0 נקודות), 1 אין מיקום' in page.locator('#map-status').inner_text()

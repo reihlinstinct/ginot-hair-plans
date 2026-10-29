@@ -66,6 +66,29 @@ python3 -m pytest -q
 Page changes should add or update tests in `tests/test_page.py` and include
 a regenerated `docs/index.html` in the PR so the change is live on merge.
 
+### Regenerating docs/ after a page or static change (#539)
+
+```
+python scripts/ci/check_docs_fresh.py           # check: exit 1 lists stale files
+python scripts/ci/check_docs_fresh.py --write   # regenerate them, then commit
+python scripts/ci/check_docs_fresh.py --list-uncovered
+```
+
+The check re-runs `page.render_site` over the committed inputs
+(`snapshots/latest.json`, `out/changes.json`, `data/permit_requests.json`,
+`plans/*/analysis`, `data/external_reviews.json`) with no network, and pins
+the clock to the `generated` date already stamped in each committed file
+(files without a stamp use the date in `docs/index.html`). `--write` keeps
+those dates, so a template change does not churn dates. A committed
+`reviews/talking_points_*.html` or `vendor/` file the render no longer
+produces is reported as an orphan, and `--write` deletes it. Limits: it does not
+compare the PNG previews (font/matplotlib dependent), `data.json` (its
+`permits[]` is refreshed only by the weekly refresh), or `docs/` files other
+pipelines write; `--list-uncovered` prints them. The CI `docs-fresh` job
+fails on any nonzero exit: 1 means stale (regenerate and commit), 2 means the
+check could not run (missing or unreadable input, missing or invalid date
+stamp, or an unexpected error) and is never reported as stale or green.
+
 ## Diagrams
 
 Anything that needs design (API, containers, architecture, data flow,

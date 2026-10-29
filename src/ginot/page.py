@@ -14,6 +14,7 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 import datetime
 import html
 import json
+import re
 import urllib.parse as _urlparse_mod
 
 from . import __version__
@@ -41,6 +42,8 @@ tbody tr:nth-child(even){background:#f3f6ff}
 .chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
+.more-statuses{display:inline}
+.more-statuses summary{display:inline-block;cursor:pointer;color:#101f5b;font-weight:700}
 .legend .chip.sel{outline:2px solid #101f5b;outline-offset:1px}
 .derived{color:#666}.new td{background:#fdf3d7}
 #filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
@@ -87,6 +90,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead th:nth-child(8){display:none}
 
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
+#permits-table td:nth-child(9)::before{content:"סקירת AI"}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
@@ -216,12 +220,39 @@ function _renderUrgent(){
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:r.getAttribute('data-num')||'',
       name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
   });
+  document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
+    if(r.getAttribute('data-group')!=='obj'||r.getAttribute('data-scope')==='out')return;
+    var a=r.querySelector('td a'),num=a?a.textContent.trim():'';
+    function validDeadline(value){
+      if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value||''))return false;
+      var ms=Date.parse(value+'T00:00:00Z');
+      return isFinite(ms)&&new Date(ms).toISOString().slice(0,10)===value;
+    }
+    var candidate=(window.__permitOfficialDeadlines||{})[num];
+    var official=validDeadline(candidate)?candidate:'';
+    var planned=r.getAttribute('data-pubend');
+    var d=official||(validDeadline(planned)?planned:'');if(!d)return;
+    var parsed=Date.parse(d+'T00:00:00Z');
+    if(!isFinite(parsed)||new Date(parsed).toISOString().slice(0,10)!==d)return;
+    var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
+    items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
+      name:'בקשת היתר: '+(r.cells[1]?r.cells[1].textContent:''),
+      d:d.split('-').reverse().join('.'),permit:true,official:!!official});
+  });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - \u05d0\u05d7\u05e8\u05d5\u05df \u05dc\u05d4\u05ea\u05e0\u05d2\u05d3\u05d5\u05ea (\u05de\u05e9\u05d5\u05e2\u05e8): '+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+           ' - '+(it.permit?(it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
+window.__renderUrgent=_renderUrgent;
 _renderUrgent();
+fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
+  var deadlines={};
+  list.forEach(function(r){
+    if(r.in_polygon===true&&r.objection_deadline)deadlines[r.tik_num]=r.objection_deadline;
+  });
+  window.__permitOfficialDeadlines=deadlines;_renderUrgent();
+}).catch(function(){/* Planned dates remain clearly labelled, never upgraded. */});
 fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   var tb=document.querySelector('#plans tbody');if(!tb)return;
   tb.innerHTML=h;
@@ -391,6 +422,82 @@ _PERMIT_TERMINAL_STATUSES = frozenset(
     }
 )
 
+# Issue #521: the feed carries ~25 raw request statuses; they group into a few
+# objection-workflow stages. Only the objection-relevant groups are selected by
+# default; the rest sit behind a "סטטוסים נוספים" disclosure. The raw status
+# stays on every row and in the status select.
+PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
+    ("obj", "פתוח להתנגדויות", frozenset({
+        "תחילת פרסום הבקשה להקלה", "פורסמה בקשה להקלה",
+        "תחילת הודעות לפני תקנה 36", "השלמת הודעות לפני תקנה 36"}), True),
+    ("pre", "פרסום מתקרב", frozenset({
+        "ממתין לאישור נוסח פרסום", "נוסח פרסום אושר"}), True),
+    ("review", "בטיפול/דיונים", frozenset({
+        "נפתח תיק רישוי", "הגשה מקוונת הושלמה", "נדונה בוועדת המשנה",
+        "נדונה ברשות הרישוי", "נדונה בועדת ערר", "התקבל ערר",
+        "התקבלה בקשה לדיון המועצה", "חידוש טיפול בבקשה", "שולמה מקדמה",
+        'אושר ע"י מהנדס העיר'}), False),
+    ("draft", "טיוטת היתר", frozenset({
+        "הוכנה טיוטת היתר בניה", "התקבל תיק ורוד / מסמכים חתומים"}), False),
+    ("postpub", "אחרי פרסום", frozenset({"תום תקופת פרסום"}), False),
+    ("issued", "הופק היתר", frozenset({
+        "הופק-הוצא היתר בניה", "הופק היתר מוארך"}), False),
+    ("closed", "סגור/אחר", frozenset({"הבקשה נסגרה", "הבקשה נגנזה", ""}), False),
+)
+
+_PERMIT_GROUP_CLASS = {
+    "obj": "c-deposit", "pre": "c-review", "review": "c-inproc",
+    "draft": "c-cond", "postpub": "c-inproc", "issued": "c-approved",
+    "closed": "c-closed", "unmapped": "c-inproc",
+}
+
+
+def _permit_status_group(status: str) -> tuple[str, str, bool]:
+    """(group key, group label, default-visible) for a raw permit status.
+    An unmapped (e.g. newly added) status fails VISIBLE: missing an objection
+    window is worse than extra noise (issue #521)."""
+    st = status or ""
+    for key, label, statuses, default_visible in PERMIT_STATUS_GROUPS:
+        if st in statuses:
+            return key, label, default_visible
+    return "unmapped", "לא מסווג", True
+
+
+# Issue #521 (+ #529): scope flag by the council's 7 neighbourhoods
+# (ginothair.org.il). "in" = one of the 7; "out" = another Jerusalem
+# neighbourhood seen in the feed; "unknown" = no usable neighbourhood signal
+# (kept visible by default - fail visible, never hide a possible objection).
+_PERMIT_SCOPE_IN = frozenset({
+    "קטמון הישנה", "רחביה", "קריית שמואל", "מושבה גרמנית",
+    "המושבה היוונית", "טלביה", "טלביה/המוגרבים", "נוה שאנן/ניות", "ניות",
+})
+_PERMIT_SCOPE_OUT = frozenset({
+    "בית וגן", "בית צפפה", "גאולים - בקעה", "גבעת אורן", "גבעת הורדים",
+    "גבעת המטוס", "גבעת הפורצים", "גבעת מרדכי", "גבעת רם",
+    "גונן ב", "גונן ג", "גונן ה", "גונן ו", "גונן ח", "גונן ט", "גוננים",
+    "גילה", "מנחת", "מקור חיים", "נוה גרנות", "סן סימון", "עומריה",
+    "פת", "קרית האומה", "שרפת", "תלפיות", "תלפיות תעשיה",
+})
+
+
+def _permit_scope(p: dict) -> str:
+    """Scope flag for a permit row: in / out / unknown (issue #521).
+    schunaName is definitive when present; otherwise the feed's legacy
+    address string ends with the neighbourhood ("הפלמח 41 קטמון הישנה")."""
+    schuna = (p.get("schunaName") or "").strip()
+    if schuna:
+        return "in" if schuna in _PERMIT_SCOPE_IN else "out"
+    address = (p.get("address") or "").strip()
+    if not address:
+        return "unknown"
+    for name in _PERMIT_SCOPE_IN:
+        if address.endswith(name):
+            return "in"
+    for name in _PERMIT_SCOPE_OUT:
+        if address.endswith(name):
+            return "out"
+    return "unknown"
+
 
 def _permit_tik_link(tik_num: str | None) -> str:
     """Link a permit request number to its file in the municipality's
@@ -406,7 +513,75 @@ def _permit_tik_link(tik_num: str | None) -> str:
     return f"<a href='{url}' target='_blank' rel='noopener'>{_e(tik)}</a>"
 
 
-def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
+PERMIT_ID_RE = re.compile(r"^\d{4}/\d{4}\.\d{2}$")
+
+
+def write_permit_ids(permits: list[dict], path: str) -> int:
+    """Write the public list of permit request numbers (tik_num) the submit worker
+    validates external reviews against (#515). Sorted, de-duplicated, no timestamp,
+    so the file only changes when the set of requests changes. Returns the count."""
+    ids = sorted(
+        {
+            str(p.get("tik_num") or "").strip()
+            for p in permits
+            if PERMIT_ID_RE.match(str(p.get("tik_num") or "").strip())
+        }
+    )
+    with open(path, "w", encoding="utf-8") as fh:
+        json.dump({"ids": ids}, fh, ensure_ascii=False, separators=(",", ":"))
+        fh.write("\n")
+    return len(ids)
+
+
+# Only already-published public reviews are linked. External/unreviewed
+# submissions never become table links automatically.
+PERMIT_AI_REVIEWS = {
+    '2026/0439.00': 'reviews/palmach41/review-2026-0439.00.html',
+}
+
+
+def _permit_review_cell(tik_num):
+    url = PERMIT_AI_REVIEWS.get((tik_num or '').strip())
+    if url:
+        return f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
+    return '<span class="derived">טרם פורסמה סקירה</span>'
+
+
+def _is_default_permit_candidate(group_default: bool, scope: str, active: str,
+                                 tik: str, evidence_tiks: frozenset) -> bool:
+    """#441: a row the default (no-interaction) view may need without the full
+    fragment. Default-visible groups (unmapped fails visible) that are active
+    and not out of scope, plus every active row whose tik has publication
+    evidence, because the #573 overlay can promote it into the "obj" group."""
+    if active != "1":
+        return False
+    return (group_default and scope != "out") or tik in evidence_tiks
+
+
+def publication_evidence_tiks(path: str) -> frozenset:
+    """#441: tiks the #573 overlay may promote, read from the normalized
+    publication list (data/publications_active.json). Every in-polygon entry
+    counts regardless of its date: the client applies the freshness window
+    against its own today, so the subset must not pre-filter by date. A missing
+    or invalid list yields no evidence, the same as the page, which then has
+    no overlay to apply."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            entries = json.load(fh)
+    except (FileNotFoundError, json.JSONDecodeError, UnicodeError):
+        return frozenset()
+    if not isinstance(entries, list):
+        return frozenset()
+    return frozenset(
+        e["tik_num"] for e in entries
+        if isinstance(e, dict) and e.get("in_polygon") is True
+        and isinstance(e.get("tik_num"), str) and e["tik_num"]
+    )
+
+
+def _permits_section(permits: list[dict], rows_file: str | None = None,
+                     default_rows_file: str | None = None,
+                     evidence_tiks: frozenset = frozenset()) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
     textually distinct from the plans table. Terminal requests (closed /
@@ -433,8 +608,11 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         return (p.get("address") or "").strip(), ""
 
     rows = []
+    default_rows = []
     for p in permits:
         status = p.get("status") or ""
+        group_key, _group_label, _group_default = _permit_status_group(status)
+        scope = _permit_scope(p)
         sug = p.get("sugbakasha") or ""
         address_text, address_note = _address_display(p)
         address_note_html = (
@@ -442,6 +620,8 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             if address_note
             else ""
         )
+        if p.get('_map_missing'):
+            address_note_html += " <span class='pub-missing'>אין מיקום</span>"
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
         search = _e(
@@ -471,6 +651,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
         )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
+            f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}' data-statusdate='{_iso(p.get('status_date'))}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
             f"<td>{_e(address_text)}{address_note_html}</td>"
@@ -478,9 +659,16 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
             f"<td>{_e(sug)}</td>"
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
             f"<td>{_date_cell(p.get('status_date'))}</td>"
-            f"<td>{pub_cell}</td>"
-            f"<td>{_date_cell(p.get('publication_end_planned'))}</td></tr>"
+            f"<td data-publication-cell>{pub_cell}</td>"
+            f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
+            f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
+        if _is_default_permit_candidate(_group_default, scope, active,
+                                        p.get("tik_num") or "", evidence_tiks):
+            default_rows.append(rows[-1])
+    if default_rows_file:
+        with open(default_rows_file, "w", encoding="utf-8") as fh:
+            fh.write("".join(default_rows))
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
             fh.write("".join(rows))
@@ -488,15 +676,45 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
     )
+    def valid_coverage_date(value):
+        try:
+            datetime.date.fromisoformat(_iso(value))
+            return True
+        except (TypeError, ValueError):
+            return False
+
+    n_dated = sum(valid_coverage_date(p.get("publication_start")) for p in permits)
+    n_planned = sum(valid_coverage_date(p.get("publication_end_planned")) for p in permits)
+    coverage_text = (
+        f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
+        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits)-n_dated} ללא תאריך תחילת פרסום."
+    )
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
 
-    _pcounts = _PCounter((p.get("status") or "") for p in permits)
-    plegend_chips = " ".join(
-        f'<span class="chip {_permit_status_class(v)}" data-status="{_e(v)}">{_e(v)} ({_pcounts[v]})</span>'
-        for v in statuses
+    _gcounts = _PCounter(_permit_status_group(p.get("status") or "")[0] for p in permits)
+
+    def _gchip(key: str, label: str, default_on: bool) -> str:
+        sel = " sel" if default_on else ""
+        dflt = " data-default='1'" if default_on else ""
+        return (
+            f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
+            f'{dflt} data-label="{_e(label)}">{_e(label)} ({_gcounts.get(key, 0)})</span>'
+        )
+
+    main_chips, more_chips = [], []
+    for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
+        (main_chips if default_on else more_chips).append(_gchip(key, label, default_on))
+    if _gcounts.get("unmapped"):
+        main_chips.append(_gchip("unmapped", "לא מסווג", True))
+    plegend = (
+        '<div class="legend" id="pfgroups"><b>סטטוסים:</b> '
+        + " ".join(main_chips)
+        + ' <details class="more-statuses"><summary>סטטוסים נוספים</summary> '
+        + " ".join(more_chips)
+        + "</details></div>"
     )
-    plegend = '<div class="legend"><b>מקרא סטטוסים:</b> ' + plegend_chips + "</div>"
+    n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
     status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
@@ -506,23 +724,37 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
     )
     return f"""
 <section id="permits" dir="rtl">
-<h2>בקשות היתר (טיוטה - DRAFT)</h2>
+<h2>בקשות היתר</h2>
 <p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
 בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
 בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
-כברירת מחדל מוצגות רק בקשות שפורסמו בשישה החודשים האחרונים; ניתן לשנות את
-תאריך ברירת המחדל בשדה "מתאריך פרסום". בקשות ללא תאריך פרסום ידוע נשארות
-גלויות ומסומנות - היעדר התאריך אינו ראיה שהבקשה ישנה או שלא פורסמה.
+כברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או
+לקראת פרסום - בשכונות גינות העיר; שאר הסטטוסים זמינים תחת "סטטוסים נוספים",
+ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
+בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
+שהבקשה ישנה או שלא פורסמה.
+פרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;
+אין בכך אישור למועד התנגדות שאינו ידוע.
 מספר הבקשה מקשר לתיק במערכת
-<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.</p>
+<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
+עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
 {plegend}
+<details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
+<p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
+<span id="permit-coverage-counts">{coverage_text}</span></p>
+<p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
+תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
+סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
+לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
 <select id="pfstatus">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
 <label>עד <input type="date" id="pfto"></label>
+<label><input type="checkbox" id="pfopenonly" checked> רק מועד התנגדות שלא עבר</label>
+<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
 <button id="pfreset" type="button">נקה</button>
 <span id="pfcount"></span>
@@ -532,6 +764,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None) -> str:
 <table id="permits-table"><thead><tr>
 <th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
 <th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
+<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>
 </tr></thead><tbody>{body}</tbody></table>
 <noscript><p>מוצגות {COLLAPSE_TOP} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="pmore" type="button"></button>
@@ -545,22 +778,21 @@ if(!rows.length){window.__permitsLoaded=true;return;}
 var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatus'),
 pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
 pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
+pfopenonly=document.getElementById('pfopenonly'),pfscope=document.getElementById('pfscope'),
+pfgroups=document.getElementById('pfgroups'),
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
 pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
 var expanded=false;
-// Rolling 6-calendar-month cutoff, visitor-local (design permit-recency-filter).
-// Month-end safe: Aug 31 rolls to the last day of Feb, not Mar 3.
-function rollingCutoff(now){
-  now=now||new Date();
-  var t=new Date(now.getFullYear(),now.getMonth()-6,1);
-  var dim=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();
-  return new Date(t.getFullYear(),t.getMonth(),Math.min(now.getDate(),dim));
-}
-window.__permitCutoff=rollingCutoff;
 function isoDate(d){
   return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 }
-var DEF_FROM=isoDate(rollingCutoff());
+// Objection-window checks run against "today" in Asia/Jerusalem (the permit
+// deadline is local), recomputed at every page load (issue #153 pattern).
+function todayJL(){
+  try{return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Jerusalem'}).format(new Date());}
+  catch(e){return isoDate(new Date());}
+}
+var TODAY=todayJL();
 function validIso(v){
   if(!/^\\d{4}-\\d{2}-\\d{2}$/.test(v))return false;
   var p=new Date(v+'T00:00:00');
@@ -578,9 +810,7 @@ function pubcat(r,pub){
 }
 // Default order (#451): dated rows newest-first, then date-unknown rows in
 // their own honest placement (pub-nodate before no-evidence), feed order
-// kept stable inside each group. Raw feed order is oldest-first, so without
-// this sort every recent permit sits behind the 20-row default cap and the
-// recency filter never actually surfaces recent rows.
+// kept stable inside each group.
 function pubRank(r){
   var pub=r.getAttribute('data-pub')||'';
   var c=pubcat(r,pub);
@@ -600,11 +830,35 @@ function sortRows(){
   var tb=document.querySelector('#permits-table tbody');
   if(tb)rows.forEach(function(r){tb.appendChild(r);});
 }
-pffrom.value=DEF_FROM;
+// #521: group chips are the primary filter. Chips with data-default='1' start
+// selected (the objection-relevant groups); the rest sit behind the
+// "סטטוסים נוספים" disclosure and toggle the same way.
+function selectedGroups(){
+  var s={};
+  pfgroups.querySelectorAll('.chip.sel').forEach(function(c){s[c.getAttribute('data-group')]=1;});
+  return s;
+}
 function normSearch(s){
   return (s||'').toLowerCase().replace(/[\u05F3\u05F4\u05BE\u2019\u201D'"`-]/g,'');
 }
 function match(r){
+  var sel=selectedGroups();
+  var g=r.getAttribute('data-group')||'unmapped';
+  if(!sel[g])return false;
+  // Scope flag (#521): out-of-area rows are hidden until "הצג גם מחוץ ל-7
+  // השכונות" is checked; unknown-scope stays visible (fail visible).
+  if(pfscope&&!pfscope.checked&&r.getAttribute('data-scope')==='out')return false;
+  // "רק מועד התנגדות שלא עבר" applies to the open-objection group only:
+  // a row whose (planned) window already closed is hidden while checked;
+  // no end date = stays visible (deadline unknown, not elapsed).
+  if(g==='obj'&&pfopenonly&&pfopenonly.checked){
+    var pe=r.getAttribute('data-pubend');
+    var evidence=r.getAttribute('data-publication-evidence')||'';
+    // Keep raw planned end, but a later official publication makes that old
+    // window stale. The new deadline remains unknown, not auto-extended.
+    var superseded=validIso(evidence)&&validIso(pe)&&evidence>pe;
+    if(pe&&pe<TODAY&&!superseded)return false;
+  }
   if(!pfclosed.checked&&!pfstatus.value&&r.getAttribute('data-active')!=='1')return false;
   var q=normSearch(pfq.value.trim());
   if(q&&(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search')))).indexOf(q)===-1)return false;
@@ -616,13 +870,16 @@ function match(r){
   // are never hidden by the recency filter, they stay visible and marked.
   if(pub){
     var effFrom=pffrom.value;
-    if(effFrom&&!validIso(effFrom))effFrom=DEF_FROM;
+    if(effFrom&&!validIso(effFrom))effFrom='';
     if(effFrom&&pub<effFrom)return false;
     if(pfto.value&&pub>pfto.value)return false;
   }
   return true;
 }
 function apply(){
+  if(!fullLoaded&&defaultFailed){showLoadState();return;}
+  if(!fullLoaded&&!isDefaultView()){loadFullPermits();showLoadState();return;}
+  showLoadState();
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);
@@ -641,14 +898,32 @@ function apply(){
   });
   pfunknown.textContent=(c3||c4)?'תאריך פרסום חסר: '+c3+' (פורסם, תאריך לא ידוע) · '+c4+' (אין ראיית פרסום)':'';
   pfflag.style.display=(pffrom.value&&!validIso(pffrom.value))?'':'none';
+  document.dispatchEvent(new Event('permits-filtered'));
 }
-[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed].forEach(function(el){
+[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
+  if(!el)return;
   var h=function(){expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
+// Checking "הצג בקשות שהסתיימו" also selects the closed+issued group chips:
+// the checkbox would otherwise reveal nothing while those groups are
+// unselected (both gates must pass for a terminal row to show).
+if(pfclosed&&pfgroups){
+  pfclosed.addEventListener('change',function(){
+    pfgroups.querySelectorAll('.chip').forEach(function(c){
+      var g=c.getAttribute('data-group');
+      if(g==='closed'||g==='issued')c.classList.toggle('sel',pfclosed.checked);
+    });
+    expanded=false;apply();
+  });
+}
 document.getElementById('pfreset').addEventListener('click',function(){
-  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value=DEF_FROM;pfto.value='';
-  pfclosed.checked=false;expanded=false;apply();
+  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
+  pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    c.classList.toggle('sel',c.getAttribute('data-default')==='1');
+  });
+  expanded=false;apply();
 });
 pmore.addEventListener('click',function(){expanded=!expanded;apply();});
 function statusClass(st){
@@ -660,30 +935,54 @@ function statusClass(st){
   if(st.indexOf('טיוטת היתר')!==-1)return 'c-cond';
   return 'c-inproc';
 }
+var GROUP_LABELS={'unmapped':'לא מסווג'};
+var GROUP_CLASS={'unmapped':'c-inproc'};
+function ensureGroupChips(){
+  // #622: subset rows can introduce a status absent from the weekly shell.
+  // Add the selected fail-visible chip without inventing full-dataset counts.
+  var have={};
+  pfgroups.querySelectorAll('.chip').forEach(function(c){have[c.getAttribute('data-group')]=1;});
+  rows.forEach(function(r){
+    var k=r.getAttribute('data-group')||'unmapped';
+    if(have[k])return;
+    have[k]=1;
+    var c=document.createElement('span');
+    c.className='chip '+(GROUP_CLASS[k]||'c-inproc')+' sel';
+    c.setAttribute('data-group',k);
+    c.setAttribute('data-default','1');
+    c.setAttribute('data-label',GROUP_LABELS[k]||k);
+    c.textContent=GROUP_LABELS[k]||k;
+    pfgroups.insertBefore(c,pfgroups.querySelector('.more-statuses'));
+  });
+}
 function rebuildDerived(){
-  // #414: legend chips, filter options and the closed count derive from the
-  // loaded fragment rows (the live source), not the weekly index.html shell -
-  // after a feed batch they must agree with the actual rows immediately.
-  var counts={},sugs={},closed=0,i,st,sug;
+  ensureGroupChips(); // One chip builder for subset and full-list paths (#625).
+  // #414: chips, filter options and counters derive from the loaded fragment
+  // rows (the live source), not the weekly index.html shell; #521: the legend
+  // counts are per status GROUP, raw statuses fill the select.
+  var counts={},sugs={},closed=0,gcounts={},outscope=0,i,st,sug,g;
+  var dated=0,planned=0;
   for(i=0;i<rows.length;i++){
+    if(validIso(rows[i].getAttribute('data-pub')||''))dated++;
+    if(validIso(rows[i].getAttribute('data-pubend')||''))planned++;
     st=rows[i].getAttribute('data-status')||'';
     if(st)counts[st]=(counts[st]||0)+1;
     sug=rows[i].getAttribute('data-sug')||'';
     if(sug)sugs[sug]=1;
     if(rows[i].getAttribute('data-active')==='0')closed++;
+    g=rows[i].getAttribute('data-group')||'unmapped';
+    gcounts[g]=(gcounts[g]||0)+1;
+    if(rows[i].getAttribute('data-scope')==='out')outscope++;
   }
-  var legend=document.querySelector('#permits .legend');
-  if(legend){
-    legend.querySelectorAll('.chip').forEach(function(c){c.remove();});
-    Object.keys(counts).sort().forEach(function(v){
-      var c=document.createElement('span');
-      c.className='chip '+statusClass(v)+(pfstatus.value===v?' sel':'');
-      c.setAttribute('data-status',v);
-      c.textContent=v+' ('+counts[v]+')';
-      legend.appendChild(document.createTextNode(' '));
-      legend.appendChild(c);
-    });
-  }
+  var coverage=document.getElementById('permit-coverage-counts');
+  if(coverage)coverage.textContent=rows.length+' בקשות במאגר; '+dated+
+    ' עם תאריך תחילת פרסום; '+planned+' עם סיום פרסום מתוכנן; '+
+    (rows.length-dated)+' ללא תאריך תחילת פרסום.';
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    var k=c.getAttribute('data-group');
+    c.textContent=c.getAttribute('data-label')+' ('+(gcounts[k]||0)+')';
+    delete gcounts[k];
+  });
   function refill(sel,first,values){
     var keep=sel.value;
     sel.innerHTML='';
@@ -696,29 +995,164 @@ function rebuildDerived(){
   if(pfclosed&&pfclosed.parentNode&&pfclosed.parentNode.lastChild){
     pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';
   }
+  if(pfscope&&pfscope.parentNode&&pfscope.parentNode.lastChild){
+    pfscope.parentNode.lastChild.textContent=' הצג גם מחוץ ל-7 השכונות ('+outscope+')';
+  }
 }
-var legend=document.querySelector('#permits .legend');
-if(legend){
-  legend.addEventListener('click',function(ev){
+if(pfgroups){
+  pfgroups.addEventListener('click',function(ev){
     var c=ev.target.closest?ev.target.closest('.chip'):null;
-    if(!c||!legend.contains(c))return;
-    var st=c.getAttribute('data-status');
-    pfstatus.value=(pfstatus.value===st)?'':st;
-    legend.querySelectorAll('.chip').forEach(function(x){
-      x.classList.toggle('sel',x.getAttribute('data-status')===pfstatus.value);
-    });
+    if(!c||!pfgroups.contains(c))return;
+    c.classList.toggle('sel');
     expanded=false;apply();
   });
 }
-fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
-  var tb=document.querySelector('#permits-table tbody');if(!tb)return;
+// #573: a newer publication list can precede the permit-feed status update.
+// Overlay display evidence only. Never rewrite the raw source status or create
+// a deadline. Only confirmed in-scope, valid-dated, nonterminal rows qualify.
+// 90 days is a display-evidence freshness policy, NOT a legal deadline.
+var PUBLICATION_EVIDENCE_MAX_DAYS=90;
+var publicationEvidence=[];
+function applyPublicationEvidence(){
+  var byId={};
+  publicationEvidence.forEach(function(p){
+    if(currentEvidence(p))byId[p.tik_num]=p;
+  });
+  rows.forEach(function(r){
+    var p=byId[r.getAttribute('data-tik')];
+    if(!p||r.getAttribute('data-active')!=='1')return;
+    var current=r.getAttribute('data-pub')||'';
+    // Feed status_date may be absent (all committed rows at this change);
+    // then only the recency/current-publication and conservative postpub guards apply.
+    var stage=r.getAttribute('data-statusdate')||'';
+    var group=r.getAttribute('data-group');
+    if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
+    if(validIso(stage)&&p.publication_date<=stage)return;
+    // An older/repeated listing cannot resurrect a later workflow state.
+    if(validIso(current)&&p.publication_date<=current)return;
+    r.setAttribute('data-group','obj');
+    r.setAttribute('data-publication-evidence',p.publication_date);
+    r.setAttribute('data-pub',p.publication_date);
+    r.setAttribute('data-pubcat','dated');
+    var cell=r.querySelector('[data-publication-cell]');
+    if(cell){
+      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני)';
+      cell.setAttribute('data-iso',p.publication_date);
+    }
+  });
+}
+function currentEvidence(p){
+  // The overlay window, shared with the #441 subset safety net.
+  if(!p||p.in_polygon!==true||!validIso(p.publication_date))return false;
+  var age=(Date.parse(TODAY+'T00:00:00Z')-Date.parse(p.publication_date+'T00:00:00Z'))/86400000;
+  return age>=0&&age<=PUBLICATION_EVIDENCE_MAX_DAYS;
+}
+fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
+  if(!Array.isArray(list))throw new Error('invalid publication list');
+  publicationEvidence=list;applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+  if(window.__renderUrgent)window.__renderUrgent();
+  window.__permitPublicationEvidenceLoaded=true;
+  document.dispatchEvent(new Event('publication-evidence-loaded'));
+}).catch(function(){window.__permitPublicationEvidenceFailed=true;});
+// #441: the page first loads the small default-view subset
+// (permits-default.html: active default-group rows not out of scope, plus
+// rows with in-polygon publication evidence). The full permits.html loads
+// once, through one shared promise, on the first interaction that leaves the
+// default view. A non-default view never shows subset results: it shows a
+// loading state, and on failure a retry button while the subset stays.
+var fullLoaded=false,fullPromise=null,fullFailed=false;
+// Closure state; the window.__permits* flags are test hooks only.
+var defaultFailed=false,evidenceNeedsFull=false;
+var defaultLoaded=false,evidenceLoaded=false;
+var pfload=document.createElement('span');
+pfload.id='pfload';pfload.setAttribute('role','status');
+if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
+function installRows(h){
+  var tb=document.querySelector('#permits-table tbody');if(!tb)return false;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
+  ensureGroupChips();
+  applyPublicationEvidence();
   sortRows();
-  rebuildDerived();
+  return true;
+}
+function isDefaultView(){
+  if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
+  if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
+  var same=true;
+  pfgroups.querySelectorAll('.chip').forEach(function(c){
+    if(c.classList.contains('sel')!==(c.getAttribute('data-default')==='1'))same=false;
+  });
+  return same;
+}
+function showRetry(){
+  pfload.textContent='טעינת הרשימה המלאה נכשלה. ';
+  var b=document.createElement('button');
+  b.type='button';b.id='pfretry';b.textContent='נסו שוב';
+  b.addEventListener('click',function(){loadFullPermits();});
+  pfload.appendChild(b);
+}
+function showLoadState(){
+  if(fullLoaded){pfload.textContent='';return;}
+  if(isDefaultView()&&!defaultFailed){
+    // The subset view stays visible. A full load the evidence safety net
+    // asked for (a current publication outside the subset) must still say
+    // when it failed, or that permit is silently missing.
+    if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
+    return;
+  }
+  rows.forEach(function(r){r.classList.add('filtered-out');});
+  pmore.style.display='none';
+  pfcount.textContent='';pfunknown.textContent='';
+  if(fullFailed)showRetry();
+  else pfload.textContent='טוען את הרשימה המלאה…';
+}
+function loadFullPermits(){
+  if(fullLoaded)return Promise.resolve(true);
+  if(fullPromise)return fullPromise;
+  fullFailed=false;window.__permitsFailed=false;
+  fullPromise=fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+    if(!installRows(h))throw new Error('permit table unavailable');
+    fullLoaded=true;pfload.textContent='';
+    rebuildDerived();
+    apply();
+    if(window.__renderUrgent)window.__renderUrgent();
+    window.__permitsLoaded=true;
+    return true;
+  }).catch(function(){
+    fullPromise=null;fullFailed=true;window.__permitsFailed=true;
+    showLoadState();
+    return false;
+  });
+  showLoadState();
+  return fullPromise;
+}
+window.__loadFullPermits=loadFullPermits;
+// Safety net for the #573 overlay: the publication list refreshes daily,
+// independently of the permit render. Evidence the overlay would apply today
+// for a tik missing from the subset means the subset may be older than the
+// evidence: load it all. Old evidence (outside the overlay window, e.g. for
+// closed requests) promotes nothing, so it must not cost the full fetch.
+function evidenceOutsideSubset(){
+  var have={};
+  rows.forEach(function(r){have[r.getAttribute('data-tik')]=1;});
+  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num];});
+}
+function checkSubsetAgainstEvidence(){
+  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset()){evidenceNeedsFull=true;loadFullPermits();}
+}
+document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
+fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  if(fullLoaded)return;
+  if(!installRows(h))return;
   apply();
-  window.__permitsLoaded=true;
-}).catch(function(){window.__permitsFailed=true;});
+  if(window.__renderUrgent)window.__renderUrgent();
+  defaultLoaded=true;window.__permitsDefaultLoaded=true;
+  checkSubsetAgainstEvidence();
+}).catch(function(){
+  // No subset (an older deploy, or a fetch error): fall back to the full list.
+  defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
+});
 sortRows();
 apply();
 })();
@@ -765,6 +1199,8 @@ def render_index(
     reviews: dict[str, str] | None = None,
     rows_file: str | None = None,
     permits_file: str | None = None,
+    permits_default_file: str | None = None,
+    evidence_tiks: frozenset = frozenset(),
 ) -> str:
     reviews = reviews or {}
     from . import mapview
@@ -917,7 +1353,7 @@ def render_index(
 <tbody>{body}</tbody></table>
 <noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
 <button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
-{_permits_section(permits or [], rows_file=permits_file)}
+{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks)}
 {mapview.PANEL}
 <h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
@@ -1191,6 +1627,18 @@ def render_site(
                 permits = json.load(pf).get("requests", [])
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
+    from .mapdata import write_permit_points
+    permit_map = write_permit_points(
+        permits, os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
+                              'ginot_hair_parcels.geojson'),
+        f'{out_dir}/permit-points.json')
+    missing_positions = set(permit_map['missing_location'])
+    permits = [dict(p, _map_missing=p.get('tik_num') in missing_positions) for p in permits]
+    # Public normalized publication metadata only, never permit-file documents.
+    publications_path = os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
+                                     'publications_active.json')
+    from .publications import write_projection
+    write_projection(publications_path, f'{out_dir}/publications_active.json')
     from . import preview
 
     sort_rows(rows)  # annotates _open_obj, which the preview card counts
@@ -1218,8 +1666,16 @@ def render_site(
                 reviews=reviews,
                 rows_file=f"{out_dir}/rows.html",
                 permits_file=f"{out_dir}/permits.html",
+                permits_default_file=f"{out_dir}/permits-default.html",
+                evidence_tiks=publication_evidence_tiks(publications_path),
             )
         )
+    if permits_path:
+        # Rewrite every run, even with zero requests (#530): an empty list is
+        # the correct state, and skipping the write would leave the previous
+        # ids published, so the submit worker would keep accepting reviews for
+        # requests no longer in the table.
+        write_permit_ids(permits, f"{out_dir}/permit-ids.json")
     from . import external_reviews as _er
 
     external = _er.load(external_reviews_path)

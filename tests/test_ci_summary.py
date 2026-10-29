@@ -124,3 +124,90 @@ def test_e2e_evidence_upload_includes_hidden_artifacts_dir():
     step = text.split("Upload E2E evidence", 1)[1]
     assert "include-hidden-files: true" in step
     assert "if-no-files-found: error" in step
+
+
+def test_summary_byte_boundary_and_full_log(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    text = 'x' * (summary.SUMMARY_LIMIT_BYTES - 1)
+    summary.write_summary(text, target)
+    assert target.read_text(encoding="utf-8") == text
+    target.write_text('', encoding='utf-8')
+    oversized = 'א' * summary.SUMMARY_LIMIT_BYTES
+    summary.write_summary(oversized, target)
+    output = target.read_bytes()
+    assert len(output) <= summary.SUMMARY_LIMIT_BYTES < 1024 * 1024
+    assert 'truncated' in output.decode('utf-8')
+    assert 'step log' in output.decode('utf-8')
+    assert oversized in capsys.readouterr().out
+
+
+def test_summary_accounts_for_existing_bytes_and_keeps_full_report(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    existing = 'z' * (summary.SUMMARY_LIMIT_BYTES - 8)
+    target.write_text(existing, encoding="utf-8")
+    summary.write_summary('full report ' * 200, target)
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert target.read_text(encoding="utf-8").startswith(existing)
+    assert 'full report ' * 200 in capsys.readouterr().out
+
+
+def test_already_oversized_summary_is_not_appended(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    existing = b'x' * (1024 * 1024 + 1)
+    target.write_bytes(existing)
+    summary.write_summary('report', target)
+    assert target.read_bytes() == existing
+    assert 'report' in capsys.readouterr().out
+
+
+def test_exact_limit_and_one_byte_over(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    exact = 'x' * summary.SUMMARY_LIMIT_BYTES
+    summary.write_summary(exact, target)
+    assert target.read_text(encoding="utf-8") == exact
+    target.write_text('', encoding='utf-8')
+    summary.write_summary(exact + 'x', target)
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert 'truncated' in target.read_text(encoding="utf-8")
+    assert exact + 'x' in capsys.readouterr().out
+
+
+def test_truncated_summary_closes_details_and_logs_no_commands(tmp_path, capsys):
+    target = tmp_path / 'summary'
+    text = '<details><summary>checks</summary>\n' + 'א\n' * summary.SUMMARY_LIMIT_BYTES
+    text += '::error::not a workflow command\n</details>\n'
+    summary.write_summary(text, target)
+    rendered = target.read_text(encoding="utf-8")
+    assert rendered.count('<details>') == rendered.count('</details>')
+    assert len(target.read_bytes()) <= summary.SUMMARY_LIMIT_BYTES
+    assert not any(line.startswith('::') for line in capsys.readouterr().out.splitlines())
+
+
+def test_stateless_github_token_is_redacted_as_one_opaque_value():
+    """#643: synthetic JWT segments never survive redaction or truncation."""
+    token = 'ghs_12345_' + 'A' * 100 + '.' + 'B' * 300 + '.' + 'C' * 108
+    for candidate in [token, token + '_-long' * 200]:
+        result = summary.safe('before ' + candidate + ' after', limit=10000)
+        assert result == 'before [redacted] after'
+        assert 'B' * 20 not in result and 'C' * 20 not in result
+
+
+def test_github_token_alphabets_and_surrounding_prose():
+    for prefix in ['ghp_', 'gho_', 'ghu_', 'ghs_', 'ghr_', 'github_pat_']:
+        token = prefix + 'abc_123-DEF.xyz-456_SIG'
+        assert summary.safe('(' + token + '), next') == '([redacted]), next'
+    assert summary.safe('classic ghp_abc123 remains prose') == 'classic [redacted] remains prose'
+
+
+def test_summary_title_is_redacted_before_render_and_retained_log(tmp_path, capsys):
+    report = tmp_path / 'results.xml'
+    report.write_text('<testsuite><testcase name="ok"/></testsuite>', encoding='utf-8')
+    secret = 'ghs_synthetic.payload_signature.more-signature'
+    text = summary.render(report, title='<script> ' + secret + ' a@example.invalid')
+    assert secret not in text and 'a@example.invalid' not in text
+    assert '&lt;script&gt;' in text
+    target = tmp_path / 'summary'
+    summary.write_summary(text + 'x' * summary.SUMMARY_LIMIT_BYTES, target)
+    output = capsys.readouterr().out
+    assert secret not in output and 'a@example.invalid' not in output
+    assert '[redacted]' in output
