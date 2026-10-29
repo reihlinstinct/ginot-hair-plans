@@ -951,11 +951,12 @@ def test_plan_search_folds_spelling_variants_without_aliases(browser, tmp_path, 
     niqqud, dashes and whitespace runs identically on query and row text,
     keep literal plan-number matching, and add NO aliases: the plan feed
     carries no street field, so the colloquial "קינג גורג" stays a miss.
-    Synthetic rows; the name copies the official pl_name shape."""
+    Synthetic rows; the official name shape is decorated with row-side
+    Unicode variants to cover query AND index normalization (#678)."""
     from ginot import page as _page
 
     plans = [
-        _plan_row("101-0617134", "מלון המלכים- המלך ג'ורג' 60"),
+        _plan_row("101-0617134", "מלון\u00a0המלכים\u200f\u2013 הַמֶּלֶך\u00a0ג\u2018ורג\u2018  60"),
         _plan_row("101-0000001", "גולדה מאיר 3"),
         _plan_row("101-0000002", "הרצל 5"),
     ]
