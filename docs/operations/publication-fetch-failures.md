@@ -10,3 +10,8 @@ Challenge/denial/redirect handling stays a hard stop with exit 2 and no retry.
 Do not rerun a collector as a diagnostic workaround. Review the recorded run
 and preserve the last successful data; live recovery remains unverified until
 an already-authorized run succeeds. Tunnel cleanup runs on failure as before.
+
+Known challenge and redirect statuses are classified before reading an error
+body (#663). An unreadable body cannot downgrade their hard stop. Other error
+statuses still use body-based challenge detection. Malformed or truncated HTTP
+responses (#664) exit 1 with a fixed diagnostic, without response reason/body.

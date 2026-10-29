@@ -9,6 +9,7 @@ house number, neighborhood, dates) - no personal data.
 from __future__ import annotations
 
 import argparse
+import http.client
 import json
 import sys
 import urllib.error
@@ -74,9 +75,11 @@ def fetch_publish(url: str = PUBLISH_URL, timeout: int = 40) -> list[dict]:
             status = resp.status
             body = resp.read().decode("utf-8", errors="replace")
     except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace") if exc.fp else ""
         if 300 <= exc.code < 400:
             raise ChallengeError(f"HTTP {exc.code} redirect (not followed)") from exc
+        if exc.code in CHALLENGE_STATUSES:
+            raise ChallengeError(f"HTTP {exc.code}") from exc
+        body = exc.read().decode("utf-8", errors="replace") if exc.fp else ""
         if is_challenge(exc.code, body):
             raise ChallengeError(f"HTTP {exc.code}") from exc
         raise
@@ -215,6 +218,10 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         except urllib.error.HTTPError as exc:
             print(f"FETCH_FAILED: upstream HTTP {exc.code}; no retry; output unchanged",
+                  file=sys.stderr)
+            return 1
+        except http.client.HTTPException:
+            print("FETCH_FAILED: malformed or incomplete HTTP response; no retry; output unchanged",
                   file=sys.stderr)
             return 1
         except (urllib.error.URLError, OSError):
