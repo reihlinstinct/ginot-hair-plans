@@ -619,12 +619,20 @@ def main():
         "batch": batch_cursor,
         "requests": sorted(requests.values(), key=lambda r: r["tik_num"]),
     }
+    try:
+        with open(args.out, "rb") as fh:
+            before = fh.read()
+    except FileNotFoundError:
+        before = None
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(requests)} requests")
-    if ckpt_on and _LAST_CHECKPOINT["commit"]:
+    with open(args.out, "rb") as fh:
+        feed_changed = fh.read() != before
+    if ckpt_on and _LAST_CHECKPOINT["commit"] and feed_changed:
         # #566: the publish step's `git add data/` commits this with the feed,
-        # binding the data PR to the checkpoint it was built from.
+        # binding the data PR to the checkpoint it was built from. Only when
+        # the feed changed, so the provenance alone never opens a data PR.
         prov_path = os.path.join(
             os.path.dirname(args.out) or ".", checkpoint_lifecycle.PROVENANCE_NAME
         )

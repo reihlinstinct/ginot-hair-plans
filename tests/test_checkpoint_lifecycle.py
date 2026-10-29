@@ -423,3 +423,19 @@ def test_list_mode_skips_the_gate(monkeypatch, tmp_path):
     )
     assert pf.main() == 0
     assert not (tmp_path / "data" / lc.PROVENANCE_NAME).exists()
+
+
+def test_unchanged_feed_writes_no_provenance(monkeypatch, tmp_path):
+    # The publish step opens a PR for any data/ diff; a provenance file
+    # alone must never be that diff.
+    gh = FakeGitHub()
+    feed = _main_feed(tmp_path)
+    _run(monkeypatch, tmp_path, gh)
+    prov = tmp_path / "data" / lc.PROVENANCE_NAME
+    assert prov.exists()
+    prov.unlink()
+    settled = feed.read_text()
+    _checkpoint(gh, sha=OTHER, offset=0, limit=60)  # unrelated, unbound
+    rc, _ = _run(monkeypatch, tmp_path, gh)
+    assert rc == 0 and feed.read_text() == settled
+    assert not prov.exists()
