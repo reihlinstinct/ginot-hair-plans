@@ -53,8 +53,11 @@ def test_guard_job_is_read_only_and_uses_the_pushed_prefix(name, job, var, prefi
         "mavat_check",
     ):
         assert forbidden not in text
-    # The prefix must be the one the data job actually pushes.
-    runs = "\n".join(s.get("run", "") for s in load(name)["jobs"][job]["steps"])
+    # The prefix must be the one the workflow actually pushes (permit-feed
+    # pushes from its isolated publish job, #567).
+    jobs = load(name)["jobs"]
+    runs = "\n".join(s.get("run", "") for j, body in jobs.items() if j != "pending"
+                     for s in body["steps"])
     assert f'BRANCH="{prefix}' in runs
 
 
