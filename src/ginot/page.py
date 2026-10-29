@@ -117,6 +117,20 @@ footer{font-size:14px;line-height:1.8}footer a{display:inline-block;min-height:3
 }
 """
 
+# Shared search folding for the plans (#fq) and permits (#pfq) tables, applied
+# identically to the query and to each row's data-search text (#413, #468).
+# Lowercases; drops niqqud/cantillation (U+0591-U+05C7, which includes maqaf),
+# geresh/gershayim, ASCII and typographic quotes/primes, hyphens and dashes,
+# and invisible bidi/zero-width marks; then collapses whitespace (NBSP included)
+# to one space. No aliases: only spelling variants of the same text match.
+_NORM_SEARCH_JS = r"""function normSearch(s){
+  return (s||'').toLowerCase()
+    .replace(/[\u0591-\u05C7\u05F3\u05F4\u00B4\u02B9\u02BC\u2010-\u2015\u2018-\u201F\u2032\u2033\u2212'"`-]/g,'')
+    .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+"""
+
 _JS = """
 (function(){
 var rows=Array.prototype.slice.call(document.querySelectorAll('#plans tbody tr'));
@@ -126,10 +140,7 @@ ffrom=document.getElementById('ffrom'),fto=document.getElementById('fto'),
 fappr=document.getElementById('fappr'),fcount=document.getElementById('fcount'),
 more=document.getElementById('more');
 var expanded=false;
-function normSearch(s){
-  return (s||'').toLowerCase().replace(/[\u05F3\u05F4\u05BE\u2019\u201D'"`-]/g,'');
-}
-function match(r){
+{_NORM_SEARCH_JS}function match(r){
   if(!fappr.checked&&r.getAttribute('data-active')!=='1')return false;
   var q=normSearch(fq.value.trim());
   if(q&&(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search')))).indexOf(q)===-1)return false;
@@ -261,7 +272,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
   window.__rowsLoaded=true;
 }).catch(function(){window.__rowsFailed=true;});
 })();
-"""
+""".replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
 def _e(s):
@@ -748,7 +759,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
 סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
 לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
-<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
+<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="pfstatus">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
@@ -838,10 +849,7 @@ function selectedGroups(){
   pfgroups.querySelectorAll('.chip.sel').forEach(function(c){s[c.getAttribute('data-group')]=1;});
   return s;
 }
-function normSearch(s){
-  return (s||'').toLowerCase().replace(/[\u05F3\u05F4\u05BE\u2019\u201D'"`-]/g,'');
-}
-function match(r){
+{_NORM_SEARCH_JS}function match(r){
   var sel=selectedGroups();
   var g=r.getAttribute('data-group')||'unmapped';
   if(!sel[g])return false;
@@ -1156,7 +1164,7 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
 sortRows();
 apply();
 })();
-"""
+""".replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
 def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
@@ -1332,7 +1340,7 @@ def render_index(
 <p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
 {legend}
 <div id="filters">
-<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)">
+<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="fstatus"><option value="">כל הסטטוסים</option>{status_opts}</select>
 <select id="fflag"><option value="">בתוך + חלקי</option><option value="inside">בתוך השטח</option><option value="partial">חפיפה חלקית</option></select>
 <label><input type="checkbox" id="fobj"> חלון התנגדות פתוח (משוער)</label>
