@@ -10,3 +10,11 @@ little room remains even for a note, the report and notice are log-only.
 
 This bounds the upload, not the test results. A missing report remains unknown,
 not zero tests or a successful run. Required test checks still decide CI status.
+
+GitHub token diagnostics are treated as opaque values, including stateless
+installation tokens with dot-separated JWT segments, underscores and hyphens
+(#643). Redaction runs before display-length truncation and full-log retention.
+The regression uses invented tokens only; this fix is not evidence of a leak.
+
+Report titles use the same redaction and markup escaping as diagnostics (#660),
+including the full-report log path. Caller-supplied titles are not trusted markup.
