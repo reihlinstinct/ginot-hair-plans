@@ -497,7 +497,7 @@ def test_permits_no_recency_default_and_manual_date_filter(page):
 def test_permits_default_sort_dated_desc_undated_last(page):
     # #451: default order is dated rows newest-first, then date-unknown rows
     # in their own honest placement (pub-nodate before no-evidence), stable
-    # feed order inside each group. Since #521 there is no recency cutoff, so
+    # tik number order inside each equal-date group (#676). Since #521 there is no recency cutoff, so
     # the pre-window dated row (0004) is in the default view too; the
     # post-publication row (0006) is hidden by its default-off group chip.
     ids = page.locator(
