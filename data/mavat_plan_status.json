@@ -1,27 +1,27 @@
 {
- "generated": "2026-10-28",
+ "generated": "2026-10-29",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
-   "plan": "101-1386671",
+   "plan": "101-1095330",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
   },
   {
-   "plan": "101-1185578",
+   "plan": "101-1409366",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
   },
   {
-   "plan": "101-1215656",
+   "plan": "101-1451699",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
   },
   {
-   "plan": "101-1350594",
+   "plan": "101-1488261",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -40,6 +40,18 @@
   },
   {
    "plan": "101-1336049",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1315423",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1432244",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -101,8 +113,8 @@
   "101-1095330": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "b49137e454be0f5f",
-   "page_chars": 1524,
+   "fingerprint": "b2efe7cbcce34609",
+   "page_chars": 1278,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001133529713|תכתובות|04/09/2025|החלטה בבקשה להארכה",
@@ -909,8 +921,8 @@
   "101-1409366": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "c3e550ac868dc769",
-   "page_chars": 1113,
+   "fingerprint": "e7f510e98265a58b",
+   "page_chars": 1359,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136643571|דרכים תנועה וחניה|13/02/2025|",
@@ -964,8 +976,8 @@
   "101-1451699": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "f3d551e669cf8296",
-   "page_chars": 1441,
+   "fingerprint": "f2b50db74d5a82c9",
+   "page_chars": 1195,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136806771|סקר עצים|18/06/2026|",
@@ -1017,8 +1029,8 @@
   "101-1488261": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "2c30efb94a292ec6",
-   "page_chars": 1462,
+   "fingerprint": "da83d0a6ae16d12e",
+   "page_chars": 1216,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136641001|ישויות פוליגונליות, קוויות ונקודתיות|06/08/2026|",
@@ -1073,8 +1085,8 @@
   "101-1500909": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "e428ccd4313a58f4",
-   "page_chars": 1250,
+   "fingerprint": "9b9f44062f9724e3",
+   "page_chars": 1496,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000005077596|זכויות והוראות בניה XLS|05/10/2026|זכויות והוראות בניה XLS",
@@ -1127,8 +1139,8 @@
   "101-1158146": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "9078149fad789904",
-   "page_chars": 1294,
+   "fingerprint": "4717b1d44c525e14",
+   "page_chars": 1540,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001071822519|תכתובות|19/01/2025|התייחסות מינהל קהילתי גוננים",
@@ -1199,8 +1211,8 @@
   "101-1336049": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "a87cc3a294e3b326",
-   "page_chars": 1611,
+   "fingerprint": "4018616644f6cd57",
+   "page_chars": 1365,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001135832585|גבול התכנית תלת מימד (KML)|01/01/2025|",
@@ -1262,8 +1274,8 @@
   "101-1315423": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "3d48ed3bf3042a78",
-   "page_chars": 1535,
+   "fingerprint": "fc09379caef17e7d",
+   "page_chars": 1289,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001097285117|חוות דעת כלכלית|26/02/2025|",
@@ -1332,8 +1344,8 @@
   "101-1432244": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "f0e2a1853f4ddf8a",
-   "page_chars": 1292,
+   "fingerprint": "be545f1f989091cc",
+   "page_chars": 1538,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001134013249|שמירה על עצים בוגרים|27/07/2025|נספח מס' 4- נספח סקר עצים",
@@ -1395,8 +1407,8 @@
   "101-0617134": {
    "deadline_text": "",
    "station_text": "בבדיקה תכנונית",
-   "fingerprint": "f7b163099b69b2d7",
-   "page_chars": 1200,
+   "fingerprint": "47365bf1dbe8923a",
+   "page_chars": 1446,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000298162249|קבצי התכנית (SHP)|04/11/2025|",
