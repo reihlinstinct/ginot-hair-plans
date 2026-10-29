@@ -10,6 +10,8 @@ name: Permit feed post-merge router (dry-run)
 on:
   # Read the router from the pre-merge base SHA, not github.sha, which can
   # include this merged PR. A data PR must not change the code that judges it.
+  # This YAML itself still comes from the post-merge tip, so the router stops
+  # any PR that changes a path outside the generated data (.github/, scripts/).
   # Never check out PR head code or interpolate PR-controlled fields into run:.
   # No secret is used in v1; adding one needs separate approval and review.
   pull_request_target:

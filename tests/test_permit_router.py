@@ -15,8 +15,17 @@ HEAD, BASE, MERGE, RUN_HEAD, CP = ("a" * 40, "b" * 40, "c" * 40, "d" * 40, "e" *
 RUN_ID = 999001
 
 
+DATA_FILES = ["data/permit_scan_provenance.json", "data/permits.json", "docs/index.json",
+              "docs/permits.html", "docs/badge/parcel-zz-1.json"]
+
+
+def files(paths=DATA_FILES):
+    return [{"filename": path, "status": "modified"} for path in paths]
+
+
 def pr():
     return {"number": 7, "merged": True, "merge_commit_sha": MERGE, "user": {"login": "zz-bot"},
+            "changed_files": len(DATA_FILES),
             "head": {"ref": "permit-feed/20261029-0300", "sha": HEAD, "repo": {"full_name": REPO}},
             "base": {"ref": "main", "sha": BASE}}
 
@@ -43,6 +52,7 @@ class World:
         self.reviews = reviews()
         self.ancestors = {(MERGE, "main"), (RUN_HEAD, BASE)}
         self.markers = ""
+        self.files = files()
         self.calls = []
 
     def read(self, kind, *args):
@@ -57,6 +67,8 @@ class World:
             return copy.deepcopy(self.reviews)
         if kind == "markers":
             return self.markers
+        if kind == "files":
+            return copy.deepcopy(self.files)
         raise AssertionError(kind)
 
 
@@ -189,6 +201,8 @@ def _gh_world(w, p):
             return w.reviews
         if path == f"repos/{REPO}/issues/7/comments?per_page=100":
             return [{"body": w.markers}]
+        if path == f"repos/{REPO}/pulls/7/files?per_page=100":
+            return w.files
         return None
     return gh
 
@@ -256,7 +270,7 @@ def test_only_the_latest_decisive_review_per_reviewer_counts(revs, verdict):
     assert decide(w=w)[0] == verdict
 
 
-@pytest.mark.parametrize("which", ["/reviews", "/comments"])
+@pytest.mark.parametrize("which", ["/reviews", "/comments", "/files"])
 def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, capsys):
     w, p = World(), pr()
     gh = _gh_world(w, p)
@@ -328,3 +342,49 @@ def test_gh_reads_successful_response_and_fails_on_transport_error(monkeypatch):
     monkeypatch.setattr(pr_mod.subprocess, 'run', unavailable)
     with pytest.raises(pr_mod.RouterError, match='unavailable'):
         pr_mod._gh('test')
+
+
+@pytest.mark.parametrize("path", [
+    "scripts/ci/permit_router.py", ".github/workflows/permit-feed-router.yml", ".github/workflows/permit-feed.yml",
+    "src/zz.py", "tests/test_permit_router.py", "docs/other.html", "docs/badge/parcel-1/x.json",
+    "docs/badge/other.json", "data/../scripts/x.py", "data//x.json", "/data/x.json", "data\\x.json", "", None,
+])
+def test_pr_touching_anything_but_generated_data_stops(path):
+    w = World()
+    w.files = files(DATA_FILES[:-1]) + [{"filename": path, "status": "modified"}]
+    with pytest.raises(pr_mod.RouterError, match="changed files|outside the generated data"):
+        decide(w=w)
+
+
+def test_rename_from_code_into_data_stops():
+    w = World()
+    w.files = files(DATA_FILES[:-1]) + [{"filename": "data/x.py", "status": "renamed",
+                                         "previous_filename": "scripts/ci/permit_router.py"}]
+    with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
+        decide(w=w)
+
+
+@pytest.mark.parametrize("listing", [[], None, "x", files(DATA_FILES[:-1]), files() + files(["data/y.json"]),
+                                     files(DATA_FILES[:-1]) + ["data/x.json"]])
+def test_incomplete_or_malformed_changed_file_list_stops(listing):
+    w = World()
+    w.files = listing
+    with pytest.raises(pr_mod.RouterError, match="changed files"):
+        decide(w=w)
+
+
+def test_every_staged_data_path_is_allowed():
+    staged = ["data/a/b.json", "docs/index.json", "docs/badge/parcel-12-3.json", "docs/permits.html",
+              "docs/permits-default.html", "docs/permit-ids.json", "docs/permit-points.json"]
+    w, p = World(), pr()
+    w.files = files(staged)
+    p["changed_files"] = len(staged)
+    assert pr_mod.decide(REPO, p, w.read) == ("route-scan-audit", "verified")
+
+
+def test_changed_files_are_checked_before_provenance_is_trusted():
+    w = World()
+    w.files = files(DATA_FILES[:-1] + ["scripts/ci/permit_router.py"])
+    with pytest.raises(pr_mod.RouterError):
+        decide(w=w)
+    assert not any(call[0] in ("provenance", "run", "reviews", "markers") for call in w.calls)

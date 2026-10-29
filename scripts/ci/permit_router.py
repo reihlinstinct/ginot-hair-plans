@@ -4,7 +4,8 @@
 Usage: permit_router.py --repo OWNER/NAME --pr N
 
 Runs from ``permit-feed-router.yml`` after a PR to ``main`` closes. It reads
-only GitHub's own records through ``gh api``: the PR, the #566 provenance file
+only GitHub's own records through ``gh api``: the PR, its changed-file list
+(generated data paths only), the #566 provenance file
 in the PR's git tree at its exact head SHA, the originating workflow run, the
 PR reviews, commit comparisons and the PR's comments (for the dedup marker).
 The PR title and body are never read. Nothing here writes, dispatches or
@@ -22,6 +23,7 @@ Only fixed reason strings and numbers are printed, never names or bodies.
 
 import argparse
 import base64
+import fnmatch
 import json
 import os
 import re
@@ -38,6 +40,13 @@ GH_TIMEOUT_SECONDS = 60
 PER_PAGE = 100
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 RUN_ID = re.compile(r"[1-9][0-9]{0,19}\Z")
+# The generated paths permit-feed.yml stages into a data PR (its `git add`).
+# The workflow YAML is read from main after the merge, so a "data" PR that also
+# touches code or workflows must never be routed as data.
+DATA_PREFIXES = ("data/",)
+DATA_FILES = {"docs/index.json", "docs/permits.html", "docs/permits-default.html",
+              "docs/permit-ids.json", "docs/permit-points.json"}
+DATA_GLOB = "docs/badge/parcel-*.json"
 
 
 class RouterError(Exception):
@@ -76,6 +85,30 @@ def check_pr(repo, pr):
     if not _sha(head.get("sha")) or not _sha(base.get("sha")) or not _sha(pr.get("merge_commit_sha")):
         raise RouterError("malformed pull request SHAs")
     return None
+
+
+def _data_path(path):
+    if not isinstance(path, str) or not path or "\\" in path or path.startswith("/"):
+        return False
+    if any(part in ("", ".", "..") for part in path.split("/")):
+        return False
+    if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
+        return True
+    return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count("/")
+
+
+def check_files(pr, files):
+    """Stop unless the PR changed only generated data paths, with a complete list."""
+    if not isinstance(files, list) or not files or len(files) != pr.get("changed_files"):
+        raise RouterError("changed files incomplete or malformed")
+    for entry in files:
+        if not isinstance(entry, dict):
+            raise RouterError("changed files incomplete or malformed")
+        paths = [entry.get("filename")]
+        if "previous_filename" in entry:
+            paths.append(entry["previous_filename"])
+        if not all(_data_path(path) for path in paths):
+            raise RouterError("PR changes paths outside the generated data")
 
 
 def check_provenance(prov):
@@ -140,6 +173,7 @@ def decide(repo, pr, read):
         return "skip", skip
     if not read("ancestor", pr["merge_commit_sha"], "main"):
         raise RouterError("merge commit is not on main")
+    check_files(pr, read("files", pr["number"]))
     prov = read("provenance", pr["head"]["sha"])
     if prov is None:
         return "skip", "no scan provenance"
@@ -229,6 +263,8 @@ def github_reader(repo, gh=_gh):
             return need(gh(f"repos/{repo}/actions/runs/{args[0]}"))
         if kind == "reviews":
             return complete(need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}")))
+        if kind == "files":
+            return complete(need(gh(f"repos/{repo}/pulls/{args[0]}/files?per_page={PER_PAGE}")))
         if kind == "markers":
             comments = complete(need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}")))
             return "\n".join(c.get("body", "") for c in comments if isinstance(c, dict)
