@@ -497,7 +497,7 @@ def test_permits_no_recency_default_and_manual_date_filter(page):
 def test_permits_default_sort_dated_desc_undated_last(page):
     # #451: default order is dated rows newest-first, then date-unknown rows
     # in their own honest placement (pub-nodate before no-evidence), stable
-    # feed order inside each group. Since #521 there is no recency cutoff, so
+    # tik number order inside each equal-date group (#676). Since #521 there is no recency cutoff, so
     # the pre-window dated row (0004) is in the default view too; the
     # post-publication row (0006) is hidden by its default-off group chip.
     ids = page.locator(
@@ -869,6 +869,13 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
     permits = [
         _permit("2026/0439.00", "תחילת פרסום הבקשה להקלה", addr="הפלמח 41 קטמון הישנה"),
         _permit("2020/0001.00", "בבדיקה", addr="הרצל 5"),
+        # #468 row-side folding: pointed letters, a typographic quote, NBSP and
+        # an RLM in the stored address must fold like the query does.
+        _permit(
+            "2020/0002.00",
+            "בבדיקה",
+            addr="\u200fהַמֶּלֶךְ\u00a0ג\u2018ורג\u2018  60",
+        ),
     ]
     pf = tmp_path / "permits.json"
     pf.write_text(json.dumps({"requests": permits}, ensure_ascii=False), encoding="utf-8")
@@ -896,7 +903,14 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
                 "window.__permitsLoaded === true || window.__permitsFailed === true"
             )
             assert pg.evaluate("window.__permitsLoaded") is True
-            for variant in ['הפלמ״ח', 'הפלמ"ח', "הפלמ'ח", "הפלמח", "הפלמח 41"]:
+            # #468: typographic quotes, primes, niqqud, NBSP and doubled
+            # spaces fold the same way as the #413 ASCII/Hebrew variants.
+            for variant in [
+                'הפלמ״ח', 'הפלמ"ח', "הפלמ'ח", "הפלמח", "הפלמח 41",
+                "הפלמ\u201cח", "הפלמ\u201dח", "הפלמ\u2033ח", "הפלמ\u2019ח",
+                "\u05d4\u05b7\u05e4\u05bc\u05b8\u05dc\u05de\u05d7",  # pointed
+                "הפלמח\u00a041", "הפלמח   41", "\u200fהפלמח 41",
+            ]:
                 pg.fill("#pfq", "")
                 pg.fill("#pfq", variant)
                 pg.dispatch_event("#pfq", "input")
@@ -905,6 +919,89 @@ def test_search_matches_hebrew_punctuation_variants(browser, tmp_path, request):
                 assert len(texts) == 1 and "2026/0439.00" in texts[0], (
                     f"{variant!r} should find exactly the הפלמח 41 row, got {texts}"
                 )
+            for variant in ["המלך גורג 60", "המלך ג'ורג' 60", "ג׳ורג׳"]:
+                pg.fill("#pfq", "")
+                pg.fill("#pfq", variant)
+                pg.dispatch_event("#pfq", "input")
+                visible = pg.locator("#permits-table tbody tr:not(.filtered-out)")
+                texts = visible.all_text_contents()
+                assert len(texts) == 1 and "2020/0002.00" in texts[0], (
+                    f"{variant!r} should find exactly the pointed-address row, got {texts}"
+                )
+
+
+def _plan_row(num, name, status="הפקדה"):
+    return {
+        "pl_number": num,
+        "pl_name": name,
+        "station_desc": status,
+        "receiving_date": "",
+        "pl_last_deposit_date": "",
+        "depositing_date": "",
+        "objection_deadline_derived_60d_from_publication": "",
+        "pl_area_dunam": 1.0,
+        "inside_flag": "inside",
+        "mavat_url": f"https://mavat.iplan.gov.il/{num}",
+    }
+
+
+def test_plan_search_folds_spelling_variants_without_aliases(browser, tmp_path, request):
+    """Regression (#468): the owner could not find plan 101-0617134 by a
+    spelling variant. The plans table must fold geresh/quote/prime variants,
+    niqqud, dashes and whitespace runs identically on query and row text,
+    keep literal plan-number matching, and add NO aliases: the plan feed
+    carries no street field, so the colloquial "קינג גורג" stays a miss.
+    Synthetic rows; the official name shape is decorated with row-side
+    Unicode variants to cover query AND index normalization (#678)."""
+    from ginot import page as _page
+
+    plans = [
+        _plan_row("101-0617134", "מלון\u00a0המלכים\u200f\u2013 הַמֶּלֶך\u00a0ג\u2018ורג\u2018  60"),
+        _plan_row("101-0000001", "גולדה מאיר 3"),
+        _plan_row("101-0000002", "הרצל 5"),
+    ]
+    pf = tmp_path / "permits.json"
+    pf.write_text(json.dumps({"requests": []}, ensure_ascii=False), encoding="utf-8")
+    _page.render_site(plans, [], str(tmp_path), permits_path=str(pf))
+    handler = functools.partial(_Quiet, directory=str(tmp_path))
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        with recorded_page(browser, request) as (pg, errors):
+            pg.goto(f"http://127.0.0.1:{srv.server_address[1]}/index.html")
+            pg.wait_for_function(
+                "window.__rowsLoaded === true || window.__rowsFailed === true"
+            )
+            assert pg.evaluate("window.__rowsLoaded") is True
+            pg.check("#fappr")
+
+            def ids(query):
+                pg.fill("#fq", query)
+                pg.dispatch_event("#fq", "input")
+                return sorted(plan_ids(pg))
+
+            everything = ids("")
+            assert len(everything) == 3
+            george = ["101-0617134"]
+            for variant in [
+                "ג'ורג'", "ג׳ורג׳", "ג\u2019ורג\u2019", "ג\u2018ורג\u2018",
+                "ג\u2032ורג\u2032", "גורג", "המלך ג׳ורג׳ 60", "המלך  ג'ורג'  60",
+                "המלך\u00a0גורג", "המלכים - המלך", "המלכים \u2013 המלך",
+                "\u05d4\u05b7\u05de\u05bc\u05b6\u05dc\u05b6\u05da\u05b0 גורג",
+                "\u200fמלון המלכים",
+                # literal plan-number matching is preserved
+                "101-0617134", "1010617134", "0617134", "101\u20110617134",
+            ]:
+                assert ids(variant) == george, f"{variant!r} should find only 101-0617134"
+            # no aliases: no committed source spells the plan this way
+            assert ids("קינג גורג") == []
+            # no false-positive broadening
+            assert ids("הרצל") == ["101-0000002"]
+            assert ids("גולדה") == ["101-0000001"]
+            assert ids("צ") == ["101-0000002"]  # one letter: only rows containing it
+            assert ids("ט") == []
+            assert ids("'") == everything  # punctuation-only behaves like empty
+            assert ids("   ") == everything
+            assert errors == [], f"JavaScript errors on the page: {errors}"
 
 
 @pytest.fixture(scope="module")
@@ -1465,3 +1562,141 @@ def test_failed_evidence_full_load_offers_retry_and_keeps_subset(tmp_path, brows
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_filter_link_hebrew_and_permit_state_roundtrip(page):
+    page.fill('#fq', 'תכנית')
+    page.check('#fappr')
+    page.click('#plans th button[data-sort="num"]')
+    page.fill('#pfq', 'הפלמח')
+    page.wait_for_function('window.__permitsLoaded === true')
+    expected_plans = plan_ids(page)
+    expected_permits = page.locator('#permits-table tr:not(.filtered-out) td:first-child').all_inner_texts()
+    link = page.evaluate('window.GinotFilterLinks.build()')
+    assert 'filters=1' in link
+    page.goto(link)
+    page.wait_for_function('window.__rowsLoaded && window.__permitsLoaded')
+    assert page.input_value('#fq') == 'תכנית'
+    assert page.is_checked('#fappr')
+    assert page.input_value('#pfq') == 'הפלמח'
+    assert plan_ids(page) == expected_plans
+    assert page.locator('#permits-table tr:not(.filtered-out) td:first-child').all_inner_texts() == expected_permits
+
+
+def test_filter_link_invalid_values_and_clipboard_fallback(page):
+    url = page.url.split('?')[0]
+    page.goto(url + '?filters=1&plan.fflag=garbage&plan.ffrom=2026-02-30&plan.fappr=no#plans')
+    page.wait_for_function('window.__rowsLoaded')
+    assert page.input_value('#fflag') == ''
+    assert page.input_value('#ffrom') == ''
+    assert not page.is_checked('#fappr')
+    page.evaluate("Object.defineProperty(navigator,'clipboard',{value:{writeText:()=>Promise.reject(new Error('denied'))},configurable:true})")
+    page.click('#copy-plan-link')
+    link = page.locator('input[aria-label="קישור לסינון הנוכחי"]:visible')
+    assert link.count() == 1
+    assert '#plans' in link.input_value()
+    assert page.locator('[role="status"]', has_text='לא הועתק').count() == 1
+
+
+def test_filter_link_copy_success_and_unknown_version(page):
+    page.goto(page.url.split('?')[0] + '?filters=99&plan.fq=ignored&today=2026-10-26')
+    page.wait_for_function('window.__rowsLoaded')
+    assert page.input_value('#fq') == ''
+    page.evaluate("Object.defineProperty(navigator,'clipboard',{value:{writeText:t=>{window.__copied=t;return Promise.resolve();}},configurable:true})")
+    page.click('#copy-plan-link')
+    page.wait_for_function('window.__copied')
+    assert 'today=2026-10-26' in page.evaluate('window.__copied')
+    assert page.locator('[role="status"]', has_text='הקישור הועתק').count() == 1
+
+
+def test_filter_link_expanded_groups_and_dates(page):
+    page.click('#more')
+    page.check('#fappr')
+    page.click('#more')
+    page.check('#pfclosed')
+    page.wait_for_function('window.__permitsLoaded')
+    page.uncheck('#pfopenonly')
+    page.fill('#pffrom', _d(-120))
+    expected_groups = page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.getAttribute('data-group')).sort()")
+    link = page.evaluate('GinotFilterLinks.build()')
+    expected_ids = plan_ids(page)
+    page.goto(link)
+    page.wait_for_function('window.__rowsLoaded && window.__permitsLoaded')
+    assert page.input_value('#pffrom') == _d(-120)
+    assert page.is_checked('#pfclosed')
+    assert not page.is_checked('#pfopenonly')
+    assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.getAttribute('data-group')).sort()") == expected_groups
+    assert plan_ids(page) == expected_ids
+
+
+def test_filter_link_closed_only_selects_terminal_groups(page):
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        assert page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.classList.contains('sel')")
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1&permit.groups=obj')
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.getAttribute('data-group'))") == ['obj']
+
+
+def test_filter_link_unknown_keys_do_not_load_and_are_preserved(page):
+    requests = []
+    page.on('request', lambda r: requests.append(r.url))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.unknown=x&plan.note=hello')
+    page.wait_for_function('window.__permitsDefaultLoaded')
+    assert not any('/permits.html' in url for url in requests)
+    link = page.evaluate('GinotFilterLinks.build()')
+    assert 'permit.unknown=x' in link and 'plan.note=hello' in link
+
+
+def test_filter_link_copy_disabled_while_url_state_pending(page):
+    held = []
+    page.route('**/permits.html', lambda route: held.append(route))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfq=הפלמח')
+    page.wait_for_function("document.getElementById('pfload').textContent.length > 0")
+    assert page.is_disabled('#copy-plan-link') and page.is_disabled('#copy-permit-link')
+    for _ in range(250):
+        if held:
+            break
+        page.wait_for_timeout(20)
+    assert held, 'full permit request did not arrive within 5 seconds'
+    held[0].continue_()
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.is_enabled('#copy-plan-link') and page.is_enabled('#copy-permit-link')
+    assert page.input_value('#pfq') == 'הפלמח'
+
+
+def test_filter_link_closed_with_terminal_chips_off_roundtrips(page):
+    page.check('#pfclosed')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.click()")
+    expected = page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.dataset.group).sort()")
+    link = page.evaluate('GinotFilterLinks.build()')
+    page.goto(link)
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.is_checked('#pfclosed')
+    assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.dataset.group).sort()") == expected
+
+
+def test_filter_link_invalid_groups_uses_checkbox_fallback(page):
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1&permit.groups=invalid')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        assert page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.classList.contains('sel')")
+
+
+def test_manual_permit_edit_cancels_pending_shared_url_state(page):
+    held = []
+    page.route('**/permits.html', lambda route: held.append(route))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfq=הפלמח')
+    page.fill('#pfq', 'הרצל')
+    for _ in range(250):
+        if held:
+            break
+        page.wait_for_timeout(20)
+    assert held, 'full permit request did not arrive within 5 seconds'
+    held[0].continue_()
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.input_value('#pfq') == 'הרצל'
+    assert page.is_enabled('#copy-plan-link')

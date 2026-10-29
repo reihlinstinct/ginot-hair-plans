@@ -33,7 +33,7 @@
 <p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
 <div class="legend plan-legend"><b>מקרא סטטוסים:</b> <span class="chip c-approved" data-status="אישור">אישור</span> <span class="chip c-review" data-status="בבדיקה תכנונית">בבדיקה תכנונית</span> <span class="chip c-inproc" data-status="בהליך אישור">בהליך אישור</span> <span class="chip c-deposit" data-status="במילוי תנאים להפקדה">במילוי תנאים להפקדה</span> <span class="chip c-decision" data-status="הכרעה בהתנגדויות / אישור">הכרעה בהתנגדויות / אישור</span> <span class="chip c-deposit" data-status="הפקדה להתנגדויות/השגות">הפקדה להתנגדויות/השגות</span></div>
 <div id="filters">
-<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)">
+<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="fstatus"><option value="">כל הסטטוסים</option><option value='אישור'>אישור</option><option value='בבדיקה תכנונית'>בבדיקה תכנונית</option><option value='בהליך אישור'>בהליך אישור</option><option value='במילוי תנאים להפקדה'>במילוי תנאים להפקדה</option><option value='הכרעה בהתנגדויות / אישור'>הכרעה בהתנגדויות / אישור</option><option value='הפקדה להתנגדויות/השגות'>הפקדה להתנגדויות/השגות</option></select>
 <select id="fflag"><option value="">בתוך + חלקי</option><option value="inside">בתוך השטח</option><option value="partial">חפיפה חלקית</option></select>
 <label><input type="checkbox" id="fobj"> חלון התנגדות פתוח (משוער)</label>
@@ -41,6 +41,7 @@
 <label>מתאריך <input type="date" id="ffrom"></label>
 <label>עד <input type="date" id="fto"></label>
 <button id="freset" type="button">נקה סינון</button>
+<button id="copy-plan-link" type="button">העתק קישור לסינון</button>
 <span id="fcount"></span>
 </div>
 <table id="plans"><thead><tr><th><button type="button" data-sort="num">מספר תכנית</button></th>
@@ -99,7 +100,7 @@
 סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
 לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
-<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה">
+<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="pfstatus"><option value=''>כל הסטטוסים</option><option value='אושר ע&quot;י מהנדס העיר'>אושר ע&quot;י מהנדס העיר</option><option value='הבקשה נגנזה'>הבקשה נגנזה</option><option value='הבקשה נסגרה'>הבקשה נסגרה</option><option value='הגשה מקוונת הושלמה'>הגשה מקוונת הושלמה</option><option value='הוכנה טיוטת היתר בניה'>הוכנה טיוטת היתר בניה</option><option value='הופק היתר מוארך'>הופק היתר מוארך</option><option value='הופק-הוצא היתר בניה'>הופק-הוצא היתר בניה</option><option value='השלמת הודעות לפני תקנה 36'>השלמת הודעות לפני תקנה 36</option><option value='התקבל ערר'>התקבל ערר</option><option value='התקבל תיק ורוד / מסמכים חתומים'>התקבל תיק ורוד / מסמכים חתומים</option><option value='התקבלה בקשה לדיון המועצה'>התקבלה בקשה לדיון המועצה</option><option value='חידוש טיפול בבקשה'>חידוש טיפול בבקשה</option><option value='ממתין לאישור נוסח פרסום'>ממתין לאישור נוסח פרסום</option><option value='נדונה בוועדת המשנה'>נדונה בוועדת המשנה</option><option value='נדונה בועדת ערר'>נדונה בועדת ערר</option><option value='נדונה ברשות הרישוי'>נדונה ברשות הרישוי</option><option value='נוסח פרסום אושר'>נוסח פרסום אושר</option><option value='נפתח תיק רישוי'>נפתח תיק רישוי</option><option value='פורסמה בקשה להקלה'>פורסמה בקשה להקלה</option><option value='שולמה מקדמה'>שולמה מקדמה</option><option value='תום תקופת פרסום'>תום תקופת פרסום</option><option value='תחילת הודעות לפני תקנה 36'>תחילת הודעות לפני תקנה 36</option><option value='תחילת פרסום הבקשה להקלה'>תחילת פרסום הבקשה להקלה</option></select>
 <select id="pfsug"><option value=''>כל הסוגים</option><option value='ביטול היתר'>ביטול היתר</option><option value='ביצוע שיפור הנגישות לבניין ובתוכו'>ביצוע שיפור הנגישות לבניין ובתוכו</option><option value='בית עלמין ללא תכנית שטחים'>בית עלמין ללא תכנית שטחים</option><option value='בניה חדשה / בניין חדש'>בניה חדשה / בניין חדש</option><option value='בניית בריכה פרטית'>בניית בריכה פרטית</option><option value='בניית גדר גבוהה מ 1.5 מטר'>בניית גדר גבוהה מ 1.5 מטר</option><option value='בניית חניון'>בניית חניון</option><option value='בניית מרפסת'>בניית מרפסת</option><option value='בניית קיר תומך/מגן'>בניית קיר תומך/מגן</option><option value='בנית מחסן/מחסנים'>בנית מחסן/מחסנים</option><option value='בנית קירות פנימיים'>בנית קירות פנימיים</option><option value='גג רעפים'>גג רעפים</option><option value='גדר בגובה עד 1.50 מטר'>גדר בגובה עד 1.50 מטר</option><option value='גשר כניסה לבנין'>גשר כניסה לבנין</option><option value='הכשרת מגרשי ספורט'>הכשרת מגרשי ספורט</option><option value='הכשרת שטח לגן ציבורי'>הכשרת שטח לגן ציבורי</option><option value='הכשרת שטח לחניה'>הכשרת שטח לחניה</option><option value='הסרת סכנה לפי צו מבנים מסוכנים'>הסרת סכנה לפי צו מבנים מסוכנים</option><option value='הצבת אנדרטה'>הצבת אנדרטה</option><option value='הצבת ביתן'>הצבת ביתן</option><option value='הקמת סככה'>הקמת סככה</option><option value='התקנת אביזרים'>התקנת אביזרים</option><option value='התקנת גג רעפים'>התקנת גג רעפים</option><option value='התקנת חלון'>התקנת חלון</option><option value='התקנת מעלית'>התקנת מעלית</option><option value='התקנת מתקנים מיוחדים'>התקנת מתקנים מיוחדים</option><option value='התקנת צובר גז במשקל העולה על 10 טון'>התקנת צובר גז במשקל העולה על 10 טון</option><option value='התקנת צובר גז עד 10 טון'>התקנת צובר גז עד 10 טון</option><option value='חדר טרנספורמציה'>חדר טרנספורמציה</option><option value='חידוש היתר'>חידוש היתר</option><option value='חפירה ומילוי'>חפירה ומילוי</option><option value='יציקת תקרה'>יציקת תקרה</option><option value='מבנה ארעי / מנ&quot;ד'>מבנה ארעי / מנ&quot;ד</option><option value='מדרגות'>מדרגות</option><option value='מחסן טרומי פריק'>מחסן טרומי פריק</option><option value='ממ&quot;ד'>ממ&quot;ד</option><option value='מערכת פוטוולטאית'>מערכת פוטוולטאית</option><option value='מתקן שידור / אנטנה סלולרית'>מתקן שידור / אנטנה סלולרית</option><option value='סגירת בקשה להיתר'>סגירת בקשה להיתר</option><option value='סגירת חורף'>סגירת חורף</option><option value='סגירת מרפסת'>סגירת מרפסת</option><option value='עבודות בדרכים'>עבודות בדרכים</option><option value='עבודות בקיר חיצון'>עבודות בקיר חיצון</option><option value='עבודות הריסה'>עבודות הריסה</option><option value='עבודות סלילה'>עבודות סלילה</option><option value='עבודות עפר'>עבודות עפר</option><option value='פיצול היתר'>פיצול היתר</option><option value='פיצול יח&quot;ד קיימות - צו שעה'>פיצול יח&quot;ד קיימות - צו שעה</option><option value='פיתוח חצר'>פיתוח חצר</option><option value='פיתוח שטח ציבורי פתוח'>פיתוח שטח ציבורי פתוח</option><option value='פרגולה'>פרגולה</option><option value='פתיחת חלון'>פתיחת חלון</option><option value='ריצוף חצר'>ריצוף חצר</option><option value='ריצוף רחוב'>ריצוף רחוב</option><option value='רישוי בניה - שימוש חורג מהיתר'>רישוי בניה - שימוש חורג מהיתר</option><option value='רישוי בניה - שימוש חורג מתכנית'>רישוי בניה - שימוש חורג מתכנית</option><option value='רישוי עסקים - שימוש חורג מהיתר'>רישוי עסקים - שימוש חורג מהיתר</option><option value='רישוי עסקים - שימוש חורג מתוכנית'>רישוי עסקים - שימוש חורג מתוכנית</option><option value='שינוי שם בהיתר'>שינוי שם בהיתר</option><option value='שינויים בבנין קיים'>שינויים בבנין קיים</option><option value='שינויים בקירות חזית במבנים קיימים'>שינויים בקירות חזית במבנים קיימים</option><option value='שינויים ללא תוספת שטחים'>שינויים ללא תוספת שטחים</option><option value='שיפורים סניטריים'>שיפורים סניטריים</option><option value='שנוי יעוד המבנה'>שנוי יעוד המבנה</option><option value='תוכנית שינויים'>תוכנית שינויים</option><option value='תוספת בניה / הרחבה לבניין קיים'>תוספת בניה / הרחבה לבניין קיים</option><option value='תוספת בניה לדירות'>תוספת בניה לדירות</option><option value='תוספת יח&quot;ד באמצעות תוספת בניה'>תוספת יח&quot;ד באמצעות תוספת בניה</option><option value='תוספת מבנה-מגרש בנוי'>תוספת מבנה-מגרש בנוי</option><option value='תכנית שינויים בסמכות מהנדס העיר'>תכנית שינויים בסמכות מהנדס העיר</option><option value='תמ&quot;א 38 - תוספות'>תמ&quot;א 38 - תוספות</option><option value='תמ&quot;א 38 הריסה ובניה'>תמ&quot;א 38 הריסה ובניה</option></select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
@@ -108,6 +109,7 @@
 <label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות (4832)</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו (7834)</label>
 <button id="pfreset" type="button">נקה</button>
+<button id="copy-permit-link" type="button">העתק קישור לסינון</button>
 <span id="pfcount"></span>
 <span id="pfunknown"></span>
 <span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
@@ -147,6 +149,7 @@
 &middot; <a href="about.html">אודות ומקורות נתונים</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p><p class="site-version">גרסה <span dir="ltr">0.2.1</span> · Version 0.2.1</p></footer>
+<script src="filter-links.js"></script>
 <script>
 (function(){
 var rows=Array.prototype.slice.call(document.querySelectorAll('#plans tbody tr'));
@@ -157,7 +160,10 @@ fappr=document.getElementById('fappr'),fcount=document.getElementById('fcount'),
 more=document.getElementById('more');
 var expanded=false;
 function normSearch(s){
-  return (s||'').toLowerCase().replace(/[׳״־’”'"`-]/g,'');
+  return (s||'').toLowerCase()
+    .replace(/[\u0591-\u05C7\u05F3\u05F4\u00B4\u02B9\u02BC\u2010-\u2015\u2018-\u201F\u2032\u2033\u2212'"`-]/g,'')
+    .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')
+    .replace(/\s+/g,' ').trim();
 }
 function match(r){
   if(!fappr.checked&&r.getAttribute('data-active')!=='1')return false;
@@ -230,7 +236,22 @@ document.querySelectorAll('.plan-legend .chip').forEach(function(c){
     expanded=false;apply();
   });
 });
-resort();
+var planLink=window.GinotFilterLinks.register('plan',
+  {fq:1,fstatus:1,fflag:1,fobj:1,ffrom:1,fto:1,fappr:1}, {
+  keys:['expanded','sort','dir'],
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var k=p.get(n+'.sort'),d=p.get(n+'.dir');
+    if(['num','name','status','recv','dep','obj','area'].indexOf(k)!==-1)sortKey=k;
+    if(d==='1'||d==='-1')sortDir=Number(d);
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    if(sortKey!=='obj')p.set(n+'.sort',sortKey);
+    if(sortDir!==-1)p.set(n+'.dir',String(sortDir));
+  }
+});
+planLink.restore();resort();
 var URGENT_DAYS=30;
 function _todayIL(){
   var q=new URLSearchParams(location.search).get('today');
@@ -303,6 +324,9 @@ pfgroups=document.getElementById('pfgroups'),
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
 pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
 var expanded=false;
+function cancelPendingUrlState(){
+  if(pendingUrlState){pendingUrlState=false;setFilterLinksPending(false);}
+}
 function isoDate(d){
   return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
 }
@@ -345,6 +369,8 @@ function sortRows(){
       var pa=a.getAttribute('data-pub')||'',pb=b.getAttribute('data-pub')||'';
       if(pa!==pb)return pa<pb?1:-1; // ISO strings: newest first
     }
+    var ta=a.getAttribute('data-tik')||'',tb=b.getAttribute('data-tik')||'';
+    if(ta!==tb)return ta<tb?-1:1;
     return a.__seq-b.__seq;
   });
   var tb=document.querySelector('#permits-table tbody');
@@ -359,7 +385,10 @@ function selectedGroups(){
   return s;
 }
 function normSearch(s){
-  return (s||'').toLowerCase().replace(/[׳״־’”'"`-]/g,'');
+  return (s||'').toLowerCase()
+    .replace(/[\u0591-\u05C7\u05F3\u05F4\u00B4\u02B9\u02BC\u2010-\u2015\u2018-\u201F\u2032\u2033\u2212'"`-]/g,'')
+    .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')
+    .replace(/\s+/g,' ').trim();
 }
 function match(r){
   var sel=selectedGroups();
@@ -422,7 +451,7 @@ function apply(){
 }
 [pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
   if(!el)return;
-  var h=function(){expanded=false;apply();};
+  var h=function(){cancelPendingUrlState();expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
 });
 // Checking "הצג בקשות שהסתיימו" also selects the closed+issued group chips:
@@ -430,6 +459,7 @@ function apply(){
 // unselected (both gates must pass for a terminal row to show).
 if(pfclosed&&pfgroups){
   pfclosed.addEventListener('change',function(){
+    cancelPendingUrlState();
     pfgroups.querySelectorAll('.chip').forEach(function(c){
       var g=c.getAttribute('data-group');
       if(g==='closed'||g==='issued')c.classList.toggle('sel',pfclosed.checked);
@@ -438,6 +468,7 @@ if(pfclosed&&pfgroups){
   });
 }
 document.getElementById('pfreset').addEventListener('click',function(){
+  cancelPendingUrlState();
   pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
   pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
   pfgroups.querySelectorAll('.chip').forEach(function(c){
@@ -445,7 +476,7 @@ document.getElementById('pfreset').addEventListener('click',function(){
   });
   expanded=false;apply();
 });
-pmore.addEventListener('click',function(){expanded=!expanded;apply();});
+pmore.addEventListener('click',function(){cancelPendingUrlState();expanded=!expanded;apply();});
 function statusClass(st){
   st=st||'';
   if(st.indexOf('נסגרה')!==-1)return 'c-closed';
@@ -523,7 +554,7 @@ if(pfgroups){
   pfgroups.addEventListener('click',function(ev){
     var c=ev.target.closest?ev.target.closest('.chip'):null;
     if(!c||!pfgroups.contains(c))return;
-    c.classList.toggle('sel');
+    cancelPendingUrlState();c.classList.toggle('sel');
     expanded=false;apply();
   });
 }
@@ -583,7 +614,10 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
 var fullLoaded=false,fullPromise=null,fullFailed=false;
 // Closure state; the window.__permits* flags are test hooks only.
 var defaultFailed=false,evidenceNeedsFull=false;
-var defaultLoaded=false,evidenceLoaded=false;
+var defaultLoaded=false,evidenceLoaded=false,pendingUrlState=false,permitLink=null;
+function setFilterLinksPending(v){
+  ['copy-plan-link','copy-permit-link'].forEach(function(id){var b=document.getElementById(id);if(b)b.disabled=v;});
+}
 var pfload=document.createElement('span');
 pfload.id='pfload';pfload.setAttribute('role','status');
 if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
@@ -597,6 +631,7 @@ function installRows(h){
   return true;
 }
 function isDefaultView(){
+  if(pendingUrlState)return false;
   if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
   if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
   var same=true;
@@ -635,6 +670,7 @@ function loadFullPermits(){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;pfload.textContent='';
     rebuildDerived();
+    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
     window.__permitsLoaded=true;
@@ -673,8 +709,33 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
   // No subset (an older deploy, or a fetch error): fall back to the full list.
   defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
 });
-sortRows();
-apply();
+permitLink=window.GinotFilterLinks.register('permit',
+  {pfq:1,pfstatus:1,pfsug:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
+  keys:['expanded','groups'],
+  restore:function(p,n){
+    if(p.get(n+'.expanded')==='1')expanded=true;
+    var raw=p.get(n+'.groups'),chips=Array.from(pfgroups.querySelectorAll('.chip'));
+    var wanted=raw&&raw.length<=500?raw.split(','):[];
+    var valid=raw!==null&&raw.length<=500&&wanted.every(function(k){
+      return chips.some(function(c){return c.getAttribute('data-group')===k;});
+    });
+    if(valid){
+      chips.forEach(function(c){c.classList.toggle('sel',wanted.indexOf(c.getAttribute('data-group'))!==-1);});
+    }else if(pfclosed.checked){
+      chips.forEach(function(c){var g=c.getAttribute('data-group');if(g==='closed'||g==='issued')c.classList.add('sel');});
+    }
+  },
+  write:function(p,n){
+    if(expanded)p.set(n+'.expanded','1');
+    var chips=Array.from(pfgroups.querySelectorAll('.chip'));
+    if(pfclosed.checked||chips.some(function(c){return c.classList.contains('sel')!==(c.getAttribute('data-default')==='1');})){
+      p.set(n+'.groups',chips.filter(function(c){return c.classList.contains('sel');}).map(function(c){return c.getAttribute('data-group');}).sort().join(','));
+    }
+  }
+});
+pendingUrlState=permitLink.hasState;
+if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
+sortRows();apply();
 })();
 </script>
 </body></html>

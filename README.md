@@ -217,6 +217,28 @@ updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
 - Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
   (see issues); nothing is downloaded or auto-filed.
 
+### Permit ordering
+
+Permits are ordered by publication category (dated, published without a date,
+then no publication evidence), newest date first, then permit number ascending
+for ties. With JavaScript enabled, the 20-row cap applies after sorting
+(#451, #676). Without JavaScript, only the generated fallback subset is shown;
+the browser-side sort and filters do not run.
+
+### Table search
+
+Both tables' free-text search ignores only the following marks and spacing differences:
+geresh/gershayim and ASCII or typographic quotes and primes (`׳ ״ ' " ’ “ ′`),
+hyphens, maqaf and dashes, niqqud, invisible direction marks and repeated or
+non-breaking spaces are ignored on both the query and the row (#413, #468).
+Commas and other unlisted punctuation are retained.
+The search normalization regression requires Node.js: it skips in Python-only
+local environments, but missing Node.js is a test failure in CI (#671).
+Plans are searched by number and official name, permits by their listed
+fields. There are no hand-written aliases: a colloquial name that the source
+data does not contain (for example a street name missing from a plan's
+official name) does not match.
+
 ### Optional plan map
 
 The collapsed map below the tables uses locally hosted Leaflet (BSD-2-Clause)
@@ -260,3 +282,21 @@ Claude Desktop `claude_desktop_config.json` (or `.mcp.json` for Claude Code):
 
 Claude Code one-liner: `claude mcp add ginot-hair-plans -e PYTHONPATH=src -- python3 -m ginot.mcp_server --data docs/data.json`
 (run it from the repo root). Restart the client; the four tools then appear.
+
+### Filter links
+
+On the homepage, "העתק קישור לסינון" copies both tables' current controls
+into a public URL (`filters=1`). Hebrew searches, selected groups, checkboxes,
+dates, plan sort and expanded rows round-trip. No filter params means the
+usual defaults; unknown versions/values are ignored. Non-default permit links
+wait for the full permit list, using the same load/filter path as manual input.
+If clipboard access is unavailable or denied, a selectable link is shown.
+Links expose the search text and filters to anyone with the URL. Copying is
+explicit; the page does not automatically rewrite history or share anything.
+
+Parameter names: `plan.` + `fq`, `fstatus`, `fflag`, `fobj`, `ffrom`, `fto`,
+`fappr`, `expanded`, `sort`, `dir`; `permit.` + `pfq`, `pfstatus`, `pfsug`,
+`pffrom`, `pfto`, `pfclosed`, `pfopenonly`, `pfscope`, `expanded`, `groups`.
+Booleans use `0`/`1`, dates ISO YYYY-MM-DD, selected groups comma-separated;
+defaults are omitted. Unknown params and anchors are preserved when copying.
+No synonym/alias matching is added (#468 is separate).
