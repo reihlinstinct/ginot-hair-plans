@@ -1655,9 +1655,32 @@ def test_filter_link_copy_disabled_while_url_state_pending(page):
     page.goto(page.url.split('?')[0] + '?filters=1&permit.pfq=הפלמח')
     page.wait_for_function("document.getElementById('pfload').textContent.length > 0")
     assert page.is_disabled('#copy-plan-link') and page.is_disabled('#copy-permit-link')
-    while not held:
+    for _ in range(250):
+        if held:
+            break
         page.wait_for_timeout(20)
+    assert held, 'full permit request did not arrive within 5 seconds'
     held[0].continue_()
     page.wait_for_function('window.__permitsLoaded')
     assert page.is_enabled('#copy-plan-link') and page.is_enabled('#copy-permit-link')
     assert page.input_value('#pfq') == 'הפלמח'
+
+
+def test_filter_link_closed_with_terminal_chips_off_roundtrips(page):
+    page.check('#pfclosed')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.click()")
+    expected = page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.dataset.group).sort()")
+    link = page.evaluate('GinotFilterLinks.build()')
+    page.goto(link)
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.is_checked('#pfclosed')
+    assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.dataset.group).sort()") == expected
+
+
+def test_filter_link_invalid_groups_uses_checkbox_fallback(page):
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1&permit.groups=invalid')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        assert page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.classList.contains('sel')")
