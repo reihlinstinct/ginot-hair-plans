@@ -153,6 +153,9 @@ var expanded=false;
   return true;
 }
 function apply(){
+  document.querySelectorAll('.plan-legend .chip').forEach(function(c){
+    c.classList.toggle('sel',c.getAttribute('data-status')===fstatus.value);
+  });
   var n=0;
   rows.forEach(function(r){
     var vis=match(r);

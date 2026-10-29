@@ -1700,3 +1700,14 @@ def test_manual_permit_edit_cancels_pending_shared_url_state(page):
     page.wait_for_function('window.__permitsLoaded')
     assert page.input_value('#pfq') == 'הרצל'
     assert page.is_enabled('#copy-plan-link')
+
+
+def test_restored_plan_status_syncs_legend_and_reset(page):
+    status = page.locator('.plan-legend .chip').first.get_attribute('data-status')
+    from urllib.parse import urlencode
+    page.goto(page.url.split('?')[0] + '?' + urlencode({'filters': '1', 'plan.fstatus': status}))
+    page.wait_for_function('window.__rowsLoaded')
+    assert page.input_value('#fstatus') == status
+    assert page.locator('.plan-legend .chip.sel').evaluate_all("els=>els.map(e=>e.dataset.status)") == [status]
+    page.click('#freset')
+    assert page.locator('.plan-legend .chip.sel').count() == 0
