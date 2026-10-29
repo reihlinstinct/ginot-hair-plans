@@ -1684,3 +1684,19 @@ def test_filter_link_invalid_groups_uses_checkbox_fallback(page):
     page.wait_for_function('window.__permitsLoaded')
     for group in ['closed', 'issued']:
         assert page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.classList.contains('sel')")
+
+
+def test_manual_permit_edit_cancels_pending_shared_url_state(page):
+    held = []
+    page.route('**/permits.html', lambda route: held.append(route))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfq=הפלמח')
+    page.fill('#pfq', 'הרצל')
+    for _ in range(250):
+        if held:
+            break
+        page.wait_for_timeout(20)
+    assert held, 'full permit request did not arrive within 5 seconds'
+    held[0].continue_()
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.input_value('#pfq') == 'הרצל'
+    assert page.is_enabled('#copy-plan-link')
