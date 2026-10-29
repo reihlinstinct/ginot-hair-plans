@@ -77,7 +77,7 @@
    "path": ".github/workflows/mavat-url-probe.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "pip install playwright > /dev/null 2>&1",
+   "evidence": "pip install playwright '>' /dev/null '2>'",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
   },
@@ -125,7 +125,7 @@
    "path": ".github/workflows/muni-probe.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "pip install playwright > /dev/null 2>&1",
+   "evidence": "pip install playwright '>' /dev/null '2>'",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
   },
@@ -165,7 +165,7 @@
    "path": ".github/workflows/permit-feed.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "python3 -m pip install --only-binary=:all: -r requirements.txt",
+   "evidence": "pip install --only-binary=:all: -r requirements.txt",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "Pre-existing pip install without --require-hashes; resolves unhashed dependencies; tracked for hash pinning in this issue."
   },
