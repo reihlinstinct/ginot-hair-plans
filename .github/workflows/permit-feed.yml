@@ -103,6 +103,8 @@ jobs:
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
     runs-on: ubuntu-24.04
     timeout-minutes: 355
+    outputs:
+      changed: ${{ steps.publish.outputs.changed }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -274,11 +276,14 @@ jobs:
           if [ "$RC" = "2" ]; then exit 2; fi
           echo "address backfill finished rc=$RC (0=clean, 1=some failures - retried next dispatch)"
 
-      - name: Publish changes as a PR for review
+      - name: Prepare publication commit (no credentials)
+        # #567: this job ran third-party renderer code (wheels and their .pth
+        # startup hooks), so no publication secret ever enters it. The fetch
+        # below is anonymous (public repository; checkout persisted no
+        # credentials). The result is one local commit handed to the
+        # isolated publish job as a git bundle; that job runs no Python.
         id: publish
         if: ${{ success() }}  # no-op when data is unchanged (git diff check inside)
-        env:
-          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
         run: |
           set -euo pipefail
           if git diff --quiet data/; then
@@ -286,13 +291,12 @@ jobs:
             # Fail closed: an unchanged local scan does not prove a prior
             # data PR was reviewed and merged. Do not advance audit/chaining.
             echo "merged=false" >> "$GITHUB_OUTPUT"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git stash push --include-untracked -m feed-output -- data/
-          gh auth setup-git
           git fetch origin main
           git reset --hard origin/main
           if ! git stash pop; then
@@ -300,7 +304,6 @@ jobs:
             git add -A
             git stash drop
           fi
-          git checkout -b "$BRANCH"
           python3 scripts/build_site_index.py || echo "site index rebuild failed (non-fatal)"
           # #405: the feed's data update must rebuild the permits fragment in
           # the same run - a newly published permit goes live immediately,
@@ -309,16 +312,21 @@ jobs:
           python3 scripts/render_permits_page.py
           git add data/ docs/index.json docs/badge/parcel-*.json docs/permits.html docs/permits-default.html docs/permit-ids.json docs/permit-points.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
-          git push -u origin "$BRANCH"
-          PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
-            --body "Automated public permit-feed batch (refs #57). Requires independent review, exact-head Claude review and green CI before manual merge." \
-            --base main --head "$BRANCH")
-          echo "opened $PR"
-          gh workflow run ci.yml --ref "$BRANCH"
-          echo "awaiting independent and exact-head Claude reviews: $PR"
-          echo "merged=false" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/publication"
+          git bundle create "$RUNNER_TEMP/publication/publication.bundle" origin/main..HEAD
+          echo "changed=true" >> "$GITHUB_OUTPUT"
           # PR creation is not publication. Keep checkpoint and stop dependent
           # audit/enrichment work until a reviewed merge is confirmed.
+          echo "merged=false" >> "$GITHUB_OUTPUT"
+
+      - name: Hand the publication commit to the isolated publish job
+        if: ${{ success() && steps.publish.outputs.changed == 'true' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: permit-feed-publication
+          path: ${{ runner.temp }}/publication/publication.bundle
+          if-no-files-found: error
+          retention-days: 1
 
       - name: Dispatch read-only Go auditor after scan publication
         if: ${{ success() && steps.publish.outputs.merged == 'true' && env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' && env.BACKFILL_COMPLETE != 'true' }}
@@ -368,3 +376,55 @@ jobs:
       - name: Tear down tunnel and remove generated secret material
         if: always()
         run: sudo python3 scripts/vpn/l2tp.py down
+
+  publish:
+    # #567: the only job that sees REFRESH_DISPATCH_TOKEN. Fresh runner, no
+    # setup-python, no pip and no python/pytest/node invocation: dependency
+    # or renderer code from the permit-feed job cannot reach the token, and
+    # cannot plant $GITHUB_ENV/$GITHUB_PATH entries, git hooks or config here.
+    # The bundle is verified by trusted main code before the token step.
+    needs: permit-feed
+    if: ${{ needs.permit-feed.result == 'success' && needs.permit-feed.outputs.changed == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Download publication bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" -n permit-feed-publication -D "$RUNNER_TEMP/publication"
+
+      - name: Verify publication bundle (fail closed, no token)
+        id: verify
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=200 origin main
+          TIP=$(bash scripts/ci/verify_publication_bundle.sh "$RUNNER_TEMP/publication/publication.bundle" origin/main)
+          echo "tip=$TIP" >> "$GITHUB_OUTPUT"
+
+      - name: Publish changes as a PR for review
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+          TIP: ${{ steps.verify.outputs.tip }}
+        run: |
+          set -euo pipefail
+          BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
+          git branch "$BRANCH" "$TIP"
+          gh auth setup-git
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
+            --body "Automated public permit-feed batch (refs #57). Requires independent review, exact-head Claude review and green CI before manual merge." \
+            --base main --head "$BRANCH")
+          echo "opened $PR"
+          gh workflow run ci.yml --ref "$BRANCH"
+          echo "awaiting independent and exact-head Claude reviews: $PR"
+          # PR creation is not publication; nothing here reports a merge.

@@ -25,10 +25,15 @@ def test_no_change_and_created_pr_both_explicitly_stop_publication_successors():
         result = subprocess.run(['bash', '-eu', '-c', no_change],
                                 env={'GITHUB_OUTPUT': str(output)}, check=False)
         assert result.returncode == 0
-        assert output.read_text().strip() == 'merged=false'
-    created = publish.split('echo "opened $PR"', 1)[1]
-    assert 'echo "merged=false" >> "$GITHUB_OUTPUT"' in created
-    assert 'merged=true' not in publish
+        assert output.read_text().split() == ['merged=false', 'changed=false']
+    # #567: a prepared commit also reports merged=false; the PR itself is
+    # opened by the isolated publish job, which reports no merge at all.
+    prepared = publish.split('git bundle create', 1)[1]
+    assert 'echo "merged=false" >> "$GITHUB_OUTPUT"' in prepared
+    assert 'merged=true' not in workflow
+    pr_step = workflow.split('- name: Publish changes as a PR', 1)[1]
+    assert 'echo "opened $PR"' in pr_step
+    assert 'merged=' not in pr_step
 
 
 def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_path):

@@ -52,8 +52,12 @@ def test_checkout_does_not_leave_credentials_for_dependency_code():
     workflow = (ROOT / '.github/workflows/permit-feed.yml').read_text()
     checkout = workflow.split('- uses: actions/checkout@', 1)[1].split('- name:', 1)[0]
     assert 'persist-credentials: false' in checkout
+    # #567: the renderer job fetches main anonymously and never enables git
+    # auth; only the isolated publish job does, right before its push.
+    prepare = workflow.split('- name: Prepare publication commit', 1)[1].split('- name:', 1)[0]
+    assert 'git fetch origin main' in prepare
+    assert 'gh auth' not in prepare and 'secrets.' not in prepare
     publish = workflow.split('- name: Publish changes as a PR', 1)[1]
-    assert publish.index('gh auth setup-git') < publish.index('git fetch origin main')
     assert publish.index('gh auth setup-git') < publish.index('git push -u origin')
 
 

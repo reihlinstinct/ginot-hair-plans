@@ -8,7 +8,7 @@ def test_publish_step_renders_and_commits_permits_fragment():
     workflow = (
         Path(__file__).parent.parent / ".github/workflows/permit-feed.yml"
     ).read_text()
-    publish = workflow.split("Publish changes as a PR", 1)[1]
+    publish = workflow.split("Prepare publication commit", 1)[1].split("- name:", 1)[0]
     assert "python3 scripts/render_permits_page.py" in publish
     render_line = next(
         line
@@ -32,7 +32,7 @@ def test_publish_step_commits_default_permits_subset():
     workflow = (
         Path(__file__).parent.parent / ".github/workflows/permit-feed.yml"
     ).read_text()
-    publish = workflow.split("Publish changes as a PR", 1)[1]
+    publish = workflow.split("Prepare publication commit", 1)[1].split("- name:", 1)[0]
     add_line = next(
         line
         for line in publish.splitlines()
