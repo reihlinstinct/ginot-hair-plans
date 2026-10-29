@@ -1626,3 +1626,37 @@ def test_filter_link_expanded_groups_and_dates(page):
     assert not page.is_checked('#pfopenonly')
     assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.getAttribute('data-group')).sort()") == expected_groups
     assert plan_ids(page) == expected_ids
+
+
+def test_filter_link_closed_only_selects_terminal_groups(page):
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1')
+    page.wait_for_function('window.__permitsLoaded')
+    for group in ['closed', 'issued']:
+        assert page.locator('#pfgroups .chip[data-group="' + group + '"]').evaluate("e=>e.classList.contains('sel')")
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfclosed=1&permit.groups=obj')
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.locator('#pfgroups .chip.sel').evaluate_all("els=>els.map(e=>e.getAttribute('data-group'))") == ['obj']
+
+
+def test_filter_link_unknown_keys_do_not_load_and_are_preserved(page):
+    requests = []
+    page.on('request', lambda r: requests.append(r.url))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.unknown=x&plan.note=hello')
+    page.wait_for_function('window.__permitsDefaultLoaded')
+    assert not any('/permits.html' in url for url in requests)
+    link = page.evaluate('GinotFilterLinks.build()')
+    assert 'permit.unknown=x' in link and 'plan.note=hello' in link
+
+
+def test_filter_link_copy_disabled_while_url_state_pending(page):
+    held = []
+    page.route('**/permits.html', lambda route: held.append(route))
+    page.goto(page.url.split('?')[0] + '?filters=1&permit.pfq=הפלמח')
+    page.wait_for_function("document.getElementById('pfload').textContent.length > 0")
+    assert page.is_disabled('#copy-plan-link') and page.is_disabled('#copy-permit-link')
+    while not held:
+        page.wait_for_timeout(20)
+    held[0].continue_()
+    page.wait_for_function('window.__permitsLoaded')
+    assert page.is_enabled('#copy-plan-link') and page.is_enabled('#copy-permit-link')
+    assert page.input_value('#pfq') == 'הפלמח'

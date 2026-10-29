@@ -238,6 +238,7 @@ document.querySelectorAll('.plan-legend .chip').forEach(function(c){
 });
 var planLink=window.GinotFilterLinks.register('plan',
   {fq:1,fstatus:1,fflag:1,fobj:1,ffrom:1,fto:1,fappr:1}, {
+  keys:['expanded','sort','dir'],
   restore:function(p,n){
     if(p.get(n+'.expanded')==='1')expanded=true;
     var k=p.get(n+'.sort'),d=p.get(n+'.dir');
@@ -607,6 +608,9 @@ var fullLoaded=false,fullPromise=null,fullFailed=false;
 // Closure state; the window.__permits* flags are test hooks only.
 var defaultFailed=false,evidenceNeedsFull=false;
 var defaultLoaded=false,evidenceLoaded=false,pendingUrlState=false,permitLink=null;
+function setFilterLinksPending(v){
+  ['copy-plan-link','copy-permit-link'].forEach(function(id){var b=document.getElementById(id);if(b)b.disabled=v;});
+}
 var pfload=document.createElement('span');
 pfload.id='pfload';pfload.setAttribute('role','status');
 if(pfcount&&pfcount.parentNode)pfcount.parentNode.insertBefore(pfload,pfcount.nextSibling);
@@ -659,7 +663,7 @@ function loadFullPermits(){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;pfload.textContent='';
     rebuildDerived();
-    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;}
+    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
     window.__permitsLoaded=true;
@@ -700,9 +704,16 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
 });
 permitLink=window.GinotFilterLinks.register('permit',
   {pfq:1,pfstatus:1,pfsug:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
+  keys:['expanded','groups'],
   restore:function(p,n){
     if(p.get(n+'.expanded')==='1')expanded=true;
     var raw=p.get(n+'.groups');
+    if(raw===null&&pfclosed.checked){
+      pfgroups.querySelectorAll('.chip').forEach(function(c){
+        var g=c.getAttribute('data-group');
+        if(g==='closed'||g==='issued')c.classList.add('sel');
+      });
+    }
     if(raw!==null&&raw.length<=500){
       var wanted=raw?raw.split(','):[],chips=Array.from(pfgroups.querySelectorAll('.chip'));
       if(wanted.every(function(k){return chips.some(function(c){return c.getAttribute('data-group')===k;});})){
@@ -719,7 +730,7 @@ permitLink=window.GinotFilterLinks.register('permit',
   }
 });
 pendingUrlState=permitLink.hasState;
-if(pendingUrlState)loadFullPermits();
+if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
 sortRows();apply();
 })();
 </script>

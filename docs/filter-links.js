@@ -1,7 +1,7 @@
 /* Versioned public filter links (#469). No filtering logic or HTML injection. */
 (function () {
   'use strict';
-  var params = new URLSearchParams(location.search), adapters = {};
+  var params = new URLSearchParams(location.search), adapters = {}, recognized = {};
   var active = params.get('filters') === '1';
   function dateOK(v) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
@@ -10,6 +10,8 @@
   }
   function register(name, controls, extra) {
     var defaults = {}, keys = Object.keys(controls);
+    var stateKeys = keys.concat(extra.keys || []);
+    stateKeys.forEach(function(k){recognized[name+'.'+k]=true;});
     keys.forEach(function (id) {
       var e = document.getElementById(id);
       defaults[id] = e.type === 'checkbox' ? e.checked : e.value;
@@ -34,13 +36,13 @@
       });
       extra.write(url.searchParams, name);
     };
-    var hasState = active && Array.from(params.keys()).some(function (k) { return k.indexOf(name + '.') === 0; });
+    var hasState = active && Array.from(params.keys()).some(function (k) { return stateKeys.some(function(id){return k===name+'.'+id;}); });
     return {restore: restore, hasState: hasState};
   }
   function build() {
     var url = new URL(location.href);
     Array.from(url.searchParams.keys()).forEach(function (k) {
-      if (k === 'filters' || /^(plan|permit)\./.test(k)) url.searchParams.delete(k);
+      if (k === 'filters' || recognized[k]===true) url.searchParams.delete(k);
     });
     url.searchParams.set('filters', '1');
     Object.keys(adapters).forEach(function (k) { adapters[k](url); });
