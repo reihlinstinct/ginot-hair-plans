@@ -37,6 +37,16 @@ def test_only_private_repo_actions_minutes_count():
     assert ab.private_minutes(items, {"private-a"}, CFG["minute_multipliers"]) == {"private-a": 100}
 
 
+def test_api_shaped_items_match_case_insensitively_and_by_full_name():
+    items = [
+        item("owner/private-a", 40, product="Actions", unit="minutes"),
+        item("private-a", 10),
+        item("owner/public-b", 500),
+    ]
+    got = ab.private_minutes(items, {"owner/private-a"}, CFG["minute_multipliers"])
+    assert got == {"private-a": 50}
+
+
 def test_macos_minutes_use_the_multiplier():
     items = [item("app", 10, sku="Actions macOS 3-core"), item("app", 10)]
     assert ab.private_minutes(items, {"app"}, CFG["minute_multipliers"]) == {"app": 110}
@@ -87,6 +97,18 @@ def test_jobs_without_timeout_found():
 def test_step_level_timeout_does_not_count_as_job_timeout():
     text = "jobs:\n  j:\n    runs-on: x\n    steps:\n      - run: a\n        timeout-minutes: 3\n"
     assert ab.jobs_without_timeout(text) == ["j"]
+
+
+def test_commented_jobs_header_and_yaml_extension(tmp_path):
+    text = "jobs: # build jobs\n  j:\n    runs-on: x\n"
+    assert ab.jobs_without_timeout(text) == ["j"]
+    (tmp_path / "a.yaml").write_text(text)
+    (tmp_path / "b.yml").write_text("jobs:\n  k:\n    timeout-minutes: 3\n")
+    assert ab.check_timeouts(tmp_path) == {"a.yaml": ["j"]}
+
+
+def test_reusable_workflow_call_job_is_skipped():
+    assert ab.jobs_without_timeout("jobs:\n  c:\n    uses: ./.github/workflows/x.yml\n") == []
 
 
 def test_no_jobs_block():

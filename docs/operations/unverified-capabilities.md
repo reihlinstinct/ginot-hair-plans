@@ -18,7 +18,7 @@ would prove it. A claim leaves the list only with evidence.
 2. Each row has a verification command someone else can run, and what a pass
    looks like.
 3. A row moves to **Verified** only with the command's output, the date and a
-   link to the issue or PR where it ran. Never delete rows. Never re-use an ID.
+   link to the issue or PR where it ran. Never delete rows. A claim keeps its `U-NNN` ID when it moves; never re-use an ID.
 4. If a later change or failure disproves a verified row, move it back and open
    a `bug` issue with the evidence.
 5. Reviewers check that PR claims match this registry. A PR must not state
@@ -33,12 +33,13 @@ would prove it. A claim leaves the list only with evidence.
 | ID | Capability claim | Status | Verification command and pass condition | Last checked |
 | --- | --- | --- | --- | --- |
 | U-001 | The coverage gate fails CI when `enforce` is true and coverage is under the floor. | unverified: `enforce` is false, never exercised | Draft PR from a throwaway branch with `"enforce": true` and `"coverage_floor": 100` in `.github/qa-gates.json`. Pass: the "Coverage gate" step is red. Close the PR unmerged. | never |
-| U-002 | The runner-minute multipliers in `.github/actions-budget.json` (Linux 1, Windows 2, macOS 10) match how the billing usage API reports minutes. | unverified: no private repo has used macOS or Windows this month | `GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year Y --month M` in a month with a private macOS run. Pass: the total equals the minutes on the GitHub Billing and licensing usage page. | never |
-| U-003 | The billing-API total reported by `actions_budget.py --live` is the figure GitHub counts against the 2,000 included minutes. | unverified: the October reading (2,005 of 2,000) fits the private-repo Actions block of 2026-10-20 but was not compared with the Billing page | Run `GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year Y --month M` for the current month and compare with Settings, Billing and licensing, Usage. Pass: the totals agree within 1 percent. | never |
+| U-002 | The macOS multiplier (10) in `.github/actions-budget.json` matches how the billing usage API reports minutes. | unverified: no private repo has used macOS this month | `GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year Y --month M` in a month with a private macOS run. Pass: the macOS repo's minutes equal ten times its raw macOS minutes on the GitHub Billing and licensing usage page. | never |
+| U-005 | The Windows multiplier (2) in `.github/actions-budget.json` matches how the billing usage API reports minutes. | unverified: no private repo has used Windows runners | Run `GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year Y --month M` in a month with a private Windows run. Pass: the Windows repo's minutes equal twice its raw Windows minutes on the Billing usage page. Checked separately from U-002. | never |
+| U-003 | The billing-API total reported by `actions_budget.py --live` agrees with the minutes GitHub's own Billing usage page shows for the same month. | unverified: the October reading (2,005 of 2,000) fits the private-repo Actions block of 2026-10-20 but was not compared with the Billing page | Run `GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year Y --month M` for the current month and compare with Settings, Billing and licensing, Usage. Pass: the totals agree within 1 percent. | never |
 | U-004 | Every workflow job has a job-level `timeout-minutes`, so no runaway job has an unbounded run time. | unverified: known gap, 6 jobs have none (audit-result, ci x4, codeql) | `python3 scripts/ci/actions_budget.py --check-timeouts`. Pass: exit 0 and "0 job(s) without timeout-minutes". | 2026-10-29 (6 jobs missing) |
 
 ## Verified
 
 | ID | Capability claim | Evidence | Date |
 | --- | --- | --- | --- |
-| V-001 | The daily Mavat watch schedule fires unattended. | `gh run list --workflow mavat-watch.yml --event schedule --limit 3`: runs on 2026-10-29 and 2026-10-28 succeeded, the run on 2026-10-27 was cancelled. Partial: the cancelled run is not explained here. | 2026-10-29 |
+| V-001 | The daily Mavat watch schedule fires unattended. | `gh run list --workflow mavat-watch.yml --event schedule --limit 3`: runs on 2026-10-29 and 2026-10-28 succeeded, the run on 2026-10-27 was cancelled. Partial: the cancelled run is not explained here. Ran for #680, run list: https://github.com/reihlinstinct/ginot-hair-plans/actions/workflows/mavat-watch.yml | 2026-10-29 |

@@ -6,10 +6,13 @@ We read its documentation only. No code was copied.
 
 ## Why
 
-Private repositories get 2,000 free Actions minutes a month. This repo is
-public, so its own runs are free, but the same owner's private repos share the
-quota. The project must stay free, so a cap that is crossed means stop and ask,
-not carry on.
+The owner's policy is to stay within 2,000 private-repo Actions minutes a month
+(the free-plan allowance as the owner understands it; GitHub may express included
+usage as a dollar amount, so the reporter's minute total is not a check against
+actual charges, see U-003 in the [registry](unverified-capabilities.md)). This
+repo is public, so its own runs are free, but the same owner's private repos
+share the cap. The project must stay free, so a cap that is crossed means stop
+and ask, not carry on.
 
 ## Caps
 
@@ -17,7 +20,7 @@ All values live in `.github/actions-budget.json`. Only the owner raises them.
 
 | Cap | Value | What happens |
 | --- | --- | --- |
-| Monthly private-repo minutes | 2,000 included | At 50 percent: warn in the weekly triage. At 80 percent (1,600): **stop** starting private-repo runs and ask the owner. |
+| Monthly private-repo minutes | 2,000 (owner policy) | At 50 percent: warn in the weekly triage. At 80 percent (1,600): **stop** starting private-repo runs and ask the owner. |
 | Per task | 60 runner-minutes | Estimate before starting a task that dispatches workflows (sum of jobs, matrix included). Over 60: ask first. |
 | Per job | `timeout-minutes` on every job | A job without one has no cap. Tracked as U-004 in the [registry](unverified-capabilities.md). |
 

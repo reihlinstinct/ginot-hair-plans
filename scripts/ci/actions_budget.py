@@ -24,9 +24,10 @@ import argparse
 import json
 import os
 import pathlib
-import re
 import sys
 import urllib.request
+
+import yaml
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 CONFIG = ROOT / ".github" / "actions-budget.json"
@@ -47,14 +48,22 @@ def multiplier(sku: str, multipliers: dict) -> int:
     return 1
 
 
+def repo_key(name) -> str:
+    """Compare repositories by bare name: usage items may carry owner/name."""
+    return str(name or "").rsplit("/", 1)[-1].lower()
+
+
 def private_minutes(items: list, private_repos: set, multipliers: dict) -> dict:
     """Minutes per private repo, with the runner multiplier applied."""
+    private = {repo_key(r) for r in private_repos}
     out: dict = {}
     for item in items:
-        if item.get("product") != "actions" or item.get("unitType") != "Minutes":
+        if str(item.get("product", "")).lower() != "actions":
             continue
-        repo = item.get("repositoryName")
-        if repo not in private_repos:
+        if str(item.get("unitType", "")).lower() != "minutes":
+            continue
+        repo = repo_key(item.get("repositoryName"))
+        if repo not in private:
             continue
         minutes = item["quantity"] * multiplier(item.get("sku", ""), multipliers)
         out[repo] = out.get(repo, 0) + minutes
@@ -71,27 +80,25 @@ def classify(total: float, cfg: dict) -> str:
 
 
 def jobs_without_timeout(workflow_text: str) -> list:
-    """Job ids under ``jobs:`` that have no job-level timeout-minutes."""
-    lines = workflow_text.splitlines()
-    try:
-        start = next(i for i, ln in enumerate(lines) if re.match(r"^jobs:\s*$", ln))
-    except StopIteration:
+    """Job ids with no job-level timeout-minutes.
+
+    Jobs that call a reusable workflow (``uses:``) cannot set one and are skipped.
+    """
+    data = yaml.safe_load(workflow_text)
+    jobs = data.get("jobs") if isinstance(data, dict) else None
+    if not isinstance(jobs, dict):
         return []
-    blocks: list = []
-    for ln in lines[start + 1:]:
-        if ln and not ln.startswith(" ") and not ln.startswith("#"):
-            break
-        match = re.match(r"^  ([A-Za-z0-9_-]+):\s*$", ln)
-        if match:
-            blocks.append([match.group(1), False])
-        elif blocks and re.match(r"^    timeout-minutes:\s*\S", ln):
-            blocks[-1][1] = True
-    return [name for name, has in blocks if not has]
+    return [
+        str(name)
+        for name, job in jobs.items()
+        if isinstance(job, dict) and "uses" not in job and "timeout-minutes" not in job
+    ]
 
 
 def check_timeouts(workflows_dir: pathlib.Path) -> dict:
     result = {}
-    for path in sorted(workflows_dir.glob("*.yml")):
+    paths = sorted([*workflows_dir.glob("*.yml"), *workflows_dir.glob("*.yaml")])
+    for path in paths:
         missing = jobs_without_timeout(path.read_text(encoding="utf-8"))
         if missing:
             result[path.name] = missing
@@ -111,8 +118,18 @@ def _get(url: str, token: str):
 def live_inputs(token: str, year: int, month: int):
     user = _get(f"{API}/user", token)["login"]
     usage = _get(f"{API}/users/{user}/settings/billing/usage?year={year}&month={month}", token)
-    repos = _get(f"{API}/user/repos?visibility=private&affiliation=owner&per_page=100", token)
-    return usage["usageItems"], {r["name"] for r in repos}
+    private: set = set()
+    page = 1
+    while True:
+        repos = _get(
+            f"{API}/user/repos?visibility=private&affiliation=owner&per_page=100&page={page}",
+            token,
+        )
+        private.update(r["full_name"] for r in repos)
+        if len(repos) < 100:
+            break
+        page += 1
+    return usage["usageItems"], private
 
 
 def main(argv=None) -> int:
