@@ -99,6 +99,7 @@ jobs:
   permit-feed:
     permissions:
       contents: write
+      pull-requests: read
       actions: write
     needs: pending
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
