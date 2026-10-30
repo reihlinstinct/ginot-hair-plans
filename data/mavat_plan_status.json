@@ -1,9 +1,33 @@
 {
- "generated": "2026-10-29",
+ "generated": "2026-10-30",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
    "plan": "101-1095330",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1386671",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1348069",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1215656",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1293554",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -46,12 +70,6 @@
   },
   {
    "plan": "101-1315423",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1432244",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -113,8 +131,8 @@
   "101-1095330": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "b2efe7cbcce34609",
-   "page_chars": 1278,
+   "fingerprint": "b49137e454be0f5f",
+   "page_chars": 1524,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001133529713|תכתובות|04/09/2025|החלטה בבקשה להארכה",
@@ -334,8 +352,8 @@
   "101-1386671": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "653a246a64653735",
-   "page_chars": 1517,
+   "fingerprint": "2ef8ea3f7ae97f06",
+   "page_chars": 1271,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136728927|תאי שטח|28/04/2026|",
@@ -435,8 +453,8 @@
   "101-1348069": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "cd3a9b3693fb1025",
-   "page_chars": 1420,
+   "fingerprint": "a1bec48eef38355e",
+   "page_chars": 1174,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136319981|תאי שטח|06/06/2024|",
@@ -591,8 +609,8 @@
   "101-1215656": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "1a4a41e572602895",
-   "page_chars": 1566,
+   "fingerprint": "5e7d39795d94e2f0",
+   "page_chars": 1320,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136453667|גבול התכנית תלת מימד (KML)|05/03/2024|",
@@ -782,8 +800,8 @@
   "101-1293554": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "a3655f72093e744b",
-   "page_chars": 1442,
+   "fingerprint": "73339c9f8ea39deb",
+   "page_chars": 1196,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000004494432|זכויות והוראות בניה XLS|10/11/2025|זכויות והוראות בניה XLS",
@@ -921,8 +939,8 @@
   "101-1409366": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "e7f510e98265a58b",
-   "page_chars": 1359,
+   "fingerprint": "c3e550ac868dc769",
+   "page_chars": 1113,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136643571|דרכים תנועה וחניה|13/02/2025|",
@@ -976,8 +994,8 @@
   "101-1451699": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "f2b50db74d5a82c9",
-   "page_chars": 1195,
+   "fingerprint": "f3d551e669cf8296",
+   "page_chars": 1441,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136806771|סקר עצים|18/06/2026|",
@@ -1029,8 +1047,8 @@
   "101-1488261": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "da83d0a6ae16d12e",
-   "page_chars": 1216,
+   "fingerprint": "2c30efb94a292ec6",
+   "page_chars": 1462,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136641001|ישויות פוליגונליות, קוויות ונקודתיות|06/08/2026|",
@@ -1085,8 +1103,8 @@
   "101-1500909": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "9b9f44062f9724e3",
-   "page_chars": 1496,
+   "fingerprint": "e428ccd4313a58f4",
+   "page_chars": 1250,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000005077596|זכויות והוראות בניה XLS|05/10/2026|זכויות והוראות בניה XLS",
@@ -1139,8 +1157,8 @@
   "101-1158146": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "4717b1d44c525e14",
-   "page_chars": 1540,
+   "fingerprint": "9078149fad789904",
+   "page_chars": 1294,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001071822519|תכתובות|19/01/2025|התייחסות מינהל קהילתי גוננים",
@@ -1211,8 +1229,8 @@
   "101-1336049": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "4018616644f6cd57",
-   "page_chars": 1365,
+   "fingerprint": "a87cc3a294e3b326",
+   "page_chars": 1611,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001135832585|גבול התכנית תלת מימד (KML)|01/01/2025|",
@@ -1274,8 +1292,8 @@
   "101-1315423": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "fc09379caef17e7d",
-   "page_chars": 1289,
+   "fingerprint": "3d48ed3bf3042a78",
+   "page_chars": 1535,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001097285117|חוות דעת כלכלית|26/02/2025|",
@@ -1407,8 +1425,8 @@
   "101-0617134": {
    "deadline_text": "",
    "station_text": "בבדיקה תכנונית",
-   "fingerprint": "47365bf1dbe8923a",
-   "page_chars": 1446,
+   "fingerprint": "f7b163099b69b2d7",
+   "page_chars": 1200,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000298162249|קבצי התכנית (SHP)|04/11/2025|",
@@ -1476,6 +1494,66 @@
     "fingerprint": "6aef69de3df7deb0"
    },
    "mp_id": "1000923331"
+  },
+  "101-1590439": {
+   "deadline_text": "",
+   "station_text": "בבדיקה תכנונית",
+   "fingerprint": "14e924865849fe73",
+   "page_chars": 1426,
+   "api": {
+    "docs": [
+     "rsPlanDocsAdd|77000004820190|קו כחול|11/05/2026|",
+     "rsPlanDocsAdd|77000004820194|תאי שטח|20/05/2026|",
+     "rsPlanDocsAdd|77000004822526|ישויות פוליגונליות, קוויות ונקודתיות|22/06/2026|",
+     "rsPlanDocsAdd|77000004839020|מצב מאושר|10/05/2026|",
+     "rsPlanDocsAdd|77000004839032|בינוי|24/06/2026|",
+     "rsPlanDocsAdd|77000004839090|דרכים תנועה וחניה|22/06/2026|",
+     "rsPlanDocsAdd|77000004839094|סקר עצים|27/05/2026|סקר עצים - דוח",
+     "rsPlanDocsAdd|77000004843956|זכויות והוראות בניה XLS|22/07/2026|זכויות והוראות בניה XLS",
+     "rsPlanDocsAdd|77000004900326|סקר עצים|27/05/2026|סקר עצים - נספח עצים בוגרים",
+     "rsPlanDocsAdd|77000004900334|תיעוד/סקר שימור|19/11/2025|",
+     "rsPlanDocsAdd|77000004941248|חוות דעת כלכלית|12/07/2026|",
+     "rsPlanDocsAdd|77000004947148|תשריט מצב מוצע חתום|15/07/2026|",
+     "rsPlanDocsAdd|77001135575545|קבצי התכנית (SHP)|15/07/2026|",
+     "rsPlanDocsAdd|77001135575549|דוח תאי שטח לתכנית (XLS)|15/07/2026|",
+     "rsPlanDocsAdd|77001135575555|גבול התכנית(KML)\n לצפיה ב google earth|15/07/2026|",
+     "rsPlanDocsGen|77000004820190|קו כחול|11/05/2026|",
+     "rsPlanDocsGen|77000004820194|תאי שטח|20/05/2026|",
+     "rsPlanDocsGen|77000004822526|ישויות פוליגונליות, קוויות ונקודתיות|22/06/2026|",
+     "rsPlanDocsGen|77000004839020|מצב מאושר|10/05/2026|",
+     "rsPlanDocsGen|77000004839032|בינוי|24/06/2026|",
+     "rsPlanDocsGen|77000004839090|דרכים תנועה וחניה|22/06/2026|",
+     "rsPlanDocsGen|77000004839094|סקר עצים|27/05/2026|סקר עצים - דוח",
+     "rsPlanDocsGen|77000004843956|זכויות והוראות בניה XLS|22/07/2026|זכויות והוראות בניה XLS",
+     "rsPlanDocsGen|77000004900326|סקר עצים|27/05/2026|סקר עצים - נספח עצים בוגרים",
+     "rsPlanDocsGen|77000004900334|תיעוד/סקר שימור|19/11/2025|",
+     "rsPlanDocsGen|77000004941248|חוות דעת כלכלית|12/07/2026|",
+     "rsPlanDocsGen|77000004947148|תשריט מצב מוצע חתום|15/07/2026|",
+     "rsPlanDocsGen|77001135575545|קבצי התכנית (SHP)|15/07/2026|",
+     "rsPlanDocsGen|77001135575549|דוח תאי שטח לתכנית (XLS)|15/07/2026|",
+     "rsPlanDocsGen|77001135575553|תוצאות חיתוך מול תמ\"א (DXF)|15/07/2026|",
+     "rsPlanDocsGen|77001135575555|גבול התכנית(KML)\n לצפיה ב google earth|15/07/2026|",
+     "rsPlanDocsGen|77001135576193|הוראות התכנית|16/07/2026|",
+     "rsPlanDocsGen|77001136175619|תשריט מצב מוצע|16/07/2026|תשריט מצב מוצע",
+     "rsPlanDocs|77001135576193|הוראות התכנית|16/07/2026|",
+     "rsPlanDocs|77001136175619|תשריט מצב מוצע|16/07/2026|תשריט מצב מוצע"
+    ],
+    "decisions": [],
+    "internet": [
+     "בדיקת תנאי סף-קיום תנאי סף|25/10/2026|",
+     "קבלת תכנית|22/07/2026|"
+    ],
+    "quantities": [
+     "AUTHORISED_QUANTITY=+2,677|AUTHORISED_QUANTITY_ADD=+10,923|DETAILED_PLAN=|ID=1000327370|IMPLEMENTATION=13,600|LAST_UPDATE=27/07/2026 13:53|LAST_UPDATER=aminadavha|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=|ROW_NUM=|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=+45|AUTHORISED_QUANTITY_ADD=+61|DETAILED_PLAN=|ID=1000327372|IMPLEMENTATION=106|LAST_UPDATE=22/07/2026 16:26|LAST_UPDATER=SYSTEM|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=|ROW_NUM=|UNIT_DESC=יח\"ד",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+200|DETAILED_PLAN=|ID=1000327374|IMPLEMENTATION=200|LAST_UPDATE=22/07/2026 16:26|LAST_UPDATER=SYSTEM|QUANTITY_CODE=80|QUANTITY_DESC=מבני ציבור (מ\"ר)|REMARK=|ROW_NUM=|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+250|DETAILED_PLAN=|ID=1000329630|IMPLEMENTATION=250|LAST_UPDATE=22/07/2026 16:26|LAST_UPDATER=SYSTEM|QUANTITY_CODE=75|QUANTITY_DESC=מסחר (מ\"ר)|REMARK=|ROW_NUM=|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=|DETAILED_PLAN=|ID=1000327376|IMPLEMENTATION=|LAST_UPDATE=22/07/2026 16:26|LAST_UPDATER=SYSTEM|QUANTITY_CODE=150|QUANTITY_DESC=דירות קטנות (יח\"ד)|REMARK=|ROW_NUM=|UNIT_DESC=יח\"ד"
+    ],
+    "oppositions_count": 0,
+    "fingerprint": "3a06d67ca7be5e6d"
+   },
+   "mp_id": "1005536258"
   }
  }
 }
