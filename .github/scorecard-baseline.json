@@ -11,19 +11,11 @@
   },
   {
    "path": ".github/workflows/audit-result.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "ingest",
    "evidence": "contents: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/audit-result.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/ci.yml",
@@ -83,19 +75,11 @@
   },
   {
    "path": ".github/workflows/mavat-watch.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "mavat-watch",
    "evidence": "contents: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/mavat-watch.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/mavat-watch.yml",
@@ -107,19 +91,11 @@
   },
   {
    "path": ".github/workflows/mirror-ingest.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "mirror-ingest",
    "evidence": "contents: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/mirror-ingest.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/muni-probe.yml",
@@ -139,27 +115,19 @@
   },
   {
    "path": ".github/workflows/permit-feed.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "permit-feed",
    "evidence": "contents: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/permit-feed.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/permit-feed.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "permit-feed",
    "evidence": "actions: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/permit-feed.yml",
@@ -179,22 +147,6 @@
   },
   {
    "path": ".github/workflows/rishui-publish-watch.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "contents: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/rishui-publish-watch.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/rishui-publish-watch.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
    "evidence": "pip install --only-binary=:all: -r requirements.txt",
@@ -203,19 +155,11 @@
   },
   {
    "path": ".github/workflows/weekly-refresh.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
+   "rule": "job-write",
+   "scope": "refresh",
    "evidence": "contents: write",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
-  },
-  {
-   "path": ".github/workflows/weekly-refresh.yml",
-   "rule": "top-level-write",
-   "scope": "workflow",
-   "evidence": "pull-requests: write",
-   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing workflow-level write permission; tracked for job-level scoping in this issue."
+   "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
   },
   {
    "path": ".github/workflows/weekly-refresh.yml",
