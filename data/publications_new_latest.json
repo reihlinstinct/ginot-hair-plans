@@ -1,4 +1,75 @@
 {
   "new_in_polygon": [],
-  "unresolved_new": []
+  "unresolved_new": [
+    {
+      "myIndex": 16462785,
+      "tik_num": "1979/0736.10",
+      "street": "לוין שמריהו",
+      "house_number": "3",
+      "neighborhood": "קרית היובל",
+      "place_description": null,
+      "publication_date": "2026-10-29",
+      "objection_deadline": null,
+      "ed700": "2026-09-14",
+      "connected_rec_id": null,
+      "doc_id": "bbf35208-6342-4320-9179-02226fcc4914",
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16535861,
+      "tik_num": "1980/1030.02",
+      "street": "הרב יוסף חיים שרים ",
+      "house_number": "6",
+      "neighborhood": "רמת שרת",
+      "place_description": null,
+      "publication_date": "2026-10-28",
+      "objection_deadline": null,
+      "ed700": "2026-10-26",
+      "connected_rec_id": 1222394,
+      "doc_id": "26b7cc96-912b-4ad1-91c8-be06cce34bf5",
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16548843,
+      "tik_num": "1984/0889.04",
+      "street": "עמשא",
+      "house_number": "80",
+      "neighborhood": "מנחת",
+      "place_description": null,
+      "publication_date": "2026-10-28",
+      "objection_deadline": null,
+      "ed700": "2026-10-26",
+      "connected_rec_id": 1280596,
+      "doc_id": null,
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16534231,
+      "tik_num": "2022/0335.03",
+      "street": "הדף היומי",
+      "house_number": "609",
+      "neighborhood": "רמות",
+      "place_description": null,
+      "publication_date": "2026-10-28",
+      "objection_deadline": null,
+      "ed700": "2026-10-25",
+      "connected_rec_id": null,
+      "doc_id": "33d5c1b2-7418-4a39-a229-53148d149dfe",
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16518263,
+      "tik_num": "2026/0334.00",
+      "street": "אהרון אשכולי",
+      "house_number": "122",
+      "neighborhood": "רמות",
+      "place_description": null,
+      "publication_date": "2026-10-28",
+      "objection_deadline": null,
+      "ed700": "2026-10-25",
+      "connected_rec_id": null,
+      "doc_id": "99aca084-a536-480c-bec3-afb7e478fdad",
+      "in_polygon": null
+    }
+  ]
 }
