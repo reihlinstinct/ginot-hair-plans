@@ -6,8 +6,9 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    # Weekly full suite: Sunday 06:00 Israel winter time (04:00 UTC;
-    # runs 07:00 IDT in summer).
+    # Weekly full suite: Sundays 04:00 UTC. The repo test
+    # test_no_workflow_comment_states_a_local_clock_time bans local times in
+    # workflow comments, so this comment states UTC only.
     - cron: '0 4 * * 0'
 permissions:
   contents: read
