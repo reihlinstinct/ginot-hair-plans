@@ -7,13 +7,14 @@ on:
         description: Bounded source-verified audit result
         required: true
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 concurrency:
   group: parcel-audit-result
   cancel-in-progress: false
 jobs:
   ingest:
+    permissions:
+      contents: write
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:

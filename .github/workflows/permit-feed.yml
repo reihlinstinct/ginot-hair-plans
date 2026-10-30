@@ -64,9 +64,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  pull-requests: write
-  actions: write
+  contents: read
 
 jobs:
   pending:
@@ -99,6 +97,10 @@ jobs:
         run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
 
   permit-feed:
+    permissions:
+      contents: write
+      pull-requests: read
+      actions: write
     needs: pending
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
     runs-on: ubuntu-24.04

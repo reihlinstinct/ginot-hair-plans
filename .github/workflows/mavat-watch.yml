@@ -35,8 +35,7 @@ on:
           - check
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: mavat-watch
@@ -73,6 +72,8 @@ jobs:
         run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
 
   mavat-watch:
+    permissions:
+      contents: write
     # Kill switch: set repo variable MAVAT_WATCH_ENABLED=false to disable.
     needs: pending
     if: ${{ !cancelled() && vars.MAVAT_WATCH_ENABLED != 'false' && (inputs.mode == 'discover' || (needs.pending.result == 'success' && needs.pending.outputs.pending == 'false')) }}

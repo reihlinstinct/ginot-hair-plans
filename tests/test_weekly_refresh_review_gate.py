@@ -28,9 +28,7 @@ def test_weekly_refresh_regenerates_after_reconciliation_before_commit():
 
 
 def test_weekly_refresh_has_only_required_write_permissions():
-    workflow = (ROOT / '.github/workflows/weekly-refresh.yml').read_text()
-    permissions = workflow.split('permissions:\n', 1)[1].split('\njobs:', 1)[0]
-    assert 'actions: write' not in permissions
-    assert 'pages: write' not in permissions
-    assert 'contents: write' in permissions
-    assert 'pull-requests: write' in permissions
+    import yaml
+    workflow = yaml.safe_load((ROOT / '.github/workflows/weekly-refresh.yml').read_text())
+    assert workflow['permissions'] == {'contents': 'read'}
+    assert workflow['jobs']['refresh']['permissions'] == {'contents': 'write'}
