@@ -134,8 +134,8 @@ def test_renderer_job_hands_over_only_a_bundle():
     ("          echo \"changed=true\" >> \"$GITHUB_OUTPUT\"\n",
      "          echo \"changed=true\" >> \"$GITHUB_OUTPUT\"\n          echo \"merged=true\" >> \"$GITHUB_OUTPUT\"\n"),
     # Workflow-wide secret env.
-    ("permissions:\n  contents: write\n",
-     "env:\n  GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n\npermissions:\n  contents: write\n"),
+    ("permissions:\n  contents: read\n",
+     "env:\n  GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n\npermissions:\n  contents: read\n"),
 ])
 def test_mutations_that_expose_the_token_are_caught(mutation):
     old, new = mutation
