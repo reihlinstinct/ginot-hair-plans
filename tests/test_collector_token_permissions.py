@@ -22,9 +22,14 @@ def test_exact_collector_permissions(name, case):
     wf = yaml.safe_load((ROOT / ".github/workflows" / name).read_text())
     assert wf["permissions"] == {"contents": "read"}
     assert wf["jobs"][job]["permissions"] == expected
-    for other, body in wf["jobs"].items():
-        if other != job:
-            assert all(value != "write" for value in body.get("permissions", wf["permissions"]).values())
+    all_jobs = {job: expected, "summary": {"contents": "read"}}
+    if name in {"mavat-watch.yml", "mirror-ingest.yml", "permit-feed.yml", "weekly-refresh.yml"}:
+        all_jobs["pending"] = {"contents": "read", "pull-requests": "read"}
+    if name == "permit-feed.yml":
+        all_jobs["publish"] = {"contents": "read", "actions": "read"}
+    assert set(wf["jobs"]) == set(all_jobs)
+    for other, permissions in all_jobs.items():
+        assert wf["jobs"][other].get("permissions", wf["permissions"]) == permissions
     # PR creation keeps its existing independent credential. No GITHUB_TOKEN
     # pull-request write is needed, and no secret or publishing step is added.
     assert "secrets.REFRESH_DISPATCH_TOKEN" in str(wf["jobs"])
