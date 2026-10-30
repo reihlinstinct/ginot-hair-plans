@@ -9,7 +9,7 @@ CASES = {
     "audit-result.yml": ("ingest", {"contents": "write"}),
     "mavat-watch.yml": ("mavat-watch", {"contents": "write"}),
     "mirror-ingest.yml": ("mirror-ingest", {"contents": "write"}),
-    "permit-feed.yml": ("permit-feed", {"contents": "write", "actions": "write"}),
+    "permit-feed.yml": ("permit-feed", {"contents": "write", "pull-requests": "read", "actions": "write"}),
     "rishui-publish-watch.yml": ("rishui-publish-watch", {
         "contents": "read", "pull-requests": "read", "actions": "read"}),
     "weekly-refresh.yml": ("refresh", {"contents": "write"}),
@@ -32,6 +32,24 @@ def test_exact_collector_permissions(name, case):
         assert wf["jobs"][other].get("permissions", wf["permissions"]) == permissions
     # PR creation keeps its existing independent credential. No GITHUB_TOKEN
     # pull-request write is needed, and no secret or publishing step is added.
-    assert "secrets.REFRESH_DISPATCH_TOKEN" in str(wf["jobs"])
+    publishers = [step for body in wf["jobs"].values() for step in body["steps"]
+                  if "gh pr create" in step.get("run", "")
+                  or "scripts/ci/publish_publications.py" in step.get("run", "")]
+    assert len(publishers) == 1
+    assert publishers[0]["env"]["GH_TOKEN"] == "${{ secrets.REFRESH_DISPATCH_TOKEN }}"
     assert all(body.get("permissions", wf["permissions"]).get("pull-requests") != "write"
                for body in wf["jobs"].values())
+
+
+def test_checkpoint_pr_lifecycle_read_permission_is_retained():
+    workflow = yaml.safe_load((ROOT / ".github/workflows/permit-feed.yml").read_text())
+    job = workflow["jobs"]["permit-feed"]
+    scan = next(step for step in job["steps"]
+                if "--checkpoint --resume" in step.get("run", ""))
+    assert scan["env"]["GH_TOKEN"] == "${{ secrets.GITHUB_TOKEN }}"
+    assert job["permissions"]["pull-requests"] == "read"
+    # Lifecycle checks read PR status before any municipal request.
+    source = (ROOT / "scripts/vpn/permit_feed.py").read_text()
+    assert "verdict, numbers, cp = lifecycle_gate(" in source
+    lifecycle = (ROOT / "scripts/vpn/checkpoint_lifecycle.py").read_text()
+    assert "/pulls?state=all" in lifecycle
