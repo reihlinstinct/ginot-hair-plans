@@ -1,0 +1,35 @@
+id,panel,x,y,note
+1,N,821,236,uncertain dark at boundary
+2,N,790,244,white parallel
+3,N,646,341,white parallel
+4,N,608,386,angled
+5,N,590,403,angled
+6,N,558,435,angled
+7,N,540,451,angled
+8,N,522,465,angled
+9,N,501,480,dark angled
+10,N,480,494,dark curb
+11,N,455,512,white curb
+12,N,435,533,white curb
+13,N,416,555,white curb
+14,N,394,577,white curb
+15,N,377,598,dark curb
+16,N,358,622,white curb
+17,N,335,648,blue curb
+18,S,718,213,white curb
+19,S,699,241,blue curb
+20,S,676,264,silver curb
+21,S,661,279,dark curb
+22,S,634,309,white curb
+23,S,598,358,partly tree-covered
+24,S,552,424,white curb
+25,S,529,451,dark curb
+26,S,506,477,white curb
+27,S,471,515,red curb
+28,W,619,352,white bend
+29,W,588,377,dark bend
+30,W,552,399,dark bend
+31,W,520,420,white bend
+32,W,485,440,gray bend
+33,W,458,453,dark bend
+34,W,423,474,white bend
