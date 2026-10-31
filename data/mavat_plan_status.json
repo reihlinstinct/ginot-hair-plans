@@ -1,13 +1,7 @@
 {
- "generated": "2026-10-30",
+ "generated": "2026-10-31",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
-  {
-   "plan": "101-1095330",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
   {
    "plan": "101-1386671",
    "reasons": [
@@ -21,31 +15,13 @@
    ]
   },
   {
-   "plan": "101-1215656",
+   "plan": "101-1185578",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
   },
   {
    "plan": "101-1293554",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1409366",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1451699",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1488261",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -69,13 +45,7 @@
    ]
   },
   {
-   "plan": "101-1315423",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-0617134",
+   "plan": "101-1590439",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -352,8 +322,8 @@
   "101-1386671": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "2ef8ea3f7ae97f06",
-   "page_chars": 1271,
+   "fingerprint": "653a246a64653735",
+   "page_chars": 1517,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136728927|תאי שטח|28/04/2026|",
@@ -453,8 +423,8 @@
   "101-1348069": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "a1bec48eef38355e",
-   "page_chars": 1174,
+   "fingerprint": "cd3a9b3693fb1025",
+   "page_chars": 1420,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136319981|תאי שטח|06/06/2024|",
@@ -519,8 +489,8 @@
   "101-1185578": {
    "deadline_text": "",
    "station_text": "הכרעה בהתנגדויות",
-   "fingerprint": "78a7997d5b85003c",
-   "page_chars": 1288,
+   "fingerprint": "99636ae809d0b7f2",
+   "page_chars": 1534,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001135077415|קו כחול|05/01/2026|",
@@ -800,8 +770,8 @@
   "101-1293554": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "73339c9f8ea39deb",
-   "page_chars": 1196,
+   "fingerprint": "a3655f72093e744b",
+   "page_chars": 1442,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000004494432|זכויות והוראות בניה XLS|10/11/2025|זכויות והוראות בניה XLS",
@@ -1103,8 +1073,8 @@
   "101-1500909": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "e428ccd4313a58f4",
-   "page_chars": 1250,
+   "fingerprint": "9b9f44062f9724e3",
+   "page_chars": 1496,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000005077596|זכויות והוראות בניה XLS|05/10/2026|זכויות והוראות בניה XLS",
@@ -1157,8 +1127,8 @@
   "101-1158146": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "9078149fad789904",
-   "page_chars": 1294,
+   "fingerprint": "4717b1d44c525e14",
+   "page_chars": 1540,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001071822519|תכתובות|19/01/2025|התייחסות מינהל קהילתי גוננים",
@@ -1229,8 +1199,8 @@
   "101-1336049": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "a87cc3a294e3b326",
-   "page_chars": 1611,
+   "fingerprint": "4018616644f6cd57",
+   "page_chars": 1365,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001135832585|גבול התכנית תלת מימד (KML)|01/01/2025|",
@@ -1498,8 +1468,8 @@
   "101-1590439": {
    "deadline_text": "",
    "station_text": "בבדיקה תכנונית",
-   "fingerprint": "14e924865849fe73",
-   "page_chars": 1426,
+   "fingerprint": "16ba2246fd7007de",
+   "page_chars": 1180,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77000004820190|קו כחול|11/05/2026|",
