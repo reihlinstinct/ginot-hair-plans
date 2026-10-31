@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-30",
+ "generated": "2026-10-31",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -119,7 +119,7 @@
    "path": "data/publications_new_latest.json",
    "kind": "json",
    "records": null,
-   "bytes": 2164,
+   "bytes": 51,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_new_latest.json"
   }
  ]
