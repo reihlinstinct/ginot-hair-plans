@@ -291,6 +291,11 @@ def test_down_tears_down_routes_and_cleans_state(monkeypatch, tmp_path):
     root.mkdir()
     (root / "state.json").write_text(json.dumps({"server": "1.2.3.4"}))
     monkeypatch.setattr(l2tp, "ROOT", root)
+    secrets = [tmp_path / f"secret{i}.conf" for i in range(4)]
+    for secret in secrets:
+        secret.write_text("psk")
+    # Never let a test touch real /etc secret/config paths.
+    monkeypatch.setattr(l2tp, "SECRET_CONFIG_PATHS", tuple(str(s) for s in secrets))
     calls = []
     monkeypatch.setattr(l2tp, "run", lambda *a, **k: calls.append(a) or "")
     l2tp.down()
@@ -303,6 +308,7 @@ def test_down_tears_down_routes_and_cleans_state(monkeypatch, tmp_path):
         k.get("check") is False for *_, k in [(a, {"check": False}) for a in calls]
     )
     assert not root.exists()
+    assert all(not s.exists() for s in secrets)
 
 
 # --- connect_bounded: retry policy ----------------------------------------------
@@ -498,6 +504,11 @@ def test_down_survives_decode_errors_and_still_cleans(monkeypatch, tmp_path):
     root.mkdir()
     (root / "state.json").write_text(json.dumps({"server": "1.2.3.4"}))
     monkeypatch.setattr(l2tp, "ROOT", root)
+    secrets = [tmp_path / f"secret{i}.conf" for i in range(4)]
+    for secret in secrets:
+        secret.write_text("psk")
+    # Never let a test touch real /etc secret/config paths.
+    monkeypatch.setattr(l2tp, "SECRET_CONFIG_PATHS", tuple(str(s) for s in secrets))
 
     def boom(*a, **k):
         raise UnicodeDecodeError("utf-8", b"\xff", 0, 1, "garbled daemon output")
@@ -505,3 +516,4 @@ def test_down_survives_decode_errors_and_still_cleans(monkeypatch, tmp_path):
     monkeypatch.setattr(l2tp, "run", boom)
     l2tp.down()
     assert not root.exists()  # cleanup still reached
+    assert all(not s.exists() for s in secrets)

@@ -295,6 +295,14 @@ connect-delay 5000
     }
 
 
+SECRET_CONFIG_PATHS = (
+    "/etc/ipsec.secrets",
+    "/etc/ipsec.conf",
+    "/etc/xl2tpd/xl2tpd.conf",
+    "/etc/strongswan.conf",
+)
+
+
 def down() -> None:
     if not ROOT.exists():
         return  # Disabled/not-started workflow must not touch host configuration.
@@ -328,12 +336,7 @@ def down() -> None:
         except Exception:  # noqa: BLE001, S110 - best-effort route revert; teardown must continue to the secret/config cleanup below
             pass
     # Hosted runners are disposable. Delete all generated secret/config material.
-    for path in [
-        "/etc/ipsec.secrets",
-        "/etc/ipsec.conf",
-        "/etc/xl2tpd/xl2tpd.conf",
-        "/etc/strongswan.conf",
-    ]:
+    for path in SECRET_CONFIG_PATHS:
         try:
             Path(path).unlink(missing_ok=True)
         except OSError:
