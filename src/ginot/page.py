@@ -1172,8 +1172,20 @@ function currentEvidence(p){
 }
 fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
   if(!Array.isArray(list))throw new Error('invalid publication list');
-  publicationEvidence=list;applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
-  if(window.__renderUrgent)window.__renderUrgent();
+  publicationEvidence=list;
+  try{
+    applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+    if(window.__renderUrgent)window.__renderUrgent();
+    // A successful re-render supersedes any earlier render failure.
+    if(renderFailed){renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
+  }catch(err){
+    showRenderRetry(function(){
+      applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+      if(window.__renderUrgent)window.__renderUrgent();
+    });
+  }
+  // Data-state signaling is not rendering: it must fire even when the render
+  // above failed, or the #441 safety net never learns about new evidence.
   window.__permitPublicationEvidenceLoaded=true;
   document.dispatchEvent(new Event('publication-evidence-loaded'));
 }).catch(function(){window.__permitPublicationEvidenceFailed=true;});
@@ -1225,10 +1237,14 @@ function showLoadState(){
     // The subset view stays visible. A full load the evidence safety net
     // asked for (a current publication outside the subset) must still say
     // when it failed, or that permit is silently missing.
-    // A render failure stays visible until its retry succeeds: a later
-    // publications/apply cycle must not wipe the retry in the default view.
-    if(renderFailed){/* keep the render retry visible */}
-    else if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
+    // A failed full fetch for evidence missing from the subset is the
+    // blocking problem: show its retry first. The render failure re-surfaces
+    // through the post-install catch once the fetch succeeds.
+    if(fullFailed&&evidenceNeedsFull)showRetry();
+    // A render failure otherwise stays visible until its retry succeeds: a
+    // later publications/apply cycle must not wipe it in the default view.
+    else if(renderFailed){/* keep the render retry visible */}
+    else pfload.textContent='';
     return;
   }
   rows.forEach(function(r){r.classList.add('filtered-out');});

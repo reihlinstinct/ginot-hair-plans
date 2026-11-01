@@ -2003,3 +2003,102 @@ def test_subset_render_failure_keeps_subset_without_full_reload(
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_evidence_loaded_fires_despite_render_failure(tmp_path, browser, request):
+    # #751 CodeRabbit: a render exception in the publications callback must not
+    # swallow publication-evidence-loaded - the #441 safety net would never
+    # notice a newly published permit outside the subset.
+    srv, url = _lazy_site(tmp_path)
+    # The subset renders before the evidence exists (daily list refreshes
+    # independently), so the tik is genuinely outside the subset.
+    (tmp_path / "site" / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    try:
+        with recorded_page(browser, request) as (pg, _errors):
+            seen = _count_requests(pg)
+
+            def handle(route):
+                resp = route.fetch()
+                pg.evaluate(
+                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+                )
+                route.fulfill(response=resp)
+
+            pg.route("**/permits-default.html", handle)
+            pg.goto(url)
+            # the safety net still triggers the full load
+            pg.wait_for_function("window.__permitsLoaded === true")
+            assert pg.evaluate("window.__permitsRenderFailed") is True
+            assert pg.evaluate("window.__permitPublicationEvidenceLoaded") is True
+            assert seen["permits.html"] == 1
+    finally:
+        srv.shutdown()
+
+
+def test_render_failure_then_full_load_failure_shows_load_retry(
+    tmp_path, browser, request
+):
+    # #751 CodeRabbit: subset render failure + evidence-driven full fetch that
+    # also fails must surface the full-load retry (the missing permits cannot
+    # be fetched through the render retry).
+    srv, url = _lazy_site(tmp_path)
+    # The subset renders before the evidence exists (daily list refreshes
+    # independently), so the tik is genuinely outside the subset.
+    (tmp_path / "site" / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            state = {"fail": True}
+
+            def fail_full(route):
+                if state["fail"]:
+                    route.fulfill(status=503, body="")
+                else:
+                    route.continue_()
+
+            pg.route("**/permits.html", fail_full)
+
+            def patch_render(route):
+                resp = route.fetch()
+                pg.evaluate(
+                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+                )
+                route.fulfill(response=resp)
+
+            pg.route("**/permits-default.html", patch_render)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsFailed === true")
+            # the full-load retry is visible, not only the render retry
+            assert pg.locator("#pfretry").is_visible()
+            # recover: unpatch rendering, un-fail the fetch, retry the load
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
+            state["fail"] = False
+            pg.locator("#pfretry").click()
+            pg.wait_for_function("window.__permitsLoaded === true")
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            assert pg.locator("#pfload").inner_text() == ""
+            assert pg.locator("#permits-table tbody tr").count() == 33
+            assert errors == []
+    finally:
+        srv.shutdown()
