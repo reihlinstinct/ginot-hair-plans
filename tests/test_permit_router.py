@@ -285,12 +285,13 @@ def _gh_world(w, p):
             )
         if path == f"repos/{REPO}/actions/runs/{RUN_ID}":
             return w.run
-        if path == f"repos/{REPO}/pulls/7/reviews?per_page=100":
-            return w.reviews
-        if path == f"repos/{REPO}/issues/7/comments?per_page=100":
-            return [{"body": w.markers}]
-        if path == f"repos/{REPO}/pulls/7/files?per_page=100":
-            return w.files
+        for prefix, items in (
+            (f"repos/{REPO}/pulls/7/reviews", w.reviews),
+            (f"repos/{REPO}/issues/7/comments", [{"body": w.markers}]),
+            (f"repos/{REPO}/pulls/7/files", w.files),
+        ):
+            if path.startswith(prefix + "?per_page="):
+                return items if int(path.rsplit("page=", 1)[1]) == 1 else []
         return None
 
     return gh
@@ -467,7 +468,7 @@ def test_only_the_latest_decisive_review_per_reviewer_counts(revs, verdict):
 
 
 @pytest.mark.parametrize("which", ["/reviews", "/comments", "/files"])
-def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, capsys):
+def test_pagination_budget_exhaustion_stops_instead_of_truncating(which, capsys):
     w, p = World(), pr()
     gh = _gh_world(w, p)
     full = [
@@ -486,7 +487,151 @@ def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, cap
         )
         == 1
     )
-    assert "incomplete" in capsys.readouterr().out
+    assert "pagination budget" in capsys.readouterr().out
+
+
+def _paged(pages_by_prefix):
+    """A gh double serving the given pages (1-based) for list endpoints."""
+
+    def gh(path):
+        for prefix, pages in pages_by_prefix.items():
+            if path.startswith(prefix + "?per_page="):
+                page = int(path.rsplit("page=", 1)[1])
+                return pages[page - 1] if page <= len(pages) else []
+        raise pr_mod.GitHubHTTPError(404)
+
+    return gh
+
+
+def test_more_than_one_page_of_allowed_files_is_fully_validated():
+    w, p = World(), pr()
+    many = [
+        {"filename": f"docs/badge/parcel-zz-{i}.json", "status": "modified"}
+        for i in range(150)
+    ]
+    w.files = files() + many
+    p["changed_files"] = len(w.files)
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+
+
+def test_rename_source_on_a_later_files_page_is_validated():
+    w, p = World(), pr()
+    sneaky = [
+        {
+            "filename": "data/permits.json",
+            "status": "renamed",
+            "previous_filename": "scripts/ci/permit_router.py",
+        }
+    ]
+    w.files = w.files + sneaky
+    p["changed_files"] = len(w.files)
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+def test_disallowed_file_on_a_later_page_stops():
+    w, p = World(), pr()
+    w.files = w.files + [{"filename": "src/evil.py", "status": "modified"}]
+    p["changed_files"] = len(w.files)
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+def test_dedup_marker_on_a_later_comments_page_skips(capsys):
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    comments_prefix = f"repos/{REPO}/issues/7/comments"
+    filler = [{"body": f"note {i}"} for i in range(100)]
+    paged = _paged(
+        {comments_prefix: [filler, [{"body": pr_mod.marker(7, HEAD, RUN_ID)}]]}
+    )
+
+    def gh2(path):
+        return paged(path) if path.startswith(comments_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert "skip" in capsys.readouterr().out
+
+
+def test_decisive_review_on_a_later_page_changes_the_verdict(capsys):
+    w, p = World(), pr()
+    filler = [
+        {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+        for i in range(100)
+    ]
+    late = [
+        {
+            "state": "CHANGES_REQUESTED",
+            "commit_id": HEAD,
+            "user": {"login": "zz-reviewer"},
+        }
+    ]
+    w.reviews = filler + late
+    gh = _gh_world(w, p)
+    reviews_prefix = f"repos/{REPO}/pulls/7/reviews"
+    paged = _paged({reviews_prefix: [w.reviews[:100], w.reviews[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(reviews_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert "verdict=hold" in capsys.readouterr().out
+
+
+def test_exact_multiple_of_page_size_ends_on_empty_terminal_page():
+    w, p = World(), pr()
+    w.reviews = [
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+        for i in range(100)
+    ]
+    gh = _gh_world(w, p)
+    seen = []
+
+    def gh2(path):
+        if path.startswith(f"repos/{REPO}/pulls/7/reviews?per_page="):
+            seen.append(int(path.rsplit("page=", 1)[1]))
+        return gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert seen == [1, 2]  # full first page, then the empty terminal page
+
+
+def test_malformed_later_page_stops():
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    reviews_prefix = f"repos/{REPO}/pulls/7/reviews"
+    pages = [
+        [
+            {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+            for i in range(100)
+        ],
+        {"not": "a list"},
+    ]
+    paged = _paged({reviews_prefix: pages})
+
+    def gh2(path):
+        return paged(path) if path.startswith(reviews_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
 
 
 @pytest.mark.parametrize("status", [403, 429, 500, 503])
