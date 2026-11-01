@@ -37,7 +37,7 @@ for(const [inside,date,active,current] of [[true,'2026-10-26','1',''],[false,'20
  applyPublicationEvidence();results.push({attrs:{...row.a},text:cell.textContent});
 }
 const stageResults=[];
-for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub','','2026-10-26'],['review','2026-10-27','2026-10-26'],['postpub','2026-10-25','2026-10-26']]){
+for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub','','2026-10-26'],['review','2026-10-27','2026-10-26'],['postpub','2026-10-25','2026-10-26'],['postpub','2026-10-26','2026-10-25'],['postpub','2026-10-26','2026-10-27']]){
  row.a={...original,'data-group':group,'data-statusdate':stage};
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:date}];
  applyPublicationEvidence();stageResults.push({...row.a});
@@ -59,7 +59,14 @@ console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
     stages = payload["stageResults"]
     assert payload["today"]["data-group"] == "obj"  # same-day evidence accepted
     assert payload["boundary"]["data-group"] == "obj"  # exactly90 days accepted
-    assert [x["data-group"] for x in stages] == ["postpub", "postpub", "review", "obj"]
+    assert [x["data-group"] for x in stages] == [
+        "postpub",
+        "postpub",
+        "review",
+        "obj",
+        "postpub",  # stale evidence for the current stage cannot demote it
+        "obj",  # one day newer than the stage: selection follows the publication date
+    ]
     first = results[0]
     assert first["attrs"]["data-group"] == "obj"
     assert first["attrs"]["data-pub"] == "2026-10-26"
