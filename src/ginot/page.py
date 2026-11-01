@@ -1174,13 +1174,21 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
   if(!Array.isArray(list))throw new Error('invalid publication list');
   publicationEvidence=list;
   try{
-    applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+    applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();
+    // #757: complete a deferred URL-state restore a failed post-install never
+    // reached: clearing the render retry below without it would strand the
+    // pending state with no way to re-run. Must precede apply() so the
+    // restored controls filter this render.
+    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
+    apply();
     if(window.__renderUrgent)window.__renderUrgent();
     // A successful re-render supersedes any earlier render failure.
     if(renderFailed){renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
   }catch(err){
     showRenderRetry(function(){
-      applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+      applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();
+      if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
+      apply();
       if(window.__renderUrgent)window.__renderUrgent();
     });
   }
