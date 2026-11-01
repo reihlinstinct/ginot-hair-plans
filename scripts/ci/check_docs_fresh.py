@@ -36,6 +36,7 @@ Exit codes: 0 fresh, 1 stale (or a rendered file is missing from docs/),
 or invalid date stamp, or any unexpected error while rendering or comparing.
 CI fails on any nonzero exit.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -127,7 +128,9 @@ def render(out_dir: Path, date: str) -> None:
         changes = json.loads(inputs["changes"].read_text(encoding="utf-8"))["changes"]
         json.loads(inputs["permits"].read_text(encoding="utf-8"))["requests"]
     except (OSError, ValueError, KeyError, TypeError) as exc:
-        raise CheckError(f"unreadable committed input: {type(exc).__name__}: {exc}") from exc
+        raise CheckError(
+            f"unreadable committed input: {type(exc).__name__}: {exc}"
+        ) from exc
     pinned = datetime.date.fromisoformat(date)
     original = page.today_il
     page.today_il = lambda: pinned
@@ -151,7 +154,8 @@ def _files(tree: Path) -> list[str]:
     return sorted(
         p.relative_to(tree).as_posix()
         for p in tree.rglob("*")
-        if p.is_file() and not p.name.endswith(SKIP_SUFFIXES)
+        if p.is_file()
+        and not p.name.endswith(SKIP_SUFFIXES)
         and p.relative_to(tree).as_posix() not in EXCLUDED
     )
 
@@ -168,7 +172,9 @@ def first_difference(a: bytes, b: bytes) -> int:
     return min(a.count(b"\n"), b.count(b"\n")) + 1
 
 
-def check(docs: Path, write: bool = False, include_data_json: bool = False) -> list[str]:
+def check(
+    docs: Path, write: bool = False, include_data_json: bool = False
+) -> list[str]:
     """Return problems (empty when docs/ is fresh). With write=True,
     copy the regenerated files over docs/ instead."""
     base_date = stamp_date(docs / "index.html")
@@ -213,7 +219,9 @@ def check(docs: Path, write: bool = False, include_data_json: bool = False) -> l
             if write:
                 (docs / name).unlink()
             else:
-                problems.append(f"{name}: no longer rendered (orphan; --write removes it)")
+                problems.append(
+                    f"{name}: no longer rendered (orphan; --write removes it)"
+                )
     return problems
 
 
@@ -223,7 +231,11 @@ def orphans(docs: Path, rendered: set[str]) -> list[str]:
     for pattern in RENDER_OWNED:
         for p in docs.glob(pattern):
             name = p.relative_to(docs).as_posix()
-            if p.is_file() and name not in rendered and not name.endswith(SKIP_SUFFIXES):
+            if (
+                p.is_file()
+                and name not in rendered
+                and not name.endswith(SKIP_SUFFIXES)
+            ):
                 found.add(name)
     return sorted(found)
 
@@ -245,12 +257,21 @@ def uncovered(docs: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--docs", default=str(ROOT / "docs"))
-    ap.add_argument("--write", action="store_true",
-                    help="regenerate the covered files in docs/ instead of checking")
-    ap.add_argument("--list-uncovered", action="store_true",
-                    help="list docs/ files this check does not compare")
-    ap.add_argument("--include-data-json", action="store_true",
-                    help="also regenerate/check weekly data.json after reconciliation")
+    ap.add_argument(
+        "--write",
+        action="store_true",
+        help="regenerate the covered files in docs/ instead of checking",
+    )
+    ap.add_argument(
+        "--list-uncovered",
+        action="store_true",
+        help="list docs/ files this check does not compare",
+    )
+    ap.add_argument(
+        "--include-data-json",
+        action="store_true",
+        help="also regenerate/check weekly data.json after reconciliation",
+    )
     args = ap.parse_args(argv)
     docs = Path(args.docs)
     try:
@@ -258,20 +279,27 @@ def main(argv: list[str] | None = None) -> int:
             for name in uncovered(docs):
                 print(name)
             return 0
-        problems = check(docs, write=args.write, include_data_json=args.include_data_json)
+        problems = check(
+            docs, write=args.write, include_data_json=args.include_data_json
+        )
     except CheckError as exc:
         print(f"docs freshness check could not run: {exc}", file=sys.stderr)
         return 2
     except Exception as exc:  # noqa: BLE001 - any other failure is "could not run", never "stale"
-        print(f"docs freshness check could not run: unexpected "
-              f"{type(exc).__name__}: {exc}", file=sys.stderr)
+        print(
+            f"docs freshness check could not run: unexpected "
+            f"{type(exc).__name__}: {exc}",
+            file=sys.stderr,
+        )
         return 2
     if args.write:
         print(f"regenerated covered files in {docs}")
         return 0
     if problems:
-        print("docs/ is stale against src/ginot - regenerate with "
-              "`python scripts/ci/check_docs_fresh.py --write` and commit:")
+        print(
+            "docs/ is stale against src/ginot - regenerate with "
+            "`python scripts/ci/check_docs_fresh.py --write` and commit:"
+        )
         for p in problems:
             print(f"  {p}")
         return 1

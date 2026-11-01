@@ -20,8 +20,8 @@ def test_recheck_does_not_use_offset_backfill_steps_or_schedule():
 
 def test_regression_recheck_must_not_delete_scan_checkpoint():
     # No workflow mode may delete a checkpoint before its PR is reviewed.
-    assert 'refs/heads/scan-checkpoint' not in WF
-    assert 'git/refs/heads/scan-checkpoint' not in WF
+    assert "refs/heads/scan-checkpoint" not in WF
+    assert "git/refs/heads/scan-checkpoint" not in WF
 
 
 def test_daily_recheck_runs_in_scan_run_once_per_day_and_cannot_fail_the_batch():

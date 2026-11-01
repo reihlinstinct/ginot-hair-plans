@@ -1,4 +1,5 @@
 """Unit tests for the daily active-publications diff (issue #527)."""
+
 import importlib.util
 import json
 from pathlib import Path
@@ -20,8 +21,18 @@ IN_ROW = {
     "objection_deadline": "2026-11-13",
     "in_polygon": True,
 }
-OUT_ROW = {"myIndex": 3, "tik_num": "2026/9999.00", "neighborhood": "רמות", "in_polygon": False}
-UNRESOLVED_ROW = {"myIndex": 4, "tik_num": "2026/0001.00", "neighborhood": None, "in_polygon": None}
+OUT_ROW = {
+    "myIndex": 3,
+    "tik_num": "2026/9999.00",
+    "neighborhood": "רמות",
+    "in_polygon": False,
+}
+UNRESOLVED_ROW = {
+    "myIndex": 4,
+    "tik_num": "2026/0001.00",
+    "neighborhood": None,
+    "in_polygon": None,
+}
 OLD = [{"myIndex": 1, "neighborhood": "קטמון הישנה", "in_polygon": True}]
 
 
@@ -33,7 +44,9 @@ def test_seed_writes_baseline_without_alerts():
 
 
 def test_new_in_polygon_row_is_reported_and_outside_ignored():
-    baseline, payload, seeded = watch.update(OLD, OLD + [IN_ROW, OUT_ROW, UNRESOLVED_ROW])
+    baseline, payload, seeded = watch.update(
+        OLD, OLD + [IN_ROW, OUT_ROW, UNRESOLVED_ROW]
+    )
     assert not seeded
     assert payload["new_in_polygon"] == [IN_ROW]
     assert payload["unresolved_new"] == [UNRESOLVED_ROW]
@@ -51,20 +64,48 @@ def test_main_roundtrip(tmp_path):
     new = tmp_path / "new.json"
     new.write_text(json.dumps([IN_ROW, OUT_ROW], ensure_ascii=False), encoding="utf-8")
     permits = tmp_path / "permits.json"
-    permits.write_text(json.dumps([
-        {"tik_num": "2026/0439.00", "gush": 30016, "helka": 87},
-        {"tik_num": "2026/9999.00", "gush": 99999, "helka": 1},
-    ]), encoding="utf-8")
+    permits.write_text(
+        json.dumps(
+            [
+                {"tik_num": "2026/0439.00", "gush": 30016, "helka": 87},
+                {"tik_num": "2026/9999.00", "gush": 99999, "helka": 1},
+            ]
+        ),
+        encoding="utf-8",
+    )
     parcels = tmp_path / "parcels.json"
-    parcels.write_text(json.dumps({"type": "FeatureCollection", "features": [
-        {"type": "Feature", "properties": {"gush": 30016, "helka": 87}, "geometry": None}
-    ]}), encoding="utf-8")
+    parcels.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {"gush": 30016, "helka": 87},
+                        "geometry": None,
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
     out_active = tmp_path / "active.json"
     out_new = tmp_path / "alert.json"
     rc = watch.main(
-        ["--old", str(tmp_path / "missing.json"), "--new", str(new),
-         "--permits", str(permits), "--parcels", str(parcels),
-         "--out-active", str(out_active), "--out-new", str(out_new)]
+        [
+            "--old",
+            str(tmp_path / "missing.json"),
+            "--new",
+            str(new),
+            "--permits",
+            str(permits),
+            "--parcels",
+            str(parcels),
+            "--out-active",
+            str(out_active),
+            "--out-new",
+            str(out_new),
+        ]
     )
     assert rc == 0
     # main re-resolves from permits+parcels: IN_ROW in-polygon; OUT_ROW's parcel
@@ -72,7 +113,10 @@ def test_main_roundtrip(tmp_path):
     active = json.loads(out_active.read_text(encoding="utf-8"))
     assert [r["tik_num"] for r in active] == ["2026/0439.00"]
     assert active[0]["in_polygon"] is True
-    assert json.loads(out_new.read_text(encoding="utf-8")) == {"new_in_polygon": [], "unresolved_new": []}
+    assert json.loads(out_new.read_text(encoding="utf-8")) == {
+        "new_in_polygon": [],
+        "unresolved_new": [],
+    }
 
 
 def test_unresolved_row_alerts_when_it_resolves_into_scope():

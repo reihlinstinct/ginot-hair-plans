@@ -456,28 +456,69 @@ _PERMIT_TERMINAL_STATUSES = frozenset(
 # default; the rest sit behind a "סטטוסים נוספים" disclosure. The raw status
 # stays on every row and in the status select.
 PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
-    ("obj", "פתוח להתנגדויות", frozenset({
-        "תחילת פרסום הבקשה להקלה", "פורסמה בקשה להקלה",
-        "תחילת הודעות לפני תקנה 36", "השלמת הודעות לפני תקנה 36"}), True),
-    ("pre", "פרסום מתקרב", frozenset({
-        "ממתין לאישור נוסח פרסום", "נוסח פרסום אושר"}), True),
-    ("review", "בטיפול/דיונים", frozenset({
-        "נפתח תיק רישוי", "הגשה מקוונת הושלמה", "נדונה בוועדת המשנה",
-        "נדונה ברשות הרישוי", "נדונה בועדת ערר", "התקבל ערר",
-        "התקבלה בקשה לדיון המועצה", "חידוש טיפול בבקשה", "שולמה מקדמה",
-        'אושר ע"י מהנדס העיר'}), False),
-    ("draft", "טיוטת היתר", frozenset({
-        "הוכנה טיוטת היתר בניה", "התקבל תיק ורוד / מסמכים חתומים"}), False),
+    (
+        "obj",
+        "פתוח להתנגדויות",
+        frozenset(
+            {
+                "תחילת פרסום הבקשה להקלה",
+                "פורסמה בקשה להקלה",
+                "תחילת הודעות לפני תקנה 36",
+                "השלמת הודעות לפני תקנה 36",
+            }
+        ),
+        True,
+    ),
+    (
+        "pre",
+        "פרסום מתקרב",
+        frozenset({"ממתין לאישור נוסח פרסום", "נוסח פרסום אושר"}),
+        True,
+    ),
+    (
+        "review",
+        "בטיפול/דיונים",
+        frozenset(
+            {
+                "נפתח תיק רישוי",
+                "הגשה מקוונת הושלמה",
+                "נדונה בוועדת המשנה",
+                "נדונה ברשות הרישוי",
+                "נדונה בועדת ערר",
+                "התקבל ערר",
+                "התקבלה בקשה לדיון המועצה",
+                "חידוש טיפול בבקשה",
+                "שולמה מקדמה",
+                'אושר ע"י מהנדס העיר',
+            }
+        ),
+        False,
+    ),
+    (
+        "draft",
+        "טיוטת היתר",
+        frozenset({"הוכנה טיוטת היתר בניה", "התקבל תיק ורוד / מסמכים חתומים"}),
+        False,
+    ),
     ("postpub", "אחרי פרסום", frozenset({"תום תקופת פרסום"}), False),
-    ("issued", "הופק היתר", frozenset({
-        "הופק-הוצא היתר בניה", "הופק היתר מוארך"}), False),
+    (
+        "issued",
+        "הופק היתר",
+        frozenset({"הופק-הוצא היתר בניה", "הופק היתר מוארך"}),
+        False,
+    ),
     ("closed", "סגור/אחר", frozenset({"הבקשה נסגרה", "הבקשה נגנזה", ""}), False),
 )
 
 _PERMIT_GROUP_CLASS = {
-    "obj": "c-deposit", "pre": "c-review", "review": "c-inproc",
-    "draft": "c-cond", "postpub": "c-inproc", "issued": "c-approved",
-    "closed": "c-closed", "unmapped": "c-inproc",
+    "obj": "c-deposit",
+    "pre": "c-review",
+    "review": "c-inproc",
+    "draft": "c-cond",
+    "postpub": "c-inproc",
+    "issued": "c-approved",
+    "closed": "c-closed",
+    "unmapped": "c-inproc",
 }
 
 
@@ -496,17 +537,50 @@ def _permit_status_group(status: str) -> tuple[str, str, bool]:
 # (ginothair.org.il). "in" = one of the 7; "out" = another Jerusalem
 # neighbourhood seen in the feed; "unknown" = no usable neighbourhood signal
 # (kept visible by default - fail visible, never hide a possible objection).
-_PERMIT_SCOPE_IN = frozenset({
-    "קטמון הישנה", "רחביה", "קריית שמואל", "מושבה גרמנית",
-    "המושבה היוונית", "טלביה", "טלביה/המוגרבים", "נוה שאנן/ניות", "ניות",
-})
-_PERMIT_SCOPE_OUT = frozenset({
-    "בית וגן", "בית צפפה", "גאולים - בקעה", "גבעת אורן", "גבעת הורדים",
-    "גבעת המטוס", "גבעת הפורצים", "גבעת מרדכי", "גבעת רם",
-    "גונן ב", "גונן ג", "גונן ה", "גונן ו", "גונן ח", "גונן ט", "גוננים",
-    "גילה", "מנחת", "מקור חיים", "נוה גרנות", "סן סימון", "עומריה",
-    "פת", "קרית האומה", "שרפת", "תלפיות", "תלפיות תעשיה",
-})
+_PERMIT_SCOPE_IN = frozenset(
+    {
+        "קטמון הישנה",
+        "רחביה",
+        "קריית שמואל",
+        "מושבה גרמנית",
+        "המושבה היוונית",
+        "טלביה",
+        "טלביה/המוגרבים",
+        "נוה שאנן/ניות",
+        "ניות",
+    }
+)
+_PERMIT_SCOPE_OUT = frozenset(
+    {
+        "בית וגן",
+        "בית צפפה",
+        "גאולים - בקעה",
+        "גבעת אורן",
+        "גבעת הורדים",
+        "גבעת המטוס",
+        "גבעת הפורצים",
+        "גבעת מרדכי",
+        "גבעת רם",
+        "גונן ב",
+        "גונן ג",
+        "גונן ה",
+        "גונן ו",
+        "גונן ח",
+        "גונן ט",
+        "גוננים",
+        "גילה",
+        "מנחת",
+        "מקור חיים",
+        "נוה גרנות",
+        "סן סימון",
+        "עומריה",
+        "פת",
+        "קרית האומה",
+        "שרפת",
+        "תלפיות",
+        "תלפיות תעשיה",
+    }
+)
 
 
 def _permit_scope(p: dict) -> str:
@@ -565,19 +639,20 @@ def write_permit_ids(permits: list[dict], path: str) -> int:
 # Only already-published public reviews are linked. External/unreviewed
 # submissions never become table links automatically.
 PERMIT_AI_REVIEWS = {
-    '2026/0439.00': 'reviews/palmach41/review-2026-0439.00.html',
+    "2026/0439.00": "reviews/palmach41/review-2026-0439.00.html",
 }
 
 
 def _permit_review_cell(tik_num):
-    url = PERMIT_AI_REVIEWS.get((tik_num or '').strip())
+    url = PERMIT_AI_REVIEWS.get((tik_num or "").strip())
     if url:
         return f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
     return '<span class="derived">טרם פורסמה סקירה</span>'
 
 
-def _is_default_permit_candidate(group_default: bool, scope: str, active: str,
-                                 tik: str, evidence_tiks: frozenset) -> bool:
+def _is_default_permit_candidate(
+    group_default: bool, scope: str, active: str, tik: str, evidence_tiks: frozenset
+) -> bool:
     """#441: a row the default (no-interaction) view may need without the full
     fragment. Default-visible groups (unmapped fails visible) that are active
     and not out of scope, plus every active row whose tik has publication
@@ -602,15 +677,21 @@ def publication_evidence_tiks(path: str) -> frozenset:
     if not isinstance(entries, list):
         return frozenset()
     return frozenset(
-        e["tik_num"] for e in entries
-        if isinstance(e, dict) and e.get("in_polygon") is True
-        and isinstance(e.get("tik_num"), str) and e["tik_num"]
+        e["tik_num"]
+        for e in entries
+        if isinstance(e, dict)
+        and e.get("in_polygon") is True
+        and isinstance(e.get("tik_num"), str)
+        and e["tik_num"]
     )
 
 
-def _permits_section(permits: list[dict], rows_file: str | None = None,
-                     default_rows_file: str | None = None,
-                     evidence_tiks: frozenset = frozenset()) -> str:
+def _permits_section(
+    permits: list[dict],
+    rows_file: str | None = None,
+    default_rows_file: str | None = None,
+    evidence_tiks: frozenset = frozenset(),
+) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
     textually distinct from the plans table. Terminal requests (closed /
@@ -649,7 +730,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
             if address_note
             else ""
         )
-        if p.get('_map_missing'):
+        if p.get("_map_missing"):
             address_note_html += " <span class='pub-missing'>אין מיקום</span>"
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
@@ -692,8 +773,9 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
             f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
             f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
-        if _is_default_permit_candidate(_group_default, scope, active,
-                                        p.get("tik_num") or "", evidence_tiks):
+        if _is_default_permit_candidate(
+            _group_default, scope, active, p.get("tik_num") or "", evidence_tiks
+        ):
             default_rows.append(rows[-1])
     if default_rows_file:
         with open(default_rows_file, "w", encoding="utf-8") as fh:
@@ -705,6 +787,7 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
     )
+
     def valid_coverage_date(value):
         try:
             datetime.date.fromisoformat(_iso(value))
@@ -713,15 +796,19 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
             return False
 
     n_dated = sum(valid_coverage_date(p.get("publication_start")) for p in permits)
-    n_planned = sum(valid_coverage_date(p.get("publication_end_planned")) for p in permits)
+    n_planned = sum(
+        valid_coverage_date(p.get("publication_end_planned")) for p in permits
+    )
     coverage_text = (
         f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
-        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits)-n_dated} ללא תאריך תחילת פרסום."
+        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits) - n_dated} ללא תאריך תחילת פרסום."
     )
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
 
-    _gcounts = _PCounter(_permit_status_group(p.get("status") or "")[0] for p in permits)
+    _gcounts = _PCounter(
+        _permit_status_group(p.get("status") or "")[0] for p in permits
+    )
 
     def _gchip(key: str, label: str, default_on: bool) -> str:
         sel = " sel" if default_on else ""
@@ -733,7 +820,9 @@ def _permits_section(permits: list[dict], rows_file: str | None = None,
 
     main_chips, more_chips = [], []
     for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
-        (main_chips if default_on else more_chips).append(_gchip(key, label, default_on))
+        (main_chips if default_on else more_chips).append(
+            _gchip(key, label, default_on)
+        )
     if _gcounts.get("unmapped"):
         main_chips.append(_gchip("unmapped", "לא מסווג", True))
     plegend = (
@@ -1620,9 +1709,14 @@ def render_review(
         md_text, extensions=["tables", "fenced_code", "sane_lists"]
     )
     early_intent = "<!-- review-stage: early-intent -->" in md_text
-    social = review_social_meta(pl_number, plan_name, base_url, preview_image, early_intent)
-    basis = ("הכנה מוקדמת מרישום ציבורי בלבד; לא נבדקה תכנית מפורטת."
-             if early_intent else "מתוך מסמכי התכנית הרשמיים.")
+    social = review_social_meta(
+        pl_number, plan_name, base_url, preview_image, early_intent
+    )
+    basis = (
+        "הכנה מוקדמת מרישום ציבורי בלבד; לא נבדקה תכנית מפורטת."
+        if early_intent
+        else "מתוך מסמכי התכנית הרשמיים."
+    )
     return f"""<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1702,17 +1796,27 @@ def render_site(
         except (FileNotFoundError, json.JSONDecodeError):
             permits = []
     from .mapdata import write_permit_points
+
     permit_map = write_permit_points(
-        permits, os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
-                              'ginot_hair_parcels.geojson'),
-        f'{out_dir}/permit-points.json')
-    missing_positions = set(permit_map['missing_location'])
-    permits = [dict(p, _map_missing=p.get('tik_num') in missing_positions) for p in permits]
+        permits,
+        os.path.join(
+            os.path.dirname(permits_path or "data/permit_requests.json"),
+            "ginot_hair_parcels.geojson",
+        ),
+        f"{out_dir}/permit-points.json",
+    )
+    missing_positions = set(permit_map["missing_location"])
+    permits = [
+        dict(p, _map_missing=p.get("tik_num") in missing_positions) for p in permits
+    ]
     # Public normalized publication metadata only, never permit-file documents.
-    publications_path = os.path.join(os.path.dirname(permits_path or 'data/permit_requests.json'),
-                                     'publications_active.json')
+    publications_path = os.path.join(
+        os.path.dirname(permits_path or "data/permit_requests.json"),
+        "publications_active.json",
+    )
     from .publications import write_projection
-    write_projection(publications_path, f'{out_dir}/publications_active.json')
+
+    write_projection(publications_path, f"{out_dir}/publications_active.json")
     from . import preview
 
     sort_rows(rows)  # annotates _open_obj, which the preview card counts

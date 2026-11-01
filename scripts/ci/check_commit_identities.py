@@ -107,7 +107,11 @@ def boundary_commits(base, head):
         check=True,
     ).stdout.strip()
     try:
-        cuts = [l.strip() for l in pathlib.Path(path).read_text(encoding="utf-8").splitlines() if l.strip()]
+        cuts = [
+            l.strip()
+            for l in pathlib.Path(path).read_text(encoding="utf-8").splitlines()
+            if l.strip()
+        ]
     except FileNotFoundError:
         return []  # no shallow file: history is complete
     return [c for c in cuts if _is_ancestor(c, head) and not _is_ancestor(c, base)]

@@ -54,9 +54,7 @@ def address_fields_strict(tik):
     a genuine empty result stores empty fields. A failure must never be
     persisted as "no address" - that would clear a good legacy address and
     skip the retry (#452 review)."""
-    rows = _feed.call(
-        ADDRESS_PROC, {"systemId": _feed.SYS, "tikNum": tik}
-    )
+    rows = _feed.call(ADDRESS_PROC, {"systemId": _feed.SYS, "tikNum": tik})
     if rows is None:
         raise ValueError(f"proc {ADDRESS_PROC}: no usable response")
     if not isinstance(rows, list):
@@ -170,7 +168,9 @@ def _atomic_write(path, payload):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data/permit_requests.json")
-    ap.add_argument("--checkpoint-file", default="data/.address-backfill-checkpoint.json")
+    ap.add_argument(
+        "--checkpoint-file", default="data/.address-backfill-checkpoint.json"
+    )
     ap.add_argument("--limit", type=int, default=0, help="cap target count (0 = all)")
     ap.add_argument("--flush-every", type=int, default=25)
     ap.add_argument("--resume", action="store_true")
@@ -239,7 +239,9 @@ def main():
         if i % args.flush_every == 0:
             flush_data(args.data, payload)
             save_checkpoint(args.checkpoint_file, done, payload)
-            print(f"progress {i}/{len(pending)} (enriched {enriched}, failures {failures})")
+            print(
+                f"progress {i}/{len(pending)} (enriched {enriched}, failures {failures})"
+            )
 
     flush_data(args.data, payload)
     save_checkpoint(args.checkpoint_file, done, payload)

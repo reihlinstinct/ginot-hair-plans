@@ -78,21 +78,31 @@ def test_permit_parcel_points_handle_holes_multipart_and_missing():
 
     from ginot.mapdata import permit_points
 
-    geometry = MultiPolygon([
-        Polygon(square(35.21, 31.76, .01), [square(35.212, 31.762, .002)]),
-        Polygon(square(35.24, 31.76, .001)),
-    ])
-    parcels = {'features': [{'properties': {'gush': 30000, 'helka': 12},
-                            'geometry': mapping(geometry)}]}
-    permits = [{'tik_num': 'one', 'gush': '030000', 'helka': '12', 'private': 'omit'},
-               {'tik_num': 'two', 'gush': 30000, 'helka': 12},
-               {'tik_num': 'missing', 'gush': 30000, 'helka': 13}]
+    geometry = MultiPolygon(
+        [
+            Polygon(square(35.21, 31.76, 0.01), [square(35.212, 31.762, 0.002)]),
+            Polygon(square(35.24, 31.76, 0.001)),
+        ]
+    )
+    parcels = {
+        "features": [
+            {"properties": {"gush": 30000, "helka": 12}, "geometry": mapping(geometry)}
+        ]
+    }
+    permits = [
+        {"tik_num": "one", "gush": "030000", "helka": "12", "private": "omit"},
+        {"tik_num": "two", "gush": 30000, "helka": 12},
+        {"tik_num": "missing", "gush": 30000, "helka": 13},
+    ]
     data = permit_points(permits, parcels)
-    assert data['missing_location'] == ['missing']
-    assert len(data['points']) == 2
-    assert data['points'][0]['representative_point'] == data['points'][1]['representative_point']
-    assert geometry.covers(Point(*data['points'][0]['representative_point']))
-    assert set(data['points'][0]) == {'tik_num', 'representative_point'}
+    assert data["missing_location"] == ["missing"]
+    assert len(data["points"]) == 2
+    assert (
+        data["points"][0]["representative_point"]
+        == data["points"][1]["representative_point"]
+    )
+    assert geometry.covers(Point(*data["points"][0]["representative_point"]))
+    assert set(data["points"][0]) == {"tik_num", "representative_point"}
 
 
 def test_permit_parcel_points_reject_invalid_or_non_wgs84_geometry():
@@ -100,11 +110,21 @@ def test_permit_parcel_points_reject_invalid_or_non_wgs84_geometry():
 
     from ginot.mapdata import permit_points
 
-    parcels = {'features': [
-        {'properties': {'gush': 1, 'helka': 1}, 'geometry': mapping(Polygon(square(220000, 630000, 100)))},
-        {'properties': {'gush': 2, 'helka': 2}, 'geometry': None},
-    ]}
-    data = permit_points([{'tik_num': 'one', 'gush': 1, 'helka': 1},
-                          {'tik_num': 'two', 'gush': 2, 'helka': 2}], parcels)
-    assert data['points'] == []
-    assert data['missing_location'] == ['one', 'two']
+    parcels = {
+        "features": [
+            {
+                "properties": {"gush": 1, "helka": 1},
+                "geometry": mapping(Polygon(square(220000, 630000, 100))),
+            },
+            {"properties": {"gush": 2, "helka": 2}, "geometry": None},
+        ]
+    }
+    data = permit_points(
+        [
+            {"tik_num": "one", "gush": 1, "helka": 1},
+            {"tik_num": "two", "gush": 2, "helka": 2},
+        ],
+        parcels,
+    )
+    assert data["points"] == []
+    assert data["missing_location"] == ["one", "two"]

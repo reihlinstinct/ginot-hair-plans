@@ -31,10 +31,14 @@ def load_rows(path: Path) -> list[dict] | None:
 
 
 def write_json(path: Path, payload: object) -> None:
-    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
-def update(old_rows: list[dict] | None, new_rows: list[dict]) -> tuple[list[dict], dict, bool]:
+def update(
+    old_rows: list[dict] | None, new_rows: list[dict]
+) -> tuple[list[dict], dict, bool]:
     """Return (baseline_to_write, alert_payload, seeded).
 
     Baseline keeps in-polygon rows plus unresolved-tik rows (so an unresolved
@@ -64,25 +68,37 @@ def update(old_rows: list[dict] | None, new_rows: list[dict]) -> tuple[list[dict
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--old", required=True, help="committed baseline JSON (may not exist)")
+    parser.add_argument(
+        "--old", required=True, help="committed baseline JSON (may not exist)"
+    )
     parser.add_argument("--new", required=True, help="freshly fetched JSON")
     parser.add_argument("--permits", required=True, help="data/permit_requests.json")
-    parser.add_argument("--parcels", required=True, help="data/ginot_hair_parcels.geojson")
+    parser.add_argument(
+        "--parcels", required=True, help="data/ginot_hair_parcels.geojson"
+    )
     parser.add_argument("--out-active", required=True, help="baseline to write")
     parser.add_argument("--out-new", required=True, help="alert payload to write")
     args = parser.parse_args(argv)
 
     old_rows = load_rows(Path(args.old))
     new_rows = json.loads(Path(args.new).read_text(encoding="utf-8"))
-    resolve_in_polygon(new_rows, load_tik_parcels(Path(args.permits)), load_parcel_keys(Path(args.parcels)))
+    resolve_in_polygon(
+        new_rows,
+        load_tik_parcels(Path(args.permits)),
+        load_parcel_keys(Path(args.parcels)),
+    )
     baseline, payload, seeded = update(old_rows, new_rows)
     write_json(Path(args.out_active), baseline)
     write_json(Path(args.out_new), payload)
     if seeded:
-        print(f"seeded baseline with {len(baseline)} in-scope publications; no alert entries")
+        print(
+            f"seeded baseline with {len(baseline)} in-scope publications; no alert entries"
+        )
     else:
-        print(f"{len(payload['new_in_polygon'])} new in-polygon publication(s); "
-              f"{len(payload['unresolved_new'])} unresolved (tik not in tracker)")
+        print(
+            f"{len(payload['new_in_polygon'])} new in-polygon publication(s); "
+            f"{len(payload['unresolved_new'])} unresolved (tik not in tracker)"
+        )
         for row in payload["new_in_polygon"] + payload["unresolved_new"]:
             deadline = row["objection_deadline"] or "-"
             marker = "" if row["in_polygon"] else " [UNRESOLVED]"

@@ -123,34 +123,38 @@ def test_status_chips_and_legend(tmp_path):
 def _permits(tmp_path, custom=None):
     import json
 
-    reqs = {"requests": custom} if custom is not None else {
-        "requests": [
-            {
-                "tik_num": "2026/0001.01",
-                "address": "רחוב א 1",
-                "mahut": "תוספת קומה",
-                "sugbakasha": "היתר בניה",
-                "status": "נפתח תיק רישוי",
-                "status_date": "2026-09-01",
-                "publication_start": "2026-10-01",
-                "publication_end_planned": "2026-11-01",
-                "gush": 30001,
-                "helka": 5,
-            },
-            {
-                "tik_num": "2024/0002.02",
-                "address": "רחוב ב 2",
-                "mahut": "שימוש חורג",
-                "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
-                "status": "הבקשה נסגרה",
-                "status_date": "",
-                "publication_start": "",
-                "publication_end_planned": "",
-                "gush": 30002,
-                "helka": 6,
-            },
-        ]
-    }
+    reqs = (
+        {"requests": custom}
+        if custom is not None
+        else {
+            "requests": [
+                {
+                    "tik_num": "2026/0001.01",
+                    "address": "רחוב א 1",
+                    "mahut": "תוספת קומה",
+                    "sugbakasha": "היתר בניה",
+                    "status": "נפתח תיק רישוי",
+                    "status_date": "2026-09-01",
+                    "publication_start": "2026-10-01",
+                    "publication_end_planned": "2026-11-01",
+                    "gush": 30001,
+                    "helka": 5,
+                },
+                {
+                    "tik_num": "2024/0002.02",
+                    "address": "רחוב ב 2",
+                    "mahut": "שימוש חורג",
+                    "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+                    "status": "הבקשה נסגרה",
+                    "status_date": "",
+                    "publication_start": "",
+                    "publication_end_planned": "",
+                    "gush": 30002,
+                    "helka": 6,
+                },
+            ]
+        }
+    )
     pp = tmp_path / "permits.json"
     pp.write_text(json.dumps(reqs, ensure_ascii=False), encoding="utf-8")
     return str(pp)
@@ -223,7 +227,7 @@ def test_status_legends_clickable(tmp_path):
     # plans legend: raw-status chips; permits legend (#521): status-group
     # chips, objection groups selected by default, rest behind a disclosure
     assert "מקרא סטטוסים" in html
-    assert '<b>סטטוסים:</b>' in html
+    assert "<b>סטטוסים:</b>" in html
     assert 'class="chip c-deposit" data-status="הפקדה להתנגדויות"' in html
     assert 'class="chip c-deposit sel" data-group="obj"' in html
     assert 'class="chip c-review sel" data-group="pre"' in html
@@ -733,6 +737,7 @@ def test_sort_rows_deadline_equal_to_utc_today_is_not_open_in_israel(monkeypatch
     out = page.sort_rows([row])
     assert out[0]["_open_obj"] is False
 
+
 def test_permits_recency_markup(tmp_path):
     from ginot import page
 
@@ -783,6 +788,7 @@ def test_iso_rejects_malformed_dates():
     assert page._iso("18.10.2026") == ""
     assert page._iso(None) == ""
 
+
 def test_permit_partial_address_display(tmp_path):
     # #408: a neighborhood name is never disguised as a street address
     from ginot import page
@@ -824,14 +830,29 @@ def test_permit_status_group_mapping_covers_live_statuses():
     from ginot.page import PERMIT_STATUS_GROUPS, _permit_status_group
 
     live = [
-        "הופק-הוצא היתר בניה", "הוכנה טיוטת היתר בניה", "הבקשה נסגרה",
-        "נדונה בוועדת המשנה", "התקבל תיק ורוד / מסמכים חתומים", "שולמה מקדמה",
-        "נדונה ברשות הרישוי", "נפתח תיק רישוי", "הופק היתר מוארך",
-        "נדונה בועדת ערר", "הגשה מקוונת הושלמה", "ממתין לאישור נוסח פרסום",
-        'אושר ע"י מהנדס העיר', "תום תקופת פרסום", "חידוש טיפול בבקשה",
-        "התקבל ערר", "הבקשה נגנזה", "תחילת פרסום הבקשה להקלה",
-        "נוסח פרסום אושר", "", "השלמת הודעות לפני תקנה 36",
-        "תחילת הודעות לפני תקנה 36", "פורסמה בקשה להקלה",
+        "הופק-הוצא היתר בניה",
+        "הוכנה טיוטת היתר בניה",
+        "הבקשה נסגרה",
+        "נדונה בוועדת המשנה",
+        "התקבל תיק ורוד / מסמכים חתומים",
+        "שולמה מקדמה",
+        "נדונה ברשות הרישוי",
+        "נפתח תיק רישוי",
+        "הופק היתר מוארך",
+        "נדונה בועדת ערר",
+        "הגשה מקוונת הושלמה",
+        "ממתין לאישור נוסח פרסום",
+        'אושר ע"י מהנדס העיר',
+        "תום תקופת פרסום",
+        "חידוש טיפול בבקשה",
+        "התקבל ערר",
+        "הבקשה נגנזה",
+        "תחילת פרסום הבקשה להקלה",
+        "נוסח פרסום אושר",
+        "",
+        "השלמת הודעות לפני תקנה 36",
+        "תחילת הודעות לפני תקנה 36",
+        "פורסמה בקשה להקלה",
         "התקבלה בקשה לדיון המועצה",
     ]
     mapped = set()
@@ -840,8 +861,16 @@ def test_permit_status_group_mapping_covers_live_statuses():
     for st in live:
         assert st in mapped, st
     # every mapped status maps back to its own group
-    assert _permit_status_group("תחילת פרסום הבקשה להקלה") == ("obj", "פתוח להתנגדויות", True)
-    assert _permit_status_group("ממתין לאישור נוסח פרסום") == ("pre", "פרסום מתקרב", True)
+    assert _permit_status_group("תחילת פרסום הבקשה להקלה") == (
+        "obj",
+        "פתוח להתנגדויות",
+        True,
+    )
+    assert _permit_status_group("ממתין לאישור נוסח פרסום") == (
+        "pre",
+        "פרסום מתקרב",
+        True,
+    )
     assert _permit_status_group("הבקשה נסגרה") == ("closed", "סגור/אחר", False)
     # unknown status: unmapped, default-visible
     key, label, default_visible = _permit_status_group("סטטוס חדש מהעירייה")
@@ -872,28 +901,52 @@ def test_permits_default_view_markup(tmp_path):
 
     reqs = [
         {  # open objection, in scope -> default visible
-            "tik_num": "2026/0439.00", "status": "תחילת פרסום הבקשה להקלה",
-            "mahut": "מ", "sugbakasha": "היתר", "address": "הפלמח 41 קטמון הישנה",
-            "status_date": "", "publication_start": "2026-10-18",
-            "publication_end_planned": "2026-11-24", "gush": 30007, "helka": 12,
+            "tik_num": "2026/0439.00",
+            "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+            "address": "הפלמח 41 קטמון הישנה",
+            "status_date": "",
+            "publication_start": "2026-10-18",
+            "publication_end_planned": "2026-11-24",
+            "gush": 30007,
+            "helka": 12,
         },
         {  # open objection, out of scope (גוננים)
-            "tik_num": "2026/0223.00", "status": "תחילת פרסום הבקשה להקלה",
-            "mahut": "מ", "sugbakasha": "היתר", "address": "אלעזר בן יאיר 24 גוננים",
-            "status_date": "", "publication_start": "2026-10-21",
-            "publication_end_planned": "2026-11-29", "gush": 30143, "helka": 5,
+            "tik_num": "2026/0223.00",
+            "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+            "address": "אלעזר בן יאיר 24 גוננים",
+            "status_date": "",
+            "publication_start": "2026-10-21",
+            "publication_end_planned": "2026-11-29",
+            "gush": 30143,
+            "helka": 5,
         },
         {  # objection group but window closed -> hidden while pfopenonly on
-            "tik_num": "2024/0211.03", "status": "תחילת פרסום הבקשה להקלה",
-            "mahut": "מ", "sugbakasha": "היתר", "address": "יוסי בן יועזר 36 גוננים",
-            "status_date": "", "publication_start": "2026-09-17",
-            "publication_end_planned": "2026-10-04", "gush": 30143, "helka": 9,
+            "tik_num": "2024/0211.03",
+            "status": "תחילת פרסום הבקשה להקלה",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+            "address": "יוסי בן יועזר 36 גוננים",
+            "status_date": "",
+            "publication_start": "2026-09-17",
+            "publication_end_planned": "2026-10-04",
+            "gush": 30143,
+            "helka": 9,
         },
         {  # non-objection group, in scope
-            "tik_num": "2020/0001.01", "status": "נפתח תיק רישוי",
-            "mahut": "מ", "sugbakasha": "היתר", "address": "אלפסי 9 רחביה",
-            "status_date": "", "publication_start": "", "publication_end_planned": "",
-            "gush": 30001, "helka": 3,
+            "tik_num": "2020/0001.01",
+            "status": "נפתח תיק רישוי",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+            "address": "אלפסי 9 רחביה",
+            "status_date": "",
+            "publication_start": "",
+            "publication_end_planned": "",
+            "gush": 30001,
+            "helka": 3,
         },
     ]
     page.render_site([], [], str(tmp_path), permits_path=_permits(tmp_path, reqs))
@@ -902,8 +955,8 @@ def test_permits_default_view_markup(tmp_path):
     assert html.count("data-group='obj' data-scope='out'") == 2
     assert "data-group='review' data-scope='in'" in html
     # objection groups default-selected, others behind the disclosure
-    assert 'data-group="obj" data-default=\'1\'' in html
-    assert 'data-group="pre" data-default=\'1\'' in html
+    assert "data-group=\"obj\" data-default='1'" in html
+    assert "data-group=\"pre\" data-default='1'" in html
     assert 'data-group="review" data-default' not in html
     assert "סטטוסים נוספים" in html
     # new filter controls with live counts
@@ -970,19 +1023,28 @@ def test_urgent_list_includes_permits_with_official_precedence():
 def test_render_site_removes_stale_official_projection(tmp_path):
     from ginot.page import render_site
 
-    source = tmp_path / 'input'
+    source = tmp_path / "input"
     source.mkdir()
-    permits_path = source / 'permit_requests.json'
+    permits_path = source / "permit_requests.json"
     permits_path.write_text('{"requests": []}')
-    publications_path = source / 'publications_active.json'
-    publications_path.write_text('[{"tik_num": "2026/0439.00", "in_polygon": true, '
-                                 '"objection_deadline": "2026-11-13", "private_note": "omit"}]')
-    out = tmp_path / 'site'
+    publications_path = source / "publications_active.json"
+    publications_path.write_text(
+        '[{"tik_num": "2026/0439.00", "in_polygon": true, '
+        '"objection_deadline": "2026-11-13", "private_note": "omit"}]'
+    )
+    out = tmp_path / "site"
     render_site([], [], str(out), permits_path=str(permits_path))
-    projection = out / 'publications_active.json'
+    projection = out / "publications_active.json"
     import json
-    assert json.loads(projection.read_text()) == [{
-        'tik_num': '2026/0439.00', 'in_polygon': True, 'objection_deadline': '2026-11-13', 'publication_date': None}]
+
+    assert json.loads(projection.read_text()) == [
+        {
+            "tik_num": "2026/0439.00",
+            "in_polygon": True,
+            "objection_deadline": "2026-11-13",
+            "publication_date": None,
+        }
+    ]
     publications_path.unlink()
     render_site([], [], str(out), permits_path=str(permits_path))
     assert not projection.exists()
@@ -1031,14 +1093,31 @@ def test_publication_evidence_tiks_reads_in_polygon_entries_only(tmp_path):
     from ginot.page import publication_evidence_tiks
 
     path = tmp_path / "publications_active.json"
-    path.write_text(json.dumps([
-        {"tik_num": "2026/0001.00", "in_polygon": True, "publication_date": "2020-01-01"},
-        {"tik_num": "2026/0002.00", "in_polygon": None, "publication_date": "2026-10-01"},
-        {"tik_num": "2026/0003.00", "in_polygon": "true", "publication_date": "2026-10-01"},
-        {"tik_num": "", "in_polygon": True},
-        {"in_polygon": True},
-        "not-an-object",
-    ]), encoding="utf-8")
+    path.write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0001.00",
+                    "in_polygon": True,
+                    "publication_date": "2020-01-01",
+                },
+                {
+                    "tik_num": "2026/0002.00",
+                    "in_polygon": None,
+                    "publication_date": "2026-10-01",
+                },
+                {
+                    "tik_num": "2026/0003.00",
+                    "in_polygon": "true",
+                    "publication_date": "2026-10-01",
+                },
+                {"tik_num": "", "in_polygon": True},
+                {"in_polygon": True},
+                "not-an-object",
+            ]
+        ),
+        encoding="utf-8",
+    )
     assert publication_evidence_tiks(str(path)) == frozenset({"2026/0001.00"})
     assert publication_evidence_tiks(str(tmp_path / "missing.json")) == frozenset()
     path.write_text("{", encoding="utf-8")

@@ -23,8 +23,13 @@ CFG = {
 
 
 def item(repo, minutes, sku="Actions Linux", product="actions", unit="Minutes"):
-    return {"product": product, "sku": sku, "unitType": unit,
-            "quantity": minutes, "repositoryName": repo}
+    return {
+        "product": product,
+        "sku": sku,
+        "unitType": unit,
+        "quantity": minutes,
+        "repositoryName": repo,
+    }
 
 
 def test_only_private_repo_actions_minutes_count():
@@ -34,7 +39,9 @@ def test_only_private_repo_actions_minutes_count():
         item("private-a", 50, product="packages"),
         item("private-a", 30, sku="Actions storage", unit="GigabyteHours"),
     ]
-    assert ab.private_minutes(items, {"private-a"}, CFG["minute_multipliers"]) == {"private-a": 100}
+    assert ab.private_minutes(items, {"private-a"}, CFG["minute_multipliers"]) == {
+        "private-a": 100
+    }
 
 
 def test_api_shaped_items_match_case_insensitively_and_by_full_name():
@@ -48,15 +55,23 @@ def test_api_shaped_items_match_case_insensitively_and_by_full_name():
 
 
 def test_repos_not_private_today_are_reported_not_counted():
-    items = [item("was-private", 300), item("priv", 20), item("owner/gone", 5, product="Actions", unit="Minutes")]
+    items = [
+        item("was-private", 300),
+        item("priv", 20),
+        item("owner/gone", 5, product="Actions", unit="Minutes"),
+    ]
     other = ab.uncounted_minutes(items, {"priv"}, CFG["minute_multipliers"])
     assert other == {"was-private": 300, "gone": 5}
-    assert ab.private_minutes(items, {"priv"}, CFG["minute_multipliers"]) == {"priv": 20}
+    assert ab.private_minutes(items, {"priv"}, CFG["minute_multipliers"]) == {
+        "priv": 20
+    }
 
 
 def test_uncounted_minutes_apply_runner_multipliers():
     items = [item("went-public", 200, sku="Actions macOS 3-core")]
-    assert ab.uncounted_minutes(items, set(), CFG["minute_multipliers"]) == {"went-public": 2000}
+    assert ab.uncounted_minutes(items, set(), CFG["minute_multipliers"]) == {
+        "went-public": 2000
+    }
 
 
 def test_macos_minutes_use_the_multiplier():
@@ -64,9 +79,17 @@ def test_macos_minutes_use_the_multiplier():
     assert ab.private_minutes(items, {"app"}, CFG["minute_multipliers"]) == {"app": 110}
 
 
-@pytest.mark.parametrize("total,state", [
-    (0, "ok"), (999, "ok"), (1000, "warn"), (1599, "warn"), (1600, "stop"), (2500, "stop"),
-])
+@pytest.mark.parametrize(
+    "total,state",
+    [
+        (0, "ok"),
+        (999, "ok"),
+        (1000, "warn"),
+        (1599, "warn"),
+        (1600, "stop"),
+        (2500, "stop"),
+    ],
+)
 def test_thresholds(total, state):
     assert ab.classify(total, CFG) == state
 
@@ -120,7 +143,10 @@ def test_commented_jobs_header_and_yaml_extension(tmp_path):
 
 
 def test_reusable_workflow_call_job_is_skipped():
-    assert ab.jobs_without_timeout("jobs:\n  c:\n    uses: ./.github/workflows/x.yml\n") == []
+    assert (
+        ab.jobs_without_timeout("jobs:\n  c:\n    uses: ./.github/workflows/x.yml\n")
+        == []
+    )
 
 
 def test_no_jobs_block():

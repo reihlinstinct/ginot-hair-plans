@@ -47,7 +47,9 @@ def test_prepare_rejects_empty_pr_list(tmp_path):
     import pytest
 
     with pytest.raises(ValueError, match="no merged PRs"):
-        release.prepare(tmp_path, [{"number": 1, "title": "x", "labels": []}], "2026-10-25")
+        release.prepare(
+            tmp_path, [{"number": 1, "title": "x", "labels": []}], "2026-10-25"
+        )
 
 
 def test_main_with_prs_file(tmp_path, capsys, monkeypatch):
@@ -58,13 +60,30 @@ def test_main_with_prs_file(tmp_path, capsys, monkeypatch):
     (tmp_path / "CHANGELOG.md").write_text("# Changelog\n")
     (tmp_path / "docs").mkdir()
     prs = tmp_path / "prs.json"
-    prs.write_text(_json.dumps([
-        {"number": 7, "title": "Add thing", "mergedAt": "2026-10-24",
-         "labels": [{"name": "feature"}], "url": "u"}
-    ]))
+    prs.write_text(
+        _json.dumps(
+            [
+                {
+                    "number": 7,
+                    "title": "Add thing",
+                    "mergedAt": "2026-10-24",
+                    "labels": [{"name": "feature"}],
+                    "url": "u",
+                }
+            ]
+        )
+    )
     monkeypatch.setattr(
         "sys.argv",
-        ["prepare.py", "--prs", str(prs), "--date", "2026-10-25", "--root", str(tmp_path)],
+        [
+            "prepare.py",
+            "--prs",
+            str(prs),
+            "--date",
+            "2026-10-25",
+            "--root",
+            str(tmp_path),
+        ],
     )
     release.main()
     assert capsys.readouterr().out.strip() == "0.3.0"
@@ -91,9 +110,9 @@ def test_main_collects_prs_via_git_and_gh(tmp_path, monkeypatch):
         calls.append(cmd)
         if cmd[:2] == ["git", "show"]:
             return "2026-10-20T00:00:00+00:00\n"
-        return _json.dumps([
-            {"number": 9, "title": "T", "mergedAt": "2026-10-24", "labels": []}
-        ])
+        return _json.dumps(
+            [{"number": 9, "title": "T", "mergedAt": "2026-10-24", "labels": []}]
+        )
 
     monkeypatch.setattr(release.subprocess, "run", fake_run)
     monkeypatch.setattr(release.subprocess, "check_output", fake_check_output)
@@ -104,4 +123,4 @@ def test_main_collects_prs_via_git_and_gh(tmp_path, monkeypatch):
     release.main()
     gh = next(c for c in calls if c[0] == "gh")
     assert "merged:>2026-10-20T00:00:00+00:00" in gh
-    assert '0.2.1' in (tmp_path / "src/ginot/__init__.py").read_text()
+    assert "0.2.1" in (tmp_path / "src/ginot/__init__.py").read_text()

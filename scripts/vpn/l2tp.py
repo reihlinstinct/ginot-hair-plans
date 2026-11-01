@@ -73,7 +73,9 @@ def summarize_negotiation(text: str) -> dict[str, object]:
         found.append("child_established")
     found = sorted(set(found))
     if re.search(
-        r"(?:received|parsed)[^\n]*(?:NO_PROPOSAL_CHOSEN|N\(NO_PROP\))", text, re.IGNORECASE
+        r"(?:received|parsed)[^\n]*(?:NO_PROPOSAL_CHOSEN|N\(NO_PROP\))",
+        text,
+        re.IGNORECASE,
     ):
         found.append("peer_no_proposal_notification")
     sent = re.findall(
@@ -175,7 +177,9 @@ def established_snapshot(status: str) -> dict[str, bool]:
         ),
         "transport_sa_installed": bool(
             re.search(
-                r"^\s*mavat-l2tp\{\d+\}:\s+INSTALLED,\s+TRANSPORT\b", status, re.MULTILINE
+                r"^\s*mavat-l2tp\{\d+\}:\s+INSTALLED,\s+TRANSPORT\b",
+                status,
+                re.MULTILINE,
             )
         ),
     }

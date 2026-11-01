@@ -1,6 +1,7 @@
 """Regression (#405): the permit-feed publish step must invoke the permits
 fragment renderer and commit the fragment, under set -e - no non-fatal
 fallback that could ship a data update with a stale site."""
+
 from pathlib import Path
 
 
