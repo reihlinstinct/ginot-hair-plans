@@ -145,7 +145,7 @@ def main():
                         )
                         try:
                             url_strings(json.loads(body), doc_urls)
-                        except (ValueError, TypeError):
+                        except (ValueError, TypeError, RecursionError):
                             pass
             except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                 pass
@@ -177,7 +177,7 @@ def main():
                     )
                     try:
                         url_strings(json.loads(body), doc_urls)
-                    except (ValueError, TypeError):
+                    except (ValueError, TypeError, RecursionError):
                         pass
             except Challenge:
                 raise
@@ -320,7 +320,7 @@ def main():
                         data = json.loads(req.post_data or "{}")
                         if data.get("token"):
                             tokens.append(data["token"])
-                except (ValueError, TypeError):
+                except (ValueError, TypeError, AttributeError):
                     pass
 
             page.on("request", on_zip_req)
@@ -582,7 +582,7 @@ def main():
                             continue
                         try:
                             el.click(timeout=4000)
-                        except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
+                        except Exception:  # noqa: BLE001 - best-effort UI affordance: failure means skip, not abort the probe
                             el.evaluate(
                                 "e => { let n = e; for (let i = 0; i < 5 && n; i++) { if (n.getAttribute('href') || n.onclick || n.tagName === 'A' || n.tagName === 'BUTTON') break; n = n.parentElement; } (n || e).click(); }"
                             )
@@ -600,7 +600,7 @@ def main():
                     time.sleep(1)
                     dismiss_overlays()
                     return dl
-                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
+                except Exception:  # noqa: BLE001 - best-effort UI affordance: failure means skip, not abort the probe
                     time.sleep(2)
                     dismiss_overlays()
                     return None
