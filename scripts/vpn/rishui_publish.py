@@ -123,7 +123,11 @@ def parse_rows(payload: str) -> list[dict]:
         # detect_new's known-set onto one key).
         my_index = item.get("myIndex")
         tik_num = item.get("tik_num")
-        if isinstance(my_index, bool) or not isinstance(my_index, (int, str)) or my_index == "":
+        if (
+            isinstance(my_index, bool)
+            or not isinstance(my_index, (int, str))
+            or my_index == ""
+        ):
             raise ValueError("unexpected publish API row shape: bad myIndex")
         if not isinstance(tik_num, str) or not tik_num:
             raise ValueError("unexpected publish API row shape: bad tik_num")
@@ -143,7 +147,11 @@ def load_parcel_keys(parcels_geojson: Path) -> set[tuple[int, int]]:
 
 def load_tik_parcels(permit_requests: Path) -> dict[str, tuple[int, int]]:
     data = json.loads(Path(permit_requests).read_text(encoding="utf-8"))
-    rows = data if isinstance(data, list) else data.get("rows") or data.get("requests") or []
+    rows = (
+        data
+        if isinstance(data, list)
+        else data.get("rows") or data.get("requests") or []
+    )
     mapping = {}
     for row in rows:
         if row.get("tik_num") and row.get("gush") and row.get("helka"):
@@ -164,7 +172,9 @@ def resolve_in_polygon(
         if parcel is None:
             row["in_polygon"] = None
         else:
-            row["in_polygon"] = parcel in parcel_keys and row.get("neighborhood") in SCOPE_SCHN
+            row["in_polygon"] = (
+                parcel in parcel_keys and row.get("neighborhood") in SCOPE_SCHN
+            )
     return rows
 
 
@@ -207,7 +217,9 @@ def summarize(rows: list[dict]) -> str:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="cmd", required=True)
-    fetch_cmd = sub.add_parser("fetch", help="fetch the active publications list (one request)")
+    fetch_cmd = sub.add_parser(
+        "fetch", help="fetch the active publications list (one request)"
+    )
     fetch_cmd.add_argument("--out", required=True, help="output JSON path")
     args = parser.parse_args(argv)
     if args.cmd == "fetch":
@@ -217,16 +229,22 @@ def main(argv: list[str] | None = None) -> int:
             print(f"CHALLENGE: {exc}; hard stop, no retry", file=sys.stderr)
             return 2
         except urllib.error.HTTPError as exc:
-            print(f"FETCH_FAILED: upstream HTTP {exc.code}; no retry; output unchanged",
-                  file=sys.stderr)
+            print(
+                f"FETCH_FAILED: upstream HTTP {exc.code}; no retry; output unchanged",
+                file=sys.stderr,
+            )
             return 1
         except http.client.HTTPException:
-            print("FETCH_FAILED: malformed or incomplete HTTP response; no retry; output unchanged",
-                  file=sys.stderr)
+            print(
+                "FETCH_FAILED: malformed or incomplete HTTP response; no retry; output unchanged",
+                file=sys.stderr,
+            )
             return 1
         except (urllib.error.URLError, OSError):
-            print("FETCH_FAILED: transport error; no retry; output unchanged",
-                  file=sys.stderr)
+            print(
+                "FETCH_FAILED: transport error; no retry; output unchanged",
+                file=sys.stderr,
+            )
             return 1
         Path(args.out).write_text(
             json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

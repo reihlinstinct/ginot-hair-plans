@@ -1,4 +1,5 @@
 """Mavat discovery probe tests (issue #439): classification + stop discipline."""
+
 import importlib.util
 from pathlib import Path
 
@@ -29,7 +30,11 @@ def test_probe_error_branch_on_exception(monkeypatch):
 
     monkeypatch.setattr(md.subprocess, "run", boom)
     r = md.probe("sv4_page", "https://example.invalid")
-    assert r == {"endpoint": "sv4_page", "result": "error", "error_kind": "TimeoutError"}
+    assert r == {
+        "endpoint": "sv4_page",
+        "result": "error",
+        "error_kind": "TimeoutError",
+    }
 
 
 def test_probe_detects_anti_bot_challenge(monkeypatch):
@@ -68,10 +73,12 @@ def test_probe_missing_body_file_still_classifies(monkeypatch):
 
 
 def test_main_stops_on_challenge_with_exit_2(monkeypatch, capsys):
-    seq = iter([
-        {"endpoint": "a", "result": "served", "json_like": True},
-        {"endpoint": "b", "result": "anti_bot_challenge", "http": "403"},
-    ])
+    seq = iter(
+        [
+            {"endpoint": "a", "result": "served", "json_like": True},
+            {"endpoint": "b", "result": "anti_bot_challenge", "http": "403"},
+        ]
+    )
     monkeypatch.setattr(md, "probe", lambda n, u: next(seq))
     monkeypatch.setattr(md.time, "sleep", lambda s: None)
     assert md.main() == 2
@@ -86,6 +93,13 @@ def test_main_returns_0_with_usable_and_1_without(monkeypatch):
     )
     assert md.main() == 0
     monkeypatch.setattr(
-        md, "probe", lambda n, u: {"endpoint": n, "result": "served", "json_like": False, "doc_markers": 0}
+        md,
+        "probe",
+        lambda n, u: {
+            "endpoint": n,
+            "result": "served",
+            "json_like": False,
+            "doc_markers": 0,
+        },
     )
     assert md.main() == 1

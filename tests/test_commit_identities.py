@@ -36,7 +36,11 @@ def test_owned_identities_pass():
     recs = [
         ("b" * 40, OWNED_NOREPLY, OWNED_NOREPLY),
         ("c" * 40, "reihlinstinct@gmail.com", BOT_NOREPLY),
-        ("d" * 40, "reihl@mail.tab.bot", "49699333+dependabot[bot]@users.noreply.github.com"),
+        (
+            "d" * 40,
+            "reihl@mail.tab.bot",
+            "49699333+dependabot[bot]@users.noreply.github.com",
+        ),
     ]
     assert violations(recs) == []
 
@@ -67,8 +71,7 @@ import subprocess
 
 
 def _git(cwd, *args):
-    subprocess.run(["git", *args], cwd=cwd, check=True,
-                   capture_output=True, text=True)
+    subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, text=True)
 
 
 def _make_repo(tmp_path):
@@ -101,10 +104,22 @@ def test_boundary_empty_on_full_history(tmp_path, monkeypatch):
     assert cci.boundary_commits("base-ref", "origin/feature") == []
 
 
-def test_boundary_detected_and_main_fails_closed_on_shallow(tmp_path, monkeypatch, capsys):
+def test_boundary_detected_and_main_fails_closed_on_shallow(
+    tmp_path, monkeypatch, capsys
+):
     src = _make_repo(tmp_path)
     clone = tmp_path / "shallow"
-    _git(tmp_path, "clone", "-q", "--depth", "1", "-b", "feature", f"file://{src}", str(clone))
+    _git(
+        tmp_path,
+        "clone",
+        "-q",
+        "--depth",
+        "1",
+        "-b",
+        "feature",
+        f"file://{src}",
+        str(clone),
+    )
     _git(clone, "fetch", "-q", "--depth=1", "origin", "main:base-ref")
     monkeypatch.chdir(clone)
     # the range walk sees commits but the history is truncated at the boundary
@@ -126,9 +141,21 @@ def test_no_merge_base_fails_closed(tmp_path, monkeypatch, capsys):
         _git(src, "add", ".")
         _git(src, "commit", "-q", "-m", f"m{i}")
     clone = tmp_path / "mixed"
-    _git(tmp_path, "clone", "-q", "--depth", "2", "-b", "feature", f"file://{src}", str(clone))
+    _git(
+        tmp_path,
+        "clone",
+        "-q",
+        "--depth",
+        "2",
+        "-b",
+        "feature",
+        f"file://{src}",
+        str(clone),
+    )
     _git(clone, "fetch", "-q", "--deepen=10", "origin", "feature")  # head complete
-    _git(clone, "fetch", "-q", "--depth=2", "origin", "main:base-ref")  # base cut above M
+    _git(
+        clone, "fetch", "-q", "--depth=2", "origin", "main:base-ref"
+    )  # base cut above M
     monkeypatch.chdir(clone)
     assert cci.boundary_commits("base-ref", "HEAD") == []  # cut is not head-side
     rc = cci.main(["--base", "base-ref", "--head", "HEAD"])

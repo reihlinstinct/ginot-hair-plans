@@ -37,11 +37,13 @@ def test_guard_job_is_read_only_and_uses_the_pushed_prefix(name, job, var, prefi
         f'python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix {prefix}'
     )
     assert step["env"]["GH_TOKEN"] == "${{ github.token }}"
-    checkout = next(s for s in guard['steps'] if 'actions/checkout@' in s.get('uses', ''))
-    assert checkout['with']['persist-credentials'] is False
-    notice = next(s for s in guard['steps'] if '::notice::' in s.get('run', ''))
-    assert notice['if'] == "${{ steps.guard.outputs.pending == 'true' }}"
-    assert notice['env']['PENDING_PRS'] == '${{ steps.guard.outputs.pending_prs }}'
+    checkout = next(
+        s for s in guard["steps"] if "actions/checkout@" in s.get("uses", "")
+    )
+    assert checkout["with"]["persist-credentials"] is False
+    notice = next(s for s in guard["steps"] if "::notice::" in s.get("run", ""))
+    assert notice["if"] == "${{ steps.guard.outputs.pending == 'true' }}"
+    assert notice["env"]["PENDING_PRS"] == "${{ steps.guard.outputs.pending_prs }}"
     # Guard steps never fetch, tunnel, push or use secrets.
     text = "\n".join(str(s) for s in guard["steps"])
     for forbidden in (
@@ -56,8 +58,12 @@ def test_guard_job_is_read_only_and_uses_the_pushed_prefix(name, job, var, prefi
     # The prefix must be the one the workflow actually pushes (permit-feed
     # pushes from its isolated publish job, #567).
     jobs = load(name)["jobs"]
-    runs = "\n".join(s.get("run", "") for j, body in jobs.items() if j != "pending"
-                     for s in body["steps"])
+    runs = "\n".join(
+        s.get("run", "")
+        for j, body in jobs.items()
+        if j != "pending"
+        for s in body["steps"]
+    )
     assert f'BRANCH="{prefix}' in runs
 
 
@@ -72,7 +78,9 @@ def test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix):
     for override in ("always()", "failure()", "cancelled()", "!cancelled()"):
         if name == "mavat-watch.yml" and override == "!cancelled()":
             continue
-        checked = cond.replace("!cancelled()", "") if override == "cancelled()" else cond
+        checked = (
+            cond.replace("!cancelled()", "") if override == "cancelled()" else cond
+        )
         assert override not in checked
     assert "!= 'true'" not in cond
 
@@ -92,77 +100,113 @@ def test_only_mavat_discover_mode_bypasses_the_guard():
         assert "||" not in cond
 
 
-@pytest.mark.parametrize('name', ['weekly-refresh.yml', 'mavat-watch.yml'])
+@pytest.mark.parametrize("name", ["weekly-refresh.yml", "mavat-watch.yml"])
 def test_entire_workflow_serializes_pending_check_and_data(name):
-    assert load(name)['concurrency'] == {'group': name.removesuffix('.yml'),
-                                        'cancel-in-progress': False}
+    assert load(name)["concurrency"] == {
+        "group": name.removesuffix(".yml"),
+        "cancel-in-progress": False,
+    }
 
 
 def test_discover_skips_guard_and_explicitly_handles_skipped_dependency():
-    doc = load('mavat-watch.yml')['jobs']
-    assert doc['pending']['if'] == "${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}"
-    assert '!cancelled()' in doc['mavat-watch']['if']
-    assert "needs.pending.result == 'success'" in doc['mavat-watch']['if']
+    doc = load("mavat-watch.yml")["jobs"]
+    assert (
+        doc["pending"]["if"]
+        == "${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}"
+    )
+    assert "!cancelled()" in doc["mavat-watch"]["if"]
+    assert "needs.pending.result == 'success'" in doc["mavat-watch"]["if"]
 
 
 def test_mavat_job_condition_truth_table_preserves_fail_closed():
     from itertools import product
 
-    condition = load('mavat-watch.yml')['jobs']['mavat-watch']['if'][3:-2].strip()
+    condition = load("mavat-watch.yml")["jobs"]["mavat-watch"]["if"][3:-2].strip()
     for disabled, cancelled, mode, result, pending in product(
-        [False, True], [False, True], ['discover', 'check', ''],
-        ['success', 'failure', 'skipped', 'cancelled'], ['false', 'true', ''],
+        [False, True],
+        [False, True],
+        ["discover", "check", ""],
+        ["success", "failure", "skipped", "cancelled"],
+        ["false", "true", ""],
     ):
         expression = condition
         values = {
-            'cancelled()': cancelled,
-            'vars.MAVAT_WATCH_ENABLED': 'false' if disabled else 'true',
-            'inputs.mode': mode,
-            'needs.pending.result': result,
-            'needs.pending.outputs.pending': pending,
+            "cancelled()": cancelled,
+            "vars.MAVAT_WATCH_ENABLED": "false" if disabled else "true",
+            "inputs.mode": mode,
+            "needs.pending.result": result,
+            "needs.pending.outputs.pending": pending,
         }
         for token, value in values.items():
             expression = expression.replace(token, repr(value))
-        expression = expression.replace('!cancelled', 'not cancelled')
-        expression = expression.replace('!False', 'not False').replace('!True', 'not True')
-        expression = expression.replace('&&', 'and').replace('||', 'or')
-        actual = eval(expression, {'__builtins__': {}}, {})
-        expected = not disabled and not cancelled and (
-            mode == 'discover' or (result == 'success' and pending == 'false'))
+        expression = expression.replace("!cancelled", "not cancelled")
+        expression = expression.replace("!False", "not False").replace(
+            "!True", "not True"
+        )
+        expression = expression.replace("&&", "and").replace("||", "or")
+        actual = eval(expression, {"__builtins__": {}}, {})
+        expected = (
+            not disabled
+            and not cancelled
+            and (mode == "discover" or (result == "success" and pending == "false"))
+        )
         assert actual == expected, (disabled, cancelled, mode, result, pending)
 
 
 def test_discover_only_probes_get_endpoints_and_cannot_stage_prs():
     import ast
 
-    source = (ROOT / 'scripts/vpn/mavat_discover.py').read_text()
-    probe = next(n for n in ast.parse(source).body
-                 if isinstance(n, ast.FunctionDef) and n.name == 'probe')
-    command = next(n.value for n in probe.body
-                   if isinstance(n, ast.Assign) and any(
-                       isinstance(t, ast.Name) and t.id == 'cmd' for t in n.targets))
+    source = (ROOT / "scripts/vpn/mavat_discover.py").read_text()
+    probe = next(
+        n
+        for n in ast.parse(source).body
+        if isinstance(n, ast.FunctionDef) and n.name == "probe"
+    )
+    command = next(
+        n.value
+        for n in probe.body
+        if isinstance(n, ast.Assign)
+        and any(isinstance(t, ast.Name) and t.id == "cmd" for t in n.targets)
+    )
     constants = [n.value for n in command.elts if isinstance(n, ast.Constant)]
-    assert constants[0] == 'curl'
-    assert not {'-X', '--request', '-d', '--data', '--data-raw', '--data-binary',
-                '-F', '--form', '-T', '--upload-file'} & set(constants)
-    assert not any(token in source for token in ['gh pr', 'git push', 'gh workflow'])
-    steps = load('mavat-watch.yml')['jobs']['mavat-watch']['steps']
-    writers = [s for s in steps if 'gh pr create' in s.get('run', '')
-               or 'git push' in s.get('run', '')]
+    assert constants[0] == "curl"
+    assert not {
+        "-X",
+        "--request",
+        "-d",
+        "--data",
+        "--data-raw",
+        "--data-binary",
+        "-F",
+        "--form",
+        "-T",
+        "--upload-file",
+    } & set(constants)
+    assert not any(token in source for token in ["gh pr", "git push", "gh workflow"])
+    steps = load("mavat-watch.yml")["jobs"]["mavat-watch"]["steps"]
+    writers = [
+        s
+        for s in steps
+        if "gh pr create" in s.get("run", "") or "git push" in s.get("run", "")
+    ]
     assert len(writers) == 1
-    assert writers[0]['if'] == "${{ env.MODE == 'check' && success() }}"
+    assert writers[0]["if"] == "${{ env.MODE == 'check' && success() }}"
 
 
-@pytest.mark.parametrize('case', [c for c in CASES if c[0] != 'mavat-watch.yml'])
+@pytest.mark.parametrize("case", [c for c in CASES if c[0] != "mavat-watch.yml"])
 def test_non_mavat_status_override_mutation_is_rejected(monkeypatch, case):
     from copy import deepcopy
 
     name, job, var, prefix = case
     mutated = deepcopy(load(name))
-    mutated['jobs'][job]['if'] = mutated['jobs'][job]['if'].replace(
-        '${{ ', '${{ !cancelled() && ', 1)
+    mutated["jobs"][job]["if"] = mutated["jobs"][job]["if"].replace(
+        "${{ ", "${{ !cancelled() && ", 1
+    )
     original_load = load
-    monkeypatch.setitem(test_data_job_runs_only_after_a_false_verdict.__globals__,
-                        'load', lambda target: mutated if target == name else original_load(target))
+    monkeypatch.setitem(
+        test_data_job_runs_only_after_a_false_verdict.__globals__,
+        "load",
+        lambda target: mutated if target == name else original_load(target),
+    )
     with pytest.raises(AssertionError):
         test_data_job_runs_only_after_a_false_verdict(name, job, var, prefix)

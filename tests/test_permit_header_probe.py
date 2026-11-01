@@ -1,4 +1,5 @@
 """Header-probe parsing tests (issue #439): allowlist is the privacy boundary."""
+
 import importlib.util
 from pathlib import Path
 
@@ -14,7 +15,7 @@ DUMP = (
     "HTTP/1.1 100 Continue\r\n\r\n"
     "HTTP/1.1 200 OK\r\n"
     "Date: Tue, 25 Oct 2026 05:00:00 GMT\r\n"
-    "ETag: \"abc123\"\r\n"
+    'ETag: "abc123"\r\n'
     "X-Private-Internal: secret\r\n"
     "Set-Cookie: session=xyz\r\n"
     "Last-Modified: Mon, 24 Oct 2026 10:00:00 GMT\r\n"
@@ -66,9 +67,7 @@ def test_main_flows(monkeypatch):
     monkeypatch.setattr(hp, "call", lambda tag, extra: None)
     assert hp.main() == 2
     # no last-modified/date -> 0 after one call
-    monkeypatch.setattr(
-        hp, "call", lambda tag, extra: {"headers": {}, "call": tag}
-    )
+    monkeypatch.setattr(hp, "call", lambda tag, extra: {"headers": {}, "call": tag})
     assert hp.main() == 0
     # last-modified present -> conditional call happens
     calls = []

@@ -1,6 +1,7 @@
 """Issue #452: targeted backfill of raw permit address fields. No network -
 address_fields_strict is always faked, and test doubles are installed with
 monkeypatch so nothing leaks into the shared process (review finding)."""
+
 import importlib.util
 import json
 import pathlib
@@ -39,7 +40,9 @@ def _run(tmp_path, rows, fake, monkeypatch, extra_args=()):
     monkeypatch.setattr(bf, "address_fields_strict", fake)
     monkeypatch.setattr(bf.time, "sleep", lambda *_: None)
     argv = sys.argv
-    monkeypatch.setattr(sys, "argv", ["bf", "--data", data, "--checkpoint-file", cp, *extra_args])
+    monkeypatch.setattr(
+        sys, "argv", ["bf", "--data", data, "--checkpoint-file", cp, *extra_args]
+    )
     try:
         rc = bf.main()
     finally:
@@ -64,7 +67,11 @@ def test_needs_backfill_selection():
     assert not bf.needs_backfill(_row("3", address="הפלמ״ח 41"))  # real street address
     assert not bf.needs_backfill(_row("4", raw=True))  # raw fields already present
     assert bf.select_targets(
-        [_row("1", address=""), _row("2", address="הפלמ״ח 41"), _row("3", address="גוננים")]
+        [
+            _row("1", address=""),
+            _row("2", address="הפלמ״ח 41"),
+            _row("3", address="גוננים"),
+        ]
     ) == ["1", "3"]
 
 
@@ -99,7 +106,9 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
         monkeypatch.setattr(bf._feed, "call", lambda *a, _b=bad: _b)
         try:
             bf.address_fields_strict("2026/0001.01")
-            raise AssertionError(f"{type(bad).__name__} response must raise, not become empty fields")
+            raise AssertionError(
+                f"{type(bad).__name__} response must raise, not become empty fields"
+            )
         except ValueError:
             pass
     monkeypatch.setattr(bf._feed, "call", lambda *a: ["not-a-dict"])
@@ -121,7 +130,11 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
     monkeypatch.setattr(bf._feed, "call", lambda *a: [])
     assert bf.address_fields_strict("2026/0001.01") == _fields()
     # A row with the raw keys present (even empty strings) is a genuine row.
-    monkeypatch.setattr(bf._feed, "call", lambda *a: [{"rehovName": "", "mispBait": "", "schunaName": ""}])
+    monkeypatch.setattr(
+        bf._feed,
+        "call",
+        lambda *a: [{"rehovName": "", "mispBait": "", "schunaName": ""}],
+    )
     assert bf.address_fields_strict("2026/0001.01") == _fields()
 
 
@@ -146,7 +159,9 @@ def test_main_enriches_and_resumes(tmp_path, monkeypatch):
     assert enriched["c"]["address"] == "הפלמ״ח 41" and "rehovName" not in enriched["c"]
     # resume: everything already done, no new source calls
     calls.clear()
-    rc2, _, _ = _run(tmp_path, out["requests"], fake, monkeypatch, extra_args=["--resume"])
+    rc2, _, _ = _run(
+        tmp_path, out["requests"], fake, monkeypatch, extra_args=["--resume"]
+    )
     assert rc2 == 0 and calls == []
 
 
@@ -164,9 +179,15 @@ def test_resume_ignores_checkpoint_from_a_replaced_data_file(tmp_path, monkeypat
     assert rc == 0 and calls == ["a", "b"]
     # simulate the refresh replacing the data file (regenerated, raw fields
     # gone, plus one newly scanned row so the content really differs)
-    replaced = [_row("a", address=""), _row("b", address=""), _row("z", address="הפלמ״ח 41")]
+    replaced = [
+        _row("a", address=""),
+        _row("b", address=""),
+        _row("z", address="הפלמ״ח 41"),
+    ]
     calls.clear()
-    rc2, _out2, _cp2 = _run(tmp_path, replaced, fake, monkeypatch, extra_args=["--resume"])
+    rc2, _out2, _cp2 = _run(
+        tmp_path, replaced, fake, monkeypatch, extra_args=["--resume"]
+    )
     assert rc2 == 0
     assert calls == ["a", "b"]  # re-enriched, not skipped by the stale checkpoint
 
@@ -264,6 +285,7 @@ def test_dry_run_counts_without_calling_source(tmp_path, capsys, monkeypatch):
     assert "no house number 1" in text
     assert "backfill targets 2" in text
 
+
 def test_checkpoint_fingerprint_matches_the_flushed_data(tmp_path, monkeypatch):
     """Review finding (PR #464, outside-diff): the checkpoint used to store
     the PRE-enrichment data fingerprint, so after the first flush it never
@@ -281,4 +303,3 @@ def test_checkpoint_fingerprint_matches_the_flushed_data(tmp_path, monkeypatch):
     assert saved["data_sha256"] == bf.data_fingerprint(out)
     # And a resume of that pair loads the checkpoint instead of discarding it.
     assert bf.load_checkpoint(cp, bf.data_fingerprint(out)) == {"2026/0001.01"}
-

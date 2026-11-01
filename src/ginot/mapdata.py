@@ -84,15 +84,18 @@ def permit_points(permits, parcels):
         return str(int(text)) if text.isascii() and text.isdigit() else None
 
     geometries = {}
-    for feature in parcels.get('features', []):
-        props = feature.get('properties') or {}
-        key = (identifier(props.get('gush')), identifier(props.get('helka')))
+    for feature in parcels.get("features", []):
+        props = feature.get("properties") or {}
+        key = (identifier(props.get("gush")), identifier(props.get("helka")))
         if None in key:
             continue
         try:
-            geometry = shape(feature.get('geometry'))
-            if (geometry.is_empty or not geometry.is_valid
-                    or geometry.geom_type not in ('Polygon', 'MultiPolygon')):
+            geometry = shape(feature.get("geometry"))
+            if (
+                geometry.is_empty
+                or not geometry.is_valid
+                or geometry.geom_type not in ("Polygon", "MultiPolygon")
+            ):
                 continue
             west, south, east, north = geometry.bounds
             if not (-180 <= west <= east <= 180 and -90 <= south <= north <= 90):
@@ -106,16 +109,19 @@ def permit_points(permits, parcels):
         positions[key] = [point.x, point.y]
     points, missing = [], []
     for permit in permits:
-        tik = permit.get('tik_num')
+        tik = permit.get("tik_num")
         if not tik:
             continue
-        key = (identifier(permit.get('gush')), identifier(permit.get('helka')))
+        key = (identifier(permit.get("gush")), identifier(permit.get("helka")))
         if key not in positions:
             missing.append(tik)
         else:
-            points.append({'tik_num': tik, 'representative_point': positions[key]})
-    return {'points': points, 'missing_location': missing,
-            'source': 'Public cadastral parcel join (gush/helka); interior point, not entrance'}
+            points.append({"tik_num": tik, "representative_point": positions[key]})
+    return {
+        "points": points,
+        "missing_location": missing,
+        "source": "Public cadastral parcel join (gush/helka); interior point, not entrance",
+    }
 
 
 def write_permit_points(permits, parcels_path, output_path):
@@ -124,7 +130,7 @@ def write_permit_points(permits, parcels_path, output_path):
     from pathlib import Path
 
     path = Path(parcels_path)
-    parcels = json.loads(path.read_text(encoding='utf-8')) if path.exists() else {}
+    parcels = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
     data = permit_points(permits, parcels)
-    Path(output_path).write_text(json.dumps(data, ensure_ascii=False), encoding='utf-8')
+    Path(output_path).write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     return data

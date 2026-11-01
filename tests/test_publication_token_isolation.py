@@ -8,6 +8,7 @@ renderer's commit only through a fail-closed bundle check
 (scripts/ci/verify_publication_bundle.sh), executed here against synthetic
 repositories.
 """
+
 import re
 import shutil
 import subprocess
@@ -34,16 +35,23 @@ def dormant(step, doc):
     the renderer job but only runs after a confirmed reviewed merge, which this
     workflow never reports (merged=true is emitted nowhere, #562/#564). Its
     secret is never materialized. #565 must move it out before enabling it."""
-    return ("steps.publish.outputs.merged == 'true'" in step.get("if", "")
-            and "merged=true" not in yaml.safe_dump(doc)
-            and "REFRESH_DISPATCH_TOKEN" not in str(step))
+    return (
+        "steps.publish.outputs.merged == 'true'" in step.get("if", "")
+        and "merged=true" not in yaml.safe_dump(doc)
+        and "REFRESH_DISPATCH_TOKEN" not in str(step)
+    )
 
 
 def secret_jobs(doc):
-    return {name: job for name, job in doc["jobs"].items()
-            if any(any(s in str(step) for s in PUBLICATION_SECRETS) and not dormant(step, doc)
-                   for step in job.get("steps", []))
-            or any(s in str(job.get("env", {})) for s in PUBLICATION_SECRETS)}
+    return {
+        name: job
+        for name, job in doc["jobs"].items()
+        if any(
+            any(s in str(step) for s in PUBLICATION_SECRETS) and not dormant(step, doc)
+            for step in job.get("steps", [])
+        )
+        or any(s in str(job.get("env", {})) for s in PUBLICATION_SECRETS)
+    }
 
 
 def violations(doc):
@@ -62,28 +70,38 @@ def violations(doc):
     for name, job in doc["jobs"].items():
         runs = "\n".join(s.get("run", "") for s in job.get("steps", []))
         if "-r requirements.txt" in runs and name in secret_jobs(doc):
-            found.append(f"{name}: renderer dependencies share a job with a publication secret")
+            found.append(
+                f"{name}: renderer dependencies share a job with a publication secret"
+            )
     return found
 
 
 def test_publication_secrets_never_share_a_job_with_python():
     doc = load()
     assert set(secret_jobs(doc)) == {"publish"}
-    auditor = [s for s in doc["jobs"]["permit-feed"]["steps"]
-               if "PARCEL_AUDIT_DISPATCH_TOKEN" in str(s)]
+    auditor = [
+        s
+        for s in doc["jobs"]["permit-feed"]["steps"]
+        if "PARCEL_AUDIT_DISPATCH_TOKEN" in str(s)
+    ]
     assert len(auditor) == 1 and dormant(auditor[0], doc)
     assert violations(doc) == []
 
 
 def test_refresh_token_only_in_the_isolated_publish_job():
     doc = load()
-    holders = [(job, step.get("name")) for job, body in doc["jobs"].items()
-               for step in body.get("steps", [])
-               if "REFRESH_DISPATCH_TOKEN" in str(step)]
+    holders = [
+        (job, step.get("name"))
+        for job, body in doc["jobs"].items()
+        for step in body.get("steps", [])
+        if "REFRESH_DISPATCH_TOKEN" in str(step)
+    ]
     assert holders == [("publish", "Publish changes as a PR for review")]
     renderer = doc["jobs"]["permit-feed"]
     assert "REFRESH_DISPATCH_TOKEN" not in str(renderer)
-    assert "-r requirements.txt" in "\n".join(s.get("run", "") for s in renderer["steps"])
+    assert "-r requirements.txt" in "\n".join(
+        s.get("run", "") for s in renderer["steps"]
+    )
 
 
 def test_publish_job_is_fresh_least_privilege_and_verifies_before_the_token():
@@ -104,7 +122,9 @@ def test_publish_job_is_fresh_least_privilege_and_verifies_before_the_token():
     assert "env" not in steps[verify]  # no token while untrusted input is checked
     assert steps[publish]["env"]["TIP"] == "${{ steps.verify.outputs.tip }}"
     # Only git and gh from the runner image; no action can run dependency code.
-    assert [s["uses"].split("@")[0] for s in steps if "uses" in s] == ["actions/checkout"]
+    assert [s["uses"].split("@")[0] for s in steps if "uses" in s] == [
+        "actions/checkout"
+    ]
 
 
 def test_renderer_job_hands_over_only_a_bundle():
@@ -116,27 +136,45 @@ def test_renderer_job_hands_over_only_a_bundle():
     assert "git bundle create" in prepare["run"]
     upload = next(s for s in steps if "actions/upload-artifact@" in s.get("uses", ""))
     assert upload["with"]["path"].endswith("/publication/publication.bundle")
-    assert doc["jobs"]["permit-feed"]["outputs"]["changed"] == "${{ steps.publish.outputs.changed }}"
+    assert (
+        doc["jobs"]["permit-feed"]["outputs"]["changed"]
+        == "${{ steps.publish.outputs.changed }}"
+    )
 
 
-@pytest.mark.parametrize("mutation", [
-    # Re-adding Python to the token job.
-    ("          git push -u origin \"$BRANCH\"\n",
-     "          python3 scripts/build_site_index.py\n          git push -u origin \"$BRANCH\"\n"),
-    # Moving the token back into the renderer job.
-    ("        id: publish\n",
-     "        id: publish\n        env:\n          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n"),
-    # Installing dependencies in the token job.
-    ("      - name: Download publication bundle\n",
-     ("      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0\n"
-      "      - name: Download publication bundle\n")),
-    # Waking the dormant auditor dispatch in the renderer job.
-    ("          echo \"changed=true\" >> \"$GITHUB_OUTPUT\"\n",
-     "          echo \"changed=true\" >> \"$GITHUB_OUTPUT\"\n          echo \"merged=true\" >> \"$GITHUB_OUTPUT\"\n"),
-    # Workflow-wide secret env.
-    ("permissions:\n  contents: read\n",
-     "env:\n  GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n\npermissions:\n  contents: read\n"),
-])
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        # Re-adding Python to the token job.
+        (
+            '          git push -u origin "$BRANCH"\n',
+            '          python3 scripts/build_site_index.py\n          git push -u origin "$BRANCH"\n',
+        ),
+        # Moving the token back into the renderer job.
+        (
+            "        id: publish\n",
+            "        id: publish\n        env:\n          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n",
+        ),
+        # Installing dependencies in the token job.
+        (
+            "      - name: Download publication bundle\n",
+            (
+                "      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0\n"
+                "      - name: Download publication bundle\n"
+            ),
+        ),
+        # Waking the dormant auditor dispatch in the renderer job.
+        (
+            '          echo "changed=true" >> "$GITHUB_OUTPUT"\n',
+            '          echo "changed=true" >> "$GITHUB_OUTPUT"\n          echo "merged=true" >> "$GITHUB_OUTPUT"\n',
+        ),
+        # Workflow-wide secret env.
+        (
+            "permissions:\n  contents: read\n",
+            "env:\n  GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}\n\npermissions:\n  contents: read\n",
+        ),
+    ],
+)
 def test_mutations_that_expose_the_token_are_caught(mutation):
     old, new = mutation
     text = WORKFLOW.read_text()
@@ -146,9 +184,11 @@ def test_mutations_that_expose_the_token_are_caught(mutation):
 
 # ---- bundle verification against synthetic repositories -------------------
 
+
 def git(cwd, *args):
-    return subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True,
-                          text=True).stdout.strip()
+    return subprocess.run(
+        ["git", *args], cwd=cwd, check=True, capture_output=True, text=True
+    ).stdout.strip()
 
 
 @pytest.fixture
@@ -184,8 +224,13 @@ def repos(tmp_path):
         return out
 
     def verify(path):
-        return subprocess.run(["bash", str(VERIFY), str(path), "origin/main"],
-                              cwd=publisher, capture_output=True, text=True, check=False)
+        return subprocess.run(
+            ["bash", str(VERIFY), str(path), "origin/main"],
+            cwd=publisher,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
 
     return bundle, verify, renderer, publisher, env
 
@@ -194,13 +239,22 @@ def write(rel, text="{}\n"):
     def change(repo):
         (repo / rel).parent.mkdir(parents=True, exist_ok=True)
         (repo / rel).write_text(text)
+
     return change
 
 
-@pytest.mark.parametrize("rel", ["data/permit_requests.json", "docs/index.json",
-                                 "docs/badge/parcel-1-2.json", "docs/permits.html",
-                                 "docs/permits-default.html", "docs/permit-ids.json",
-                                 "docs/permit-points.json"])
+@pytest.mark.parametrize(
+    "rel",
+    [
+        "data/permit_requests.json",
+        "docs/index.json",
+        "docs/badge/parcel-1-2.json",
+        "docs/permits.html",
+        "docs/permits-default.html",
+        "docs/permit-ids.json",
+        "docs/permit-points.json",
+    ],
+)
 def test_generated_data_commit_is_accepted(repos, rel):
     bundle, verify, renderer, *_ = repos
     result = verify(bundle(write(rel, '{"n": 1}\n')))
@@ -218,14 +272,20 @@ def executable(repo):
     path.chmod(0o755)
 
 
-@pytest.mark.parametrize("change,reason", [
-    (write("scripts/x.py", "print(2)\n"), "outside the publication allowlist"),
-    (write(".github/workflows/ci.yml", "on: push\n"), "outside the publication allowlist"),
-    (write("docs/index.html", "<p>\n"), "outside the publication allowlist"),
-    (write("docs/badge/x/parcel-1.json"), "outside the publication allowlist"),
-    (symlink, "disallowed file mode 120000"),
-    (executable, "disallowed file mode 100755"),
-])
+@pytest.mark.parametrize(
+    "change,reason",
+    [
+        (write("scripts/x.py", "print(2)\n"), "outside the publication allowlist"),
+        (
+            write(".github/workflows/ci.yml", "on: push\n"),
+            "outside the publication allowlist",
+        ),
+        (write("docs/index.html", "<p>\n"), "outside the publication allowlist"),
+        (write("docs/badge/x/parcel-1.json"), "outside the publication allowlist"),
+        (symlink, "disallowed file mode 120000"),
+        (executable, "disallowed file mode 100755"),
+    ],
+)
 def test_disallowed_changes_are_rejected(repos, change, reason):
     bundle, verify, *_ = repos
     result = verify(bundle(change))
@@ -238,8 +298,11 @@ def test_more_than_one_commit_is_rejected(repos):
     bundle, verify, *_ = repos
     result = verify(bundle(write("data/a.json"), extra_commit=True))
     assert result.returncode != 0
-    assert "does not verify" in result.stderr or "exactly one parent" in result.stderr \
+    assert (
+        "does not verify" in result.stderr
+        or "exactly one parent" in result.stderr
         or "parent is not on" in result.stderr
+    )
 
 
 def test_parent_off_main_is_rejected(repos):

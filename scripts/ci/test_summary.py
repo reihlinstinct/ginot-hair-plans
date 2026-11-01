@@ -18,9 +18,7 @@ def safe(text, limit=1200):
         r"\1=[redacted]",
         str(text),
     )
-    text = re.sub(
-        r"\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_.-]+", "[redacted]", text
-    )
+    text = re.sub(r"\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_.-]+", "[redacted]", text)
     text = re.sub(r"[\w.+-]+@[\w.-]+\.[A-Za-z]{2,}", "[email redacted]", text)
     text = re.sub(r"\b(?:\d{1,3}\.){3}\d{1,3}\b", "[IP redacted]", text)
     if len(text) > limit:
@@ -269,25 +267,25 @@ def write_summary(text, target):
     target = Path(target)
     used = target.stat().st_size if target.exists() else 0
     remaining = max(0, SUMMARY_LIMIT_BYTES - used)
-    raw = text.encode('utf-8')
+    raw = text.encode("utf-8")
     if len(raw) > remaining:
         # Prefix every log line so report content cannot become a workflow command.
         for line in text.splitlines():
-            print('REPORT: ' + line)
-        print('Report truncated in job summary; full report printed above.')
-        note = TRUNCATION_NOTE.encode('utf-8')
+            print("REPORT: " + line)
+        print("Report truncated in job summary; full report printed above.")
+        note = TRUNCATION_NOTE.encode("utf-8")
         if remaining < len(note):
             return  # Existing content is not ours to truncate or overwrite.
         # Keep complete Markdown/HTML lines, close any open detail sections.
         budget = max(0, remaining - len(note) - 4096)
-        prefix = raw[:budget].decode('utf-8', errors='ignore')
-        prefix = prefix.rsplit('\n', 1)[0] if '\n' in prefix else ''
-        opened = max(0, prefix.count('<details>') - prefix.count('</details>'))
-        clipped = prefix + '\n' + '</details>\n' * opened + TRUNCATION_NOTE
-        raw = clipped.encode('utf-8')
+        prefix = raw[:budget].decode("utf-8", errors="ignore")
+        prefix = prefix.rsplit("\n", 1)[0] if "\n" in prefix else ""
+        opened = max(0, prefix.count("<details>") - prefix.count("</details>"))
+        clipped = prefix + "\n" + "</details>\n" * opened + TRUNCATION_NOTE
+        raw = clipped.encode("utf-8")
         if len(raw) > remaining:
             raw = note
-    with target.open('ab') as output:
+    with target.open("ab") as output:
         output.write(raw)
 
 

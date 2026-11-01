@@ -9,7 +9,10 @@ def test_probe_step_preserves_probe_tik_through_sudo():
         Path(__file__).parent.parent / ".github/workflows/permit-publication-probe.yml"
     ).read_text()
     assert "PROBE_TIK: ${{ inputs.tik }}" in workflow
-    assert "sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py" in workflow
+    assert (
+        "sudo --preserve-env=PROBE_TIK python3 scripts/vpn/permit_publication_probe.py"
+        in workflow
+    )
     unguarded = [
         line
         for line in workflow.splitlines()

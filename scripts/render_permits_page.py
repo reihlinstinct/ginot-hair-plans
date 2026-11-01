@@ -10,6 +10,7 @@ code path as the weekly site build: no plan rows, no network. It runs in
 the permit-feed publish step under set -e, so a render failure fails the
 run red instead of silently shipping stale rows.
 """
+
 import argparse
 import json
 import os
@@ -31,13 +32,19 @@ IDS_OUT = "docs/permit-ids.json"  # read by the submit worker (#515)
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check-dependencies', action='store_true',
-                        help='Check imports without reading or changing data')
-    parser.add_argument('--default-only', action='store_true',
-                        help='Rewrite only the evidence-dependent default subset (#629)')
+    parser.add_argument(
+        "--check-dependencies",
+        action="store_true",
+        help="Check imports without reading or changing data",
+    )
+    parser.add_argument(
+        "--default-only",
+        action="store_true",
+        help="Rewrite only the evidence-dependent default subset (#629)",
+    )
     args = parser.parse_args()
     if args.check_dependencies:
-        print('permit renderer dependencies available')
+        print("permit renderer dependencies available")
         return 0
     with open(DATA, encoding="utf-8") as fh:
         permits = json.load(fh).get("requests", [])
@@ -47,21 +54,34 @@ def main() -> int:
     if args.default_only:
         # Match render_site's map-missing labels without rewriting other files.
         from pathlib import Path
-        parcels_path = Path('data/ginot_hair_parcels.geojson')
-        parcels = json.loads(parcels_path.read_text(encoding='utf-8')) if parcels_path.exists() else {}
+
+        parcels_path = Path("data/ginot_hair_parcels.geojson")
+        parcels = (
+            json.loads(parcels_path.read_text(encoding="utf-8"))
+            if parcels_path.exists()
+            else {}
+        )
         permit_map = permit_points(permits, parcels)
     else:
-        permit_map = write_permit_points(permits, 'data/ginot_hair_parcels.geojson', 'docs/permit-points.json')
-    missing = set(permit_map['missing_location'])
-    permits = [dict(p, _map_missing=p.get('tik_num') in missing) for p in permits]
-    if not _permits_section(permits, rows_file=None if args.default_only else OUT, default_rows_file=DEFAULT_OUT,
-                            evidence_tiks=publication_evidence_tiks(PUBLICATIONS)):
+        permit_map = write_permit_points(
+            permits, "data/ginot_hair_parcels.geojson", "docs/permit-points.json"
+        )
+    missing = set(permit_map["missing_location"])
+    permits = [dict(p, _map_missing=p.get("tik_num") in missing) for p in permits]
+    if not _permits_section(
+        permits,
+        rows_file=None if args.default_only else OUT,
+        default_rows_file=DEFAULT_OUT,
+        evidence_tiks=publication_evidence_tiks(PUBLICATIONS),
+    ):
         print("permits section render produced no output")
         return 1
     if args.default_only:
-        print(f'rendered default permit subset into {DEFAULT_OUT}')
+        print(f"rendered default permit subset into {DEFAULT_OUT}")
         return 0
-    print(f"rendered {len(permits)} permit rows into {OUT} and the default subset into {DEFAULT_OUT}")
+    print(
+        f"rendered {len(permits)} permit rows into {OUT} and the default subset into {DEFAULT_OUT}"
+    )
     n = write_permit_ids(permits, IDS_OUT)
     print(f"wrote {n} permit ids into {IDS_OUT}")
     return 0

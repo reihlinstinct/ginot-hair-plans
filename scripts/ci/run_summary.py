@@ -14,6 +14,7 @@ never the job. The one stop condition is the startup self-test: a failure
 means the tool itself is defective, so the job fails loudly instead of
 writing a wrong summary. Nothing else in this step may fail the workflow.
 """
+
 import datetime
 import json
 import os
@@ -31,8 +32,7 @@ def sh(*args):
     embedded carriage return or invalid UTF-8 in a commit subject or
     filename cannot forge an extra record (text=True would translate
     CR to a line break)."""
-    return subprocess.run(list(args), capture_output=True,
-                          check=True).stdout
+    return subprocess.run(list(args), capture_output=True, check=True).stdout
 
 
 def fmt_dur(seconds):
@@ -50,9 +50,9 @@ def glob_to_regex(pattern):
     while i < len(pattern):
         c = pattern[i]
         if c == "*":
-            if pattern[i:i + 2] == "**":
+            if pattern[i : i + 2] == "**":
                 i += 2
-                if pattern[i:i + 1] == "/":
+                if pattern[i : i + 1] == "/":
                     i += 1
                     out.append("(?:.*/)?")
                 else:
@@ -65,7 +65,7 @@ def glob_to_regex(pattern):
             i += 1
         elif c == "[":
             j = pattern.find("]", i)
-            out.append(pattern[i:j + 1] if j != -1 else "\\[")
+            out.append(pattern[i : j + 1] if j != -1 else "\\[")
             i = j + 1 if j != -1 else i + 1
         else:
             out.append(re.escape(c))
@@ -153,13 +153,11 @@ def _parse_job_meta_lines(lines):
                 current = m.group(1) or m.group(2) or m.group(3)
                 continue
             stripped = line.strip()
-            if stripped and not stripped.startswith("#") \
-                    and not line.startswith(" "):
+            if stripped and not stripped.startswith("#") and not line.startswith(" "):
                 in_jobs = False
                 current = None
                 continue
-            if stripped and not stripped.startswith("#") \
-                    and re.match(r"^  \S", line):
+            if stripped and not stripped.startswith("#") and re.match(r"^  \S", line):
                 # Unrecognized job-level key (e.g. a quoted id): do not
                 # attribute later if:/name: lines to the previous job.
                 current = None
@@ -215,8 +213,7 @@ def duration_for(job_id, durations, display_names):
             total += durations[cand]
             found = True
         else:
-            children = [v for n, v in durations.items()
-                        if n.startswith(cand + " (")]
+            children = [v for n, v in durations.items() if n.startswith(cand + " (")]
             if children:
                 total += sum(children)
                 found = True
@@ -232,16 +229,16 @@ def md_escape(text):
     metacharacters that could break out of a table cell, code span or
     link are backslash-escaped."""
     text = "".join(
-        ch if (ch >= " " and ch not in "\x7f\x85\u2028\u2029") else " "
-        for ch in text)
-    text = (text.replace("&", "&amp;")
-            .replace("<", "&lt;")
-            .replace(">", "&gt;"))
-    return (text.replace("\\", "\\\\")
-            .replace("`", "\\`")
-            .replace("|", "\\|")
-            .replace("[", "\\[")
-            .replace("]", "\\]"))
+        ch if (ch >= " " and ch not in "\x7f\x85\u2028\u2029") else " " for ch in text
+    )
+    text = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    return (
+        text.replace("\\", "\\\\")
+        .replace("`", "\\`")
+        .replace("|", "\\|")
+        .replace("[", "\\[")
+        .replace("]", "\\]")
+    )
 
 
 def _self_test():
@@ -257,11 +254,15 @@ def _self_test():
     assert forged.split("\n") == [forged]
     short, _, subject = forged.partition(" ")
     rendered = f"- `{short}` {md_escape(subject)}"
-    assert rendered.count("\n") == 0 and "\u2028" not in rendered 
+    assert rendered.count("\n") == 0 and "\u2028" not in rendered
     assert md_escape("\x00\x1f\r\n") == "    "
     assert md_escape("plain text") == "plain text"
-    dur = {"test (3.11)": 60.0, "test (3.12)": 70.0, "lint": 30.0,
-           "Build the thing": 200.0}
+    dur = {
+        "test (3.11)": 60.0,
+        "test (3.12)": 70.0,
+        "lint": 30.0,
+        "Build the thing": 200.0,
+    }
     assert duration_for("test", dur, {}) == 130.0
     assert duration_for("build", dur, {"build": "Build the thing"}) == 200.0
     assert duration_for("lint", dur, {}) == 30.0
@@ -269,97 +270,133 @@ def _self_test():
     assert glob_to_regex("scripts/*.ts").match("scripts/x.ts")
     assert not glob_to_regex("scripts/*.ts").match("scripts/ci/x.py")
     assert glob_to_regex("a/**").match("a/b/c")
-    assert _yaml_plain_scalar("Language shootout (issue #14)") == \
-        "Language shootout (issue"
+    assert (
+        _yaml_plain_scalar("Language shootout (issue #14)")
+        == "Language shootout (issue"
+    )
     assert _yaml_plain_scalar('"a # b"') == '"a # b"'
-    assert _job_display_name("Build things # ${{ matrix.x }}") == \
-        "Build things"
+    assert _job_display_name("Build things # ${{ matrix.x }}") == "Build things"
     assert _job_display_name("Test (${{ matrix.py }})") is None
     assert b"a \rb".split(b"\n") == [b"a \rb"]  # CR forges no row
     # CR/U+2028 rows through the full sh() -> _log_rows() pipeline
-    assert list(_log_rows(sh("printf", "deadbee real \r subject"))) == \
-        [("deadbee", "real \r subject")]
-    assert list(_log_rows(sh("printf", "deadbee a\u2028b"))) == \
-        [("deadbee", "a\u2028b")]
+    assert list(_log_rows(sh("printf", "deadbee real \r subject"))) == [
+        ("deadbee", "real \r subject")
+    ]
+    assert list(_log_rows(sh("printf", "deadbee a\u2028b"))) == [
+        ("deadbee", "a\u2028b")
+    ]
     assert sh("printf", "a\rb") == b"a\rb"  # bytes end to end
-    conds, names = _parse_job_meta_lines([
-        "jobs:\n",
-        "  a:\n",
-        "    if: github.ref == 'refs/heads/main'\n",
-        "\n",
-        "# a column-0 comment between jobs\n",
-        "  b:\n",
-        "    name: Build (issue #14)\n",
-        "    if: always()\n",
-    ])
-    assert conds == {"a": "github.ref == 'refs/heads/main'",
-                     "b": "always()"}
+    conds, names = _parse_job_meta_lines(
+        [
+            "jobs:\n",
+            "  a:\n",
+            "    if: github.ref == 'refs/heads/main'\n",
+            "\n",
+            "# a column-0 comment between jobs\n",
+            "  b:\n",
+            "    name: Build (issue #14)\n",
+            "    if: always()\n",
+        ]
+    )
+    assert conds == {"a": "github.ref == 'refs/heads/main'", "b": "always()"}
     assert names == {"b": "Build (issue"}
-    conds, names = _parse_job_meta_lines([
-        "jobs:\n",
-        "  a:\n",
-        "    if: github.ref == 'refs/heads/main'\n",
-        "  b: # trailing comment\n",
-        "    if: always()\n",
-        "    name: Lint\n",
-        "  'quoted-id':\n",
-        "    name: Quoted\n",
-        "    if: github.event_name == 'push'\n",
-        "  c: {}\n",
-        "    if: dropped()\n",
-    ])
-    assert conds == {"a": "github.ref == 'refs/heads/main'",
-                     "b": "always()",  # trailing comment recognized
-                     "quoted-id": "github.event_name == 'push'"}
+    conds, names = _parse_job_meta_lines(
+        [
+            "jobs:\n",
+            "  a:\n",
+            "    if: github.ref == 'refs/heads/main'\n",
+            "  b: # trailing comment\n",
+            "    if: always()\n",
+            "    name: Lint\n",
+            "  'quoted-id':\n",
+            "    name: Quoted\n",
+            "    if: github.event_name == 'push'\n",
+            "  c: {}\n",
+            "    if: dropped()\n",
+        ]
+    )
+    assert conds == {
+        "a": "github.ref == 'refs/heads/main'",
+        "b": "always()",  # trailing comment recognized
+        "quoted-id": "github.event_name == 'push'",
+    }
     assert names == {"b": "Lint", "quoted-id": "Quoted"}
     # "c: {}" matches no header form: current cleared, if: dropped
-    assert changed_ranges({"GITHUB_EVENT_NAME": "push"},
-                          {"before": "abc", "after": "def"}) == \
-        ("abc..def", "abc..def")
-    assert changed_ranges({"GITHUB_EVENT_NAME": "push"},
-                          {"before": "abc", "after": "0" * 40}) is None
-    assert changed_ranges({"GITHUB_EVENT_NAME": "push"},
-                          {"before": "0" * 40, "after": "def"}) is None
+    assert changed_ranges(
+        {"GITHUB_EVENT_NAME": "push"}, {"before": "abc", "after": "def"}
+    ) == ("abc..def", "abc..def")
+    assert (
+        changed_ranges(
+            {"GITHUB_EVENT_NAME": "push"}, {"before": "abc", "after": "0" * 40}
+        )
+        is None
+    )
+    assert (
+        changed_ranges(
+            {"GITHUB_EVENT_NAME": "push"}, {"before": "0" * 40, "after": "def"}
+        )
+        is None
+    )
     assert "deleted the ref" in _no_range_reason(
-        {"GITHUB_EVENT_NAME": "push"}, {"before": "abc", "after": "0" * 40})
-    assert _no_range_reason({"GITHUB_EVENT_NAME": "push"},
-                            {"before": "0" * 40, "after": "def"}) == \
-        "No change range is available for this run."
-    assert _no_range_reason({"GITHUB_EVENT_NAME": "workflow_dispatch"},
-                            {}) == "No change range is available for this run."
-    assert _no_range_reason({"GITHUB_EVENT_NAME": "push"}, {}) == \
-        "No change range is available for this run."  # missing after
+        {"GITHUB_EVENT_NAME": "push"}, {"before": "abc", "after": "0" * 40}
+    )
+    assert (
+        _no_range_reason(
+            {"GITHUB_EVENT_NAME": "push"}, {"before": "0" * 40, "after": "def"}
+        )
+        == "No change range is available for this run."
+    )
+    assert (
+        _no_range_reason({"GITHUB_EVENT_NAME": "workflow_dispatch"}, {})
+        == "No change range is available for this run."
+    )
+    assert (
+        _no_range_reason({"GITHUB_EVENT_NAME": "push"}, {})
+        == "No change range is available for this run."
+    )  # missing after
     assert list(_log_rows(b"")) == [("(none)", "")]
-    assert changed_ranges({"GITHUB_EVENT_NAME": "pull_request"},
-                          {"pull_request": {"base": None,
-                                            "head": {"sha": "h"}}}) is None
-    assert changed_ranges({"GITHUB_EVENT_NAME": "pull_request"},
-                          {"pull_request": {"base": {"sha": "b"},
-                                            "head": {"sha": "h"}}}) == \
-        ("b..h", "b...h")
-    entries = _map_entries({"mappings": [
-        {"pattern": "src/**", "checks": ["test"]},
-        {"pattern": "a[]b", "checks": ["x"]},  # invalid regex: skipped
-        {"pattern": 3},                        # non-string: skipped
-        "junk",                                # non-dict: skipped
-        {"pattern": "docs/**", "checks": "docs"},  # non-list checks
-    ]})
+    assert (
+        changed_ranges(
+            {"GITHUB_EVENT_NAME": "pull_request"},
+            {"pull_request": {"base": None, "head": {"sha": "h"}}},
+        )
+        is None
+    )
+    assert changed_ranges(
+        {"GITHUB_EVENT_NAME": "pull_request"},
+        {"pull_request": {"base": {"sha": "b"}, "head": {"sha": "h"}}},
+    ) == ("b..h", "b...h")
+    entries = _map_entries(
+        {
+            "mappings": [
+                {"pattern": "src/**", "checks": ["test"]},
+                {"pattern": "a[]b", "checks": ["x"]},  # invalid regex: skipped
+                {"pattern": 3},  # non-string: skipped
+                "junk",  # non-dict: skipped
+                {"pattern": "docs/**", "checks": "docs"},  # non-list checks
+            ]
+        }
+    )
     assert [p for _rx, p, _c in entries] == ["src/**", "docs/**"]
     assert entries[1][2] == []
-    assert _map_entries({"mappings": [
-        {"pattern": "x/**", "checks": ["ok", None, 3, "", "fine"]},
-    ]})[0][2] == ["ok", "fine"]
+    assert _map_entries(
+        {
+            "mappings": [
+                {"pattern": "x/**", "checks": ["ok", None, 3, "", "fine"]},
+            ]
+        }
+    )[0][2] == ["ok", "fine"]
     assert _parse_needs("{") == {}
     assert _parse_needs("[]") == {}
-    assert _parse_needs('{"a": {"result": "ok"}, "b": 3}') == \
-        {"a": {"result": "ok"}}
-    conds, _n = _parse_job_meta_lines([
-        "jobs: # trailing comment\n",
-        "  a:\n",
-        "    if: always()\n",
-    ])
+    assert _parse_needs('{"a": {"result": "ok"}, "b": 3}') == {"a": {"result": "ok"}}
+    conds, _n = _parse_job_meta_lines(
+        [
+            "jobs: # trailing comment\n",
+            "  a:\n",
+            "    if: always()\n",
+        ]
+    )
     assert conds == {"a": "always()"}
-
 
 
 def load_event(env):
@@ -394,8 +431,7 @@ def changed_ranges(env, event):
         # branch, which would list and diff unrelated commits.
         before = event.get("before", "")
         after = event.get("after", "")
-        if (before and set(before) != {"0"}
-                and after and set(after) != {"0"}):
+        if before and set(before) != {"0"} and after and set(after) != {"0"}:
             return f"{before}..{after}", f"{before}..{after}"
     return None
 
@@ -403,10 +439,11 @@ def changed_ranges(env, event):
 def _no_range_reason(env, event):
     """Why there is no change range, for the summary body."""
     after = event.get("after", "") if isinstance(event, dict) else ""
-    if env.get("GITHUB_EVENT_NAME", "") == "push" \
-            and after and set(after) == {"0"}:
-        return ("This push deleted the ref (`after` is all zeros), "
-                "so there is no change range to diff.")
+    if env.get("GITHUB_EVENT_NAME", "") == "push" and after and set(after) == {"0"}:
+        return (
+            "This push deleted the ref (`after` is all zeros), "
+            "so there is no change range to diff."
+        )
     return "No change range is available for this run."
 
 
@@ -444,8 +481,14 @@ def load_map():
     return _map_entries(data)
 
 
-STATUS_WORD = {"A": "added", "M": "modified", "D": "deleted",
-               "R": "renamed", "C": "copied", "T": "type changed"}
+STATUS_WORD = {
+    "A": "added",
+    "M": "modified",
+    "D": "deleted",
+    "R": "renamed",
+    "C": "copied",
+    "T": "type changed",
+}
 
 
 def _parse_needs(raw):
@@ -464,8 +507,10 @@ def main():
     try:
         _self_test()
     except AssertionError:
-        sys.exit("run_summary.py self-test failed; the summary tool is "
-                 "defective, not writing a summary")
+        sys.exit(
+            "run_summary.py self-test failed; the summary tool is "
+            "defective, not writing a summary"
+        )
     env = os.environ
     out = []
     repo = env.get("GITHUB_REPOSITORY", "")
@@ -496,29 +541,37 @@ def main():
             dur = duration_for(job, durations, display_names)
             if dur is not None:
                 total += dur
-            out.append(f"| `{job}` | {result} | "
-                       f"{fmt_dur(dur) if dur is not None else 'n/a'} |")
+            out.append(
+                f"| `{job}` | {result} | {fmt_dur(dur) if dur is not None else 'n/a'} |"
+            )
         out.append("")
-        out.append("Totals: "
-                   + ", ".join(f"{v} {k}" for k, v in sorted(counts.items()))
-                   + ".")
+        out.append(
+            "Totals: " + ", ".join(f"{v} {k}" for k, v in sorted(counts.items())) + "."
+        )
         if total:
-            out.append(f"Summed job time: {fmt_dur(total)} (each job is "
-                       "billed rounded up to a whole minute; minutes on "
-                       "public repos are free).")
+            out.append(
+                f"Summed job time: {fmt_dur(total)} (each job is "
+                "billed rounded up to a whole minute; minutes on "
+                "public repos are free)."
+            )
         if not durations:
-            out.append("Per-job durations unavailable (jobs API not "
-                       "reachable with this token).")
-        skipped = [j for j in sorted(needs)
-                   if needs[j].get("result") == "skipped"]
+            out.append(
+                "Per-job durations unavailable (jobs API not "
+                "reachable with this token)."
+            )
+        skipped = [j for j in sorted(needs) if needs[j].get("result") == "skipped"]
         if skipped:
             out.append("\nSkipped jobs:")
             for job in skipped:
                 cond = conditions.get(job)
-                out.append(f"- `{job}`" +
-                           (f" - runs only if {md_escape(cond)}"
-                            if cond else
-                            " - its condition was not met"))
+                out.append(
+                    f"- `{job}`"
+                    + (
+                        f" - runs only if {md_escape(cond)}"
+                        if cond
+                        else " - its condition was not met"
+                    )
+                )
     else:
         out.append("\nNo upstream jobs declared in `needs`.")
 
@@ -539,8 +592,7 @@ def main():
                 out.append(f"- `{md_escape(short)}` {md_escape(subject)}")
             # -z: NUL-delimited, no quoting of non-ASCII paths.
             diff = sh("git", "diff", "--name-status", "-z", diff_rng)
-            records = [r.decode("utf-8", "replace")
-                       for r in diff.split(b"\x00") if r]
+            records = [r.decode("utf-8", "replace") for r in diff.split(b"\x00") if r]
             i = 0
             while i < len(records):
                 status = records[i]
@@ -551,8 +603,9 @@ def main():
                 files.append((status[0], records[i + 1]))
                 i += 2
         except subprocess.CalledProcessError:
-            out.append("Diff unavailable in this checkout "
-                       "(shallow history or missing base).")
+            out.append(
+                "Diff unavailable in this checkout (shallow history or missing base)."
+            )
     else:
         out.append("\n### What changed in this run\n")
         out.append(_no_range_reason(env, event))
@@ -562,8 +615,10 @@ def main():
         mappings = load_map()
         out.append("\n### Coverage of the changes\n")
         if not mappings:
-            out.append("Changed files (no coverage map in this repo; add "
-                       f"`{MAP_PATH}` to declare which checks cover what):")
+            out.append(
+                "Changed files (no coverage map in this repo; add "
+                f"`{MAP_PATH}` to declare which checks cover what):"
+            )
             for status, path in files:
                 word = STATUS_WORD.get(status, status)
                 out.append(f"- {md_escape(path)} ({word})")
@@ -578,19 +633,25 @@ def main():
                         checks.extend(c for c in mapped if c not in checks)
                 word = STATUS_WORD.get(status, status)
                 if checks:
-                    out.append(f"| {md_escape(path)} | {word} | "
-                               + ", ".join(f"`{c}`" for c in checks) + " |")
+                    out.append(
+                        f"| {md_escape(path)} | {word} | "
+                        + ", ".join(f"`{c}`" for c in checks)
+                        + " |"
+                    )
                 else:
                     out.append(f"| {md_escape(path)} | {word} | - |")
                     uncovered.append(path)
             if uncovered:
-                out.append("\nChanged without declared coverage (no "
-                           f"check in `{MAP_PATH}` maps to these files):")
+                out.append(
+                    "\nChanged without declared coverage (no "
+                    f"check in `{MAP_PATH}` maps to these files):"
+                )
                 for path in uncovered:
                     out.append(f"- {md_escape(path)}")
             else:
-                out.append("\nEvery changed file matches at least one "
-                           "coverage mapping.")
+                out.append(
+                    "\nEvery changed file matches at least one coverage mapping."
+                )
 
     text = "\n".join(out) + "\n"
     summary = env.get("GITHUB_STEP_SUMMARY", "")

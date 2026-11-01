@@ -44,8 +44,13 @@ RUN_ID = re.compile(r"[1-9][0-9]{0,19}\Z")
 # The workflow YAML is read from main after the merge, so a "data" PR that also
 # touches code or workflows must never be routed as data.
 DATA_PREFIXES = ("data/",)
-DATA_FILES = {"docs/index.json", "docs/permits.html", "docs/permits-default.html",
-              "docs/permit-ids.json", "docs/permit-points.json"}
+DATA_FILES = {
+    "docs/index.json",
+    "docs/permits.html",
+    "docs/permits-default.html",
+    "docs/permit-ids.json",
+    "docs/permit-points.json",
+}
 DATA_GLOB = "docs/badge/parcel-*.json"
 
 
@@ -76,13 +81,21 @@ def check_pr(repo, pr):
     if not isinstance(head.get("ref"), str) or base.get("ref") != "main":
         return "not a main data PR"
     head_repo = head.get("repo")
-    if not isinstance(head_repo, dict) or not isinstance(head_repo.get("full_name"), str):
+    if not isinstance(head_repo, dict) or not isinstance(
+        head_repo.get("full_name"), str
+    ):
         return "fork or deleted head repository"
-    if head_repo["full_name"].lower() != repo.lower() or not head["ref"].startswith(HEAD_PREFIX):
+    if head_repo["full_name"].lower() != repo.lower() or not head["ref"].startswith(
+        HEAD_PREFIX
+    ):
         return "not a same-repo permit-feed PR"
     if pr.get("merged") is not True:
         return "not merged"
-    if not _sha(head.get("sha")) or not _sha(base.get("sha")) or not _sha(pr.get("merge_commit_sha")):
+    if (
+        not _sha(head.get("sha"))
+        or not _sha(base.get("sha"))
+        or not _sha(pr.get("merge_commit_sha"))
+    ):
         raise RouterError("malformed pull request SHAs")
     return None
 
@@ -94,12 +107,18 @@ def _data_path(path):
         return False
     if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
         return True
-    return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count("/")
+    return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count(
+        "/"
+    )
 
 
 def check_files(pr, files):
     """Stop unless the PR changed only generated data paths, with a complete list."""
-    if not isinstance(files, list) or not files or len(files) != pr.get("changed_files"):
+    if (
+        not isinstance(files, list)
+        or not files
+        or len(files) != pr.get("changed_files")
+    ):
         raise RouterError("changed files incomplete or malformed")
     for entry in files:
         if not isinstance(entry, dict):
@@ -116,9 +135,18 @@ def check_provenance(prov):
     if not isinstance(prov, dict) or set(prov) != PROVENANCE_KEYS:
         raise RouterError("malformed provenance")
     batch = prov["batch"]
-    if not _sha(prov["checkpoint_commit"]) or not isinstance(batch, dict) or set(batch) != {"offset", "limit"}:
+    if (
+        not _sha(prov["checkpoint_commit"])
+        or not isinstance(batch, dict)
+        or set(batch) != {"offset", "limit"}
+    ):
         raise RouterError("malformed provenance")
-    if not (_int(batch["offset"]) and _int(batch["limit"]) and batch["offset"] >= 0 and batch["limit"] > 0):
+    if not (
+        _int(batch["offset"])
+        and _int(batch["limit"])
+        and batch["offset"] >= 0
+        and batch["limit"] > 0
+    ):
         raise RouterError("malformed provenance")
     run_id = prov["source_run"]
     if not isinstance(run_id, str) or not RUN_ID.match(run_id):
@@ -134,8 +162,10 @@ def check_run(repo, run, run_id):
     checks = [
         run.get("id") == run_id,
         run.get("path") == WORKFLOW_PATH,
-        isinstance(repository, dict) and str(repository.get("full_name", "")).lower() == repo.lower(),
-        isinstance(head_repository, dict) and str(head_repository.get("full_name", "")).lower() == repo.lower(),
+        isinstance(repository, dict)
+        and str(repository.get("full_name", "")).lower() == repo.lower(),
+        isinstance(head_repository, dict)
+        and str(head_repository.get("full_name", "")).lower() == repo.lower(),
         run.get("head_branch") == "main",
         run.get("event") in RUN_EVENTS,
         run.get("run_attempt") == 1,
@@ -158,7 +188,10 @@ def approved_at_head(pr, reviews):
         if not isinstance(review, dict) or not isinstance(review.get("user"), dict):
             raise RouterError("malformed reviews")
         login = review["user"].get("login")
-        if review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
+        if (
+            review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED")
+            and login != author
+        ):
             latest[login] = review
     states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]
     if any(state == "CHANGES_REQUESTED" for state, _ in states):
@@ -202,8 +235,13 @@ class GitHubHTTPError(RouterError):
 
 def _gh(path):
     try:
-        r = subprocess.run(["gh", "api", "--include", path], capture_output=True, text=True,
-                           check=False, timeout=GH_TIMEOUT_SECONDS)
+        r = subprocess.run(
+            ["gh", "api", "--include", path],
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=GH_TIMEOUT_SECONDS,
+        )
     except (subprocess.TimeoutExpired, OSError) as exc:
         raise RouterError("gh api unavailable") from exc
     header, separator, body = r.stdout.replace("\r\n", "\n").partition("\n\n")
@@ -223,6 +261,7 @@ def _gh(path):
 
 def github_reader(repo, gh=_gh):
     """Answer ``decide``'s questions from GitHub REST, failing closed."""
+
     def need(value):
         if value is None:
             raise RouterError("GitHub record unreadable")
@@ -256,20 +295,32 @@ def github_reader(repo, gh=_gh):
             if not isinstance(meta, dict) or meta.get("encoding") != "base64":
                 raise RouterError("malformed provenance file")
             try:
-                return json.loads(base64.b64decode(meta.get("content", ""), validate=False))
+                return json.loads(
+                    base64.b64decode(meta.get("content", ""), validate=False)
+                )
             except ValueError as exc:
                 raise RouterError("malformed provenance file") from exc
         if kind == "run":
             return need(gh(f"repos/{repo}/actions/runs/{args[0]}"))
         if kind == "reviews":
-            return complete(need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}")))
+            return complete(
+                need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}"))
+            )
         if kind == "files":
-            return complete(need(gh(f"repos/{repo}/pulls/{args[0]}/files?per_page={PER_PAGE}")))
+            return complete(
+                need(gh(f"repos/{repo}/pulls/{args[0]}/files?per_page={PER_PAGE}"))
+            )
         if kind == "markers":
-            comments = complete(need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}")))
-            return "\n".join(c.get("body", "") for c in comments if isinstance(c, dict)
-                             and isinstance(c.get("body"), str))
+            comments = complete(
+                need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}"))
+            )
+            return "\n".join(
+                c.get("body", "")
+                for c in comments
+                if isinstance(c, dict) and isinstance(c.get("body"), str)
+            )
         raise RouterError("unknown question")
+
     return read
 
 
