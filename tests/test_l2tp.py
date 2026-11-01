@@ -460,3 +460,48 @@ def test_up_route_pin_failure_at_pin_stage(monkeypatch, tmp_path):
     with pytest.raises(l2tp.TunnelError):
         l2tp.up(GOOD_ENV)
     assert l2tp.STAGE == "pin_transport_route"
+
+
+def test_wait_ready_tolerates_garbled_statusall(monkeypatch):
+    """Regression: one undecodable statusall output (text=True decode error)
+    must not abort the bounded readiness poll - the next poll retries."""
+    calls = []
+
+    def fake_run(*a, **k):
+        calls.append(a)
+        if len(calls) == 1:
+            raise UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start byte")
+        return STATUSALL_LOADED
+
+    monkeypatch.setattr(l2tp, "run", fake_run)
+    monkeypatch.setattr(l2tp.time, "sleep", lambda s: None)
+    ready_keys = [
+        "charon_pid_file_present",
+        "charon_process_alive",
+        "control_socket_present",
+        "connection_loaded",
+    ]
+    monkeypatch.setattr(
+        l2tp,
+        "readiness_snapshot",
+        lambda status: {key: bool(status) for key in ready_keys},
+    )
+    l2tp.wait_ready(limit=3)
+    assert l2tp.READINESS["checks"] == 2  # retried after the garbled output
+
+
+def test_down_survives_decode_errors_and_still_cleans(monkeypatch, tmp_path):
+    """Regression: a non-OSError failure (e.g. UnicodeDecodeError from
+    text=True decoding) in any teardown command must not abort down()
+    before the secret/config cleanup runs."""
+    root = tmp_path / "mavat-l2tp"
+    root.mkdir()
+    (root / "state.json").write_text(json.dumps({"server": "1.2.3.4"}))
+    monkeypatch.setattr(l2tp, "ROOT", root)
+
+    def boom(*a, **k):
+        raise UnicodeDecodeError("utf-8", b"\xff", 0, 1, "garbled daemon output")
+
+    monkeypatch.setattr(l2tp, "run", boom)
+    l2tp.down()
+    assert not root.exists()  # cleanup still reached
