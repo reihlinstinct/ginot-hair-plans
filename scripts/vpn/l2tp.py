@@ -140,7 +140,7 @@ def wait_ready(limit: int = 15) -> None:
         status = ""
         try:
             status = run("timeout", "3", "ipsec", "statusall")
-        except (TunnelError, OSError, subprocess.TimeoutExpired):
+        except (TunnelError, OSError, subprocess.TimeoutExpired, UnicodeDecodeError):
             pass
         READINESS.update(readiness_snapshot(status))
         READINESS["checks"] = index + 1
@@ -308,7 +308,7 @@ def down() -> None:
     ]:
         try:
             run(*cmd, check=False)
-        except (OSError, subprocess.TimeoutExpired):
+        except Exception:  # noqa: BLE001, S110 - teardown must never abort before the secret/config cleanup below
             pass
     # Remove only our firewall chains, not unrelated host policy.
     for binary in ["iptables", "ip6tables"]:
@@ -319,13 +319,13 @@ def down() -> None:
         ]:
             try:
                 run(*cmd, check=False)
-            except (OSError, subprocess.TimeoutExpired):
+            except Exception:  # noqa: BLE001, S110 - teardown must never abort before the secret/config cleanup below
                 pass
     if ROOT.exists():
         try:
             state = json.loads((ROOT / "state.json").read_text())
             run("ip", "route", "del", state["server"] + "/32", check=False)
-        except (OSError, ValueError, KeyError, subprocess.TimeoutExpired):
+        except Exception:  # noqa: BLE001, S110 - best-effort route revert; teardown must continue to the secret/config cleanup below
             pass
     # Hosted runners are disposable. Delete all generated secret/config material.
     for path in [
