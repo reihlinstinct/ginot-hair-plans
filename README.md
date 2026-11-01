@@ -341,4 +341,3 @@ Installation copies manuals only, not executable aliases. The original Python
 entrypoints and runtime dependencies remain required. Installation refuses stale
 manuals. Help smoke tests invoke all three real entrypoints; defaults, unknown
 arguments, generated-page drift and custom-prefix installation are also tested.
-
