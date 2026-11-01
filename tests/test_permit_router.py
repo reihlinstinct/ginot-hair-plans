@@ -888,3 +888,35 @@ def test_max_full_pages_plus_a_full_probe_still_exhausts(capsys):
 
     assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
     assert "pagination budget" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("which", ["/reviews", "/comments", "/files"])
+@pytest.mark.parametrize("bad_page", [1, 2])
+def test_non_list_page_fails_closed(which, bad_page, capsys):
+    # Mutation pin: dropping the isinstance guard must not pass. A dict page
+    # (e.g. an API error object) is not a list of records, on the first page
+    # or mid-pagination.
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    full = [
+        {
+            "state": "COMMENTED",
+            "commit_id": HEAD,
+            "user": {"login": f"zz-{i}"},
+            "body": "",
+        }
+        for i in range(100)
+    ]
+
+    def gh2(path):
+        if which in path:
+            page = int(path.rsplit("page=", 1)[1])
+            if page == bad_page:
+                return {"message": "not a list"}
+            return full if page < bad_page else gh(path)
+        return gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+    # the exact collect() message: the /files backstop ("changed files
+    # incomplete or malformed") must not satisfy this pin.
+    assert "list response incomplete or malformed" in capsys.readouterr().out
