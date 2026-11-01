@@ -54,6 +54,63 @@ def test_newly_published_tik_renders_as_visible_searchable_row(tmp_path):
     assert "הפלמח 41" in fragment.split("data-search='", 1)[1].split("'", 1)[0]
 
 
+def test_batch_updates_data_json_permits(tmp_path):
+    """#559: docs/data.json is the public endpoint the MCP server serves;
+    a permit-feed batch must refresh its permits[] in the same run, keeping
+    generated/rows/changes (owned by the weekly refresh) untouched."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    tik = {
+        "tik_num": "2026/0439.00",
+        "mahut": 'תכנית במתווה תמ"א 38 הריסה ובנייה מחדש.',
+        "sugbakasha": 'תכנית במתווה תמ"א 38',
+        "status": "תחילת פרסום הבקשה להקלה",
+        "status_date": "2026-10-18",
+        "gush": 30007,
+        "helka": 12,
+        "publication_start": "2026-10-18",
+        "publication_end_planned": "2026-11-24",
+        "address": "הפלמח 41 קטמון הישנה",
+    }
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": [tik]}, ensure_ascii=False), encoding="utf-8"
+    )
+    before = {
+        "generated": "2026-10-01",
+        "rows": [{"pl_number": "101-0000001"}],
+        "changes": [],
+        "permits": [{"tik_num": "1981/0696.03", "status": "הבקשה נסגרה"}],
+    }
+    (tmp_path / "docs" / "data.json").write_text(
+        json.dumps(before, ensure_ascii=False), encoding="utf-8"
+    )
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    data = json.loads((tmp_path / "docs" / "data.json").read_text(encoding="utf-8"))
+    assert [p["tik_num"] for p in data["permits"]] == ["2026/0439.00"]
+    assert data["permits"][0]["status"] == "תחילת פרסום הבקשה להקלה"
+    assert "_map_missing" in data["permits"][0]  # same annotation as the weekly build
+    # weekly-owned keys are untouched
+    assert data["generated"] == "2026-10-01"
+    assert data["rows"] == [{"pl_number": "101-0000001"}]
+    assert data["changes"] == []
+
+
+def test_missing_data_json_is_left_to_the_weekly_refresh(tmp_path):
+    """The batch never creates data.json from scratch: without the weekly
+    keys there is nothing to keep, and a permits-only file would look like
+    a complete dataset to the MCP server."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    tik = {"tik_num": "2026/0439.00", "status": "x", "gush": 30007, "helka": 12}
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": [tik]}, ensure_ascii=False), encoding="utf-8"
+    )
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    assert not (tmp_path / "docs" / "data.json").exists()
+
+
 def test_refuses_to_overwrite_with_empty_feed(tmp_path):
     """A broken/empty feed must fail red, never blank the live fragment."""
     (tmp_path / "data").mkdir()

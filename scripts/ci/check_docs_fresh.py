@@ -16,13 +16,13 @@ data.json), so one render per distinct stamp date is made.
 
 Scope (what the gate covers): every text file render_site writes - the HTML
 pages and fragments, style.css, the copied static assets, feed.xml and the
-JSON it writes, except data.json (see EXCLUDED). CRLF is normalized to LF before comparing, because permit
+JSON it writes. CRLF is normalized to LF before comparing, because permit
 descriptions carry CR LF that the committed copies do not keep.
 
 Orphans: a committed reviews/talking_points_*.html or vendor/ file that the
 render no longer produces is reported stale, and --write deletes it.
 
-Not covered (reported by --list-uncovered): data.json, the PNG previews (og.png,
+Not covered (reported by --list-uncovered): the PNG previews (og.png,
 reviews/og_*.png; they depend on matplotlib and font versions), and the docs/
 files other pipelines write (index.json, plan-points.json, parcel-audit.json,
 badge/, favicons, design/, reviews/ fact-check pages).
@@ -54,13 +54,10 @@ sys.path.insert(0, str(ROOT / "src"))
 BASE_URL = "https://reihlinstinct.github.io/ginot-hair-plans/"  # refresh.py default
 SKIP_SUFFIXES = (".png",)
 # render_site writes these, but other pipelines leave them behind on purpose,
-# so comparing them would flag every PR. Listed by --list-uncovered.
-EXCLUDED = {
-    # The permit feed batches refresh permits.html / permit-ids.json /
-    # permit-points.json (scripts/render_permits_page.py) but not data.json,
-    # whose permits[] is only rewritten by the weekly refresh.
-    "data.json": "permits[] is refreshed only by the weekly refresh, not by permit-feed batches",
-}
+# so comparing them would flag every PR. Listed by --list-uncovered. Empty
+# since #559: permit-feed batches now refresh data.json permits[] too, so the
+# weekly refresh no longer owns it alone.
+EXCLUDED = {}
 # Paths only render_site writes. A committed file matching one that the render
 # no longer produces (a removed plans/*/analysis review, a dropped vendor
 # asset) is an orphan: still published, so it counts as stale and --write
@@ -192,7 +189,7 @@ def check(
             return renders[date]
 
         names = _files(rendered_for(base_date))
-        if include_data_json:
+        if include_data_json and "data.json" not in names:
             names.append("data.json")
         for name in names:
             committed = docs / name

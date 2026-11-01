@@ -6,8 +6,11 @@ permits fragment the site loads was only rebuilt by the weekly refresh -
 a newly published permit stayed invisible on the site for up to a week
 (user report 2026-10-24: publication-status tik 2026/0439.00 missing).
 This script re-renders ONLY the fragment through the same _permits_section
-code path as the weekly site build: no plan rows, no network. It runs in
-the permit-feed publish step under set -e, so a render failure fails the
+code path as the weekly site build: no plan rows, no network. It also
+rewrites the permits[] array inside docs/data.json (keeping generated,
+rows and changes) so the public data endpoint and the MCP server stop
+lagging the feed until the weekly refresh (#559). It runs in the
+permit-feed publish step under set -e, so a render failure fails the
 run red instead of silently shipping stale rows.
 """
 
@@ -28,6 +31,27 @@ OUT = "docs/permits.html"
 DEFAULT_OUT = "docs/permits-default.html"
 PUBLICATIONS = "data/publications_active.json"
 IDS_OUT = "docs/permit-ids.json"  # read by the submit worker (#515)
+
+
+DATA_JSON = "docs/data.json"
+
+
+def update_data_json(permits) -> None:
+    """Rewrite only permits[] inside docs/data.json (#559).
+
+    The public data endpoint (and the MCP server that reads it) was only
+    refreshed by the weekly site build, so permit-feed changes lagged it
+    by up to a week. generated/rows/changes still belong to the weekly
+    build; a missing data.json is left for it to create."""
+    if not os.path.exists(DATA_JSON):
+        print(f"{DATA_JSON} does not exist - leaving it to the weekly refresh")
+        return
+    with open(DATA_JSON, encoding="utf-8") as fh:
+        data = json.load(fh)
+    data["permits"] = permits
+    with open(DATA_JSON, "w", encoding="utf-8") as fh:
+        json.dump(data, fh, ensure_ascii=False)
+    print(f"rewrote permits[] ({len(permits)} requests) in {DATA_JSON}")
 
 
 def main() -> int:
@@ -84,6 +108,7 @@ def main() -> int:
     )
     n = write_permit_ids(permits, IDS_OUT)
     print(f"wrote {n} permit ids into {IDS_OUT}")
+    update_data_json(permits)
     return 0
 
 
