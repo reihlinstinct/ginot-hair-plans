@@ -140,7 +140,7 @@ def wait_ready(limit: int = 15) -> None:
         status = ""
         try:
             status = run("timeout", "3", "ipsec", "statusall")
-        except Exception:
+        except (TunnelError, OSError, subprocess.TimeoutExpired):
             pass
         READINESS.update(readiness_snapshot(status))
         READINESS["checks"] = index + 1
@@ -308,7 +308,7 @@ def down() -> None:
     ]:
         try:
             run(*cmd, check=False)
-        except Exception:
+        except (OSError, subprocess.TimeoutExpired):
             pass
     # Remove only our firewall chains, not unrelated host policy.
     for binary in ["iptables", "ip6tables"]:
@@ -319,13 +319,13 @@ def down() -> None:
         ]:
             try:
                 run(*cmd, check=False)
-            except Exception:
+            except (OSError, subprocess.TimeoutExpired):
                 pass
     if ROOT.exists():
         try:
             state = json.loads((ROOT / "state.json").read_text())
             run("ip", "route", "del", state["server"] + "/32", check=False)
-        except Exception:
+        except (OSError, ValueError, KeyError, subprocess.TimeoutExpired):
             pass
     # Hosted runners are disposable. Delete all generated secret/config material.
     for path in [
@@ -461,7 +461,7 @@ def connect_bounded(env: Mapping[str, str], attempts: int = 3) -> None:
                 flush=True,
             )
             return
-        except Exception as error:
+        except Exception as error:  # noqa: BLE001 - every failure must funnel through safe_failure (secret-sanitized diagnostics), never crash raw
             failed_stage = STAGE
             diagnostic = safe_failure(error)
             log = ROOT / "charon-private.log"
@@ -492,7 +492,7 @@ def connect_bounded(env: Mapping[str, str], attempts: int = 3) -> None:
                     if combined["peer_reply_observed"]:
                         combined["request_without_observed_response"] = []
                     DIAGNOSTICS.update(combined)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - diagnostics merge is best-effort; the connection outcome must not depend on it
                     pass
             down()
             print(
@@ -539,7 +539,7 @@ def main() -> None:
         raise SystemExit("Use up, up-bounded or down")
     try:
         connect_bounded(os.environ, 3 if sys.argv[1:] == ["up-bounded"] else 1)
-    except Exception:
+    except Exception:  # noqa: BLE001 - entry catch-all: any setup failure becomes a generic SystemExit so no internal detail reaches the log
         raise SystemExit(
             "Private VPN setup failed; no municipal action is permitted"
         ) from None
