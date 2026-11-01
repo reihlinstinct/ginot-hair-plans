@@ -150,12 +150,31 @@ jobs:
           include-hidden-files: true  # tests/.artifacts is a dot-dir (issue #426)
           retention-days: 30
 
+  pip-audit:
+    # Full-tree dependency vulnerability audit (#125): audits the resolved
+    # requirements, not the diff (that is the dependency-review workflow's
+    # job). Gating: a newly published CVE in a currently-installed version
+    # fails visibly until bumped or explicitly ignored with justification.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt pip-audit==2.10.1
+      - name: Audit resolved dependencies
+        run: pip-audit --strict --requirement requirements.txt
   summary:
     name: Run summary
     if: always()
     permissions:
       contents: read
-    needs: [test, docs-fresh, worker, site-browser]
+    needs: [test, docs-fresh, worker, site-browser, pip-audit]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
