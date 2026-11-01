@@ -40,10 +40,11 @@ def test_summary_invalid_reports_and_unmeasured_coverage(tmp_path):
 
 def test_every_ci_test_job_has_always_summary_and_report():
     text = (ROOT / ".github/workflows/ci.yml").read_text()
-    assert text.count("name: Test run summary") == 3
-    # 3 summaries + the E2E evidence artifact upload, which must also run on
+    # 3 gating test jobs + the informational py315 job (#734).
+    assert text.count("name: Test run summary") == 4
+    # 4 summaries + the E2E evidence artifact upload, which must also run on
     # failure (issue #422).
-    assert text.count("if: ${{ always() }}") >= 3
+    assert text.count("if: ${{ always() }}") >= 4
     assert "--junitxml=test-results.xml" in text
     assert "--junitxml=browser-results.xml" in text
     assert "--test-reporter=junit" in text
