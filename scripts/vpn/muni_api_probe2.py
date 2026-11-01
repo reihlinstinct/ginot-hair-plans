@@ -47,7 +47,7 @@ def call(label, proc, params):
     time.sleep(2)
     try:
         return json.loads(raw)
-    except ValueError:
+    except (ValueError, RecursionError):
         return None
 
 

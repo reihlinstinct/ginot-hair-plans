@@ -102,7 +102,7 @@ for label, proc, params in CALLS:
             j = json.loads(raw)
             entry["rows"] = len(j) if isinstance(j, list) else "obj"
             entry["preview"] = json.dumps(j, ensure_ascii=False)[:600]
-        except ValueError:
+        except (ValueError, RecursionError):
             entry["preview"] = raw[:300].decode("utf-8", "replace")
     report.append(entry)
     print(f"{label}: status={status} bytes={len(raw)} blocked={blocked}", flush=True)
