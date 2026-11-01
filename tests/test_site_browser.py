@@ -2027,15 +2027,23 @@ def test_evidence_loaded_fires_despite_render_failure(tmp_path, browser, request
     try:
         with recorded_page(browser, request) as (pg, _errors):
             seen = _count_requests(pg)
+            patch = "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
 
             def handle(route):
                 resp = route.fetch()
-                pg.evaluate(
-                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
-                )
+                pg.evaluate(patch)
                 route.fulfill(response=resp)
 
+            def handle_pubs(route):
+                # publications_active.json may resolve before the subset fetch:
+                # install the throwing hook here too, or the publications
+                # callback would render fine and the test would pass without
+                # exercising the failure path it exists to pin.
+                pg.evaluate(patch)
+                route.continue_()
+
             pg.route("**/permits-default.html", handle)
+            pg.route("**/publications_active.json", handle_pubs)
             pg.goto(url)
             # the safety net still triggers the full load
             pg.wait_for_function("window.__permitsLoaded === true")
