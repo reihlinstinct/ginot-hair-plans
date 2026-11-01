@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-01 - Public CLI help and packaged manuals (#720)
+
+- Share public argument definitions between argparse help and generated Linux
+  section-1 manuals for refresh, land-feed and read-only MCP.
+- Add drift checking, custom-prefix manual installation and offline help tests.
+- Existing defaults and runtime behavior remain unchanged; no workflow,
+  publication, permission or data changes.
+
 ## 2026-10-29 - Unverified registry and Actions minute budget (#680)
 
 - Add a registry of capabilities we rely on but have not proven, each with a
@@ -101,3 +109,4 @@ issue + PR record in this repo.
 
 - Fix statistics bar charts: restore visible track/fill CSS with responsive label
   widths and text counts; regression checks at 390px and 1280px (#256).
+
