@@ -74,7 +74,7 @@ def probe(name, url):
         )
         parts = out.stdout.split("\t")
         code, ctype, size = (parts + ["", "", "0"])[:3]
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - per-endpoint recorder: any failure is classified and the probe continues
         return {"endpoint": name, "result": "error", "error_kind": type(e).__name__}
     try:
         with open("/tmp/probe_body", "rb") as f:

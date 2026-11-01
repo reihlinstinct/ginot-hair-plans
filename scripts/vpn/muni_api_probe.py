@@ -10,6 +10,7 @@ we never retry with rotated headers.
 import json
 import os
 import time
+import http.client
 import urllib.request
 
 API = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
@@ -81,7 +82,7 @@ for label, proc, params in CALLS:
     except urllib.error.HTTPError as e:
         raw = e.read()
         status = e.code
-    except Exception as e:
+    except (OSError, http.client.HTTPException) as e:
         report.append({"label": label, "proc": proc, "error": str(e)[:200]})
         print(f"{label}: ERROR {e}", flush=True)
         continue
@@ -101,7 +102,7 @@ for label, proc, params in CALLS:
             j = json.loads(raw)
             entry["rows"] = len(j) if isinstance(j, list) else "obj"
             entry["preview"] = json.dumps(j, ensure_ascii=False)[:600]
-        except Exception:
+        except ValueError:
             entry["preview"] = raw[:300].decode("utf-8", "replace")
     report.append(entry)
     print(f"{label}: status={status} bytes={len(raw)} blocked={blocked}", flush=True)

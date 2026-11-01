@@ -34,7 +34,7 @@ def call(label, proc, params):
             raw, status = r.read(), r.status
     except urllib.error.HTTPError as e:
         raw, status = e.read(), e.code
-    except Exception as e:
+    except OSError as e:
         print(f"{label}: ERROR {e}", flush=True)
         return None
     blocked = b"Access Denied" in raw[:4000] and b"edgesuite" in raw[:4000]
@@ -46,7 +46,7 @@ def call(label, proc, params):
     time.sleep(2)
     try:
         return json.loads(raw)
-    except Exception:
+    except ValueError:
         return None
 
 
