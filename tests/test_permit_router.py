@@ -840,3 +840,11 @@ def test_malformed_comment_record_stops_before_dedupe(comment):
         return gh(path)
 
     assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+@pytest.mark.parametrize("state", [None, "", 7, ["APPROVED"]])
+def test_review_without_a_verifiable_state_stops(state):
+    w = World()
+    w.reviews = [{"state": state, "commit_id": HEAD, "user": {"login": "zz-rev"}}]
+    with pytest.raises(pr_mod.RouterError, match="malformed reviews"):
+        decide(w=w)

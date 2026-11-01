@@ -195,10 +195,12 @@ def approved_at_head(pr, reviews):
         # closed; it must never count as an approval by "someone else".
         if not isinstance(login, str) or not login:
             raise RouterError("malformed reviews")
-        if (
-            review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED")
-            and login != author
-        ):
+        # An unverifiable state must fail closed too: skipping the record
+        # would let an earlier exact-head APPROVED stand in for it.
+        state = review.get("state")
+        if not isinstance(state, str) or not state:
+            raise RouterError("malformed reviews")
+        if state in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
             latest[login] = review
     states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]
     if any(state == "CHANGES_REQUESTED" for state, _ in states):
