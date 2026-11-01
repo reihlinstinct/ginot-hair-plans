@@ -5,12 +5,12 @@ planner-private files. Objection dates are derived, not official deadlines.
 Run: python -m ginot.mcp_server [--data docs/data.json]
 """
 
-import argparse
 import datetime
 import json
 import sys
 from pathlib import Path
 
+from .cli_spec import parser_for
 from .dates import today_il
 
 PROTOCOL = "2024-11-05"
@@ -203,10 +203,10 @@ def serve(data, stdin=sys.stdin, stdout=sys.stdout):
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default="docs/data.json")
+    ap = parser_for("ginot-mcp-server")
     serve(load(ap.parse_args(argv).data))
 
 
 if __name__ == "__main__":
     main()
+

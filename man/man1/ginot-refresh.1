@@ -1,0 +1,33 @@
+.TH "GINOT-REFRESH" "1" "" "Ginot HaIr" "User Commands"
+.SH NAME
+\&ginot\-refresh \- Refresh public plans and render the static site.
+.SH SYNOPSIS
+\&python3 refresh.py [OPTIONS]
+.SH DESCRIPTION
+\&Queries public planning services and writes snapshots, exports and site files. Run from the repository root with the project dependencies installed. This command does not file objections.
+.SH OPTIONS
+.TP
+\&\-h, \-\-help
+\&Show command help and exit without performing work.
+.TP
+\&\-\-council VALUE
+\&Council boundary GeoJSON (WGS84). Default: data/council_ginot_hair.geojson.
+.TP
+\&\-\-out VALUE
+\&Directory for generated exports and changes. Default: out.
+.TP
+\&\-\-site VALUE
+\&Directory for the generated static site. Default: docs.
+.TP
+\&\-\-base\-url VALUE
+\&Public site base URL. Default: https://reihlinstinct.github.io/ginot\-hair\-plans/.
+.TP
+\&\-\-snapshots VALUE
+\&Directory for dated planning snapshots. Default: snapshots.
+.TP
+\&\-\-status VALUE
+\&Local plan tracking status JSON. Default: data/plan_status.json.
+.SH EXIT STATUS
+\&0 on success or \-\-help. Invalid arguments return 2. Runtime failures return nonzero.
+.SH NOTES
+\&These manuals document existing Python entrypoints, not installed executable aliases. Internal CI, maintenance and developer scripts are not part of this manual package.

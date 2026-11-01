@@ -9,7 +9,6 @@ The refresh is designed to run from any free scheduler (see README): it is a
 plain script with no GitHub Actions dependency.
 """
 
-import argparse
 import json
 import os
 import sys
@@ -18,6 +17,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from shapely.geometry import shape
 
 from ginot import diff, iplan, outputs, page, tracking
+from ginot.cli_spec import parser_for
 from ginot.dates import today_il
 
 
@@ -73,15 +73,7 @@ def merge_land_status(rows, land_path="data/land_plan_status.json"):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--council", default="data/council_ginot_hair.geojson")
-    ap.add_argument("--out", default="out")
-    ap.add_argument("--site", default="docs")
-    ap.add_argument(
-        "--base-url", default="https://reihlinstinct.github.io/ginot-hair-plans/"
-    )
-    ap.add_argument("--snapshots", default="snapshots")
-    ap.add_argument("--status", default="data/plan_status.json")
+    ap = parser_for("ginot-refresh")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
     os.makedirs(args.snapshots, exist_ok=True)
@@ -207,3 +199,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

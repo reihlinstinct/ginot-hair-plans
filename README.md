@@ -316,3 +316,29 @@ Parameter names: `plan.` + `fq`, `fstatus`, `fflag`, `fobj`, `ffrom`, `fto`,
 Booleans use `0`/`1`, dates ISO YYYY-MM-DD, selected groups comma-separated;
 defaults are omitted. Unknown params and anchors are preserved when copying.
 No synonym/alias matching is added (#468 is separate).
+
+### Public CLI help and Linux manuals
+
+The supported public commands are `python3 refresh.py`,
+`python3 scripts/land_feed.py` and `PYTHONPATH=src python3 -m ginot.mcp_server`.
+Run each with `--help` for its options and defaults, without running a refresh,
+fetch or server. Run from the repository root with `requirements.txt` installed;
+`land_feed.py` also needs `curl`. Internal CI, maintenance and developer scripts
+are not shipped public CLI commands and are excluded from the manual package.
+
+`src/ginot/cli_spec.py` defines arguments and descriptions for both argparse and
+committed section-1 manuals, so changes have one source of truth:
+
+```sh
+python3 scripts/docs/man_pages.py                  # regenerate man/man1/*.1
+python3 scripts/docs/man_pages.py --check          # drift check (also in pytest)
+python3 scripts/docs/man_pages.py --install "$HOME/.local"
+MANPATH="$HOME/.local/share/man:" man ginot-refresh
+# Other manuals: ginot-land-feed(1), ginot-mcp-server(1)
+```
+
+Installation copies manuals only, not executable aliases. The original Python
+entrypoints and runtime dependencies remain required. Installation refuses stale
+manuals. Help smoke tests invoke all three real entrypoints; defaults, unknown
+arguments, generated-page drift and custom-prefix installation are also tested.
+
