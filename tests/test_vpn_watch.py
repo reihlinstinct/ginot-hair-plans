@@ -1,4 +1,5 @@
 """Redaction watcher tests (issue #439): the masks are the security boundary."""
+
 import importlib.util
 from pathlib import Path
 
@@ -17,7 +18,10 @@ spec.loader.exec_module(vw)
     [
         ("peer 10.0.0.1/32 responded", "peer <ip> responded"),
         ("v6 fe80::1ff:fe23:4567:890a up", "v6 <ip6> up"),
-        ("mac 00:1A:2b:3C:4d:5e seen", "mac <ip6> seen"),  # ipv6 pattern runs first; value still redacted
+        (
+            "mac 00:1A:2b:3C:4d:5e seen",
+            "mac <ip6> seen",
+        ),  # ipv6 pattern runs first; value still redacted
         ("ESP SPIs: c0a80101_i c0a80102_o", "ESP SPIs: <spi> <spi>"),
         ("ike c0a80101c0a80102_r", "ike <spi>"),
         ("blob abcdef0123456789 end", "blob <hex> end"),

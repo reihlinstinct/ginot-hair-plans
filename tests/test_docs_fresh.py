@@ -5,6 +5,7 @@ docs/, so the merge deployed nothing; #538 regenerated it by hand).
 The tests render from the repo's committed inputs into a temp docs/ tree with
 a pinned synthetic date, so they do not depend on the state of the real docs/.
 """
+
 import os
 import shutil
 import subprocess
@@ -64,7 +65,9 @@ def test_stale_static_or_fragment_fails(docs, name):
 
 def test_rendered_file_missing_from_docs_fails(docs):
     (docs / "rows.html").unlink()
-    assert any(p.startswith("rows.html: rendered but missing") for p in fresh.check(docs))
+    assert any(
+        p.startswith("rows.html: rendered but missing") for p in fresh.check(docs)
+    )
 
 
 def test_crlf_only_difference_is_not_stale(docs):
@@ -110,7 +113,6 @@ def test_missing_date_stamp_is_a_check_error_not_a_pass(tmp_path):
     assert fresh.main(["--docs", str(docs)]) == 2
 
 
-
 # --- exit contract and the CI wrapper (review on #558) ----------------------
 
 CI_YML = ROOT / ".github" / "workflows" / "ci.yml"
@@ -119,10 +121,13 @@ CI_YML = ROOT / ".github" / "workflows" / "ci.yml"
 def _ci_docs_fresh_command():
     """The run: line of the docs-fresh job's freshness step in ci.yml."""
     text = CI_YML.read_text(encoding="utf-8")
-    job = text[text.index("\n  docs-fresh:\n"):]
+    job = text[text.index("\n  docs-fresh:\n") :]
     job = job[: job.index("\n  worker:\n")]
-    runs = [ln.split("run:", 1)[1].strip() for ln in job.splitlines()
-            if ln.strip().startswith("run:") and "check_docs_fresh" in ln]
+    runs = [
+        ln.split("run:", 1)[1].strip()
+        for ln in job.splitlines()
+        if ln.strip().startswith("run:") and "check_docs_fresh" in ln
+    ]
     assert len(runs) == 1, runs
     assert "||" not in job and "continue-on-error" not in job
     return runs[0]
@@ -132,10 +137,18 @@ def _run_ci_command(docs):
     """Run the CI step's command the way Actions runs it (bash -e)."""
     cmd = _ci_docs_fresh_command() + f" --docs '{docs}'"
     # `python` must be this interpreter, as setup-python makes it in CI.
-    env = dict(os.environ, PATH=os.path.dirname(sys.executable) + os.pathsep
-               + os.environ.get("PATH", ""))
-    return subprocess.run(["bash", "-e", "-c", cmd], cwd=ROOT, env=env,
-                          capture_output=True, text=True, check=False)
+    env = dict(
+        os.environ,
+        PATH=os.path.dirname(sys.executable) + os.pathsep + os.environ.get("PATH", ""),
+    )
+    return subprocess.run(
+        ["bash", "-e", "-c", cmd],
+        cwd=ROOT,
+        env=env,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
 
 
 def test_ci_command_fails_on_stale_output(docs):
@@ -155,7 +168,9 @@ def test_ci_command_passes_on_clean_tree(docs):
 @pytest.mark.parametrize("bad", ["2026-13-45", "2026-02-30"])
 def test_invalid_html_date_stamp_cannot_run(docs, bad):
     about = docs / "about.html"
-    about.write_text(about.read_text(encoding="utf-8").replace(DATE, bad), encoding="utf-8")
+    about.write_text(
+        about.read_text(encoding="utf-8").replace(DATE, bad), encoding="utf-8"
+    )
     res = _run_ci_command(docs)
     assert res.returncode == 2, res.stdout + res.stderr
     assert "could not run" in res.stderr
@@ -168,7 +183,11 @@ def test_invalid_json_generated_stamp_cannot_run(docs):
 
 def test_malformed_required_input_cannot_run(docs, tmp_path, monkeypatch):
     root = tmp_path / "root"
-    for rel in ("snapshots/latest.json", "out/changes.json", "data/permit_requests.json"):
+    for rel in (
+        "snapshots/latest.json",
+        "out/changes.json",
+        "data/permit_requests.json",
+    ):
         (root / rel).parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(ROOT / rel, root / rel)
     (root / "snapshots" / "latest.json").write_text("{not json", encoding="utf-8")
@@ -191,11 +210,15 @@ def test_unexpected_render_error_cannot_run_not_stale(docs, monkeypatch, capsys)
 def test_orphaned_render_owned_files_are_stale_and_write_removes_them(docs):
     """A removed plans/*/analysis review or vendor asset must not stay
     published while the check reports fresh."""
-    (docs / "reviews" / "talking_points_000-0000000.html").write_text("old", encoding="utf-8")
+    (docs / "reviews" / "talking_points_000-0000000.html").write_text(
+        "old", encoding="utf-8"
+    )
     (docs / "vendor" / "leaflet" / "dropped.js").write_text("old", encoding="utf-8")
     problems = fresh.check(docs)
     assert sorted(p.split(":")[0] for p in problems) == [
-        "reviews/talking_points_000-0000000.html", "vendor/leaflet/dropped.js"]
+        "reviews/talking_points_000-0000000.html",
+        "vendor/leaflet/dropped.js",
+    ]
     assert all("orphan" in p for p in problems)
     assert fresh.check(docs, write=True) == []
     assert not (docs / "vendor" / "leaflet" / "dropped.js").exists()
@@ -203,8 +226,12 @@ def test_orphaned_render_owned_files_are_stale_and_write_removes_them(docs):
 
 
 def test_other_pipelines_files_are_never_orphans(docs):
-    for rel in ("index.json", "badge/plans.json", "reviews/palmach41/README.md",
-                "reviews/s149_notice_x.md"):
+    for rel in (
+        "index.json",
+        "badge/plans.json",
+        "reviews/palmach41/README.md",
+        "reviews/s149_notice_x.md",
+    ):
         (docs / rel).parent.mkdir(parents=True, exist_ok=True)
         (docs / rel).write_text("x", encoding="utf-8")
     assert fresh.check(docs) == []

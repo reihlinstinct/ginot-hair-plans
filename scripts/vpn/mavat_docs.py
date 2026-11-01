@@ -311,7 +311,6 @@ def main():
         # context, same session) for the background-appendix ids. Public
         # docs only; no login; no challenge bypass.
         if os.environ.get("MAVAT_FETCH_MODE") == "zip" and direct_docs:
-
             print(f"zip mode: {len(direct_docs)} documents", flush=True)
             tokens = []
 
@@ -1062,7 +1061,9 @@ def main():
                         + (el.inner_text() or "")[:30]
                     )
                     if not re.search(
-                        r"הורד|pdf|zip|PDF|ZIP|attach|download|מסמך", desc, re.IGNORECASE
+                        r"הורד|pdf|zip|PDF|ZIP|attach|download|מסמך",
+                        desc,
+                        re.IGNORECASE,
                     ):
                         continue
                     if desc in seen_clicks:

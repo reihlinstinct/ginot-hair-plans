@@ -1,4 +1,5 @@
 """Execute the deployed overlay JS against row/cell stubs without network."""
+
 import json
 import re
 import subprocess
@@ -8,11 +9,15 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_new_publication_overlays_stale_tel_hai_status_but_not_deadline():
-    source = (ROOT / 'src/ginot/page.py').read_text()
-    overlay = source.split('function applyPublicationEvidence(){', 1)[1].split("fetch('publications_active.json')", 1)[0]
-    policy = re.search(r'var PUBLICATION_EVIDENCE_MAX_DAYS=\d+;', source).group(0)
+    source = (ROOT / "src/ginot/page.py").read_text()
+    overlay = source.split("function applyPublicationEvidence(){", 1)[1].split(
+        "fetch('publications_active.json')", 1
+    )[0]
+    policy = re.search(r"var PUBLICATION_EVIDENCE_MAX_DAYS=\d+;", source).group(0)
     # Pin the clock fixture, but execute the deployed policy constant verbatim.
-    js = policy + '''
+    js = (
+        policy
+        + """
 const TODAY='2026-10-27';
 const original={"data-tik":"1975/0743.02","data-group":"review","data-active":"1",
 "data-status":"שולמה מקדמה","data-pub":"","data-pubend":""};
@@ -22,7 +27,9 @@ const row={a:{...original},querySelector(){return cell;},getAttribute(k){return 
 
 var rows=[row],publicationEvidence=[];
 function applyPublicationEvidence(){
-''' + overlay + '''
+"""
+        + overlay
+        + """
 const results=[];
 for(const [inside,date,active,current] of [[true,'2026-10-26','1',''],[false,'2026-10-26','1',''],[null,'2026-10-26','1',''],[true,'2026-02-30','1',''],[true,'2026-10-26','0',''],[true,'2026-10-20','1','2026-10-26'],[true,'2026-10-26','1','2026-10-26'],[true,'2019-04-17','1',''],[true,'2026-10-28','1',''],[true,'2026-07-28','1','']]){
  row.a={...original,'data-active':active,'data-pub':current};cell.textContent='';
@@ -43,39 +50,57 @@ row.a={...original};
 publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY}];
 applyPublicationEvidence();
 console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
-'''
-    r = subprocess.run(['node', '-e', js], text=True, capture_output=True, check=False)
+"""
+    )
+    r = subprocess.run(["node", "-e", js], text=True, capture_output=True, check=False)
     assert r.returncode == 0, r.stderr
     payload = json.loads(r.stdout)
-    results = payload['results']
-    stages = payload['stageResults']
-    assert payload['today']['data-group'] == 'obj'  # same-day evidence accepted
-    assert payload['boundary']['data-group'] == 'obj'  # exactly90 days accepted
-    assert [x['data-group'] for x in stages] == ['postpub', 'postpub', 'review', 'obj']
+    results = payload["results"]
+    stages = payload["stageResults"]
+    assert payload["today"]["data-group"] == "obj"  # same-day evidence accepted
+    assert payload["boundary"]["data-group"] == "obj"  # exactly90 days accepted
+    assert [x["data-group"] for x in stages] == ["postpub", "postpub", "review", "obj"]
     first = results[0]
-    assert first['attrs']['data-group'] == 'obj'
-    assert first['attrs']['data-pub'] == '2026-10-26'
-    assert first['attrs']['data-status'] == 'שולמה מקדמה'
-    assert first['attrs']['data-pubend'] == ''  # no fabricated deadline
-    assert 'פרסום עירוני' in first['text']
-    assert all(x['attrs']['data-group'] == 'review' for x in results[1:])
+    assert first["attrs"]["data-group"] == "obj"
+    assert first["attrs"]["data-pub"] == "2026-10-26"
+    assert first["attrs"]["data-status"] == "שולמה מקדמה"
+    assert first["attrs"]["data-pubend"] == ""  # no fabricated deadline
+    assert "פרסום עירוני" in first["text"]
+    assert all(x["attrs"]["data-group"] == "review" for x in results[1:])
 
 
 def test_superseded_planned_end_is_preserved_but_does_not_hide_new_publication():
-    source = (ROOT / 'src/ginot/page.py').read_text()
-    body = source.split("    var evidence=r.getAttribute('data-publication-evidence')||'';", 1)[1].split("  if(!pfclosed.checked", 1)[0].rsplit('  }', 1)[0]
+    source = (ROOT / "src/ginot/page.py").read_text()
+    body = (
+        source.split(
+            "    var evidence=r.getAttribute('data-publication-evidence')||'';", 1
+        )[1]
+        .split("  if(!pfclosed.checked", 1)[0]
+        .rsplit("  }", 1)[0]
+    )
     # Execute the exact end-date filter fragment, including its return-false.
-    js = """
+    js = (
+        """
 function validIso(v){return /^\\d{4}-\\d{2}-\\d{2}$/.test(v||'');}
 const TODAY='2026-10-27';
 function visible(pe,evidence){
 const r={getAttribute(){return evidence;}};
 var evidence=r.getAttribute('data-publication-evidence')||'';
-""" + body + """
+"""
+        + body
+        + """
 return true;}
 console.log(JSON.stringify([visible('2026-09-01','2026-10-26'),visible('2026-09-01',''),visible('2026-10-28','2026-10-26'),visible('2026-09-01','2026-09-01')]));
 """
-    result = subprocess.run(['node', '-e', js], text=True, capture_output=True, check=False)
+    )
+    result = subprocess.run(
+        ["node", "-e", js], text=True, capture_output=True, check=False
+    )
     assert result.returncode == 0, result.stderr
     assert json.loads(result.stdout) == [True, False, True, False]
-    assert "r.setAttribute('data-pubend'" not in source.split('function applyPublicationEvidence(){', 1)[1].split("fetch('publications_active.json')", 1)[0]
+    assert (
+        "r.setAttribute('data-pubend'"
+        not in source.split("function applyPublicationEvidence(){", 1)[1].split(
+            "fetch('publications_active.json')", 1
+        )[0]
+    )

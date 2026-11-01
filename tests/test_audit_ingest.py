@@ -1,4 +1,5 @@
 """Audit ingest validation tests (issue #439): callback must match immutable source."""
+
 import hashlib
 import importlib.util
 import json
@@ -76,12 +77,14 @@ def test_validate_rejects_stale_current():
 
 def test_main_end_to_end_with_mocked_git(tmp_path, monkeypatch):
     """main(): git-show mocked, parcel total cross-checked, both outputs written."""
-    geojson = json.dumps({
-        "features": [
-            {"properties": {"gush": 1, "helka": 1}},
-            {"properties": {"gush": 2, "helka": 2}},
-        ]
-    }).encode()
+    geojson = json.dumps(
+        {
+            "features": [
+                {"properties": {"gush": 1, "helka": 1}},
+                {"properties": {"gush": 2, "helka": 2}},
+            ]
+        }
+    ).encode()
     feed = json.dumps({"batch": {"offset": 1, "limit": 1}, "requests": []}).encode()
     digest = hashlib.sha256(feed).hexdigest()
 
@@ -100,10 +103,16 @@ def test_main_end_to_end_with_mocked_git(tmp_path, monkeypatch):
     (tmp_path / "data/permit_requests.json").write_bytes(feed)
     (tmp_path / "docs").mkdir()
     rep = tmp_path / "report.json"
-    rep.write_text(json.dumps(report(
-        source_digest=digest, total_unique_parcels=2,
-        published_cursor=2, remaining=0,
-    )))
+    rep.write_text(
+        json.dumps(
+            report(
+                source_digest=digest,
+                total_unique_parcels=2,
+                published_cursor=2,
+                remaining=0,
+            )
+        )
+    )
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr("sys.argv", ["ingest.py", "--report", str(rep)])
     ai.main()
@@ -120,7 +129,9 @@ def test_main_rejects_oversized_and_mismatched_total(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match="Oversized"):
         ai.main()
 
-    geojson = json.dumps({"features": [{"properties": {"gush": 1, "helka": 1}}]}).encode()
+    geojson = json.dumps(
+        {"features": [{"properties": {"gush": 1, "helka": 1}}]}
+    ).encode()
 
     class _R:
         def __init__(self, out):

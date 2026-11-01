@@ -17,9 +17,9 @@ def test_daily_recheck_cap_fits_step_timeout():
 def test_publish_leaves_green_pr_for_required_reviews():
     # #562 supersedes the historical admin bypass: even green checks do not
     # authorize publication before independent and exact-head Claude review.
-    assert 'gh pr merge' not in WF
-    assert '--admin' not in WF
-    assert 'awaiting independent and exact-head Claude reviews' in WF
+    assert "gh pr merge" not in WF
+    assert "--admin" not in WF
+    assert "awaiting independent and exact-head Claude reviews" in WF
 
 
 def test_audit_result_stages_green_pr_for_independent_reviews():
@@ -27,7 +27,7 @@ def test_audit_result_stages_green_pr_for_independent_reviews():
     wf = (
         Path(__file__).resolve().parents[1] / ".github/workflows/audit-result.yml"
     ).read_text(encoding="utf-8")
-    assert 'gh pr merge' not in wf
-    assert '--admin' not in wf
-    assert 'gh pr update-branch' not in wf
-    assert 'awaiting independent and exact-head Claude reviews' in wf
+    assert "gh pr merge" not in wf
+    assert "--admin" not in wf
+    assert "gh pr update-branch" not in wf
+    assert "awaiting independent and exact-head Claude reviews" in wf

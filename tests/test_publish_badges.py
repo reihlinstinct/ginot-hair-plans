@@ -1,4 +1,5 @@
 """Badge endpoint generation tests (issue #439): invalid metrics must raise."""
+
 import importlib.util
 import json
 from pathlib import Path
@@ -37,12 +38,16 @@ def test_python_metrics_rejects_failing_and_empty():
 
 
 def test_go_metrics_from_json_lines():
-    lines = "\n".join([
-        json.dumps({"Action": "pass", "Test": "TestA"}),
-        json.dumps({"Action": "skip", "Test": "TestB"}),
-        json.dumps({"Action": "pass", "Test": "TestA"}),  # duplicate keeps last state
-        json.dumps({"Action": "output", "Test": "TestC"}),  # ignored action
-    ])
+    lines = "\n".join(
+        [
+            json.dumps({"Action": "pass", "Test": "TestA"}),
+            json.dumps({"Action": "skip", "Test": "TestB"}),
+            json.dumps(
+                {"Action": "pass", "Test": "TestA"}
+            ),  # duplicate keeps last state
+            json.dumps({"Action": "output", "Test": "TestC"}),  # ignored action
+        ]
+    )
     out = pb.metrics("go", lines, "coverage: 72.5% of statements")
     assert out["tests"]["label"] == "Go suite"
     assert out["tests"]["message"] == "1 passed, 1 skipped"
@@ -64,9 +69,17 @@ def test_main_writes_badge_files(tmp_path):
     cov.write_text(json.dumps({"totals": {"percent_covered": 90}}))
     outdir = tmp_path / "badges"
     proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts/ci/publish_badges.py"),
-         "python", str(res), str(cov), str(outdir)],
-        capture_output=True, text=True, check=False,
+        [
+            sys.executable,
+            str(ROOT / "scripts/ci/publish_badges.py"),
+            "python",
+            str(res),
+            str(cov),
+            str(outdir),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
     )
     assert proc.returncode == 0, proc.stderr
     tests_badge = json.loads((outdir / "tests.json").read_text())
@@ -169,13 +182,9 @@ exec "$REAL_GIT" "$@"
     assert "re-fetching and re-applying" in proc.stderr
 
     run([git, "fetch", "origin", "badge-data"], cwd=work)
-    out = run(
-        [git, "show", "origin/badge-data:tests.json"], cwd=work
-    ).stdout.strip()
+    out = run([git, "show", "origin/badge-data:tests.json"], cwd=work).stdout.strip()
     assert out == '{"new": 1}'
-    log = run(
-        [git, "log", "--format=%s", "origin/badge-data"], cwd=work
-    ).stdout
+    log = run([git, "log", "--format=%s", "origin/badge-data"], cwd=work).stdout
     assert "data: measured successful main CI badges" in log
     assert "competing badge push" in log  # retry built on the winner's commit
 

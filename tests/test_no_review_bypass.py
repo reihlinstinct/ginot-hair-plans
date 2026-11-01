@@ -78,9 +78,11 @@ ALLOWLIST = [
     (
         "permit-feed.yml",
         "gh-workflow-run",
-        ("gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true "
-        "-f include_late_stages=${{ env.REQ_INCLUDE_LATE_STAGES }} "
-         "-f limit=${{ env.REQ_LIMIT }} -f offset=0"),
+        (
+            "gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true "
+            "-f include_late_stages=${{ env.REQ_INCLUDE_LATE_STAGES }} "
+            "-f limit=${{ env.REQ_LIMIT }} -f offset=0"
+        ),
         "steps.publish.outputs.merged == 'true'",
         "enrich chain, only after a reviewed merge (#145, #562)",
     ),
@@ -156,7 +158,9 @@ def scan_workflow(file, text):
                         "\n", 1
                     )[0]
                     # Start at THIS match, never at an earlier allowlisted command.
-                    matched_command = re.split(r"[;|&\n]", command[m.start():], maxsplit=1)[0].strip()
+                    matched_command = re.split(
+                        r"[;|&\n]", command[m.start() :], maxsplit=1
+                    )[0].strip()
                     if not _allowed(file, rule, matched_command, step.get("if")):
                         found.append((file, rule, line.strip()))
     return found
@@ -417,40 +421,55 @@ def test_script_scanner_catches_planted_form(tmp_path):
     assert scan_script("x.sh", 'git -C "$W" push origin HEAD:badge-data\n') == []
 
 
-@pytest.mark.parametrize('separator', ['; ', ' && ', ' | ', ' '])
-@pytest.mark.parametrize('successor', [
-    'gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit',
-    'gh workflow run permit-feed.yml -f mode=enrich',
-])
+@pytest.mark.parametrize("separator", ["; ", " && ", " | ", " "])
+@pytest.mark.parametrize(
+    "successor",
+    [
+        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit",
+        "gh workflow run permit-feed.yml -f mode=enrich",
+    ],
+)
 def test_ci_exception_never_covers_a_second_ungated_command(separator, successor):
-    text = CLEAN.replace('gh pr create --base main --head "$BRANCH"',
-                         'gh workflow run ci.yml --ref "$BRANCH"' + separator + successor)
-    found = scan_workflow('permit-feed.yml', text)
-    assert any(rule == 'gh-workflow-run' for _, rule, _ in found)
+    text = CLEAN.replace(
+        'gh pr create --base main --head "$BRANCH"',
+        'gh workflow run ci.yml --ref "$BRANCH"' + separator + successor,
+    )
+    found = scan_workflow("permit-feed.yml", text)
+    assert any(rule == "gh-workflow-run" for _, rule, _ in found)
 
 
 def test_yaml_extension_cannot_hide_a_review_bypass(tmp_path, monkeypatch):
-    (tmp_path / 'auto.yaml').write_text(CLEAN.replace(
-        'gh pr create --base main --head "$BRANCH"', 'gh pr merge 17 --admin'))
-    monkeypatch.setitem(test_no_workflow_or_ci_script_can_bypass_review.__globals__,
-                        'WORKFLOWS', tmp_path)
+    (tmp_path / "auto.yaml").write_text(
+        CLEAN.replace(
+            'gh pr create --base main --head "$BRANCH"', "gh pr merge 17 --admin"
+        )
+    )
+    monkeypatch.setitem(
+        test_no_workflow_or_ci_script_can_bypass_review.__globals__,
+        "WORKFLOWS",
+        tmp_path,
+    )
     with pytest.raises(AssertionError):
         test_no_workflow_or_ci_script_can_bypass_review()
 
 
-@pytest.mark.parametrize('extra', [' --ref main', ' -R other/repo', ' --ref=$OTHER'])
-@pytest.mark.parametrize('entry', ALLOWLIST)
+@pytest.mark.parametrize("extra", [" --ref main", " -R other/repo", " --ref=$OTHER"])
+@pytest.mark.parametrize("entry", ALLOWLIST)
 def test_allowlist_rejects_unreviewed_extra_dispatch_arguments(extra, entry):
     file, _rule, needle, gate, _reason = entry
-    file, text = planted(run=needle + extra, file=file,
-                         step_if="${{ " + gate + " }}" if gate else None)
+    file, text = planted(
+        run=needle + extra, file=file, step_if="${{ " + gate + " }}" if gate else None
+    )
     assert scan_workflow(file, text)
 
 
-@pytest.mark.parametrize('separator', ['; ', ' && ', ' | '])
-@pytest.mark.parametrize('entry', ALLOWLIST)
+@pytest.mark.parametrize("separator", ["; ", " && ", " | "])
+@pytest.mark.parametrize("entry", ALLOWLIST)
 def test_complete_allowlist_command_accepts_shell_separator(separator, entry):
     file, _rule, needle, gate, _reason = entry
-    file, text = planted(run=needle + separator + 'echo done', file=file,
-                         step_if="${{ " + gate + " }}" if gate else None)
+    file, text = planted(
+        run=needle + separator + "echo done",
+        file=file,
+        step_if="${{ " + gate + " }}" if gate else None,
+    )
     assert scan_workflow(file, text) == []

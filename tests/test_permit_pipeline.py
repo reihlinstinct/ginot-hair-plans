@@ -587,9 +587,7 @@ def test_feed_reuses_only_complete_same_day_unchanged_details(
         "address": "cached",
     }
     if age:
-        prior["details_checked_on"] = (
-            fixed_today.isoformat() if age == "today" else age
-        )
+        prior["details_checked_on"] = fixed_today.isoformat() if age == "today" else age
     if not complete:
         del prior["address"]
     out.write_text(json.dumps({"requests": [prior]}))

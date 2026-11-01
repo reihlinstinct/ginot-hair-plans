@@ -35,7 +35,10 @@ def validate_entries(entries: list[dict]) -> list[str]:
     problems, seen = [], set()
     for i, e in enumerate(entries):
         where = f"entry {i}"
-        if not isinstance(e, dict) or set(e) not in (set(REQUIRED), set(REQUIRED_PERMIT)):
+        if not isinstance(e, dict) or set(e) not in (
+            set(REQUIRED),
+            set(REQUIRED_PERMIT),
+        ):
             problems.append(
                 f"{where}: fields must be exactly {REQUIRED} or {REQUIRED_PERMIT}"
             )

@@ -5,6 +5,7 @@ mocked. The security-sensitive boundary here is redaction - only constant,
 non-private diagnostic categories may leave this module - so those paths are
 tested explicitly.
 """
+
 import importlib.util
 import json
 import socket
@@ -43,8 +44,11 @@ def clean_module_state():
 
 # --- summarize_negotiation: classification is fixed categories only ---------
 
+
 def test_negotiation_classifies_daemon_unavailable():
-    out = l2tp.summarize_negotiation("connecting to stroke socket failed: Connection refused")
+    out = l2tp.summarize_negotiation(
+        "connecting to stroke socket failed: Connection refused"
+    )
     assert "daemon_unavailable" in out["classes"]
 
 
@@ -101,6 +105,7 @@ def test_negotiation_empty_output_is_empty_categories():
 
 # --- quote / settings: credential and server validation ---------------------
 
+
 def test_quote_escapes_backslash_and_dquote():
     assert l2tp.quote('a\\b"c') == '"a\\\\b\\"c"'
 
@@ -117,11 +122,21 @@ def test_quote_rejects_empty_and_control_chars():
 def test_settings_rejects_url_and_bad_hosts():
     for bad in ["https://vpn.example", "vpn.example/path", "", "-bad", "a" * 260]:
         with pytest.raises(l2tp.TunnelError):
-            l2tp.settings({"VPN_L2TP_SERVER": bad, "VPN_L2TP_PSK": "p",
-                           "VPN_L2TP_USERNAME": "u", "VPN_L2TP_PASSWORD": "w"})
+            l2tp.settings(
+                {
+                    "VPN_L2TP_SERVER": bad,
+                    "VPN_L2TP_PSK": "p",
+                    "VPN_L2TP_USERNAME": "u",
+                    "VPN_L2TP_PASSWORD": "w",
+                }
+            )
     server, psk, _user, _password = l2tp.settings(
-        {"VPN_L2TP_SERVER": "vpn.example.com", "VPN_L2TP_PSK": "p",
-         "VPN_L2TP_USERNAME": "u", "VPN_L2TP_PASSWORD": "w"}
+        {
+            "VPN_L2TP_SERVER": "vpn.example.com",
+            "VPN_L2TP_PSK": "p",
+            "VPN_L2TP_USERNAME": "u",
+            "VPN_L2TP_PASSWORD": "w",
+        }
     )
     assert server == "vpn.example.com"
     assert psk == '"p"'
@@ -129,14 +144,15 @@ def test_settings_rejects_url_and_bad_hosts():
 
 # --- configs: generated file contents ---------------------------------------
 
+
 def test_configs_interpolate_server_and_credentials():
     cfgs = l2tp.configs("1.2.3.4", '"psk"', '"user"', '"pass"')
     assert "right=1.2.3.4" in cfgs["ipsec.conf"]
     assert "keyexchange=ikev1" in cfgs["ipsec.conf"]
     assert cfgs["ipsec.secrets"] == ': PSK "psk"\n'
     assert "lns = 1.2.3.4" in cfgs["xl2tpd.conf"]
-    assert "name \"user\"" in cfgs["ppp-options"]
-    assert "password \"pass\"" in cfgs["ppp-options"]
+    assert 'name "user"' in cfgs["ppp-options"]
+    assert 'password "pass"' in cfgs["ppp-options"]
     assert "unit 43" in cfgs["ppp-options"]
     # auth hardening stays in the generated profile
     assert "require-mschap-v2" in cfgs["ppp-options"]
@@ -144,6 +160,7 @@ def test_configs_interpolate_server_and_credentials():
 
 
 # --- status snapshots ---------------------------------------------------------
+
 
 def test_readiness_snapshot_connection_loaded_regex():
     snap = l2tp.readiness_snapshot(STATUSALL_LOADED)
@@ -168,6 +185,7 @@ def test_established_snapshot_requires_ike_and_transport():
 
 
 # --- run(): subprocess boundary ------------------------------------------------
+
 
 class _Result:
     def __init__(self, rc=0, out="", err=""):
@@ -205,6 +223,7 @@ def test_run_captures_negotiation_diagnostics_in_stage(monkeypatch):
 
 # --- safe_failure: redaction boundary ------------------------------------------
 
+
 def test_safe_failure_maps_known_types():
     assert l2tp.safe_failure(subprocess.TimeoutExpired("cmd", 3)) == "command_timeout"
     assert l2tp.safe_failure(socket.gaierror()) == "dns_resolution_failed"
@@ -218,6 +237,7 @@ def test_safe_failure_maps_known_types():
 
 
 # --- wait_ready / require_established ------------------------------------------
+
 
 def test_wait_ready_raises_when_control_plane_never_ready(monkeypatch):
     monkeypatch.setattr(l2tp, "run", lambda *a, **k: "")
@@ -257,6 +277,7 @@ def test_require_established_raises_until_sa_up(monkeypatch):
 
 # --- down(): teardown safety ----------------------------------------------------
 
+
 def test_down_without_root_dir_is_noop(monkeypatch, tmp_path):
     monkeypatch.setattr(l2tp, "ROOT", tmp_path / "absent")
     calls = []
@@ -278,19 +299,23 @@ def test_down_tears_down_routes_and_cleans_state(monkeypatch, tmp_path):
     assert any("route del 1.2.3.4/32" in f for f in flat)
     assert any("ipsec down mavat-l2tp" in f for f in flat)
     # every teardown command is best-effort (check=False), never fatal
-    assert all(k.get("check") is False for *_, k in
-               [(a, {"check": False}) for a in calls])
+    assert all(
+        k.get("check") is False for *_, k in [(a, {"check": False}) for a in calls]
+    )
     assert not root.exists()
 
 
 # --- connect_bounded: retry policy ----------------------------------------------
+
 
 def test_connect_bounded_rejects_unsupported_attempt_counts():
     with pytest.raises(l2tp.TunnelError):
         l2tp.connect_bounded({}, attempts=2)
 
 
-def test_connect_bounded_exhausts_and_forbids_municipal_action(monkeypatch, capsys, tmp_path):
+def test_connect_bounded_exhausts_and_forbids_municipal_action(
+    monkeypatch, capsys, tmp_path
+):
     monkeypatch.setattr(l2tp, "ROOT", tmp_path / "absent")
     monkeypatch.setattr(l2tp, "up", lambda env: (_ for _ in ()).throw(OSError(1, "x")))
     monkeypatch.setattr(l2tp, "down", lambda: None)
@@ -331,7 +356,9 @@ def test_connect_bounded_merges_charon_log_diagnostics(monkeypatch, capsys, tmp_
     )
     monkeypatch.setattr(l2tp, "ROOT", root)
     monkeypatch.setattr(
-        l2tp, "up", lambda env: (_ for _ in ()).throw(l2tp.TunnelError("command_exit_1"))
+        l2tp,
+        "up",
+        lambda env: (_ for _ in ()).throw(l2tp.TunnelError("command_exit_1")),
     )
     monkeypatch.setattr(l2tp, "down", lambda: None)
     with pytest.raises(l2tp.TunnelError):
@@ -342,6 +369,7 @@ def test_connect_bounded_merges_charon_log_diagnostics(monkeypatch, capsys, tmp_
 
 
 # --- main(): entrypoint discipline ----------------------------------------------
+
 
 def test_main_requires_root(monkeypatch):
     monkeypatch.setattr(l2tp.os, "geteuid", lambda: 1000)
@@ -369,9 +397,7 @@ def test_main_up_routes_through_connect_bounded(monkeypatch):
     monkeypatch.setattr(l2tp.os, "geteuid", lambda: 0)
     monkeypatch.setattr(sys, "argv", ["l2tp.py", "up-bounded"])
     seen = {}
-    monkeypatch.setattr(
-        l2tp, "connect_bounded", lambda env, n: seen.update(n=n)
-    )
+    monkeypatch.setattr(l2tp, "connect_bounded", lambda env, n: seen.update(n=n))
     l2tp.main()
     assert seen["n"] == 3
 

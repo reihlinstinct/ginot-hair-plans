@@ -24,8 +24,8 @@ def _ruff_installs(text):
 
 def test_ruff_pinned_to_one_version_in_linting_workflows():
     versions = set()
-    assert _ruff_installs((WORKFLOWS / 'ci.yml').read_text()), 'CI must install Ruff'
-    for path in WORKFLOWS.glob('*.yml'):
+    assert _ruff_installs((WORKFLOWS / "ci.yml").read_text()), "CI must install Ruff"
+    for path in WORKFLOWS.glob("*.yml"):
         name = path.name
         installs = _ruff_installs(path.read_text(encoding="utf-8"))
         for tok in installs:
