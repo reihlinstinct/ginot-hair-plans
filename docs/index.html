@@ -656,7 +656,10 @@ function showLoadState(){
     // The subset view stays visible. A full load the evidence safety net
     // asked for (a current publication outside the subset) must still say
     // when it failed, or that permit is silently missing.
-    if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
+    // A render failure stays visible until its retry succeeds: a later
+    // publications/apply cycle must not wipe the retry in the default view.
+    if(renderFailed){/* keep the render retry visible */}
+    else if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
     return;
   }
   rows.forEach(function(r){r.classList.add('filtered-out');});
@@ -694,7 +697,12 @@ function loadFullPermits(){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;
     try{runFullPostInstall();renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
-    catch(err){showRenderRetry(runFullPostInstall);}
+    catch(err){
+      // The rows stay installed for the retry, but never unfiltered under an
+      // active non-default view: replay the filter before surfacing the state.
+      try{apply();}catch(ignore){}
+      showRenderRetry(runFullPostInstall);
+    }
     window.__permitsLoaded=true;
     return true;
   }).catch(function(){
@@ -729,6 +737,7 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
   }catch(err){
+    try{apply();}catch(ignore){}
     showRenderRetry(function(){apply();if(window.__renderUrgent)window.__renderUrgent();});
   }
   defaultLoaded=true;window.__permitsDefaultLoaded=true;

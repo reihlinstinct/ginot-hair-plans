@@ -1938,7 +1938,7 @@ def test_full_list_render_failure_is_not_a_load_failure(tmp_path, browser, reque
             pg.goto(url)
             pg.wait_for_function("window.__permitsDefaultLoaded === true")
             pg.evaluate(
-                "window.__renderUrgent = function(){ throw new Error('synthetic') }"
+                "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
             )
             pg.locator("#pfq").fill("ייחודי")
             pg.wait_for_function("window.__permitsLoaded === true")
@@ -1950,8 +1950,11 @@ def test_full_list_render_failure_is_not_a_load_failure(tmp_path, browser, reque
             assert "נטענה" in pg.locator("#pfload").inner_text()
             # the full list is installed: all 33 rows are in the table
             assert pg.locator("#permits-table tbody tr").count() == 33
+            # ...but never unfiltered under the active query: the filter was
+            # replayed, so some rows carry filtered-out (0 when it was not).
+            assert pg.locator("#permits-table tbody tr.filtered-out").count() > 0
             # retry re-runs the post-install steps without refetching
-            pg.evaluate("window.__renderUrgent = function(){}")
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
             pg.locator("#pfrenderretry").click()
             pg.wait_for_function("window.__permitsRenderFailed === false")
             assert pg.locator("#pfload").inner_text() == ""
@@ -1961,7 +1964,9 @@ def test_full_list_render_failure_is_not_a_load_failure(tmp_path, browser, reque
         srv.shutdown()
 
 
-def test_subset_render_failure_keeps_subset_without_full_reload(tmp_path, browser, request):
+def test_subset_render_failure_keeps_subset_without_full_reload(
+    tmp_path, browser, request
+):
     # #624: a post-install failure on the subset path must keep the subset
     # rows, say what failed, and not fall into the fetch-failure catch that
     # would trigger a misleading full reload.
@@ -1973,7 +1978,7 @@ def test_subset_render_failure_keeps_subset_without_full_reload(tmp_path, browse
             def handle(route):
                 resp = route.fetch()
                 pg.evaluate(
-                    "window.__renderUrgent = function(){ throw new Error('synthetic') }"
+                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
                 )
                 route.fulfill(response=resp)
 
@@ -1987,7 +1992,10 @@ def test_subset_render_failure_keeps_subset_without_full_reload(tmp_path, browse
             assert pg.locator("#pfrenderretry").is_visible()
             assert "נטענה" in pg.locator("#pfload").inner_text()
             assert pg.locator("#permits-table tbody tr").count() == 3
-            pg.evaluate("window.__renderUrgent = function(){}")
+            # a later apply cycle must not wipe the render retry in default view
+            pg.locator("#pfreset").click()
+            assert pg.locator("#pfrenderretry").is_visible()
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
             pg.locator("#pfrenderretry").click()
             pg.wait_for_function("window.__permitsRenderFailed === false")
             assert pg.locator("#pfload").inner_text() == ""
