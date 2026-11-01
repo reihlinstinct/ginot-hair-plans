@@ -215,7 +215,10 @@ def approved_at_head(pr, reviews):
         # (#755): if GitHub ever adds a decisive-looking state, the router
         # must surface it loudly instead of silently skipping the review.
         if state not in KNOWN_REVIEW_STATES:
-            raise RouterError(f"unknown review state: {state}")
+            # Value-free like every other RouterError: the state string is
+            # API-supplied data and the reason is printed into logs and
+            # GITHUB_OUTPUT.
+            raise RouterError("unknown review state")
         if state in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
             latest[login] = review
     states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]
