@@ -11,13 +11,16 @@ public metadata only (status, status date, plan id).
 Usage: python3 scripts/land_feed.py [--data-json docs/data.json]
 """
 
-import argparse
 import datetime
 import json
 import subprocess
 import sys
 import time
+from pathlib import Path
 from zoneinfo import ZoneInfo
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from ginot.cli_spec import parser_for
 
 URL = "https://apps.land.gov.il/TabaSearch/api/SerachPlans/GetPlans"
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
@@ -90,10 +93,7 @@ def parse_status_date(raw):
 
 
 def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--data-json", default="docs/data.json")
-    ap.add_argument("--tracked", default="data/mavat_tracked_plans.json")
-    ap.add_argument("--out", default="data/land_plan_status.json")
+    ap = parser_for("ginot-land-feed")
     args = ap.parse_args()
 
     numbers = set()
@@ -164,3 +164,4 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
