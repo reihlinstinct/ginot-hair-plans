@@ -109,4 +109,3 @@ issue + PR record in this repo.
 
 - Fix statistics bar charts: restore visible track/fill CSS with responsive label
   widths and text counts; regression checks at 390px and 1280px (#256).
-
