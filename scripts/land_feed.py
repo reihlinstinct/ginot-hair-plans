@@ -59,7 +59,9 @@ def query_plan(plan_number):
         body,
         URL,
     ]
-    out = subprocess.run(cmd, capture_output=True, text=True, timeout=60).stdout
+    out = subprocess.run(
+        cmd, capture_output=True, text=True, timeout=60, check=False
+    ).stdout
     try:
         data = json.loads(out)
     except (json.JSONDecodeError, UnicodeDecodeError):

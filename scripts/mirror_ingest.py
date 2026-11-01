@@ -128,7 +128,7 @@ def fetch_rows(gushim):
             f"&include_total=true&filters={filters}"
         )
         out = subprocess.run(
-            ["curl", "-s", "-m", "60", url], capture_output=True, text=True
+            ["curl", "-s", "-m", "60", url], capture_output=True, text=True, check=False
         ).stdout
         data = json.loads(out)
         if not data.get("success"):

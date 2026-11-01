@@ -89,7 +89,7 @@ def call(tag, proc, params):
         payload,
         URL,
     ]
-    out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    out = subprocess.run(cmd, capture_output=True, text=True, timeout=60, check=False)
     parts = out.stdout.split("\t")
     code, ctype, size = (parts + ["", "", "0"])[:3]
     with open("/tmp/permit_pub_body", "rb") as f:
