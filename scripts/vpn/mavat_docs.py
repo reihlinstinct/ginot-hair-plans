@@ -106,7 +106,7 @@ def url_strings(obj, acc):
             url_strings(v, acc)
     elif isinstance(obj, str):
         s = obj
-        if s.startswith("http") or s.startswith("/"):
+        if s.startswith(("http", "/")):
             acc.add(s)
 
 

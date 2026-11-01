@@ -119,9 +119,11 @@ def check_detail(info, state, detail, name):
         "",
     ]
     lines += [
-        "<p>Inputs and expected values below are the checked-in test definition, "
-        "not a capture of private runtime objects. Runtime values are shown only "
-        "when supplied by the failure report; passing assertion operands are not captured.</p>"
+        (
+            "<p>Inputs and expected values below are the checked-in test definition, "
+            "not a capture of private runtime objects. Runtime values are shown only "
+            "when supplied by the failure report; passing assertion operands are not captured.</p>"
+        )
     ]
     if state == "PASSED":
         result = (
@@ -143,8 +145,10 @@ def check_detail(info, state, detail, name):
         lines.append("<pre>" + safe(detail, 6000) + "</pre>")
     if not info:
         lines += [
-            "<p>Exact source unavailable for this runner entry (for example module collection skip). "
-            "No steps, inputs or expected/actual values have been invented.</p>",
+            (
+                "<p>Exact source unavailable for this runner entry (for example module collection skip). "
+                "No steps, inputs or expected/actual values have been invented.</p>"
+            ),
             "</details>",
             "",
         ]
@@ -156,9 +160,9 @@ def check_detail(info, state, detail, name):
         "<p>Exact setup, calls, parameter cases and assertions:</p>",
         "<pre>" + safe(info["source"], 12000) + "</pre>",
     ]
-    for name, source in info["local"]:
+    for fixture_name, source in info["local"]:
         lines += [
-            "<p>Local input fixture: " + safe(name) + "</p>",
+            "<p>Local input fixture: " + safe(fixture_name) + "</p>",
             "<pre>" + safe(source, 6000) + "</pre>",
         ]
     lines += ["</details>", ""]
