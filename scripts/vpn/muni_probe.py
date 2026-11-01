@@ -70,7 +70,7 @@ def main():
             body = re.sub(r"(?s)<[^>]+>", " ", body)
             body = re.sub(r"\s+", " ", body).strip()
             entry["text_excerpt"] = body[:3000]
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - per-URL recorder: any failure is recorded and the sweep continues
             entry["error"] = type(exc).__name__
         report["results"].append(entry)
         print(

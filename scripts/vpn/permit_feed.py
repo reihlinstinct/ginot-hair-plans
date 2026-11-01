@@ -177,7 +177,7 @@ def _push_checkpoint_once(requests, offset, limit, done, token, slug):
             _LAST_CHECKPOINT["commit"] = r["commit"].get("sha")
         print(f"checkpoint pushed ({done}/{limit}): {'ok' if ok else 'FAILED'}")
         return ok
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - reason below (#399)
         # #399: left broad - gh_api never checks the HTTP status code, so an
         # error-shaped 2xx/4xx body (e.g. {"message": "Not Found"}) is valid
         # JSON that reaches here as a KeyError/TypeError on the expected
@@ -209,7 +209,7 @@ def load_checkpoint(token, slug):
         )
         if r and r.get("content"):
             return json.loads(base64.b64decode(r["content"]))
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001 - reason below (#399)
         # #399: same gh_api shape risk as _push_checkpoint_once (KeyError/
         # TypeError on an error-shaped response, plus base64/JSON failures).
         # A failed checkpoint read is an intentional non-fatal fallback to a
@@ -582,7 +582,7 @@ def main():
         except RuntimeError:
             print("anti-bot challenge during detail fetch - stopping (no workaround)")
             return 2
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - reason below (#399, tested resilience)
             # #399: left broad on purpose - test_feed_detail_failure_is_not_fatal
             # asserts the batch must survive ANY failure fetching a single
             # tik's publication/address details (the test injects a plain

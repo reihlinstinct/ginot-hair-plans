@@ -5,6 +5,7 @@ between calls), hard stop recorded on any block. No CAPTCHA, no retries
 with rotated headers.
 """
 
+import http.client
 import json
 import os
 import time
@@ -34,7 +35,7 @@ def call(label, proc, params):
             raw, status = r.read(), r.status
     except urllib.error.HTTPError as e:
         raw, status = e.read(), e.code
-    except Exception as e:
+    except (OSError, http.client.HTTPException) as e:
         print(f"{label}: ERROR {e}", flush=True)
         return None
     blocked = b"Access Denied" in raw[:4000] and b"edgesuite" in raw[:4000]
@@ -46,7 +47,7 @@ def call(label, proc, params):
     time.sleep(2)
     try:
         return json.loads(raw)
-    except Exception:
+    except (ValueError, RecursionError):
         return None
 
 

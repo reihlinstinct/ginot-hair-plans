@@ -104,7 +104,7 @@ def call(tag, proc, params):
     if is_json:
         try:
             rows = json.loads(body)
-        except Exception:
+        except (ValueError, RecursionError):
             is_json = False
     n = len(rows) if isinstance(rows, list) else (1 if isinstance(rows, dict) else 0)
     print(

@@ -48,7 +48,7 @@ def main():
                 page.goto(url, wait_until="domcontentloaded", timeout=60000)
                 try:
                     page.wait_for_load_state("networkidle", timeout=20000)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - networkidle is a hint only; the fixed sleep is the real settle
                     pass
                 time.sleep(3)
                 text = page.inner_text("body") if page.query_selector("body") else ""
@@ -75,7 +75,7 @@ def main():
                 entry["screenshot"] = shot.name
                 entry["final_url"] = page.url
                 print(f"{url} -> ok ({len(text)} chars)", flush=True)
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - per-URL recorder: any failure is recorded and the sweep continues
                 entry["error"] = f"{type(exc).__name__}: {exc}"[:200]
                 print(f"{url} -> {entry['error']}", flush=True)
             report["results"].append(entry)

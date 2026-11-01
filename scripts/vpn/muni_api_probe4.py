@@ -3,6 +3,7 @@
 Read-only POSTs to the public SPA API, same calls the public site makes.
 Parameterized by env TIK_NUM (bare file number, no 101- prefix)."""
 
+import http.client
 import json
 import os
 import urllib.request
@@ -45,7 +46,7 @@ for label, proc, params in CALLS:
             raw, status = r.read(), r.status
     except urllib.error.HTTPError as e:
         raw, status = e.read(), e.code
-    except Exception as e:
+    except (OSError, http.client.HTTPException) as e:
         print(f"{label}: ERROR {e}", flush=True)
         continue
     with open(f"{OUT}/v4_{label}_{TIK}.json", "wb") as f:

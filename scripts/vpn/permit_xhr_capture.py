@@ -62,14 +62,14 @@ def on_response(resp):
             body = resp.body()[:200000].lower()
             if any(m.encode() in body for m in CHALLENGE_MARKERS):
                 challenge["hit"] = True
-    except Exception:
+    except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
         pass
 
 
 def check_page_for_challenge(page):
     try:
         txt = page.content()[:200000].lower()
-    except Exception:
+    except Exception:  # noqa: BLE001 - challenge detection is best-effort; a failed read just skips this check
         return
     if any(m in txt for m in CHALLENGE_MARKERS):
         challenge["hit"] = True
@@ -105,7 +105,7 @@ def main():
                 btn = page.get_by_role("button", name="חיפוש").first
                 btn.click(timeout=5000)
                 page.wait_for_timeout(6000)
-            except Exception as e:
+            except Exception as e:  # noqa: BLE001 - search-form driving is optional; the failure event is recorded as JSON
                 print(
                     json.dumps(
                         {

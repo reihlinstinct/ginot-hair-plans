@@ -68,7 +68,7 @@ def main():
         page.goto(SV4, wait_until="domcontentloaded", timeout=60000)
         try:
             page.wait_for_load_state("networkidle", timeout=20000)
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - networkidle is a hint only; the fixed sleep is the real settle
             pass
         time.sleep(3)
         text = page.inner_text("body") if page.query_selector("body") else ""
@@ -93,7 +93,7 @@ def main():
                 }""",
                     url,
                 )
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - in-page fetch recorder: the error kind is the finding
                 res = {"error": type(exc).__name__}
             head = bytes(res.get("head", []))
             kind = (

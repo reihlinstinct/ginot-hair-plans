@@ -102,7 +102,7 @@ def call(payload, tag):
                 keys = sorted(data[0].keys())
             elif isinstance(data, dict):
                 keys = sorted(data.keys())
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - key listing is cosmetic; a bad body just prints no keys
             pass
     print(
         json.dumps(

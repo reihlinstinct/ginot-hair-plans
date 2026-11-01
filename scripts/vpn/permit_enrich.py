@@ -167,7 +167,7 @@ def main():
         except RuntimeError:
             print("anti-bot challenge - stopping (no workaround)")
             return 2
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - per-tik recorder: one failed tik must not kill the batch (#399 pattern)
             print(f"{tik}: publication fetch failed: {exc}")
             failed.add(tik)
             continue
@@ -181,7 +181,7 @@ def main():
                         "steps": step_summary(tik),
                     }
                 )
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - spot checks are advisory; a failed check is printed, not fatal
                 print(f"{tik}: spot check failed: {exc}")
         by_tik[tik]["publication_start"] = start
         by_tik[tik]["publication_end_planned"] = end

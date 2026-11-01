@@ -1,5 +1,6 @@
 """Probe v3: file-number variants for the archive/taba file procs."""
 
+import http.client
 import json
 import os
 import time
@@ -75,7 +76,7 @@ for label, proc, params in CALLS:
             raw, status = r.read(), r.status
     except urllib.error.HTTPError as e:
         raw, status = e.read(), e.code
-    except Exception as e:
+    except (OSError, http.client.HTTPException) as e:
         print(f"{label}: ERROR {e}", flush=True)
         continue
     blocked = b"Access Denied" in raw[:4000] and b"edgesuite" in raw[:4000]
