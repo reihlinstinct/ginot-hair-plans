@@ -92,7 +92,8 @@ def call(tag, proc, params):
     out = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
     parts = out.stdout.split("\t")
     code, ctype, size = (parts + ["", "", "0"])[:3]
-    body = open("/tmp/permit_pub_body", "rb").read()
+    with open("/tmp/permit_pub_body", "rb") as f:
+        body = f.read()
     low = body[:200000].lower()
     if any(m in low for m in CHALLENGE_MARKERS):
         print(json.dumps({"call": tag, "result": "anti_bot_challenge", "http": code}))

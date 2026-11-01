@@ -275,7 +275,8 @@ def call(proc, params):
         URL,
     ]
     subprocess.run(cmd, capture_output=True, text=True, timeout=60)
-    body = open("/tmp/permit_feed_body", "rb").read()
+    with open("/tmp/permit_feed_body", "rb") as f:
+        body = f.read()
     low = body[:200000].lower()
     if any(m in low for m in CHALLENGE_MARKERS):
         raise RuntimeError("anti_bot_challenge")
@@ -433,11 +434,12 @@ def main():
     # days and legacy rows without a check timestamp must always refresh.
     today = _today().isoformat()
     try:
-        previous = {
-            r["tik_num"]: r
-            for r in json.load(open(args.out)).get("requests", [])
-            if r.get("tik_num")
-        }
+        with open(args.out) as f:
+            previous = {
+                r["tik_num"]: r
+                for r in json.load(f).get("requests", [])
+                if r.get("tik_num")
+            }
     except (FileNotFoundError, json.JSONDecodeError):
         previous = {}
     requests, failures = {}, 0
