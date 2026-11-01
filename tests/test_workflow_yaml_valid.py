@@ -24,4 +24,6 @@ def test_workflow_files_exist():
 def test_workflow_is_parseable_yaml(path):
     doc = yaml.safe_load(path.read_text(encoding="utf-8"))
     assert isinstance(doc, dict), f"{path.name}: top level must be a mapping"
-    assert isinstance(doc.get("jobs"), dict), f"{path.name}: jobs section missing or not a mapping - misparsed?"
+    assert isinstance(doc.get("jobs"), dict), (
+        f"{path.name}: jobs section missing or not a mapping - misparsed?"
+    )
