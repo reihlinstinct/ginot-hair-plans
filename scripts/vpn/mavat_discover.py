@@ -75,7 +75,8 @@ def probe(name, url):
     except Exception as e:
         return {"endpoint": name, "result": "error", "error_kind": type(e).__name__}
     try:
-        body = open("/tmp/probe_body", "rb").read()
+        with open("/tmp/probe_body", "rb") as f:
+            body = f.read()
     except OSError:
         body = b""
     low = body[:200000].lower()

@@ -48,6 +48,7 @@ for label, proc, params in CALLS:
     except Exception as e:
         print(f"{label}: ERROR {e}", flush=True)
         continue
-    open(f"{OUT}/v4_{label}_{TIK}.json", "wb").write(raw)
+    with open(f"{OUT}/v4_{label}_{TIK}.json", "wb") as f:
+        f.write(raw)
     blocked = b"Access Denied" in raw[:4000] and b"edgesuite" in raw[:4000]
     print(f"{label}: status={status} bytes={len(raw)} blocked={blocked}", flush=True)

@@ -56,17 +56,17 @@ def run_curl() -> tuple[int, str, dict]:
     if p.returncode:
         return -1, "", {"curl_exit": p.returncode}
     status = int(p.stdout.strip() or "0")
-    body = open(
-        "/tmp/mavat_dry_run_body.html", encoding="utf-8", errors="replace"
-    ).read()
+    with open("/tmp/mavat_dry_run_body.html", encoding="utf-8", errors="replace") as f:
+        body = f.read()
     headers = {}
     try:
-        for line in open(
+        with open(
             "/tmp/mavat_dry_run_headers.txt", encoding="utf-8", errors="replace"
-        ):
-            if ":" in line:
-                k, v = line.split(":", 1)
-                headers[k.strip().lower()] = v.strip()
+        ) as f:
+            for line in f:
+                if ":" in line:
+                    k, v = line.split(":", 1)
+                    headers[k.strip().lower()] = v.strip()
     except OSError:
         pass
     return status, body, headers
