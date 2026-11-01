@@ -253,6 +253,7 @@ def write(rel, text="{}\n"):
         "docs/permits-default.html",
         "docs/permit-ids.json",
         "docs/permit-points.json",
+        "docs/data.json",
     ],
 )
 def test_generated_data_commit_is_accepted(repos, rel):

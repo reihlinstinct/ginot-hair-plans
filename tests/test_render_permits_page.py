@@ -2,6 +2,7 @@
 docs/permits.html in the same run, so a newly published permit is visible
 and searchable on the site immediately - not after the weekly refresh."""
 
+import importlib.util
 import json
 import subprocess
 import sys
@@ -94,6 +95,33 @@ def test_batch_updates_data_json_permits(tmp_path):
     assert data["generated"] == "2026-10-01"
     assert data["rows"] == [{"pl_number": "101-0000001"}]
     assert data["changes"] == []
+
+
+def test_failed_write_leaves_original_and_no_temp_files(tmp_path, monkeypatch):
+    """The atomic rewrite must never leave a truncated public endpoint or
+    stray temp files when the dump itself blows up."""
+    spec = importlib.util.spec_from_file_location("rpp", SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "docs").mkdir()
+    original = {"generated": "2026-10-01", "rows": [], "changes": [], "permits": []}
+    (tmp_path / "docs" / "data.json").write_text(
+        json.dumps(original, ensure_ascii=False), encoding="utf-8"
+    )
+    monkeypatch.chdir(tmp_path)
+
+    def boom(*args, **kwargs):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(module.json, "dump", boom)
+    try:
+        module.update_data_json([{"tik_num": "2026/0439.00"}])
+    except OSError:
+        pass
+    else:
+        raise AssertionError("update_data_json swallowed the write failure")
+    assert json.loads((tmp_path / "docs" / "data.json").read_text()) == original
+    assert not list((tmp_path / "docs").glob(".data-*"))
 
 
 def test_missing_data_json_is_left_to_the_weekly_refresh(tmp_path):
