@@ -2285,3 +2285,127 @@ def test_early_publications_do_not_consume_pending_url_state(
             assert errors == []
     finally:
         srv.shutdown()
+
+
+# #759: makes permit-link restore() throw for the first window.__restoreThrowsLeft
+# invocations (the page scripts live in an IIFE, so restore itself - reached
+# through the GinotFilterLinks registrar, an assignment the init script can
+# intercept - is the only fault point ahead of apply()). Each test arms the
+# count with its own init script before this one.
+_PATCH_PERMIT_RESTORE_THROW_N = """
+(function(){
+  var real;
+  Object.defineProperty(window, 'GinotFilterLinks', {
+    configurable: true,
+    get: function(){ return real; },
+    set: function(v){
+      var orig = v.register;
+      real = {register: function(name, controls, extra){
+        var link = orig(name, controls, extra);
+        if(name === 'permit' && link && link.restore){
+          var origRestore = link.restore;
+          link.restore = function(p, n){
+            if(window.__restoreThrowsLeft > 0){
+              window.__restoreThrowsLeft--;
+              throw new Error('synthetic restore failure');
+            }
+            return origRestore(p, n);
+          };
+        }
+        return link;
+      }, build: v.build};
+    }
+  });
+})();
+"""
+
+
+def test_publication_retry_rerun_restores_pending_url_state(tmp_path, browser, request):
+    # #759: pins the restore line inside the publications catch retry-rerun.
+    # restore() throws twice: the post-install attempt (stranding the pending
+    # URL state behind a render retry) and the first publications success
+    # render (its catch shows the retry bound to the publications rerun). The
+    # pending state must survive both failures - controls stay disabled -
+    # and clicking the retry must run the rerun's own restore.
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pg.add_init_script("window.__restoreThrowsLeft = 2")
+            pg.add_init_script(_PATCH_PERMIT_RESTORE_THROW_N)
+
+            def hold_pubs(route):
+                pg.wait_for_function("window.__permitsRenderFailed === true")
+                pg.wait_for_function("window.__releasePubs === true")
+                route.continue_()
+
+            pg.route("**/publications_active.json", hold_pubs)
+            pg.goto(url + "?filters=1&permit.pfq=ייחודי")
+            pg.wait_for_function("window.__permitsRenderFailed === true")
+            assert pg.locator("#pfrenderretry").is_visible()
+            assert pg.locator("#copy-permit-link").is_disabled()
+            # publications evidence arrives; its render fails on the restore,
+            # which must leave the state pending: retry stays up, controls
+            # stay disabled.
+            pg.evaluate("window.__releasePubs = true")
+            pg.wait_for_function("window.__permitPublicationEvidenceLoaded === true")
+            pg.wait_for_function("window.__restoreThrowsLeft === 0")
+            assert pg.locator("#pfrenderretry").is_visible()
+            assert pg.locator("#copy-permit-link").is_disabled()
+            # the retry rerun is the publications callback: it must restore.
+            pg.locator("#pfrenderretry").click()
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            assert pg.locator("#pfload").inner_text() == ""
+            assert not pg.locator("#copy-permit-link").is_disabled()
+            assert pg.input_value("#pfq") == "ייחודי"
+            assert pg.locator("#permits-table tbody tr.filtered-out").count() > 0
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+# #759: observes the table and the filter control at the __renderUrgent hook,
+# which the publications success path calls immediately after apply().
+_OBSERVE_AT_RENDER_URGENT = """
+window.__renderUrgent = function(){
+  window.__pfqAtRenderUrgent = document.getElementById('pfq').value;
+  window.__rowsVisibleAtRenderUrgent =
+    document.querySelectorAll('#permits-table tbody tr:not(.filtered-out)').length;
+};
+"""
+
+
+def test_publication_restore_runs_before_apply(tmp_path, browser, request):
+    # #759: pins the restore-before-apply() ordering in the publications
+    # success path: the restored controls must filter the render that apply()
+    # produces. restore() throws once (post-install), so the controls stay
+    # unset until the publications restore; at the post-apply __renderUrgent
+    # hook the restored query must already be filtering rows. Were restore
+    # moved after apply(), apply() would render with empty controls and the
+    # hook would observe an unfiltered table.
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            pg.add_init_script("window.__restoreThrowsLeft = 1")
+            pg.add_init_script(_PATCH_PERMIT_RESTORE_THROW_N)
+
+            def hold_pubs(route):
+                pg.wait_for_function("window.__permitsRenderFailed === true")
+                pg.wait_for_function("window.__releasePubs === true")
+                route.continue_()
+
+            pg.route("**/publications_active.json", hold_pubs)
+            pg.goto(url + "?filters=1&permit.groups=review&permit.pfq=ייחודי")
+            pg.wait_for_function("window.__permitsRenderFailed === true")
+            pg.evaluate(_OBSERVE_AT_RENDER_URGENT)
+            pg.evaluate("window.__releasePubs = true")
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            pg.wait_for_function("window.__permitPublicationEvidenceLoaded === true")
+            assert pg.evaluate("window.__pfqAtRenderUrgent") == "ייחודי"
+            # exactly the one review-group row matching the restored query is
+            # visible; an apply() before the restore (default chips, empty
+            # query) would have left the 3 default objection rows visible
+            assert pg.evaluate("window.__rowsVisibleAtRenderUrgent") == 1
+            assert not pg.locator("#copy-permit-link").is_disabled()
+            assert errors == []
+    finally:
+        srv.shutdown()
