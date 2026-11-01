@@ -54,7 +54,7 @@ def run_curl() -> tuple[int, str, dict]:
         "/tmp/mavat_dry_run_headers.txt",
         URL,
     ]
-    p = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    p = subprocess.run(cmd, capture_output=True, text=True, timeout=60, check=False)
     if p.returncode:
         return -1, "", {"curl_exit": p.returncode}
     status = int(p.stdout.strip() or "0")

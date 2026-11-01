@@ -116,6 +116,7 @@ def gh_api(method, path, token, payload=None):
         capture_output=True,
         text=True,
         timeout=45,
+        check=False,
     )
     try:
         return json.loads(r.stdout)
@@ -274,7 +275,7 @@ def call(proc, params):
         payload,
         URL,
     ]
-    subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+    subprocess.run(cmd, capture_output=True, text=True, timeout=60, check=False)
     with open("/tmp/permit_feed_body", "rb") as f:
         body = f.read()
     low = body[:200000].lower()

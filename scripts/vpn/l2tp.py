@@ -102,7 +102,9 @@ def summarize_negotiation(text: str) -> dict[str, object]:
 
 
 def run(*args: str, check: bool = True) -> str:
-    result = subprocess.run(args, capture_output=True, text=True, timeout=60)
+    result = subprocess.run(
+        args, capture_output=True, text=True, timeout=60, check=False
+    )
     if STAGE == "ipsec_negotiate" and "up" in args:
         DIAGNOSTICS.update(
             summarize_negotiation((result.stdout or "") + "\n" + (result.stderr or ""))

@@ -72,6 +72,7 @@ def main():
             cwd=args.root,
             text=True,
             capture_output=True,
+            check=False,
         )
         since = None
         if tag.returncode == 0:
