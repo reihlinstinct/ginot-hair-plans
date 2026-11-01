@@ -77,14 +77,14 @@ def scrape_plan(page, mp_id, num):
         try:
             if "/rest/api/SV4/1" in resp.url and f"mid={mp_id}" in resp.url:
                 PAGE_API_JSON[mp_id] = resp.json()
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - best-effort capture: an unreadable response is skipped, not fatal
             pass
 
     page.on("response", _capture)
     page.goto(SV4.format(mp_id=mp_id), wait_until="domcontentloaded", timeout=60000)
     try:
         page.wait_for_load_state("networkidle", timeout=20000)
-    except Exception:
+    except Exception:  # noqa: BLE001, S110 - networkidle is a hint only; the fixed sleep below is the real settle
         pass
     time.sleep(2)
     text = normalize(page.inner_text("body")) if page.query_selector("body") else ""
@@ -281,13 +281,13 @@ def main():
                             )
                             try:
                                 page.close()
-                            except Exception:
+                            except Exception:  # noqa: BLE001, S110 - closing the stale page is best-effort; a fresh page replaces it
                                 pass
                             page = ctx.new_page()
                             time.sleep(5)
                             continue
                     raise
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - per-plan failure recorder: count, retry, abort after 4 consecutive
                     failures += 1
                     print(f"{num}: failed ({exc}); {failures} consecutive")
                     if failures >= 4:
@@ -319,7 +319,7 @@ def main():
             try:
                 api = api_snapshot(page, mp_id, SV4.format(mp_id=mp_id))
                 info["api"] = api
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - API snapshot is optional enrichment; fall back to page fingerprint
                 print(
                     f"{num}: api snapshot failed ({type(exc).__name__}: {exc}) - "
                     f"page fingerprint only this run"
