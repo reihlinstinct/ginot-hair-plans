@@ -19,6 +19,7 @@ RUN_ID = 999001
 DATA_FILES = [
     "data/permit_scan_provenance.json",
     "data/permits.json",
+    "docs/data.json",
     "docs/index.json",
     "docs/permits.html",
     "docs/badge/parcel-zz-1.json",

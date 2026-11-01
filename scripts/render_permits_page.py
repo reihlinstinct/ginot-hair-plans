@@ -18,6 +18,7 @@ import argparse
 import json
 import os
 import sys
+import tempfile
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
@@ -49,8 +50,21 @@ def update_data_json(permits) -> None:
     with open(DATA_JSON, encoding="utf-8") as fh:
         data = json.load(fh)
     data["permits"] = permits
-    with open(DATA_JSON, "w", encoding="utf-8") as fh:
-        json.dump(data, fh, ensure_ascii=False)
+    # Atomic replace: a crash mid-write must never leave a truncated public
+    # endpoint for the publish step to stage.
+    fd, tmp = tempfile.mkstemp(
+        dir=os.path.dirname(DATA_JSON), prefix=".data-", suffix=".json"
+    )
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as fh:
+            json.dump(data, fh, ensure_ascii=False)
+        os.replace(tmp, DATA_JSON)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
     print(f"rewrote permits[] ({len(permits)} requests) in {DATA_JSON}")
 
 

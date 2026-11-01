@@ -48,6 +48,7 @@ RUN_ID = re.compile(r"[1-9][0-9]{0,19}\Z")
 # touches code or workflows must never be routed as data.
 DATA_PREFIXES = ("data/",)
 DATA_FILES = {
+    "docs/data.json",
     "docs/index.json",
     "docs/permits.html",
     "docs/permits-default.html",
