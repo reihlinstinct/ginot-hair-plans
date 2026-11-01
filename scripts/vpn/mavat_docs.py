@@ -195,7 +195,7 @@ def main():
             try:
                 with open(doc_list_path, encoding="utf-8") as fh:
                     direct_docs = json.load(fh)["docs"]
-            except (OSError, ValueError, KeyError, TypeError) as exc:
+            except (OSError, ValueError, KeyError, TypeError, RecursionError) as exc:
                 if os.environ.get("MAVAT_FETCH_MODE") == "clickdocs" and isinstance(
                     exc, FileNotFoundError
                 ):
@@ -320,7 +320,7 @@ def main():
                         data = json.loads(req.post_data or "{}")
                         if data.get("token"):
                             tokens.append(data["token"])
-                except (ValueError, TypeError, AttributeError):
+                except (ValueError, TypeError, AttributeError, RecursionError):
                     pass
 
             page.on("request", on_zip_req)
