@@ -33,7 +33,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov
-      - run: ruff check src tests refresh.py
+      - run: ruff check src tests scripts refresh.py
+      - run: ruff format --check src tests scripts refresh.py
       - name: External reviews append-only guard
         if: github.event_name == 'pull_request'
         run: |
