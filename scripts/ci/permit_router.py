@@ -38,6 +38,9 @@ RUN_EVENTS = {"schedule", "workflow_dispatch", "push"}
 MARKER = "<!-- permit-router: routed "
 GH_TIMEOUT_SECONDS = 60
 PER_PAGE = 100
+# Bound on pages per list endpoint: beyond it the router fails closed
+# rather than trusting an unbounded exchange (issue #708).
+MAX_PAGES = 5
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 RUN_ID = re.compile(r"[1-9][0-9]{0,19}\Z")
 # The generated paths permit-feed.yml stages into a data PR (its `git add`).
@@ -188,10 +191,16 @@ def approved_at_head(pr, reviews):
         if not isinstance(review, dict) or not isinstance(review.get("user"), dict):
             raise RouterError("malformed reviews")
         login = review["user"].get("login")
-        if (
-            review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED")
-            and login != author
-        ):
+        # A decisive review without a verifiable non-empty login must fail
+        # closed; it must never count as an approval by "someone else".
+        if not isinstance(login, str) or not login:
+            raise RouterError("malformed reviews")
+        # An unverifiable state must fail closed too: skipping the record
+        # would let an earlier exact-head APPROVED stand in for it.
+        state = review.get("state")
+        if not isinstance(state, str) or not state:
+            raise RouterError("malformed reviews")
+        if state in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
             latest[login] = review
     states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]
     if any(state == "CHANGES_REQUESTED" for state, _ in states):
@@ -267,11 +276,23 @@ def github_reader(repo, gh=_gh):
             raise RouterError("GitHub record unreadable")
         return value
 
-    def complete(items):
-        # One page only: a full page may hide a later review or the dedup marker.
-        if not isinstance(items, list) or len(items) >= PER_PAGE:
-            raise RouterError("list response incomplete or malformed")
-        return items
+    def collect(path):
+        # Bounded pagination (#708): follow pages until a short one - a full
+        # page may hide a later review, file or dedup marker, and an exact
+        # multiple of the page size ends on an empty terminal page. The
+        # budget buys MAX_PAGES full pages plus one terminal probe, so
+        # exactly-MAX_PAGES-full-pages endpoints validate instead of being
+        # rejected unprobed. Fail closed on a malformed page or when the
+        # budget runs out.
+        items = []
+        for page in range(1, MAX_PAGES + 2):
+            chunk = need(gh(f"{path}&page={page}"))
+            if not isinstance(chunk, list):
+                raise RouterError("list response incomplete or malformed")
+            items.extend(chunk)
+            if len(chunk) < PER_PAGE:
+                return items
+        raise RouterError("list response exceeds the pagination budget")
 
     def read(kind, *args):
         if kind == "ancestor":
@@ -303,22 +324,22 @@ def github_reader(repo, gh=_gh):
         if kind == "run":
             return need(gh(f"repos/{repo}/actions/runs/{args[0]}"))
         if kind == "reviews":
-            return complete(
-                need(gh(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}"))
-            )
+            return collect(f"repos/{repo}/pulls/{args[0]}/reviews?per_page={PER_PAGE}")
         if kind == "files":
-            return complete(
-                need(gh(f"repos/{repo}/pulls/{args[0]}/files?per_page={PER_PAGE}"))
-            )
+            return collect(f"repos/{repo}/pulls/{args[0]}/files?per_page={PER_PAGE}")
         if kind == "markers":
-            comments = complete(
-                need(gh(f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}"))
+            comments = collect(
+                f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}"
             )
-            return "\n".join(
-                c.get("body", "")
-                for c in comments
-                if isinstance(c, dict) and isinstance(c.get("body"), str)
-            )
+            bodies = []
+            for c in comments:
+                # A malformed record is dropped silently no longer: error out
+                # before the dedup marker scan instead of trusting a partial
+                # comment set.
+                if not isinstance(c, dict) or not isinstance(c.get("body"), str):
+                    raise RouterError("malformed comment record")
+                bodies.append(c["body"])
+            return "\n".join(bodies)
         raise RouterError("unknown question")
 
     return read

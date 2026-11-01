@@ -285,12 +285,13 @@ def _gh_world(w, p):
             )
         if path == f"repos/{REPO}/actions/runs/{RUN_ID}":
             return w.run
-        if path == f"repos/{REPO}/pulls/7/reviews?per_page=100":
-            return w.reviews
-        if path == f"repos/{REPO}/issues/7/comments?per_page=100":
-            return [{"body": w.markers}]
-        if path == f"repos/{REPO}/pulls/7/files?per_page=100":
-            return w.files
+        for prefix, items in (
+            (f"repos/{REPO}/pulls/7/reviews", w.reviews),
+            (f"repos/{REPO}/issues/7/comments", [{"body": w.markers}]),
+            (f"repos/{REPO}/pulls/7/files", w.files),
+        ):
+            if path.startswith(prefix + "?per_page="):
+                return items if int(path.rsplit("page=", 1)[1]) == 1 else []
         return None
 
     return gh
@@ -467,7 +468,7 @@ def test_only_the_latest_decisive_review_per_reviewer_counts(revs, verdict):
 
 
 @pytest.mark.parametrize("which", ["/reviews", "/comments", "/files"])
-def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, capsys):
+def test_pagination_budget_exhaustion_stops_instead_of_truncating(which, capsys):
     w, p = World(), pr()
     gh = _gh_world(w, p)
     full = [
@@ -486,7 +487,165 @@ def test_full_page_of_reviews_or_comments_stops_instead_of_truncating(which, cap
         )
         == 1
     )
-    assert "incomplete" in capsys.readouterr().out
+    assert "pagination budget" in capsys.readouterr().out
+
+
+def _paged(pages_by_prefix):
+    """A gh double serving the given pages (1-based) for list endpoints."""
+
+    def gh(path):
+        for prefix, pages in pages_by_prefix.items():
+            if path.startswith(prefix + "?per_page="):
+                page = int(path.rsplit("page=", 1)[1])
+                return pages[page - 1] if page <= len(pages) else []
+        raise pr_mod.GitHubHTTPError(404)
+
+    return gh
+
+
+def test_more_than_one_page_of_allowed_files_is_fully_validated():
+    w, p = World(), pr()
+    many = [
+        {"filename": f"docs/badge/parcel-zz-{i}.json", "status": "modified"}
+        for i in range(150)
+    ]
+    w.files = files() + many
+    p["changed_files"] = len(w.files)
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+
+
+def _pad_files(w, p, tail):
+    # Page 1 holds exactly PER_PAGE allowed files; the tail lands on page 2.
+    w.files = (
+        w.files
+        + [
+            {"filename": f"docs/badge/parcel-zz-{i}.json", "status": "modified"}
+            for i in range(100 - len(w.files))
+        ]
+        + tail
+    )
+    p["changed_files"] = len(w.files)
+
+
+def test_rename_source_on_a_later_files_page_is_validated():
+    w, p = World(), pr()
+    sneaky = [
+        {
+            "filename": "data/permits.json",
+            "status": "renamed",
+            "previous_filename": "scripts/ci/permit_router.py",
+        }
+    ]
+    _pad_files(w, p, sneaky)
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+def test_disallowed_file_on_a_later_page_stops():
+    w, p = World(), pr()
+    _pad_files(w, p, [{"filename": "src/evil.py", "status": "modified"}])
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+def test_dedup_marker_on_a_later_comments_page_skips(capsys):
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    comments_prefix = f"repos/{REPO}/issues/7/comments"
+    filler = [{"body": f"note {i}"} for i in range(100)]
+    paged = _paged(
+        {comments_prefix: [filler, [{"body": pr_mod.marker(7, HEAD, RUN_ID)}]]}
+    )
+
+    def gh2(path):
+        return paged(path) if path.startswith(comments_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert "skip" in capsys.readouterr().out
+
+
+def test_decisive_review_on_a_later_page_changes_the_verdict(capsys):
+    w, p = World(), pr()
+    # Page 1 alone would route (approval at head); page 2 must flip it.
+    filler = [
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": "zz-approver"}}
+    ] + [
+        {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+        for i in range(99)
+    ]
+    late = [
+        {
+            "state": "CHANGES_REQUESTED",
+            "commit_id": HEAD,
+            "user": {"login": "zz-reviewer"},
+        }
+    ]
+    w.reviews = filler + late
+    gh = _gh_world(w, p)
+    reviews_prefix = f"repos/{REPO}/pulls/7/reviews"
+    paged = _paged({reviews_prefix: [w.reviews[:100], w.reviews[100:]]})
+
+    def gh2(path):
+        return paged(path) if path.startswith(reviews_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert "verdict=hold" in capsys.readouterr().out
+
+
+def test_exact_multiple_of_page_size_ends_on_empty_terminal_page():
+    w, p = World(), pr()
+    w.reviews = [
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+        for i in range(100)
+    ]
+    gh = _gh_world(w, p)
+    seen = []
+
+    def gh2(path):
+        if path.startswith(f"repos/{REPO}/pulls/7/reviews?per_page="):
+            seen.append(int(path.rsplit("page=", 1)[1]))
+        return gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+    assert seen == [1, 2]  # full first page, then the empty terminal page
+
+
+def test_malformed_later_page_stops():
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    reviews_prefix = f"repos/{REPO}/pulls/7/reviews"
+    pages = [
+        [
+            {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
+            for i in range(100)
+        ],
+        {"not": "a list"},
+    ]
+    paged = _paged({reviews_prefix: pages})
+
+    def gh2(path):
+        return paged(path) if path.startswith(reviews_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
 
 
 @pytest.mark.parametrize("status", [403, 429, 500, 503])
@@ -656,3 +815,76 @@ def test_changed_files_are_checked_before_provenance_is_trusted():
     assert not any(
         call[0] in ("provenance", "run", "reviews", "markers") for call in w.calls
     )
+
+
+@pytest.mark.parametrize("login", [None, "", 7, ["x"]])
+def test_review_without_a_verifiable_login_stops(login):
+    w = World()
+    w.reviews = [{"state": "APPROVED", "commit_id": HEAD, "user": {"login": login}}]
+    with pytest.raises(pr_mod.RouterError, match="malformed reviews"):
+        decide(w=w)
+
+
+@pytest.mark.parametrize(
+    "comment", [None, "a string", {"body": None}, {"body": 7}, {"nobody": "x"}]
+)
+def test_malformed_comment_record_stops_before_dedupe(comment):
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    comments_prefix = f"repos/{REPO}/issues/7/comments"
+
+    def gh2(path):
+        if path.startswith(comments_prefix + "?per_page="):
+            page = int(path.rsplit("page=", 1)[1])
+            return [comment] if page == 1 else []
+        return gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+
+
+@pytest.mark.parametrize("state", [None, "", 7, ["APPROVED"]])
+def test_review_without_a_verifiable_state_stops(state):
+    w = World()
+    w.reviews = [{"state": state, "commit_id": HEAD, "user": {"login": "zz-rev"}}]
+    with pytest.raises(pr_mod.RouterError, match="malformed reviews"):
+        decide(w=w)
+
+
+def _allowed_file_pages(n_pages):
+    return [
+        [
+            {"filename": f"docs/badge/parcel-zz-{pg}-{i}.json", "status": "modified"}
+            for i in range(100)
+        ]
+        for pg in range(n_pages)
+    ]
+
+
+def test_exactly_max_full_pages_validate_via_terminal_probe():
+    # Five full pages fit the budget exactly: one terminal probe (empty page
+    # six) confirms completeness instead of rejecting a valid endpoint.
+    w, p = World(), pr()
+    p["changed_files"] = 500
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: _allowed_file_pages(5)})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+
+
+def test_max_full_pages_plus_a_full_probe_still_exhausts(capsys):
+    # Six full pages means real data sits beyond the budget: fail closed.
+    w, p = World(), pr()
+    p["changed_files"] = 600
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: _allowed_file_pages(6)})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+    assert "pagination budget" in capsys.readouterr().out
