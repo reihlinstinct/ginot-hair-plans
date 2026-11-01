@@ -279,10 +279,13 @@ def github_reader(repo, gh=_gh):
     def collect(path):
         # Bounded pagination (#708): follow pages until a short one - a full
         # page may hide a later review, file or dedup marker, and an exact
-        # multiple of the page size ends on an empty terminal page. Fail
-        # closed on a malformed page or when the budget runs out.
+        # multiple of the page size ends on an empty terminal page. The
+        # budget buys MAX_PAGES full pages plus one terminal probe, so
+        # exactly-MAX_PAGES-full-pages endpoints validate instead of being
+        # rejected unprobed. Fail closed on a malformed page or when the
+        # budget runs out.
         items = []
-        for page in range(1, MAX_PAGES + 1):
+        for page in range(1, MAX_PAGES + 2):
             chunk = need(gh(f"{path}&page={page}"))
             if not isinstance(chunk, list):
                 raise RouterError("list response incomplete or malformed")

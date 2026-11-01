@@ -848,3 +848,43 @@ def test_review_without_a_verifiable_state_stops(state):
     w.reviews = [{"state": state, "commit_id": HEAD, "user": {"login": "zz-rev"}}]
     with pytest.raises(pr_mod.RouterError, match="malformed reviews"):
         decide(w=w)
+
+
+def _allowed_file_pages(n_pages):
+    return [
+        [
+            {"filename": f"docs/badge/parcel-zz-{pg}-{i}.json", "status": "modified"}
+            for i in range(100)
+        ]
+        for pg in range(n_pages)
+    ]
+
+
+def test_exactly_max_full_pages_validate_via_terminal_probe():
+    # Five full pages fit the budget exactly: one terminal probe (empty page
+    # six) confirms completeness instead of rejecting a valid endpoint.
+    w, p = World(), pr()
+    p["changed_files"] = 500
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: _allowed_file_pages(5)})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
+
+
+def test_max_full_pages_plus_a_full_probe_still_exhausts(capsys):
+    # Six full pages means real data sits beyond the budget: fail closed.
+    w, p = World(), pr()
+    p["changed_files"] = 600
+    gh = _gh_world(w, p)
+    files_prefix = f"repos/{REPO}/pulls/7/files"
+    paged = _paged({files_prefix: _allowed_file_pages(6)})
+
+    def gh2(path):
+        return paged(path) if path.startswith(files_prefix) else gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
+    assert "pagination budget" in capsys.readouterr().out
