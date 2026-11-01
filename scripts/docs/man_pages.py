@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate, check or install public command manuals (internal packaging tool)."""
 
 import argparse
