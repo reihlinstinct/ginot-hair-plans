@@ -88,3 +88,12 @@ def test_invalid_publication_date_is_rejected():
 
 def test_missing_evidence_is_rejected():
     assert _eval_vector(0, raw=None)[0] is False
+
+
+def test_truthy_string_in_polygon_is_rejected():
+    # #753 review: the guard requires the boolean true, not a truthy value.
+    assert _eval_vector(5, in_polygon="yes")[0] is False
+
+
+def test_numeric_in_polygon_is_rejected():
+    assert _eval_vector(5, in_polygon=1)[0] is False

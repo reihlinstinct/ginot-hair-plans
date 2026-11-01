@@ -37,7 +37,7 @@ for(const [inside,date,active,current] of [[true,'2026-10-26','1',''],[false,'20
  applyPublicationEvidence();results.push({attrs:{...row.a},text:cell.textContent});
 }
 const stageResults=[];
-for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub','','2026-10-26'],['review','2026-10-27','2026-10-26'],['postpub','2026-10-25','2026-10-26'],['postpub','2026-10-26','2026-10-25'],['postpub','2026-10-26','2026-10-27']]){
+for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub','','2026-10-26'],['review','2026-10-27','2026-10-26'],['postpub','2026-10-25','2026-10-26'],['postpub','2026-10-26','2026-10-25'],['postpub','2026-10-26','2026-10-27'],['review','2025-01-01','2026-10-26'],['review','','2026-10-26'],['review','2025-01-01','2025-06-01']]){
  row.a={...original,'data-group':group,'data-statusdate':stage};
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:date}];
  applyPublicationEvidence();stageResults.push({...row.a});
@@ -66,6 +66,9 @@ console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
         "obj",
         "postpub",  # stale evidence for the current stage cannot demote it
         "obj",  # one day newer than the stage: selection follows the publication date
+        "obj",  # review group + ancient status date + in-window publication promotes
+        "obj",  # review group + no status date + in-window publication promotes
+        "review",  # ancient status date + out-of-window publication does not
     ]
     first = results[0]
     assert first["attrs"]["data-group"] == "obj"
