@@ -1178,8 +1178,11 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
     // #757: complete a deferred URL-state restore a failed post-install never
     // reached: clearing the render retry below without it would strand the
     // pending state with no way to re-run. Must precede apply() so the
-    // restored controls filter this render.
-    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
+    // restored controls filter this render. Only once the full rows are in:
+    // group chips introduced by the full rows (ensureGroupChips, #622) do not
+    // exist on the subset, so an earlier restore would fail validation and
+    // silently drop the link's group selection.
+    if(fullLoaded&&pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
     apply();
     if(window.__renderUrgent)window.__renderUrgent();
     // A successful re-render supersedes any earlier render failure.
@@ -1187,7 +1190,7 @@ fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('una
   }catch(err){
     showRenderRetry(function(){
       applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();
-      if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
+      if(fullLoaded&&pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
       apply();
       if(window.__renderUrgent)window.__renderUrgent();
     });

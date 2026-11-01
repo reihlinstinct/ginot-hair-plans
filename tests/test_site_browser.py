@@ -2189,6 +2189,23 @@ def test_publication_success_restores_stranded_url_state(tmp_path, browser, requ
         srv.shutdown()
 
 
+# #757: installs a switchable throwing __renderUrgent wrapper before any page
+# script runs. Patching via evaluate() from a route handler races the full
+# load: the handler can land after runFullPostInstall already ran (seen in
+# CI), and the render failure never happens.
+_PATCH_RENDER_URGENT_THROW_SWITCH = """
+(function(){
+  var real;
+  window.__renderShouldThrow = true;
+  Object.defineProperty(window, '__renderUrgent', {
+    configurable: true,
+    get: function(){ return function(){ if(window.__renderShouldThrow) throw new Error('synthetic'); return real && real(); }; },
+    set: function(v){ real = v; }
+  });
+})();
+"""
+
+
 def test_publication_success_supersedes_render_failure_with_url_state(
     tmp_path, browser, request
 ):
@@ -2199,29 +2216,67 @@ def test_publication_success_supersedes_render_failure_with_url_state(
     srv, url = _lazy_site(tmp_path)
     try:
         with recorded_page(browser, request) as (pg, errors):
-            patch = "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+            pg.add_init_script(_PATCH_RENDER_URGENT_THROW_SWITCH)
 
-            def patch_and_hold_pubs(route):
-                pg.evaluate(patch)
+            def hold_pubs(route):
                 pg.wait_for_function("window.__permitsRenderFailed === true")
                 # Same page-side release gate as the stranded-state test:
                 # continuing right after the flag flips races the assertions.
                 pg.wait_for_function("window.__releasePubs === true")
-                pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
                 route.continue_()
 
-            pg.route("**/publications_active.json", patch_and_hold_pubs)
+            pg.route("**/publications_active.json", hold_pubs)
             pg.goto(url + "?filters=1&permit.pfq=ייחודי")
             pg.wait_for_function("window.__permitsRenderFailed === true")
             assert pg.locator("#pfrenderretry").is_visible()
             assert pg.input_value("#pfq") == "ייחודי"
-            pg.evaluate("window.__releasePubs = true")
+            pg.evaluate("window.__renderShouldThrow = false; window.__releasePubs = true")
             pg.wait_for_function("window.__permitsRenderFailed === false")
             assert pg.locator("#pfrenderretry").count() == 0
             assert pg.locator("#pfload").inner_text() == ""
             assert not pg.locator("#copy-permit-link").is_disabled()
             assert pg.input_value("#pfq") == "ייחודי"
             assert pg.locator("#permits-table tbody tr.filtered-out").count() > 0
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_early_publications_do_not_consume_pending_url_state(tmp_path, browser, request):
+    # #757 (CodeRabbit): a publications response that lands before the full
+    # permits load must not consume the pending URL-state restore: group chips
+    # introduced only by the full rows (ensureGroupChips, #622) fail validation
+    # against the subset, silently dropping the link's group selection.
+    srv, url = _lazy_site(tmp_path)
+    # One full-list-only row carries a status no group maps (#521: unmapped is
+    # fail-visible). Its chip exists only after ensureGroupChips runs on the
+    # full rows.
+    frag = tmp_path / "site" / "permits.html"
+    html = frag.read_text()
+    old = "data-group='review' data-scope="
+    assert html.count(old) >= 1
+    frag.write_text(
+        html.replace(
+            "data-status='שולמה מקדמה'", "data-status='סטטוס חדש לגמרי'", 1
+        ).replace(old, "data-group='unmapped' data-scope=", 1)
+    )
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            def hold_full(route):
+                # publications resolve while the full load is still in flight
+                pg.wait_for_function("window.__permitPublicationEvidenceLoaded === true")
+                route.continue_()
+
+            pg.route("**/permits.html", hold_full)
+            pg.goto(url + "?filters=1&permit.groups=unmapped")
+            pg.wait_for_function("window.__permitsLoaded === true")
+            # the deferred restore ran against the full rows: the unmapped
+            # chip was added by ensureGroupChips, then selected by the link.
+            assert pg.locator(".chip[data-group='unmapped'].sel").count() == 1
+            assert (
+                pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
+            )
+            assert not pg.locator("#copy-permit-link").is_disabled()
             assert errors == []
     finally:
         srv.shutdown()
