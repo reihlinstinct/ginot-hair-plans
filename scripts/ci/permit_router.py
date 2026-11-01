@@ -181,6 +181,17 @@ def check_run(repo, run, run_id):
     return run["head_sha"]
 
 
+# Every review state GitHub emits today. States outside this set are not
+# skipped silently: they stop the router red (see approved_at_head).
+KNOWN_REVIEW_STATES = {
+    "APPROVED",
+    "CHANGES_REQUESTED",
+    "COMMENTED",
+    "DISMISSED",
+    "PENDING",
+}
+
+
 def approved_at_head(pr, reviews):
     """True when someone other than the PR author approved the exact head SHA."""
     if not isinstance(reviews, list):
@@ -200,6 +211,11 @@ def approved_at_head(pr, reviews):
         state = review.get("state")
         if not isinstance(state, str) or not state:
             raise RouterError("malformed reviews")
+        # A well-formed state outside the known set fails closed as well
+        # (#755): if GitHub ever adds a decisive-looking state, the router
+        # must surface it loudly instead of silently skipping the review.
+        if state not in KNOWN_REVIEW_STATES:
+            raise RouterError(f"unknown review state: {state}")
         if state in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED") and login != author:
             latest[login] = review
     states = [(r.get("state"), r.get("commit_id")) for r in latest.values()]

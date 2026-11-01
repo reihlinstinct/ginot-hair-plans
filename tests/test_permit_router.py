@@ -250,6 +250,35 @@ def test_missing_stale_or_self_approval_holds(revs):
     assert decide(w=w) == ("hold", "no approval at the exact head")
 
 
+def test_unknown_review_state_stops_red_even_with_exact_head_approval():
+    """#755: a well-formed state outside the known set must fail closed, not
+    be silently skipped - otherwise a new decisive-looking state could leave
+    an earlier exact-head APPROVED driving the verdict."""
+    w = World()
+    w.reviews = [
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": "zz-reviewer"}},
+        {
+            "state": "QUICK_APPROVED",
+            "commit_id": HEAD,
+            "user": {"login": "zz-reviewer"},
+        },
+    ]
+    with pytest.raises(pr_mod.RouterError, match="unknown review state"):
+        decide(w=w)
+
+
+def test_known_non_decisive_states_are_accepted():
+    """PENDING and COMMENTED are known states: they pass the allowlist and
+    keep not counting as decisive, so an exact-head approval still routes."""
+    w = World()
+    w.reviews = [
+        {"state": "PENDING", "commit_id": HEAD, "user": {"login": "zz-one"}},
+        {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": "zz-two"}},
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": "zz-reviewer"}},
+    ]
+    assert decide(w=w) == ("route-scan-audit", "verified")
+
+
 def test_duplicate_delivery_is_skipped_by_exact_marker_only():
     w = World()
     w.markers = "x\n" + pr_mod.marker(7, HEAD, RUN_ID)
