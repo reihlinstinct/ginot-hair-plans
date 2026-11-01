@@ -145,9 +145,9 @@ def main():
                         )
                         try:
                             url_strings(json.loads(body), doc_urls)
-                        except Exception:
+                        except (ValueError, TypeError):
                             pass
-            except Exception:
+            except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                 pass
 
         page.on("response", on_response)
@@ -177,11 +177,11 @@ def main():
                     )
                     try:
                         url_strings(json.loads(body), doc_urls)
-                    except Exception:
+                    except (ValueError, TypeError):
                         pass
             except Challenge:
                 raise
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                 report["failures"].append(
                     {"stage": "rest_probe", "error": type(exc).__name__}
                 )
@@ -195,7 +195,7 @@ def main():
             try:
                 with open(doc_list_path, encoding="utf-8") as fh:
                     direct_docs = json.load(fh)["docs"]
-            except Exception as exc:
+            except (OSError, ValueError, KeyError, TypeError) as exc:
                 if os.environ.get("MAVAT_FETCH_MODE") == "clickdocs" and isinstance(
                     exc, FileNotFoundError
                 ):
@@ -214,7 +214,7 @@ def main():
         page.goto(PAGE_URL, wait_until="domcontentloaded", timeout=60000)
         try:
             page.wait_for_load_state("networkidle", timeout=45000)
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
             pass
         time.sleep(2)
         text = page.inner_text("body") if page.query_selector("body") else ""
@@ -285,7 +285,7 @@ def main():
                     print(f"saved {fname} ({len(body)} bytes)", flush=True)
                 except Challenge:
                     raise
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                     report["failures"].append(
                         {
                             "stage": "direct_fetch",
@@ -320,7 +320,7 @@ def main():
                         data = json.loads(req.post_data or "{}")
                         if data.get("token"):
                             tokens.append(data["token"])
-                except Exception:
+                except (ValueError, TypeError):
                     pass
 
             page.on("request", on_zip_req)
@@ -334,7 +334,7 @@ def main():
                         timeout=6000
                     )
                     time.sleep(2)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 clicked = False
                 try:
@@ -342,7 +342,7 @@ def main():
                         timeout=6000
                     )
                     clicked = True
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 if not clicked:
                     # brute-force the same affordance scan that captured
@@ -365,7 +365,7 @@ def main():
                                 el.click(timeout=4000)
                                 done = True
                                 break
-                            except Exception:
+                            except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                                 continue
                         if done:
                             break
@@ -419,7 +419,7 @@ def main():
                         "status": status,
                         "bytes": path.stat().st_size,
                     }
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                     report["failures"].append(
                         {
                             "stage": "zip_fetch",
@@ -445,7 +445,7 @@ def main():
                             {**batch, "mode": "zip_batch", "entries": len(names)}
                         )
                         print(f"zip batch: {len(names)} entries", flush=True)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                     pass
             if not ok and batch is None and not tokens:
                 report["failures"].append(
@@ -536,13 +536,13 @@ def main():
                         }
                     )
                     print(f"captured {path.name} ({len(body)} bytes)", flush=True)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                     pass
 
             page.on("response", on_binary_response)
             try:
                 ctx.on("page", lambda p2: p2.on("response", on_binary_response))
-            except Exception:
+            except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                 pass
 
             issued_urls = []
@@ -551,7 +551,7 @@ def main():
                 try:
                     if "Attacments/?eid=" in req.url:
                         issued_urls.append(req.url)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                     pass
 
             page.on("request", _on_request)
@@ -560,7 +560,7 @@ def main():
             def dismiss_overlays():
                 try:
                     page.keyboard.press("Escape")
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 try:
                     page.evaluate("""() => {
@@ -572,7 +572,7 @@ def main():
                       document.body.style.overflow = 'auto';
                       document.documentElement.style.overflow = 'auto';
                     }""")
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
 
             def expand(label):
@@ -582,13 +582,13 @@ def main():
                             continue
                         try:
                             el.click(timeout=4000)
-                        except Exception:
+                        except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                             el.evaluate(
                                 "e => { let n = e; for (let i = 0; i < 5 && n; i++) { if (n.getAttribute('href') || n.onclick || n.tagName === 'A' || n.tagName === 'BUTTON') break; n = n.parentElement; } (n || e).click(); }"
                             )
                         time.sleep(1.5)
                         return True
-                    except Exception:
+                    except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                         continue
                 return False
 
@@ -600,7 +600,7 @@ def main():
                     time.sleep(1)
                     dismiss_overlays()
                     return dl
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     time.sleep(2)
                     dismiss_overlays()
                     return None
@@ -619,7 +619,7 @@ def main():
                     ).first.is_visible():
                         mufkadim_open = True
                         break
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 try:
                     page.locator("text=מסמכים מופקדים").first.click(
@@ -631,7 +631,7 @@ def main():
                     ).first.is_visible():
                         mufkadim_open = True
                         break
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
             expanded["מסמכים מופקדים"] = mufkadim_open
             expanded["מסמכי רקע לתכנית"] = (
@@ -654,9 +654,9 @@ def main():
                             el.click(timeout=5000)
                             time.sleep(1.5)
                             break
-                    except Exception:
+                    except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                         continue
-            except Exception:
+            except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                 pass
             # click each background-doc row by its visible name; the page
             # issues the exact Attacments URL itself (guessed fn 404s)
@@ -720,9 +720,9 @@ def main():
                                     break
                             if got:
                                 break
-                        except Exception:
+                        except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                             continue
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 time.sleep(1)
 
@@ -742,7 +742,7 @@ def main():
                   });
                   return out;
                 }""")
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                 report["failures"].append(
                     {"stage": "dom_dump", "error": type(exc).__name__}
                 )
@@ -759,7 +759,7 @@ def main():
                             time.sleep(0.5)
                             el.evaluate("e => e.click()")
                             break
-                        except Exception:
+                        except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                             continue
                 time.sleep(3)
                 page.screenshot(
@@ -771,7 +771,7 @@ def main():
                         if el.is_visible():
                             el.click(timeout=4000)
                             time.sleep(1.5)
-                    except Exception:
+                    except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                         continue
                 page.screenshot(
                     path=str(OUT / "clickdocs_meetings2.png"), full_page=True
@@ -782,7 +782,7 @@ def main():
                     report["decisions_region_text"] = (
                         body_txt[k : k + 2000] if k >= 0 else "header not found"
                     )
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 idx2 = 0
                 for selector in [
@@ -806,10 +806,10 @@ def main():
                                 idx2 += 1
                                 click_and_wait(el, 5000)
                                 time.sleep(2)
-                        except Exception:
+                        except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                             pass
                         j += 1
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                 report["failures"].append(
                     {"stage": "meetings_tab", "error": type(exc).__name__}
                 )
@@ -833,7 +833,7 @@ def main():
                                     dd.click(timeout=4000)
                                     break
                             time.sleep(1.5)
-                        except Exception:
+                        except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                             pass
                         el = zloc.nth(i)
                     if el.is_visible():
@@ -855,7 +855,7 @@ def main():
                             )
                             print(f"download: {path.name}", flush=True)
                         time.sleep(2)
-                except Exception:
+                except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                     pass
                 i += 1
             page.screenshot(path=str(OUT / "clickdocs_end.png"), full_page=True)
@@ -863,7 +863,7 @@ def main():
             # let page-issued XHR downloads settle
             try:
                 page.wait_for_load_state("networkidle", timeout=15000)
-            except Exception:
+            except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                 pass
             time.sleep(3)
 
@@ -902,7 +902,7 @@ def main():
                         }""",
                             url,
                         )
-                    except Exception as exc:
+                    except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                         report["failures"].append(
                             {
                                 "stage": "inpage_fetch",
@@ -972,7 +972,7 @@ def main():
                             inpage_get(str(d["id"]), d["name"])
                 except Challenge:
                     raise
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                     report["failures"].append(
                         {
                             "stage": "inpage_list",
@@ -1004,7 +1004,7 @@ def main():
                             "post": (req.post_data or "")[:400],
                         }
                     )
-            except Exception:
+            except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
                 pass
 
         page.on("request", on_request)
@@ -1015,7 +1015,7 @@ def main():
                 loc.click(timeout=9000)
                 time.sleep(wait)
                 return True
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                 report["failures"].append(
                     {"stage": "expand", "pattern": pattern, "error": type(exc).__name__}
                 )
@@ -1034,7 +1034,7 @@ def main():
             ).all_inner_texts()
             short = sorted({t.strip() for t in texts if 0 < len(t.strip()) <= 60})
             save_body(".", "visible_texts.txt", ("\n".join(short)).encode("utf-8"))
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
             pass
 
         # brute-force: click every visible download affordance and capture
@@ -1081,11 +1081,11 @@ def main():
                             {"file": path.name, "via": desc[:80]}
                         )
                         print(f"download: {path.name}", flush=True)
-                    except Exception:
+                    except Exception:  # noqa: BLE001, S110 - best-effort UI affordance: failure means skip, not abort the probe
                         pass
                     done_clicks += 1
                     time.sleep(PACE_S)
-                except Exception:
+                except Exception:  # noqa: BLE001, S112 - best-effort UI affordance: failure means skip, not abort the probe
                     continue
             if done_clicks >= 45:
                 break
@@ -1102,7 +1102,7 @@ def main():
             body_text = page.inner_text("body") or ""
             save_body(".", "page_text_final.txt", body_text.encode("utf-8"))
             report["admin_comments_chars"] = len(body_text)
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
             pass
 
         # --- 4. fetch every document URL the page/API exposed ---
@@ -1159,7 +1159,7 @@ def main():
                 print(f"saved {fname} ({len(body)} bytes)", flush=True)
             except Challenge:
                 raise
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - stage failure recorder: record error type, continue probing
                 report["failures"].append(
                     {"stage": "doc_fetch", "error": type(exc).__name__}
                 )
@@ -1202,6 +1202,6 @@ if __name__ == "__main__":
                 ),
                 encoding="utf-8",
             )
-        except Exception:
+        except Exception:  # noqa: BLE001, S110 - best-effort capture: a malformed payload is skipped, not fatal
             pass
         sys.exit(2)
