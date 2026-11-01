@@ -1172,8 +1172,20 @@ function currentEvidence(p){
 }
 fetch('publications_active.json').then(function(r){if(!r.ok)throw new Error('unavailable');return r.json();}).then(function(list){
   if(!Array.isArray(list))throw new Error('invalid publication list');
-  publicationEvidence=list;applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
-  if(window.__renderUrgent)window.__renderUrgent();
+  publicationEvidence=list;
+  try{
+    applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+    if(window.__renderUrgent)window.__renderUrgent();
+    // A successful re-render supersedes any earlier render failure.
+    if(renderFailed){renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
+  }catch(err){
+    showRenderRetry(function(){
+      applyPublicationEvidence();sortRows();if(fullLoaded)rebuildDerived();apply();
+      if(window.__renderUrgent)window.__renderUrgent();
+    });
+  }
+  // Data-state signaling is not rendering: it must fire even when the render
+  // above failed, or the #441 safety net never learns about new evidence.
   window.__permitPublicationEvidenceLoaded=true;
   document.dispatchEvent(new Event('publication-evidence-loaded'));
 }).catch(function(){window.__permitPublicationEvidenceFailed=true;});
@@ -1220,12 +1232,19 @@ function showRetry(){
   pfload.appendChild(b);
 }
 function showLoadState(){
-  if(fullLoaded){pfload.textContent='';return;}
+  if(fullLoaded){if(!renderFailed)pfload.textContent='';return;}
   if(isDefaultView()&&!defaultFailed){
     // The subset view stays visible. A full load the evidence safety net
     // asked for (a current publication outside the subset) must still say
     // when it failed, or that permit is silently missing.
-    if(fullFailed&&evidenceNeedsFull)showRetry();else pfload.textContent='';
+    // A failed full fetch for evidence missing from the subset is the
+    // blocking problem: show its retry first. The render failure re-surfaces
+    // through the post-install catch once the fetch succeeds.
+    if(fullFailed&&evidenceNeedsFull)showRetry();
+    // A render failure otherwise stays visible until its retry succeeds: a
+    // later publications/apply cycle must not wipe it in the default view.
+    else if(renderFailed){/* keep the render retry visible */}
+    else pfload.textContent='';
     return;
   }
   rows.forEach(function(r){r.classList.add('filtered-out');});
@@ -1234,17 +1253,41 @@ function showLoadState(){
   if(fullFailed)showRetry();
   else pfload.textContent='טוען את הרשימה המלאה…';
 }
+// #624: a post-install render failure is not a load failure. The rows are
+// already in the table, so the honest state is "loaded, processing failed"
+// with a retry that re-runs only the post-install steps - not a refetch.
+var renderFailed=false;
+function showRenderRetry(rerun){
+  renderFailed=true;window.__permitsRenderFailed=true;
+  pfload.textContent='הרשימה נטענה אך עיבוד התצוגה נכשל. ';
+  var b=document.createElement('button');
+  b.type='button';b.id='pfrenderretry';b.textContent='נסו שוב';
+  b.addEventListener('click',function(){
+    try{rerun();renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
+    catch(err){showRenderRetry(rerun);}
+  });
+  pfload.appendChild(b);
+}
+function runFullPostInstall(){
+  rebuildDerived();
+  if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
+  apply();
+  if(window.__renderUrgent)window.__renderUrgent();
+}
 function loadFullPermits(){
   if(fullLoaded)return Promise.resolve(true);
   if(fullPromise)return fullPromise;
   fullFailed=false;window.__permitsFailed=false;
   fullPromise=fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
     if(!installRows(h))throw new Error('permit table unavailable');
-    fullLoaded=true;pfload.textContent='';
-    rebuildDerived();
-    if(pendingUrlState&&permitLink){permitLink.restore();pendingUrlState=false;setFilterLinksPending(false);}
-    apply();
-    if(window.__renderUrgent)window.__renderUrgent();
+    fullLoaded=true;
+    try{runFullPostInstall();renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
+    catch(err){
+      // The rows stay installed for the retry, but never unfiltered under an
+      // active non-default view: replay the filter before surfacing the state.
+      try{apply();}catch(ignore){}
+      showRenderRetry(runFullPostInstall);
+    }
     window.__permitsLoaded=true;
     return true;
   }).catch(function(){
@@ -1273,8 +1316,15 @@ document.addEventListener('publication-evidence-loaded',function(){evidenceLoade
 fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   if(fullLoaded)return;
   if(!installRows(h))return;
-  apply();
-  if(window.__renderUrgent)window.__renderUrgent();
+  // #624: a subset render failure keeps the subset rows and says so; it is
+  // not a subset fetch failure and must not trigger a misleading full reload.
+  try{
+    apply();
+    if(window.__renderUrgent)window.__renderUrgent();
+  }catch(err){
+    try{apply();}catch(ignore){}
+    showRenderRetry(function(){apply();if(window.__renderUrgent)window.__renderUrgent();});
+  }
   defaultLoaded=true;window.__permitsDefaultLoaded=true;
   checkSubsetAgainstEvidence();
 }).catch(function(){

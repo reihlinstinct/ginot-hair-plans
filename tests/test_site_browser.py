@@ -1924,3 +1924,189 @@ def test_restored_plan_status_syncs_legend_and_reset(page):
     ) == [status]
     page.click("#freset")
     assert page.locator(".plan-legend .chip.sel").count() == 0
+
+
+def test_full_list_render_failure_is_not_a_load_failure(tmp_path, browser, request):
+    # #624: the full list fetches and installs fine, but a post-install step
+    # throws. The honest state is "loaded, processing failed" with a retry
+    # that re-runs the post-install steps only - not a refetch, not the
+    # load-failure message.
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsDefaultLoaded === true")
+            pg.evaluate(
+                "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+            )
+            pg.locator("#pfq").fill("ייחודי")
+            pg.wait_for_function("window.__permitsLoaded === true")
+            assert pg.evaluate("window.__permitsRenderFailed") is True
+            # not mislabeled as a load failure
+            assert pg.evaluate("window.__permitsFailed") is False
+            assert pg.locator("#pfretry").count() == 0
+            assert pg.locator("#pfrenderretry").is_visible()
+            assert "נטענה" in pg.locator("#pfload").inner_text()
+            # the full list is installed: all 33 rows are in the table
+            assert pg.locator("#permits-table tbody tr").count() == 33
+            # ...but never unfiltered under the active query: the filter was
+            # replayed, so some rows carry filtered-out (0 when it was not).
+            assert pg.locator("#permits-table tbody tr.filtered-out").count() > 0
+            # retry re-runs the post-install steps without refetching
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
+            pg.locator("#pfrenderretry").click()
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            assert pg.locator("#pfload").inner_text() == ""
+            assert seen["permits.html"] == 1
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_subset_render_failure_keeps_subset_without_full_reload(
+    tmp_path, browser, request
+):
+    # #624: a post-install failure on the subset path must keep the subset
+    # rows, say what failed, and not fall into the fetch-failure catch that
+    # would trigger a misleading full reload.
+    srv, url = _lazy_site(tmp_path)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+
+            def handle(route):
+                resp = route.fetch()
+                pg.evaluate(
+                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+                )
+                route.fulfill(response=resp)
+
+            pg.route("**/permits-default.html", handle)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsDefaultLoaded === true")
+            assert pg.evaluate("window.__permitsRenderFailed") is True
+            # not treated as a subset fetch failure: no fallback full reload
+            assert pg.evaluate("window.__permitsDefaultFailed") is not True
+            assert seen.get("permits.html", 0) == 0
+            assert pg.locator("#pfrenderretry").is_visible()
+            assert "נטענה" in pg.locator("#pfload").inner_text()
+            assert pg.locator("#permits-table tbody tr").count() == 3
+            # a later apply cycle must not wipe the render retry in default view
+            pg.locator("#pfreset").click()
+            assert pg.locator("#pfrenderretry").is_visible()
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
+            pg.locator("#pfrenderretry").click()
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            assert pg.locator("#pfload").inner_text() == ""
+            assert seen.get("permits.html", 0) == 0
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_evidence_loaded_fires_despite_render_failure(tmp_path, browser, request):
+    # #751 CodeRabbit: a render exception in the publications callback must not
+    # swallow publication-evidence-loaded - the #441 safety net would never
+    # notice a newly published permit outside the subset.
+    srv, url = _lazy_site(tmp_path)
+    # The subset renders before the evidence exists (daily list refreshes
+    # independently), so the tik is genuinely outside the subset.
+    (tmp_path / "site" / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    try:
+        with recorded_page(browser, request) as (pg, _errors):
+            seen = _count_requests(pg)
+            patch = "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+
+            def handle(route):
+                resp = route.fetch()
+                pg.evaluate(patch)
+                route.fulfill(response=resp)
+
+            def handle_pubs(route):
+                # publications_active.json may resolve before the subset fetch:
+                # install the throwing hook here too, or the publications
+                # callback would render fine and the test would pass without
+                # exercising the failure path it exists to pin.
+                pg.evaluate(patch)
+                route.continue_()
+
+            pg.route("**/permits-default.html", handle)
+            pg.route("**/publications_active.json", handle_pubs)
+            pg.goto(url)
+            # the safety net still triggers the full load
+            pg.wait_for_function("window.__permitsLoaded === true")
+            assert pg.evaluate("window.__permitsRenderFailed") is True
+            assert pg.evaluate("window.__permitPublicationEvidenceLoaded") is True
+            assert seen["permits.html"] == 1
+    finally:
+        srv.shutdown()
+
+
+def test_render_failure_then_full_load_failure_shows_load_retry(
+    tmp_path, browser, request
+):
+    # #751 CodeRabbit: subset render failure + evidence-driven full fetch that
+    # also fails must surface the full-load retry (the missing permits cannot
+    # be fetched through the render retry).
+    srv, url = _lazy_site(tmp_path)
+    # The subset renders before the evidence exists (daily list refreshes
+    # independently), so the tik is genuinely outside the subset.
+    (tmp_path / "site" / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            state = {"fail": True}
+
+            def fail_full(route):
+                if state["fail"]:
+                    route.fulfill(status=503, body="")
+                else:
+                    route.continue_()
+
+            pg.route("**/permits.html", fail_full)
+
+            def patch_render(route):
+                resp = route.fetch()
+                pg.evaluate(
+                    "(window.__renderUrgent = function(){ throw new Error('synthetic') }, undefined)"
+                )
+                route.fulfill(response=resp)
+
+            pg.route("**/permits-default.html", patch_render)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsFailed === true")
+            # the full-load retry is visible, not only the render retry
+            assert pg.locator("#pfretry").is_visible()
+            # recover: unpatch rendering, un-fail the fetch, retry the load
+            pg.evaluate("(window.__renderUrgent = function(){}, undefined)")
+            state["fail"] = False
+            pg.locator("#pfretry").click()
+            pg.wait_for_function("window.__permitsLoaded === true")
+            pg.wait_for_function("window.__permitsRenderFailed === false")
+            assert pg.locator("#pfload").inner_text() == ""
+            assert pg.locator("#permits-table tbody tr").count() == 33
+            assert errors == []
+    finally:
+        srv.shutdown()
