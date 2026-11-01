@@ -191,6 +191,10 @@ def approved_at_head(pr, reviews):
         if not isinstance(review, dict) or not isinstance(review.get("user"), dict):
             raise RouterError("malformed reviews")
         login = review["user"].get("login")
+        # A decisive review without a verifiable non-empty login must fail
+        # closed; it must never count as an approval by "someone else".
+        if not isinstance(login, str) or not login:
+            raise RouterError("malformed reviews")
         if (
             review.get("state") in ("APPROVED", "CHANGES_REQUESTED", "DISMISSED")
             and login != author
@@ -322,11 +326,15 @@ def github_reader(repo, gh=_gh):
             comments = collect(
                 f"repos/{repo}/issues/{args[0]}/comments?per_page={PER_PAGE}"
             )
-            return "\n".join(
-                c.get("body", "")
-                for c in comments
-                if isinstance(c, dict) and isinstance(c.get("body"), str)
-            )
+            bodies = []
+            for c in comments:
+                # A malformed record is dropped silently no longer: error out
+                # before the dedup marker scan instead of trusting a partial
+                # comment set.
+                if not isinstance(c, dict) or not isinstance(c.get("body"), str):
+                    raise RouterError("malformed comment record")
+                bodies.append(c["body"])
+            return "\n".join(bodies)
         raise RouterError("unknown question")
 
     return read

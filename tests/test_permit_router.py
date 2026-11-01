@@ -521,6 +521,19 @@ def test_more_than_one_page_of_allowed_files_is_fully_validated():
     assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 0
 
 
+def _pad_files(w, p, tail):
+    # Page 1 holds exactly PER_PAGE allowed files; the tail lands on page 2.
+    w.files = (
+        w.files
+        + [
+            {"filename": f"docs/badge/parcel-zz-{i}.json", "status": "modified"}
+            for i in range(100 - len(w.files))
+        ]
+        + tail
+    )
+    p["changed_files"] = len(w.files)
+
+
 def test_rename_source_on_a_later_files_page_is_validated():
     w, p = World(), pr()
     sneaky = [
@@ -530,8 +543,7 @@ def test_rename_source_on_a_later_files_page_is_validated():
             "previous_filename": "scripts/ci/permit_router.py",
         }
     ]
-    w.files = w.files + sneaky
-    p["changed_files"] = len(w.files)
+    _pad_files(w, p, sneaky)
     gh = _gh_world(w, p)
     files_prefix = f"repos/{REPO}/pulls/7/files"
     paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
@@ -544,8 +556,7 @@ def test_rename_source_on_a_later_files_page_is_validated():
 
 def test_disallowed_file_on_a_later_page_stops():
     w, p = World(), pr()
-    w.files = w.files + [{"filename": "src/evil.py", "status": "modified"}]
-    p["changed_files"] = len(w.files)
+    _pad_files(w, p, [{"filename": "src/evil.py", "status": "modified"}])
     gh = _gh_world(w, p)
     files_prefix = f"repos/{REPO}/pulls/7/files"
     paged = _paged({files_prefix: [w.files[:100], w.files[100:]]})
@@ -574,9 +585,12 @@ def test_dedup_marker_on_a_later_comments_page_skips(capsys):
 
 def test_decisive_review_on_a_later_page_changes_the_verdict(capsys):
     w, p = World(), pr()
+    # Page 1 alone would route (approval at head); page 2 must flip it.
     filler = [
+        {"state": "APPROVED", "commit_id": HEAD, "user": {"login": "zz-approver"}}
+    ] + [
         {"state": "COMMENTED", "commit_id": HEAD, "user": {"login": f"zz-{i}"}}
-        for i in range(100)
+        for i in range(99)
     ]
     late = [
         {
@@ -801,3 +815,28 @@ def test_changed_files_are_checked_before_provenance_is_trusted():
     assert not any(
         call[0] in ("provenance", "run", "reviews", "markers") for call in w.calls
     )
+
+
+@pytest.mark.parametrize("login", [None, "", 7, ["x"]])
+def test_review_without_a_verifiable_login_stops(login):
+    w = World()
+    w.reviews = [{"state": "APPROVED", "commit_id": HEAD, "user": {"login": login}}]
+    with pytest.raises(pr_mod.RouterError, match="malformed reviews"):
+        decide(w=w)
+
+
+@pytest.mark.parametrize(
+    "comment", [None, "a string", {"body": None}, {"body": 7}, {"nobody": "x"}]
+)
+def test_malformed_comment_record_stops_before_dedupe(comment):
+    w, p = World(), pr()
+    gh = _gh_world(w, p)
+    comments_prefix = f"repos/{REPO}/issues/7/comments"
+
+    def gh2(path):
+        if path.startswith(comments_prefix + "?per_page="):
+            page = int(path.rsplit("page=", 1)[1])
+            return [comment] if page == 1 else []
+        return gh(path)
+
+    assert pr_mod.main(["--repo", REPO, "--pr", "7"], gh=gh2) == 1
