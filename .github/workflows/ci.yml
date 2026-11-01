@@ -103,28 +103,6 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Docs freshness
         run: python scripts/ci/check_docs_fresh.py
-  py315:
-    name: Python 3.15 (informational)
-    # Informational Python 3.15 check (#734): continue-on-error, never a
-    # gate. Runtime stays 3.12/3.13. Deliberately absent from summary's
-    # needs, so its result can never block a merge.
-    continue-on-error: true
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: '3.15'
-          cache: pip
-      - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov
-      - run: ruff check src tests refresh.py
-      - name: Tests (informational)
-        run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
-      - name: Test run summary
-        if: ${{ always() }}
-        run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python 3.15"
-
   worker:
     # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
     runs-on: ubuntu-24.04
@@ -205,3 +183,25 @@ jobs:
               sys.exit(1)
           print("All dependencies succeeded or were deliberately skipped.")
           PY
+
+  py315:
+    name: Python 3.15 (informational)
+    # Informational Python 3.15 check (#734): continue-on-error, never a
+    # gate. Runtime stays 3.12/3.13. Deliberately absent from summary's
+    # needs, so its result can never block a merge.
+    continue-on-error: true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.15'
+          cache: pip
+      - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov
+      - run: ruff check src tests refresh.py
+      - name: Tests (informational)
+        run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python 3.15"
