@@ -5,10 +5,10 @@ between calls), hard stop recorded on any block. No CAPTCHA, no retries
 with rotated headers.
 """
 
+import http.client
 import json
 import os
 import time
-import http.client
 import urllib.request
 
 API = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"

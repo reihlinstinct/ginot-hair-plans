@@ -3,9 +3,9 @@
 Read-only POSTs to the public SPA API, same calls the public site makes.
 Parameterized by env TIK_NUM (bare file number, no 101- prefix)."""
 
+import http.client
 import json
 import os
-import http.client
 import urllib.request
 
 API = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"

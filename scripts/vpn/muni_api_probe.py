@@ -7,10 +7,10 @@ calls in the browser. Public data only, no login. Any hard block
 we never retry with rotated headers.
 """
 
+import http.client
 import json
 import os
 import time
-import http.client
 import urllib.request
 
 API = "https://jerbasicserviceapi.jerusalem.muni.il/api/Db/ExecuteGetJSON"
