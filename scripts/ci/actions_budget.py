@@ -18,7 +18,6 @@ Usage:
   python3 scripts/ci/actions_budget.py --usage-file usage.json --private-repo name ...
   python3 scripts/ci/actions_budget.py --check-timeouts
 """
-
 from __future__ import annotations
 
 import argparse
@@ -128,23 +127,18 @@ def check_timeouts(workflows_dir: pathlib.Path) -> dict:
 
 
 def _get(url: str, token: str):
-    req = urllib.request.Request(
-        url,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Accept": "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28",
-        },
-    )
+    req = urllib.request.Request(url, headers={
+        "Authorization": f"Bearer {token}",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    })
     with urllib.request.urlopen(req, timeout=30) as resp:
         return json.load(resp)
 
 
 def live_inputs(token: str, year: int, month: int):
     user = _get(f"{API}/user", token)["login"]
-    usage = _get(
-        f"{API}/users/{user}/settings/billing/usage?year={year}&month={month}", token
-    )
+    usage = _get(f"{API}/users/{user}/settings/billing/usage?year={year}&month={month}", token)
     private: set = set()
     page = 1
     while True:
@@ -179,38 +173,27 @@ def main(argv=None) -> int:
             items, private = live_inputs(token, args.year, args.month)
         else:
             if not args.private_repo:
-                ap.error(
-                    "--usage-file needs at least one --private-repo (an empty list would report 0 minutes)"
-                )
+                ap.error("--usage-file needs at least one --private-repo (an empty list would report 0 minutes)")
             items = json.loads(pathlib.Path(args.usage_file).read_text())["usageItems"]
             private = set(args.private_repo)
         per_repo = private_minutes(items, private, cfg["minute_multipliers"])
         total = sum(per_repo.values())
         state = classify(total, cfg)
-        print(
-            f"private-repo minutes: {total:.0f} of {cfg['monthly_private_minutes_included']} ({state})"
-        )
+        print(f"private-repo minutes: {total:.0f} of {cfg['monthly_private_minutes_included']} ({state})")
         for repo, minutes in sorted(per_repo.items(), key=lambda kv: -kv[1]):
             print(f"  {repo}: {minutes:.0f}")
         other = uncounted_minutes(items, private, cfg["minute_multipliers"])
         if other:
-            top = ", ".join(
-                f"{r} {m:.0f}"
-                for r, m in sorted(other.items(), key=lambda kv: -kv[1])[:5]
-            )
+            top = ", ".join(f"{r} {m:.0f}" for r, m in sorted(other.items(), key=lambda kv: -kv[1])[:5])
             print(
                 f"not counted (not private today): {sum(other.values()):.0f} min in {len(other)} repo(s); "
                 f"top: {top}. If one was private earlier this month, count it by hand."
             )
         if state == "stop":
-            print(
-                "STOP: monthly cap reached. Do not start more private-repo runs; ask the owner."
-            )
+            print("STOP: monthly cap reached. Do not start more private-repo runs; ask the owner.")
             code = 2
         elif state == "warn":
-            print(
-                "WARN: past the warn threshold. Prefer local test runs; report to the owner."
-            )
+            print("WARN: past the warn threshold. Prefer local test runs; report to the owner.")
 
     if args.check_timeouts:
         missing = check_timeouts(ROOT / ".github" / "workflows")

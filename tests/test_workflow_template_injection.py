@@ -88,7 +88,7 @@ def test_no_risky_interpolation_in_ci_run_blocks():
 def test_scanner_catches_block_run():
     lines = [
         "      - run: |",
-        '          git fetch origin "${{ github.base_ref }}"',
+        "          git fetch origin \"${{ github.base_ref }}\"",
     ]
     assert scan_lines(lines) != []
 
@@ -99,16 +99,16 @@ def test_scanner_catches_single_line_run():
 
 
 def test_scanner_catches_bracket_form():
-    lines = ["      - run: echo \"${{ github['base_ref'] }}\""]
+    lines = ['      - run: echo "${{ github[\'base_ref\'] }}"']
     assert scan_lines(lines) != []
-    lines_ev = ["      - run: echo \"${{ github.event['pull_request'].number }}\""]
+    lines_ev = ['      - run: echo "${{ github.event[\'pull_request\'].number }}"']
     assert scan_lines(lines_ev) != []
 
 
 def test_scanner_ignores_env_values():
     lines = [
         "      - run: |",
-        '          git fetch origin "$BASE_REF"',
+        "          git fetch origin \"$BASE_REF\"",
         "        env:",
         "          BASE_REF: ${{ github.base_ref }}",
     ]
