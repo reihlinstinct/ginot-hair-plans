@@ -263,8 +263,11 @@ def test_unknown_review_state_stops_red_even_with_exact_head_approval():
             "user": {"login": "zz-reviewer"},
         },
     ]
-    with pytest.raises(pr_mod.RouterError, match="unknown review state"):
+    with pytest.raises(pr_mod.RouterError) as excinfo:
         decide(w=w)
+    # Exact message, not a substring: an f-string leaking the API-supplied
+    # state into the printed reason must fail this test.
+    assert str(excinfo.value) == "unknown review state"
 
 
 def test_known_non_decisive_states_are_accepted():
