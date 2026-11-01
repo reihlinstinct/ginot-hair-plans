@@ -50,8 +50,9 @@ ADDRESS_PROC = 242700455
 def address_fields_strict(tik):
     """Raw address fields for the tik from procedure 242700455, WITHOUT
     permit_feed.address_of's None-tolerance: a failed/unparseable response
-    raises ValueError (counted as a failure, retried on the next run) while
-    a genuine empty result stores empty fields. A failure must never be
+    raises TypeError (wrong response type) or ValueError (no usable response
+    or bad row values) - counted as a failure and retried on the next run -
+    while a genuine empty result stores empty fields. A failure must never be
     persisted as "no address" - that would clear a good legacy address and
     skip the retry (#452 review)."""
     rows = _feed.call(ADDRESS_PROC, {"systemId": _feed.SYS, "tikNum": tik})
@@ -60,7 +61,7 @@ def address_fields_strict(tik):
     if not isinstance(rows, list):
         # An error object or any other shape is a failed call, not "the tik
         # has no address" - only an empty list is a genuine no-row result.
-        raise ValueError(
+        raise TypeError(
             f"proc {ADDRESS_PROC}: unexpected response shape {type(rows).__name__}"
         )
     if rows:
