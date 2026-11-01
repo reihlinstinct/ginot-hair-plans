@@ -2230,7 +2230,9 @@ def test_publication_success_supersedes_render_failure_with_url_state(
             pg.wait_for_function("window.__permitsRenderFailed === true")
             assert pg.locator("#pfrenderretry").is_visible()
             assert pg.input_value("#pfq") == "ייחודי"
-            pg.evaluate("window.__renderShouldThrow = false; window.__releasePubs = true")
+            pg.evaluate(
+                "window.__renderShouldThrow = false; window.__releasePubs = true"
+            )
             pg.wait_for_function("window.__permitsRenderFailed === false")
             assert pg.locator("#pfrenderretry").count() == 0
             assert pg.locator("#pfload").inner_text() == ""
@@ -2242,7 +2244,9 @@ def test_publication_success_supersedes_render_failure_with_url_state(
         srv.shutdown()
 
 
-def test_early_publications_do_not_consume_pending_url_state(tmp_path, browser, request):
+def test_early_publications_do_not_consume_pending_url_state(
+    tmp_path, browser, request
+):
     # #757 (CodeRabbit): a publications response that lands before the full
     # permits load must not consume the pending URL-state restore: group chips
     # introduced only by the full rows (ensureGroupChips, #622) fail validation
@@ -2262,9 +2266,12 @@ def test_early_publications_do_not_consume_pending_url_state(tmp_path, browser, 
     )
     try:
         with recorded_page(browser, request) as (pg, errors):
+
             def hold_full(route):
                 # publications resolve while the full load is still in flight
-                pg.wait_for_function("window.__permitPublicationEvidenceLoaded === true")
+                pg.wait_for_function(
+                    "window.__permitPublicationEvidenceLoaded === true"
+                )
                 route.continue_()
 
             pg.route("**/permits.html", hold_full)
@@ -2273,9 +2280,7 @@ def test_early_publications_do_not_consume_pending_url_state(tmp_path, browser, 
             # the deferred restore ran against the full rows: the unmapped
             # chip was added by ensureGroupChips, then selected by the link.
             assert pg.locator(".chip[data-group='unmapped'].sel").count() == 1
-            assert (
-                pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
-            )
+            assert pg.locator("#permits-table tbody tr:not(.filtered-out)").count() == 1
             assert not pg.locator("#copy-permit-link").is_disabled()
             assert errors == []
     finally:
