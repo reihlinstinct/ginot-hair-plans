@@ -109,7 +109,7 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
             raise AssertionError(
                 f"{type(bad).__name__} response must raise, not become empty fields"
             )
-        except ValueError:
+        except TypeError:
             pass
     monkeypatch.setattr(bf._feed, "call", lambda *a: ["not-a-dict"])
     try:

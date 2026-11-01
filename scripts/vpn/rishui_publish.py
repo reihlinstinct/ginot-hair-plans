@@ -113,11 +113,11 @@ def normalize_row(item: dict) -> dict:
 def parse_rows(payload: str) -> list[dict]:
     data = json.loads(payload)
     if not isinstance(data, list):
-        raise ValueError("publish API did not return a list")
+        raise TypeError("publish API did not return a list")
     rows = []
     for item in data:
         if not isinstance(item, dict):
-            raise ValueError("unexpected publish API row shape")
+            raise TypeError("unexpected publish API row shape")
         # myIndex is the dedup key and tik_num the permit join key: both must
         # be real scalars, not null/containers (a null myIndex would collapse
         # detect_new's known-set onto one key).

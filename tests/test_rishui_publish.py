@@ -60,7 +60,7 @@ def test_parse_rows_handles_missing_dates():
 
 
 def test_parse_rows_rejects_non_list():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         rishui_publish.parse_rows('{"rows": []}')
 
 

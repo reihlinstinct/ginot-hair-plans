@@ -60,7 +60,7 @@ def address_fields_strict(tik):
     if not isinstance(rows, list):
         # An error object or any other shape is a failed call, not "the tik
         # has no address" - only an empty list is a genuine no-row result.
-        raise ValueError(
+        raise TypeError(
             f"proc {ADDRESS_PROC}: unexpected response shape {type(rows).__name__}"
         )
     if rows:
