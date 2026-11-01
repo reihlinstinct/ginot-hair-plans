@@ -1,4 +1,5 @@
-"""#591: opt-in weekly reconciliation must cover the public data API too."""
+"""#591/#559: the freshness gate covers the public data API; the
+weekly reconciliation flag still repairs it explicitly."""
 
 import importlib.util
 import json
@@ -30,7 +31,10 @@ def test_include_data_json_detects_and_repairs_stale_reconciled_api(
         )
 
     monkeypatch.setattr(module, "render", fake_render)
-    assert module.check(docs) == []  # other batch pipelines keep historical contract
+    # #559: data.json is covered by default now that permit-feed batches
+    # refresh its permits[] in the same run; --include-data-json remains
+    # accepted for the weekly workflow's explicit regenerate step.
+    assert any("data.json" in error for error in module.check(docs))
     assert any(
         "data.json" in error for error in module.check(docs, include_data_json=True)
     )

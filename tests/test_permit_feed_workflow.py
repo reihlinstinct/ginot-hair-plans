@@ -25,6 +25,9 @@ def test_publish_step_renders_and_commits_permits_fragment():
     assert "docs/permits.html" in add_line
 
     assert "docs/permit-points.json" in add_line
+    # #559: the batch refreshes permits[] inside data.json - it must be
+    # staged into the publication commit like the other generated files.
+    assert "docs/data.json" in add_line
 
 
 def test_publish_step_commits_default_permits_subset():

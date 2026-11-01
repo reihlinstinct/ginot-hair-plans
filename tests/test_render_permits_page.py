@@ -2,6 +2,7 @@
 docs/permits.html in the same run, so a newly published permit is visible
 and searchable on the site immediately - not after the weekly refresh."""
 
+import importlib.util
 import json
 import subprocess
 import sys
@@ -52,6 +53,90 @@ def test_newly_published_tik_renders_as_visible_searchable_row(tmp_path):
     # the user's text searches all hit data-search (lowercased by the renderer)
     assert "הפלמח 41" in fragment
     assert "הפלמח 41" in fragment.split("data-search='", 1)[1].split("'", 1)[0]
+
+
+def test_batch_updates_data_json_permits(tmp_path):
+    """#559: docs/data.json is the public endpoint the MCP server serves;
+    a permit-feed batch must refresh its permits[] in the same run, keeping
+    generated/rows/changes (owned by the weekly refresh) untouched."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    tik = {
+        "tik_num": "2026/0439.00",
+        "mahut": 'תכנית במתווה תמ"א 38 הריסה ובנייה מחדש.',
+        "sugbakasha": 'תכנית במתווה תמ"א 38',
+        "status": "תחילת פרסום הבקשה להקלה",
+        "status_date": "2026-10-18",
+        "gush": 30007,
+        "helka": 12,
+        "publication_start": "2026-10-18",
+        "publication_end_planned": "2026-11-24",
+        "address": "הפלמח 41 קטמון הישנה",
+    }
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": [tik]}, ensure_ascii=False), encoding="utf-8"
+    )
+    before = {
+        "generated": "2026-10-01",
+        "rows": [{"pl_number": "101-0000001"}],
+        "changes": [],
+        "permits": [{"tik_num": "1981/0696.03", "status": "הבקשה נסגרה"}],
+    }
+    (tmp_path / "docs" / "data.json").write_text(
+        json.dumps(before, ensure_ascii=False), encoding="utf-8"
+    )
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    data = json.loads((tmp_path / "docs" / "data.json").read_text(encoding="utf-8"))
+    assert [p["tik_num"] for p in data["permits"]] == ["2026/0439.00"]
+    assert data["permits"][0]["status"] == "תחילת פרסום הבקשה להקלה"
+    assert "_map_missing" in data["permits"][0]  # same annotation as the weekly build
+    # weekly-owned keys are untouched
+    assert data["generated"] == "2026-10-01"
+    assert data["rows"] == [{"pl_number": "101-0000001"}]
+    assert data["changes"] == []
+
+
+def test_failed_write_leaves_original_and_no_temp_files(tmp_path, monkeypatch):
+    """The atomic rewrite must never leave a truncated public endpoint or
+    stray temp files when the dump itself blows up."""
+    spec = importlib.util.spec_from_file_location("rpp", SCRIPT)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    (tmp_path / "docs").mkdir()
+    original = {"generated": "2026-10-01", "rows": [], "changes": [], "permits": []}
+    (tmp_path / "docs" / "data.json").write_text(
+        json.dumps(original, ensure_ascii=False), encoding="utf-8"
+    )
+    monkeypatch.chdir(tmp_path)
+
+    def boom(*args, **kwargs):
+        raise OSError("disk full")
+
+    monkeypatch.setattr(module.json, "dump", boom)
+    try:
+        module.update_data_json([{"tik_num": "2026/0439.00"}])
+    except OSError:
+        pass
+    else:
+        raise AssertionError("update_data_json swallowed the write failure")
+    assert json.loads((tmp_path / "docs" / "data.json").read_text()) == original
+    assert not list((tmp_path / "docs").glob(".data-*"))
+
+
+def test_missing_data_json_is_left_to_the_weekly_refresh(tmp_path):
+    """The batch never creates data.json from scratch: without the weekly
+    keys there is nothing to keep, and a permits-only file would look like
+    a complete dataset to the MCP server."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    tik = {"tik_num": "2026/0439.00", "status": "x", "gush": 30007, "helka": 12}
+    (tmp_path / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": [tik]}, ensure_ascii=False), encoding="utf-8"
+    )
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    assert not (tmp_path / "docs" / "data.json").exists()
 
 
 def test_refuses_to_overwrite_with_empty_feed(tmp_path):

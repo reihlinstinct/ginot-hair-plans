@@ -95,13 +95,23 @@ def test_each_file_is_compared_at_its_own_stamp_date(docs):
     assert "generated=2026-01-10" in problems[0]
 
 
-def test_png_and_excluded_outputs_are_not_compared(docs):
+def test_png_outputs_are_not_compared(docs):
     (docs / "og.png").write_bytes(b"not a png")
-    (docs / "data.json").write_text("{}", encoding="utf-8")
     assert fresh.check(docs) == []
     listed = fresh.uncovered(docs)
     assert "og.png" in listed
-    assert any(n.startswith("data.json (") for n in listed)
+    # #559: data.json left the exclusion list; permit-feed batches refresh
+    # its permits[] in the same run now, so nothing is left in EXCLUDED.
+    assert not any(n.startswith("data.json") for n in listed)
+
+
+def test_stale_data_json_fails(docs):
+    """#559: the public data endpoint is covered like every other render."""
+    (docs / "data.json").write_text(
+        f'{{"generated": "{DATE}", "permits": []}}', encoding="utf-8"
+    )
+    problems = fresh.check(docs)
+    assert any(p.startswith("data.json: stale") for p in problems)
 
 
 def test_missing_date_stamp_is_a_check_error_not_a_pass(tmp_path):
