@@ -226,7 +226,10 @@ def preserve_sample_bounds(records, old_records):
     old_by_tik = {r["tik_num"]: r for r in old_records}
     for tik, rec in records.items():
         old = old_by_tik.get(tik) or {}
-        old_first, new_first = old.get("mirror_first_seen"), rec.get("mirror_first_seen")
+        old_first, new_first = (
+            old.get("mirror_first_seen"),
+            rec.get("mirror_first_seen"),
+        )
         if old_first and new_first:
             rec["mirror_first_seen"] = _iso_min(old_first, new_first)
         elif old_first:
