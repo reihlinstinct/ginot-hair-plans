@@ -12,6 +12,7 @@ import subprocess
 from pathlib import Path
 
 import ezdxf
+from ezdxf.entities import LWPolyline
 from shapely.geometry import Polygon
 
 CRS_WKT_MARKER = 'PROJCS["Israel_TM_Grid"'
@@ -42,6 +43,8 @@ def read_polygons(dxf_path: str) -> list[Polygon]:
     doc = ezdxf.readfile(dxf_path)
     polys = []
     for e in doc.modelspace().query("LWPOLYLINE"):
+        if not isinstance(e, LWPolyline):
+            continue
         pts = [(p[0], p[1]) for p in e.get_points()]
         if e.closed and len(pts) >= 4:
             polys.append(Polygon(pts))
