@@ -22,14 +22,31 @@ def _ruff_installs(text):
     ]
 
 
+def _resolved_versions(name, text):
+    versions = set()
+    for tok in _ruff_installs(text):
+        m = re.fullmatch(r"ruff==(\d+\.\d+\.\d+)", tok)
+        if m:
+            versions.add(m.group(1))
+            continue
+        m = re.fullmatch(r'ruff=="?\$(\w+)"?', tok)
+        assert m, f"{name}: ruff is not pinned exactly ({tok!r})"
+        var = m.group(1)
+        # The pin variable must be defined at workflow level (two-space
+        # indent); a job- or step-level definition could drift per job.
+        env = re.search(
+            rf"^  {var}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.MULTILINE
+        )
+        assert env, (
+            f"{name}: ruff pinned via ${var} but no workflow-level env defines it"
+        )
+        versions.add(env.group(1))
+    return versions
+
+
 def test_ruff_pinned_to_one_version_in_linting_workflows():
     versions = set()
     assert _ruff_installs((WORKFLOWS / "ci.yml").read_text()), "CI must install Ruff"
     for path in WORKFLOWS.glob("*.yml"):
-        name = path.name
-        installs = _ruff_installs(path.read_text(encoding="utf-8"))
-        for tok in installs:
-            m = re.fullmatch(r"ruff==(\d+\.\d+\.\d+)", tok)
-            assert m, f"{name}: ruff is not pinned exactly ({tok!r})"
-            versions.add(m.group(1))
+        versions |= _resolved_versions(path.name, path.read_text(encoding="utf-8"))
     assert len(versions) == 1, f"ruff versions differ across workflows: {versions}"

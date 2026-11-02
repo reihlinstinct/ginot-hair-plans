@@ -29,9 +29,9 @@
    "path": ".github/workflows/ci.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "pip install -r requirements.txt ruff==0.16.9 'pytest-cov==$PYTEST_COV_VERSION'",
+   "evidence": "pip install -r requirements.txt 'ruff==$RUFF_VERSION' 'pytest-cov==$PYTEST_COV_VERSION'",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "Pre-existing pip install without --require-hashes; pytest-cov now pinned via the shared PYTEST_COV_VERSION env (#772); tracked for hash pinning in this issue."
+   "reason": "Pre-existing pip install without --require-hashes; ruff and pytest-cov pinned via the shared RUFF_VERSION/PYTEST_COV_VERSION env (#772); tracked for hash pinning in this issue."
   },
   {
    "path": ".github/workflows/ci.yml",
@@ -245,9 +245,9 @@
    "path": ".github/workflows/ci.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "/tmp/appenv/bin/pip install -r requirements.txt ruff==0.16.9 'pytest-cov==$PYTEST_COV_VERSION'",
+   "evidence": "/tmp/appenv/bin/pip install -r requirements.txt 'ruff==$RUFF_VERSION' 'pytest-cov==$PYTEST_COV_VERSION'",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
-   "reason": "pip-audit appenv installs the same pinned pytest-cov as the test jobs via PYTEST_COV_VERSION (#772); tracked for hash pinning in this issue."
+   "reason": "pip-audit appenv installs the same pinned ruff/pytest-cov as the test jobs via RUFF_VERSION/PYTEST_COV_VERSION (#772); tracked for hash pinning in this issue."
   },
   {
    "path": ".github/workflows/ci.yml",
