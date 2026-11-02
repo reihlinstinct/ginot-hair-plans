@@ -117,29 +117,77 @@ def map_record(row, gush, hits):
 
 
 def fetch_rows(gushim):
-    """Paged latest-view pull filtered to the council gushim."""
-    filters = urllib.parse.quote(
-        json.dumps({"גוש": [str(g) for g in gushim]}, ensure_ascii=False)
-    )
-    rows, offset = [], 0
+    """Fetch a stable ordered latest view, failing closed on incomplete pages.
+
+    The API sorts by the real permit key, not an absent CKAN-style _id.
+    Unique keys, monotonic order and a fixed total detect offset overlap,
+    ignored sort parameters and many mid-fetch changes. This is not a server
+    snapshot: same-count source edits during collection can still occur.
+    """
+    filters = json.dumps({"גוש": [str(g) for g in gushim]}, ensure_ascii=False)
+    rows, seen, offset, expected_total = [], set(), 0, None
+    previous = None
     while True:
-        url = (
-            f"{ROWS_URL}?latest=true&limit={PAGE}&offset={offset}"
-            f"&include_total=true&filters={filters}"
+        params = urllib.parse.urlencode(
+            {
+                "latest": "true",
+                "limit": PAGE,
+                "offset": offset,
+                "include_total": "true",
+                "filters": filters,
+                "sort": "מספר תיק asc",
+            }
         )
-        out = subprocess.run(
-            ["curl", "-s", "-m", "60", url], capture_output=True, text=True, check=False
-        ).stdout
-        data = json.loads(out)
+        url = f"{ROWS_URL}?{params}"
+        response = subprocess.run(
+            ["curl", "-fsS", "-m", "60", url],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if response.returncode:
+            raise RuntimeError(
+                f"mirror transport failed at offset {offset} (exit {response.returncode})"
+            )
+        data = json.loads(response.stdout)
         if not data.get("success"):
-            raise RuntimeError(f"mirror API error: {out[:200]}")
+            # Never echo upstream bodies, which may contain personal columns.
+            raise RuntimeError(f"mirror API error at offset {offset}")
         result = data["result"]
-        batch = result.get("records", [])
+        total = result.get("total")
+        if type(total) is not int or total < 0:
+            raise RuntimeError(f"invalid mirror total at offset {offset}")
+        if expected_total is None:
+            expected_total = total
+        elif total != expected_total:
+            raise RuntimeError(
+                f"mirror total changed at offset {offset}: {expected_total} -> {total}"
+            )
+        batch = result.get("records")
+        if not isinstance(batch, list) or len(batch) > PAGE:
+            raise RuntimeError(f"invalid mirror page at offset {offset}")
+        if not batch and len(rows) < expected_total:
+            raise RuntimeError(f"premature empty mirror page at offset {offset}")
+        for row in batch:
+            key = row.get("מספר תיק") if isinstance(row, dict) else None
+            if not isinstance(key, str) or not key.strip():
+                raise RuntimeError(f"missing mirror permit key at offset {offset}")
+            if key in seen:
+                raise RuntimeError(f"duplicate mirror permit key at offset {offset}")
+            if previous is not None and key <= previous:
+                raise RuntimeError(f"mirror sort not respected at offset {offset}")
+            seen.add(key)
+            previous = key
         rows.extend(batch)
-        print(f"fetched {len(rows)}/{result.get('total')} mirror rows")
-        if len(rows) >= result.get("total", 0) or not batch:
+        print(
+            f"fetched {len(rows)}/{expected_total} unique mirror rows (offset {offset})"
+        )
+        if len(rows) > expected_total:
+            raise RuntimeError(f"mirror count exceeds total at offset {offset}")
+        if len(rows) == expected_total:
             return rows
-        offset += PAGE
+        # Follow actual rows received, even if the service caps a page below PAGE.
+        offset += len(batch)
         time.sleep(PACE_SECONDS)
 
 

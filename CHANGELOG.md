@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-02 - Fail-closed permit mirror pagination
+
+- Sort latest mirror rows by permit number and verify unique keys, order,
+  stable totals and complete collection before writing either output.
+- Reject transport failures without logging personal upstream responses.
+- Add offset-overlap and output-preservation regression tests. No data refresh
+  is included; previously staged mirror diffs need independent re-collection.
+
 ## 2026-11-01 - Public CLI help and packaged manuals (#720)
 
 - Share public argument definitions between argparse help and generated Linux

@@ -341,3 +341,12 @@ Installation copies manuals only, not executable aliases. The original Python
 entrypoints and runtime dependencies remain required. Installation refuses stale
 manuals. Help smoke tests invoke all three real entrypoints; defaults, unknown
 arguments, generated-page drift and custom-prefix installation are also tested.
+
+Mirror ingest pagination is ordered by the mirror's `מספר תיק` key. Collection
+fails before writing either output if a key repeats or is missing, ordering is
+not respected, the reported total changes, a page ends early, or the final
+unique count disagrees with the total. HTTP/API failures also stop collection;
+error logs report the stage and offset without echoing upstream personal data.
+Offset pagination is not a database snapshot: same-count source edits during
+collection can still occur. A failed run requires a new reviewed collection,
+not acceptance of a partial dataset or automatic removal of missing permits.
