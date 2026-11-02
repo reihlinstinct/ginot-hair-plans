@@ -264,6 +264,11 @@ def main():
     ap.add_argument("--out", default="data/permit_mirror.json")
     ap.add_argument("--diff-out", default="data/permit_mirror_diff.json")
     ap.add_argument("--validate-against", default="")
+    ap.add_argument(
+        "--allow-empty",
+        action="store_true",
+        help="permit an ingest with zero council records over existing data",
+    )
     args = ap.parse_args()
 
     parcels_by_gush = load_parcels(args.parcels)
@@ -290,6 +295,15 @@ def main():
         rec = map_record(row, gush, hits)
         if rec["tik_num"]:
             records[rec["tik_num"]] = rec
+
+    # Fail closed on an empty-success response (total 0, no records): with
+    # existing data that shape is an upstream outage or filter break, and
+    # writing it would wipe the mirror layer and mark every tik gone (#790).
+    if not records and old_records and not args.allow_empty:
+        raise RuntimeError(
+            "mirror ingest returned zero council records over existing data; "
+            "refusing to overwrite (use --allow-empty to override)"
+        )
 
     preserve_enriched_fields(records, old_records)
 
