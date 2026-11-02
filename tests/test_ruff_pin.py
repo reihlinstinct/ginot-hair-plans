@@ -34,8 +34,12 @@ def _resolved_versions(name, text):
         var = m.group(1)
         # The pin variable must be defined at workflow level (two-space
         # indent); a job- or step-level definition could drift per job.
-        env = re.search(rf"^  {var}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.M)
-        assert env, f"{name}: ruff pinned via ${var} but no workflow-level env defines it"
+        env = re.search(
+            rf"^  {var}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.MULTILINE
+        )
+        assert env, (
+            f"{name}: ruff pinned via ${var} but no workflow-level env defines it"
+        )
         versions.add(env.group(1))
     return versions
 

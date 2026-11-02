@@ -24,7 +24,8 @@ def test_tool_extras_pinned_identically_on_every_install_line():
         for job in doc["jobs"].values()
         for step in job.get("steps", [])
         for line in step.get("run", "").splitlines()
-        if "pip install" in line and ("ruff" in line or "pytest-cov" in line)
+        if ("pip install" in line or "pip3 install" in line)
+        and ("ruff" in line or "pytest-cov" in line)
     ]
     assert len(lines) >= 3, "expected both test jobs and the appenv install"
     for line in lines:
