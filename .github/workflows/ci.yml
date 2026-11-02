@@ -212,6 +212,14 @@ jobs:
           python3 - <<'PY'
           import json, os, sys
           needs = json.loads(os.environ["NEEDS_JSON"])
+          # #769/#771: a job dropped from this gate's needs list would leave
+          # the gate green without it, and no repo-side test can observe its
+          # own exclusion - pin the expected set here, at runtime.
+          expected = {"test", "docs-fresh", "worker", "site-browser", "pip-audit"}
+          missing = expected - set(needs)
+          if missing:
+              print("Gate lost jobs from its needs list:", missing)
+              sys.exit(1)
           bad = {k: v["result"] for k, v in needs.items() if v["result"] not in ("success", "skipped")}
           if bad:
               print("Dependencies failed or cancelled:", bad)
