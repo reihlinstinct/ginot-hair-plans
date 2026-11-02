@@ -150,12 +150,46 @@ jobs:
           include-hidden-files: true  # tests/.artifacts is a dot-dir (issue #426)
           retention-days: 30
 
+  pip-audit:
+    # Full-tree dependency vulnerability audit (#125): audits exactly the
+    # dependency versions CI installed (frozen from the app environment),
+    # per tested Python - the requirements carry interpreter markers
+    # (pyproj differs below 3.12), so a single-version audit can miss a
+    # vulnerable resolution. Complements the dependency-review workflow,
+    # which gates the PR diff side. Gating through the Run summary needs
+    # list: a newly published CVE in an installed version fails visibly
+    # until bumped or explicitly ignored with justification.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Install the app environment
+        run: |
+          python3 -m venv /tmp/appenv
+          /tmp/appenv/bin/pip install -r requirements.txt
+      - run: pip install pip-audit==2.10.1
+      - name: Audit the installed dependency versions
+        # Freeze keeps the auditor's own dependency tree out of scope.
+        run: |
+          /tmp/appenv/bin/pip freeze > /tmp/frozen-requirements.txt
+          pip-audit --strict --requirement /tmp/frozen-requirements.txt
   summary:
     name: Run summary
     if: always()
     permissions:
       contents: read
-    needs: [test, docs-fresh, worker, site-browser]
+    needs: [test, docs-fresh, worker, site-browser, pip-audit]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
