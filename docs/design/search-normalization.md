@@ -1,0 +1,82 @@
+# Plan search: orthographic normalization and the colloquial-name gap (#468)
+
+> Status: design proposal, 2026-11-02. Implements the "design before code"
+> step requested in #468. Data claims below were independently verified on
+> 2026-11-02 (feed probe) and against main (code read).
+
+## Current state (verified on main)
+
+- Shared folding `_NORM_SEARCH_JS` in src/ginot/page.py (#413) is applied
+  identically to the query and to each row's `data-search` text: lowercase;
+  drops niqqud/cantillation, geresh/gershayim, ASCII and typographic
+  quotes/primes, hyphens/dashes, invisible bidi/zero-width marks; collapses
+  whitespace. The ג׳/ג'/ג’ variants from the issue are therefore already
+  covered: "ג'ורג'" and "ג׳ורג׳" fold to the same string.
+- Rows index `pl_number + pl_name` only.
+
+## Verified feed reality (live probe 2026-11-02)
+
+The issue hypothesized indexing street/address fields "when the feed
+provides them". Probed the layer metadata
+(`PlanningPublic/xplan_without_77_78/MapServer/1?f=pjson`): the service
+exposes 50 fields (dates, status, quantities, geometry) and **none is a
+street, address, or free-text location field**. There is no
+`pl_location_text`. Conclusion: for the plans table there is no source
+street field to index; that direction is moot.
+
+## The residual gap is word-level, not character-level
+
+The observed failure (owner query "קינג גורג" for plan 101-0617134,
+"מלון המלכים - המלך ג'ורג' 60") cannot be closed by character folding:
+"קינג" and "המלך" are different words. "קינג ג'ורג'" is the Hebrew
+transliteration of the street's English name (King George); the official
+Hebrew street name is "המלך ג'ורג'". Character normalization will never
+bridge an English-derived colloquial name and an official Hebrew name.
+
+## Options
+
+- **A. Documented street-name alias pairs (recommended).** A small curated
+  data file (e.g. `src/ginot/search_aliases.json`) of official-to-colloquial
+  street-name pairs, each entry carrying a source citation, per the issue's
+  rule "per-plan manual aliases only where a source documents the
+  colloquial name". Alias expansion is applied symmetrically: both the
+  query and the indexed text are folded, then alias-normalized. Seed entry:
+  המלך ג'ורג' <-> קינג ג'ורג' (King George St.), with its source.
+  Seed entry with its exact source: המלך ג'ורג' <-> קינג ג'ורג' -
+  Hebrew Wikipedia, "רחוב המלך ג'ורג' (ירושלים)", opens with "רחוב המלך
+  ג'ורג' החמישי (ידוע גם כקינג ג'ורג')" ("also known as King George"):
+  https://he.wikipedia.org/wiki/רחוב_המלך_ג%27ורג%27_(ירושלים)
+  Kept deliberately narrow: street names only, every entry cited, no
+  free-form aliases.
+- **B. Declare the observed case out of scope.** Close #468 after #413
+  with the finding that the feed has no street fields and colloquial names
+  are unmaintainable. Rejected: the owner hit this live on a flagship
+  street; the issue already constrains aliases to documented ones, which
+  keeps A maintainable.
+
+## Interaction with the existing matcher (verified on main)
+
+The current matcher is a single substring test: the folded query must
+appear verbatim (`indexOf`) in the row's folded `data-search` text.
+Alias normalization slots in BEFORE that test, as a canonical
+replacement applied to both the folded query and the folded row text:
+each alias class names one canonical representative; any member phrase
+appearing as a whole-token sequence (bounded by string start/end or a
+space - post-fold, whitespace is single spaces) is replaced by the
+canonical form. The existing substring check then runs unchanged.
+Whole-token replacement is also the false-positive guard: an alias
+phrase never matches inside a longer word, and single tokens that
+happen to share letters are unaffected. Example: query "קינג גורג"
+folds to "קינג גורג", canonicalizes to "המלך גורג", which is a
+verbatim substring of the folded row text "מלון המלכים המלך גורג 60".
+
+## Regression tests (from the issue, for the implementation PR)
+
+- Query "קינג גורג" finds the Kings Hotel plan row (101-0617134 when the
+  plan is in the active set; test against a fixture row, not the live
+  feed).
+- ג׳/ג' variants of the same query find the same row.
+- No false-positive explosion on short queries: alias expansion only
+  applies to whole-token phrase matches, never single characters or
+  substrings of longer words.
+- Fixture row without a documented alias is unaffected.
