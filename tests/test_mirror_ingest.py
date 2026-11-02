@@ -278,6 +278,8 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
     assert json.loads(out.read_text())["requests"] == []
 
     # Existing data + explicit --allow-empty: the wipe is a stated choice.
+    # Seed real prior records so the guard would fire without the flag.
+    out.write_text('{"requests": [{"tik_num": "A", "status": "x"}]}')
     monkeypatch.setattr(
         sys,
         "argv",
@@ -292,3 +294,4 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
     )
     assert mirror_ingest.main() == 0
     assert json.loads(out.read_text())["requests"] == []
+    assert json.loads(diff.read_text())["gone_tiks"] == ["A"]
