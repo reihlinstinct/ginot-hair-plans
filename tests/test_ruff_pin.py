@@ -47,6 +47,6 @@ def _resolved_versions(name, text):
 def test_ruff_pinned_to_one_version_in_linting_workflows():
     versions = set()
     assert _ruff_installs((WORKFLOWS / "ci.yml").read_text()), "CI must install Ruff"
-    for path in WORKFLOWS.glob("*.y*ml"):
+    for path in sorted([*WORKFLOWS.glob("*.yml"), *WORKFLOWS.glob("*.yaml")]):
         versions |= _resolved_versions(path.name, path.read_text(encoding="utf-8"))
     assert len(versions) == 1, f"ruff versions differ across workflows: {versions}"

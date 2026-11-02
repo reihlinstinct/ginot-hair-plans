@@ -23,7 +23,7 @@ def test_tool_extras_pinned_identically_on_every_install_line():
         line
         for job in doc["jobs"].values()
         for step in job.get("steps", [])
-        for line in step.get("run", "").splitlines()
+        for line in (step.get("run") or "").splitlines()
         if ("pip install" in line or "pip3 install" in line)
         and ("ruff" in line or "pytest-cov" in line)
     ]
@@ -39,7 +39,7 @@ def test_tool_extras_pinned_identically_on_every_install_line():
 
 PIP_CMD = re.compile(
     r"^(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+(?P<what>"
-    r"install\b.*requirements\.txt|freeze\b)"
+    r"install\b.*|freeze\b)"
 )
 
 
@@ -66,17 +66,45 @@ def test_appenv_install_uses_the_appenv_pip():
     installs = []
     freezes = []
     for step in audit_steps:
-        for cmd, what in _pip_env_commands(step.get("run", "")):
+        for cmd, what in _pip_env_commands(step.get("run") or ""):
+            # The auditor's own install (pip-audit itself) runs on the
+            # runner python by design; every other install - requirements
+            # or standalone packages - and every freeze must use the
+            # appenv pip.
+            if "install" in what and re.fullmatch(
+                r"(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+install\s+pip-audit==\S+",
+                cmd,
+            ):
+                continue
             assert cmd.startswith("/tmp/appenv/bin/pip "), cmd
-            (freezes if what.startswith("freeze") else installs).append(cmd)
+            if what.startswith("freeze"):
+                freezes.append(cmd)
+            elif "requirements.txt" in cmd:
+                installs.append(cmd)
     assert installs, "pip-audit must install requirements into the appenv"
     assert freezes, "pip-audit must freeze the appenv for the audit"
+
+    # The frozen file the appenv writes must be the file pip-audit reads.
+    run_text = "\n".join(
+        line
+        for step in audit_steps
+        for line in (step.get("run") or "").splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    )
+    frozen_writes = re.findall(r"pip freeze\s*>\s*(\S+)", run_text)
+    audit_reads = re.findall(r"pip-audit\s+--strict\s+--requirement\s+(\S+)", run_text)
+    assert frozen_writes, "no pip freeze redirect found"
+    assert audit_reads, "no pip-audit --requirement found"
+    assert set(frozen_writes) == set(audit_reads), (
+        f"frozen file {frozen_writes} != audited file {audit_reads}"
+    )
 
 
 def test_pin_vars_defined_only_at_workflow_level():
     pins = {"RUFF_VERSION", "PYTEST_COV_VERSION"}
     offenders = []
-    for path in (ROOT / ".github/workflows").glob("*.y*ml"):
+    wf_dir = ROOT / ".github/workflows"
+    for path in sorted([*wf_dir.glob("*.yml"), *wf_dir.glob("*.yaml")]):
         doc = yaml.safe_load(path.read_text())
         for job_name, job in (doc.get("jobs") or {}).items():
             if pins & set(job.get("env") or {}):
