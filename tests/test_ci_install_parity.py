@@ -46,15 +46,19 @@ def test_appenv_install_uses_the_appenv_pip():
     # Every pip line that touches the audited environment - installing it
     # or freezing it - must use the appenv pip. The auditor's own install
     # (pip-audit itself) runs on the runner python by design.
-    env_lines = [
+    run_lines = [
         line.strip()
         for step in audit_steps
         for line in step.get("run", "").splitlines()
-        if ("pip install" in line and "requirements.txt" in line)
-        or "pip freeze" in line
     ]
-    assert env_lines, "pip-audit must install and freeze the appenv"
-    for line in env_lines:
+    # Any requirements install - whatever executable a future edit uses -
+    # and every freeze must go through the appenv pip. A chained line
+    # fails the startswith check too, which is the safe direction.
+    installs = [l for l in run_lines if "pip install" in l and "requirements.txt" in l]
+    freezes = [l for l in run_lines if "pip freeze" in l]
+    assert installs, "pip-audit must install requirements into the appenv"
+    assert freezes, "pip-audit must freeze the appenv for the audit"
+    for line in installs + freezes:
         assert line.startswith("/tmp/appenv/bin/pip "), line
 
 
