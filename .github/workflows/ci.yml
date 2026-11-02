@@ -155,7 +155,10 @@ jobs:
     # dependency versions CI installed (frozen from the app environment),
     # per tested Python - the requirements carry interpreter markers
     # (pyproj differs below 3.12), so a single-version audit can miss a
-    # vulnerable resolution. Complements the dependency-review workflow,
+    # vulnerable resolution. Scope (#768): app deps AND the test extras the
+    # test job installs (ruff, pytest-cov) - the test job holds a
+    # contents:write token for badges, so its tooling is in the trust
+    # boundary. Complements the dependency-review workflow,
     # which gates the PR diff side. Gating through the Run summary needs
     # list: a newly published CVE in an installed version fails visibly
     # until bumped or explicitly ignored with justification.
@@ -177,7 +180,7 @@ jobs:
       - name: Install the app environment
         run: |
           python3 -m venv /tmp/appenv
-          /tmp/appenv/bin/pip install -r requirements.txt
+          /tmp/appenv/bin/pip install -r requirements.txt ruff==0.16.9 pytest-cov
       - run: pip install pip-audit==2.10.1
       - name: Audit the installed dependency versions
         # Freeze keeps the auditor's own dependency tree out of scope.

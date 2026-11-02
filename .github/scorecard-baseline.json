@@ -245,7 +245,7 @@
    "path": ".github/workflows/ci.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "/tmp/appenv/bin/pip install -r requirements.txt",
+   "evidence": "/tmp/appenv/bin/pip install -r requirements.txt ruff==0.16.9 pytest-cov",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "New pip-audit job installs like the repo's other baselined installs; tracked for hash pinning in this issue."
   },
