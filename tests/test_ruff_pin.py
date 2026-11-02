@@ -16,7 +16,7 @@ def _ruff_installs(text):
     return [
         tok
         for line in text.splitlines()
-        if "pip install" in line
+        if "pip install" in line or "pip3 install" in line
         for tok in line.split()
         if re.match(r"ruff(\b|[=<>!~])", tok)
     ]
@@ -35,7 +35,7 @@ def _resolved_versions(name, text):
         # The pin variable must be defined at workflow level (two-space
         # indent); a job- or step-level definition could drift per job.
         env = re.search(
-            rf"^  {var}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.MULTILINE
+            rf"^  {re.escape(var)}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.MULTILINE
         )
         assert env, (
             f"{name}: ruff pinned via ${var} but no workflow-level env defines it"
