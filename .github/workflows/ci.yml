@@ -1,8 +1,9 @@
 name: CI
 
 env:
-  # Single source for the pytest-cov pin so the test jobs and the
-  # pip-audit appenv install the exact same version (#772).
+  # Single source for the ruff and pytest-cov pins so the test jobs
+  # and the pip-audit appenv install the exact same versions (#772).
+  RUFF_VERSION: "0.16.9"
   PYTEST_COV_VERSION: "7.1.0"
 on:
   workflow_dispatch:
@@ -37,7 +38,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-      - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov==$PYTEST_COV_VERSION
+      - run: pip install -r requirements.txt ruff==$RUFF_VERSION pytest-cov==$PYTEST_COV_VERSION
       - run: ruff check src tests refresh.py scripts
       - run: ruff format --check src tests scripts refresh.py
       - name: External reviews append-only guard
@@ -185,7 +186,7 @@ jobs:
       - name: Install the app environment
         run: |
           python3 -m venv /tmp/appenv
-          /tmp/appenv/bin/pip install -r requirements.txt ruff==0.16.9 pytest-cov==$PYTEST_COV_VERSION
+          /tmp/appenv/bin/pip install -r requirements.txt ruff==$RUFF_VERSION pytest-cov==$PYTEST_COV_VERSION
       - run: pip install pip-audit==2.10.1
       - name: Audit the installed dependency versions
         # Freeze keeps the auditor's own dependency tree out of scope.
@@ -249,7 +250,7 @@ jobs:
         with:
           python-version: '3.15'
           cache: pip
-      - run: pip install -r requirements.txt ruff==0.16.9 pytest-cov==$PYTEST_COV_VERSION
+      - run: pip install -r requirements.txt ruff==$RUFF_VERSION pytest-cov==$PYTEST_COV_VERSION
       - run: ruff check src tests refresh.py scripts
       - name: Tests (informational)
         run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
