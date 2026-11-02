@@ -202,6 +202,45 @@ def fetch_rows(gushim):
 ENRICHED_FIELDS = ("publication_start", "publication_end_planned")
 
 
+def _iso_min(a, b):
+    """Earlier of two ISO timestamps; string order as fallback."""
+    try:
+        return min(a, b, key=datetime.datetime.fromisoformat)
+    except (TypeError, ValueError):
+        return min(a, b)
+
+
+def _iso_max(a, b):
+    try:
+        return max(a, b, key=datetime.datetime.fromisoformat)
+    except (TypeError, ValueError):
+        return max(a, b)
+
+
+def preserve_sample_bounds(records, old_records):
+    """Keep the earliest first_seen / latest last_seen across re-ingests.
+
+    The mirror resets first_seen when it re-writes a row (16 records moved
+    later in one ingest, #794), which silently erases the earliest sighting.
+    Carry the historical bounds forward like preserve_enriched_fields does."""
+    old_by_tik = {r["tik_num"]: r for r in old_records}
+    for tik, rec in records.items():
+        old = old_by_tik.get(tik) or {}
+        old_first, new_first = (
+            old.get("mirror_first_seen"),
+            rec.get("mirror_first_seen"),
+        )
+        if old_first and new_first:
+            rec["mirror_first_seen"] = _iso_min(old_first, new_first)
+        elif old_first:
+            rec["mirror_first_seen"] = old_first
+        old_last, new_last = old.get("mirror_last_seen"), rec.get("mirror_last_seen")
+        if old_last and new_last:
+            rec["mirror_last_seen"] = _iso_max(old_last, new_last)
+        elif old_last:
+            rec["mirror_last_seen"] = old_last
+
+
 def preserve_enriched_fields(records, old_records):
     """Carry nightly-enriched publication fields (issue #76) across re-ingests.
 
@@ -305,6 +344,7 @@ def main():
             "refusing to overwrite (use --allow-empty to override)"
         )
 
+    preserve_sample_bounds(records, old_records)
     preserve_enriched_fields(records, old_records)
 
     payload = {

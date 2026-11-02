@@ -249,7 +249,7 @@ def test_main_refuses_empty_ingest_over_existing_data(monkeypatch, tmp_path):
     import pytest
 
     out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
-    out.write_text('{"requests": [{"tik_num": "A"}]}')
+    out.write_text('{"requests": [{"tik_num": "A"}]}', encoding="utf-8")
     diff.write_text("previous diff")
     monkeypatch.setattr(
         sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
@@ -258,7 +258,7 @@ def test_main_refuses_empty_ingest_over_existing_data(monkeypatch, tmp_path):
     monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [])
     with pytest.raises(RuntimeError, match="zero council records"):
         mirror_ingest.main()
-    assert out.read_text() == '{"requests": [{"tik_num": "A"}]}'
+    assert out.read_text(encoding="utf-8") == '{"requests": [{"tik_num": "A"}]}'
     assert diff.read_text() == "previous diff"
 
 
@@ -275,11 +275,11 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
         sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
     )
     assert mirror_ingest.main() == 0
-    assert json.loads(out.read_text())["requests"] == []
+    assert json.loads(out.read_text(encoding="utf-8"))["requests"] == []
 
     # Existing data + explicit --allow-empty: the wipe is a stated choice.
     # Seed real prior records so the guard would fire without the flag.
-    out.write_text('{"requests": [{"tik_num": "A", "status": "x"}]}')
+    out.write_text('{"requests": [{"tik_num": "A", "status": "x"}]}', encoding="utf-8")
     monkeypatch.setattr(
         sys,
         "argv",
@@ -293,5 +293,75 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
         ],
     )
     assert mirror_ingest.main() == 0
-    assert json.loads(out.read_text())["requests"] == []
+    assert json.loads(out.read_text(encoding="utf-8"))["requests"] == []
     assert json.loads(diff.read_text())["gone_tiks"] == ["A"]
+
+
+def test_preserve_sample_bounds_keeps_earliest_first_seen():
+    old = [
+        {
+            "tik_num": "A",
+            "mirror_first_seen": "2026-08-22T20:20:49+00:00",
+            "mirror_last_seen": "2026-10-30T00:00:00+00:00",
+        },
+        {"tik_num": "B", "mirror_first_seen": "2026-10-01T00:00:00+00:00"},
+        {"tik_num": "C"},
+    ]
+    new = {
+        "A": {
+            "tik_num": "A",
+            "mirror_first_seen": "2026-10-31T22:08:15+00:00",
+            "mirror_last_seen": "2026-10-29T00:00:00+00:00",
+        },
+        "B": {"tik_num": "B", "mirror_first_seen": "", "mirror_last_seen": ""},
+        "C": {"tik_num": "C", "mirror_first_seen": "2026-11-01T00:00:00+00:00"},
+    }
+    mirror_ingest.preserve_sample_bounds(new, old)
+    # mirror reset first_seen on re-write: the earlier sighting survives
+    assert new["A"]["mirror_first_seen"] == "2026-08-22T20:20:49+00:00"
+    # and the genuinely latest last_seen survives too
+    assert new["A"]["mirror_last_seen"] == "2026-10-30T00:00:00+00:00"
+    # missing new values fall back to old, missing old keep new
+    assert new["B"]["mirror_first_seen"] == "2026-10-01T00:00:00+00:00"
+    assert new["C"]["mirror_first_seen"] == "2026-11-01T00:00:00+00:00"
+
+
+def test_main_preserves_earliest_first_seen_from_existing_output(monkeypatch, tmp_path):
+    import json
+    import sys
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    out.write_text(
+        '{"requests": [{"tik_num": "A", "mirror_first_seen": '
+        '"2026-08-22T20:20:49+00:00", "mirror_last_seen": "2026-10-30T00:00:00+00:00"}]}',
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    row = {
+        "מספר תיק": "A",
+        "גוש": "30007",
+        "מחלקה": "133",
+        "first_seen": "2026-10-31T22:08:15+00:00",
+        "last_seen": "2026-10-29T00:00:00+00:00",
+    }
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [row])
+    assert mirror_ingest.main() == 0
+    written = json.loads(out.read_text(encoding="utf-8"))["requests"][0]
+    assert written["mirror_first_seen"] == "2026-08-22T20:20:49+00:00"
+    assert written["mirror_last_seen"] == "2026-10-30T00:00:00+00:00"
+
+
+def test_iso_bounds_fall_back_to_string_order_on_garbage():
+    assert mirror_ingest._iso_min("not-a-date", "2026-01-01T00:00:00+00:00") == (
+        "2026-01-01T00:00:00+00:00"
+    )
+    assert (
+        mirror_ingest._iso_max("not-a-date", "2026-01-01T00:00:00+00:00")
+        == "not-a-date"
+    )
+    assert mirror_ingest._iso_min("2026-01-02T00:00:00+00:00", "2026-01-01") == (
+        "2026-01-01"
+    )
