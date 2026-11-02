@@ -241,3 +241,54 @@ def test_fetch_rows_rejects_keys_equal_after_stripping(monkeypatch):
     mock_pages(monkeypatch, [(2, ["A", "A "])])
     with pytest.raises(RuntimeError, match="duplicate"):
         mirror_ingest.fetch_rows([1])
+
+
+def test_main_refuses_empty_ingest_over_existing_data(monkeypatch, tmp_path):
+    import sys
+
+    import pytest
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    out.write_text('{"requests": [{"tik_num": "A"}]}')
+    diff.write_text("previous diff")
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [])
+    with pytest.raises(RuntimeError, match="zero council records"):
+        mirror_ingest.main()
+    assert out.read_text() == '{"requests": [{"tik_num": "A"}]}'
+    assert diff.read_text() == "previous diff"
+
+
+def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
+    import json
+    import sys
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [])
+
+    # Fresh start (no existing data): an empty ingest writes normally.
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    assert mirror_ingest.main() == 0
+    assert json.loads(out.read_text())["requests"] == []
+
+    # Existing data + explicit --allow-empty: the wipe is a stated choice.
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "mirror_ingest.py",
+            "--out",
+            str(out),
+            "--diff-out",
+            str(diff),
+            "--allow-empty",
+        ],
+    )
+    assert mirror_ingest.main() == 0
+    assert json.loads(out.read_text())["requests"] == []
