@@ -177,6 +177,9 @@ def fetch_rows(gushim):
             key = row.get("מספר תיק") if isinstance(row, dict) else None
             if not isinstance(key, str) or not key.strip():
                 raise RuntimeError(f"missing mirror permit key at offset {offset}")
+            # map_record strips this key later; normalize before the duplicate
+            # and ordering checks so "A" and "A " cannot collapse downstream.
+            key = key.strip()
             if key in seen:
                 raise RuntimeError(f"duplicate mirror permit key at offset {offset}")
             if previous is not None and key <= previous:

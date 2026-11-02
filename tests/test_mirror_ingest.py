@@ -231,3 +231,13 @@ def test_main_preserves_existing_output_when_collection_fails(monkeypatch, tmp_p
         mirror_ingest.main()
     assert out.read_text() == '{"requests": []}'
     assert diff.read_text() == "previous diff"
+
+
+def test_fetch_rows_rejects_keys_equal_after_stripping(monkeypatch):
+    import pytest
+
+    # map_record strips tik_num later, so raw-distinct keys that collapse to
+    # the same normalized key would silently overwrite downstream.
+    mock_pages(monkeypatch, [(2, ["A", "A "])])
+    with pytest.raises(RuntimeError, match="duplicate"):
+        mirror_ingest.fetch_rows([1])
