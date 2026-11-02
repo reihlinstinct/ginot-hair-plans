@@ -19,8 +19,10 @@ def test_summary_gate_needs_cover_every_blocking_job():
     assert "pip-audit" in needs
     # The informational 3.15 leg must never gate: it is allowed to fail.
     assert "py315" not in needs
+    # Report-only mypy (#110 phase 1) must never gate either.
+    assert "mypy" not in needs
     # Every job that is neither the gate itself nor explicitly exempt
-    # (the informational py315 leg) must be gated.
-    exempt_from_gate = {"py315", "summary"}
+    # (the informational py315 leg, report-only mypy) must be gated.
+    exempt_from_gate = {"py315", "mypy", "summary"}
     ungated = set(jobs) - needs - exempt_from_gate
     assert not ungated, f"jobs missing from the summary needs list: {ungated}"
