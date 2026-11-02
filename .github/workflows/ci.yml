@@ -156,7 +156,12 @@ jobs:
           # site and plans/*/talking_points_*.md render into site pages, so
           # anything else - or anything unparseable - runs the full suite.
           data = open("/tmp/changed", "rb").read()
-          paths = [p.decode("utf-8", "surrogateescape") for p in data.split(b"\0") if p]
+          raw = [p for p in data.split(b"\0") if p]
+          try:
+              paths = [p.decode("utf-8") for p in raw]
+          except UnicodeDecodeError:
+              # An unparseable name must fail heavy, never light.
+              paths = ["<invalid>"]
 
           def light(path):
               if "/" not in path and path.endswith(".md"):
