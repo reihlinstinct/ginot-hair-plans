@@ -37,29 +37,40 @@ def test_tool_extras_pinned_identically_on_every_install_line():
         ), line
 
 
+PIP_CMD = re.compile(
+    r"^(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+(?P<what>"
+    r"install\b.*requirements\.txt|freeze\b)"
+)
+
+
+def _pip_env_commands(run_block):
+    """Individual pip commands that install requirements or freeze.
+
+    Chained shell (&&, ;, |) is split first, so a runner-pip command
+    cannot hide behind an appenv prefix on the same line.
+    """
+    for line in run_block.splitlines():
+        for cmd in re.split(r"[&|;]+", line):
+            m = PIP_CMD.match(cmd.strip())
+            if m:
+                yield cmd.strip(), m.group("what")
+
+
 def test_appenv_install_uses_the_appenv_pip():
     # The audit is only meaningful if it freezes the app environment;
-    # installing the extras with the runner's pip would silently audit
-    # the wrong environment.
+    # installing or freezing with the runner's pip would silently audit
+    # the wrong environment. The auditor's own install (pip-audit
+    # itself, no requirements.txt) runs on the runner python by design.
     doc = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
     audit_steps = doc["jobs"]["pip-audit"]["steps"]
-    # Every pip line that touches the audited environment - installing it
-    # or freezing it - must use the appenv pip. The auditor's own install
-    # (pip-audit itself) runs on the runner python by design.
-    run_lines = [
-        line.strip()
-        for step in audit_steps
-        for line in step.get("run", "").splitlines()
-    ]
-    # Any requirements install - whatever executable a future edit uses -
-    # and every freeze must go through the appenv pip. A chained line
-    # fails the startswith check too, which is the safe direction.
-    installs = [l for l in run_lines if "pip install" in l and "requirements.txt" in l]
-    freezes = [l for l in run_lines if "pip freeze" in l]
+    installs = []
+    freezes = []
+    for step in audit_steps:
+        for cmd, what in _pip_env_commands(step.get("run", "")):
+            assert cmd.startswith("/tmp/appenv/bin/pip "), cmd
+            (freezes if what.startswith("freeze") else installs).append(cmd)
     assert installs, "pip-audit must install requirements into the appenv"
     assert freezes, "pip-audit must freeze the appenv for the audit"
-    for line in installs + freezes:
-        assert line.startswith("/tmp/appenv/bin/pip "), line
 
 
 def test_pin_vars_defined_only_at_workflow_level():
