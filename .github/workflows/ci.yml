@@ -141,8 +141,11 @@ jobs:
             echo "heavy=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          git diff --name-only "${{ github.event.pull_request.base.sha }}...HEAD" > /tmp/changed
-          if grep -qvx -e 'docs/.*' -e '.*\.md' /tmp/changed; then
+          # --no-renames: a file moved into docs/ must still count as heavy
+          # (with rename detection the old path would vanish from the list).
+          # -z: paths are NUL-delimited so odd filenames cannot break the scan.
+          git diff --name-only --no-renames -z "${{ github.event.pull_request.base.sha }}...HEAD" > /tmp/changed
+          if grep -qvxz -e 'docs/.*' -e '.*\.md' /tmp/changed; then
             echo "heavy=true" >> "$GITHUB_OUTPUT"
           else
             echo "heavy=false" >> "$GITHUB_OUTPUT"
