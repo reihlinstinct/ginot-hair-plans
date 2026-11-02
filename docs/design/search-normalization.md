@@ -42,6 +42,10 @@ bridge an English-derived colloquial name and an official Hebrew name.
   colloquial name". Alias expansion is applied symmetrically: both the
   query and the indexed text are folded, then alias-normalized. Seed entry:
   המלך ג'ורג' <-> קינג ג'ורג' (King George St.), with its source.
+  Seed entry with its exact source: המלך ג'ורג' <-> קינג ג'ורג' -
+  Hebrew Wikipedia, "רחוב המלך ג'ורג' (ירושלים)", opens with "רחוב המלך
+  ג'ורג' החמישי (ידוע גם כקינג ג'ורג')" ("also known as King George"):
+  https://he.wikipedia.org/wiki/רחוב_המלך_ג%27ורג%27_(ירושלים)
   Kept deliberately narrow: street names only, every entry cited, no
   free-form aliases.
 - **B. Declare the observed case out of scope.** Close #468 after #413
@@ -49,6 +53,22 @@ bridge an English-derived colloquial name and an official Hebrew name.
   are unmaintainable. Rejected: the owner hit this live on a flagship
   street; the issue already constrains aliases to documented ones, which
   keeps A maintainable.
+
+## Interaction with the existing matcher (verified on main)
+
+The current matcher is a single substring test: the folded query must
+appear verbatim (`indexOf`) in the row's folded `data-search` text.
+Alias normalization slots in BEFORE that test, as a canonical
+replacement applied to both the folded query and the folded row text:
+each alias class names one canonical representative; any member phrase
+appearing as a whole-token sequence (bounded by string start/end or a
+space - post-fold, whitespace is single spaces) is replaced by the
+canonical form. The existing substring check then runs unchanged.
+Whole-token replacement is also the false-positive guard: an alias
+phrase never matches inside a longer word, and single tokens that
+happen to share letters are unaffected. Example: query "קינג גורג"
+folds to "קינג גורג", canonicalizes to "המלך גורג", which is a
+verbatim substring of the folded row text "מלון המלכים המלך גורג 60".
 
 ## Regression tests (from the issue, for the implementation PR)
 
