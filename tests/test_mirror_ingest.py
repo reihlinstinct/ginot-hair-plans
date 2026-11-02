@@ -102,3 +102,142 @@ def test_preserve_enriched_fields_keeps_publication_dates():
     assert new["B/2"]["publication_start"] == ""
     assert "publication_start" not in new["C/3"]
     assert "publication_start" not in new["D/4"]
+
+
+def mock_pages(monkeypatch, pages):
+    import json
+    import types
+    from urllib.parse import parse_qs, urlparse
+
+    calls = []
+    iterator = iter(pages)
+
+    def fetch(command, **kwargs):
+        params = parse_qs(urlparse(command[-1]).query)
+        assert params["sort"] == ["מספר תיק asc"]
+        assert command[:2] == ["curl", "-fsS"]
+        assert kwargs["check"] is False
+        calls.append(int(params["offset"][0]))
+        total, keys = next(iterator)
+        body = {
+            "success": True,
+            "result": {"total": total, "records": [{"מספר תיק": k} for k in keys]},
+        }
+        return types.SimpleNamespace(returncode=0, stdout=json.dumps(body))
+
+    monkeypatch.setattr(mirror_ingest.subprocess, "run", fetch)
+    monkeypatch.setattr(mirror_ingest.time, "sleep", lambda _: None)
+    monkeypatch.setattr(mirror_ingest, "PAGE", 2)
+    return calls
+
+
+def test_fetch_rows_ordered_unique_and_short_page_offsets(monkeypatch):
+    calls = mock_pages(monkeypatch, [(3, ["A"]), (3, ["B", "C"])])
+    assert len(mirror_ingest.fetch_rows([30007])) == 3
+    assert calls == [0, 1]
+
+
+def test_fetch_rows_empty_dataset(monkeypatch):
+    mock_pages(monkeypatch, [(0, [])])
+    assert mirror_ingest.fetch_rows([30007]) == []
+
+
+def test_fetch_rows_rejects_overlap_that_raw_count_mistakes_for_completion(monkeypatch):
+    import pytest
+
+    mock_pages(monkeypatch, [(4, ["A", "B"]), (4, ["B", "C"])])
+    with pytest.raises(RuntimeError, match="duplicate"):
+        mirror_ingest.fetch_rows([30007])
+
+
+def test_fetch_rows_rejects_ignored_sort(monkeypatch):
+    import pytest
+
+    mock_pages(monkeypatch, [(2, ["B", "A"])])
+    with pytest.raises(RuntimeError, match="sort not respected"):
+        mirror_ingest.fetch_rows([30007])
+
+
+def test_fetch_rows_rejects_changed_total(monkeypatch):
+    import pytest
+
+    mock_pages(monkeypatch, [(3, ["A", "B"]), (4, ["C", "D"])])
+    with pytest.raises(RuntimeError, match="total changed"):
+        mirror_ingest.fetch_rows([30007])
+
+
+def test_fetch_rows_rejects_premature_empty_page(monkeypatch):
+    import pytest
+
+    mock_pages(monkeypatch, [(3, ["A", "B"]), (3, [])])
+    with pytest.raises(RuntimeError, match="premature empty"):
+        mirror_ingest.fetch_rows([30007])
+
+
+def test_fetch_rows_rejects_invalid_key_total_and_count(monkeypatch):
+    import pytest
+
+    for total, keys, message in [
+        (1, [None], "missing"),
+        (None, [], "invalid mirror total"),
+        (True, [], "invalid mirror total"),
+        (1, ["A", "B"], "exceeds total"),
+    ]:
+        mock_pages(monkeypatch, [(total, keys)])
+        with pytest.raises(RuntimeError, match=message):
+            mirror_ingest.fetch_rows([30007])
+
+
+def test_fetch_rows_transport_and_api_failure_do_not_echo_bodies(monkeypatch):
+    import json
+    import types
+
+    import pytest
+
+    for code, body, message in [
+        (22, "PRIVATE RESPONSE", "transport failed"),
+        (0, json.dumps({"success": False, "error": "PRIVATE RESPONSE"}), "API error"),
+    ]:
+        monkeypatch.setattr(
+            mirror_ingest.subprocess,
+            "run",
+            lambda *a, code=code, body=body, **k: types.SimpleNamespace(
+                returncode=code, stdout=body
+            ),
+        )
+        with pytest.raises(RuntimeError, match=message) as error:
+            mirror_ingest.fetch_rows([30007])
+        assert "PRIVATE RESPONSE" not in str(error.value)
+
+
+def test_main_preserves_existing_output_when_collection_fails(monkeypatch, tmp_path):
+    import sys
+
+    import pytest
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    out.write_text('{"requests": []}')
+    diff.write_text("previous diff")
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+
+    def fail(_):
+        raise RuntimeError("duplicate mirror permit key at offset 500")
+
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", fail)
+    with pytest.raises(RuntimeError, match="duplicate"):
+        mirror_ingest.main()
+    assert out.read_text() == '{"requests": []}'
+    assert diff.read_text() == "previous diff"
+
+
+def test_fetch_rows_rejects_keys_equal_after_stripping(monkeypatch):
+    import pytest
+
+    # map_record strips tik_num later, so raw-distinct keys that collapse to
+    # the same normalized key would silently overwrite downstream.
+    mock_pages(monkeypatch, [(2, ["A", "A "])])
+    with pytest.raises(RuntimeError, match="duplicate"):
+        mirror_ingest.fetch_rows([1])

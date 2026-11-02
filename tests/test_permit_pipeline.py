@@ -458,8 +458,17 @@ def test_diff_records_new_changed_gone():
 def test_fetch_rows_pages_until_total(monkeypatch):
     monkeypatch.setattr(mirror, "PAGE", 2)
     pages = [
-        {"success": True, "result": {"records": [{"i": 1}, {"i": 2}], "total": 3}},
-        {"success": True, "result": {"records": [{"i": 3}], "total": 3}},
+        {
+            "success": True,
+            "result": {
+                "records": [{"i": 1, "מספר תיק": "1"}, {"i": 2, "מספר תיק": "2"}],
+                "total": 3,
+            },
+        },
+        {
+            "success": True,
+            "result": {"records": [{"i": 3, "מספר תיק": "3"}], "total": 3},
+        },
     ]
     calls = []
 
