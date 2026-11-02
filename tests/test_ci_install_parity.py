@@ -71,10 +71,9 @@ def test_appenv_install_uses_the_appenv_pip():
             # runner python by design; every other install - requirements
             # or standalone packages - and every freeze must use the
             # appenv pip.
-            if (
-                "install" in what
-                and "pip-audit" in cmd
-                and "requirements.txt" not in cmd
+            if "install" in what and re.fullmatch(
+                r"(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+install\s+pip-audit==\S+",
+                cmd,
             ):
                 continue
             assert cmd.startswith("/tmp/appenv/bin/pip "), cmd
@@ -86,7 +85,12 @@ def test_appenv_install_uses_the_appenv_pip():
     assert freezes, "pip-audit must freeze the appenv for the audit"
 
     # The frozen file the appenv writes must be the file pip-audit reads.
-    run_text = "\n".join(step.get("run", "") or "" for step in audit_steps)
+    run_text = "\n".join(
+        line
+        for step in audit_steps
+        for line in (step.get("run") or "").splitlines()
+        if line.strip() and not line.strip().startswith("#")
+    )
     frozen_writes = re.findall(r"pip freeze\s*>\s*(\S+)", run_text)
     audit_reads = re.findall(r"pip-audit\s+--strict\s+--requirement\s+(\S+)", run_text)
     assert frozen_writes, "no pip freeze redirect found"
