@@ -245,7 +245,15 @@
    "path": ".github/workflows/ci.yml",
    "rule": "unhashed-pip-install",
    "scope": "dependencies",
-   "evidence": "pip install -r requirements.txt pip-audit==2.10.1",
+   "evidence": "/tmp/appenv/bin/pip install -r requirements.txt",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "New pip-audit job installs like the repo's other baselined installs; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install pip-audit==2.10.1",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "New pip-audit job installs like the repo's other baselined installs; tracked for hash pinning in this issue."
   }
