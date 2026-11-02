@@ -149,11 +149,16 @@ def fetch_rows(gushim):
             raise RuntimeError(
                 f"mirror transport failed at offset {offset} (exit {response.returncode})"
             )
-        data = json.loads(response.stdout)
-        if not data.get("success"):
+        try:
+            data = json.loads(response.stdout)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"mirror response not JSON at offset {offset}") from exc
+        if not isinstance(data, dict) or not data.get("success"):
             # Never echo upstream bodies, which may contain personal columns.
             raise RuntimeError(f"mirror API error at offset {offset}")
-        result = data["result"]
+        result = data.get("result")
+        if type(result) is not dict:
+            raise RuntimeError(f"invalid mirror result at offset {offset}")
         total = result.get("total")
         if type(total) is not int or total < 0:
             raise RuntimeError(f"invalid mirror total at offset {offset}")
