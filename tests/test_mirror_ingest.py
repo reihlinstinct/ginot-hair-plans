@@ -324,3 +324,43 @@ def test_preserve_sample_bounds_keeps_earliest_first_seen():
     # missing new values fall back to old, missing old keep new
     assert new["B"]["mirror_first_seen"] == "2026-10-01T00:00:00+00:00"
     assert new["C"]["mirror_first_seen"] == "2026-11-01T00:00:00+00:00"
+
+
+def test_main_preserves_earliest_first_seen_from_existing_output(monkeypatch, tmp_path):
+    import json
+    import sys
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    out.write_text(
+        '{"requests": [{"tik_num": "A", "mirror_first_seen": '
+        '"2026-08-22T20:20:49+00:00", "mirror_last_seen": "2026-10-30T00:00:00+00:00"}]}'
+    )
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    row = {
+        "מספר תיק": "A",
+        "גוש": "30007",
+        "מחלקה": "133",
+        "first_seen": "2026-10-31T22:08:15+00:00",
+        "last_seen": "2026-10-29T00:00:00+00:00",
+    }
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [row])
+    assert mirror_ingest.main() == 0
+    written = json.loads(out.read_text())["requests"][0]
+    assert written["mirror_first_seen"] == "2026-08-22T20:20:49+00:00"
+    assert written["mirror_last_seen"] == "2026-10-30T00:00:00+00:00"
+
+
+def test_iso_bounds_fall_back_to_string_order_on_garbage():
+    assert mirror_ingest._iso_min("not-a-date", "2026-01-01T00:00:00+00:00") == (
+        "2026-01-01T00:00:00+00:00"
+    )
+    assert (
+        mirror_ingest._iso_max("not-a-date", "2026-01-01T00:00:00+00:00")
+        == "not-a-date"
+    )
+    assert mirror_ingest._iso_min("2026-01-02T00:00:00+00:00", "2026-01-01") == (
+        "2026-01-01"
+    )
