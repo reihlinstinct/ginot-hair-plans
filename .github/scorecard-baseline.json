@@ -256,6 +256,14 @@
    "evidence": "pip install pip-audit==2.10.1",
    "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
    "reason": "New pip-audit job installs like the repo's other baselined installs; tracked for hash pinning in this issue."
+  },
+  {
+   "path": ".github/workflows/ci.yml",
+   "rule": "unhashed-pip-install",
+   "scope": "dependencies",
+   "evidence": "pip install -r requirements.txt mypy==2.4.1",
+   "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/709",
+   "reason": "New report-only mypy job (#110 phase 1) installs like the repo's other baselined installs; tracked for hash pinning in this issue."
   }
  ]
 }

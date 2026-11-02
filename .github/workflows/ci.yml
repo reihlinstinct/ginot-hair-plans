@@ -236,6 +236,22 @@ jobs:
           print("All dependencies succeeded or were deliberately skipped.")
           PY
 
+  mypy:
+    name: mypy (informational)
+    # Phase 1 of #110: non-strict, report-only type checking of
+    # src/ginot. continue-on-error, never a gate - deliberately absent
+    # from summary's needs (see tests/test_ci_summary_needs.py).
+    continue-on-error: true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements.txt mypy==2.4.1
+      - run: mypy
   py315:
     name: Python 3.15 (informational)
     # Informational Python 3.15 check (#734): continue-on-error, never a
