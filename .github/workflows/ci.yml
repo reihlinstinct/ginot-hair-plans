@@ -121,11 +121,66 @@ jobs:
         if: ${{ always() }}
         run: python3 scripts/ci/test_summary.py --junit worker-results.xml --title "Worker tests"
 
+  changes:
+    name: Classify the diff
+    # #774: docs-only PRs (root *.md, docs/design/**) skip the heavy
+    # site-browser jobs; docs/ is the deployed site and plans/*/*.md
+    # render into pages, so every other path runs the full suite. The
+    # summary gate still requires this job, and a skipped site-browser
+    # counts as a deliberate skip there. Push events always run heavy.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      heavy: ${{ steps.filter.outputs.heavy }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: filter
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != "pull_request" ]; then
+            echo "heavy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # --no-renames: a file moved into docs/ must still count as heavy
+          # (with rename detection the old path would vanish from the list).
+          git diff --name-only --no-renames -z "$BASE_SHA...HEAD" > /tmp/changed
+          python3 - <<'PY'
+          import os
+
+          # Byte-exact classification of the NUL-delimited diff: "docs-only"
+          # means root *.md and docs/design/** ONLY. docs/ is the deployed
+          # site and plans/*/talking_points_*.md render into site pages, so
+          # anything else - or anything unparseable - runs the full suite.
+          data = open("/tmp/changed", "rb").read()
+          raw = [p for p in data.split(b"\0") if p]
+          try:
+              paths = [p.decode("utf-8") for p in raw]
+          except UnicodeDecodeError:
+              # An unparseable name must fail heavy, never light.
+              paths = ["<invalid>"]
+
+          def light(path):
+              if "/" not in path and path.endswith(".md"):
+                  return True
+              return path.startswith("docs/design/")
+
+          heavy = any(not light(path) for path in paths)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write("heavy=" + ("true" if heavy else "false") + "\n")
+          PY
+
   site-browser:
     # Headless browser tests of the built site (issues #106, #422). Separate job
     # so the 4-version test matrix does not each download a browser. Runs on
     # Chromium and WebKit; per-test evidence (screenshot always, video+trace on
     # failure or @pytest.mark.evidence) uploads as an artifact.
+    # Skipped on docs-only PRs (#774); a skip reads as deliberate in the gate.
+    needs: changes
+    if: needs.changes.outputs.heavy == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
@@ -198,7 +253,7 @@ jobs:
     if: always()
     permissions:
       contents: read
-    needs: [test, docs-fresh, worker, site-browser, pip-audit]
+    needs: [changes, test, docs-fresh, worker, site-browser, pip-audit]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -224,7 +279,7 @@ jobs:
           # #769/#771: a job dropped from this gate's needs list would leave
           # the gate green without it, and no repo-side test can observe its
           # own exclusion - pin the expected set here, at runtime.
-          expected = {"test", "docs-fresh", "worker", "site-browser", "pip-audit"}
+          expected = {"changes", "test", "docs-fresh", "worker", "site-browser", "pip-audit"}
           missing = expected - set(needs)
           if missing:
               print("Gate lost jobs from its needs list:", missing)
