@@ -42,9 +42,10 @@ def _days_to(date_iso: str, today: datetime.date) -> int | None:
 
 def merge(
     rows: list[dict], states: dict, today: datetime.date | None = None
-) -> tuple[list[dict], dict]:
+) -> tuple[list[dict], bool]:
     """Attach tracking fields to rows; add defaults for plans never seen.
-    Returns (rows, states) - states may have gained defaults (caller saves)."""
+    Returns (rows, changed) - states is mutated in place, and changed is
+    True when defaults were added (the caller then saves states)."""
     today = today or today_il()
     changed = False
     for r in rows:

@@ -400,23 +400,25 @@ def stats_section(rows: list[dict]) -> str:
         filter(
             None,
             (
-                _month_key(r.get("pl_last_deposit_date") or r.get("depositing_date"))
+                _month_key(
+                    r.get("pl_last_deposit_date") or r.get("depositing_date") or ""
+                )
                 for r in rows
             ),
         )
     )
-    deposits = dict(sorted(deposits.items())[-24:])
+    deposits_by_month = dict(sorted(deposits.items())[-24:])
     approvals = Counter(
         filter(None, ((r.get("pl_date_8_approval") or "")[:4] for r in rows))
     )
-    approvals = dict(sorted(approvals.items()))
+    approvals_by_year = dict(sorted(approvals.items()))
     flag_he = {"inside": "בתוך השטח", "partial": "חפיפה חלקית"}
     return f"""<details id="stats"><summary>סטטיסטיקה</summary>
 <div class="stats">
 <div><h3>לפי סטטוס</h3>{_bars(dict(by_status))}</div>
 <div><h3>בתוך השטח / חפיפה חלקית</h3>{_bars(dict(by_flag), flag_he)}</div>
-<div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits)}</div>
-<div><h3>אישורים לפי שנה</h3>{_bars(approvals)}</div>
+<div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits_by_month)}</div>
+<div><h3>אישורים לפי שנה</h3>{_bars(approvals_by_year)}</div>
 </div></details>"""
 
 
@@ -818,7 +820,8 @@ def _permits_section(
             f'{dflt} data-label="{_e(label)}">{_e(label)} ({_gcounts.get(key, 0)})</span>'
         )
 
-    main_chips, more_chips = [], []
+    main_chips: list[str] = []
+    more_chips: list[str] = []
     for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
         (main_chips if default_on else more_chips).append(
             _gchip(key, label, default_on)
