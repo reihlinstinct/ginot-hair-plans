@@ -17,6 +17,8 @@ def test_summary_gate_needs_cover_every_blocking_job():
     needs = set(jobs["summary"]["needs"])
     # pip-audit (#125/#764) must stay in the fail-closed gate.
     assert "pip-audit" in needs
+    # The informational 3.15 leg must never gate: it is allowed to fail.
+    assert "py315" not in needs
     # Every job that is neither the gate itself nor explicitly
     # informational must be gated.
     informational = {"py315", "summary"}
