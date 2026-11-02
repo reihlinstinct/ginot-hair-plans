@@ -295,3 +295,32 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
     assert mirror_ingest.main() == 0
     assert json.loads(out.read_text())["requests"] == []
     assert json.loads(diff.read_text())["gone_tiks"] == ["A"]
+
+
+def test_preserve_sample_bounds_keeps_earliest_first_seen():
+    old = [
+        {
+            "tik_num": "A",
+            "mirror_first_seen": "2026-08-22T20:20:49+00:00",
+            "mirror_last_seen": "2026-10-30T00:00:00+00:00",
+        },
+        {"tik_num": "B", "mirror_first_seen": "2026-10-01T00:00:00+00:00"},
+        {"tik_num": "C"},
+    ]
+    new = {
+        "A": {
+            "tik_num": "A",
+            "mirror_first_seen": "2026-10-31T22:08:15+00:00",
+            "mirror_last_seen": "2026-10-29T00:00:00+00:00",
+        },
+        "B": {"tik_num": "B", "mirror_first_seen": "", "mirror_last_seen": ""},
+        "C": {"tik_num": "C", "mirror_first_seen": "2026-11-01T00:00:00+00:00"},
+    }
+    mirror_ingest.preserve_sample_bounds(new, old)
+    # mirror reset first_seen on re-write: the earlier sighting survives
+    assert new["A"]["mirror_first_seen"] == "2026-08-22T20:20:49+00:00"
+    # and the genuinely latest last_seen survives too
+    assert new["A"]["mirror_last_seen"] == "2026-10-30T00:00:00+00:00"
+    # missing new values fall back to old, missing old keep new
+    assert new["B"]["mirror_first_seen"] == "2026-10-01T00:00:00+00:00"
+    assert new["C"]["mirror_first_seen"] == "2026-11-01T00:00:00+00:00"
