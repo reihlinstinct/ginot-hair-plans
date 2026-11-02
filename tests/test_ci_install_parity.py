@@ -43,26 +43,30 @@ def test_appenv_install_uses_the_appenv_pip():
     # the wrong environment.
     doc = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
     audit_steps = doc["jobs"]["pip-audit"]["steps"]
-    appenv_installs = [
-        line
+    # Every pip line that touches the audited environment - installing it
+    # or freezing it - must use the appenv pip. The auditor's own install
+    # (pip-audit itself) runs on the runner python by design.
+    env_lines = [
+        line.strip()
         for step in audit_steps
         for line in step.get("run", "").splitlines()
-        if "pip install" in line and "requirements.txt" in line
+        if ("pip install" in line and "requirements.txt" in line)
+        or "pip freeze" in line
     ]
-    assert appenv_installs, "pip-audit must install requirements into the appenv"
-    for line in appenv_installs:
-        assert line.strip().startswith("/tmp/appenv/bin/pip install"), line
+    assert env_lines, "pip-audit must install and freeze the appenv"
+    for line in env_lines:
+        assert line.startswith("/tmp/appenv/bin/pip "), line
 
 
 def test_pin_vars_defined_only_at_workflow_level():
     pins = {"RUFF_VERSION", "PYTEST_COV_VERSION"}
     offenders = []
-    for path in (ROOT / ".github/workflows").glob("*.yml"):
+    for path in (ROOT / ".github/workflows").glob("*.y*ml"):
         doc = yaml.safe_load(path.read_text())
         for job_name, job in (doc.get("jobs") or {}).items():
-            if pins & set(job.get("env", {})):
+            if pins & set(job.get("env") or {}):
                 offenders.append(f"{path.name}: job {job_name}")
             for step in job.get("steps", []):
-                if pins & set(step.get("env", {})):
+                if pins & set(step.get("env") or {}):
                     offenders.append(f"{path.name}: step in {job_name}")
     assert not offenders, f"pin vars overridden outside workflow env: {offenders}"
