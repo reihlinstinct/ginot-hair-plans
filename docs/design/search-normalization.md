@@ -40,8 +40,7 @@ bridge an English-derived colloquial name and an official Hebrew name.
   street-name pairs, each entry carrying a source citation, per the issue's
   rule "per-plan manual aliases only where a source documents the
   colloquial name". Alias expansion is applied symmetrically: both the
-  query and the indexed text are folded, then alias-normalized. Seed entry:
-  המלך ג'ורג' <-> קינג ג'ורג' (King George St.), with its source.
+  query and the indexed text are folded, then alias-normalized.
   Seed entry with its exact source: המלך ג'ורג' <-> קינג ג'ורג' -
   Hebrew Wikipedia, "רחוב המלך ג'ורג' (ירושלים)", opens with "רחוב המלך
   ג'ורג' החמישי (ידוע גם כקינג ג'ורג')" ("also known as King George"):
