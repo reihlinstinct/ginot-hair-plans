@@ -123,9 +123,11 @@ jobs:
 
   changes:
     name: Classify the diff
-    # #774: docs-only PRs skip the heavy site-browser jobs. The summary
-    # gate still requires this job, and a skipped site-browser counts as
-    # a deliberate skip there. Push events always run heavy.
+    # #774: docs-only PRs (root *.md, docs/design/**) skip the heavy
+    # site-browser jobs; docs/ is the deployed site and plans/*/*.md
+    # render into pages, so every other path runs the full suite. The
+    # summary gate still requires this job, and a skipped site-browser
+    # counts as a deliberate skip there. Push events always run heavy.
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
@@ -145,13 +147,26 @@ jobs:
           fi
           # --no-renames: a file moved into docs/ must still count as heavy
           # (with rename detection the old path would vanish from the list).
-          # -z: paths are NUL-delimited so odd filenames cannot break the scan.
           git diff --name-only --no-renames -z "$BASE_SHA...HEAD" > /tmp/changed
-          if grep -qvxz -e 'docs/.*' -e '.*\.md' /tmp/changed; then
-            echo "heavy=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "heavy=false" >> "$GITHUB_OUTPUT"
-          fi
+          python3 - <<'PY'
+          import os
+
+          # Byte-exact classification of the NUL-delimited diff: "docs-only"
+          # means root *.md and docs/design/** ONLY. docs/ is the deployed
+          # site and plans/*/talking_points_*.md render into site pages, so
+          # anything else - or anything unparseable - runs the full suite.
+          data = open("/tmp/changed", "rb").read()
+          paths = [p.decode("utf-8", "surrogateescape") for p in data.split(b"\0") if p]
+
+          def light(path):
+              if "/" not in path and path.endswith(".md"):
+                  return True
+              return path.startswith("docs/design/")
+
+          heavy = any(not light(path) for path in paths)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write("heavy=" + ("true" if heavy else "false") + "\n")
+          PY
 
   site-browser:
     # Headless browser tests of the built site (issues #106, #422). Separate job
