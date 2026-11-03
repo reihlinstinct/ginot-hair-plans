@@ -85,7 +85,7 @@ function json(body, { status = 200, headers = {} } = {}) {
 // --- Anonymous usage statistics (issue #821) -------------------------------
 // Aggregate counters only. An event is {e, k}: e is one of EVENT_TYPES and k
 // is validated SERVER-SIDE against a dictionary rebuilt from the site's own
-// public data.json (plan numbers/names, permit request numbers, street names,
+// public data.json (plan numbers/names, permit request numbers (tik_num), street names,
 // and the closed status/type vocabulary). Any key not in the dictionary is
 // recorded as "other": raw free text is never stored, so the public
 // /stats/summary can never echo back something a visitor typed. Keys are per
@@ -132,7 +132,8 @@ async function keyDictionary(fetchImpl) {
         if (r.station_desc) keys.add(String(r.station_desc));
       }
       for (const r of data.permits || []) {
-        if (r.mispar_bakasha) keys.add(String(r.mispar_bakasha));
+        const tik = r.tik_num || r.mispar_bakasha; // data.json uses tik_num
+        if (tik) keys.add(String(tik));
         if (r.status) keys.add(String(r.status));
         if (r.sugbakasha) keys.add(String(r.sugbakasha));
         const st = streetOf(r.address);

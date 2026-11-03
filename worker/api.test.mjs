@@ -10,8 +10,8 @@ const rows = [
     objection_deadline_derived_60d_from_publication: "2026-11-01" },
 ];
 const permits = [
-  { mispar_bakasha: "2024-1", address: "עמק רפאים 12 מושבה גרמנית", status: "בטיפול", sugbakasha: "דירה" },
-  { mispar_bakasha: "2024-2", address: "לינקולן 5", status: "אושר", sugbakasha: "תוספת" },
+  { tik_num: "2024-1", address: "עמק רפאים 12 מושבה גרמנית", status: "בטיפול", sugbakasha: "דירה" },
+  { tik_num: "2024-2", address: "לינקולן 5", status: "אושר", sugbakasha: "תוספת" },
 ];
 
 test("filterPlans open=1 keeps only non-approved", () => {
@@ -28,8 +28,8 @@ test("filterPlans status/q/before", () => {
 });
 
 test("filterPermits street/status/type", () => {
-  assert.equal(filterPermits(permits, new URLSearchParams("street=רפאים"))[0].mispar_bakasha, "2024-1");
-  assert.equal(filterPermits(permits, new URLSearchParams("status=אושר"))[0].mispar_bakasha, "2024-2");
+  assert.equal(filterPermits(permits, new URLSearchParams("street=רפאים"))[0].tik_num, "2024-1");
+  assert.equal(filterPermits(permits, new URLSearchParams("status=אושר"))[0].tik_num, "2024-2");
   assert.equal(filterPermits(permits, new URLSearchParams("type=דירה")).length, 1);
 });
 
