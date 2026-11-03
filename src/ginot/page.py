@@ -1663,7 +1663,7 @@ _SOURCES_REDIRECT = """<!DOCTYPE html>
 <body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
 """
 
-_STATS_JS = """
+_STATS_JS = r"""
 // Anonymous usage statistics (#821): aggregate counters only. A search is
 // reported ONLY when it exactly matches a value from the site's own data
 // (a plan number/name, street, permit number, or filter value) after the
