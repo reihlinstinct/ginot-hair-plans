@@ -469,9 +469,7 @@ def test_main_unchanged_ingest_leaves_outputs_byte_identical(monkeypatch, tmp_pa
     monkeypatch.setattr(
         mirror_ingest,
         "fetch_rows",
-        lambda _: [
-            {"מספר תיק": "A", "גוש": "30007", "מחלקה": "133", "סטטוס": "נדחתה"}
-        ],
+        lambda _: [{"מספר תיק": "A", "גוש": "30007", "מחלקה": "133", "סטטוס": "נדחתה"}],
     )
     assert mirror_ingest.main() == 0
     assert json.loads(out.read_text())["ingest_marker"] != marker
