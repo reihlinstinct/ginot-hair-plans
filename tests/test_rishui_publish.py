@@ -96,9 +96,41 @@ def test_diagnostics_flag_renamed_key():
 def test_diagnostics_flag_invalid_date_format():
     diag = _diag(dict(RAW_ROW, PD900="13/11/2026"))
     assert diag["fields"]["PD900"]["date_like"] is False
-    assert diag["raw"]["PD900"] == "13/11/2026"
+    assert diag["raw"]["PD900"] == {"omitted": "str"}
     typed = _diag(dict(RAW_ROW, DocId={"id": 5}))
     assert typed["fields"]["DocId"]["type"] == "dict"
+    assert typed["raw"]["DocId"] == {"omitted": "dict"}
+
+
+def test_diagnostics_raw_copy_is_bounded():
+    # Containers and oversized values in tracked fields are never copied raw:
+    # the drift stays visible via fields[] without storing unreviewed payloads.
+    diag = _diag(
+        dict(
+            RAW_ROW,
+            PD900=["2026-11-13"],
+            DocId="x" * 500,
+            ED800={"d": 1},
+            ED700="2026-09-24T10:11:12" + "e" * 100,
+        )
+    )
+    assert diag["raw"]["PD900"] == {"omitted": "list"}
+    assert diag["raw"]["DocId"] == {"omitted": "str"}
+    assert diag["raw"]["ED800"] == {"omitted": "dict"}
+    assert diag["raw"]["ED700"] == "2026-09-24T10:11:12" + "e" * 13
+    assert len(diag["raw"]["ED700"]) == 32
+
+
+def test_diagnostics_unexpected_keys_capped_and_counted():
+    item = dict(RAW_ROW)
+    for i in range(30):
+        item[f"extra_{i:02d}"] = i
+    item["k" * 100] = 1
+    diag = _diag(item)
+    expected_total = len([k for k in item if k not in rishui_publish.KNOWN_KEYS])
+    assert diag["unexpected_keys_total"] == expected_total == 32
+    assert len(diag["unexpected_keys"]) == 20
+    assert all(len(k) <= 64 for k in diag["unexpected_keys"])
 
 
 def test_parse_rows_handles_missing_dates():
