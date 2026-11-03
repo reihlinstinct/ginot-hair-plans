@@ -350,3 +350,28 @@ error logs report the stage and offset without echoing upstream personal data.
 Offset pagination is not a database snapshot: same-count source edits during
 collection can still occur. A failed run requires a new reviewed collection,
 not acceptance of a partial dataset or automatic removal of missing permits.
+
+### Durable permit enrichment selection (#797)
+
+Mirror ingest writes `data/permit_enrich_pending.json` before replacing the
+per-run diff. It carries existing pending IDs and previous/current new or
+changed IDs, pruning only requests absent from the snapshot or in terminal
+statuses. Changed requests remain queued even with old publication markers.
+The existing enrichment consumer removes successful IDs and retains failed
+or unprocessed work. A previous diff may cause one conservative repeat fetch;
+a date marker alone cannot prove enrichment happened after the latest change.
+The diff continues to describe only the latest ingest.
+
+`python3 scripts/mirror_ingest.py --pending PATH` overrides the queue path;
+by default it is `permit_enrich_pending.json` beside `--out`. With a custom
+`--out`/`--mirror`, pass the same `--pending PATH` to
+`scripts/vpn/permit_enrich.py` too: its default stays the repo-relative
+`data/permit_enrich_pending.json`, so without the flag producer and consumer
+would use different queues. Invalid persisted queue/diff state aborts before
+outputs change. Queue replacement is atomic and
+comes first, so an interrupted ingest can repeat work but cannot erase the
+only selection record. Concurrent ingest/enrichment against the same files is
+not supported; the reviewed-merge handoff remains required. Recovery for #797
+queues 59 nonterminal IDs from the preceding 238-new/10-changed batch, including
+all 51 new IDs without a publication marker. No publication fetch is performed
+by the recovery and no dates are inferred.
