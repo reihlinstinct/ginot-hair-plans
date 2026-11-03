@@ -61,27 +61,36 @@ def step_summary(tik):
     return out
 
 
-def load_pending(path=PENDING):
-    """Tiks whose last publication fetch failed (retry queue, issue #492)."""
+def _load_pending_state(path=PENDING):
     try:
         with open(path, encoding="utf-8") as fh:
             data = json.load(fh)
-        return {str(t) for t in data.get("pending", [])}
+        return {str(t) for t in data.get("pending", [])}, data.get("ingest_marker")
     except (FileNotFoundError, json.JSONDecodeError):
-        return set()
+        return set(), None
 
 
-def save_pending(pending, path=PENDING):
+def load_pending(path=PENDING):
+    """Tiks whose last publication fetch failed (retry queue, issue #492)."""
+    return _load_pending_state(path)[0]
+
+
+def save_pending(pending, path=PENDING, marker=None):
+    state = {"pending": sorted(pending)}
+    if marker is not None:
+        state["ingest_marker"] = marker
     with open(path, "w", encoding="utf-8") as fh:
-        json.dump({"pending": sorted(pending)}, fh, ensure_ascii=False, indent=1)
+        json.dump(state, fh, ensure_ascii=False, indent=1)
 
 
-def prune_pending(pending, by_tik):
-    """Drop retry-queue entries for tiks gone from the mirror or terminal."""
+def prune_pending(pending, by_tik, prune_gone=True):
+    """Drop retry-queue entries for terminal tiks; drop gone tiks only when
+    the queue and mirror describe the same committed ingest (issue #799)."""
     return {
         t
         for t in pending
-        if t in by_tik and by_tik[t]["status"] not in TERMINAL_STATUSES
+        if (t in by_tik or not prune_gone)
+        and by_tik.get(t, {}).get("status") not in TERMINAL_STATUSES
     }
 
 
@@ -131,7 +140,14 @@ def main():
         diff_tiks = set(diff.get("new_tiks", []) + diff.get("changed_tiks", []))
     except (FileNotFoundError, json.JSONDecodeError):
         diff_tiks = set()
-    pending = load_pending(args.pending)
+    pending, pending_marker = _load_pending_state(args.pending)
+    # A queue marker newer than the mirror's means the last ingest stopped
+    # between the queue write and the mirror write: retain absent IDs
+    # instead of pruning them as gone (#799). An unmarked (pre-#799) queue
+    # keeps the old prune behavior.
+    prune_gone = pending_marker is None or pending_marker == payload.get(
+        "ingest_marker"
+    )
     # Failed fetches ride the next run's selection even after the nightly
     # ingest rewrites the diff (issue #492).
     diff_tiks |= pending
@@ -151,7 +167,9 @@ def main():
     if not batch:
         # Terminal/gone pending tiks are never selected, so an empty batch
         # is exactly where dead entries would otherwise linger (#492).
-        save_pending(prune_pending(pending, by_tik), args.pending)
+        save_pending(
+            prune_pending(pending, by_tik, prune_gone), args.pending, pending_marker
+        )
         print("nothing to enrich")
         return 0
 
@@ -191,8 +209,8 @@ def main():
 
     with open(args.mirror, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
-    new_pending = prune_pending((pending - succeeded) | failed, by_tik)
-    save_pending(new_pending, args.pending)
+    new_pending = prune_pending((pending - succeeded) | failed, by_tik, prune_gone)
+    save_pending(new_pending, args.pending, pending_marker)
     if new_pending:
         print(f"{len(new_pending)} tiks queued for retry on the next enrich run")
     if spot:

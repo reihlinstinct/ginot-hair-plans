@@ -402,10 +402,16 @@ def main():
     preserve_sample_bounds(records, old_records)
     preserve_enriched_fields(records, old_records)
 
+    # Shared by the queue and the mirror so the enrichment consumer can
+    # tell "same committed ingest" from "queue written, mirror not" (#799).
+    marker = datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).isoformat(
+        timespec="seconds"
+    )
     payload = {
         "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem"))
         .date()
         .isoformat(),  # issue #331: IL not runner UTC
+        "ingest_marker": marker,
         "source": (
             "over.org.il (גרסאות לעם) mirror of the Jerusalem "
             "municipality ykpubdata licensing viewer"
@@ -425,7 +431,12 @@ def main():
     pending_tmp = pending_path.with_suffix(pending_path.suffix + ".tmp")
     try:
         with pending_tmp.open("w", encoding="utf-8") as fh:
-            json.dump({"pending": queued}, fh, ensure_ascii=False, indent=1)
+            json.dump(
+                {"pending": queued, "ingest_marker": marker},
+                fh,
+                ensure_ascii=False,
+                indent=1,
+            )
         pending_tmp.replace(pending_path)
     finally:
         pending_tmp.unlink(missing_ok=True)
