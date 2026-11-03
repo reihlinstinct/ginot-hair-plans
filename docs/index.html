@@ -580,12 +580,12 @@ function applyPublicationEvidence(){
     // then only the recency/current-publication and conservative postpub guards apply.
     var stage=r.getAttribute('data-statusdate')||'';
     var group=r.getAttribute('data-group');
-    if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
-    if(validIso(stage)&&p.publication_date<=stage)return;
     // #804: unknown official deadline is not a safe blank or a computed date.
     // Keep source planned dates and viewer links untouched. Equal-date evidence
     // still needs the warning even when it cannot promote the display again.
-    if(!validIso(current)||p.publication_date>=current){
+    if((!validIso(current)||p.publication_date>=current)&&
+       (group==='obj'||(!validIso(stage)||p.publication_date>=stage))&&
+       (group!=='postpub'||(validIso(stage)&&p.publication_date>stage))){
       var note=r.querySelector('[data-deadline-note]');
       if(note){
         note.textContent=validIso(p.objection_deadline)?'':
@@ -593,6 +593,8 @@ function applyPublicationEvidence(){
         note.className=validIso(p.objection_deadline)?'':'pub-missing';
       }
     }
+    if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
+    if(validIso(stage)&&p.publication_date<=stage)return;
     // An older/repeated listing cannot resurrect a later workflow state.
     if(validIso(current)&&p.publication_date<=current)return;
     r.setAttribute('data-group','obj');
