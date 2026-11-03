@@ -8,6 +8,8 @@ Read-only query layer over the site's static data files (owner request
 - `GET /permits?street=&status=&type=&q=&limit=` - permit requests
 - `GET /open` - the static open.json (open plans)
 - `GET /status` - generated date + counts
+- `POST /stats/event` - record one anonymous usage event `{e, k}` (aggregate counters only)
+- `GET /stats/summary` - public 30-day aggregate usage counts
 
 Rate limiting is best-effort per isolate (120 req/min/IP, fixed window);
 upstream data.json is edge-cached 5 minutes. Documented on the site's about
