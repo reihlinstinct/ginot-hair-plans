@@ -1597,6 +1597,11 @@ def render_index(
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="filter-links.js"></script>
 <script>{_JS}{_PERMITS_JS}</script>
+<script>// Strip free-text search params from the URL before the analytics beacon
+// executes (deferred), so search text never leaves the browser in the ping (#821).
+(function(){{try{{var u=new URL(location.href),dirty=false;
+['plan.fq','permit.pfq'].forEach(function(k){{if(u.searchParams.has(k)){{u.searchParams.delete(k);dirty=true;}}}});
+if(dirty)history.replaceState(null,'',u);}}catch(e){{}}}})();</script>
 </body></html>"""
 
 
@@ -1641,7 +1646,7 @@ _SOURCES_ROWS = [
 _ANALYTICS_SNIPPET = (
     "\n<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->"
     "\n<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'"
-    " data-cf-beacon='{\"token\": \"ddb51e25c65545bea5cda52329983b4c\"}'></script>"
+    ' data-cf-beacon=\'{"token": "ddb51e25c65545bea5cda52329983b4c"}\'></script>'
 )
 
 
@@ -1723,6 +1728,9 @@ def render_about(generated: str, council_name: str) -> str:
 <p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
 (למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
 אף שהם גלויים במקור.</p>
+<p>ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים
+בלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו
+נשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.</p>
 <p>האתר כולל מונה כניסות אנונימי (Cloudflare Web Analytics) ללא עוגיות,
 ללא שמירת כתובות IP וללא מידע אישי - ספירת צפיות וכניסות בלבד.</p>
 <h2>קוד ונתונים</h2>

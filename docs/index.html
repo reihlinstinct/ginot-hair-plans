@@ -817,4 +817,9 @@ if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
 sortRows();apply();
 })();
 </script>
+<script>// Strip free-text search params from the URL before the analytics beacon
+// executes (deferred), so search text never leaves the browser in the ping (#821).
+(function(){try{var u=new URL(location.href),dirty=false;
+['plan.fq','permit.pfq'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);dirty=true;}});
+if(dirty)history.replaceState(null,'',u);}catch(e){}})();</script>
 </body></html>
