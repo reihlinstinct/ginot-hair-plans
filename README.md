@@ -375,3 +375,10 @@ not supported; the reviewed-merge handoff remains required. Recovery for #797
 queues 59 nonterminal IDs from the preceding 238-new/10-changed batch, including
 all 51 new IDs without a publication marker. No publication fetch is performed
 by the recovery and no dates are inferred.
+
+Municipal publications with an unknown official objection deadline show
+"מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני" in the permit row. The
+warning does not invent a deadline or replace the source's planned end date.
+The case number links to the municipal permit viewer; check the official
+notice for the binding date. Existing current-publication visibility rules
+still apply, including when the licensing feed status has not caught up.
