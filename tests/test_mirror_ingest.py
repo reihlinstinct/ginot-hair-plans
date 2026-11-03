@@ -406,14 +406,20 @@ def test_main_repeated_ingest_keeps_queue_when_diff_becomes_empty(
         ],
     )
     assert mirror_ingest.main() == 0
-    assert json.loads(pending.read_text()) == {"pending": ["A"]}
+    state = json.loads(pending.read_text())
+    assert state["pending"] == ["A"]
+    # Queue and mirror carry the same ingest marker (#799).
+    assert state["ingest_marker"]
+    assert state["ingest_marker"] == json.loads(out.read_text())["ingest_marker"]
     assert mirror_ingest.main() == 0
     assert json.loads(diff.read_text())["new_tiks"] == []
-    assert json.loads(pending.read_text()) == {"pending": ["A"]}
+    state = json.loads(pending.read_text())
+    assert state["pending"] == ["A"]
+    assert state["ingest_marker"] == json.loads(out.read_text())["ingest_marker"]
     # Success is acknowledged by the enrichment consumer draining pending.
     pending.write_text('{"pending": []}')
     assert mirror_ingest.main() == 0
-    assert json.loads(pending.read_text()) == {"pending": []}
+    assert json.loads(pending.read_text())["pending"] == []
 
 
 def test_bad_selection_state_fails_before_outputs_change(monkeypatch, tmp_path):

@@ -360,7 +360,7 @@ statuses. Changed requests remain queued even with old publication markers.
 The existing enrichment consumer removes successful IDs and retains failed
 or unprocessed work. A previous diff may cause one conservative repeat fetch;
 a date marker alone cannot prove enrichment happened after the latest change.
-The diff continues to describe only the latest ingest.
+The diff continues to describe only the latest ingest. Queue and mirror carry a shared `ingest_marker`; when the markers differ (an ingest stopped between the queue write and the mirror write) the consumer retains absent-from-mirror queue entries instead of pruning them, until the next successful ingest realigns the markers (#799).
 
 `python3 scripts/mirror_ingest.py --pending PATH` overrides the queue path;
 by default it is `permit_enrich_pending.json` beside `--out`. With a custom

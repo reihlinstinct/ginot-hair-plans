@@ -186,6 +186,100 @@ def test_pending_pruned_for_terminal_and_gone_tiks(tmp_path, monkeypatch):
     assert json.loads(pending.read_text(encoding="utf-8"))["pending"] == []
 
 
+def test_prune_pending_marker_semantics():
+    by_tik = {"A": req("A", "נפתח תיק רישוי"), "T": req("T", "הבקשה נסגרה")}
+    # same-ingest default: gone and terminal entries drop
+    assert permit_enrich.prune_pending({"A", "T", "X"}, by_tik) == {"A"}
+    # marker mismatch (queue written, mirror not): absent IDs are retained,
+    # terminal ones still drop (#799)
+    assert permit_enrich.prune_pending({"A", "T", "X"}, by_tik, prune_gone=False) == {
+        "A",
+        "X",
+    }
+
+
+def test_save_pending_preserves_marker(tmp_path):
+    import json
+
+    path = tmp_path / "pending.json"
+    permit_enrich.save_pending({"b", "a"}, path, marker="M1")
+    assert json.loads(path.read_text(encoding="utf-8")) == {
+        "pending": ["a", "b"],
+        "ingest_marker": "M1",
+    }
+    assert permit_enrich.load_pending(path) == {"a", "b"}
+    assert permit_enrich._load_pending_state(path) == ({"a", "b"}, "M1")
+    # no marker -> file keeps the pre-#799 shape exactly
+    permit_enrich.save_pending({"a"}, path)
+    assert json.loads(path.read_text(encoding="utf-8")) == {"pending": ["a"]}
+
+
+def test_marker_mismatch_retains_absent_ids(tmp_path, monkeypatch):
+    """The #799 crash window: the queue was written by an ingest whose
+    mirror write never happened. Absent-from-mirror IDs must survive
+    pruning until a successful ingest realigns the markers."""
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    mirror.write_text(
+        json.dumps({"requests": [req("1", "הבקשה נסגרה")], "ingest_marker": "M1"}),
+        encoding="utf-8",
+    )
+    pending.write_text(
+        json.dumps({"pending": ["1", "X"], "ingest_marker": "M2"}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0  # nothing selectable: empty batch
+    state = json.loads(pending.read_text(encoding="utf-8"))
+    assert state == {"pending": ["X"], "ingest_marker": "M2"}
+
+
+def test_matching_markers_prune_absent_ids(tmp_path, monkeypatch):
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    mirror.write_text(
+        json.dumps({"requests": [req("1", "הבקשה נסגרה")], "ingest_marker": "M2"}),
+        encoding="utf-8",
+    )
+    pending.write_text(
+        json.dumps({"pending": ["1", "X"], "ingest_marker": "M2"}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0
+    state = json.loads(pending.read_text(encoding="utf-8"))
+    # queue and mirror agree: X is really gone, 1 is terminal - both drop
+    assert state == {"pending": [], "ingest_marker": "M2"}
+
+
 def test_empty_batch_still_prunes_dead_pending_entries(tmp_path, monkeypatch):
     """Pending tiks that turned terminal or left the mirror are never
     selected, so the empty-batch path must still prune them (#492)."""
