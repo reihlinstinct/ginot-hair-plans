@@ -1,60 +1,47 @@
 {
-  "new_in_polygon": [],
-  "unresolved_new": [
+  "new_in_polygon": [
     {
-      "myIndex": 16551666,
-      "tik_num": "1986/0883.05",
-      "street": "דרך בית לחם",
-      "house_number": "37",
-      "neighborhood": "גאולים - בקעה",
+      "myIndex": 16554736,
+      "tik_num": "1996/0271.02",
+      "street": "דרך עזה",
+      "house_number": "27",
+      "neighborhood": "רחביה",
       "place_description": null,
-      "publication_date": "2026-11-01",
-      "objection_deadline": null,
-      "ed700": "2026-10-28",
-      "connected_rec_id": 1274915,
-      "doc_id": null,
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16547696,
-      "tik_num": "1996/0141.02",
-      "street": "ראובן",
-      "house_number": "22",
-      "neighborhood": "גאולים - בקעה",
-      "place_description": null,
-      "publication_date": "2026-11-01",
-      "objection_deadline": null,
-      "ed700": "2026-10-26",
-      "connected_rec_id": 1272348,
-      "doc_id": null,
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16512193,
-      "tik_num": "2004/0337.11",
-      "street": "משאת משה",
-      "house_number": "1",
-      "neighborhood": "גבעת מרדכי",
-      "place_description": null,
-      "publication_date": "2026-11-01",
-      "objection_deadline": null,
-      "ed700": "2026-10-25",
-      "connected_rec_id": 1238180,
-      "doc_id": "bec160d8-0b45-45c8-b3a8-24f4d8a82dfa",
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16554559,
-      "tik_num": "2014/0562.04",
-      "street": "הראובני דוד",
-      "house_number": "2",
-      "neighborhood": "גבעת שאול",
-      "place_description": "רחוב הראובני דוד 2 גבעת ",
-      "publication_date": "2026-11-01",
+      "publication_date": "2026-11-02",
       "objection_deadline": null,
       "ed700": "2026-10-29",
-      "connected_rec_id": 1269752,
-      "doc_id": "cf775736-3b0b-46b1-a9c8-3508136f777a",
+      "connected_rec_id": 1271862,
+      "doc_id": null,
+      "in_polygon": true
+    }
+  ],
+  "unresolved_new": [
+    {
+      "myIndex": 16520819,
+      "tik_num": "2000/0483.04",
+      "street": "מנחם משיב",
+      "house_number": "12",
+      "neighborhood": "הקריות החסידיות",
+      "place_description": null,
+      "publication_date": "2026-11-02",
+      "objection_deadline": null,
+      "ed700": "2026-10-25",
+      "connected_rec_id": 1232188,
+      "doc_id": "7e268fb0-ca99-4b1d-8848-a8f7bace8e13",
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16472640,
+      "tik_num": "2001/0288.03",
+      "street": "הרב מאיר בר אילן",
+      "house_number": "39",
+      "neighborhood": "בוכרים",
+      "place_description": null,
+      "publication_date": "2026-11-02",
+      "objection_deadline": null,
+      "ed700": "2026-10-25",
+      "connected_rec_id": null,
+      "doc_id": "4df4ad46-90d9-4825-8671-6ee8cd15fa8d",
       "in_polygon": null
     }
   ]
