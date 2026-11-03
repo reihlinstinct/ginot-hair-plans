@@ -30,6 +30,18 @@
 3. ייעוד המלונאות נשאר. **לא אומתה תוספת קומות, חדרי מלון, יחידות דיור או מקומות חניה בתכנית זו.** אין להציג את כ-120 המ"ר כהגדלת כלל זכויות המלון או כתוספת חדרים.
 4. נדרשים תיאום תברואה ועיצוב אדריכלי. לא ייפתחו פתחים בחזית הדרומית במפלס 1-, **גם לא פתחי אוורור**. [סעיפים 6.1.1, 6.2.1]
 
+## שרטוטים מתוך התכנית
+
+השרטוטים הם חיתוכים מהתשריט הציבורי, ללא תוספת קווים או הדמיה. לחיצה פותחת תמונה מלאה לקריאה. אין למדוד מהתצוגה המוקטנת, והם אינם תחליף לנספח הבינוי.
+
+<a href="https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04-assets/inbal-site.png"><img src="https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04-assets/inbal-site.png" alt="תשריט מצב מוצע של מלון ענבל: גבול תכנית, חלקה 124 וקווי בניין" style="display:block;max-width:100%;height:auto" loading="lazy" decoding="async"></a>
+
+**תשריט מוצע, גיליון 1 מתוך 1.** תכנית 101-1488261, תשריט מצב מוצע, גיליון 1 מתוך 1, מונה תשריט 8, 09.09.2026. חיתוך התשריט ללא שינוי בסימונים. ורוד מציין ייעוד מלונאות, כחול את גבול התכנית ואדום מקווקו את קו הבניין, לפי המקרא בגיליון. הצבע הוורוד אינו מעטפת בניין מוצעת. [הגיליון המלא בעותק הציבורי](https://github.com/reihlinstinct/ginot-hair-plans/blob/main/plans/101-1488261/documents/101-1488261_tashrit.pdf) · [עמוד התכנית במבא"ת](https://mavat.iplan.gov.il/SV4/1/1005474110/310).
+
+<a href="https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04-assets/inbal-south.png"><img src="https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04-assets/inbal-south.png" alt="הגדלת השוליים הדרומיים: מרפסת מרוצפת וקו בניין במפלס מינוס אחד" style="display:block;max-width:100%;height:auto" loading="lazy" decoding="async"></a>
+
+**פרט מוגדל מאותו גיליון.** אותו גיליון, הגדלת השוליים הדרומיים. נראים הכיתוב "מרפסת מרוצפת" והערת קו בניין במפלס 1-; זו אינה תכנית מפורטת של המרפסת או חתך שלה. החיתוך אינו מחליף את נספח הבינוי שטרם נקרא. קריאת סימונים ומידות דורשת את הגיליון המלא; אין למדוד מהתמונה המוקטנת. [מקור: גיליון 1](https://github.com/reihlinstinct/ginot-hair-plans/blob/main/plans/101-1488261/documents/101-1488261_tashrit.pdf).
+
 ## מול תכנית האב למושבות: ההשוואה הנדרשת לפורום
 
 **הבסיס:** [דף מסמכי תכנית האב של גינות העיר](https://www.ginothair.org.il/index.php?cs=595&dir=site&langpage=heb&page=content) כולל את טלביה. [הנחיות 26.01.2015, עמ' 7-8](https://www.ginothair.org.il/files/wordocs/hanchayot.pdf#page=7) מגדירות מדיניות תכנון מוטת שימור לבחינת תכניות והיתרים, ומשלבות תיק תיעוד מתחמי וסקר אתר. [תיק תיעוד טלביה D1, עמ' 24](https://www.ginothair.org.il/files/wordocs/talbiye%20d1.pdf#page=24) מזהה את מלון ענבל כמוקד בשולי המתחם, ליד גן הפעמון. עמוד זה נבדק חזותית; הוא אינו תשריט ייעוד או מקור לזכויות המלון.

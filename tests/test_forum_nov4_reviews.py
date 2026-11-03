@@ -72,3 +72,27 @@ def test_masterplan_comparison_marks_departures_and_limits():
     assert "מפלסים" in landing and "796.69" in landing
     assert "זהו חיפוש שם/מספר ולא בדיקת כתובת ממצה" in landing
     assert "גגות רעפים" in inbal
+
+
+def test_plan_drawings_have_provenance_and_safe_assets():
+    from PIL import Image
+
+    landing = (ROOT / "docs/reviews/forum-2026-11-04.html").read_text(encoding="utf-8")
+    inbal = (
+        ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
+    ).read_text(encoding="utf-8")
+    assert "גיליון 22" in landing and "מסמך 24" in landing
+    assert "גיליון 1 מתוך 1" in landing and "מונה תשריט 8" in inbal
+    assert "הצבע הוורוד אינו מעטפת בניין מוצעת" in inbal
+    assert "שטרם נקרא" in inbal and "אין למדוד" in inbal
+    for name in ("palmach41-section22.png", "inbal-site.png", "inbal-south.png"):
+        assert name in landing
+        image = Image.open(ROOT / "docs/reviews/forum-2026-11-04-assets" / name)
+        assert image.width >= 1000
+        assert not image.getexif()
+        assert not any(
+            key in image.info
+            for key in ("exif", "icc_profile", "XML:com.adobe.xmp", "Comment")
+        )
+    assert "inbal-site.png" in inbal and "inbal-south.png" in inbal
+    assert "max-width:100%;height:auto" in inbal
