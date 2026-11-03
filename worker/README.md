@@ -1,13 +1,22 @@
 # ginot-hair-api (Cloudflare Worker)
 
 Read-only query layer over the site's static data files (owner request
-2026-10-21). Stateless, no secrets, no storage, free plan. CORS open.
+2026-10-21). No secrets, free plan. CORS open. Since 2026-11-03 the API worker keeps anonymous aggregate usage counters (issue #821) in a KV namespace: event type + dictionary-matched key per day only - no raw search text, no IP, no User-Agent.
 
 - `GET /` - endpoint index (JSON)
 - `GET /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=` - plans
 - `GET /permits?street=&status=&type=&q=&limit=` - permit requests
 - `GET /open` - the static open.json (open plans)
 - `GET /status` - generated date + counts
+- `POST /stats/event` - record one anonymous usage event `{e, k}` (aggregate counters only)
+- `GET /stats/summary` - public 30-day aggregate usage counts
+
+Stats privacy: `k` is validated **server-side** against a dictionary rebuilt
+from the site's public data.json (plan numbers/names, permit request numbers,
+street names, closed status/type vocabulary); anything else is stored as
+`"other"`, so raw free text can never be stored or echoed back. No IP,
+User-Agent or any user identifier is stored. Counters are approximate:
+increments are best-effort read-modify-write, not atomic.
 
 Rate limiting is best-effort per isolate (120 req/min/IP, fixed window);
 upstream data.json is edge-cached 5 minutes. Documented on the site's about
