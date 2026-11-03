@@ -280,6 +280,82 @@ def test_matching_markers_prune_absent_ids(tmp_path, monkeypatch):
     assert state == {"pending": [], "ingest_marker": "M2"}
 
 
+def test_unmarked_queue_prunes_even_when_mirror_is_marked(tmp_path, monkeypatch):
+    """A pre-#799 queue has no marker: the None arm keeps the old behavior
+    (prune gone + terminal) even against a post-#799 marked mirror."""
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    mirror.write_text(
+        json.dumps({"requests": [req("1", "הבקשה נסגרה")], "ingest_marker": "M1"}),
+        encoding="utf-8",
+    )
+    pending.write_text(json.dumps({"pending": ["1", "X"]}), encoding="utf-8")
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0
+    assert json.loads(pending.read_text(encoding="utf-8")) == {"pending": []}
+
+
+def test_nonempty_batch_mismatch_retains_absent_and_marker(tmp_path, monkeypatch):
+    """The non-empty-batch path must honor prune_gone and preserve the queue
+    marker on save (#799): under a marker mismatch an absent-from-mirror ID
+    survives the final prune, and the marker round-trips."""
+    import json
+
+    mirror = tmp_path / "mirror.json"
+    pending = tmp_path / "pending.json"
+    mirror.write_text(
+        json.dumps(
+            {
+                "requests": [req("9", "נפתח תיק רישוי")],
+                "ingest_marker": "M1",
+            }
+        ),
+        encoding="utf-8",
+    )
+    pending.write_text(
+        json.dumps({"pending": ["9", "X"], "ingest_marker": "M2"}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(permit_enrich.time, "sleep", lambda *_: None)
+    monkeypatch.setattr(
+        permit_enrich, "publication_dates", lambda tik: ("2026-03-01", "2026-04-15")
+    )
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        [
+            "permit_enrich.py",
+            "--mirror",
+            str(mirror),
+            "--diff",
+            str(tmp_path / "missing.json"),
+            "--pending",
+            str(pending),
+        ],
+    )
+    assert permit_enrich.main() == 0
+    state = json.loads(pending.read_text(encoding="utf-8"))
+    # 9 fetched successfully and clears; X is retained despite being absent
+    # from the older mirror, and the queue keeps its newer marker.
+    assert state == {"pending": ["X"], "ingest_marker": "M2"}
+    rec = json.loads(mirror.read_text(encoding="utf-8"))["requests"][0]
+    assert rec["publication_start"] == "2026-03-01"
+
+
 def test_empty_batch_still_prunes_dead_pending_entries(tmp_path, monkeypatch):
     """Pending tiks that turned terminal or left the mirror are never
     selected, so the empty-batch path must still prune them (#492)."""
