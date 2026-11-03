@@ -35,21 +35,70 @@ RAW_ROW = {
 
 def test_parse_rows_normalizes_fields():
     rows = rishui_publish.parse_rows(json.dumps([RAW_ROW]))
-    assert rows == [
-        {
-            "myIndex": 16530017,
-            "tik_num": "2026/0439.00",
-            "street": "הפלמח",
-            "house_number": "41",
-            "neighborhood": "קטמון הישנה",
-            "place_description": None,
-            "publication_date": "2026-10-18",
-            "objection_deadline": "2026-11-13",
-            "ed700": "2026-09-24",
-            "connected_rec_id": None,
-            "doc_id": None,
-        }
-    ]
+    row = dict(rows[0])
+    diagnostics = row.pop("diagnostics")
+    assert row == {
+        "myIndex": 16530017,
+        "tik_num": "2026/0439.00",
+        "street": "הפלמח",
+        "house_number": "41",
+        "neighborhood": "קטמון הישנה",
+        "place_description": None,
+        "publication_date": "2026-10-18",
+        "objection_deadline": "2026-11-13",
+        "ed700": "2026-09-24",
+        "connected_rec_id": None,
+        "doc_id": None,
+    }
+    assert diagnostics["fields"]["PD900"] == {
+        "present": True,
+        "null": False,
+        "type": "str",
+        "date_like": True,
+    }
+    assert diagnostics["raw"]["PD900"] == RAW_ROW["PD900"]
+
+
+def _diag(item):
+    return rishui_publish.parse_rows(json.dumps([item]))[0]["diagnostics"]
+
+
+def test_diagnostics_distinguish_missing_null_and_value():
+    missing = _diag({k: v for k, v in RAW_ROW.items() if k != "PD900"})
+    assert missing["fields"]["PD900"] == {
+        "present": False,
+        "null": False,
+        "type": "missing",
+    }
+    assert missing["raw"]["PD900"] is None
+
+    null_row = _diag(dict(RAW_ROW, PD900=None))
+    assert null_row["fields"]["PD900"]["present"] is True
+    assert null_row["fields"]["PD900"]["null"] is True
+
+    valued = _diag(RAW_ROW)
+    assert valued["fields"]["PD900"]["present"] is True
+    assert valued["fields"]["PD900"]["null"] is False
+    assert valued["raw"]["PD900"] == RAW_ROW["PD900"]
+
+
+def test_diagnostics_flag_renamed_key():
+    # PD900 renamed upstream to PD901: expected key missing AND the new key
+    # name surfaces in unexpected_keys, so the rename is detectable instead of
+    # looking like a run of null deadlines.
+    item = {k: v for k, v in RAW_ROW.items() if k != "PD900"}
+    item["PD901"] = "2026-11-13"
+    diag = _diag(item)
+    assert diag["fields"]["PD900"]["present"] is False
+    assert "PD901" in diag["unexpected_keys"]
+
+
+def test_diagnostics_flag_invalid_date_format():
+    diag = _diag(dict(RAW_ROW, PD900="13/11/2026"))
+    assert diag["fields"]["PD900"]["date_like"] is False
+    assert diag["raw"]["PD900"] == "13/11/2026"
+    typed = _diag(dict(RAW_ROW, DocId={"id": 5}))
+    assert typed["fields"]["DocId"]["type"] == "dict"
 
 
 def test_parse_rows_handles_missing_dates():

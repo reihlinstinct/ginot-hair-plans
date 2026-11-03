@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import http.client
 import json
+import re
 import sys
 import urllib.error
 import urllib.request
@@ -94,6 +95,56 @@ def _date(value: object) -> str | None:
     return str(value)[:10]
 
 
+# Keys the pipeline reads upstream (issue #805). The diagnostic projection
+# tracks their presence/type plus an allowlisted raw copy, so a null in the
+# normalized output can be told apart from a missing or renamed upstream key.
+TRACKED_KEYS = ("PD900", "DocId", "ED800", "ED700")
+# Raw values retained per row: public notice fields only (dates and the
+# municipality's document id) - never whole upstream payloads or personal data.
+RAW_KEYS = ("PD900", "DocId", "ED800", "ED700")
+KNOWN_KEYS = frozenset(
+    {
+        "myIndex",
+        "tik_num",
+        "rehov",
+        "misp_bait",
+        "schn",
+        "teur_makom",
+        "connectedRecID",
+        *TRACKED_KEYS,
+    }
+)
+
+
+def _field_diag(item: dict, key: str) -> dict:
+    if key not in item:
+        return {"present": False, "null": False, "type": "missing"}
+    value = item[key]
+    if value is None:
+        return {"present": True, "null": True, "type": "null"}
+    diag = {"present": True, "null": False, "type": type(value).__name__}
+    if key in ("PD900", "ED800", "ED700"):
+        diag["date_like"] = isinstance(value, str) and bool(_DATE_LIKE.match(value))
+    return diag
+
+
+_DATE_LIKE = re.compile(r"^\d{4}-\d{2}-\d{2}")
+
+
+def row_diagnostics(item: dict) -> dict:
+    """Privacy-safe schema diagnostics for one upstream row (issue #805).
+
+    Key names of unexpected fields are schema information, not data, so they
+    are safe to keep; their VALUES are never copied. A renamed upstream key
+    shows up as the expected key missing plus a new unexpected key name.
+    """
+    return {
+        "fields": {key: _field_diag(item, key) for key in TRACKED_KEYS},
+        "raw": {key: item.get(key) for key in RAW_KEYS},
+        "unexpected_keys": sorted(k for k in item if k not in KNOWN_KEYS),
+    }
+
+
 def normalize_row(item: dict) -> dict:
     return {
         "myIndex": item["myIndex"],
@@ -107,6 +158,7 @@ def normalize_row(item: dict) -> dict:
         "ed700": _date(item.get("ED700")),
         "connected_rec_id": item.get("connectedRecID"),
         "doc_id": item.get("DocId"),
+        "diagnostics": row_diagnostics(item),
     }
 
 
