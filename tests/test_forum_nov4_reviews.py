@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_inbal_review_has_scoped_claims_and_deadline_conflict():
     text = (
         ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
-    ).read_text()
+    ).read_text(encoding="utf-8")
     assert "29.11.2026" in text and "08.12.2026" in text
     assert "09.10.2026" in text and "טרם אומת" in text
     assert "לא הוכחה פלישה למדרכה" in text
@@ -19,7 +19,7 @@ def test_inbal_review_has_scoped_claims_and_deadline_conflict():
 
 
 def test_forum_landing_has_all_cases_and_explicit_unresolved_identity():
-    text = (ROOT / "docs/reviews/forum-2026-11-04.html").read_text()
+    text = (ROOT / "docs/reviews/forum-2026-11-04.html").read_text(encoding="utf-8")
     assert 'lang="he" dir="rtl"' in text
     for anchor in ("p41", "p29", "inbal"):
         assert f'id="{anchor}"' in text
@@ -45,7 +45,7 @@ def test_forum_local_links_resolve():
     folder = ROOT / "docs/reviews"
     for page in ("forum-2026-11-04.html", "talking_points_101-1488261.html"):
         parser = Links()
-        parser.feed((folder / page).read_text())
+        parser.feed((folder / page).read_text(encoding="utf-8"))
         for href in parser.links:
             if href.startswith(("http:", "https:", "#", "mailto:")):
                 continue
