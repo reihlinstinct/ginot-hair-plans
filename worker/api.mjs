@@ -1,7 +1,11 @@
-// ginot-hair-api - read-only query layer over the static site data.
-// Free Cloudflare Worker: no storage, no secrets, no writes. Fetches the
-// public data.json from GitHub Pages (edge-cached 5 min), filters per query
-// params, CORS open. Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
+// ginot-hair-api - read-only query layer over the static site data, plus an
+// anonymous usage-stats counter (issue #821 part 2).
+// Free Cloudflare Worker. Fetches the public data.json from GitHub Pages
+// (edge-cached 5 min), filters per query params, CORS open.
+// Privacy: /stats/event stores ONLY aggregate counters (event type + a
+// dictionary-matched key or "other", per day) in Workers KV. No raw search
+// text, no IP, no User-Agent, no user identification of any kind.
+// Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
 import { securityTxtResponse } from "./securitytxt.mjs";
 const ORIGIN = "https://reihlinstinct.github.io/ginot-hair-plans";
 const CACHE_TTL = 300; // seconds, edge cache for the upstream data.json
@@ -77,6 +81,54 @@ function json(body, { status = 200, headers = {} } = {}) {
   });
 }
 
+
+// --- Anonymous usage statistics (issue #821) -------------------------------
+// Aggregate counters only. An event is {e, k}: e is one of EVENT_TYPES, k is
+// either "other" or a value the client already matched against its own loaded
+// data dictionary (a street name, plan number, or a closed-vocabulary filter
+// name/value). Raw free text is never accepted: anything unmatched arrives as
+// "other". Keys are per UTC day; nothing identifies a person.
+const EVENT_TYPES = new Set(["search", "permits_search", "filter", "permits_filter"]);
+const KEY_RE = /^[\w\u0590-\u05FF .'"()/:=+-]{1,60}$/u;
+const STATS_PREFIX = "stats:v1:";
+const STATS_DAYS = 30;
+
+function dayKey(d) { return d.toISOString().slice(0, 10); }
+
+async function recordStat(env, e, k) {
+  // Best-effort: a KV failure (quota, outage) must never break the API.
+  try {
+    const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
+    const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
+    await env.STATS.put(key, String(cur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
+    return true;
+  } catch { return false; }
+}
+
+async function statsSummary(env) {
+  const out = {}; // {e: {k: count}}
+  let cursor;
+  do {
+    const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
+    cursor = page.list_complete ? undefined : page.cursor;
+    for (const { name } of page.keys) {
+      const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
+      const day = rest.slice(0, 10);
+      const mid = rest.slice(11);
+      const sep = mid.indexOf(":");
+      if (sep < 0) continue;
+      const e = mid.slice(0, sep), k = mid.slice(sep + 1);
+      const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
+      (out[e] ||= {})[k] = ((out[e] ||= {})[k] || 0) + v;
+    }
+  } while (cursor);
+  for (const e of Object.keys(out)) {
+    out[e] = Object.fromEntries(
+      Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
+  }
+  return out;
+}
+
 const INDEX = {
   name: "ginot-hair-api",
   about: "שכבת שאילתות לקריאה בלבד מעל נתוני האתר הסטטיים של גינות העיר",
@@ -85,16 +137,37 @@ const INDEX = {
     "/permits": "בקשות היתר. פרמטרים: street, status, type, q, limit",
     "/open": "תכניות פתוחות (כמו open.json הסטטי)",
     "/status": "תאריך עדכון ומונים",
+    "/stats/event": "POST אירוע שימוש אנונימי {e, k} - מונים מצטברים בלבד, בלי טקסט חופשי ובלי IP",
+    "/stats/summary": "מוני השימוש המצטברים (30 יום), ציבורי",
   },
   source: "https://github.com/reihlinstinct/ginot-hair-plans",
   docs: "https://reihlinstinct.github.io/ginot-hair-plans/about.html",
 };
 
-export async function handleRequest(request, fetchImpl = fetch) {
+export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   const sec = securityTxtResponse(request);
   if (sec) return sec;
   const url = new URL(request.url);
-  if (request.method === "OPTIONS") return json({});
+  if (request.method === "OPTIONS") {
+    return json({}, { headers: { "access-control-allow-methods": "GET, POST, OPTIONS",
+                                 "access-control-allow-headers": "content-type" } });
+  }
+  if (url.pathname === "/stats/event" && request.method === "POST") {
+    if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, { status: 400 }); }
+    const e = String(body && body.e || "");
+    const k = String(body && body.k || "");
+    if (!EVENT_TYPES.has(e)) return json({ error: "unknown event type" }, { status: 400 });
+    if (k !== "other" && !KEY_RE.test(k)) return json({ error: "invalid key" }, { status: 400 });
+    const ok = await recordStat(env, e, k);
+    return json({ recorded: ok }, { status: ok ? 202 : 500 });
+  }
+  if (url.pathname === "/stats/summary" && request.method === "GET") {
+    if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
+    const stats = await statsSummary(env);
+    return json({ days: STATS_DAYS, events: stats });
+  }
   if (request.method !== "GET") return json({ error: "GET only" }, { status: 405 });
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
   if (rateLimited(ip)) return json({ error: "rate limit, retry shortly" }, { status: 429, headers: { "retry-after": "60" } });
@@ -138,4 +211,4 @@ export async function handleRequest(request, fetchImpl = fetch) {
   return json({ error: "unknown endpoint", endpoints: Object.keys(INDEX.endpoints) }, { status: 404 });
 }
 
-export default { fetch: (request) => handleRequest(request) };
+export default { fetch: (request, env) => handleRequest(request, fetch, env) };

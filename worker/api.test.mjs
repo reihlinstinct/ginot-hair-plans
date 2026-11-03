@@ -50,3 +50,39 @@ test("handleRequest /status and unknown route", async () => {
   const nf = await handleRequest(new Request("https://x.workers.dev/nope"), stub);
   assert.equal(nf.status, 404);
 });
+
+// --- Anonymous usage stats (issue #821) -------------------------------------
+function fakeKv() {
+  const m = new Map();
+  return {
+    async get(k) { return m.has(k) ? m.get(k) : null; },
+    async put(k, v) { m.set(k, v); },
+    async list({ prefix }) {
+      return { list_complete: true,
+               keys: [...m.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) };
+    },
+  };
+}
+
+test("/stats/event records only validated aggregate events", async () => {
+  const env = { STATS: fakeKv() };
+  const post = (b) => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
+  assert.equal((await handleRequest(post({ e: "search", k: "אבן שפרוט" }), fetch, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "search", k: "other" }), fetch, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "filter", k: "status:open" }), fetch, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "hack", k: "x" }), fetch, env)).status, 400);
+  assert.equal((await handleRequest(post({ e: "search", k: "x".repeat(61) }), fetch, env)).status, 400);
+  assert.equal((await handleRequest(post({ e: "search", k: "bad<script>" }), fetch, env)).status, 400);
+  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), fetch, env)).json();
+  assert.equal(sum.events.search["אבן שפרוט"], 1);
+  assert.equal(sum.events.search.other, 1);
+});
+
+test("/stats/event without KV returns 503; POST to other routes still 405", async () => {
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/event",
+    { method: "POST", body: "{}" }), fetch, {});
+  assert.equal(r.status, 503);
+  const r2 = await handleRequest(new Request("https://x.workers.dev/plans", { method: "POST" }), fetch, {});
+  assert.equal(r2.status, 405);
+});

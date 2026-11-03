@@ -1,7 +1,7 @@
 # ginot-hair-api (Cloudflare Worker)
 
 Read-only query layer over the site's static data files (owner request
-2026-10-21). Stateless, no secrets, no storage, free plan. CORS open.
+2026-10-21). No secrets, free plan. CORS open. Since 2026-11-03 the API worker keeps anonymous aggregate usage counters (issue #821) in a KV namespace: event type + dictionary-matched key per day only - no raw search text, no IP, no User-Agent.
 
 - `GET /` - endpoint index (JSON)
 - `GET /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=` - plans
