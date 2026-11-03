@@ -62,10 +62,12 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
   Object.keys(NAMES).forEach(function(e){
     var m=(d.events||{})[e];if(!m)return;
     var keys=Object.keys(m).slice(0,10);if(!keys.length)return;
-    any=true;
-    html+='<h3>'+NAMES[e]+'</h3><ul>'+keys.map(function(k){
-      return '<li>'+esc(k)+': '+m[k]+'</li>';
-    }).join('')+'</ul>';
+    var items=keys.map(function(k){
+      // Defense in depth: render counts only as plain integers.
+      var n=parseInt(m[k],10);
+      return isFinite(n)&&n>=0?'<li>'+esc(k)+': '+n+'</li>':'';
+    }).join('');
+    if(items){any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}
   });
   el.innerHTML=any?html:'<p>אין עדיין נתונים.</p>';
 }).catch(function(){el.textContent='';});
