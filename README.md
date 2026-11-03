@@ -363,8 +363,12 @@ a date marker alone cannot prove enrichment happened after the latest change.
 The diff continues to describe only the latest ingest.
 
 `python3 scripts/mirror_ingest.py --pending PATH` overrides the queue path;
-by default it is `permit_enrich_pending.json` beside `--out`. Invalid persisted
-queue/diff state aborts before outputs change. Queue replacement is atomic and
+by default it is `permit_enrich_pending.json` beside `--out`. With a custom
+`--out`/`--mirror`, pass the same `--pending PATH` to
+`scripts/vpn/permit_enrich.py` too: its default stays the repo-relative
+`data/permit_enrich_pending.json`, so without the flag producer and consumer
+would use different queues. Invalid persisted queue/diff state aborts before
+outputs change. Queue replacement is atomic and
 comes first, so an interrupted ingest can repeat work but cannot erase the
 only selection record. Concurrent ingest/enrichment against the same files is
 not supported; the reviewed-merge handoff remains required. Recovery for #797
