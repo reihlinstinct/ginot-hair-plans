@@ -35,21 +35,102 @@ RAW_ROW = {
 
 def test_parse_rows_normalizes_fields():
     rows = rishui_publish.parse_rows(json.dumps([RAW_ROW]))
-    assert rows == [
-        {
-            "myIndex": 16530017,
-            "tik_num": "2026/0439.00",
-            "street": "הפלמח",
-            "house_number": "41",
-            "neighborhood": "קטמון הישנה",
-            "place_description": None,
-            "publication_date": "2026-10-18",
-            "objection_deadline": "2026-11-13",
-            "ed700": "2026-09-24",
-            "connected_rec_id": None,
-            "doc_id": None,
-        }
-    ]
+    row = dict(rows[0])
+    diagnostics = row.pop("diagnostics")
+    assert row == {
+        "myIndex": 16530017,
+        "tik_num": "2026/0439.00",
+        "street": "הפלמח",
+        "house_number": "41",
+        "neighborhood": "קטמון הישנה",
+        "place_description": None,
+        "publication_date": "2026-10-18",
+        "objection_deadline": "2026-11-13",
+        "ed700": "2026-09-24",
+        "connected_rec_id": None,
+        "doc_id": None,
+    }
+    assert diagnostics["fields"]["PD900"] == {
+        "present": True,
+        "null": False,
+        "type": "str",
+        "date_like": True,
+    }
+    assert diagnostics["raw"]["PD900"] == RAW_ROW["PD900"]
+
+
+def _diag(item):
+    return rishui_publish.parse_rows(json.dumps([item]))[0]["diagnostics"]
+
+
+def test_diagnostics_distinguish_missing_null_and_value():
+    missing = _diag({k: v for k, v in RAW_ROW.items() if k != "PD900"})
+    assert missing["fields"]["PD900"] == {
+        "present": False,
+        "null": False,
+        "type": "missing",
+    }
+    assert missing["raw"]["PD900"] is None
+
+    null_row = _diag(dict(RAW_ROW, PD900=None))
+    assert null_row["fields"]["PD900"]["present"] is True
+    assert null_row["fields"]["PD900"]["null"] is True
+
+    valued = _diag(RAW_ROW)
+    assert valued["fields"]["PD900"]["present"] is True
+    assert valued["fields"]["PD900"]["null"] is False
+    assert valued["raw"]["PD900"] == RAW_ROW["PD900"]
+
+
+def test_diagnostics_flag_renamed_key():
+    # PD900 renamed upstream to PD901: expected key missing AND the new key
+    # name surfaces in unexpected_keys, so the rename is detectable instead of
+    # looking like a run of null deadlines.
+    item = {k: v for k, v in RAW_ROW.items() if k != "PD900"}
+    item["PD901"] = "2026-11-13"
+    diag = _diag(item)
+    assert diag["fields"]["PD900"]["present"] is False
+    assert "PD901" in diag["unexpected_keys"]
+
+
+def test_diagnostics_flag_invalid_date_format():
+    diag = _diag(dict(RAW_ROW, PD900="13/11/2026"))
+    assert diag["fields"]["PD900"]["date_like"] is False
+    assert diag["raw"]["PD900"] == {"omitted": "str"}
+    typed = _diag(dict(RAW_ROW, DocId={"id": 5}))
+    assert typed["fields"]["DocId"]["type"] == "dict"
+    assert typed["raw"]["DocId"] == {"omitted": "dict"}
+
+
+def test_diagnostics_raw_copy_is_bounded():
+    # Containers and oversized values in tracked fields are never copied raw:
+    # the drift stays visible via fields[] without storing unreviewed payloads.
+    diag = _diag(
+        dict(
+            RAW_ROW,
+            PD900=["2026-11-13"],
+            DocId="x" * 500,
+            ED800={"d": 1},
+            ED700="2026-09-24T10:11:12" + "e" * 100,
+        )
+    )
+    assert diag["raw"]["PD900"] == {"omitted": "list"}
+    assert diag["raw"]["DocId"] == {"omitted": "str"}
+    assert diag["raw"]["ED800"] == {"omitted": "dict"}
+    assert diag["raw"]["ED700"] == "2026-09-24T10:11:12" + "e" * 13
+    assert len(diag["raw"]["ED700"]) == 32
+
+
+def test_diagnostics_unexpected_keys_capped_and_counted():
+    item = dict(RAW_ROW)
+    for i in range(30):
+        item[f"extra_{i:02d}"] = i
+    item["k" * 100] = 1
+    diag = _diag(item)
+    expected_total = len([k for k in item if k not in rishui_publish.KNOWN_KEYS])
+    assert diag["unexpected_keys_total"] == expected_total == 32
+    assert len(diag["unexpected_keys"]) == 20
+    assert all(len(k) <= 64 for k in diag["unexpected_keys"])
 
 
 def test_parse_rows_handles_missing_dates():
