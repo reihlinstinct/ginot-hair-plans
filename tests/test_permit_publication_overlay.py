@@ -22,8 +22,9 @@ const TODAY='2026-10-27';
 const original={"data-tik":"1975/0743.02","data-group":"review","data-active":"1",
 "data-status":"שולמה מקדמה","data-pub":"","data-pubend":""};
 function validIso(s){return /^\\d{4}-\\d{2}-\\d{2}$/.test(s||'')&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;}
+const note={textContent:'',className:''};
 const cell={textContent:'',setAttribute(k,v){this[k]=v;}};
-const row={a:{...original},querySelector(){return cell;},getAttribute(k){return this.a[k];},setAttribute(k,v){this.a[k]=v;}};
+const row={a:{...original},querySelector(s){return s==='[data-deadline-note]'?note:cell;},getAttribute(k){return this.a[k];},setAttribute(k,v){this.a[k]=v;}};
 
 var rows=[row],publicationEvidence=[];
 function applyPublicationEvidence(){
@@ -32,9 +33,9 @@ function applyPublicationEvidence(){
         + """
 const results=[];
 for(const [inside,date,active,current] of [[true,'2026-10-26','1',''],[false,'2026-10-26','1',''],[null,'2026-10-26','1',''],[true,'2026-02-30','1',''],[true,'2026-10-26','0',''],[true,'2026-10-20','1','2026-10-26'],[true,'2026-10-26','1','2026-10-26'],[true,'2019-04-17','1',''],[true,'2026-10-28','1',''],[true,'2026-07-28','1','']]){
- row.a={...original,'data-active':active,'data-pub':current};cell.textContent='';
+ row.a={...original,'data-active':active,'data-pub':current};cell.textContent='';note.textContent='';
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:inside,publication_date:date}];
- applyPublicationEvidence();results.push({attrs:{...row.a},text:cell.textContent});
+ applyPublicationEvidence();results.push({attrs:{...row.a},text:cell.textContent,note:note.textContent});
 }
 const stageResults=[];
 for(const [group,stage,date] of [['postpub','2026-10-27','2026-10-26'],['postpub','','2026-10-26'],['review','2026-10-27','2026-10-26'],['postpub','2026-10-25','2026-10-26'],['postpub','2026-10-26','2026-10-25'],['postpub','2026-10-26','2026-10-27'],['review','2025-01-01','2026-10-26'],['review','','2026-10-26'],['review','2025-01-01','2025-06-01']]){
@@ -49,7 +50,23 @@ const boundary={...row.a};
 row.a={...original};
 publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY}];
 applyPublicationEvidence();
-console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
+const today={...row.a},deadlineNotes=[];
+for(const deadline of [null,'2026-11-13','2026-02-30']){
+ row.a={...original,'data-pubend':'2026-12-01'};note.textContent='';
+ publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY,objection_deadline:deadline}];
+ applyPublicationEvidence();deadlineNotes.push({text:note.textContent,end:row.a['data-pubend']});
+}
+const stageNotes=[];
+for(const [group,stage,current] of [
+ ['obj',TODAY,TODAY],['obj','2026-10-28',TODAY],
+ ['review',TODAY,''],['review','2026-10-28',''],
+ ['postpub',TODAY,''],['postpub','',''],
+ ['obj',TODAY,'2026-10-28']]){
+ row.a={...original,'data-group':group,'data-statusdate':stage,'data-pub':current};note.textContent='';
+ publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY,objection_deadline:null}];
+ applyPublicationEvidence();stageNotes.push({text:note.textContent,group:row.a['data-group']});
+}
+console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,stageNotes}));
 """
     )
     r = subprocess.run(["node", "-e", js], text=True, capture_output=True, check=False)
@@ -70,12 +87,36 @@ console.log(JSON.stringify({results,stageResults,boundary,today:{...row.a}}));
         "obj",  # review group + no status date + in-window publication promotes
         "review",  # ancient status date + out-of-window publication does not
     ]
+    assert [bool(x["text"]) for x in payload["deadlineNotes"]] == [True, False, True]
+    assert all(x["end"] == "2026-12-01" for x in payload["deadlineNotes"])
+    assert [bool(x["text"]) for x in payload["stageNotes"]] == [
+        True,
+        True,
+        True,
+        False,
+        False,
+        False,
+        False,
+    ]
+    assert [x["group"] for x in payload["stageNotes"]] == [
+        "obj",
+        "obj",
+        "review",
+        "review",
+        "postpub",
+        "postpub",
+        "obj",
+    ]
     first = results[0]
     assert first["attrs"]["data-group"] == "obj"
     assert first["attrs"]["data-pub"] == "2026-10-26"
     assert first["attrs"]["data-status"] == "שולמה מקדמה"
     assert first["attrs"]["data-pubend"] == ""  # no fabricated deadline
     assert "פרסום עירוני" in first["text"]
+    assert "מועד התנגדות לא ידוע" in first["note"]
+    assert "מועד התנגדות לא ידוע" in results[6]["note"]
+    assert not results[1]["note"]
+    assert not results[4]["note"]
     assert all(x["attrs"]["data-group"] == "review" for x in results[1:])
 
 

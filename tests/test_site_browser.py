@@ -1261,6 +1261,7 @@ def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser
         row = page.locator('tr[data-tik="1975/0743.02"]')
         assert row.is_visible()
         assert "פרסום עירוני" in row.inner_text()
+        assert "מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני" in row.inner_text()
         assert "שולמה מקדמה" in row.inner_text()
         assert row.get_attribute("data-pub") == "2026-10-26"
         assert row.get_attribute("data-pubend") == ""

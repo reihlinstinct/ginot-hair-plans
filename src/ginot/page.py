@@ -772,7 +772,7 @@ def _permits_section(
             f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
             f"<td>{_date_cell(p.get('status_date'))}</td>"
             f"<td data-publication-cell>{pub_cell}</td>"
-            f"<td>{_date_cell(p.get('publication_end_planned'))}</td>"
+            f"<td>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
             f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
         )
         if _is_default_permit_candidate(
@@ -1152,6 +1152,19 @@ function applyPublicationEvidence(){
     // then only the recency/current-publication and conservative postpub guards apply.
     var stage=r.getAttribute('data-statusdate')||'';
     var group=r.getAttribute('data-group');
+    // #804: unknown official deadline is not a safe blank or a computed date.
+    // Keep source planned dates and viewer links untouched. Equal-date evidence
+    // still needs the warning even when it cannot promote the display again.
+    if((!validIso(current)||p.publication_date>=current)&&
+       (group==='obj'||(!validIso(stage)||p.publication_date>=stage))&&
+       (group!=='postpub'||(validIso(stage)&&p.publication_date>stage))){
+      var note=r.querySelector('[data-deadline-note]');
+      if(note){
+        note.textContent=validIso(p.objection_deadline)?'':
+          ' מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני';
+        note.className=validIso(p.objection_deadline)?'':'pub-missing';
+      }
+    }
     if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
     if(validIso(stage)&&p.publication_date<=stage)return;
     // An older/repeated listing cannot resurrect a later workflow state.
