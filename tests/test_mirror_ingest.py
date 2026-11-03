@@ -217,7 +217,7 @@ def test_main_preserves_existing_output_when_collection_fails(monkeypatch, tmp_p
 
     out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
     out.write_text('{"requests": []}')
-    diff.write_text("previous diff")
+    diff.write_text('{"new_tiks": [], "changed_tiks": [], "gone_tiks": []}')
     monkeypatch.setattr(
         sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
     )
@@ -230,7 +230,7 @@ def test_main_preserves_existing_output_when_collection_fails(monkeypatch, tmp_p
     with pytest.raises(RuntimeError, match="duplicate"):
         mirror_ingest.main()
     assert out.read_text() == '{"requests": []}'
-    assert diff.read_text() == "previous diff"
+    assert diff.read_text() == '{"new_tiks": [], "changed_tiks": [], "gone_tiks": []}'
 
 
 def test_fetch_rows_rejects_keys_equal_after_stripping(monkeypatch):
@@ -250,7 +250,7 @@ def test_main_refuses_empty_ingest_over_existing_data(monkeypatch, tmp_path):
 
     out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
     out.write_text('{"requests": [{"tik_num": "A"}]}', encoding="utf-8")
-    diff.write_text("previous diff")
+    diff.write_text('{"new_tiks": [], "changed_tiks": [], "gone_tiks": []}')
     monkeypatch.setattr(
         sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
     )
@@ -259,7 +259,7 @@ def test_main_refuses_empty_ingest_over_existing_data(monkeypatch, tmp_path):
     with pytest.raises(RuntimeError, match="zero council records"):
         mirror_ingest.main()
     assert out.read_text(encoding="utf-8") == '{"requests": [{"tik_num": "A"}]}'
-    assert diff.read_text() == "previous diff"
+    assert diff.read_text() == '{"new_tiks": [], "changed_tiks": [], "gone_tiks": []}'
 
 
 def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
@@ -365,3 +365,114 @@ def test_iso_bounds_fall_back_to_string_order_on_garbage():
     assert mirror_ingest._iso_min("2026-01-02T00:00:00+00:00", "2026-01-01") == (
         "2026-01-01"
     )
+
+
+def test_enrichment_queue_preserves_stale_markers_and_prunes_finished_cases():
+    records = {
+        "new": {"status": "active"},
+        "changed": {"status": "active", "publication_start": "old"},
+        "retry": {"status": "active"},
+        "terminal": {"status": "הבקשה נסגרה"},
+    }
+    assert mirror_ingest.enrichment_queue(
+        records,
+        {"retry", "gone", "terminal"},
+        {"changed"},
+        {"new_tiks": ["new"], "changed_tiks": []},
+    ) == ["changed", "new", "retry"]
+
+
+def test_main_repeated_ingest_keeps_queue_when_diff_becomes_empty(
+    monkeypatch, tmp_path
+):
+    import json
+    import sys
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    pending = tmp_path / "permit_enrich_pending.json"
+    out.write_text(json.dumps({"requests": [{"tik_num": "A", "status": "active"}]}))
+    diff.write_text(
+        json.dumps({"new_tiks": ["A"], "changed_tiks": [], "gone_tiks": []})
+    )
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    monkeypatch.setattr(
+        mirror_ingest,
+        "fetch_rows",
+        lambda _: [
+            {"מספר תיק": "A", "גוש": "30007", "מחלקה": "133", "סטטוס": "active"}
+        ],
+    )
+    assert mirror_ingest.main() == 0
+    assert json.loads(pending.read_text()) == {"pending": ["A"]}
+    assert mirror_ingest.main() == 0
+    assert json.loads(diff.read_text())["new_tiks"] == []
+    assert json.loads(pending.read_text()) == {"pending": ["A"]}
+    # Success is acknowledged by the enrichment consumer draining pending.
+    pending.write_text('{"pending": []}')
+    assert mirror_ingest.main() == 0
+    assert json.loads(pending.read_text()) == {"pending": []}
+
+
+def test_bad_selection_state_fails_before_outputs_change(monkeypatch, tmp_path):
+    import sys
+
+    import pytest
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    pending = tmp_path / "permit_enrich_pending.json"
+    old = '{"requests": [{"tik_num": "A"}]}'
+    out.write_text(old)
+    diff.write_text('{"new_tiks": [], "changed_tiks": []}')
+    pending.write_text('{"pending": "not-a-list"}')
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {})
+    with pytest.raises(ValueError, match="invalid selection"):
+        mirror_ingest.main()
+    assert out.read_text() == old
+    assert pending.read_text() == '{"pending": "not-a-list"}'
+
+
+def test_load_selection_rejects_bad_diff_and_accepts_missing_file(tmp_path):
+    import pytest
+
+    path = tmp_path / "diff.json"
+    assert mirror_ingest.load_selection(path, ("new_tiks", "changed_tiks")) == set()
+    for bad in [
+        "[]",
+        '{"new_tiks": [1], "changed_tiks": []}',
+        '{"new_tiks": []}',
+        "invalid JSON",
+    ]:
+        path.write_text(bad)
+        with pytest.raises(ValueError):
+            mirror_ingest.load_selection(path, ("new_tiks", "changed_tiks"))
+
+
+def test_pending_write_failure_keeps_mirror_and_diff(monkeypatch, tmp_path):
+    import sys
+
+    import pytest
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    out.write_text('{"requests": []}')
+    diff.write_text('{"new_tiks": [], "changed_tiks": []}')
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {})
+    monkeypatch.setattr(mirror_ingest, "fetch_rows", lambda _: [])
+
+    def fail_replace(self, target):
+        raise OSError("queue write refused")
+
+    monkeypatch.setattr(pathlib.Path, "replace", fail_replace)
+    with pytest.raises(OSError, match="queue write refused"):
+        mirror_ingest.main()
+    assert out.read_text() == '{"requests": []}'
+    assert diff.read_text() == '{"new_tiks": [], "changed_tiks": []}'
+    assert not (tmp_path / "permit_enrich_pending.json.tmp").exists()

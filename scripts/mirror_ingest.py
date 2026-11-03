@@ -26,6 +26,7 @@ import json
 import subprocess
 import time
 import urllib.parse
+from pathlib import Path
 from zoneinfo import ZoneInfo
 
 DATASET = "76f0e069-f269-46fc-bcc8-f704ebbf17ff"
@@ -277,6 +278,47 @@ def diff_records(old_records, new_records):
     return {"new_tiks": new_tiks, "changed_tiks": changed, "gone_tiks": gone_tiks}
 
 
+TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בניה", "הופק היתר מוארך", "נדחתה"}
+
+
+def load_selection(path, keys):
+    """Read durable selection state; malformed state must not erase work."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            state = json.load(fh)
+    except FileNotFoundError:
+        return set()
+    if not isinstance(state, dict):
+        raise ValueError(f"invalid selection state: {path}")  # noqa: TRY004 - persisted data validation
+    selected = set()
+    for key in keys:
+        values = state.get(key)
+        if not isinstance(values, list) or any(
+            not isinstance(tik, str) or not tik.strip() for tik in values
+        ):
+            raise ValueError(f"invalid selection list {key}: {path}")
+        selected.update(values)
+    return selected
+
+
+def enrichment_queue(records, pending, previous_diff, current_diff):
+    """Carry work across diff replacement, including stale-marker changes.
+
+    Previous selections are conservatively retried: a publication marker
+    cannot prove a changed case was enriched after its latest change.
+    """
+    selected = (
+        pending
+        | previous_diff
+        | set(current_diff["new_tiks"] + current_diff["changed_tiks"])
+    )
+    return sorted(
+        tik
+        for tik in selected
+        if tik in records and records[tik].get("status") not in TERMINAL_STATUSES
+    )
+
+
 def validate(records, path):
     """Compare mirror records against the direct-scanner output."""
     with open(path, encoding="utf-8") as fh:
@@ -304,6 +346,11 @@ def main():
     ap.add_argument("--diff-out", default="data/permit_mirror_diff.json")
     ap.add_argument("--validate-against", default="")
     ap.add_argument(
+        "--pending",
+        default=None,
+        help="durable enrichment queue (default: beside --out, permit_enrich_pending.json)",
+    )
+    ap.add_argument(
         "--allow-empty",
         action="store_true",
         help="permit an ingest with zero council records over existing data",
@@ -323,6 +370,14 @@ def main():
             old_records = json.load(fh).get("requests", [])
     except (FileNotFoundError, json.JSONDecodeError):
         pass
+
+    pending_path = (
+        Path(args.pending)
+        if args.pending
+        else Path(args.out).with_name("permit_enrich_pending.json")
+    )
+    pending = load_selection(pending_path, ("pending",))
+    previous_diff = load_selection(args.diff_out, ("new_tiks", "changed_tiks"))
 
     records = {}
     for row in fetch_rows(gushim):
@@ -362,11 +417,23 @@ def main():
         ),
         "requests": sorted(records.values(), key=lambda r: r["tik_num"]),
     }
+    diff = diff_records(old_records, payload["requests"])
+    queued = enrichment_queue(records, pending, previous_diff, diff)
+    # Write the queue FIRST: interruption can cause a harmless retry, never
+    # erase the only record of unfinished work when the diff is replaced.
+    # Atomic replacement also leaves the previous queue intact on write error.
+    pending_tmp = pending_path.with_suffix(pending_path.suffix + ".tmp")
+    try:
+        with pending_tmp.open("w", encoding="utf-8") as fh:
+            json.dump({"pending": queued}, fh, ensure_ascii=False, indent=1)
+        pending_tmp.replace(pending_path)
+    finally:
+        pending_tmp.unlink(missing_ok=True)
+    print(f"durable enrichment queue: {len(queued)} requests")
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     print(f"wrote {args.out}: {len(records)} requests on council parcels")
 
-    diff = diff_records(old_records, payload["requests"])
     diff.update({"generated": payload["generated"]})
     with open(args.diff_out, "w", encoding="utf-8") as fh:
         json.dump(diff, fh, ensure_ascii=False, indent=1)
