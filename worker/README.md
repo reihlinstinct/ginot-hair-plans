@@ -11,6 +11,13 @@ Read-only query layer over the site's static data files (owner request
 - `POST /stats/event` - record one anonymous usage event `{e, k}` (aggregate counters only)
 - `GET /stats/summary` - public 30-day aggregate usage counts
 
+Stats privacy: `k` is validated **server-side** against a dictionary rebuilt
+from the site's public data.json (plan numbers/names, permit request numbers,
+street names, closed status/type vocabulary); anything else is stored as
+`"other"`, so raw free text can never be stored or echoed back. No IP,
+User-Agent or any user identifier is stored. Counters are approximate:
+increments are best-effort read-modify-write, not atomic.
+
 Rate limiting is best-effort per isolate (120 req/min/IP, fixed window);
 upstream data.json is edge-cached 5 minutes. Documented on the site's about
 page.

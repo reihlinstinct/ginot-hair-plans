@@ -83,20 +83,72 @@ function json(body, { status = 200, headers = {} } = {}) {
 
 
 // --- Anonymous usage statistics (issue #821) -------------------------------
-// Aggregate counters only. An event is {e, k}: e is one of EVENT_TYPES, k is
-// either "other" or a value the client already matched against its own loaded
-// data dictionary (a street name, plan number, or a closed-vocabulary filter
-// name/value). Raw free text is never accepted: anything unmatched arrives as
-// "other". Keys are per UTC day; nothing identifies a person.
+// Aggregate counters only. An event is {e, k}: e is one of EVENT_TYPES and k
+// is validated SERVER-SIDE against a dictionary rebuilt from the site's own
+// public data.json (plan numbers/names, permit request numbers, street names,
+// and the closed status/type vocabulary). Any key not in the dictionary is
+// recorded as "other": raw free text is never stored, so the public
+// /stats/summary can never echo back something a visitor typed. Keys are per
+// UTC day; no IP, no User-Agent, no user identification of any kind.
 const EVENT_TYPES = new Set(["search", "permits_search", "filter", "permits_filter"]);
 const KEY_RE = /^[\w\u0590-\u05FF .'"()/:=+-]{1,60}$/u;
 const STATS_PREFIX = "stats:v1:";
 const STATS_DAYS = 30;
+const DICT_TTL_MS = 300_000; // rebuild the key dictionary at most every 5 min
+const SUMMARY_MAX_KEYS = 500; // bound KV reads per summary call
 
 function dayKey(d) { return d.toISOString().slice(0, 10); }
 
+let dictCache = { ts: 0, keys: new Set() };
+
+// Street names are the leading tokens of a permit address up to the first
+// token containing a digit. The site client applies the same rule before
+// sending a key; keep in sync with the dictionary code in src/ginot/page.py.
+export function streetOf(address) {
+  const tokens = String(address || "").trim().split(/\s+/);
+  const out = [];
+  for (const t of tokens) {
+    if (/\d/.test(t)) break;
+    out.push(t);
+  }
+  return out.join(" ");
+}
+
+// Allowed stat keys, rebuilt from the public data.json (edge-cached like the
+// query endpoints, plus a short per-isolate cache). On any fetch failure the
+// previous cache is kept; with no cache the set is empty and every key is
+// recorded as "other" - validation never fails open.
+async function keyDictionary(fetchImpl) {
+  if (dictCache.keys.size && Date.now() - dictCache.ts < DICT_TTL_MS) return dictCache.keys;
+  try {
+    const resp = await fetchImpl(new Request(ORIGIN + "/data.json",
+      { cf: { cacheTtl: CACHE_TTL, cacheEverything: true } }));
+    if (resp.ok) {
+      const data = await resp.json();
+      const keys = new Set();
+      for (const r of data.rows || []) {
+        if (r.pl_number) keys.add(String(r.pl_number));
+        if (r.pl_name) keys.add(String(r.pl_name));
+        if (r.station_desc) keys.add(String(r.station_desc));
+      }
+      for (const r of data.permits || []) {
+        if (r.mispar_bakasha) keys.add(String(r.mispar_bakasha));
+        if (r.status) keys.add(String(r.status));
+        if (r.sugbakasha) keys.add(String(r.sugbakasha));
+        const st = streetOf(r.address);
+        if (st) keys.add(st);
+      }
+      dictCache = { ts: Date.now(), keys };
+    }
+  } catch { /* keep the stale cache; empty cache fails closed below */ }
+  return dictCache.keys;
+}
+
 async function recordStat(env, e, k) {
   // Best-effort: a KV failure (quota, outage) must never break the API.
+  // The read-modify-write increment is not atomic (KV has no atomic add), so
+  // bursts on the same key can lose a few counts - acceptable for approximate
+  // usage statistics, and documented as such.
   try {
     const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
     const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
@@ -107,21 +159,26 @@ async function recordStat(env, e, k) {
 
 async function statsSummary(env) {
   const out = {}; // {e: {k: count}}
-  let cursor;
-  do {
-    const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
-    cursor = page.list_complete ? undefined : page.cursor;
-    for (const { name } of page.keys) {
-      const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
-      const day = rest.slice(0, 10);
-      const mid = rest.slice(11);
-      const sep = mid.indexOf(":");
-      if (sep < 0) continue;
-      const e = mid.slice(0, sep), k = mid.slice(sep + 1);
-      const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
-      (out[e] ||= {})[k] = ((out[e] ||= {})[k] || 0) + v;
-    }
-  } while (cursor);
+  const cutoff = dayKey(new Date(Date.now() - (STATS_DAYS - 1) * 86_400_000));
+  let cursor, read = 0;
+  try {
+    do {
+      const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
+      cursor = page.list_complete ? undefined : page.cursor;
+      for (const { name } of page.keys) {
+        if (++read > SUMMARY_MAX_KEYS) break;
+        const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
+        const day = rest.slice(0, 10);
+        if (day < cutoff) continue; // KV TTL is STATS_DAYS+7; summary covers STATS_DAYS
+        const mid = rest.slice(11);
+        const sep = mid.indexOf(":");
+        if (sep < 0) continue;
+        const e = mid.slice(0, sep), k = mid.slice(sep + 1);
+        const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
+        (out[e] ||= {})[k] = (out[e][k] || 0) + v;
+      }
+    } while (cursor && read <= SUMMARY_MAX_KEYS);
+  } catch { /* KV outage mid-list: return whatever was read so far */ }
   for (const e of Object.keys(out)) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
@@ -152,14 +209,22 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
     return json({}, { headers: { "access-control-allow-methods": "GET, POST, OPTIONS",
                                  "access-control-allow-headers": "content-type" } });
   }
+  const ip = request.headers.get("cf-connecting-ip") || "unknown";
+  if (rateLimited(ip)) return json({ error: "rate limit, retry shortly" }, { status: 429, headers: { "retry-after": "60" } });
   if (url.pathname === "/stats/event" && request.method === "POST") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, { status: 400 }); }
     const e = String(body && body.e || "");
-    const k = String(body && body.k || "");
+    let k = String(body && body.k || "");
     if (!EVENT_TYPES.has(e)) return json({ error: "unknown event type" }, { status: 400 });
     if (k !== "other" && !KEY_RE.test(k)) return json({ error: "invalid key" }, { status: 400 });
+    if (k !== "other") {
+      // Server-side enforcement of "no raw text": only keys that exist in the
+      // site's own data dictionary are stored; everything else is "other".
+      const dict = await keyDictionary(fetchImpl);
+      if (!dict.has(k)) k = "other";
+    }
     const ok = await recordStat(env, e, k);
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
@@ -169,8 +234,6 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
     return json({ days: STATS_DAYS, events: stats });
   }
   if (request.method !== "GET") return json({ error: "GET only" }, { status: 405 });
-  const ip = request.headers.get("cf-connecting-ip") || "unknown";
-  if (rateLimited(ip)) return json({ error: "rate limit, retry shortly" }, { status: 429, headers: { "retry-after": "60" } });
   if (url.pathname === "/" || url.pathname === "") return json(INDEX);
 
   const upstream = new URL(

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterPlans, filterPermits, handleRequest } from "./api.mjs";
+import { filterPlans, filterPermits, handleRequest, streetOf } from "./api.mjs";
 
 const rows = [
   { pl_number: "101-1", pl_name: "שימור אבן שפרוט", station_desc: "הפקדה להתנגדויות/השגות",
@@ -64,19 +64,79 @@ function fakeKv() {
   };
 }
 
-test("/stats/event records only validated aggregate events", async () => {
+test("/stats/event validates keys server-side against the data dictionary", async () => {
   const env = { STATS: fakeKv() };
   const post = (b) => new Request("https://x.workers.dev/stats/event",
     { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
-  assert.equal((await handleRequest(post({ e: "search", k: "אבן שפרוט" }), fetch, env)).status, 202);
-  assert.equal((await handleRequest(post({ e: "search", k: "other" }), fetch, env)).status, 202);
-  assert.equal((await handleRequest(post({ e: "filter", k: "status:open" }), fetch, env)).status, 202);
-  assert.equal((await handleRequest(post({ e: "hack", k: "x" }), fetch, env)).status, 400);
-  assert.equal((await handleRequest(post({ e: "search", k: "x".repeat(61) }), fetch, env)).status, 400);
-  assert.equal((await handleRequest(post({ e: "search", k: "bad<script>" }), fetch, env)).status, 400);
-  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), fetch, env)).json();
-  assert.equal(sum.events.search["אבן שפרוט"], 1);
-  assert.equal(sum.events.search.other, 1);
+  // Dictionary from the stubbed data.json: plan name "שימור אבן שפרוט",
+  // street "עמק רפאים", mispar "2024-1", statuses, types.
+  assert.equal((await handleRequest(post({ e: "search", k: "שימור אבן שפרוט" }), stub, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "permits_search", k: "עמק רפאים" }), stub, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "search", k: "other" }), stub, env)).status, 202);
+  // Free text that is NOT in the dictionary is coerced to "other", never stored raw.
+  assert.equal((await handleRequest(post({ e: "search", k: "משה לוי 0501234567" }), stub, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "hack", k: "x" }), stub, env)).status, 400);
+  assert.equal((await handleRequest(post({ e: "search", k: "x".repeat(61) }), stub, env)).status, 400);
+  assert.equal((await handleRequest(post({ e: "search", k: "bad<script>" }), stub, env)).status, 400);
+  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env)).json();
+  assert.equal(sum.events.search["שימור אבן שפרוט"], 1);
+  assert.equal(sum.events.permits_search["עמק רפאים"], 1);
+  assert.equal(sum.events.search.other, 2); // the explicit "other" + coerced free text
+  assert.ok(!sum.events.search["משה לוי 0501234567"]);
+});
+
+test("/stats/event returns 500 when the KV write fails", async () => {
+  const env = { STATS: {
+    async get() { throw new Error("kv down"); },
+    async put() { throw new Error("kv down"); },
+    async list() { return { list_complete: true, keys: [] }; },
+  } };
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ e: "search", k: "other" }) }), stub, env);
+  assert.equal(r.status, 500);
+  assert.deepEqual(await r.json(), { recorded: false });
+});
+
+test("/stats/summary covers only the last 30 days, not the 37-day TTL", async () => {
+  const kv = fakeKv();
+  await kv.put("stats:v1:2000-01-01:search:old", "7"); // far outside the window
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:new", "3");
+  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, { STATS: kv })).json();
+  assert.equal(sum.events.search.new, 3);
+  assert.equal(sum.events.search.old, undefined);
+  assert.equal(sum.days, 30);
+});
+
+test("/stats/summary tolerates a KV list failure", async () => {
+  const env = { STATS: {
+    async get() { return null; },
+    async put() {},
+    async list() { throw new Error("kv down"); },
+  } };
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.equal(r.status, 200);
+  assert.deepEqual((await r.json()).events, {});
+});
+
+test("OPTIONS preflight allows POST with content-type", async () => {
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/event", { method: "OPTIONS" }), stub, {});
+  assert.equal(r.status, 200);
+  assert.match(r.headers.get("access-control-allow-methods"), /POST/);
+  assert.match(r.headers.get("access-control-allow-headers"), /content-type/);
+});
+
+test("stats endpoints are rate limited like the query endpoints", async () => {
+  const env = { STATS: fakeKv() };
+  const ip = "203.0.113.99";
+  const mk = () => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": ip },
+      body: JSON.stringify({ e: "search", k: "other" }) });
+  let last;
+  for (let i = 0; i < 120; i++) last = await handleRequest(mk(), stub, env);
+  assert.equal(last.status, 202);
+  assert.equal((await handleRequest(mk(), stub, env)).status, 429);
 });
 
 test("/stats/event without KV returns 503; POST to other routes still 405", async () => {
@@ -85,4 +145,10 @@ test("/stats/event without KV returns 503; POST to other routes still 405", asyn
   assert.equal(r.status, 503);
   const r2 = await handleRequest(new Request("https://x.workers.dev/plans", { method: "POST" }), fetch, {});
   assert.equal(r2.status, 405);
+});
+
+test("streetOf strips house numbers (the shared client/server street rule)", () => {
+  assert.equal(streetOf("עמק רפאים 12 מושבה גרמנית"), "עמק רפאים");
+  assert.equal(streetOf("לינקולן 5"), "לינקולן");
+  assert.equal(streetOf(""), "");
 });
