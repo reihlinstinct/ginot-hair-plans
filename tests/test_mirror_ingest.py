@@ -422,6 +422,61 @@ def test_main_repeated_ingest_keeps_queue_when_diff_becomes_empty(
     assert json.loads(pending.read_text())["pending"] == []
 
 
+def test_content_marker_is_stable_and_content_derived():
+    rows = [{"tik_num": "A", "status": "x"}, {"tik_num": "B", "status": "y"}]
+    marker = mirror_ingest.content_marker(rows)
+    assert marker.startswith("sha256:")
+    assert mirror_ingest.content_marker(list(reversed(rows))) == marker
+    changed = [dict(r) for r in rows]
+    changed[0]["status"] = "z"
+    assert mirror_ingest.content_marker(changed) != marker
+
+
+def test_main_unchanged_ingest_leaves_outputs_byte_identical(monkeypatch, tmp_path):
+    # Issue #807: a nightly run over unchanged mirror content must not churn
+    # the committed files, so the workflow's git-diff short-circuit skips it.
+    import json
+    import sys
+
+    out, diff = tmp_path / "mirror.json", tmp_path / "diff.json"
+    pending = tmp_path / "permit_enrich_pending.json"
+    monkeypatch.setattr(
+        sys, "argv", ["mirror_ingest.py", "--out", str(out), "--diff-out", str(diff)]
+    )
+    monkeypatch.setattr(mirror_ingest, "load_parcels", lambda _: {30007: {133}})
+    monkeypatch.setattr(
+        mirror_ingest,
+        "fetch_rows",
+        lambda _: [
+            {"מספר תיק": "A", "גוש": "30007", "מחלקה": "133", "סטטוס": "active"}
+        ],
+    )
+    assert mirror_ingest.main() == 0
+    marker = json.loads(out.read_text())["ingest_marker"]
+    assert marker.startswith("sha256:")
+    assert marker == json.loads(pending.read_text())["ingest_marker"]
+
+    # The first run legitimately records A as new in the diff; steady state
+    # starts at run 2. Runs 2 and 3 over unchanged content must not churn.
+    assert mirror_ingest.main() == 0
+    first = (out.read_bytes(), pending.read_bytes(), diff.read_bytes())
+    assert mirror_ingest.main() == 0
+    second = (out.read_bytes(), pending.read_bytes(), diff.read_bytes())
+    assert first == second
+
+    # A content change must produce a new marker (the #799 queue/mirror
+    # matching contract still distinguishes one committed ingest from another).
+    monkeypatch.setattr(
+        mirror_ingest,
+        "fetch_rows",
+        lambda _: [
+            {"מספר תיק": "A", "גוש": "30007", "מחלקה": "133", "סטטוס": "נדחתה"}
+        ],
+    )
+    assert mirror_ingest.main() == 0
+    assert json.loads(out.read_text())["ingest_marker"] != marker
+
+
 def test_bad_selection_state_fails_before_outputs_change(monkeypatch, tmp_path):
     import sys
 
