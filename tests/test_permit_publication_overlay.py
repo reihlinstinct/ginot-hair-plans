@@ -56,7 +56,17 @@ for(const deadline of [null,'2026-11-13','2026-02-30']){
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY,objection_deadline:deadline}];
  applyPublicationEvidence();deadlineNotes.push({text:note.textContent,end:row.a['data-pubend']});
 }
-console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes}));
+const stageNotes=[];
+for(const [group,stage,current] of [
+ ['obj',TODAY,TODAY],['obj','2026-10-28',TODAY],
+ ['review',TODAY,''],['review','2026-10-28',''],
+ ['postpub',TODAY,''],['postpub','',''],
+ ['obj',TODAY,'2026-10-28']]){
+ row.a={...original,'data-group':group,'data-statusdate':stage,'data-pub':current};note.textContent='';
+ publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY,objection_deadline:null}];
+ applyPublicationEvidence();stageNotes.push({text:note.textContent,group:row.a['data-group']});
+}
+console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,stageNotes}));
 """
     )
     r = subprocess.run(["node", "-e", js], text=True, capture_output=True, check=False)
@@ -79,6 +89,24 @@ console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes}))
     ]
     assert [bool(x["text"]) for x in payload["deadlineNotes"]] == [True, False, True]
     assert all(x["end"] == "2026-12-01" for x in payload["deadlineNotes"])
+    assert [bool(x["text"]) for x in payload["stageNotes"]] == [
+        True,
+        True,
+        True,
+        False,
+        False,
+        False,
+        False,
+    ]
+    assert [x["group"] for x in payload["stageNotes"]] == [
+        "obj",
+        "obj",
+        "review",
+        "review",
+        "postpub",
+        "postpub",
+        "obj",
+    ]
     first = results[0]
     assert first["attrs"]["data-group"] == "obj"
     assert first["attrs"]["data-pub"] == "2026-10-26"
