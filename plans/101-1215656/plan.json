@@ -23,5 +23,5 @@
  "land_status_date": "2026-09-06",
  "land_plan_id": 1057167,
  "deadline_source_note": "max(iplan, land.gov.il) publication + 60d",
- "advisory_urgent": true
+ "advisory_urgent": false
 }
