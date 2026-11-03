@@ -22,6 +22,7 @@ Usage: python3 scripts/mirror_ingest.py [--validate-against data/permit_requests
 
 import argparse
 import datetime
+import hashlib
 import json
 import subprocess
 import time
@@ -281,6 +282,20 @@ def diff_records(old_records, new_records):
 TERMINAL_STATUSES = {"הבקשה נסגרה", "הופק-הוצא היתר בניה", "הופק היתר מוארך", "נדחתה"}
 
 
+def content_marker(requests):
+    """Content-derived ingest marker (issue #807): a hash of the canonical
+    records list. A per-second timestamp changed the mirror payload and the
+    queue file on every run, defeating the workflow's no-change short-circuit.
+    The #799 contract is preserved: the marker still identifies exactly one
+    committed ingest content, so a queue written against different mirror
+    content is still detected by the mismatch; identical content legitimately
+    shares a marker (the queue is equally valid for it)."""
+    ordered = sorted(requests, key=lambda r: str(r.get("tik_num", "")))
+    canonical = json.dumps(ordered, ensure_ascii=False, sort_keys=True)
+    digest = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    return f"sha256:{digest[:16]}"
+
+
 def load_selection(path, keys):
     """Read durable selection state; malformed state must not erase work."""
     try:
@@ -365,9 +380,11 @@ def main():
     )
 
     old_records = []
+    old_payload = {}
     try:
         with open(args.out, encoding="utf-8") as fh:
-            old_records = json.load(fh).get("requests", [])
+            old_payload = json.load(fh)
+        old_records = old_payload.get("requests", [])
     except (FileNotFoundError, json.JSONDecodeError):
         pass
 
@@ -404,13 +421,20 @@ def main():
 
     # Shared by the queue and the mirror so the enrichment consumer can
     # tell "same committed ingest" from "queue written, mirror not" (#799).
-    marker = datetime.datetime.now(ZoneInfo("Asia/Jerusalem")).isoformat(
-        timespec="seconds"
+    # Content-derived (issue #807): identical records keep the old marker and
+    # the old "generated" date, so an unchanged ingest leaves both files
+    # byte-identical and the workflow's git-diff short-circuit skips the PR.
+    new_requests = sorted(records.values(), key=lambda r: r["tik_num"])
+    marker = content_marker(new_requests)
+    generated = (
+        old_payload.get("generated")
+        if old_payload.get("ingest_marker") == marker
+        else datetime.datetime.now(ZoneInfo("Asia/Jerusalem"))
+        .date()
+        .isoformat()  # issue #331: IL not runner UTC
     )
     payload = {
-        "generated": datetime.datetime.now(ZoneInfo("Asia/Jerusalem"))
-        .date()
-        .isoformat(),  # issue #331: IL not runner UTC
+        "generated": generated,
         "ingest_marker": marker,
         "source": (
             "over.org.il (גרסאות לעם) mirror of the Jerusalem "
@@ -421,7 +445,7 @@ def main():
             "DRAFT - third-party mirror data; completeness not "
             "guaranteed, verify at the source before reliance"
         ),
-        "requests": sorted(records.values(), key=lambda r: r["tik_num"]),
+        "requests": new_requests,
     }
     diff = diff_records(old_records, payload["requests"])
     queued = enrichment_queue(records, pending, previous_diff, diff)
