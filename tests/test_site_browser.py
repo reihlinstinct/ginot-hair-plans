@@ -14,6 +14,7 @@ import functools
 import http.server
 import json
 import pathlib
+import re
 import shutil
 import socketserver
 import sys
@@ -170,6 +171,25 @@ def browser():
             b = getattr(p, engine).launch()
         except sync_api.Error as exc:  # browser binary missing
             pytest.skip(f"{engine} not installed: {exc}")
+        # The analytics beacon (cloudflareinsights.com) is intentionally
+        # unreachable in tests: no external network, and WebKit blocks the
+        # cross-origin RUM ping from a local origin. Serve an empty script
+        # instead (an aborted request still logs "Failed to load resource" as
+        # a page error), so the zero-JS-errors assertions keep covering real
+        # page errors (#821).
+        orig_new_context = b.new_context
+
+        def new_context_no_analytics(**kw):
+            ctx = orig_new_context(**kw)
+            ctx.route(
+                re.compile(r"cloudflareinsights\.com"),
+                lambda route: route.fulfill(
+                    status=200, content_type="application/javascript", body=""
+                ),
+            )
+            return ctx
+
+        b.new_context = new_context_no_analytics
         yield b
         b.close()
 

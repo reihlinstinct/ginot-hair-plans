@@ -22,7 +22,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css"></head><body>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css">
+<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי גינות העיר</h1>
 <p>עודכן: 2026-11-03. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
@@ -815,4 +817,9 @@ if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
 sortRows();apply();
 })();
 </script>
+<script>// Strip free-text search params from the URL before the analytics beacon
+// executes (deferred), so search text never leaves the browser in the ping (#821).
+(function(){try{var u=new URL(location.href),dirty=false;
+['plan.fq','permit.pfq'].forEach(function(k){if(u.searchParams.has(k)){u.searchParams.delete(k);dirty=true;}});
+if(dirty)history.replaceState(null,'',u);}catch(e){}})();</script>
 </body></html>

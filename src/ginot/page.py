@@ -1551,7 +1551,7 @@ def render_index(
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css"></head><body>
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css">{_ANALYTICS_SNIPPET}</head><body>
 <h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
 <p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
 <p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
@@ -1597,6 +1597,11 @@ def render_index(
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="filter-links.js"></script>
 <script>{_JS}{_PERMITS_JS}</script>
+<script>// Strip free-text search params from the URL before the analytics beacon
+// executes (deferred), so search text never leaves the browser in the ping (#821).
+(function(){{try{{var u=new URL(location.href),dirty=false;
+['plan.fq','permit.pfq'].forEach(function(k){{if(u.searchParams.has(k)){{u.searchParams.delete(k);dirty=true;}}}});
+if(dirty)history.replaceState(null,'',u);}}catch(e){{}}}})();</script>
 </body></html>"""
 
 
@@ -1638,6 +1643,13 @@ _SOURCES_ROWS = [
     ),
 ]
 
+_ANALYTICS_SNIPPET = (
+    "\n<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->"
+    "\n<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'"
+    ' data-cf-beacon=\'{"token": "ddb51e25c65545bea5cda52329983b4c"}\'></script>'
+)
+
+
 _SOURCES_REDIRECT = """<!DOCTYPE html>
 <html dir="rtl" lang="he"><head><meta charset="utf-8">
 <meta http-equiv="refresh" content="0; url=about.html">
@@ -1645,7 +1657,9 @@ _SOURCES_REDIRECT = """<!DOCTYPE html>
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="favicon.ico?v=20261022">
 <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=20261022">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022"></head>
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
+<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head>
 <body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
 """
 
@@ -1681,7 +1695,7 @@ def render_about(generated: str, council_name: str) -> str:
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"></head><body>
+<link rel="stylesheet" href="style.css">{_ANALYTICS_SNIPPET}</head><body>
 <h1>אודות האתר</h1>
 <p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
 <strong>גינות העיר</strong> בירושלים, ומתעדכן אוטומטית. עודכן: {_e(generated)}.</p>
@@ -1714,6 +1728,11 @@ def render_about(generated: str, council_name: str) -> str:
 <p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
 (למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
 אף שהם גלויים במקור.</p>
+<p>ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים
+בלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו
+נשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.</p>
+<p>האתר כולל מונה כניסות אנונימי (Cloudflare Web Analytics) ללא עוגיות,
+ללא שמירת כתובות IP וללא מידע אישי - ספירת צפיות וכניסות בלבד.</p>
 <h2>קוד ונתונים</h2>
 <p>קוד האתר והנתונים המעובדים פתוחים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
@@ -1804,7 +1823,7 @@ def render_review(
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="../style.css"></head><body>
+<link rel="stylesheet" href="../style.css">{_ANALYTICS_SNIPPET}</head><body>
 <div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
 {basis} התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
 <article class="review-body">
