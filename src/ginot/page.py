@@ -1596,7 +1596,7 @@ def render_index(
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="filter-links.js"></script>
-<script>{_JS}{_PERMITS_JS}</script>
+<script>{_JS}{_PERMITS_JS}{_STATS_JS}</script>
 <script>// Strip free-text search params from the URL before the analytics beacon
 // executes (deferred), so search text never leaves the browser in the ping (#821).
 (function(){{try{{var u=new URL(location.href),dirty=false;
@@ -1662,6 +1662,94 @@ _SOURCES_REDIRECT = """<!DOCTYPE html>
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head>
 <body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
 """
+
+_STATS_JS = """
+// Anonymous usage statistics (#821): aggregate counters only. A search is
+// reported ONLY when it exactly matches a value from the site's own data
+// (a plan number/name, street, permit number, or filter value) after the
+// same folding the search box uses; anything else is reported as "other".
+// Raw free text never leaves the browser, and the server re-validates every
+// key against its own dictionary before storing it. One event per distinct
+// key per page load.
+(function(){
+{_NORM_SEARCH_JS}
+var API='https://ginot-hair-api.reihlinstinct.workers.dev';
+var sent={};
+function sendStat(e,k){
+  var id=e+'|'+k;
+  if(sent[id])return;
+  sent[id]=1;
+  try{
+    var blob=new Blob([JSON.stringify({e:e,k:k})],{type:'text/plain'});
+    if(navigator.sendBeacon&&navigator.sendBeacon(API+'/stats/event',blob))return;
+    fetch(API+'/stats/event',{method:'POST',body:blob,keepalive:true}).catch(function(){});
+  }catch(err){}
+}
+// Same rule as the server's streetOf (worker/api.mjs): leading tokens until
+// the first token containing a digit.
+function streetOf(addr){
+  var t=String(addr||'').trim().split(/\s+/),out=[];
+  for(var i=0;i<t.length;i++){if(/\d/.test(t[i]))break;out.push(t[i]);}
+  return out.join(' ');
+}
+var planDict=null,permitDict=null;
+function buildPlanDict(){
+  if(planDict)return planDict;
+  planDict={};
+  document.querySelectorAll('#plans tbody tr').forEach(function(r){
+    var num=r.getAttribute('data-num')||'';
+    if(num)planDict[normSearch(num)]=num;
+    var nm=r.getAttribute('data-name')||'';
+    // data-name is lowercased; report the exact plan number for a name hit.
+    if(nm&&num)planDict[normSearch(nm)]=num;
+    var st=r.getAttribute('data-status')||'';
+    if(st)planDict[normSearch(st)]=st;
+  });
+  return planDict;
+}
+function buildPermitDict(){
+  if(permitDict)return permitDict;
+  permitDict={};
+  document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
+    var tik=r.getAttribute('data-tik')||'';
+    if(tik)permitDict[normSearch(tik)]=tik;
+    var st=r.getAttribute('data-status')||'';
+    if(st)permitDict[normSearch(st)]=st;
+    var sug=r.getAttribute('data-sug')||'';
+    if(sug)permitDict[normSearch(sug)]=sug;
+    var td=r.querySelector('td:nth-child(2)');
+    var addr=td&&td.firstChild?td.firstChild.textContent:'';
+    var street=streetOf(addr);
+    if(street)permitDict[normSearch(street)]=street;
+  });
+  return permitDict;
+}
+var tPlans,tPermits;
+document.addEventListener('plans-filtered',function(){
+  clearTimeout(tPlans);tPlans=setTimeout(reportPlans,1200);
+});
+document.addEventListener('permits-filtered',function(){
+  clearTimeout(tPermits);tPermits=setTimeout(reportPermits,1200);
+});
+function reportPlans(){
+  var fq=document.getElementById('fq');if(!fq)return;
+  var q=normSearch(fq.value.trim());
+  if(q)sendStat('search',buildPlanDict()[q]||'other');
+  var fs=document.getElementById('fstatus');
+  if(fs&&fs.value)sendStat('filter',fs.value);
+}
+function reportPermits(){
+  var pfq=document.getElementById('pfq');if(!pfq)return;
+  var q=normSearch(pfq.value.trim());
+  if(q)sendStat('permits_search',buildPermitDict()[q]||'other');
+  var st=document.getElementById('pfstatus');
+  if(st&&st.value)sendStat('permits_filter',st.value);
+  var sug=document.getElementById('pfsug');
+  if(sug&&sug.value)sendStat('permits_filter',sug.value);
+}
+})();
+""".replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
+
 
 _DATASETS_JS = """
 fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
@@ -1731,8 +1819,31 @@ def render_about(generated: str, council_name: str) -> str:
 <p>ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים
 בלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו
 נשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.</p>
-<p>האתר כולל מונה כניסות אנונימי (Cloudflare Web Analytics) ללא עוגיות,
-ללא שמירת כתובות IP וללא מידע אישי - ספירת צפיות וכניסות בלבד.</p>
+<p>סטטיסטיקת שימוש: האתר אוסף מונים מצטברים ואנונימיים על חיפושים ומסננים
+(אילו תכניות, רחובות ומסננים מחפשים). חיפוש נספר רק כשהוא תואם בדיוק לערך
+מהנתונים עצמם; טקסט חופשי לעולם אינו יוצא מהדפדפן. המונים פומביים ומוצגים
+בסעיף "סטטיסטיקת שימוש" בעמוד זה.</p>
+<h2>סטטיסטיקת שימוש</h2>
+<p>מונים מצטברים ואנונימיים של חיפושים ומסננים באתר (30 יום אחרונים),
+ישירות ממוני השרת הציבוריים.</p>
+<div id="usage-stats">טוען…</div>
+<script>(function(){{
+var el=document.getElementById('usage-stats');if(!el)return;
+function esc(s){{return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}}
+fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){{return r.json();}}).then(function(d){{
+  var NAMES={{search:'חיפושי תכניות',permits_search:'חיפושי בקשות',filter:'מסנני תכניות',permits_filter:'מסנני בקשות'}};
+  var html='',any=false;
+  Object.keys(NAMES).forEach(function(e){{
+    var m=(d.events||{{}})[e];if(!m)return;
+    var keys=Object.keys(m).slice(0,10);if(!keys.length)return;
+    any=true;
+    html+='<h3>'+NAMES[e]+'</h3><ul>'+keys.map(function(k){{
+      return '<li>'+esc(k)+': '+m[k]+'</li>';
+    }}).join('')+'</ul>';
+  }});
+  el.innerHTML=any?html:'<p>אין עדיין נתונים.</p>';
+}}).catch(function(){{el.textContent='';}});
+}})();</script>
 <h2>קוד ונתונים</h2>
 <p>קוד האתר והנתונים המעובדים פתוחים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.

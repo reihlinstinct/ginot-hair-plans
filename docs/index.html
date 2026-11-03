@@ -816,6 +816,97 @@ pendingUrlState=permitLink.hasState;
 if(pendingUrlState){setFilterLinksPending(true);loadFullPermits();}
 sortRows();apply();
 })();
+
+// Anonymous usage statistics (#821): aggregate counters only. A search is
+// reported ONLY when it exactly matches a value from the site's own data
+// (a plan number/name, street, permit number, or filter value) after the
+// same folding the search box uses; anything else is reported as "other".
+// Raw free text never leaves the browser, and the server re-validates every
+// key against its own dictionary before storing it. One event per distinct
+// key per page load.
+(function(){
+function normSearch(s){
+  return (s||'').toLowerCase()
+    .replace(/[\u0591-\u05C7\u05F3\u05F4\u00B4\u02B9\u02BC\u2010-\u2015\u2018-\u201F\u2032\u2033\u2212'"`-]/g,'')
+    .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')
+    .replace(/\s+/g,' ').trim();
+}
+
+var API='https://ginot-hair-api.reihlinstinct.workers.dev';
+var sent={};
+function sendStat(e,k){
+  var id=e+'|'+k;
+  if(sent[id])return;
+  sent[id]=1;
+  try{
+    var blob=new Blob([JSON.stringify({e:e,k:k})],{type:'text/plain'});
+    if(navigator.sendBeacon&&navigator.sendBeacon(API+'/stats/event',blob))return;
+    fetch(API+'/stats/event',{method:'POST',body:blob,keepalive:true}).catch(function(){});
+  }catch(err){}
+}
+// Same rule as the server's streetOf (worker/api.mjs): leading tokens until
+// the first token containing a digit.
+function streetOf(addr){
+  var t=String(addr||'').trim().split(/\s+/),out=[];
+  for(var i=0;i<t.length;i++){if(/\d/.test(t[i]))break;out.push(t[i]);}
+  return out.join(' ');
+}
+var planDict=null,permitDict=null;
+function buildPlanDict(){
+  if(planDict)return planDict;
+  planDict={};
+  document.querySelectorAll('#plans tbody tr').forEach(function(r){
+    var num=r.getAttribute('data-num')||'';
+    if(num)planDict[normSearch(num)]=num;
+    var nm=r.getAttribute('data-name')||'';
+    // data-name is lowercased; report the exact plan number for a name hit.
+    if(nm&&num)planDict[normSearch(nm)]=num;
+    var st=r.getAttribute('data-status')||'';
+    if(st)planDict[normSearch(st)]=st;
+  });
+  return planDict;
+}
+function buildPermitDict(){
+  if(permitDict)return permitDict;
+  permitDict={};
+  document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
+    var tik=r.getAttribute('data-tik')||'';
+    if(tik)permitDict[normSearch(tik)]=tik;
+    var st=r.getAttribute('data-status')||'';
+    if(st)permitDict[normSearch(st)]=st;
+    var sug=r.getAttribute('data-sug')||'';
+    if(sug)permitDict[normSearch(sug)]=sug;
+    var td=r.querySelector('td:nth-child(2)');
+    var addr=td&&td.firstChild?td.firstChild.textContent:'';
+    var street=streetOf(addr);
+    if(street)permitDict[normSearch(street)]=street;
+  });
+  return permitDict;
+}
+var tPlans,tPermits;
+document.addEventListener('plans-filtered',function(){
+  clearTimeout(tPlans);tPlans=setTimeout(reportPlans,1200);
+});
+document.addEventListener('permits-filtered',function(){
+  clearTimeout(tPermits);tPermits=setTimeout(reportPermits,1200);
+});
+function reportPlans(){
+  var fq=document.getElementById('fq');if(!fq)return;
+  var q=normSearch(fq.value.trim());
+  if(q)sendStat('search',buildPlanDict()[q]||'other');
+  var fs=document.getElementById('fstatus');
+  if(fs&&fs.value)sendStat('filter',fs.value);
+}
+function reportPermits(){
+  var pfq=document.getElementById('pfq');if(!pfq)return;
+  var q=normSearch(pfq.value.trim());
+  if(q)sendStat('permits_search',buildPermitDict()[q]||'other');
+  var st=document.getElementById('pfstatus');
+  if(st&&st.value)sendStat('permits_filter',st.value);
+  var sug=document.getElementById('pfsug');
+  if(sug&&sug.value)sendStat('permits_filter',sug.value);
+}
+})();
 </script>
 <script>// Strip free-text search params from the URL before the analytics beacon
 // executes (deferred), so search text never leaves the browser in the ping (#821).
