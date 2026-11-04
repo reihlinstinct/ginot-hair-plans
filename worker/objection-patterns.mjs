@@ -1,4 +1,4 @@
-// #846. Curated review leads from ONE forum meeting, not legal requirements.
+// #846. Curated review leads from two forum meetings, not legal requirements.
 // Keep the published privacy-redacted source, never participant identities.
 const SOURCE = {
   id: "urban-forum-2026-10-14",
@@ -47,8 +47,45 @@ export const OBJECTION_PATTERNS = [
     "Compare the notice's demolition, floors and units with every frontage/section and roof access. The forum alleges inaccurate publication and requests cancellation/republication; neither a procedural defect nor a remedy is verified from that allegation alone.",
     ["full dated signed notice and publication evidence", "current binding provisions, sections and roof plan", "official decision on publication sufficiency or remedy"]),
 ];
+const NOV4_SOURCE = {
+  id: "urban-forum-2026-11-04", title: "Ginot HaIr Urban Forum summary, 4 November 2026",
+  document_date: "2026-11-04", source_path: "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
+  source_kind: "community_forum_summary",
+};
+// Extra observations support a review lead, never establish a legal breach.
+const observedAgain = {
+  "height-topography": [[1,2], [P,"2026/0439.00"]],
+  "mature-trees-excavation": [[1,2], [P,"2026/0439.00"]],
+  "commercial-frontage": [[1,2], [P,"2026/0439.00"]],
+  "garage-access-alternatives": [[1], [P]],
+  "fences-sidewalks": [[1,2], [P,"2026/0439.00"]],
+  "coverage-denominator": [[1], [P]],
+  "usable-public-allocation": [[1], [P]],
+};
+for (const p of OBJECTION_PATTERNS) {
+  const observation = observedAgain[p.id];
+  p.observations = [{ source: p.source, pages: p.pages, cases: p.cases }];
+  if (observation) p.observations.push({ source: NOV4_SOURCE, pages: observation[0], cases: observation[1] });
+}
+function nov4Pattern(id, pages, cases, check, evidence) {
+  const p = pattern(id, pages, cases, check, evidence);
+  p.source = NOV4_SOURCE;
+  p.observations = [{source: NOV4_SOURCE, pages, cases}];
+  return p;
+}
+OBJECTION_PATTERNS.push(
+  nov4Pattern("public-passage-continuity", [2], ["2026/0439.00"],
+    "The forum reports a longstanding passage through the plot connecting Rachel Imenu to Palmach. Verify its physical history, legal status and alignment before requesting restoration; age alone does not prove an easement.",
+    ["survey and proposed site plan", "approved rights/easements and municipal records", "documented passage alignment and accessible connection"]),
+  nov4Pattern("construction-stage-sidewalk", [1,2], [P,"2026/0439.00"],
+    "Check that excavation, shoring and site fencing preserve a continuous usable sidewalk during works as well as in the final plan. Forum width claims are not a measured survey or a universal statutory minimum.",
+    ["surveyed current clear width", "excavation/shoring and temporary pedestrian plan", "final street section and verified applicable accessibility requirements"]),
+  nov4Pattern("proportionate-no-objection-option", [2], ["101-1488261"],
+    "The forum records a decision not to object to Inbal after considering the operational waste-handling improvement and existing paved access area. Consider no objection, clarification or conditions as outcomes, not only opposition. This is a forum outcome, not owner approval, a legal clearance, or a substitute for checking harm.",
+    ["exact current application scope and previous approval", "existing surface, trees and actual footprint", "verified effects on neighbours, pedestrian access and operations"]),
+);
 export const PATTERN_RULES = {
-  purpose: "Non-attributed review leads learned from one forum meeting; not a frequency estimate, proven violation, standing instruction to object, or authority to file.",
+  purpose: "Non-attributed review leads learned from two forum meetings; not a population frequency estimate, proven violation, standing instruction to object, or authority to file.",
   procedure: "Separate a planning objection, a permit objection and an appeal. The summary records proposed objections and mentions an older appeal; it supplies no verified appeal result for these cases.",
   deadlines: "Never calculate or replace an official deadline from a forum summary. Verify the latest official notice and publication record separately.",
   output: "For each relevant lead show source page, checked case evidence, applicable policy, measured difference, confidence, open questions and a proportionate request. Inapplicable or missing-evidence leads are not grounds for an asserted violation.",

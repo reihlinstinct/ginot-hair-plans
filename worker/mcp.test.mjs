@@ -230,14 +230,15 @@ test("tools/list includes the checklist tool", () => {
 
 test("#846: forum learning is returned by checklist and requires evidence, not automatic objections", () => {
   const r = callTool(data, "get_review_checklist", {});
-  assert.equal(r.learned_patterns.length, 10);
-  assert.equal(new Set(r.learned_patterns.map(p => p.id)).size, 10);
+  assert.equal(r.learned_patterns.length, 13);
+  assert.equal(new Set(r.learned_patterns.map(p => p.id)).size, 13);
   for (const p of r.learned_patterns) {
     assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
     assert.ok(p.cases.length && p.evidence_needed.length >= 3);
     assert.equal(p.source.source_kind, "community_forum_summary");
     const sourcePaths = {
       "urban-forum-2026-10-14": "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
+      "urban-forum-2026-11-04": "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
     };
     assert.equal(p.source.source_path, sourcePaths[p.source.id]);
     assert.equal(p.status, "review_lead_not_verified_finding");
@@ -247,7 +248,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
   }
   assert.match(r.learned_pattern_rules.procedure, /Separate.*objection.*appeal/);
   assert.match(r.learned_pattern_rules.deadlines, /Never calculate or replace/);
-  assert.match(r.learned_pattern_rules.purpose, /one forum meeting/);
+  assert.match(r.learned_pattern_rules.purpose, /two forum meetings/);
   assert.match(promptText("101-1377753"), /learned_patterns.*evidence gates/);
 });
 
@@ -255,7 +256,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
 // Free-text source content still requires a separate privacy review.
 test("forum public schema excludes identity and assignment fields", () => {
   const allowedPattern = ["id", "source", "pages", "cases", "check", "evidence_needed",
-    "status", "legal_effect", "use_gate"];
+    "status", "legal_effect", "use_gate", "observations"];
   const allowedSource = ["id", "title", "document_date", "source_path", "source_kind"];
   const checkKeys = (value, allowed) => {
     for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
@@ -273,9 +274,20 @@ test("forum public schema excludes identity and assignment fields", () => {
     }
     assert.ok(Array.isArray(lead.pages) && lead.pages.length > 0);
     for (const page of lead.pages) assert.ok(Number.isInteger(page) && page > 0);
+    assert.ok(Array.isArray(lead.observations) && lead.observations.length > 0);
+    for (const observation of lead.observations) {
+      checkKeys(observation, ["source", "pages", "cases"]);
+      checkKeys(observation.source, allowedSource);
+      for (const value of Object.values(observation.source)) assert.equal(typeof value, "string");
+      assert.ok(Array.isArray(observation.cases) && observation.cases.length > 0);
+      for (const value of observation.cases) assert.equal(typeof value, "string");
+      assert.ok(Array.isArray(observation.pages) && observation.pages.length > 0);
+      for (const page of observation.pages) assert.ok(Number.isInteger(page) && page > 0);
+    }
   };
   const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
   for (const lead of leads) checkLead(lead);
+  assert.throws(() => checkLead({ ...leads[0], observations: [{ ...leads[0].observations[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }] }));
   assert.throws(() => checkKeys({ participant: "SYNTHETIC_PRIVATE_VALUE" }, allowedPattern));
   assert.throws(() => checkKeys({ assignment: "SYNTHETIC_PRIVATE_VALUE" }, allowedSource));
   assert.throws(() => checkLead({ ...leads[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }));
@@ -287,7 +299,7 @@ test("forum public schema excludes identity and assignment fields", () => {
 // Hash the complete reviewed public output, never low-entropy private tokens.
 // Any source/value update requires privacy review before this baseline changes.
 test("forum values match the privacy-reviewed public baseline", () => {
-  const expected = "d8e504609629ab9b8244263285aed651166664e8a5ed904360aaf6d72b499db3";
+  const expected = "035bebd44a00c3e109f4ea1bf12822a916460b3052f4feaa34c305ea5ccebc33";
   const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
   const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
   const checkValues = value => assert.equal(digest(value), expected, "Public forum values changed: privacy review required");
@@ -295,4 +307,23 @@ test("forum values match the privacy-reviewed public baseline", () => {
   const injected = structuredClone(leads);
   injected[0].check += " SYNTHETIC_PRIVATE_VALUE";
   assert.throws(() => checkValues(injected), /privacy review required/);
+});
+
+
+test("#848: November source observations preserve no-objection and construction-stage evidence gates", () => {
+ const r = callTool(data, "get_review_checklist", {});
+ const get = id => r.learned_patterns.find(p => p.id === id);
+ assert.equal(get("fences-sidewalks").observations.length, 2);
+ assert.deepEqual(get("public-passage-continuity").cases, ["2026/0439.00"]);
+ assert.match(get("public-passage-continuity").check, /age alone does not prove/);
+ assert.match(get("construction-stage-sidewalk").check, /during works/);
+ const no = get("proportionate-no-objection-option");
+ assert.deepEqual(no.cases, ["101-1488261"]);
+ assert.match(no.check, /decision not to object/);
+ assert.match(no.check, /not owner approval/);
+ assert.equal(no.source.id, "urban-forum-2026-11-04");
+ for (const p of r.learned_patterns) for (const o of p.observations) {
+  assert.ok(o.pages.length && o.cases.length);
+  assert.ok(o.pages.every(n => n > 0 && n <= (o.source.id.endsWith("11-04") ? 3 : 7)));
+ }
 });
