@@ -1,4 +1,5 @@
 import test from "node:test";
+import { createHash } from "node:crypto";
 import assert from "node:assert/strict";
 import { callTool, rpc, handleRequest, reviewText, loadReviews } from "./mcp.mjs";
 
@@ -235,7 +236,10 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
     assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
     assert.ok(p.cases.length && p.evidence_needed.length >= 3);
     assert.equal(p.source.source_kind, "community_forum_summary");
-    assert.equal(p.source.source_path, "docs/reviews/forum-2026-10-14/summary-redacted.pdf");
+    const sourcePaths = {
+      "urban-forum-2026-10-14": "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
+    };
+    assert.equal(p.source.source_path, sourcePaths[p.source.id]);
     assert.equal(p.status, "review_lead_not_verified_finding");
     assert.match(p.use_gate, /applicability|applicable/);
     assert.match(p.use_gate, /Do not transfer numeric/);
@@ -245,5 +249,50 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
   assert.match(r.learned_pattern_rules.deadlines, /Never calculate or replace/);
   assert.match(r.learned_pattern_rules.purpose, /one forum meeting/);
   assert.match(promptText("101-1377753"), /learned_patterns.*evidence gates/);
-  assert.ok(!/איליאס|רונית|מסינס|Ronit|Elias|Itai/.test(JSON.stringify(r.learned_patterns)));
+});
+
+// Structural guard: public leads have no fields for identities or assignments.
+// Free-text source content still requires a separate privacy review.
+test("forum public schema excludes identity and assignment fields", () => {
+  const allowedPattern = ["id", "source", "pages", "cases", "check", "evidence_needed",
+    "status", "legal_effect", "use_gate"];
+  const allowedSource = ["id", "title", "document_date", "source_path", "source_kind"];
+  const checkKeys = (value, allowed) => {
+    for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
+  };
+  const checkLead = lead => {
+    assert.ok(lead && typeof lead === "object" && !Array.isArray(lead));
+    checkKeys(lead, allowedPattern);
+    assert.ok(lead.source && typeof lead.source === "object" && !Array.isArray(lead.source));
+    checkKeys(lead.source, allowedSource);
+    for (const value of Object.values(lead.source)) assert.equal(typeof value, "string");
+    for (const key of ["id", "check", "status", "legal_effect", "use_gate"]) assert.equal(typeof lead[key], "string");
+    for (const key of ["cases", "evidence_needed"]) {
+      assert.ok(Array.isArray(lead[key]) && lead[key].length > 0);
+      for (const value of lead[key]) assert.equal(typeof value, "string");
+    }
+    assert.ok(Array.isArray(lead.pages) && lead.pages.length > 0);
+    for (const page of lead.pages) assert.ok(Number.isInteger(page) && page > 0);
+  };
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  for (const lead of leads) checkLead(lead);
+  assert.throws(() => checkKeys({ participant: "SYNTHETIC_PRIVATE_VALUE" }, allowedPattern));
+  assert.throws(() => checkKeys({ assignment: "SYNTHETIC_PRIVATE_VALUE" }, allowedSource));
+  assert.throws(() => checkLead({ ...leads[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }));
+  assert.throws(() => checkLead({ ...leads[0], evidence_needed: [{ assignment: "SYNTHETIC_PRIVATE_VALUE" }] }));
+  assert.throws(() => checkLead({ ...leads[0], source: { ...leads[0].source, title: { participant: "SYNTHETIC_PRIVATE_VALUE" } } }));
+
+});
+
+// Hash the complete reviewed public output, never low-entropy private tokens.
+// Any source/value update requires privacy review before this baseline changes.
+test("forum values match the privacy-reviewed public baseline", () => {
+  const expected = "d8e504609629ab9b8244263285aed651166664e8a5ed904360aaf6d72b499db3";
+  const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  const checkValues = value => assert.equal(digest(value), expected, "Public forum values changed: privacy review required");
+  checkValues(leads);
+  const injected = structuredClone(leads);
+  injected[0].check += " SYNTHETIC_PRIVATE_VALUE";
+  assert.throws(() => checkValues(injected), /privacy review required/);
 });
