@@ -203,3 +203,28 @@ def test_checker_rejects_duplicate_policy_keys(tmp_path, raw):
     )
     assert result.returncode != 0
     assert "duplicate layout key" in result.stderr
+
+
+@pytest.mark.parametrize("nested", [False, True])
+def test_checker_rejects_non_repository_or_nested_root(tmp_path, nested):
+    import json
+
+    root = tmp_path
+    if nested:
+        subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+        root = tmp_path / "nested"
+        root.mkdir()
+    (root / ".repo-layout.yml").write_text(
+        json.dumps(
+            {"version": 1, "required": [], "root": {"allow": ["*"]}, "directories": {}}
+        ),
+        encoding="utf-8",
+    )
+    result = subprocess.run(
+        [sys.executable, str(CHECKER), "--root", str(root)],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode != 0
+    assert "layout root must be the Git top-level directory" in result.stderr

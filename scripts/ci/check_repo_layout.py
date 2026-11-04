@@ -47,6 +47,15 @@ def load_contract(root: Path) -> dict:
 
 
 def tracked_files(root: Path) -> list[str]:
+    top = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        cwd=root,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    if top.returncode or Path(top.stdout.strip()).resolve() != root.resolve():
+        raise SystemExit("layout root must be the Git top-level directory")
     out = subprocess.run(
         ["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True, text=True
     )
