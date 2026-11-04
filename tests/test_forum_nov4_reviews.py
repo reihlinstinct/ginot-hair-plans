@@ -275,12 +275,17 @@ def test_executive_internal_anchors_resolve_and_forum_link_is_current():
 
 
 def test_government_source_links_use_https():
+    import re
+    from urllib.parse import urlsplit
+
     for name in (
         "docs/reviews/palmach41/focused-2026-11-04.md",
         "docs/reviews/palmach41/focused-2026-11-04.html",
         "plans/101-1488261/analysis/talking_points_101-1488261.md",
         "docs/reviews/talking_points_101-1488261.html",
     ):
-        text = (ROOT / name).read_text()
-        assert "http://www.gov.il/" not in text
-        assert "https://www.gov.il/" in text
+        text = (ROOT / name).read_text(encoding="utf-8")
+        links = [urlsplit(url) for url in re.findall(r'https?://[^\s<>"()]+', text)]
+        government = [url for url in links if url.hostname == "www.gov.il"]
+        assert government
+        assert all(url.scheme == "https" for url in government)
