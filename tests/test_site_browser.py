@@ -2430,3 +2430,31 @@ def test_publication_restore_runs_before_apply(tmp_path, browser, request):
             assert errors == []
     finally:
         srv.shutdown()
+
+
+def test_implicit_or_queries_roundtrip_without_new_controls(page):
+    page.fill("#fq", "200-1 | 300-1")
+    expected_plans = plan_ids(page)
+    assert "200-1" in expected_plans and "300-1" in expected_plans
+    page.fill("#pfq", "פלמח 41 | אלפסי 9")
+    page.wait_for_function("window.__permitsLoaded === true")
+    page.fill("#pffrom", "")
+    page.uncheck("#pfopenonly")
+    expected = page.locator(
+        "#permits-table tr:not(.filtered-out) td:first-child"
+    ).all_inner_texts()
+    assert "2026/0439.00" in expected and "2020/0001.01" in expected
+    assert page.locator("#fq").count() == page.locator("#pfq").count() == 1
+    link = page.evaluate("window.GinotFilterLinks.build()")
+    assert "%7C" in link
+    page.goto(link)
+    page.wait_for_function("window.__rowsLoaded && window.__permitsLoaded")
+    assert page.input_value("#fq") == "200-1 | 300-1"
+    assert page.input_value("#pfq") == "פלמח 41 | אלפסי 9"
+    assert plan_ids(page) == expected_plans
+    assert (
+        page.locator(
+            "#permits-table tr:not(.filtered-out) td:first-child"
+        ).all_inner_texts()
+        == expected
+    )

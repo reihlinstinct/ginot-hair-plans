@@ -243,6 +243,8 @@ the browser-side sort and filters do not run.
 
 ### Table search
 
+Use `|` between alternatives in either existing search box, for example `פלמח 41 | פלמח 49`. A row matches any non-empty alternative after the same normalization. Leading, trailing and repeated separators are ignored; a query containing only separators matches no rows. Commas remain literal. Copy-filter links preserve the complete OR query. No extra controls are added. Other date/status/scope filters still apply to all alternatives.
+
 Both tables' free-text search ignores only the following marks and spacing differences:
 geresh/gershayim and ASCII or typographic quotes and primes (`׳ ״ ' " ’ “ ′`),
 hyphens, maqaf and dashes, niqqud, invisible direction marks and repeated or
