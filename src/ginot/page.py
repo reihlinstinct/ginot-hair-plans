@@ -131,7 +131,7 @@ _NORM_SEARCH_JS = r"""function normSearch(s){
 }
 function searchMatches(text, query){
   var raw=(query||'').trim();
-  if(!raw)return true;
+  if(!normSearch(raw)&&raw.indexOf('|')===-1)return true;
   var terms=raw.split('|').map(normSearch).filter(function(t){return t.length>0;});
   return terms.some(function(term){return text.indexOf(term)!==-1;});
 }
