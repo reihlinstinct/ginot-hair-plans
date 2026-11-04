@@ -238,6 +238,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
     assert.equal(p.source.source_kind, "community_forum_summary");
     const sourcePaths = {
       "urban-forum-2026-10-14": "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
+      "urban-forum-2026-11-04": "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
     };
     assert.equal(p.source.source_path, sourcePaths[p.source.id]);
     assert.equal(p.status, "review_lead_not_verified_finding");
@@ -255,7 +256,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
 // Free-text source content still requires a separate privacy review.
 test("forum public schema excludes identity and assignment fields", () => {
   const allowedPattern = ["id", "source", "pages", "cases", "check", "evidence_needed",
-    "status", "legal_effect", "use_gate"];
+    "status", "legal_effect", "use_gate", "observations"];
   const allowedSource = ["id", "title", "document_date", "source_path", "source_kind"];
   const checkKeys = (value, allowed) => {
     for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
@@ -273,9 +274,20 @@ test("forum public schema excludes identity and assignment fields", () => {
     }
     assert.ok(Array.isArray(lead.pages) && lead.pages.length > 0);
     for (const page of lead.pages) assert.ok(Number.isInteger(page) && page > 0);
+    assert.ok(Array.isArray(lead.observations) && lead.observations.length > 0);
+    for (const observation of lead.observations) {
+      checkKeys(observation, ["source", "pages", "cases"]);
+      checkKeys(observation.source, allowedSource);
+      for (const value of Object.values(observation.source)) assert.equal(typeof value, "string");
+      assert.ok(Array.isArray(observation.cases) && observation.cases.length > 0);
+      for (const value of observation.cases) assert.equal(typeof value, "string");
+      assert.ok(Array.isArray(observation.pages) && observation.pages.length > 0);
+      for (const page of observation.pages) assert.ok(Number.isInteger(page) && page > 0);
+    }
   };
   const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
   for (const lead of leads) checkLead(lead);
+  assert.throws(() => checkLead({ ...leads[0], observations: [{ ...leads[0].observations[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }] }));
   assert.throws(() => checkKeys({ participant: "SYNTHETIC_PRIVATE_VALUE" }, allowedPattern));
   assert.throws(() => checkKeys({ assignment: "SYNTHETIC_PRIVATE_VALUE" }, allowedSource));
   assert.throws(() => checkLead({ ...leads[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }));
@@ -287,7 +299,7 @@ test("forum public schema excludes identity and assignment fields", () => {
 // Hash the complete reviewed public output, never low-entropy private tokens.
 // Any source/value update requires privacy review before this baseline changes.
 test("forum values match the privacy-reviewed public baseline", () => {
-  const expected = "d8e504609629ab9b8244263285aed651166664e8a5ed904360aaf6d72b499db3";
+  const expected = "035bebd44a00c3e109f4ea1bf12822a916460b3052f4feaa34c305ea5ccebc33";
   const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
   const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
   const checkValues = value => assert.equal(digest(value), expected, "Public forum values changed: privacy review required");
