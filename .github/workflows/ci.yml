@@ -23,6 +23,18 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  layout:
+    # Always checks all tracked directories and file types, including docs-only PRs.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - run: python scripts/ci/check_repo_layout.py
   test:
     permissions:
       contents: write
@@ -39,8 +51,10 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: pip
       - run: pip install -r requirements.txt ruff=="$RUFF_VERSION" pytest-cov=="$PYTEST_COV_VERSION"
-      - run: ruff check src tests refresh.py scripts
-      - run: ruff format --check src tests scripts refresh.py
+      - name: Enforce repository folder structure
+        run: python scripts/ci/check_repo_layout.py
+      - run: ruff check src tests scripts
+      - run: ruff format --check src tests scripts
       - name: External reviews append-only guard
         if: github.event_name == 'pull_request'
         run: |
@@ -253,7 +267,7 @@ jobs:
     if: always()
     permissions:
       contents: read
-    needs: [changes, test, docs-fresh, worker, site-browser, pip-audit]
+    needs: [changes, test, docs-fresh, worker, site-browser, pip-audit, layout]
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -279,7 +293,7 @@ jobs:
           # #769/#771: a job dropped from this gate's needs list would leave
           # the gate green without it, and no repo-side test can observe its
           # own exclusion - pin the expected set here, at runtime.
-          expected = {"changes", "test", "docs-fresh", "worker", "site-browser", "pip-audit"}
+          expected = {"changes", "test", "docs-fresh", "worker", "site-browser", "pip-audit", "layout"}
           missing = expected - set(needs)
           if missing:
               print("Gate lost jobs from its needs list:", missing)
@@ -324,7 +338,9 @@ jobs:
           python-version: '3.15'
           cache: pip
       - run: pip install -r requirements.txt ruff=="$RUFF_VERSION" pytest-cov=="$PYTEST_COV_VERSION"
-      - run: ruff check src tests refresh.py scripts
+      - name: Enforce repository folder structure
+        run: python scripts/ci/check_repo_layout.py
+      - run: ruff check src tests scripts
       - name: Tests (informational)
         run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
       - name: Test run summary

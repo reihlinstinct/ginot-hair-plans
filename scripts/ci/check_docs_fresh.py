@@ -51,7 +51,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "src"))
 
-BASE_URL = "https://reihlinstinct.github.io/ginot-hair-plans/"  # refresh.py default
+BASE_URL = "https://reihlinstinct.github.io/ginot-hair-plans/"  # ginot.refresh default
 SKIP_SUFFIXES = (".png",)
 # render_site writes these, but other pipelines leave them behind on purpose,
 # so comparing them would flag every PR. Listed by --list-uncovered. Empty

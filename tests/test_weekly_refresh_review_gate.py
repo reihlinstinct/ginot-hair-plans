@@ -26,7 +26,7 @@ def test_weekly_refresh_stages_data_without_self_merge_or_deployment():
     ):
         assert forbidden not in workflow
     assert "scripts/land_feed.py" in workflow
-    assert "python3 -u refresh.py" in workflow
+    assert "PYTHONPATH=src python3 -u -m ginot.refresh" in workflow
     assert 'git push -u origin "$BRANCH"' in workflow
 
 
