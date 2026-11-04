@@ -193,3 +193,33 @@ def test_main_pending_and_no_change_never_write(tmp_path, monkeypatch, capsys):
         )
         for call in processes
     )
+
+
+def test_gh_failure_diagnostics_are_numeric_and_redacted(monkeypatch):
+    import importlib.util
+    import subprocess
+
+    import pytest
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "diagnostics_publisher", root / "scripts/ci/publish_publications.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    for stderr, expected in (
+        ("gh: unavailable (HTTP 403) private-payload secret-value", "HTTP 403"),
+        ("secret-value private-payload", "HTTP status unavailable"),
+    ):
+
+        def fail(*args, _stderr=stderr, **kwargs):
+            raise subprocess.CalledProcessError(
+                1, ["gh", "api", "private-payload"], stderr=_stderr
+            )
+
+        monkeypatch.setattr(module.subprocess, "run", fail)
+        with pytest.raises(RuntimeError, match=expected) as error:
+            module.gh("api", "synthetic/path", payload={"private": "secret-value"})
+        assert "exit 1" in str(error.value)
+        assert "secret-value" not in str(error.value)
+        assert "private-payload" not in str(error.value)

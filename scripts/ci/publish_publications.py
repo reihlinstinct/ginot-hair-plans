@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -22,13 +23,22 @@ def gh(*args, payload=None):
     cmd = ["gh", *args]
     if payload is not None:
         cmd += ["--input", "-"]
-    result = subprocess.run(
-        cmd,
-        input=json.dumps(payload) if payload is not None else None,
-        text=True,
-        capture_output=True,
-        check=True,
-    )
+    try:
+        result = subprocess.run(
+            cmd,
+            input=json.dumps(payload) if payload is not None else None,
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        # Never echo stderr or command/payload: credentials and source data may
+        # occur there. Retain only a bounded numeric HTTP status, when present.
+        status = re.search(r"\bHTTP ([1-5][0-9]{2})\b", exc.stderr or "")
+        detail = f"; HTTP {status.group(1)}" if status else "; HTTP status unavailable"
+        raise RuntimeError(
+            f"GitHub API command failed (exit {exc.returncode}{detail})"
+        ) from None
     if not result.stdout.strip():
         return None
     try:
