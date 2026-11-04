@@ -284,14 +284,15 @@ test("forum public schema excludes identity and assignment fields", () => {
 
 });
 
-test("forum value-level privacy guard uses normalized token digests", () => {
-  const blocked = new Set(["234b74ea9846cefd1965c19b01e2c12c29bce62ae1c2027ca6cf67b2a8494597", "4bff2d426635190de1893bfb79c4be57b573b0c499f1bcef255b9662cdf391d9", "4ece9d48f736c00488c90aa36bb0d0d11a816e66550a28fe498388f7d02e6ebf", "de7ee76e7373c19bf7418e69cadecba96107bbb6d99524c516e1d37605dca829", "e688f6ce6c075e416ca1bbafb9f16c83db7ca52db1223cbb36bd94f5d2f9f7df", "ee07863cdc9e2b00881dbc544e67314b3037ac31dd57bcb2d4fbaf26b3b2a7c6"]);
-  const digest = token => createHash("sha256").update(token.normalize("NFKC").toLowerCase()).digest("hex");
-  const checkValues = (value, blockedDigests = blocked) => {
-    const tokens = JSON.stringify(value).normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}_]+/gu) || [];
-    for (const token of tokens) assert.ok(!blockedDigests.has(digest(token)), "Identifying token found in public learned patterns");
-  };
-  checkValues(callTool(data, "get_review_checklist", {}).learned_patterns);
-  const sentinel = "SYNTHETIC_PRIVATE_VALUE";
-  assert.throws(() => checkValues([{ check: sentinel.toLowerCase() }], new Set([digest(sentinel)])), /Identifying token/);
+// Hash the complete reviewed public output, never low-entropy private tokens.
+// Any source/value update requires privacy review before this baseline changes.
+test("forum values match the privacy-reviewed public baseline", () => {
+  const expected = "d8e504609629ab9b8244263285aed651166664e8a5ed904360aaf6d72b499db3";
+  const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  const checkValues = value => assert.equal(digest(value), expected, "Public forum values changed: privacy review required");
+  checkValues(leads);
+  const injected = structuredClone(leads);
+  injected[0].check += " SYNTHETIC_PRIVATE_VALUE";
+  assert.throws(() => checkValues(injected), /privacy review required/);
 });
