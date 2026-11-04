@@ -92,3 +92,15 @@ labelled "external AI review, unverified"; they never replace or edit existing r
 4. Run `python scripts/build_site_index.py` and commit `docs/index.json` (the dataset sizes must match, or CI fails).
 5. Merge on green. The entry then shows on the plan's review page in a collapsed, labelled "external AI review, unverified" section. Reviews appear only on plans that have our own review page. Permit-request entries (`tik_num`) are stored and validated but not rendered anywhere yet; there is no per-permit review page.
 6. Close the inbox issue with a link to the PR.
+
+
+### Forum-derived review patterns (#846)
+
+`get_review_checklist` includes `learned_patterns` and `learned_pattern_rules` from
+`objection-patterns.mjs`. Ten curated leads from the 14 October 2026 meeting carry
+source page(s), case identifiers, evidence needed and applicability gates. This is
+learning for future review questions, not a claim about frequency, proof of a
+violation, a binding rule, or authority to object/file. Numerical limits remain
+case- and policy-specific. A mentioned appeal is not an authenticated precedent.
+The privacy-redacted source attachment is tracked separately in #845; until that
+source is published, its source_path is unavailable and must not be called read.

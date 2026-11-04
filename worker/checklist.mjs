@@ -1,3 +1,5 @@
+import { OBJECTION_PATTERNS, PATTERN_RULES } from "./objection-patterns.mjs";
+
 // Review checklist for outside AIs. Static public text, no fetches.
 // Only items with a named source are stated as requirements. Everything else is a
 // review question for the reader, not a claim about what the law requires.
@@ -8,7 +10,9 @@ const JUDG = "judgment";
 const NONE = "none established: review question, do not present as a legal requirement";
 
 export const CHECKLIST = {
-  version: 1,
+  version: 2,
+  learned_patterns: OBJECTION_PATTERNS,
+  learned_pattern_rules: PATTERN_RULES,
   purpose: "What to check before calling a plan review finished. The connector holds metadata (name, status, dates, area, a map point) plus published reviews, not the plan documents.",
   tagging_rule: "Tag every factual claim [verified: <where>] or [unverified: <what is missing>]. Use [read from: <field or tool>] for connector data. Put opinions on lines starting with 'judgment:'. Never fill a gap with a guess or a general-knowledge figure.",
   derived_deadline_rule: "objection_deadline_derived_60d_from_publication is computed, not official. Say so next to every deadline. The official date is in the signed deposit notice on the plan's Mavat page. depositing_date is the committee's deposit decision date and is not the publication date.",
@@ -43,6 +47,7 @@ export const PROMPT = {
 export function promptText(pl) {
   return `Review plan ${pl}. Call get_plan, then get_review_checklist, then get_review if a published review exists. ` +
     "Go through every checklist item. Tag each factual claim [verified: where] or [unverified: what is missing] and [read from: field/tool] for connector data. " +
+    "Apply learned_patterns only after their applicability and evidence gates; cite the forum page as a review lead, not as proof or law. Distinguish objection from appeal. " +
     "Keep judgment on lines starting 'judgment:'. Do not invent figures. Say which derived dates are not official. " +
     "End with open questions and what you still cannot see.";
 }
