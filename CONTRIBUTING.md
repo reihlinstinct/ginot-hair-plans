@@ -37,7 +37,8 @@ Everything in this repo is public - treat it that way.
 ## Project layout
 
 - `src/ginot/` - site generation (`page.py`), diffing, selection logic.
-- `scripts/` - data pipelines: `refresh.py` (weekly plans refresh),
+- `src/ginot/refresh.py` - weekly plans refresh orchestration.
+- `scripts/` - data pipelines:
   `mirror_ingest.py` (over.org.il permit mirror), `vpn/permit_feed.py` +
   `vpn/permit_enrich.py` (municipality permit feed over an owner-operated
   VPN), `vpn/l2tp.py` (tunnel management with sanitized logging).
@@ -147,3 +148,16 @@ The same scheme is used in every public repo. Do not add parallel label schemes.
 3. Skip anything with `status: blocked`, `status: held` or `status: in-progress`.
 4. Comment "taking this" on the issue, then work from a fork and open a PR that references it.
 Collaboration docs (working with Tab, phishing handling, the shared label scheme) live in https://github.com/reihlinstinct/collaboration-docs.
+
+## Folder structure
+
+`.repo-layout.yml` is the machine-readable directory/file-type policy.
+There are no allowed root-level Python files. Put importable application code in
+`src/ginot/`, maintenance commands in `scripts/`, and tests in `tests/`.
+Plan placement before adding a file, and update this policy for a deliberate new
+file type or directory. CI runs `python scripts/ci/check_repo_layout.py` on every
+tracked file before lint/tests. The guard fails on missing/invalid policy or Git metadata. It also runs through
+pytest with mutation coverage. The implementation is ported from geni-uploader
+`tools/check_repo_layout.py`; Ginot keeps CI commands under `scripts/ci/`.
+Tracked filenames are read with NUL separators so Hebrew, spaces and newlines
+are handled without Git quoting errors.

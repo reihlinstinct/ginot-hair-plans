@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "comment": "Full repository layout contract, ported from geni-uploader .repo-layout.yml. JSON syntax is valid YAML and uses only the standard library. All tracked directories and file types are checked; no root Python exceptions.",
+  "required": [
+    "README.md",
+    "LICENSE",
+    "CONTRIBUTING.md",
+    "SECURITY.md",
+    "ACCESSIBILITY.md",
+    ".github/CODEOWNERS",
+    ".github/ISSUE_TEMPLATE/",
+    "src/ginot/",
+    "scripts/ci/",
+    "tests/",
+    ".github/PULL_REQUEST_TEMPLATE.md"
+  ],
+  "root": {
+    "allow": [
+      ".coveragerc",
+      ".gitattributes",
+      ".gitignore",
+      "ACCESSIBILITY.md",
+      "CHANGELOG.md",
+      "CODE_OF_CONDUCT.md",
+      "CONTRIBUTING.md",
+      "LICENSE",
+      "README.md",
+      "SECURITY.md",
+      "WORKING-WITH-CLAUDE.md",
+      "mypy.ini",
+      "pytest.ini",
+      "requirements.txt",
+      "ruff.toml",
+      ".repo-layout.yml"
+    ],
+    "deny": [
+      "*.py"
+    ]
+  },
+  "directories": {
+    ".github": {
+      "purpose": "Workflows, issue templates and CI metadata",
+      "allow": [
+        "*.json",
+        "*.md",
+        "*.yml",
+        "CODEOWNERS"
+      ]
+    },
+    "src": {
+      "purpose": "Importable application package and bundled web assets",
+      "allow": [
+        "*.css",
+        "*.js",
+        "*.py",
+        "LICENSE"
+      ]
+    },
+    "scripts": {
+      "purpose": "Maintenance, ingestion and CI entrypoints",
+      "allow": [
+        "*.py",
+        "*.sh"
+      ]
+    },
+    "tests": {
+      "purpose": "Automated tests and fixtures",
+      "allow": [
+        "*.md",
+        "*.py"
+      ]
+    },
+    "data": {
+      "purpose": "Structured planning and application inputs",
+      "allow": [
+        "*.geojson",
+        "*.json"
+      ]
+    },
+    "design": {
+      "purpose": "Design notes",
+      "allow": [
+        "*.md"
+      ]
+    },
+    "docs": {
+      "purpose": "Published static site and public reviews",
+      "allow": [
+        "*.css",
+        "*.gz",
+        "*.html",
+        "*.ico",
+        "*.jpeg",
+        "*.jpg",
+        "*.js",
+        "*.json",
+        "*.md",
+        "*.pdf",
+        "*.png",
+        "*.svg",
+        "*.txt",
+        "*.webp",
+        "*.xml",
+        ".nojekyll",
+        "LICENSE"
+      ]
+    },
+    "man": {
+      "purpose": "Generated section-1 manuals",
+      "allow": [
+        "*.1"
+      ]
+    },
+    "out": {
+      "purpose": "Generated exports",
+      "allow": [
+        "*.csv",
+        "*.json",
+        "*.xlsx"
+      ]
+    },
+    "plans": {
+      "purpose": "Per-plan source documents and analysis",
+      "allow": [
+        "*.docx",
+        "*.dwg",
+        "*.dxf",
+        "*.json",
+        "*.kml",
+        "*.md",
+        "*.pdf",
+        "*.txt",
+        "*.xls",
+        "*.zip"
+      ]
+    },
+    "reference": {
+      "purpose": "Published reference documents",
+      "allow": [
+        "*.md",
+        "*.pdf"
+      ]
+    },
+    "releases": {
+      "purpose": "Release notes",
+      "allow": [
+        "*.md"
+      ]
+    },
+    "snapshots": {
+      "purpose": "Versioned data snapshots",
+      "allow": [
+        "*.json"
+      ]
+    },
+    "worker": {
+      "purpose": "JavaScript edge worker and deployment settings",
+      "allow": [
+        "*.md",
+        "*.mjs",
+        "*.toml"
+      ]
+    }
+  }
+}

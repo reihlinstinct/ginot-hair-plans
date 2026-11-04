@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
 """Weekly refresh: query iplan for plans in the Ginot HaIr council polygon,
 build CSV/XLSX, diff against the previous snapshot, render the static site.
 
 Usage:
-  python refresh.py [--council data/council_ginot_hair.geojson] [--out out/] [--site site/]
+  PYTHONPATH=src python -m ginot.refresh [--council data/council_ginot_hair.geojson] [--out out/] [--site site/]
 
 The refresh is designed to run from any free scheduler (see README): it is a
 plain script with no GitHub Actions dependency.
@@ -13,7 +12,6 @@ import json
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
 from shapely.geometry import shape
 
 from ginot import diff, iplan, outputs, page, tracking

@@ -11,7 +11,7 @@ from ginot.cli_spec import COMMANDS, man_page, parser_for
 
 ROOT = Path(__file__).resolve().parents[1]
 ENTRYPOINTS = {
-    "ginot-refresh": ["refresh.py"],
+    "ginot-refresh": ["-m", "ginot.refresh"],
     "ginot-land-feed": ["scripts/land_feed.py"],
     "ginot-mcp-server": ["-m", "ginot.mcp_server"],
 }

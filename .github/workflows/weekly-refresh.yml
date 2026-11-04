@@ -4,7 +4,7 @@ name: Weekly data refresh (iplan + land.gov.il)
 #   1. scripts/land_feed.py - Israel Land Authority TabaSearch public API:
 #      per-plan deposit-publication status + status date (the statutory
 #      objection-clock start) for every plan in the table.
-#   2. refresh.py - the iplan ArcGIS refresh; merges the land feed into
+#   2. ginot.refresh - the iplan ArcGIS refresh; merges the land feed into
 #      each row (deadline = latest publication + 60d, Planning and
 #      Building Law s.102), rebuilds CSV/XLSX/snapshots and the Pages site.
 # Changes are staged as a PR for independent review, exact-head Claude review
@@ -76,7 +76,7 @@ jobs:
         run: python3 -u scripts/land_feed.py
 
       - name: Run iplan refresh and render the site
-        run: python3 -u refresh.py
+        run: PYTHONPATH=src python3 -u -m ginot.refresh
 
       - name: Stage changes as a PR for review
         env:

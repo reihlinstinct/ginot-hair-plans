@@ -4,7 +4,7 @@ import argparse
 
 COMMANDS = {
     "ginot-refresh": {
-        "entrypoint": "python3 refresh.py",
+        "entrypoint": "PYTHONPATH=src python3 -m ginot.refresh",
         "summary": "Refresh public plans and render the static site.",
         "details": "Queries public planning services and writes snapshots, exports and site files. "
         "Run from the repository root with the project dependencies installed. "

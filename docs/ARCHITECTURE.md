@@ -19,7 +19,7 @@ out/*.csv|xlsx, snapshots/latest.json, out/changes.json
    v
 static site: index.html (entry order), feed.xml, data.json [src/ginot/page.py]
    ^
-   |  weekly Tuesday orchestration         [refresh.py + external scheduler]
+   |  weekly Tuesday orchestration         [ginot.refresh + external scheduler]
 ```
 
 Data flows one way: public iplan data in, derived artifacts out. The only

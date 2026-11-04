@@ -1,4 +1,4 @@
-"""End-to-end: refresh.py on synthetic iplan features -> every public artifact.
+"""End-to-end: ginot.refresh on synthetic iplan features -> every public artifact.
 
 iplan (network) is stubbed with fixed features; everything after it runs for
 real: rows, CSV/XLSX, plan.json files, snapshot diff, site, feed, badges.
@@ -19,8 +19,7 @@ import pytest
 ROOT = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
-import refresh
-from ginot import dwg, iplan, tracking
+from ginot import dwg, iplan, refresh, tracking
 
 MS_DAY = 86400 * 1000
 BASE_MS = int(
@@ -83,7 +82,7 @@ def run_refresh(monkeypatch, tmp):
         sys,
         "argv",
         [
-            "refresh.py",
+            "ginot.refresh",
             "--council",
             "data/council.geojson",
             "--out",
