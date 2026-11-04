@@ -274,6 +274,17 @@ def test_executive_internal_anchors_resolve_and_forum_link_is_current():
     )
 
 
+def government_host(hostname):
+    return hostname == "gov.il" or hostname.endswith(".gov.il")
+
+
+def test_government_host_boundaries():
+    for host in ("gov.il", "www.gov.il", "mavat.iplan.gov.il", "apps.land.gov.il"):
+        assert government_host(host)
+    for host in ("notgov.il", "gov.il.invalid", "example.com", ""):
+        assert not government_host(host)
+
+
 def test_government_source_links_use_https():
     import re
     from urllib.parse import urlsplit
@@ -286,7 +297,7 @@ def test_government_source_links_use_https():
     ):
         text = (ROOT / name).read_text(encoding="utf-8")
         links = [urlsplit(url) for url in re.findall(r'https?://[^\s<>"()]+', text)]
-        government = [url for url in links if url.hostname == "www.gov.il"]
+        government = [url for url in links if government_host(url.hostname or "")]
         assert government
         assert all(url.scheme == "https" for url in government)
 
