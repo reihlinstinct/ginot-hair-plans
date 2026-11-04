@@ -79,7 +79,7 @@ human reviewer.
    About + data sources + datasets list on a separate generated page;
    plus Atom `feed.xml`, `data.json`, and shields badge endpoints under
    `badge/` (including per-status plan-count badges).
-8. `refresh.py` - weekly one-shot orchestration of all of the above.
+8. `src/ginot/refresh.py` - weekly one-shot orchestration of all of the above.
 
 ## Mirrors
 
@@ -112,7 +112,7 @@ already-reviewed data. See the
 ## Run it yourself
 
     pip install -r requirements.txt
-    python3 refresh.py          # writes out/, docs/, snapshots/latest.json
+    PYTHONPATH=src python3 -m ginot.refresh          # writes out/, docs/, snapshots/latest.json
     python3 -m pytest -q        # current unit/integration suite; browser jobs are separate
 
 See [CHANGELOG.md](CHANGELOG.md) for notable changes. Only re-deriving the boundary from a fresh DWG export needs LibreDWG's
@@ -319,7 +319,7 @@ No synonym/alias matching is added (#468 is separate).
 
 ### Public CLI help and Linux manuals
 
-The supported public commands are `python3 refresh.py`,
+The supported public commands are `PYTHONPATH=src python3 -m ginot.refresh`,
 `python3 scripts/land_feed.py` and `PYTHONPATH=src python3 -m ginot.mcp_server`.
 Run each with `--help` for its options and defaults, without running a refresh,
 fetch or server. Run from the repository root with `requirements.txt` installed;

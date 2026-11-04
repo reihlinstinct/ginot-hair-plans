@@ -3,7 +3,6 @@ branch = True
 source =
     src
     scripts
-    refresh
 omit =
     */__init__.py
 

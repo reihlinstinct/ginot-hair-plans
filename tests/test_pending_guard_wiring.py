@@ -51,6 +51,7 @@ def test_guard_job_is_read_only_and_uses_the_pushed_prefix(name, job, var, prefi
         "l2tp",
         "git push",
         "refresh.py",
+        "ginot.refresh",
         "mirror_ingest",
         "mavat_check",
     ):

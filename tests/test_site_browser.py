@@ -1,6 +1,6 @@
 """Headless-browser tests of the built site (issue #106).
 
-The site is built by the real pipeline (refresh.py) from a fixed synthetic
+The site is built by the real pipeline (ginot.refresh) from a fixed synthetic
 dataset, then opened in Chromium via Playwright and driven like a user:
 filters, legend chips, sorting, the active-only default, dd.mm.yy dates,
 permit deep links, footer/About links and expected row counts.
@@ -29,7 +29,7 @@ import evidence  # issue #422: per-test E2E evidence capture
 ROOT = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT))
-import refresh
+from ginot import refresh
 from ginot.dates import today_il
 
 # The page's "today" is Asia/Jerusalem (_todayIL); fixtures use the same clock.
@@ -144,7 +144,7 @@ def site(tmp_path_factory):
         sys,
         "argv",
         [
-            "refresh.py",
+            "ginot.refresh",
             "--council",
             "data/council.geojson",
             "--out",
@@ -1088,7 +1088,7 @@ def real_site(tmp_path_factory):
         sys,
         "argv",
         [
-            "refresh.py",
+            "ginot.refresh",
             "--council",
             "data/council.geojson",
             "--out",
