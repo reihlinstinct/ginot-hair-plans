@@ -230,8 +230,8 @@ test("tools/list includes the checklist tool", () => {
 
 test("#846: forum learning is returned by checklist and requires evidence, not automatic objections", () => {
   const r = callTool(data, "get_review_checklist", {});
-  assert.equal(r.learned_patterns.length, 10);
-  assert.equal(new Set(r.learned_patterns.map(p => p.id)).size, 10);
+  assert.equal(r.learned_patterns.length, 13);
+  assert.equal(new Set(r.learned_patterns.map(p => p.id)).size, 13);
   for (const p of r.learned_patterns) {
     assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
     assert.ok(p.cases.length && p.evidence_needed.length >= 3);
@@ -247,7 +247,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
   }
   assert.match(r.learned_pattern_rules.procedure, /Separate.*objection.*appeal/);
   assert.match(r.learned_pattern_rules.deadlines, /Never calculate or replace/);
-  assert.match(r.learned_pattern_rules.purpose, /one forum meeting/);
+  assert.match(r.learned_pattern_rules.purpose, /two forum meetings/);
   assert.match(promptText("101-1377753"), /learned_patterns.*evidence gates/);
 });
 
@@ -295,4 +295,23 @@ test("forum values match the privacy-reviewed public baseline", () => {
   const injected = structuredClone(leads);
   injected[0].check += " SYNTHETIC_PRIVATE_VALUE";
   assert.throws(() => checkValues(injected), /privacy review required/);
+});
+
+
+test("#848: November source observations preserve no-objection and construction-stage evidence gates", () => {
+ const r = callTool(data, "get_review_checklist", {});
+ const get = id => r.learned_patterns.find(p => p.id === id);
+ assert.equal(get("fences-sidewalks").observations.length, 2);
+ assert.deepEqual(get("public-passage-continuity").cases, ["2026/0439.00"]);
+ assert.match(get("public-passage-continuity").check, /age alone does not prove/);
+ assert.match(get("construction-stage-sidewalk").check, /during works/);
+ const no = get("proportionate-no-objection-option");
+ assert.deepEqual(no.cases, ["101-1488261"]);
+ assert.match(no.check, /decision not to object/);
+ assert.match(no.check, /not owner approval/);
+ assert.equal(no.source.id, "urban-forum-2026-11-04");
+ for (const p of r.learned_patterns) for (const o of p.observations) {
+  assert.ok(o.pages.length && o.cases.length);
+  assert.ok(o.pages.every(n => n > 0 && n <= (o.source.id.endsWith("11-04") ? 3 : 7)));
+ }
 });

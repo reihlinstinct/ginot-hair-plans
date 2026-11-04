@@ -11,7 +11,7 @@ def test_exact_cases_and_permit_not_plan():
     for case in ("101-1389568", "101-1377753", "1993/0664.03"):
         assert "summary-redacted.pdf" in _community_source_link(case)
         assert "לא הודעה רשמית" in _community_source_link(case)
-    assert _community_source_link("101-1488261") == ""
+    assert "forum-2026-10-14" not in _community_source_link("101-1488261")
     assert _community_source_link("1993/0664.02") == ""
     assert "summary-redacted.pdf" in _permit_review_cell("1993/0664.03")
     assert "סקירת AI</a>" not in _permit_review_cell("1993/0664.03")

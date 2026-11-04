@@ -647,15 +647,23 @@ def write_permit_ids(permits: list[dict], path: str) -> int:
 # Curated community sources, distinct from AI reviews and official notices.
 COMMUNITY_SOURCE_CASES = frozenset({"101-1389568", "101-1377753", "1993/0664.03"})
 COMMUNITY_SOURCE_URL = "reviews/forum-2026-10-14/summary-redacted.pdf"
+COMMUNITY_SOURCE_RECORDS = (
+    (COMMUNITY_SOURCE_CASES, COMMUNITY_SOURCE_URL, "14.10.26"),
+    (
+        frozenset({"101-1377753", "2026/0439.00", "101-1488261"}),
+        "reviews/forum-2026-11-04-source/summary-redacted.pdf",
+        "04.11.26",
+    ),
+)
 
 
 def _community_source_link(case_id):
-    if case_id not in COMMUNITY_SOURCE_CASES:
-        return ""
-    return (
-        f" <a class='community-source' href='{COMMUNITY_SOURCE_URL}' "
-        "title='סיכום פורום 14.10.2026, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
-        "סיכום פורום 14.10.26</a>"
+    return "".join(
+        f" <a class='community-source' href='{url}' "
+        f"title='סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
+        f"סיכום פורום {date}</a>"
+        for cases, url, date in COMMUNITY_SOURCE_RECORDS
+        if case_id in cases
     )
 
 

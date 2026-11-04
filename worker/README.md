@@ -97,11 +97,15 @@ labelled "external AI review, unverified"; they never replace or edit existing r
 ### Forum-derived review patterns (#846)
 
 `get_review_checklist` includes `learned_patterns` and `learned_pattern_rules` from
-`objection-patterns.mjs`. Ten curated leads from the 14 October 2026 meeting carry
+`objection-patterns.mjs`. Thirteen curated leads from the 14 October and 4 November 2026 meetings carry
 source page(s), case identifiers, evidence needed and applicability gates. This is
 learning for future review questions, not a claim about frequency, proof of a
 violation, a binding rule, or authority to object/file. Numerical limits remain
 case- and policy-specific. A mentioned appeal is not an authenticated precedent.
-The privacy-redacted source attachment is published on main via #849 (issue #845).
-Each source_path is repository-relative, including the docs/ prefix. A source
-being available does not establish that its contents have been read.
+The October privacy-redacted source is published via #849 (issue #845); the
+November privacy-redacted source is added in #848. Each source_path is
+repository-relative, including the docs/ prefix. A source being available does
+not establish that its contents have been read.
+The November summary (#848) adds per-source observations, public-passage and
+construction-stage checks, and the forum's recorded no-objection Inbal example.
+That outcome is not user permission or a plan approval.
