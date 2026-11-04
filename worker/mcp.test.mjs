@@ -257,7 +257,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
 test("forum public schema excludes identity and assignment fields", () => {
   const allowedPattern = ["id", "source", "pages", "cases", "check", "evidence_needed",
     "status", "legal_effect", "use_gate", "observations"];
-  const allowedSource = ["id", "title", "document_date", "source_path", "source_kind"];
+  const allowedSource = ["id", "title", "meeting_date", "document_date", "source_path", "source_kind"];
   const checkKeys = (value, allowed) => {
     for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
   };
@@ -299,7 +299,7 @@ test("forum public schema excludes identity and assignment fields", () => {
 // Hash the complete reviewed public output, never low-entropy private tokens.
 // Any source/value update requires privacy review before this baseline changes.
 test("forum values match the privacy-reviewed public baseline", () => {
-  const expected = "035bebd44a00c3e109f4ea1bf12822a916460b3052f4feaa34c305ea5ccebc33";
+  const expected = "814cbdc2f6a329fb3a31e738ace676058746f40bccf73bb2a62fce2ee5d927d0";
   const digest = value => createHash("sha256").update(JSON.stringify(value)).digest("hex");
   const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
   const checkValues = value => assert.equal(digest(value), expected, "Public forum values changed: privacy review required");
@@ -326,4 +326,15 @@ test("#848: November source observations preserve no-objection and construction-
   assert.ok(o.pages.length && o.cases.length);
   assert.ok(o.pages.every(n => n > 0 && n <= (o.source.id.endsWith("11-04") ? 3 : 7)));
  }
+});
+
+test("forum meeting date is separate from document date", () => {
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  const sources = new Map(leads.flatMap(p => p.observations.map(o => [o.source.id, o.source])));
+  const october = sources.get("urban-forum-2026-10-14");
+  assert.equal(october.meeting_date, "2026-10-14");
+  assert.equal(october.document_date, "2026-11-04");
+  const november = sources.get("urban-forum-2026-11-04");
+  assert.equal(november.meeting_date, "2026-11-04");
+  assert.equal(november.document_date, "2026-11-04");
 });
