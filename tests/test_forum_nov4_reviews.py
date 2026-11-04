@@ -178,3 +178,109 @@ def test_municipal_original_gaps_are_explicit_and_not_policy_page_claims():
         "חסימת 403",
     ):
         assert term in text
+
+
+def test_professional_executive_summaries_precede_explanation_and_link_drawings():
+    p41 = (ROOT / "docs/reviews/palmach41/focused-2026-11-04.md").read_text()
+    inbal = (
+        ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
+    ).read_text()
+    heading = "## תקציר מנהלים: בדיקות בתכניות למהנדס"
+    assert p41.index(heading) < p41.index("**שורה תחתונה:")
+    assert inbal.index(heading) < inbal.index("## המועד האחרון:")
+    for term in (
+        "#drawing-form22",
+        "#drawing-survey",
+        "#drawing-access",
+        "#drawing-floor2",
+        "טבלה 2.1.5",
+        "793.59",
+        "796.69",
+        "3,425.36",
+        '80 ס"מ',
+    ):
+        assert term in p41
+    for term in (
+        "#inbal-drawings",
+        "#inbal-operation",
+        "מונה 11",
+        "עמ' 9, טבלה 3.2",
+        "1977/0463.12",
+    ):
+        assert term in inbal
+
+
+def test_executive_drawings_are_real_assets_and_schematics_are_labelled():
+    from PIL import Image
+
+    folder = ROOT / "docs/reviews/forum-2026-11-04-assets"
+    p41 = (ROOT / "docs/reviews/palmach41/focused-2026-11-04.md").read_text()
+    inbal = (
+        ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
+    ).read_text()
+    for name in (
+        "p41-survey.png",
+        "p41-form22.png",
+        "p41-ramp.png",
+        "p41-apron.png",
+        "p41-floor2.png",
+        "p41-level-check.png",
+        "p41-coverage-check.png",
+        "inbal-operation-check.png",
+    ):
+        image = Image.open(folder / name)
+        assert image.width >= 1000
+        assert not image.getexif()
+        assert not any(
+            key in image.info
+            for key in ("exif", "icc_profile", "XML:com.adobe.xmp", "Comment")
+        )
+        assert name in p41 + inbal
+    assert "מספר גיליון לא זוהה" in p41
+    assert "לא רוחב המדרכה" in p41
+    assert "תרשים סכמטי" in p41 and "תרשים סכמטי" in inbal
+
+
+def test_executive_internal_anchors_resolve_and_forum_link_is_current():
+    from html.parser import HTMLParser
+
+    class Anchors(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.ids = set()
+            self.links = []
+
+        def handle_starttag(self, tag, attrs):
+            values = dict(attrs)
+            if "id" in values:
+                self.ids.add(values["id"])
+            if tag == "a" and values.get("href", "").startswith("#"):
+                self.links.append(values["href"][1:])
+
+    for name in (
+        "palmach41/focused-2026-11-04.html",
+        "talking_points_101-1488261.html",
+    ):
+        parser = Anchors()
+        parser.feed((ROOT / "docs/reviews" / name).read_text())
+        assert all(target in parser.ids for target in parser.links)
+    text = (
+        ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
+    ).read_text()
+    assert "20e85bf5be20cdc024adb954d065c02c6178dc86" not in text
+    assert (
+        "https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04.html"
+        in text
+    )
+
+
+def test_government_source_links_use_https():
+    for name in (
+        "docs/reviews/palmach41/focused-2026-11-04.md",
+        "docs/reviews/palmach41/focused-2026-11-04.html",
+        "plans/101-1488261/analysis/talking_points_101-1488261.md",
+        "docs/reviews/talking_points_101-1488261.html",
+    ):
+        text = (ROOT / name).read_text()
+        assert "http://www.gov.il/" not in text
+        assert "https://www.gov.il/" in text
