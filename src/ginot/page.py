@@ -644,6 +644,21 @@ def write_permit_ids(permits: list[dict], path: str) -> int:
     return len(ids)
 
 
+# Curated community sources, distinct from AI reviews and official notices.
+COMMUNITY_SOURCE_CASES = frozenset({"101-1389568", "101-1377753", "1993/0664.03"})
+COMMUNITY_SOURCE_URL = "reviews/forum-2026-10-14/summary-redacted.pdf"
+
+
+def _community_source_link(case_id):
+    if case_id not in COMMUNITY_SOURCE_CASES:
+        return ""
+    return (
+        f" <a class='community-source' href='{COMMUNITY_SOURCE_URL}' "
+        "title='סיכום פורום 14.10.2026, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
+        "סיכום פורום 14.10.26</a>"
+    )
+
+
 # Only already-published public reviews are linked. External/unreviewed
 # submissions never become table links automatically.
 PERMIT_AI_REVIEWS = {
@@ -653,9 +668,13 @@ PERMIT_AI_REVIEWS = {
 
 def _permit_review_cell(tik_num):
     url = PERMIT_AI_REVIEWS.get((tik_num or "").strip())
+    source = _community_source_link((tik_num or "").strip())
     if url:
-        return f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
-    return '<span class="derived">טרם פורסמה סקירה</span>'
+        return (
+            f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
+            + source
+        )
+    return '<span class="derived">טרם פורסמה סקירה</span>' + source
 
 
 def _is_default_permit_candidate(
@@ -1463,12 +1482,13 @@ def render_index(
 
     def review_cell(r):
         url = reviews.get(r["pl_number"])
+        source = _community_source_link(r["pl_number"])
         if not url:
-            return "—"
+            return source or "—"
         return (
             f"<a class='ai-review' href='{_e(url)}' "
             f"title='סיכום נקודות לדיון שהופק באמצעות AI - אינו מסמך רשמי'>סקירה</a>"
-        )
+        ) + source
 
     def tr(r):
         search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
