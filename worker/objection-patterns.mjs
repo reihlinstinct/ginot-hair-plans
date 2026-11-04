@@ -4,7 +4,7 @@ const SOURCE = {
   id: "urban-forum-2026-10-14",
   title: "Ginot HaIr Urban Forum summary, meeting 14 October 2026",
   document_date: "2026-11-04",
-  source_path: "reviews/forum-2026-10-14/summary-redacted.pdf",
+  source_path: "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
   source_kind: "community_forum_summary",
 };
 const D = "101-1389568", P = "101-1377753", A = "1993/0664.03";
@@ -43,7 +43,7 @@ export const OBJECTION_PATTERNS = [
   pattern("preservation-no-reconstruction-assumption", [2,3,5], [A],
     "Verify the preservation designation and restrictions on demolition, dismantling/reassembly, additions and building lines. A cited appeal at Rachel Imenu 17 is only a lead until its actual decision and applicability are checked.",
     ["9988 provisions and preservation map", "municipal conservation card and committee decision", "existing/proposed demolition drawing", "original appeal decision, case number and applicability"]),
-  pattern("notice-versus-drawings", [5,6], [A],
+  pattern("notice-versus-drawings", [5], [A],
     "Compare the notice's demolition, floors and units with every frontage/section and roof access. The forum alleges inaccurate publication and requests cancellation/republication; neither a procedural defect nor a remedy is verified from that allegation alone.",
     ["full dated signed notice and publication evidence", "current binding provisions, sections and roof plan", "official decision on publication sufficiency or remedy"]),
 ];

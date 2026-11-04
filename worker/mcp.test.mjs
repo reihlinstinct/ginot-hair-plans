@@ -235,7 +235,7 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
     assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
     assert.ok(p.cases.length && p.evidence_needed.length >= 3);
     assert.equal(p.source.source_kind, "community_forum_summary");
-    assert.match(p.source.source_path, /summary-redacted\.pdf$/);
+    assert.equal(p.source.source_path, "docs/reviews/forum-2026-10-14/summary-redacted.pdf");
     assert.equal(p.status, "review_lead_not_verified_finding");
     assert.match(p.use_gate, /applicability|applicable/);
     assert.match(p.use_gate, /Do not transfer numeric/);

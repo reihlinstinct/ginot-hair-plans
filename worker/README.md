@@ -102,5 +102,6 @@ source page(s), case identifiers, evidence needed and applicability gates. This 
 learning for future review questions, not a claim about frequency, proof of a
 violation, a binding rule, or authority to object/file. Numerical limits remain
 case- and policy-specific. A mentioned appeal is not an authenticated precedent.
-The privacy-redacted source attachment is tracked separately in #845; until that
-source is published, its source_path is unavailable and must not be called read.
+The privacy-redacted source attachment is published on main via #849 (issue #845).
+Each source_path is repository-relative, including the docs/ prefix. A source
+being available does not establish that its contents have been read.
