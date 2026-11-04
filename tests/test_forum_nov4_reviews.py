@@ -48,13 +48,19 @@ def test_forum_local_links_resolve():
                 self.links += [v for k, v in attrs if k == "href"]
 
     folder = ROOT / "docs/reviews"
-    for page in ("forum-2026-11-04.html", "talking_points_101-1488261.html"):
+    for page in (
+        "forum-2026-11-04.html",
+        "talking_points_101-1488261.html",
+        "palmach41/focused-2026-11-04.html",
+    ):
         parser = Links()
         parser.feed((folder / page).read_text(encoding="utf-8"))
         for href in parser.links:
             if href.startswith(("http:", "https:", "#", "mailto:")):
                 continue
-            assert (folder / href.split("#")[0]).resolve().is_file(), href
+            assert (
+                (folder / page).parent.joinpath(href.split("#")[0]).resolve().is_file()
+            ), href
 
 
 def test_masterplan_comparison_marks_departures_and_limits():
@@ -96,3 +102,79 @@ def test_plan_drawings_have_provenance_and_safe_assets():
         )
     assert "inbal-site.png" in inbal and "inbal-south.png" in inbal
     assert "max-width:100%;height:auto" in inbal
+
+
+def test_refined_palmach_policy_review_keeps_scope_and_measurement_limits():
+    folder = ROOT / "docs/reviews/palmach41"
+    md = (folder / "focused-2026-11-04.md").read_text(encoding="utf-8")
+    html = (folder / "focused-2026-11-04.html").read_text(encoding="utf-8")
+    for text in (md, html):
+        for page in (12, 13, 14, 25, 26, 27, 50, 51, 53):
+            assert f"hanchayot.pdf#page={page}" in text
+        assert "767.40" in text and "762.50" in text
+        assert "26.19" in text and "31.09" in text
+        assert "בבניינים קיימים" in text
+        assert "אין לאחד מכנים שונים" in text
+        assert "אינה עוצרת" in text
+        assert "לא נוסח מאושר למשלוח" in text
+        assert "13.11.2026" in text
+        assert "אינם בהכרח 42 רכבים חדשים" in text
+        assert "מנהל תקין" in text
+        assert "palmach41-section22.png" in text
+    assert 'lang="he" dir="rtl"' in html
+    assert "focused-2026-11-04.html" in (
+        ROOT / "docs/reviews/forum-2026-11-04.html"
+    ).read_text(encoding="utf-8")
+
+
+def test_refined_inbal_page_references_and_area_not_building_rights():
+    md = (ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md").read_text(
+        encoding="utf-8"
+    )
+    html = (ROOT / "docs/reviews/talking_points_101-1488261.html").read_text(
+        encoding="utf-8"
+    )
+    for text in (md, html):
+        for term in (
+            "מפתח עמודים",
+            "עמ' 6",
+            "עמ' 9",
+            "עמ' 10",
+            "עמ' 12",
+            "1977/0463.12",
+            "טבלת שטחי ייעוד קרקע",
+            "לא טבלת זכויות בנייה",
+            "מנהל תקין",
+            "אינה עוצרת כשלעצמה",
+            "מסלול ערר",
+            "101-0193193",
+        ):
+            assert term in text
+
+
+def test_refined_palmach_html_contains_complete_markdown_body():
+    import markdown
+
+    folder = ROOT / "docs/reviews/palmach41"
+    md = (folder / "focused-2026-11-04.md").read_text(encoding="utf-8")
+    html = (folder / "focused-2026-11-04.html").read_text(encoding="utf-8")
+    assert markdown.markdown(md, extensions=["sane_lists", "fenced_code"]) in html
+
+
+def test_municipal_original_gaps_are_explicit_and_not_policy_page_claims():
+    text = (ROOT / "docs/reviews/palmach41/focused-2026-11-04.md").read_text(
+        encoding="utf-8"
+    )
+    for term in (
+        "מקור משני",
+        "לא נפתחו מחדש",
+        "לא עמודים ולא מספרי גיליונות",
+        "מסמך 11",
+        "מסמך 12",
+        "מסמך 24",
+        "16E57A23-0D2B-464C-ACAD-30895F07B87D",
+        "1B904968-6923-4446-9CFD-23FD04F1E91C",
+        "5D3BD126-6D0F-42D0-80A8-F3D6B714DB2A",
+        "חסימת 403",
+    ):
+        assert term in text
