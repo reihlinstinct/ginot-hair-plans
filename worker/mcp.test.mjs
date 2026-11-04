@@ -189,7 +189,7 @@ test("get_plan adds the public representative point when available, and works wi
   assert.match((await r.json()).result.content[0].text, /"representative_point_lon_lat":\[1,2\]/);
 });
 
-import { CHECKLIST, SRC_GOV } from "./checklist.mjs";
+import { CHECKLIST, SRC_GOV, promptText } from "./checklist.mjs";
 
 test("checklist tool: read-only static, tagging rule, every item classified and sourced or marked unsourced", () => {
   const r = callTool(data, "get_review_checklist", {});
@@ -224,4 +224,26 @@ test("prompts: list, get with valid plan, reject bad plan; capability advertised
 test("tools/list includes the checklist tool", () => {
   const l = rpc(data, { jsonrpc: "2.0", id: 5, method: "tools/list" });
   assert.ok(l.result.tools.some((t) => t.name === "get_review_checklist"));
+});
+
+
+test("#846: forum learning is returned by checklist and requires evidence, not automatic objections", () => {
+  const r = callTool(data, "get_review_checklist", {});
+  assert.equal(r.learned_patterns.length, 10);
+  assert.equal(new Set(r.learned_patterns.map(p => p.id)).size, 10);
+  for (const p of r.learned_patterns) {
+    assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
+    assert.ok(p.cases.length && p.evidence_needed.length >= 3);
+    assert.equal(p.source.source_kind, "community_forum_summary");
+    assert.equal(p.source.source_path, "docs/reviews/forum-2026-10-14/summary-redacted.pdf");
+    assert.equal(p.status, "review_lead_not_verified_finding");
+    assert.match(p.use_gate, /applicability|applicable/);
+    assert.match(p.use_gate, /Do not transfer numeric/);
+    assert.match(p.legal_effect, /none established/);
+  }
+  assert.match(r.learned_pattern_rules.procedure, /Separate.*objection.*appeal/);
+  assert.match(r.learned_pattern_rules.deadlines, /Never calculate or replace/);
+  assert.match(r.learned_pattern_rules.purpose, /one forum meeting/);
+  assert.match(promptText("101-1377753"), /learned_patterns.*evidence gates/);
+  assert.ok(!/איליאס|רונית|מסינס|Ronit|Elias|Itai/.test(JSON.stringify(r.learned_patterns)));
 });
