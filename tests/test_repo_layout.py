@@ -20,9 +20,13 @@ CHECKER = ROOT / "scripts" / "ci" / "check_repo_layout.py"
 
 @pytest.fixture(autouse=True)
 def isolate_git_environment(monkeypatch):
-    for key in list(os.environ):
-        if key.startswith("GIT_"):
-            monkeypatch.delenv(key)
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("layout_checker", CHECKER)
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    for key in checker.GIT_LOCATION_VARIABLES:
+        monkeypatch.delenv(key, raising=False)
 
 
 def run_checker():
@@ -264,3 +268,21 @@ def test_checker_ignores_inherited_git_repository_location(tmp_path):
         env=env,
     )
     assert result.returncode == 0, result.stdout + result.stderr
+
+
+def test_git_environment_preserves_configuration(monkeypatch):
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("layout_checker", CHECKER)
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    monkeypatch.setenv("GIT_CONFIG_COUNT", "1")
+    monkeypatch.setenv("GIT_CONFIG_KEY_0", "safe.directory")
+    monkeypatch.setenv("GIT_CONFIG_VALUE_0", str(ROOT))
+    for key in checker.GIT_LOCATION_VARIABLES:
+        monkeypatch.setenv(key, "synthetic-location")
+    clean = checker.git_environment()
+    assert not checker.GIT_LOCATION_VARIABLES.intersection(clean)
+    assert clean["GIT_CONFIG_COUNT"] == "1"
+    assert clean["GIT_CONFIG_KEY_0"] == "safe.directory"
+    assert clean["GIT_CONFIG_VALUE_0"] == str(ROOT)

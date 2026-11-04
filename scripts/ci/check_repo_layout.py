@@ -47,10 +47,29 @@ def load_contract(root: Path) -> dict:
     return contract
 
 
+GIT_LOCATION_VARIABLES = frozenset(
+    {
+        "GIT_DIR",
+        "GIT_WORK_TREE",
+        "GIT_INDEX_FILE",
+        "GIT_COMMON_DIR",
+        "GIT_OBJECT_DIRECTORY",
+        "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+        "GIT_NAMESPACE",
+        "GIT_PREFIX",
+        "GIT_CEILING_DIRECTORIES",
+        "GIT_DISCOVERY_ACROSS_FILESYSTEM",
+        "GIT_IMPLICIT_WORK_TREE",
+    }
+)
+
+
 def git_environment() -> dict[str, str]:
-    """Prevent caller Git variables from redirecting repository inspection."""
+    """Isolate repository location while preserving Git configuration."""
     return {
-        key: value for key, value in os.environ.items() if not key.startswith("GIT_")
+        key: value
+        for key, value in os.environ.items()
+        if key not in GIT_LOCATION_VARIABLES
     }
 
 
