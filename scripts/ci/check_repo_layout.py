@@ -19,6 +19,7 @@ from __future__ import annotations
 import argparse
 import fnmatch
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -46,10 +47,18 @@ def load_contract(root: Path) -> dict:
     return contract
 
 
+def git_environment() -> dict[str, str]:
+    """Prevent caller Git variables from redirecting repository inspection."""
+    return {
+        key: value for key, value in os.environ.items() if not key.startswith("GIT_")
+    }
+
+
 def tracked_files(root: Path) -> list[str]:
     top = subprocess.run(
         ["git", "rev-parse", "--show-toplevel"],
         cwd=root,
+        env=git_environment(),
         capture_output=True,
         text=True,
         check=False,
@@ -57,7 +66,12 @@ def tracked_files(root: Path) -> list[str]:
     if top.returncode or Path(top.stdout.strip()).resolve() != root.resolve():
         raise SystemExit("layout root must be the Git top-level directory")
     out = subprocess.run(
-        ["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True, text=True
+        ["git", "ls-files", "-z"],
+        cwd=root,
+        env=git_environment(),
+        check=True,
+        capture_output=True,
+        text=True,
     )
     return [line for line in out.stdout.split("\0") if line]
 

@@ -7,6 +7,7 @@ every top-level directory listed, per-directory type allowlists enforced.
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -15,6 +16,13 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKER = ROOT / "scripts" / "ci" / "check_repo_layout.py"
+
+
+@pytest.fixture(autouse=True)
+def isolate_git_environment(monkeypatch):
+    for key in list(os.environ):
+        if key.startswith("GIT_"):
+            monkeypatch.delenv(key)
 
 
 def run_checker():
@@ -228,3 +236,31 @@ def test_checker_rejects_non_repository_or_nested_root(tmp_path, nested):
     )
     assert result.returncode != 0
     assert "layout root must be the Git top-level directory" in result.stderr
+
+
+def test_checker_ignores_inherited_git_repository_location(tmp_path):
+    import json
+
+    (tmp_path / ".repo-layout.yml").write_text(
+        json.dumps(
+            {"version": 1, "required": [], "root": {"allow": ["*"]}, "directories": {}}
+        ),
+        encoding="utf-8",
+    )
+    subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
+    subprocess.run(["git", "add", "."], cwd=tmp_path, check=True)
+    env = dict(
+        os.environ,
+        GIT_DIR=str(ROOT / ".git"),
+        GIT_WORK_TREE=str(ROOT),
+        GIT_INDEX_FILE=str(ROOT / ".git/index"),
+        GIT_COMMON_DIR=str(ROOT / ".git"),
+    )
+    result = subprocess.run(
+        [sys.executable, str(CHECKER), "--root", str(tmp_path)],
+        capture_output=True,
+        text=True,
+        check=False,
+        env=env,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
