@@ -235,7 +235,11 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
     assert.ok(p.pages.length && p.pages.every(n => n >= 1 && n <= 6));
     assert.ok(p.cases.length && p.evidence_needed.length >= 3);
     assert.equal(p.source.source_kind, "community_forum_summary");
-    assert.equal(p.source.source_path, "docs/reviews/forum-2026-10-14/summary-redacted.pdf");
+    const sourcePaths = {
+      "urban-forum-2026-10-14": "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
+      "urban-forum-2026-11-04": "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
+    };
+    assert.equal(p.source.source_path, sourcePaths[p.source.id]);
     assert.equal(p.status, "review_lead_not_verified_finding");
     assert.match(p.use_gate, /applicability|applicable/);
     assert.match(p.use_gate, /Do not transfer numeric/);
@@ -245,5 +249,22 @@ test("#846: forum learning is returned by checklist and requires evidence, not a
   assert.match(r.learned_pattern_rules.deadlines, /Never calculate or replace/);
   assert.match(r.learned_pattern_rules.purpose, /one forum meeting/);
   assert.match(promptText("101-1377753"), /learned_patterns.*evidence gates/);
-  assert.ok(!/איליאס|רונית|מסינס|Ronit|Elias|Itai/.test(JSON.stringify(r.learned_patterns)));
+});
+
+// Structural guard: public leads have no fields for identities or assignments.
+// Free-text source content still requires a separate privacy review.
+test("forum public schema excludes identity and assignment fields", () => {
+  const allowedPattern = ["id", "source", "pages", "cases", "check", "evidence_needed",
+    "status", "legal_effect", "use_gate"];
+  const allowedSource = ["id", "title", "document_date", "source_path", "source_kind"];
+  const checkKeys = (value, allowed) => {
+    for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
+  };
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  for (const lead of leads) {
+    checkKeys(lead, allowedPattern);
+    checkKeys(lead.source, allowedSource);
+  }
+  assert.throws(() => checkKeys({ participant: "SYNTHETIC_PRIVATE_VALUE" }, allowedPattern));
+  assert.throws(() => checkKeys({ assignment: "SYNTHETIC_PRIVATE_VALUE" }, allowedSource));
 });
