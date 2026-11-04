@@ -289,3 +289,22 @@ def test_government_source_links_use_https():
         government = [url for url in links if url.hostname == "www.gov.il"]
         assert government
         assert all(url.scheme == "https" for url in government)
+
+
+def test_executive_citations_and_inbal_existing_asphalt_are_consistent():
+    for suffix in ("md", "html"):
+        text = (ROOT / f"docs/reviews/palmach41/focused-2026-11-04.{suffix}").read_text(
+            encoding="utf-8"
+        )
+        checklist = text.split("תכסית וחלחול:", 1)[1].split("לחשב כל מכנה", 1)[0]
+        assert all(f"hanchayot.pdf#page={page}" in checklist for page in (25, 13, 14))
+    for name in (
+        "plans/101-1488261/analysis/talking_points_101-1488261.md",
+        "docs/reviews/talking_points_101-1488261.html",
+    ):
+        text = (ROOT / name).read_text(encoding="utf-8")
+        assert "תוספת פיזית של כ-120" not in text
+        assert "שטח אספלט קיים של כ-120" in text
+        assert "ללא הגדלת מכסת הבנייה" in text
+        assert "הרחבת חדר האשפה אל שטח גישת המשאית הקיים" in text
+        assert "ללא גאומטריה או מפלס מאומתים" in text
