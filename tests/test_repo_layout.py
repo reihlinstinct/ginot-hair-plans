@@ -11,6 +11,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 CHECKER = ROOT / "scripts" / "ci" / "check_repo_layout.py"
 
@@ -127,14 +129,22 @@ def test_ci_layout_guard_is_unconditional_and_before_lint():
         assert "continue-on-error" not in steps[guard]
 
 
-def test_checker_handles_unicode_and_newline_tracked_names(tmp_path):
+@pytest.mark.parametrize(
+    "filename", ["תכנית מקור עם רווח.pdf", "תכנית מקור\nעם רווח.pdf"]
+)
+def test_checker_handles_unicode_and_newline_tracked_names(tmp_path, filename):
     import json
 
     contract = json.loads((ROOT / ".repo-layout.yml").read_text())
     contract["required"] = []
     (tmp_path / ".repo-layout.yml").write_text(json.dumps(contract))
     (tmp_path / "plans").mkdir()
-    (tmp_path / "plans" / "תכנית מקור\nעם רווח.pdf").write_bytes(b"fixture")
+    try:
+        (tmp_path / "plans" / filename).write_bytes(b"fixture")
+    except OSError:
+        if "\n" in filename:
+            pytest.skip("filesystem rejects newline filenames")
+        raise
     subprocess.run(["git", "init", "-q"], cwd=tmp_path, check=True)
     subprocess.run(["git", "add", "."], cwd=tmp_path, check=True)
     result = subprocess.run(
@@ -174,3 +184,22 @@ def test_layout_job_runs_on_all_changes_and_is_in_gate():
     gate = workflow["jobs"]["summary"]
     assert "layout" in gate["needs"]
     assert '"layout"' in gate["steps"][-1]["run"]
+
+
+@pytest.mark.parametrize(
+    "raw",
+    [
+        '{"version":1,"root":{},"root":{}}',
+        '{"version":1,"directories":{"docs":{"allow":[],"allow":["*"]}}}',
+    ],
+)
+def test_checker_rejects_duplicate_policy_keys(tmp_path, raw):
+    (tmp_path / ".repo-layout.yml").write_text(raw, encoding="utf-8")
+    result = subprocess.run(
+        [sys.executable, str(CHECKER), "--root", str(tmp_path)],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode != 0
+    assert "duplicate layout key" in result.stderr

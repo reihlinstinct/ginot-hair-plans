@@ -24,11 +24,23 @@ import sys
 from pathlib import Path
 
 
+def unique_object(pairs: list[tuple[str, object]]) -> dict:
+    """Reject duplicate policy keys instead of discarding an earlier restriction."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate layout key")
+        result[key] = value
+    return result
+
+
 def load_contract(root: Path) -> dict:
     contract_path = root / ".repo-layout.yml"
     if not contract_path.is_file():
         raise SystemExit(f"missing layout contract: {contract_path}")
-    contract = json.loads(contract_path.read_text(encoding="utf-8"))
+    contract = json.loads(
+        contract_path.read_text(encoding="utf-8"), object_pairs_hook=unique_object
+    )
     if contract.get("version") != 1:
         raise SystemExit("unsupported .repo-layout.yml version")
     return contract
