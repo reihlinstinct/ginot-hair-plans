@@ -121,3 +121,47 @@ var document={querySelector:()=>null};
         "labels": ["first", "second"],
         "signs": [-1, 1],
     }
+
+
+def test_implicit_or_search_semantics_and_no_regex_evaluation():
+    source = (ROOT / "src/ginot/page.py").read_text(encoding="utf-8")
+    fn = source.split('_NORM_SEARCH_JS = r"""', 1)[1].split('"""', 1)[0]
+    script = (
+        fn
+        + r"""
+var text=normSearch('הפלמ"ח 41 קטמון');
+var checks=[
+ searchMatches(text,'פלמח 41 | פלמח 49'),
+ searchMatches(normSearch('הפלמח 49 קטמון'),'פלמח 41 | פלמח 49'),
+ searchMatches(normSearch('הפלמח 42 קטמון'),'פלמח 41 | פלמח 49'),
+ searchMatches(text,' | פלמח 41 || '),
+ searchMatches(text,' | | '),
+ searchMatches(text,''),
+ searchMatches(text,"'"),
+ searchMatches(text,' - ״ '),
+ searchMatches(text,"' | ״"),
+ searchMatches(text,'פלמח 41,פלמח 49'),
+ searchMatches(text,'.*'),
+ searchMatches(normSearch('מלון ענבל'),'101-1488261 | ענבל')
+];console.log(JSON.stringify(checks));
+"""
+    )
+    result = subprocess.run(
+        [_node_runtime(), "-e", script], check=True, capture_output=True, text=True
+    )
+    assert json.loads(result.stdout) == [
+        True,
+        True,
+        False,
+        True,
+        False,
+        True,
+        True,
+        True,
+        False,
+        False,
+        False,
+        True,
+    ]
+    assert source.count("if(!searchMatches(r.__ns") == 2
+    assert "raw.split('|')" in fn

@@ -129,6 +129,13 @@ _NORM_SEARCH_JS = r"""function normSearch(s){
     .replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'')
     .replace(/\s+/g,' ').trim();
 }
+function searchMatches(text, query){
+  var raw=(query||'').trim();
+  if(!normSearch(raw)&&raw.indexOf('|')===-1)return true;
+  var terms=raw.split('|').map(normSearch).filter(function(t){return t.length>0;});
+  return terms.some(function(term){return text.indexOf(term)!==-1;});
+}
+
 """
 
 _JS = """
@@ -142,8 +149,7 @@ more=document.getElementById('more');
 var expanded=false;
 {_NORM_SEARCH_JS}function match(r){
   if(!fappr.checked&&r.getAttribute('data-active')!=='1')return false;
-  var q=normSearch(fq.value.trim());
-  if(q&&(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search')))).indexOf(q)===-1)return false;
+  if(!searchMatches(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search'))),fq.value))return false;
   if(fstatus.value&&r.getAttribute('data-status')!==fstatus.value)return false;
   if(fflag.value&&r.getAttribute('data-flag')!==fflag.value)return false;
   if(fobj.checked&&r.getAttribute('data-open')!=='1')return false;
@@ -869,7 +875,7 @@ def _permits_section(
 סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
 לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
-<input type="search" id="pfq" placeholder="חיפוש: מספר בקשה / כתובת / מהות / גוש / חלקה" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
+<input type="search" id="pfq" placeholder="חיפוש מספר / כתובת / מהות; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="pfstatus">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
@@ -984,8 +990,7 @@ function selectedGroups(){
     if(pe&&pe<TODAY&&!superseded)return false;
   }
   if(!pfclosed.checked&&!pfstatus.value&&r.getAttribute('data-active')!=='1')return false;
-  var q=normSearch(pfq.value.trim());
-  if(q&&(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search')))).indexOf(q)===-1)return false;
+  if(!searchMatches(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search'))),pfq.value))return false;
   if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
   if(pfsug.value&&r.getAttribute('data-sug')!==pfsug.value)return false;
   var pub=r.getAttribute('data-pub');
@@ -1562,7 +1567,7 @@ def render_index(
 <p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
 {legend}
 <div id="filters">
-<input id="fq" type="search" placeholder="חיפוש חופשי (מספר / שם)" title="החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
+<input id="fq" type="search" placeholder="חיפוש מספר / שם; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
 <select id="fstatus"><option value="">כל הסטטוסים</option>{status_opts}</select>
 <select id="fflag"><option value="">בתוך + חלקי</option><option value="inside">בתוך השטח</option><option value="partial">חפיפה חלקית</option></select>
 <label><input type="checkbox" id="fobj"> חלון התנגדות פתוח (משוער)</label>
