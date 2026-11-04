@@ -260,13 +260,28 @@ test("forum public schema excludes identity and assignment fields", () => {
   const checkKeys = (value, allowed) => {
     for (const key of Object.keys(value)) assert.ok(allowed.includes(key), `Unexpected public field: ${key}`);
   };
-  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
-  for (const lead of leads) {
+  const checkLead = lead => {
+    assert.ok(lead && typeof lead === "object" && !Array.isArray(lead));
     checkKeys(lead, allowedPattern);
+    assert.ok(lead.source && typeof lead.source === "object" && !Array.isArray(lead.source));
     checkKeys(lead.source, allowedSource);
-  }
+    for (const value of Object.values(lead.source)) assert.equal(typeof value, "string");
+    for (const key of ["id", "check", "status", "legal_effect", "use_gate"]) assert.equal(typeof lead[key], "string");
+    for (const key of ["cases", "evidence_needed"]) {
+      assert.ok(Array.isArray(lead[key]) && lead[key].length > 0);
+      for (const value of lead[key]) assert.equal(typeof value, "string");
+    }
+    assert.ok(Array.isArray(lead.pages) && lead.pages.length > 0);
+    for (const page of lead.pages) assert.ok(Number.isInteger(page) && page > 0);
+  };
+  const leads = callTool(data, "get_review_checklist", {}).learned_patterns;
+  for (const lead of leads) checkLead(lead);
   assert.throws(() => checkKeys({ participant: "SYNTHETIC_PRIVATE_VALUE" }, allowedPattern));
   assert.throws(() => checkKeys({ assignment: "SYNTHETIC_PRIVATE_VALUE" }, allowedSource));
+  assert.throws(() => checkLead({ ...leads[0], cases: [{ participant: "SYNTHETIC_PRIVATE_VALUE" }] }));
+  assert.throws(() => checkLead({ ...leads[0], evidence_needed: [{ assignment: "SYNTHETIC_PRIVATE_VALUE" }] }));
+  assert.throws(() => checkLead({ ...leads[0], source: { ...leads[0].source, title: { participant: "SYNTHETIC_PRIVATE_VALUE" } } }));
+
 });
 
 test("forum value-level privacy guard uses normalized token digests", () => {
