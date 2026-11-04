@@ -26,4 +26,6 @@ def test_sources_are_available_without_deadline_rewrite():
         assert "אינן ממצאים מאומתים" in note
     note = (ROOT / "plans/101-1377753/documents/forum-2026-10-14.md").read_text()
     assert "17.11.2026" in note and "18.11.2026" in note
-    assert "דורש בדיקת הודעת" in note
+    assert "תוך חודשיים ימים" in note
+    assert "19.11.2026" in note
+    assert "לא תאריך אחרון מפורש" in note
