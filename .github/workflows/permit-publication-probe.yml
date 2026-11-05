@@ -4,7 +4,7 @@ name: Jerusalem permit publication probe (VPN)
 # expose publication / objection-notice data for permit request
 # 1993/0664.03 (Alfasi 9)? Calls the viewer's own process/decision
 # procedures through the owner-operated L2TP tunnel, slow-paced, values
-# logged with personal-data fields stripped. Manual dispatch only. On any
+# emitted only through strict typed public-field allowlists (#858). Manual dispatch only. On any
 # anti-bot challenge the run stops red (no workaround).
 
 on:
