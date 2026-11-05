@@ -3,6 +3,7 @@
 const SOURCE = {
   id: "urban-forum-2026-10-14",
   title: "Ginot HaIr Urban Forum summary, meeting 14 October 2026",
+  meeting_date: "2026-10-14",
   document_date: "2026-11-04",
   source_path: "docs/reviews/forum-2026-10-14/summary-redacted.pdf",
   source_kind: "community_forum_summary",
@@ -49,7 +50,7 @@ export const OBJECTION_PATTERNS = [
 ];
 const NOV4_SOURCE = {
   id: "urban-forum-2026-11-04", title: "Ginot HaIr Urban Forum summary, 4 November 2026",
-  document_date: "2026-11-04", source_path: "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
+  meeting_date: "2026-11-04", document_date: "2026-11-04", source_path: "docs/reviews/forum-2026-11-04-source/summary-redacted.pdf",
   source_kind: "community_forum_summary",
 };
 // Extra observations support a review lead, never establish a legal breach.
