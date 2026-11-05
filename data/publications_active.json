@@ -11,6 +11,42 @@
     "ed700": "2026-08-25",
     "connected_rec_id": null,
     "doc_id": "abdae0cd-8f12-4d89-a471-7744c54a00fa",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "abdae0cd-8f12-4d89-a471-7744c54a",
+        "ED800": "2026-09-07T00:00:00",
+        "ED700": "2026-08-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -25,6 +61,42 @@
     "ed700": "2026-08-27",
     "connected_rec_id": 1240323,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-08-30T00:00:00",
+        "ED700": "2026-08-27T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -39,6 +111,42 @@
     "ed700": "2025-11-10",
     "connected_rec_id": 1205461,
     "doc_id": "bae48984-663b-41de-b04c-3d5d7d66e54d",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "bae48984-663b-41de-b04c-3d5d7d66",
+        "ED800": "2025-11-30T00:00:00",
+        "ED700": "2025-11-10T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -53,6 +161,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "07978601-4352-4a2c-8b96-1b9cf17f7bcc",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "07978601-4352-4a2c-8b96-1b9cf17f",
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -67,6 +211,42 @@
     "ed700": "2026-10-14",
     "connected_rec_id": 1274877,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -81,6 +261,42 @@
     "ed700": "2026-09-08",
     "connected_rec_id": null,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-09-08T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -95,6 +311,41 @@
     "ed700": null,
     "connected_rec_id": null,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2019-04-17T00:00:00",
+        "ED700": null
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -109,6 +360,42 @@
     "ed700": "2026-09-14",
     "connected_rec_id": null,
     "doc_id": "bbf35208-6342-4320-9179-02226fcc4914",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "bbf35208-6342-4320-9179-02226fcc",
+        "ED800": "2026-10-29T00:00:00",
+        "ED700": "2026-09-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -123,6 +410,42 @@
     "ed700": "2026-10-14",
     "connected_rec_id": 1248036,
     "doc_id": "0609a78c-567f-44f3-ae61-a3dbee8f881e",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "0609a78c-567f-44f3-ae61-a3dbee8f",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -137,6 +460,42 @@
     "ed700": "2026-10-26",
     "connected_rec_id": 1222394,
     "doc_id": "26b7cc96-912b-4ad1-91c8-be06cce34bf5",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "26b7cc96-912b-4ad1-91c8-be06cce3",
+        "ED800": "2026-10-28T00:00:00",
+        "ED700": "2026-10-26T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -151,6 +510,92 @@
     "ed700": "2026-08-17",
     "connected_rec_id": 1225611,
     "doc_id": "51efd2fa-d3a4-42ab-93f9-3722b93c3c98",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "51efd2fa-d3a4-42ab-93f9-3722b93c",
+        "ED800": "2026-09-22T00:00:00",
+        "ED700": "2026-08-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16552193,
+    "tik_num": "1983/0461.03",
+    "street": "רמבן",
+    "house_number": "24",
+    "neighborhood": "רחביה",
+    "place_description": "תוספת בניה לבנין הקיים",
+    "publication_date": "2026-11-04",
+    "objection_deadline": null,
+    "ed700": "2026-10-28",
+    "connected_rec_id": 1253022,
+    "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-04T00:00:00",
+        "ED700": "2026-10-28T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -165,6 +610,42 @@
     "ed700": "2026-09-09",
     "connected_rec_id": 1260835,
     "doc_id": "8cbebf74-4f1a-47d3-8c3a-8df950ee8f8e",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "8cbebf74-4f1a-47d3-8c3a-8df950ee",
+        "ED800": "2026-10-19T00:00:00",
+        "ED700": "2026-09-09T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -179,6 +660,42 @@
     "ed700": "2025-12-18",
     "connected_rec_id": 1218747,
     "doc_id": "e7e56795-9563-4144-b18d-5a7e6779147b",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e7e56795-9563-4144-b18d-5a7e6779",
+        "ED800": "2026-01-12T00:00:00",
+        "ED700": "2025-12-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -193,6 +710,42 @@
     "ed700": "2026-09-16",
     "connected_rec_id": 1247209,
     "doc_id": "276de071-42ed-4884-857f-5e48982f2911",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "276de071-42ed-4884-857f-5e48982f",
+        "ED800": "2026-09-22T00:00:00",
+        "ED700": "2026-09-16T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -207,6 +760,42 @@
     "ed700": "2026-10-26",
     "connected_rec_id": 1280596,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-28T00:00:00",
+        "ED700": "2026-10-26T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -221,6 +810,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "3876fc49-3c45-426b-8e4f-6125b4de3821",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "3876fc49-3c45-426b-8e4f-6125b4de",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -235,6 +860,42 @@
     "ed700": "2026-10-15",
     "connected_rec_id": 1268617,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-22T00:00:00",
+        "ED700": "2026-10-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -249,6 +910,42 @@
     "ed700": "2026-10-28",
     "connected_rec_id": 1274915,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-01T00:00:00",
+        "ED700": "2026-10-28T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -263,6 +960,42 @@
     "ed700": "2026-10-15",
     "connected_rec_id": 1243907,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-18T00:00:00",
+        "ED700": "2026-10-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -277,6 +1010,42 @@
     "ed700": "2026-10-19",
     "connected_rec_id": 1237067,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-19T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -291,6 +1060,42 @@
     "ed700": "2026-07-21",
     "connected_rec_id": null,
     "doc_id": "8d06cfbf-98ff-43d9-b052-5e3cf6fd475b",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "8d06cfbf-98ff-43d9-b052-5e3cf6fd",
+        "ED800": "2026-10-06T00:00:00",
+        "ED700": "2026-07-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -305,6 +1110,92 @@
     "ed700": "2026-09-14",
     "connected_rec_id": null,
     "doc_id": "11c928d7-af36-4aa4-9992-3695aedcb509",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "11c928d7-af36-4aa4-9992-3695aedc",
+        "ED800": "2026-10-05T00:00:00",
+        "ED700": "2026-09-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16522294,
+    "tik_num": "1991/0830.11",
+    "street": "משה קליינמן",
+    "house_number": "12",
+    "neighborhood": "קרית היובל",
+    "place_description": null,
+    "publication_date": "2026-11-03",
+    "objection_deadline": null,
+    "ed700": "2026-10-25",
+    "connected_rec_id": 1274997,
+    "doc_id": "17b681eb-2675-46ea-ab4c-9dc2df192dcd",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "17b681eb-2675-46ea-ab4c-9dc2df19",
+        "ED800": "2026-11-03T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -319,21 +1210,43 @@
     "ed700": "2026-10-08",
     "connected_rec_id": 1259789,
     "doc_id": "c4fba998-7cff-40d7-9748-a518543bc541",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "c4fba998-7cff-40d7-9748-a518543b",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-08T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
-  },
-  {
-    "myIndex": 16494208,
-    "tik_num": "1993/0664.03",
-    "street": "י. אלפסי",
-    "house_number": "9",
-    "neighborhood": "רחביה",
-    "place_description": null,
-    "publication_date": "2026-10-04",
-    "objection_deadline": null,
-    "ed700": "2026-09-23",
-    "connected_rec_id": 1183258,
-    "doc_id": null,
-    "in_polygon": true
   },
   {
     "myIndex": 16328844,
@@ -347,6 +1260,42 @@
     "ed700": "2026-07-19",
     "connected_rec_id": null,
     "doc_id": "db8b2943-e1f0-43aa-a8d0-1cd75177e584",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "db8b2943-e1f0-43aa-a8d0-1cd75177",
+        "ED800": "2026-07-22T00:00:00",
+        "ED700": "2026-07-19T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -361,6 +1310,42 @@
     "ed700": "2026-10-26",
     "connected_rec_id": 1272348,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-01T00:00:00",
+        "ED700": "2026-10-26T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -375,6 +1360,42 @@
     "ed700": "2026-10-29",
     "connected_rec_id": 1271862,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-02T00:00:00",
+        "ED700": "2026-10-29T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -389,6 +1410,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "7c7d52d5-e8bd-4c38-95ba-3932db69476e",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7c7d52d5-e8bd-4c38-95ba-3932db69",
+        "ED800": "2026-10-18T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -403,6 +1460,42 @@
     "ed700": "2022-01-18",
     "connected_rec_id": 900251,
     "doc_id": "58fa8f83-7e3f-4bdf-b91e-2fade5fc48c3",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "58fa8f83-7e3f-4bdf-b91e-2fade5fc",
+        "ED800": "2022-05-08T00:00:00",
+        "ED700": "2022-01-18T10:40:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -417,6 +1510,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": 1263189,
     "doc_id": "62d57b11-ac1a-4e9b-b541-7afeb5ef4fa5",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "62d57b11-ac1a-4e9b-b541-7afeb5ef",
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -431,6 +1560,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "c3c6a677-649d-45ac-926b-65b251c7f97f",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "c3c6a677-649d-45ac-926b-65b251c7",
+        "ED800": "2026-10-08T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -445,6 +1610,41 @@
     "ed700": null,
     "connected_rec_id": null,
     "doc_id": "bab66f8b-5a72-4f27-915e-1e06f1f4096d",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "bab66f8b-5a72-4f27-915e-1e06f1f4",
+        "ED800": "2017-08-27T00:00:00",
+        "ED700": null
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -459,6 +1659,42 @@
     "ed700": "2026-10-08",
     "connected_rec_id": 1236288,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-08T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -473,6 +1709,42 @@
     "ed700": "2021-08-17",
     "connected_rec_id": 862511,
     "doc_id": "773640be-4794-4a82-a0cb-a16a1d6608c3",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "773640be-4794-4a82-a0cb-a16a1d66",
+        "ED800": "2021-12-13T00:00:00",
+        "ED700": "2021-08-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -487,6 +1759,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": 1232188,
     "doc_id": "7e268fb0-ca99-4b1d-8848-a8f7bace8e13",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7e268fb0-ca99-4b1d-8848-a8f7bace",
+        "ED800": "2026-11-02T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -501,6 +1809,42 @@
     "ed700": "2025-11-24",
     "connected_rec_id": 1190870,
     "doc_id": "b8797b37-57b1-4c19-ae4a-ddba39ac6687",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "b8797b37-57b1-4c19-ae4a-ddba39ac",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2025-11-24T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -515,6 +1859,42 @@
     "ed700": "2022-08-01",
     "connected_rec_id": 921082,
     "doc_id": "675b6a92-c9ee-4eda-9717-833ab639abec",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "675b6a92-c9ee-4eda-9717-833ab639",
+        "ED800": "2022-09-21T00:00:00",
+        "ED700": "2022-08-01T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -529,6 +1909,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": null,
     "doc_id": "4df4ad46-90d9-4825-8671-6ee8cd15fa8d",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "4df4ad46-90d9-4825-8671-6ee8cd15",
+        "ED800": "2026-11-02T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -543,6 +1959,42 @@
     "ed700": "2022-12-15",
     "connected_rec_id": 977781,
     "doc_id": "f4fd588f-8842-46ed-9030-5d8f85d11583",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "f4fd588f-8842-46ed-9030-5d8f85d1",
+        "ED800": "2023-01-24T00:00:00",
+        "ED700": "2022-12-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -557,6 +2009,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": 1238180,
     "doc_id": "bec160d8-0b45-45c8-b3a8-24f4d8a82dfa",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "bec160d8-0b45-45c8-b3a8-24f4d8a8",
+        "ED800": "2026-11-01T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -571,6 +2059,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "1d78b1c5-6644-42ac-984c-1c14d9de203f",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "1d78b1c5-6644-42ac-984c-1c14d9de",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -585,6 +2109,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "085a7f8e-80ff-4b08-b108-38a7a39db923",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "085a7f8e-80ff-4b08-b108-38a7a39d",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -599,6 +2159,42 @@
     "ed700": "2026-06-02",
     "connected_rec_id": 1243553,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-06-03T00:00:00",
+        "ED700": "2026-06-02T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -613,6 +2209,42 @@
     "ed700": "2026-10-14",
     "connected_rec_id": 1264039,
     "doc_id": "7596415b-891a-477d-a247-d66f8a93f078",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7596415b-891a-477d-a247-d66f8a93",
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-10-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -627,6 +2259,42 @@
     "ed700": "2026-08-17",
     "connected_rec_id": 1056250,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-19T00:00:00",
+        "ED700": "2026-08-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -641,6 +2309,42 @@
     "ed700": "2026-10-11",
     "connected_rec_id": 1249838,
     "doc_id": "3fbc3d4a-b0e3-4abb-ad85-246efced1e73",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "3fbc3d4a-b0e3-4abb-ad85-246efced",
+        "ED800": "2026-10-14T00:00:00",
+        "ED700": "2026-10-11T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -655,6 +2359,42 @@
     "ed700": "2026-09-23",
     "connected_rec_id": 1253861,
     "doc_id": "8b48a1fb-ddab-4b53-acb5-fe049214cfd8",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "8b48a1fb-ddab-4b53-acb5-fe049214",
+        "ED800": "2026-10-04T00:00:00",
+        "ED700": "2026-09-23T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -669,6 +2409,41 @@
     "ed700": null,
     "connected_rec_id": null,
     "doc_id": "9f9e478a-839c-4fad-92e1-8fcfc5522cb0",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "9f9e478a-839c-4fad-92e1-8fcfc552",
+        "ED800": "2025-10-20T00:00:00",
+        "ED700": null
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -683,6 +2458,42 @@
     "ed700": "2019-02-12",
     "connected_rec_id": 662262,
     "doc_id": "460a3019-0b30-49c7-8a9d-f8c304eedf93",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "460a3019-0b30-49c7-8a9d-f8c304ee",
+        "ED800": "2019-02-21T00:00:00",
+        "ED700": "2019-02-12T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -697,6 +2508,42 @@
     "ed700": "2022-01-10",
     "connected_rec_id": 834613,
     "doc_id": "224b0129-d2e5-48a3-8b0d-7788e14bead9",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "224b0129-d2e5-48a3-8b0d-7788e14b",
+        "ED800": "2022-02-23T00:00:00",
+        "ED700": "2022-01-10T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -711,6 +2558,42 @@
     "ed700": "2026-10-05",
     "connected_rec_id": 1275515,
     "doc_id": "2aadabd2-0c88-4296-ae93-2ff5721a365b",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "2aadabd2-0c88-4296-ae93-2ff5721a",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-05T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -725,6 +2608,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": 1237034,
     "doc_id": "b7bbc494-68ce-4159-816c-d84a550dab74",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "b7bbc494-68ce-4159-816c-d84a550d",
+        "ED800": "2026-10-12T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -739,6 +2658,42 @@
     "ed700": "2026-10-15",
     "connected_rec_id": 1242040,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -753,6 +2708,42 @@
     "ed700": "2021-06-13",
     "connected_rec_id": 845367,
     "doc_id": "175aff51-0df8-4a2b-a2d3-a7da93e8ae52",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "175aff51-0df8-4a2b-a2d3-a7da93e8",
+        "ED800": "2021-11-24T00:00:00",
+        "ED700": "2021-06-13T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -767,6 +2758,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "e15042eb-ef38-418a-a79e-502e2b02d37a",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e15042eb-ef38-418a-a79e-502e2b02",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -781,6 +2808,42 @@
     "ed700": "2026-10-05",
     "connected_rec_id": null,
     "doc_id": "f3d27524-8e30-4675-acbd-9528b9ff184c",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "f3d27524-8e30-4675-acbd-9528b9ff",
+        "ED800": "2026-10-12T00:00:00",
+        "ED700": "2026-10-05T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -795,6 +2858,42 @@
     "ed700": "2026-10-05",
     "connected_rec_id": null,
     "doc_id": "56cce730-76b4-44f6-820c-0c4d1af0ccef",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "56cce730-76b4-44f6-820c-0c4d1af0",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-05T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -809,6 +2908,42 @@
     "ed700": "2026-10-11",
     "connected_rec_id": 1271150,
     "doc_id": "e621f500-d6e5-49e3-857c-cd721ea97ef6",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e621f500-d6e5-49e3-857c-cd721ea9",
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-11T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -823,6 +2958,42 @@
     "ed700": "2026-10-21",
     "connected_rec_id": 1269824,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-25T00:00:00",
+        "ED700": "2026-10-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -837,6 +3008,42 @@
     "ed700": "2024-05-20",
     "connected_rec_id": 1021562,
     "doc_id": "691cbe79-342a-454e-a5ba-c41e5e7b08d9",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "691cbe79-342a-454e-a5ba-c41e5e7b",
+        "ED800": "2024-05-22T00:00:00",
+        "ED700": "2024-05-20T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -851,20 +3058,42 @@
     "ed700": "2017-12-04",
     "connected_rec_id": 578038,
     "doc_id": "61c08c98-1624-4e96-ae3c-3b256cfdf19b",
-    "in_polygon": null
-  },
-  {
-    "myIndex": 16401400,
-    "tik_num": "2014/0417.03",
-    "street": "שד נוה יעקב",
-    "house_number": "29",
-    "neighborhood": "נוה יעקב",
-    "place_description": null,
-    "publication_date": "2026-10-05",
-    "objection_deadline": null,
-    "ed700": "2026-09-02",
-    "connected_rec_id": null,
-    "doc_id": "a5618c17-e060-4dda-a14f-09094ee21d71",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "61c08c98-1624-4e96-ae3c-3b256cfd",
+        "ED800": "2017-12-13T00:00:00",
+        "ED700": "2017-12-04T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -879,6 +3108,42 @@
     "ed700": "2021-08-23",
     "connected_rec_id": 863916,
     "doc_id": "6651ebce-f7a8-434d-b403-15a973858b4a",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "6651ebce-f7a8-434d-b403-15a97385",
+        "ED800": "2021-12-13T00:00:00",
+        "ED700": "2021-08-23T14:06:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -893,6 +3158,42 @@
     "ed700": "2026-10-29",
     "connected_rec_id": 1269752,
     "doc_id": "cf775736-3b0b-46b1-a9c8-3508136f777a",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "cf775736-3b0b-46b1-a9c8-3508136f",
+        "ED800": "2026-11-01T00:00:00",
+        "ED700": "2026-10-29T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -907,6 +3208,42 @@
     "ed700": "2026-10-07",
     "connected_rec_id": 1237312,
     "doc_id": "42cab7c3-59d2-49a2-b298-1593643156fb",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "42cab7c3-59d2-49a2-b298-15936431",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-07T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -921,6 +3258,42 @@
     "ed700": "2015-04-20",
     "connected_rec_id": 478093,
     "doc_id": "b80ec3c3-df48-4c4b-bae3-9593ab9353df",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "b80ec3c3-df48-4c4b-bae3-9593ab93",
+        "ED800": "2025-12-31T00:00:00",
+        "ED700": "2015-04-20T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -935,6 +3308,42 @@
     "ed700": "2026-09-24",
     "connected_rec_id": 1254742,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-04T00:00:00",
+        "ED700": "2026-09-24T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -949,6 +3358,42 @@
     "ed700": "2019-02-03",
     "connected_rec_id": 660286,
     "doc_id": "9e60c368-8b11-4f3e-8b9a-97192b410664",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "9e60c368-8b11-4f3e-8b9a-97192b41",
+        "ED800": "2019-03-06T00:00:00",
+        "ED700": "2019-02-03T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -963,6 +3408,42 @@
     "ed700": "2026-09-14",
     "connected_rec_id": null,
     "doc_id": "93823ee5-f2ec-4ebb-80c6-c48472c44bb1",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "93823ee5-f2ec-4ebb-80c6-c48472c4",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-09-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -977,6 +3458,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "6fa873f3-dfe0-441b-b449-993663f992bd",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "6fa873f3-dfe0-441b-b449-993663f9",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -991,6 +3508,42 @@
     "ed700": "2026-10-05",
     "connected_rec_id": null,
     "doc_id": "2a5937e8-43f2-40d9-9360-87cfd3b6f738",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "2a5937e8-43f2-40d9-9360-87cfd3b6",
+        "ED800": "2026-10-08T00:00:00",
+        "ED700": "2026-10-05T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1005,6 +3558,42 @@
     "ed700": "2016-03-22",
     "connected_rec_id": 499391,
     "doc_id": "bab2cb9c-9d02-4f1b-95d1-967955ff0d59",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "bab2cb9c-9d02-4f1b-95d1-967955ff",
+        "ED800": "2017-05-31T00:00:00",
+        "ED700": "2016-03-22T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1019,6 +3608,42 @@
     "ed700": "2026-09-22",
     "connected_rec_id": 1270215,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-05T00:00:00",
+        "ED700": "2026-09-22T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1033,20 +3658,41 @@
     "ed700": null,
     "connected_rec_id": null,
     "doc_id": "3ff87f2b-b609-49f8-b0ba-c4c23fee123e",
-    "in_polygon": null
-  },
-  {
-    "myIndex": 16489814,
-    "tik_num": "2016/0905.02",
-    "street": "הרב ש\"י זווין",
-    "house_number": "16",
-    "neighborhood": "נוה יעקב",
-    "place_description": null,
-    "publication_date": "2026-09-24",
-    "objection_deadline": null,
-    "ed700": "2026-09-17",
-    "connected_rec_id": 1261952,
-    "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "3ff87f2b-b609-49f8-b0ba-c4c23fee",
+        "ED800": "2016-09-14T00:00:00",
+        "ED700": null
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1061,6 +3707,42 @@
     "ed700": "2022-01-04",
     "connected_rec_id": 896250,
     "doc_id": "567d1fc0-e8ae-4414-acd5-a86acae20faa",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "567d1fc0-e8ae-4414-acd5-a86acae2",
+        "ED800": "2022-05-03T00:00:00",
+        "ED700": "2022-01-04T11:37:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1075,6 +3757,42 @@
     "ed700": "2025-12-17",
     "connected_rec_id": 1206959,
     "doc_id": "dd577b1e-ef9e-4770-83b3-49bedb6f5a8e",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "dd577b1e-ef9e-4770-83b3-49bedb6f",
+        "ED800": "2025-12-28T00:00:00",
+        "ED700": "2025-12-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1089,6 +3807,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": 1272169,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1103,6 +3857,42 @@
     "ed700": "2025-12-14",
     "connected_rec_id": 1179448,
     "doc_id": "d8f741a6-7478-48a9-a722-5c0706dcf4b7",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "d8f741a6-7478-48a9-a722-5c0706dc",
+        "ED800": "2025-12-23T00:00:00",
+        "ED700": "2025-12-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1117,6 +3907,41 @@
     "ed700": null,
     "connected_rec_id": null,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2018-01-15T00:00:00",
+        "ED700": null
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1131,6 +3956,42 @@
     "ed700": "2023-10-17",
     "connected_rec_id": 984895,
     "doc_id": "c418a5e8-211e-4286-9742-6ef71ae7f55a",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "c418a5e8-211e-4286-9742-6ef71ae7",
+        "ED800": "2023-10-19T00:00:00",
+        "ED700": "2023-10-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1145,6 +4006,42 @@
     "ed700": "2023-08-22",
     "connected_rec_id": 1042466,
     "doc_id": "c303602b-e9f4-4214-a304-04c581af4060",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "c303602b-e9f4-4214-a304-04c581af",
+        "ED800": "2023-08-28T00:00:00",
+        "ED700": "2023-08-22T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1159,6 +4056,42 @@
     "ed700": "2026-09-14",
     "connected_rec_id": null,
     "doc_id": "11d41b59-3bca-4038-896f-3fd1b282baba",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "11d41b59-3bca-4038-896f-3fd1b282",
+        "ED800": "2026-09-22T00:00:00",
+        "ED700": "2026-09-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1173,6 +4106,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": 1249027,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1187,6 +4156,42 @@
     "ed700": "2026-10-07",
     "connected_rec_id": 1274056,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-08T00:00:00",
+        "ED700": "2026-10-07T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1201,6 +4206,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "7d720af4-c5c9-40af-a21c-38bcf1aa74e0",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7d720af4-c5c9-40af-a21c-38bcf1aa",
+        "ED800": "2026-10-12T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1215,6 +4256,42 @@
     "ed700": "2026-10-11",
     "connected_rec_id": 1194098,
     "doc_id": "b357d61e-193e-49d2-9278-b977c163fff0",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "b357d61e-193e-49d2-9278-b977c163",
+        "ED800": "2026-10-14T00:00:00",
+        "ED700": "2026-10-11T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1229,6 +4306,42 @@
     "ed700": "2026-09-02",
     "connected_rec_id": 1103738,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-09-02T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1243,6 +4356,42 @@
     "ed700": "2020-04-05",
     "connected_rec_id": 745707,
     "doc_id": "7f03fe43-0d1d-45d1-86d9-bd987badc030",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7f03fe43-0d1d-45d1-86d9-bd987bad",
+        "ED800": "2020-05-25T00:00:00",
+        "ED700": "2020-04-05T14:27:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1257,6 +4406,42 @@
     "ed700": "2026-10-21",
     "connected_rec_id": 1226335,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-22T00:00:00",
+        "ED700": "2026-10-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1271,6 +4456,42 @@
     "ed700": "2026-10-07",
     "connected_rec_id": 1252106,
     "doc_id": "33a94522-17aa-4cd9-a8f3-80b06c7aaa26",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "33a94522-17aa-4cd9-a8f3-80b06c7a",
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-07T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1285,6 +4506,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "1835eacb-ffea-415f-9402-9e03294533b2",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "1835eacb-ffea-415f-9402-9e032945",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1299,6 +4556,42 @@
     "ed700": "2024-06-17",
     "connected_rec_id": 1095142,
     "doc_id": "cf6c6fb9-75b4-4923-a28e-b8e7b98dc3f7",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "cf6c6fb9-75b4-4923-a28e-b8e7b98d",
+        "ED800": "2024-07-24T00:00:00",
+        "ED700": "2024-06-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1313,6 +4606,42 @@
     "ed700": "2024-05-08",
     "connected_rec_id": 1093832,
     "doc_id": "697aadb0-7347-426d-b49e-b6e85b5ddc75",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "697aadb0-7347-426d-b49e-b6e85b5d",
+        "ED800": "2024-05-09T00:00:00",
+        "ED700": "2024-05-08T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -1327,6 +4656,42 @@
     "ed700": "2026-09-15",
     "connected_rec_id": null,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-09-23T00:00:00",
+        "ED700": "2026-09-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -1341,6 +4706,42 @@
     "ed700": "2021-12-14",
     "connected_rec_id": 884567,
     "doc_id": "7dfebb14-33fa-4711-a0ea-3a2da3d9d1e9",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "7dfebb14-33fa-4711-a0ea-3a2da3d9",
+        "ED800": "2021-12-23T00:00:00",
+        "ED700": "2021-12-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1355,6 +4756,42 @@
     "ed700": "2022-05-01",
     "connected_rec_id": 924870,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2022-08-01T00:00:00",
+        "ED700": "2022-05-01T17:28:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1369,6 +4806,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": null,
     "doc_id": "33d5c1b2-7418-4a39-a229-53148d149dfe",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "33d5c1b2-7418-4a39-a229-53148d14",
+        "ED800": "2026-10-28T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1383,6 +4856,42 @@
     "ed700": "2026-10-06",
     "connected_rec_id": 1269086,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1397,6 +4906,92 @@
     "ed700": "2026-10-20",
     "connected_rec_id": null,
     "doc_id": "e8203b9d-2294-4d3f-9861-7ac65fdbf41d",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e8203b9d-2294-4d3f-9861-7ac65fdb",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-20T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16562785,
+    "tik_num": "2023/0262.01",
+    "street": "האימאם מוסלם",
+    "house_number": "11",
+    "neighborhood": "בית חנינה",
+    "place_description": null,
+    "publication_date": "2026-11-04",
+    "objection_deadline": null,
+    "ed700": "2026-11-03",
+    "connected_rec_id": 1232394,
+    "doc_id": "d41bf41f-c28c-4fa9-a310-dd7cb634af40",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "d41bf41f-c28c-4fa9-a310-dd7cb634",
+        "ED800": "2026-11-04T00:00:00",
+        "ED700": "2026-11-03T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1411,6 +5006,42 @@
     "ed700": "2026-10-12",
     "connected_rec_id": 1266459,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-10-12T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1425,6 +5056,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": 1280121,
     "doc_id": "c1d49666-8fd2-4ec1-bd3d-83f9a57889d9",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "c1d49666-8fd2-4ec1-bd3d-83f9a578",
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1439,6 +5106,92 @@
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "3f1e8382-2d74-42cb-b953-2845fae79e8b",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "3f1e8382-2d74-42cb-b953-2845fae7",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16564063,
+    "tik_num": "2024/0505.00",
+    "street": "הסביון",
+    "house_number": "6",
+    "neighborhood": "עיר גנים",
+    "place_description": null,
+    "publication_date": "2026-11-04",
+    "objection_deadline": null,
+    "ed700": "2026-11-03",
+    "connected_rec_id": 1267707,
+    "doc_id": "e4b4b1d8-ac77-4fc9-8f7e-e6c776ebbe4c",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e4b4b1d8-ac77-4fc9-8f7e-e6c776eb",
+        "ED800": "2026-11-04T00:00:00",
+        "ED700": "2026-11-03T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1453,6 +5206,93 @@
     "ed700": "2026-05-07",
     "connected_rec_id": 1245823,
     "doc_id": "78b87ee2-c8f3-477f-a0a0-dd728d51298e",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": "2026-11-10T00:00:00",
+        "DocId": "78b87ee2-c8f3-477f-a0a0-dd728d51",
+        "ED800": "2026-05-31T00:00:00",
+        "ED700": "2026-05-07T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16554644,
+    "tik_num": "2024/0566.02",
+    "street": "אל בארודי סמטה 6",
+    "house_number": null,
+    "neighborhood": "בית חנינה",
+    "place_description": "אל בארודי סמטה 6, בית חנינה.",
+    "publication_date": "2026-11-03",
+    "objection_deadline": null,
+    "ed700": "2026-10-29",
+    "connected_rec_id": 1278493,
+    "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-03T00:00:00",
+        "ED700": "2026-10-29T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1467,6 +5307,42 @@
     "ed700": "2026-07-05",
     "connected_rec_id": null,
     "doc_id": "1335995b-17f4-4859-8f7d-29d902e2e878",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "1335995b-17f4-4859-8f7d-29d902e2",
+        "ED800": "2026-07-08T00:00:00",
+        "ED700": "2026-07-05T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1481,6 +5357,42 @@
     "ed700": "2026-03-17",
     "connected_rec_id": null,
     "doc_id": "954f9e7c-33ce-4263-868d-53f42a47423d",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "954f9e7c-33ce-4263-868d-53f42a47",
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-03-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1495,6 +5407,42 @@
     "ed700": "2025-09-01",
     "connected_rec_id": 1194011,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2025-11-04T00:00:00",
+        "ED700": "2025-09-01T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1509,6 +5457,42 @@
     "ed700": "2026-07-21",
     "connected_rec_id": 1263129,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-07-22T00:00:00",
+        "ED700": "2026-07-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1523,6 +5507,42 @@
     "ed700": "2026-10-15",
     "connected_rec_id": 1222422,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1537,6 +5557,42 @@
     "ed700": "2026-06-15",
     "connected_rec_id": 1226585,
     "doc_id": "d12c648a-8577-4497-a4d9-1d9a62a24b36",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "d12c648a-8577-4497-a4d9-1d9a62a2",
+        "ED800": "2026-06-16T00:00:00",
+        "ED700": "2026-06-15T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1551,6 +5607,42 @@
     "ed700": "2026-06-21",
     "connected_rec_id": 1233994,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-07-29T00:00:00",
+        "ED700": "2026-06-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   },
   {
@@ -1565,6 +5657,42 @@
     "ed700": "2026-09-06",
     "connected_rec_id": 1235663,
     "doc_id": "783e56e7-f511-42e8-86d4-f221d7ded2f4",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "783e56e7-f511-42e8-86d4-f221d7de",
+        "ED800": "2026-10-12T00:00:00",
+        "ED700": "2026-09-06T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1579,6 +5707,42 @@
     "ed700": "2026-07-12",
     "connected_rec_id": 1247516,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-09-22T00:00:00",
+        "ED700": "2026-07-12T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1593,6 +5757,42 @@
     "ed700": "2026-08-03",
     "connected_rec_id": 1249807,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-08-03T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1607,6 +5807,42 @@
     "ed700": "2026-09-23",
     "connected_rec_id": 1252268,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-15T00:00:00",
+        "ED700": "2026-09-23T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1621,6 +5857,42 @@
     "ed700": "2026-10-04",
     "connected_rec_id": 1253066,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-04T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1635,6 +5907,42 @@
     "ed700": "2026-10-19",
     "connected_rec_id": 1253725,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-26T00:00:00",
+        "ED700": "2026-10-19T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1649,6 +5957,42 @@
     "ed700": "2026-10-19",
     "connected_rec_id": 1254247,
     "doc_id": "626963ec-0fba-428e-bd8e-12b48ea2f920",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "626963ec-0fba-428e-bd8e-12b48ea2",
+        "ED800": "2026-10-21T00:00:00",
+        "ED700": "2026-10-19T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1663,6 +6007,42 @@
     "ed700": "2026-07-21",
     "connected_rec_id": 1254470,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-09-17T00:00:00",
+        "ED700": "2026-07-21T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1677,6 +6057,42 @@
     "ed700": "2026-10-25",
     "connected_rec_id": null,
     "doc_id": "99aca084-a536-480c-bec3-afb7e478fdad",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "99aca084-a536-480c-bec3-afb7e478",
+        "ED800": "2026-10-28T00:00:00",
+        "ED700": "2026-10-25T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1691,6 +6107,42 @@
     "ed700": "2026-09-22",
     "connected_rec_id": 1274492,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-09-24T00:00:00",
+        "ED700": "2026-09-22T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1705,6 +6157,42 @@
     "ed700": "2026-09-16",
     "connected_rec_id": 1257540,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-09-22T00:00:00",
+        "ED700": "2026-09-16T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1719,6 +6207,42 @@
     "ed700": "2026-09-10",
     "connected_rec_id": 1262398,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-05T00:00:00",
+        "ED700": "2026-09-10T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1733,6 +6257,42 @@
     "ed700": "2026-10-08",
     "connected_rec_id": 1262842,
     "doc_id": "06ae771b-c819-48c2-86ee-51529d533cc9",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "06ae771b-c819-48c2-86ee-51529d53",
+        "ED800": "2026-10-13T00:00:00",
+        "ED700": "2026-10-08T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1747,6 +6307,42 @@
     "ed700": "2026-10-18",
     "connected_rec_id": 1271876,
     "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-10-20T00:00:00",
+        "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": null
   },
   {
@@ -1761,6 +6357,43 @@
     "ed700": "2026-09-24",
     "connected_rec_id": null,
     "doc_id": "c47d28af-0588-4ae4-8aa2-056fac3210b6",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": "2026-11-13T00:00:00",
+        "DocId": "c47d28af-0588-4ae4-8aa2-056fac32",
+        "ED800": "2026-10-18T00:00:00",
+        "ED700": "2026-09-24T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
     "in_polygon": true
   }
 ]

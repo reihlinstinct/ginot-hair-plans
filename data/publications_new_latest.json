@@ -1,47 +1,254 @@
 {
-  "new_in_polygon": [
-    {
-      "myIndex": 16554736,
-      "tik_num": "1996/0271.02",
-      "street": "דרך עזה",
-      "house_number": "27",
-      "neighborhood": "רחביה",
-      "place_description": null,
-      "publication_date": "2026-11-02",
-      "objection_deadline": null,
-      "ed700": "2026-10-29",
-      "connected_rec_id": 1271862,
-      "doc_id": null,
-      "in_polygon": true
-    }
-  ],
+  "new_in_polygon": [],
   "unresolved_new": [
     {
-      "myIndex": 16520819,
-      "tik_num": "2000/0483.04",
-      "street": "מנחם משיב",
-      "house_number": "12",
-      "neighborhood": "הקריות החסידיות",
-      "place_description": null,
-      "publication_date": "2026-11-02",
+      "myIndex": 16552193,
+      "tik_num": "1983/0461.03",
+      "street": "רמבן",
+      "house_number": "24",
+      "neighborhood": "רחביה",
+      "place_description": "תוספת בניה לבנין הקיים",
+      "publication_date": "2026-11-04",
       "objection_deadline": null,
-      "ed700": "2026-10-25",
-      "connected_rec_id": 1232188,
-      "doc_id": "7e268fb0-ca99-4b1d-8848-a8f7bace8e13",
+      "ed700": "2026-10-28",
+      "connected_rec_id": 1253022,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-04T00:00:00",
+          "ED700": "2026-10-28T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
       "in_polygon": null
     },
     {
-      "myIndex": 16472640,
-      "tik_num": "2001/0288.03",
-      "street": "הרב מאיר בר אילן",
-      "house_number": "39",
-      "neighborhood": "בוכרים",
+      "myIndex": 16522294,
+      "tik_num": "1991/0830.11",
+      "street": "משה קליינמן",
+      "house_number": "12",
+      "neighborhood": "קרית היובל",
       "place_description": null,
-      "publication_date": "2026-11-02",
+      "publication_date": "2026-11-03",
       "objection_deadline": null,
       "ed700": "2026-10-25",
-      "connected_rec_id": null,
-      "doc_id": "4df4ad46-90d9-4825-8671-6ee8cd15fa8d",
+      "connected_rec_id": 1274997,
+      "doc_id": "17b681eb-2675-46ea-ab4c-9dc2df192dcd",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "17b681eb-2675-46ea-ab4c-9dc2df19",
+          "ED800": "2026-11-03T00:00:00",
+          "ED700": "2026-10-25T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16562785,
+      "tik_num": "2023/0262.01",
+      "street": "האימאם מוסלם",
+      "house_number": "11",
+      "neighborhood": "בית חנינה",
+      "place_description": null,
+      "publication_date": "2026-11-04",
+      "objection_deadline": null,
+      "ed700": "2026-11-03",
+      "connected_rec_id": 1232394,
+      "doc_id": "d41bf41f-c28c-4fa9-a310-dd7cb634af40",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "d41bf41f-c28c-4fa9-a310-dd7cb634",
+          "ED800": "2026-11-04T00:00:00",
+          "ED700": "2026-11-03T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16564063,
+      "tik_num": "2024/0505.00",
+      "street": "הסביון",
+      "house_number": "6",
+      "neighborhood": "עיר גנים",
+      "place_description": null,
+      "publication_date": "2026-11-04",
+      "objection_deadline": null,
+      "ed700": "2026-11-03",
+      "connected_rec_id": 1267707,
+      "doc_id": "e4b4b1d8-ac77-4fc9-8f7e-e6c776ebbe4c",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "e4b4b1d8-ac77-4fc9-8f7e-e6c776eb",
+          "ED800": "2026-11-04T00:00:00",
+          "ED700": "2026-11-03T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16554644,
+      "tik_num": "2024/0566.02",
+      "street": "אל בארודי סמטה 6",
+      "house_number": null,
+      "neighborhood": "בית חנינה",
+      "place_description": "אל בארודי סמטה 6, בית חנינה.",
+      "publication_date": "2026-11-03",
+      "objection_deadline": null,
+      "ed700": "2026-10-29",
+      "connected_rec_id": 1278493,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-03T00:00:00",
+          "ED700": "2026-10-29T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
       "in_polygon": null
     }
   ]
