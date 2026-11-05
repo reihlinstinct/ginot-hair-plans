@@ -6,15 +6,18 @@ publication / objection-notice data for one specific public permit request
 
 Calls the viewer's own process/decision/condition procedures (recovered
 from the viewer's published JS bundle) through the owner-operated L2TP
-tunnel, slow-paced (4s between calls), and logs row VALUES with
-personal-data fields stripped (baaleiInyanList, achraTikFullName).
+tunnel, slow-paced (4s between calls), and emits typed public-field
+allowlists. Raw rows,
+HTML, free-text notes, staff and payment fields are never logged. Refs #858.
 
 Exit codes: 0 = all calls served JSON; 2 = anti-bot challenge/throttle
 (stop, no workaround); 1 = anything else.
 """
 
 import json
+import math
 import os
+import re
 import subprocess
 import sys
 import time
@@ -37,7 +40,64 @@ PROCS = [
     ("conditions_content_242700450", 242700450, {"TikNum": TIK}),
     ("address_242700455", 242700455, {"systemId": SYS, "tikNum": TIK}),
 ]
-STRIP_KEYS = {"baaleiInyanList", "achraTikFullName"}
+# Fail closed on schema drift. No raw-value truncation or nested values.
+# Text is restricted to public street/neighborhood labels. Process labels,
+# notes, HTML, people lists and financial fields have no output route.
+PUBLIC_FIELDS = {
+    "details_242700447": {
+        "tikNum": "tik",
+        "statusCode": "number",
+        "taarihStatus": "date",
+        "fullTaarihStatus": "date",
+    },
+    "process_titles_242700448": {"processCode": "number"},
+    "process_content_242700451": {
+        "processCode": "number",
+        "stepCode": "number",
+        "planDateStr": "date",
+        "execDateStr": "date",
+        "taarihChasifa": "date",
+        "taarihDiun": "date",
+        "taarihTokefHahlata": "date",
+    },
+    "decisions_242700453": {},  # Unverified schema: counts only.
+    "decisions_242700457": {
+        "tikNum": "tik",
+        "tohnit": "plan",
+        "status_code": "number",
+        "taarihStatus": "date",
+    },
+    "conditions_titles_242700449": {"tnaiCode": "number"},
+    "conditions_content_242700450": {
+        "tikNum": "tik",
+        "tnaiCode": "number",
+        "sugCode": "number",
+        "answerCode": "number",
+        "taarihBizua": "date",
+        "taarihIdkun": "date",
+    },
+    "address_242700455": {
+        "tikNum": "tik",
+        "rehovCode": "number",
+        "rehovName": "label",
+        "mispBait": "house",
+        "schunaCode": "number",
+        "schunaName": "label",
+        "cordinataX": "number",
+        "cordinataY": "number",
+    },
+}
+PATTERNS = {
+    "tik": re.compile(r"[0-9]{4}/[0-9]{1,8}(?:\.[0-9]{1,4})?"),
+    "date": re.compile(
+        r"(?:[0-9]{2}/[0-9]{2}/[0-9]{4}|[0-9]{4}-[0-9]{2}-[0-9]{2}"
+        r"(?:T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\.[0-9]{1,7})?Z?)?)"
+    ),
+    "plan": re.compile(r"[0-9A-Za-z\u05d0-\u05ea /.-]{1,40}"),
+    "house": re.compile(r"[0-9\u05d0-\u05ea /.-]{1,16}"),
+    "label": re.compile(r"[A-Za-z\u05d0-\u05ea0-9 '.,/()-]{1,80}"),
+}
+MAX_ROWS = 1000
 CHALLENGE_MARKERS = (
     b"incapsula",
     b"recaptcha",
@@ -47,23 +107,33 @@ CHALLENGE_MARKERS = (
     b"perimeterx",
     b"request blocked",
 )
-MAX_ROW_CHARS = 6000
 
 
-def sanitize(rows):
-    out = []
-    for row in rows if isinstance(rows, list) else [rows]:
-        if not isinstance(row, dict):
-            out.append(row)
-            continue
-        clean = {k: v for k, v in row.items() if k not in STRIP_KEYS}
-        s = json.dumps(clean, ensure_ascii=False, default=str)
-        out.append(
-            json.loads(s[:MAX_ROW_CHARS])
-            if len(s) <= MAX_ROW_CHARS
-            else {"_truncated": s[:MAX_ROW_CHARS]}
+def _public_scalar(value, kind):
+    if value is None:
+        return True
+    if kind == "number":
+        return (
+            type(value) in (int, float)
+            and abs(value) <= 10**12
+            and math.isfinite(value)
         )
-    return out
+    return isinstance(value, str) and PATTERNS[kind].fullmatch(value) is not None
+
+
+def sanitize(rows, tag):
+    """Project approved public fields only; never return raw/partial input."""
+    fields = PUBLIC_FIELDS.get(tag, {})
+    candidates = rows if isinstance(rows, list) else [rows]
+    return [
+        {
+            key: value
+            for key, value in row.items()
+            if key in fields and _public_scalar(value, fields[key])
+        }
+        for row in candidates[:MAX_ROWS]
+        if isinstance(row, dict)
+    ]
 
 
 def call(tag, proc, params):
@@ -115,7 +185,7 @@ def call(tag, proc, params):
                 "http": code,
                 "bytes": int(size or 0),
                 "row_count": n,
-                "rows": sanitize(rows) if is_json else None,
+                "rows": sanitize(rows, tag) if is_json else None,
             },
             ensure_ascii=False,
         )
