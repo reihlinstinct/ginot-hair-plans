@@ -185,3 +185,18 @@ test("/open count matches sanitized public plan rows", async () => {
   assert.equal(data.count, 1);
   assert.deepEqual(data.plans, [{ pl_number: "101-1" }]);
 });
+
+test("/permits q matches published tik_num and address after public projection", async () => {
+  const permit = { tik_num: "2026/0001.01", address: "רחוב לבדיקה 1", status: "בטיפול" };
+  const upstream = () => Promise.resolve(new Response(JSON.stringify({
+    generated: "2026-11-06", rows: [], permits: [permit],
+  })));
+  for (const query of ["2026/0001.01", "0001", "רחוב לבדיקה"]) {
+    const url = new URL("https://x.workers.dev/permits");
+    url.searchParams.set("q", query);
+    const data = await (await handleRequest(new Request(url), upstream)).json();
+    assert.equal(data.count, 1, query);
+    assert.equal(data.permits[0].tik_num, permit.tik_num);
+  }
+  assert.deepEqual(filterPermits([permit], new URLSearchParams("q=not-found")), []);
+});

@@ -67,7 +67,7 @@ export function filterPermits(permits, p) {
   const sug = p.get("type");
   if (sug) out = out.filter((r) => (r.sugbakasha || "").includes(sug));
   const q = p.get("q");
-  if (q) out = out.filter((r) => (r.mispar_bakasha || "").includes(q) || (r.address || "").includes(q));
+  if (q) out = out.filter((r) => (r.tik_num || "").includes(q) || (r.address || "").includes(q));
   return out;
 }
 
