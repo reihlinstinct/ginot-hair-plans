@@ -152,3 +152,24 @@ test("streetOf strips house numbers (the shared client/server street rule)", () 
   assert.equal(streetOf("לינקולן 5"), "לינקולן");
   assert.equal(streetOf(""), "");
 });
+
+// The upstream may drift: every query route must retain the privacy boundary.
+test("query routes never echo unknown private or nested fields", async () => {
+  const secret = "SYNTHETIC_PRIVATE_SENTINEL";
+  const privateFields = { planner_note: secret, phone: secret, national_id: secret,
+    baaleiInyanList: [secret], tracking_state: secret, future_private: secret };
+  const unsafe = () => Promise.resolve(new Response(JSON.stringify({
+    generated: "2026-11-06", definition: "public", count: 1,
+    rows: [{ ...rows[0], ...privateFields, land_status: { secret } }],
+    permits: [{ ...permits[0], ...privateFields, status: [secret] }],
+    plans: [{ ...rows[0], ...privateFields, pl_area_dunam: { secret } }],
+    future_private: secret,
+  })));
+  for (const route of ["/plans", "/permits", "/open"]) {
+    const resp = await handleRequest(new Request("https://x.workers.dev" + route), unsafe);
+    assert.equal(resp.status, 200);
+    const text = await resp.text();
+    assert.ok(!text.includes(secret), route);
+    assert.ok(text.includes(route === "/permits" ? "2024-1" : "101-1"));
+  }
+});

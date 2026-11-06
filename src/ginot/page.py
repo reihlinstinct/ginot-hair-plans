@@ -19,6 +19,7 @@ import urllib.parse as _urlparse_mod
 
 from . import __version__
 from .dates import today_il
+from .public_api import project as public_project
 
 URGENT_DAYS = 30  # objection-window days for the urgent row (issue #153)
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
@@ -2134,9 +2135,9 @@ def render_site(
         json.dump(
             {
                 "generated": generated,
-                "rows": rows,
-                "changes": changes,
-                "permits": permits,
+                "rows": public_project(rows, "rows"),
+                "changes": public_project(changes, "changes"),
+                "permits": public_project(permits, "permits"),
             },
             fh,
             ensure_ascii=False,
@@ -2157,7 +2158,7 @@ def render_site(
                 "generated": generated,
                 "definition": "station_desc != 'אישור' - תכניות שעדיין בתהליך תכנוני",
                 "count": len(open_rows),
-                "plans": open_rows,
+                "plans": public_project(open_rows, "plans"),
             },
             fh,
             ensure_ascii=False,
