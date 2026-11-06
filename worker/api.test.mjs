@@ -173,3 +173,15 @@ test("query routes never echo unknown private or nested fields", async () => {
     assert.ok(text.includes(route === "/permits" ? "2024-1" : "101-1"));
   }
 });
+
+test("/open count matches sanitized public plan rows", async () => {
+  const unsafe = () => Promise.resolve(new Response(JSON.stringify({
+    generated: "2026-11-06", count: 4,
+    plans: [null, "malformed", [], { pl_number: "101-1" }],
+  })));
+  const resp = await handleRequest(new Request("https://x.workers.dev/open"), unsafe);
+  const data = await resp.json();
+  assert.equal(data.count, data.plans.length);
+  assert.equal(data.count, 1);
+  assert.deepEqual(data.plans, [{ pl_number: "101-1" }]);
+});

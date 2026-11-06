@@ -267,8 +267,9 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
                   permits: (data.permits || []).length });
   }
   if (url.pathname === "/open") {
+    const plans = publicRows(data.plans, "plans");
     return json({ generated: data.generated, definition: data.definition,
-                  count: (data.plans || []).length, plans: publicRows(data.plans, "plans") });
+                  count: plans.length, plans });
   }
   if (url.pathname === "/plans") {
     const rows = filterPlans(publicRows(data.rows, "rows"), p);
