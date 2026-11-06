@@ -431,7 +431,7 @@ def stats_section(rows: list[dict]) -> str:
 def _permit_status_class(status: str) -> str:
     """Colour class for a permit-request status (mirrors the plan chip palette)."""
     st = status or ""
-    if "נסגרה" in st:
+    if "נסגרה" in st or st == "נדחתה":
         return "c-closed"
     if "הופק" in st:
         return "c-approved"
@@ -453,6 +453,7 @@ _PERMIT_PUB_EVIDENCE_STATUSES = frozenset(
 
 _PERMIT_TERMINAL_STATUSES = frozenset(
     {
+        "נדחתה",
         "הבקשה נסגרה",
         "הופק-הוצא היתר בניה",
         "הופק היתר מוארך",
@@ -515,7 +516,12 @@ PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
         frozenset({"הופק-הוצא היתר בניה", "הופק היתר מוארך"}),
         False,
     ),
-    ("closed", "סגור/אחר", frozenset({"הבקשה נסגרה", "הבקשה נגנזה", ""}), False),
+    (
+        "closed",
+        "סגור/אחר",
+        frozenset({"הבקשה נסגרה", "הבקשה נגנזה", "נדחתה", ""}),
+        False,
+    ),
 )
 
 _PERMIT_GROUP_CLASS = {
@@ -729,7 +735,7 @@ def _permits_section(
 ) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
-    textually distinct from the plans table. Terminal requests (closed /
+    textually distinct from the plans table. Terminal requests (closed / rejected /
     permit issued) are hidden by default - the planner can no longer act
     on them - and revealed by one checkbox. Dates render dd.mm.yy with the
     ISO value kept in data-iso for filtering."""
