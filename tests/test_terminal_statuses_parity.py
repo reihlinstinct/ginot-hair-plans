@@ -5,11 +5,8 @@ each keep their own copy (the VPN modules must stay import-free of one
 another). They must never drift: the queue writer and the enrichment consumer
 disagreeing on what is terminal reopens the class of loss #799 fixed.
 
-src/ginot/page.py keeps a separate display-side set. Its current difference
-from the ingest set is exactly {"נדחתה"}: rejected requests stay visible as
-active on the site while the enrichment queue prunes them. Pin the difference
-so a silent change in either direction fails here; if the site set is meant
-to match, update both and remove the difference pin.
+src/ginot/page.py matches the ingest terminal set after the owner decision
+in #809: rejected requests are terminal in the default site view too.
 """
 
 import importlib.util
@@ -40,9 +37,8 @@ def test_script_copies_are_identical():
     assert enrich.TERMINAL_STATUSES == recheck.TERMINAL_STATUSES
 
 
-def test_page_display_set_difference_is_pinned():
+def test_page_display_set_matches_ingest():
     ingest = _load("mirror_ingest", "scripts/mirror_ingest.py")
     from ginot.page import _PERMIT_TERMINAL_STATUSES
 
-    assert set(_PERMIT_TERMINAL_STATUSES) <= ingest.TERMINAL_STATUSES
-    assert ingest.TERMINAL_STATUSES - set(_PERMIT_TERMINAL_STATUSES) == {"נדחתה"}
+    assert set(_PERMIT_TERMINAL_STATUSES) == ingest.TERMINAL_STATUSES

@@ -1124,3 +1124,35 @@ def test_publication_evidence_tiks_reads_in_polygon_entries_only(tmp_path):
     assert publication_evidence_tiks(str(path)) == frozenset()
     path.write_text("{}", encoding="utf-8")
     assert publication_evidence_tiks(str(path)) == frozenset()
+
+
+def test_rejected_permit_is_terminal_but_preserved_in_all_rows(tmp_path):
+    """Owner decision #809 hides rejected requests, never deletes history."""
+    import json
+
+    permits = tmp_path / "rejected.json"
+    permits.write_text(
+        json.dumps(
+            {
+                "requests": [
+                    {
+                        "tik_num": "2026/0999.01",
+                        "status": "נדחתה",
+                        "address": "רחוב לבדיקה 1",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+    page.render_site([_row("1", "אישור")], [], str(tmp_path), permits_path=str(permits))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "data-active='0' data-status='נדחתה'" in html
+    assert "data-tik='2026/0999.01' data-group='closed'" in html
+    assert "הצג בקשות שהסתיימו (1)" in html
+    assert page._permit_status_class("נדחתה") == "c-closed"
+    # The full history is retained while the initial active subset is empty.
+    all_rows = (tmp_path / "permits.html").read_text(encoding="utf-8")
+    assert "2026/0999.01" in all_rows
+    default_rows = (tmp_path / "permits-default.html").read_text(encoding="utf-8")
+    assert "2026/0999.01" not in default_rows
