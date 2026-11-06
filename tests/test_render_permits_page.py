@@ -300,3 +300,43 @@ def test_default_subset_rendered_with_full_fragment(tmp_path):
     # every subset row is byte-identical to its full-fragment row
     for line in subset.split("</tr>")[:-1]:
         assert line + "</tr>" in full
+
+
+def test_batch_data_json_drops_unapproved_permit_fields(tmp_path):
+    """#123: the feed writer must not bypass the weekly privacy projection."""
+    (tmp_path / "data").mkdir()
+    (tmp_path / "docs").mkdir()
+    secret = "SYNTHETIC_PRIVATE_SENTINEL"
+    permit = {
+        "tik_num": "2026/0439.00",
+        "status": "תחילת פרסום הבקשה להקלה",
+        "gush": 30007,
+        "helka": 12,
+        "address": "רחוב לבדיקה 1",
+        "baaleiInyanList": [secret],
+        "planner_note": secret,
+        "phone": secret,
+        "national_id": secret,
+        "future_private": secret,
+        "details_checked_on": {"nested_private": secret},
+    }
+    (tmp_path / "data/permit_requests.json").write_text(
+        json.dumps({"requests": [permit]}), encoding="utf-8"
+    )
+    before = {
+        "generated": "2026-11-06",
+        "rows": [{"pl_number": "101-1"}],
+        "changes": [],
+        "permits": [],
+    }
+    (tmp_path / "docs/data.json").write_text(json.dumps(before), encoding="utf-8")
+    result = _run(tmp_path)
+    assert result.returncode == 0, result.stderr
+    text = (tmp_path / "docs/data.json").read_text(encoding="utf-8")
+    assert secret not in text
+    data = json.loads(text)
+    assert data["permits"][0]["tik_num"] == "2026/0439.00"
+    assert data["permits"][0]["status"] == permit["status"]
+    assert "details_checked_on" not in data["permits"][0]
+    for key in ["generated", "rows", "changes"]:
+        assert data[key] == before[key]

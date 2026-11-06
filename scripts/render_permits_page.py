@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from ginot.mapdata import permit_points, write_permit_points
 from ginot.page import _permits_section, publication_evidence_tiks, write_permit_ids
+from ginot.public_api import project
 
 DATA = "data/permit_requests.json"
 OUT = "docs/permits.html"
@@ -49,7 +50,7 @@ def update_data_json(permits) -> None:
         return
     with open(DATA_JSON, encoding="utf-8") as fh:
         data = json.load(fh)
-    data["permits"] = permits
+    data["permits"] = project(permits, "permits")
     # Atomic replace: a crash mid-write must never leave a truncated public
     # endpoint for the publish step to stage.
     fd, tmp = tempfile.mkstemp(

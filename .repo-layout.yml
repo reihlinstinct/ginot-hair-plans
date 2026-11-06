@@ -31,7 +31,8 @@
       "pytest.ini",
       "requirements.txt",
       "ruff.toml",
-      ".repo-layout.yml"
+      ".repo-layout.yml",
+      "API_PRIVACY.md"
     ],
     "deny": [
       "*.py"
@@ -53,7 +54,8 @@
         "*.css",
         "*.js",
         "*.py",
-        "LICENSE"
+        "LICENSE",
+        "public-api-fields.json"
       ]
     },
     "scripts": {

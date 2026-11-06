@@ -6,7 +6,16 @@
 // dictionary-matched key or "other", per day) in Workers KV. No raw search
 // text, no IP, no User-Agent, no user identification of any kind.
 // Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
+import publicFields from "../src/ginot/static/public-api-fields.json" with { type: "json" };
 import { securityTxtResponse } from "./securitytxt.mjs";
+// Field names shared with the static publisher. No nested values pass through.
+export function publicRows(rows, kind) {
+  const fields = new Set(publicFields[kind] || []);
+  return (Array.isArray(rows) ? rows : []).filter(r => r && typeof r === "object" && !Array.isArray(r))
+    .map(r => Object.fromEntries(Object.entries(r).filter(([k, v]) => fields.has(k) &&
+      (v === null || typeof v === "string" || typeof v === "boolean" ||
+       (typeof v === "number" && Number.isFinite(v))))));
+}
 const ORIGIN = "https://reihlinstinct.github.io/ginot-hair-plans";
 const CACHE_TTL = 300; // seconds, edge cache for the upstream data.json
 const MAX_LIMIT = 500;
@@ -258,16 +267,18 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
                   permits: (data.permits || []).length });
   }
   if (url.pathname === "/open") {
-    return json(data); // open.json already carries definition/count/plans
+    const plans = publicRows(data.plans, "plans");
+    return json({ generated: data.generated, definition: data.definition,
+                  count: plans.length, plans });
   }
   if (url.pathname === "/plans") {
-    const rows = filterPlans(data.rows || [], p);
+    const rows = filterPlans(publicRows(data.rows, "rows"), p);
     const limit = limitOf(p);
     return json({ generated: data.generated, count: rows.length,
                   returned: Math.min(rows.length, limit), plans: rows.slice(0, limit) });
   }
   if (url.pathname === "/permits") {
-    const permits = filterPermits(data.permits || [], p);
+    const permits = filterPermits(publicRows(data.permits, "permits"), p);
     const limit = limitOf(p);
     return json({ generated: data.generated, count: permits.length,
                   returned: Math.min(permits.length, limit), permits: permits.slice(0, limit) });
