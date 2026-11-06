@@ -63,3 +63,13 @@ def test_rendered_json_drops_injected_private_fields(tmp_path):
         json.loads((tmp_path / "data.json").read_text())["rows"][0]["pl_number"]
         == "101-1"
     )
+
+
+def test_published_allowlist_matches_the_shared_source():
+    """The static copy is a published schema, never an independent policy."""
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    source = root / "src/ginot/static/public-api-fields.json"
+    published = root / "docs/public-api-fields.json"
+    assert published.read_bytes() == source.read_bytes()

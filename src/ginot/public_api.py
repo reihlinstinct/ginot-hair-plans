@@ -10,7 +10,9 @@ import math
 from pathlib import Path
 
 PUBLIC_API_FIELDS = json.loads(
-    (Path(__file__).parent / "static" / "public-api-fields.json").read_text()
+    (Path(__file__).parent / "static" / "public-api-fields.json").read_text(
+        encoding="utf-8"
+    )
 )
 
 
