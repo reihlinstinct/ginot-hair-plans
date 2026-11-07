@@ -248,6 +248,7 @@ def write(rel, text="{}\n"):
     [
         "data/permit_requests.json",
         "docs/index.json",
+        "docs/index.html",
         "docs/badge/parcel-1-2.json",
         "docs/permits.html",
         "docs/permits-default.html",
@@ -281,7 +282,7 @@ def executable(repo):
             write(".github/workflows/ci.yml", "on: push\n"),
             "outside the publication allowlist",
         ),
-        (write("docs/index.html", "<p>\n"), "outside the publication allowlist"),
+        (write("docs/arbitrary.html", "<p>\n"), "outside the publication allowlist"),
         (write("docs/badge/x/parcel-1.json"), "outside the publication allowlist"),
         (symlink, "disallowed file mode 120000"),
         (executable, "disallowed file mode 100755"),

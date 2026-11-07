@@ -953,3 +953,30 @@ def test_non_list_page_fails_closed(which, bad_page, capsys):
     # the exact collect() message: the /files backstop ("changed files
     # incomplete or malformed") must not satisfy this pin.
     assert "list response incomplete or malformed" in capsys.readouterr().out
+
+
+def test_generated_index_html_remains_routable_with_full_checks():
+    # #870: the permit renderer updates coverage counts in this exact file.
+    p, w = pr(), World()
+    w.files.append({"filename": "docs/index.html", "status": "modified"})
+    p["changed_files"] += 1
+    assert decide(p, w) == ("route-scan-audit", "verified")
+    w.reviews = []
+    assert decide(p, w)[0] == "hold"
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "docs/arbitrary.html",
+        "docs/reviews/private.html",
+        "scripts/index.html",
+        ".github/workflows/index.html",
+    ],
+)
+def test_index_html_allowance_does_not_allow_other_html(path):
+    p, w = pr(), World()
+    w.files.append({"filename": path, "status": "modified"})
+    p["changed_files"] += 1
+    with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
+        decide(p, w)
