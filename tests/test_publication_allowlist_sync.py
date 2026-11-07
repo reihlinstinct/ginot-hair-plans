@@ -46,3 +46,13 @@ def test_publication_allowlists_stay_in_sync():
     router = {p for p in permit_router.DATA_FILES if p.startswith("docs/")}
     assert workflow == bundle == router
     assert "docs/data.json" in workflow  # the #559 refresh must be publishable
+
+
+def test_permit_workflow_regenerates_covered_site_after_reset_before_stage():
+    text = (ROOT / ".github/workflows/permit-feed.yml").read_text()
+    reset = text.index("git reset --hard origin/main")
+    render = text.index(
+        "python3 scripts/ci/check_docs_fresh.py --include-data-json --write", reset
+    )
+    stage = text.index("git add data/ docs/index.json", reset)
+    assert reset < render < stage

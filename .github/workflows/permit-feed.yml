@@ -312,6 +312,9 @@ jobs:
           # and a render failure fails the run (set -e) instead of shipping
           # stale rows silently.
           python3 scripts/render_permits_page.py
+          # Refresh coverage counts in index.html with the current renderer (#870).
+          python3 scripts/ci/check_docs_fresh.py --include-data-json --write
+          python3 scripts/ci/check_docs_fresh.py --include-data-json
           git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html docs/permit-ids.json docs/permit-points.json docs/data.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           mkdir -p "$RUNNER_TEMP/publication"
