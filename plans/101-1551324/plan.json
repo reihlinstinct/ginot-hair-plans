@@ -1,9 +1,9 @@
 {
  "pl_number": "101-1551324",
- "pl_name": "עדכון לתכנית 1449א",
+ "pl_name": "הרחבת דרך המקשרת מרחוב גולומב לרחוב הנוטרים ודב הוז.",
  "station_desc": "בבדיקה תכנונית",
  "internet_short_status": "קיום תנאי סף",
- "entity_subtype_desc": "תכנית מפורטת",
+ "entity_subtype_desc": "תכנית מתאר מקומית",
  "receiving_date": "2026-08-02",
  "open_date": "",
  "date_saf": "",
@@ -18,6 +18,6 @@
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005513260/310",
  "mp_id": 1005513260.0,
  "jurstiction_area_name": "ירושלים",
- "last_update_date": "2026-08-02",
+ "last_update_date": "2026-11-05",
  "advisory_urgent": false
 }
