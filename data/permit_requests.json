@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-04",
+ "generated": "2026-11-07",
  "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
  "batch": {
   "offset": 4600,
@@ -864,7 +864,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1910/1944.01",
@@ -1706,7 +1706,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1949/0803.00",
@@ -1732,7 +1732,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1949/0876.00",
@@ -2671,7 +2671,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפלמח 25 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1950/2272.00",
@@ -3408,7 +3408,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושפט מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1951/1227.01",
@@ -4321,7 +4321,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1953/0388.00",
@@ -8809,8 +8809,11 @@
    "helka": 211,
    "publication_start": "",
    "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1957/0982.01",
@@ -14018,7 +14021,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1962/0064.00",
@@ -14627,7 +14630,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 5 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1962/0506.01",
@@ -14640,7 +14643,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1962/0506.02",
@@ -14653,7 +14656,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1962/0530.00",
@@ -14795,7 +14798,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1962/0614.00",
@@ -15778,7 +15781,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1963/0330.00",
@@ -16873,7 +16876,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1964/0183.02",
@@ -16886,7 +16889,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1964/0189.00",
@@ -18476,7 +18479,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1965/0322.01",
@@ -18489,7 +18492,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1965/0323.00",
@@ -19300,7 +19303,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1965/0951.01",
@@ -19313,7 +19316,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1965/1017.00",
@@ -19935,7 +19938,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1966/0454.00",
@@ -20065,7 +20068,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1966/0619.00",
@@ -21792,7 +21795,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1968/0339.01",
@@ -21805,7 +21808,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1968/0339.02",
@@ -21818,7 +21821,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1968/0359.00",
@@ -23408,7 +23411,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0115.01",
@@ -23421,7 +23424,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0115.02",
@@ -23434,7 +23437,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0115.03",
@@ -23447,7 +23450,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-09-02",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0115.04",
@@ -23460,7 +23463,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0115.05",
@@ -23473,7 +23476,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0116.00",
@@ -23603,7 +23606,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0148.01",
@@ -23616,7 +23619,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0148.02",
@@ -23629,7 +23632,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0148.03",
@@ -23642,7 +23645,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0148.04",
@@ -23655,7 +23658,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0161.00",
@@ -23934,7 +23937,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0277.00",
@@ -24845,7 +24848,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0716.00",
@@ -25037,7 +25040,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1969/0821.00",
@@ -26264,7 +26267,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0082.01",
@@ -26277,7 +26280,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0105.00",
@@ -26558,7 +26561,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 18 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.01",
@@ -26571,7 +26574,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.02",
@@ -26584,7 +26587,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-08-30",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.03",
@@ -26597,7 +26600,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.04",
@@ -26610,7 +26613,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-12-28",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.05",
@@ -26623,7 +26626,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.06",
@@ -26636,7 +26639,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0308.07",
@@ -26649,7 +26652,7 @@
    "publication_start": "2026-05-28",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1970/0322.00",
@@ -29727,7 +29730,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1971/0940.00",
@@ -30046,7 +30049,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושפט מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1971/1270.00",
@@ -31214,7 +31217,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושפט מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1972/0508.01",
@@ -31227,7 +31230,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושפט מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1972/0515.00",
@@ -34023,7 +34026,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 9 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1973/0451.01",
@@ -34036,7 +34039,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 9 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1973/0451.02",
@@ -34049,7 +34052,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 9 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1973/0451.03",
@@ -34062,7 +34065,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-05-18",
    "address": "אסא 9 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1973/0455.00",
@@ -35877,7 +35880,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1974/0354.01",
@@ -35890,7 +35893,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1974/0354.02",
@@ -35903,7 +35906,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1974/0361.00",
@@ -36503,7 +36506,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1974/0623.00",
@@ -37820,7 +37823,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1975/0473.01",
@@ -37833,7 +37836,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1975/0475.00",
@@ -38909,7 +38912,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1976/0106.01",
@@ -38922,7 +38925,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1976/0127.00",
@@ -39050,7 +39053,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1976/0202.00",
@@ -40149,7 +40152,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1976/0564.00",
@@ -41870,7 +41873,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1977/0325.00",
@@ -42748,7 +42751,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1977/0547.01",
@@ -42761,7 +42764,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1977/0550.00",
@@ -46717,7 +46720,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1978/0815.01",
@@ -46730,7 +46733,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1978/0823.00",
@@ -46960,7 +46963,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 19 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0066.00",
@@ -47114,7 +47117,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אמציה 19 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0161.00",
@@ -49001,7 +49004,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 8 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0667.02",
@@ -49014,7 +49017,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 8 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0667.03",
@@ -49027,7 +49030,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0667.04",
@@ -49040,7 +49043,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 8 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0667.05",
@@ -49053,7 +49056,7 @@
    "publication_start": "2021-09-13",
    "publication_end_planned": "",
    "address": "אסא 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0667.06",
@@ -49066,7 +49069,7 @@
    "publication_start": "2025-08-27",
    "publication_end_planned": "",
    "address": "אסא 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1979/0684.00",
@@ -49833,7 +49836,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 16 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1980/0015.00",
@@ -50275,7 +50278,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1980/0101.01",
@@ -50288,7 +50291,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 7 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1980/0103.00",
@@ -50392,7 +50395,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1980/0171.00",
@@ -54441,7 +54444,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 36 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0437.00",
@@ -55817,7 +55820,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0716.00",
@@ -56257,7 +56260,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 6 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0950.01",
@@ -56270,7 +56273,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-05-29",
    "address": "בילו 6 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0950.02",
@@ -56283,7 +56286,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 6 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0950.03",
@@ -56296,7 +56299,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 6 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1981/0954.00",
@@ -56935,7 +56938,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1982/0052.00",
@@ -59317,7 +59320,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.01",
@@ -59330,7 +59333,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.02",
@@ -59343,7 +59346,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.03",
@@ -59356,7 +59359,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.04",
@@ -59369,7 +59372,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.05",
@@ -59382,7 +59385,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-02-20",
    "address": "עמק רפאים 64 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.06",
@@ -59395,7 +59398,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-05-24",
    "address": "עמק רפאים 64 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0154.07",
@@ -59408,7 +59411,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-07-24",
    "address": "עמק רפאים 64 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0159.00",
@@ -61498,7 +61501,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1983/0914.00",
@@ -64261,7 +64264,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1984/0504.01",
@@ -64274,7 +64277,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 9 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1984/0505.00",
@@ -69601,7 +69604,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1986/0351.00",
@@ -69659,7 +69662,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1986/0365.01",
@@ -69672,7 +69675,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1986/0365.02",
@@ -69685,7 +69688,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1986/0365.03",
@@ -69698,7 +69701,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1986/0399.00",
@@ -71873,7 +71876,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.01",
@@ -71886,7 +71889,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.02",
@@ -71899,7 +71902,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-02-09",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.03",
@@ -71912,7 +71915,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.04",
@@ -71925,7 +71928,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.05",
@@ -71938,7 +71941,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.06",
@@ -71951,7 +71954,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.07",
@@ -71964,7 +71967,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.08",
@@ -71977,7 +71980,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0141.09",
@@ -71990,7 +71993,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0148.01",
@@ -72404,7 +72407,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0258.00",
@@ -72493,7 +72496,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.01",
@@ -72506,7 +72509,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.02",
@@ -72519,7 +72522,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.03",
@@ -72532,7 +72535,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.04",
@@ -72545,7 +72548,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.05",
@@ -72558,7 +72561,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-01-14",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.06",
@@ -72571,7 +72574,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0277.07",
@@ -72584,7 +72587,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-11-18",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0280.00",
@@ -72727,7 +72730,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0282.01",
@@ -72740,7 +72743,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0282.02",
@@ -72753,7 +72756,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 8 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1987/0284.02",
@@ -76804,7 +76807,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 1 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0145.01",
@@ -76817,7 +76820,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0150.00",
@@ -78043,7 +78046,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0514.02",
@@ -78056,7 +78059,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0514.03",
@@ -78069,7 +78072,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0514.04",
@@ -78082,7 +78085,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0514.05",
@@ -78095,7 +78098,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1988/0522.00",
@@ -81570,7 +81573,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0290.00",
@@ -81763,7 +81766,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.01",
@@ -81776,7 +81779,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.02",
@@ -81789,7 +81792,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-08-05",
    "address": "השומר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.03",
@@ -81802,7 +81805,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-08-09",
    "address": "יעקב ברגר 1 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.04",
@@ -81815,7 +81818,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 1 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.05",
@@ -81828,7 +81831,7 @@
    "publication_start": "2016-09-14",
    "publication_end_planned": "2016-10-10",
    "address": "השומר 1 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.06",
@@ -81841,7 +81844,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 1 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0300.07",
@@ -81854,7 +81857,7 @@
    "publication_start": "2025-12-03",
    "publication_end_planned": "",
    "address": "השומר 1 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0312.00",
@@ -81984,7 +81987,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0337.01",
@@ -81997,7 +82000,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0337.02",
@@ -82010,7 +82013,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1989/0346.00",
@@ -86351,7 +86354,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0018.01",
@@ -86364,7 +86367,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-03-09",
    "address": "יעקב ברגר 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0018.02",
@@ -86377,7 +86380,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-11-09",
    "address": "יעקב ברגר 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0018.03",
@@ -86390,7 +86393,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0018.04",
@@ -86403,7 +86406,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0018.05",
@@ -86416,7 +86419,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0036.00",
@@ -86622,7 +86625,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.01",
@@ -86635,7 +86638,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.02",
@@ -86648,7 +86651,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.03",
@@ -86661,7 +86664,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.04",
@@ -86674,7 +86677,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.05",
@@ -86687,7 +86690,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.06",
@@ -86700,7 +86703,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-11-22",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.07",
@@ -86713,7 +86716,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.08",
@@ -86726,7 +86729,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0062.09",
@@ -86739,7 +86742,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0067.00",
@@ -87699,7 +87702,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.01",
@@ -87712,7 +87715,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.02",
@@ -87725,7 +87728,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.03",
@@ -87751,7 +87754,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.05",
@@ -87764,7 +87767,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-08-13",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.06",
@@ -87777,7 +87780,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-03-17",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.07",
@@ -87790,7 +87793,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.08",
@@ -87803,7 +87806,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-08-22",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.09",
@@ -87816,7 +87819,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.10",
@@ -87829,7 +87832,7 @@
    "publication_start": "2017-03-06",
    "publication_end_planned": "2017-03-21",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0242.11",
@@ -87842,7 +87845,7 @@
    "publication_start": "2019-10-24",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0246.00",
@@ -88342,7 +88345,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0366.01",
@@ -88355,7 +88358,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0366.02",
@@ -88368,7 +88371,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0381.00",
@@ -88381,7 +88384,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0381.01",
@@ -88394,7 +88397,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-05-19",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0408.01",
@@ -88882,7 +88885,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.01",
@@ -88895,7 +88898,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-07-20",
    "address": "השומר 19 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.02",
@@ -88921,7 +88924,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.04",
@@ -88947,7 +88950,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.06",
@@ -88960,7 +88963,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.07",
@@ -88986,7 +88989,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.09",
@@ -89012,7 +89015,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 19 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0523.11",
@@ -89025,7 +89028,7 @@
    "publication_start": "2024-01-31",
    "publication_end_planned": "",
    "address": "השומר 19 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0529.00",
@@ -89753,7 +89756,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.01",
@@ -89766,7 +89769,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.02",
@@ -89779,7 +89782,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.03",
@@ -89792,7 +89795,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-12-08",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.04",
@@ -89805,7 +89808,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.05",
@@ -89818,7 +89821,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.06",
@@ -89831,7 +89834,7 @@
    "publication_start": "",
    "publication_end_planned": "2001-08-12",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.07",
@@ -89844,7 +89847,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.08",
@@ -89857,7 +89860,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-05-17",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.09",
@@ -89870,7 +89873,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.10",
@@ -89883,7 +89886,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-05-07",
    "address": "השומר 3 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.11",
@@ -89896,7 +89899,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0630.12",
@@ -89909,7 +89912,7 @@
    "publication_start": "2022-10-20",
    "publication_end_planned": "",
    "address": "השומר 3 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0631.00",
@@ -90270,7 +90273,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.01",
@@ -90283,7 +90286,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.02",
@@ -90296,7 +90299,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.03",
@@ -90309,7 +90312,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.04",
@@ -90322,7 +90325,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.05",
@@ -90335,7 +90338,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.06",
@@ -90347,8 +90350,11 @@
    "helka": 54,
    "publication_start": "",
    "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.07",
@@ -90361,7 +90367,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.08",
@@ -90374,7 +90380,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-06-11",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.09",
@@ -90387,7 +90393,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-11-10",
    "address": "שדה יצחק 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.10",
@@ -90400,7 +90406,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.11",
@@ -90413,7 +90419,7 @@
    "publication_start": "2019-12-24",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0701.12",
@@ -90426,7 +90432,7 @@
    "publication_start": "2022-01-05",
    "publication_end_planned": "",
    "address": "שדה יצחק 2 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/0707.00",
@@ -92807,7 +92813,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/1142.01",
@@ -92820,7 +92826,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/1142.02",
@@ -92833,7 +92839,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/1144.00",
@@ -92872,7 +92878,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כובשי קטמון 28 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/1161.01",
@@ -92885,7 +92891,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כובשי קטמון 28 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1990/1166.00",
@@ -96037,7 +96043,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.01",
@@ -96050,7 +96056,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.02",
@@ -96063,7 +96069,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.03",
@@ -96076,7 +96082,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.04",
@@ -96089,7 +96095,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.05",
@@ -96102,7 +96108,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.06",
@@ -96115,7 +96121,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.07",
@@ -96128,7 +96134,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.08",
@@ -96141,7 +96147,7 @@
    "publication_start": "2019-09-19",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0584.09",
@@ -96154,7 +96160,7 @@
    "publication_start": "2024-01-14",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0585.00",
@@ -96378,7 +96384,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.01",
@@ -96391,7 +96397,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.02",
@@ -96404,7 +96410,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-01-29",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.03",
@@ -96417,7 +96423,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.04",
@@ -96430,7 +96436,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-12-29",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.05",
@@ -96443,7 +96449,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.06",
@@ -96456,7 +96462,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.07",
@@ -96469,7 +96475,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.08",
@@ -96482,7 +96488,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-07-23",
    "address": "הנוטרים 3 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0668.09",
@@ -96495,7 +96501,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0678.00",
@@ -96716,7 +96722,7 @@
    "publication_start": "2017-04-30",
    "publication_end_planned": "",
    "address": "הנוטרים 3 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0688.03",
@@ -96729,7 +96735,7 @@
    "publication_start": "2016-09-06",
    "publication_end_planned": "2016-09-20",
    "address": "הנוטרים 3 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0688.04",
@@ -96742,7 +96748,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0688.05",
@@ -96755,7 +96761,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 23 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0688.06",
@@ -96768,7 +96774,7 @@
    "publication_start": "2023-04-18",
    "publication_end_planned": "",
    "address": "הנוטרים 3 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0697.00",
@@ -97135,7 +97141,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0889.01",
@@ -97148,7 +97154,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0889.02",
@@ -97161,7 +97167,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0889.03",
@@ -97174,7 +97180,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/0898.00",
@@ -98137,7 +98143,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.01",
@@ -98150,7 +98156,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.02",
@@ -98163,7 +98169,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.03",
@@ -98176,7 +98182,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.04",
@@ -98189,7 +98195,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.05",
@@ -98202,7 +98208,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.06",
@@ -98215,7 +98221,7 @@
    "publication_start": "2021-01-14",
    "publication_end_planned": "",
    "address": "דב הוז 9 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.07",
@@ -98228,7 +98234,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 9 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.08",
@@ -98241,7 +98247,7 @@
    "publication_start": "2025-03-18",
    "publication_end_planned": "",
    "address": "דב הוז 9 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.09",
@@ -98254,7 +98260,7 @@
    "publication_start": "2024-12-16",
    "publication_end_planned": "",
    "address": "דב הוז 9 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1090.10",
@@ -98267,7 +98273,7 @@
    "publication_start": "2025-04-02",
    "publication_end_planned": "",
    "address": "דב הוז 9 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1991/1101.00",
@@ -98491,7 +98497,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-08-17",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.01",
@@ -98504,7 +98510,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.02",
@@ -98517,7 +98523,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.03",
@@ -98530,7 +98536,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.04",
@@ -98543,7 +98549,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.05",
@@ -98556,7 +98562,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-02-17",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.06",
@@ -98569,7 +98575,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0077.07",
@@ -98595,7 +98601,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-03-31",
    "address": "דב הוז 5 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0078.00",
@@ -99236,7 +99242,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.01",
@@ -99249,7 +99255,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.02",
@@ -99262,7 +99268,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 13 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.03",
@@ -99275,7 +99281,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.04",
@@ -99288,7 +99294,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.05",
@@ -99301,7 +99307,7 @@
    "publication_start": "2025-02-10",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0224.06",
@@ -99314,7 +99320,7 @@
    "publication_start": "2025-02-06",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1992/0241.08",
@@ -101114,7 +101120,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0133.01",
@@ -101127,7 +101133,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0133.02",
@@ -101140,7 +101146,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0133.03",
@@ -101153,7 +101159,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0135.00",
@@ -101693,7 +101699,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.01",
@@ -101706,7 +101712,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.02",
@@ -101719,7 +101725,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.03",
@@ -101732,7 +101738,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.04",
@@ -101745,7 +101751,7 @@
    "publication_start": "",
    "publication_end_planned": "2009-01-21",
    "address": "הנוטרים 8 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.05",
@@ -101758,7 +101764,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-04-03",
    "address": "הנוטרים 8 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.06",
@@ -101771,7 +101777,7 @@
    "publication_start": "2016-01-28",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0388.07",
@@ -101783,8 +101789,11 @@
    "helka": 13,
    "publication_start": "",
    "publication_end_planned": "",
-   "address": "",
-   "details_checked_on": "2026-10-24"
+   "rehovName": "הנוטרים",
+   "mispBait": "8",
+   "schunaName": "גוננים",
+   "address": "הנוטרים 8",
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0413.00",
@@ -102436,7 +102445,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 7 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0698.01",
@@ -102449,7 +102458,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-07-22",
    "address": "רחל אמנו 7 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0698.02",
@@ -102462,7 +102471,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 7 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0700.00",
@@ -102858,7 +102867,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0946.01",
@@ -102871,7 +102880,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-08-01",
    "address": "הנוטרים גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0946.02",
@@ -102884,7 +102893,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0946.03",
@@ -102897,7 +102906,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-12-02",
    "address": "הנוטרים 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0946.04",
@@ -102910,7 +102919,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-10-20",
    "address": "הנוטרים 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1993/0957.00",
@@ -103353,7 +103362,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-08-31",
    "address": "עמק רפאים 46 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0241.01",
@@ -103366,7 +103375,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-09-12",
    "address": "עמק רפאים 46 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0241.02",
@@ -103379,7 +103388,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0254.00",
@@ -103965,7 +103974,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-10-25",
    "address": "כט בנובמבר 14 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0507.01",
@@ -103978,7 +103987,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 14 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0507.02",
@@ -103991,7 +104000,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-01-26",
    "address": "כט בנובמבר 14 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0507.03",
@@ -104004,7 +104013,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 14 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0507.04",
@@ -104017,7 +104026,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 14 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1994/0556.00",
@@ -104969,7 +104978,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 50 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0020.01",
@@ -104982,7 +104991,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 50 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0020.02",
@@ -104995,7 +105004,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 50 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0020.03",
@@ -105008,7 +105017,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 50 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0026.00",
@@ -105736,7 +105745,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 15 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0378.00",
@@ -107290,7 +107299,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-10-31",
    "address": "עמק רפאים 54 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0751.01",
@@ -107303,7 +107312,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-10-21",
    "address": "עמק רפאים 54 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0751.02",
@@ -107316,7 +107325,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-02-11",
    "address": "עמק רפאים 54 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0751.03",
@@ -107329,7 +107338,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-01-14",
    "address": "עמק רפאים 54 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0751.04",
@@ -107342,7 +107351,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 54 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1995/0752.00",
@@ -110128,7 +110137,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0595.00",
@@ -110575,7 +110584,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0754.00",
@@ -110874,7 +110883,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-03-03",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0877.01",
@@ -110887,7 +110896,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0877.02",
@@ -110900,7 +110909,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-12-11",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0877.03",
@@ -110913,7 +110922,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-05-28",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0877.04",
@@ -110926,7 +110935,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אסא 3 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0877.05",
@@ -110939,7 +110948,7 @@
    "publication_start": "2018-01-18",
    "publication_end_planned": "2018-01-30",
    "address": "אסא 3 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1996/0884.00",
@@ -113318,7 +113327,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1997/0716.02",
@@ -114806,8 +114815,11 @@
    "helka": 24,
    "publication_start": "",
    "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1998/0377.00",
@@ -117272,7 +117284,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-12-05",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1999/0713.01",
@@ -117285,7 +117297,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1999/0713.02",
@@ -117298,7 +117310,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1999/0713.03",
@@ -117311,7 +117323,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1999/0713.04",
@@ -117324,7 +117336,7 @@
    "publication_start": "2018-08-22",
    "publication_end_planned": "2018-09-18",
    "address": "יהושע בן נון 15 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "1999/0714.00",
@@ -117932,14 +117944,14 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 4,
+   "helka": 20,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 999",
    "rehovName": "דב הוז",
    "mispBait": "999",
    "schunaName": "גונן ח",
-   "details_checked_on": "2026-11-04"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2000/0138.00",
@@ -124892,7 +124904,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 23 גוננים",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2003/0590.01",
@@ -125271,7 +125283,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 גאולים - בקעה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0133.00",
@@ -125284,7 +125296,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-04-19",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0133.01",
@@ -125297,7 +125309,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0133.02",
@@ -125310,7 +125322,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0133.03",
@@ -125323,7 +125335,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-08-25",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0133.04",
@@ -125336,7 +125348,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0135.00",
@@ -126479,7 +126491,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "4 ימין משה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0489.00",
@@ -126557,7 +126569,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 54 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0507.00",
@@ -126898,7 +126910,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 10 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0689.01",
@@ -126911,7 +126923,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 10 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0689.02",
@@ -126924,7 +126936,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהואש 10 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0689.03",
@@ -126937,7 +126949,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-02-26",
    "address": "יהואש 10 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2004/0702.00",
@@ -127998,7 +128010,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0292.03",
@@ -128011,7 +128023,7 @@
    "publication_start": "2025-07-31",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0313.00",
@@ -128746,7 +128758,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0509.00",
@@ -129106,7 +129118,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 34 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0678.00",
@@ -129210,7 +129222,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0693.01",
@@ -129223,7 +129235,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-07-19",
    "address": "השומר 13 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0693.02",
@@ -129236,7 +129248,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-12-04",
    "address": "השומר 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0693.03",
@@ -129249,7 +129261,7 @@
    "publication_start": "2021-11-29",
    "publication_end_planned": "",
    "address": "השומר 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2005/0698.00",
@@ -132141,7 +132153,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 64",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2007/0018.00",
@@ -132322,7 +132334,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2007/0100.01",
@@ -132335,7 +132347,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2007/0104.00",
@@ -132852,7 +132864,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2007/0272.00",
@@ -135296,7 +135308,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2008/0696.00",
@@ -136329,7 +136341,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0407.01",
@@ -136342,7 +136354,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-10-20",
    "address": "המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0407.02",
@@ -136355,7 +136367,7 @@
    "publication_start": "2020-04-16",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0407.03",
@@ -136368,7 +136380,7 @@
    "publication_start": "2026-05-14",
    "publication_end_planned": "",
    "address": "עמק רפאים 46 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0416.00",
@@ -136381,7 +136393,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0416.01",
@@ -136394,7 +136406,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0416.02",
@@ -136407,7 +136419,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0416.03",
@@ -136420,7 +136432,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 גאולים - בקעה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0416.04",
@@ -136433,7 +136445,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 גאולים - בקעה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2009/0448.00",
@@ -137813,7 +137825,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 54",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2010/0291.01",
@@ -137826,7 +137838,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-11-10",
    "address": "עמק רפאים 54 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2010/0291.02",
@@ -137839,7 +137851,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 54 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2010/0306.00",
@@ -137922,7 +137934,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2010/0401.01",
@@ -137935,7 +137947,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2010/0428.01",
@@ -139662,7 +139674,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-05-11",
    "address": "הנוטרים 14 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0028.01",
@@ -139675,7 +139687,7 @@
    "publication_start": "2025-01-12",
    "publication_end_planned": "",
    "address": "הנוטרים 14 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0032.00",
@@ -139788,7 +139800,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0081.00",
@@ -140261,7 +140273,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 4 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0280.00",
@@ -140996,7 +141008,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0565.01",
@@ -141009,7 +141021,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0567.00",
@@ -141051,7 +141063,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0587.01",
@@ -141064,7 +141076,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 מושבה גרמנית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0587.02",
@@ -141077,7 +141089,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0587.03",
@@ -141090,7 +141102,7 @@
    "publication_start": "2024-04-07",
    "publication_end_planned": "",
    "address": "יהושע בן נון 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0606.00",
@@ -141373,7 +141385,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0727.00",
@@ -141543,7 +141555,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כט בנובמבר 19 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0774.00",
@@ -142290,7 +142302,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השיירות 9 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2011/0978.00",
@@ -143089,7 +143101,7 @@
    "publication_start": "2026-09-23",
    "publication_end_planned": "2026-11-08",
    "address": "דב הוז 11 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2012/0295.00",
@@ -145070,7 +145082,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 16 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2013/0286.00",
@@ -147264,7 +147276,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2014/0145.01",
@@ -147277,7 +147289,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-11-04",
    "address": "בוסתנאי 32 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2014/0170.00",
@@ -148194,7 +148206,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-09-30",
    "address": "עמק רפאים 64 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2014/0594.00",
@@ -149345,7 +149357,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.01",
@@ -149358,7 +149370,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-07-28",
    "address": "השומר 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.02",
@@ -149371,7 +149383,7 @@
    "publication_start": "2018-08-23",
    "publication_end_planned": "2018-09-18",
    "address": "השומר גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.03",
@@ -149384,7 +149396,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.04",
@@ -149397,7 +149409,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 13 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.05",
@@ -149410,7 +149422,7 @@
    "publication_start": "2021-12-12",
    "publication_end_planned": "",
    "address": "השומר 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0187.06",
@@ -149423,7 +149435,7 @@
    "publication_start": "2022-06-19",
    "publication_end_planned": "2022-06-28",
    "address": "השומר 15 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0209.00",
@@ -150508,7 +150520,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2015/0753.00",
@@ -151349,7 +151361,7 @@
    "publication_start": "2016-02-25",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0120.00",
@@ -151644,7 +151656,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0241.01",
@@ -151657,7 +151669,7 @@
    "publication_start": "2016-08-17",
    "publication_end_planned": "2016-09-13",
    "address": "יעקב ברגר 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0241.02",
@@ -151670,7 +151682,7 @@
    "publication_start": "2025-07-31",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0245.00",
@@ -152234,7 +152246,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 5",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0547.00",
@@ -152341,7 +152353,7 @@
    "publication_start": "2016-06-20",
    "publication_end_planned": "2016-07-05",
    "address": "שדה יצחק 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0619.01",
@@ -152354,7 +152366,7 @@
    "publication_start": "2017-06-12",
    "publication_end_planned": "2017-07-04",
    "address": "שדה יצחק 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0639.00",
@@ -152540,7 +152552,7 @@
    "publication_start": "2016-11-07",
    "publication_end_planned": "2016-11-22",
    "address": "השיירות 9 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0762.00",
@@ -152605,7 +152617,7 @@
    "publication_start": "2016-11-22",
    "publication_end_planned": "2016-12-06",
    "address": "הנוטרים 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0786.01",
@@ -152618,7 +152630,7 @@
    "publication_start": "2022-06-02",
    "publication_end_planned": "2024-11-17",
    "address": "הנוטרים 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0789.00",
@@ -152748,7 +152760,7 @@
    "publication_start": "2016-08-11",
    "publication_end_planned": "2016-08-30",
    "address": "יהושפט 13 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2016/0869.00",
@@ -154001,7 +154013,7 @@
    "publication_start": "2017-03-02",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0125.00",
@@ -154338,7 +154350,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0262.01",
@@ -154351,7 +154363,7 @@
    "publication_start": "2022-10-02",
    "publication_end_planned": "",
    "address": "דב הוז 15 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0262.02",
@@ -154364,7 +154376,7 @@
    "publication_start": "2023-05-29",
    "publication_end_planned": "2023-06-20",
    "address": "דב הוז 15 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0262.03",
@@ -154377,7 +154389,7 @@
    "publication_start": "2024-02-26",
    "publication_end_planned": "",
    "address": "דב הוז 15 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0265.00",
@@ -154523,7 +154535,7 @@
    "publication_start": "2017-05-04",
    "publication_end_planned": "2017-05-23",
    "address": "יהושע בן נון 19 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0332.00",
@@ -154562,7 +154574,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0340.01",
@@ -154575,7 +154587,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0340.02",
@@ -154588,7 +154600,7 @@
    "publication_start": "2026-10-21",
    "publication_end_planned": "2026-11-29",
    "address": "דב הוז 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0341.00",
@@ -154627,7 +154639,7 @@
    "publication_start": "2025-08-06",
    "publication_end_planned": "",
    "address": "יהושע בן נון 19 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0351.00",
@@ -155328,7 +155340,7 @@
    "publication_start": "2017-09-07",
    "publication_end_planned": "2017-09-19",
    "address": "הנוטרים 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/0718.00",
@@ -155988,7 +156000,7 @@
    "publication_start": "2018-01-01",
    "publication_end_planned": "2018-01-16",
    "address": "הגדוד העברי 20 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/1028.01",
@@ -156001,7 +156013,7 @@
    "publication_start": "2025-01-05",
    "publication_end_planned": "",
    "address": "הגדוד העברי 20 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/1035.00",
@@ -156036,11 +156048,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30169,
-   "helka": 4,
+   "helka": 57,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת יעקב פת",
-   "details_checked_on": "2026-11-04"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/1080.01",
@@ -156053,7 +156065,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יעקב ברגר 5 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2017/1087.00",
@@ -157548,7 +157560,7 @@
    "publication_start": "2019-08-19",
    "publication_end_planned": "2019-09-10",
    "address": "שדה יצחק 5 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2019/0428.00",
@@ -158130,7 +158142,7 @@
    "publication_start": "2020-06-16",
    "publication_end_planned": "",
    "address": "הפורצים 15 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0148.01",
@@ -158143,7 +158155,7 @@
    "publication_start": "2023-05-18",
    "publication_end_planned": "",
    "address": "הפורצים 15 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0148.02",
@@ -158156,7 +158168,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפורצים 15 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0157.00",
@@ -158237,7 +158249,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0199.01",
@@ -158250,7 +158262,7 @@
    "publication_start": "2024-02-05",
    "publication_end_planned": "",
    "address": "הנוטרים 8 קרית היובל",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0199.02",
@@ -158263,7 +158275,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0199.03",
@@ -158276,7 +158288,7 @@
    "publication_start": "2026-09-01",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0199.04",
@@ -158289,7 +158301,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הנוטרים 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0205.00",
@@ -158419,7 +158431,7 @@
    "publication_start": "2020-07-01",
    "publication_end_planned": "",
    "address": "הנוטרים 12 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0255.00",
@@ -159153,7 +159165,7 @@
    "publication_start": "2021-01-14",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0701.01",
@@ -159166,20 +159178,20 @@
    "publication_start": "2024-04-01",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0701.02",
    "mahut": "תוספת בניה ע\"פ תב\"ע מספר 4092 +ממ\"ד, מחסן, מרפסת וריצוף חצר",
    "sugbakasha": "",
-   "status": "נדונה בוועדת המשנה",
+   "status": "תחילת הודעות לפני תקנה 36",
    "status_date": "",
    "gush": 30169,
    "helka": 23,
    "publication_start": "2025-01-21",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0701.03",
@@ -159192,7 +159204,7 @@
    "publication_start": "2025-09-04",
    "publication_end_planned": "2025-09-02",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0701.04",
@@ -159205,7 +159217,7 @@
    "publication_start": "2025-08-28",
    "publication_end_planned": "",
    "address": "הנוטרים 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2020/0705.00",
@@ -159536,7 +159548,7 @@
    "publication_start": "2021-11-09",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 18 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2021/0163.00",
@@ -159714,7 +159726,7 @@
    "publication_start": "2021-12-07",
    "publication_end_planned": "",
    "address": "הלה 36 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2021/0239.00",
@@ -159964,7 +159976,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השיירות 1 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2021/0426.00",
@@ -160490,7 +160502,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רחל אמנו 17 גאולים - בקעה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2022/0143.00",
@@ -161382,7 +161394,7 @@
    "publication_start": "2023-07-06",
    "publication_end_planned": "2023-07-18",
    "address": "הלה 28 קטמון הישנה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2023/0177.00",
@@ -161442,12 +161454,12 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30004,
-   "helka": 90,
+   "gush": 30008,
+   "helka": 7,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 0 מושבה גרמנית",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2023/0267.00",
@@ -161686,7 +161698,7 @@
    "publication_start": "2024-05-12",
    "publication_end_planned": "",
    "address": "יונתן 10 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2023/0386.00",
@@ -162173,7 +162185,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 8 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2024/0027.01",
@@ -162186,7 +162198,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 15 8 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2024/0027.02",
@@ -162199,7 +162211,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדה יצחק 15 8 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2024/0028.00",
@@ -162418,14 +162430,14 @@
    "tik_num": "2024/0172.00",
    "mahut": "תוספת של שתי קומות, מרתף, עליית גג, ממ\"דים וחדר מדרגות משותף על גבי מבנה לשימור חד קומתי בקומת הקרקע. בריכה ע\"ג מרפסת גג.",
    "sugbakasha": "",
-   "status": "השלמת הודעות לפני תקנה 36",
+   "status": "תום תקופת פרסום",
    "status_date": "",
    "gush": 30008,
    "helka": 57,
    "publication_start": "2024-05-27",
    "publication_end_planned": "",
    "address": "יהושפט 6 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2024/0179.00",
@@ -164173,7 +164185,7 @@
    "publication_start": "2026-05-18",
    "publication_end_planned": "",
    "address": "עמק רפאים 50 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2026/0032.00",
@@ -164798,7 +164810,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עוזיה 6 המושבה היוונית",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-07"
   },
   {
    "tik_num": "2026/0330.00",
