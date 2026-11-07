@@ -965,7 +965,15 @@ def test_generated_index_html_remains_routable_with_full_checks():
     assert decide(p, w)[0] == "hold"
 
 
-@pytest.mark.parametrize("path", ["docs/arbitrary.html", "docs/reviews/private.html", "scripts/index.html", ".github/workflows/index.html"])
+@pytest.mark.parametrize(
+    "path",
+    [
+        "docs/arbitrary.html",
+        "docs/reviews/private.html",
+        "scripts/index.html",
+        ".github/workflows/index.html",
+    ],
+)
 def test_index_html_allowance_does_not_allow_other_html(path):
     p, w = pr(), World()
     w.files.append({"filename": path, "status": "modified"})
