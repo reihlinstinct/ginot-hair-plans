@@ -50,6 +50,7 @@ DATA_PREFIXES = ("data/",)
 DATA_FILES = {
     "docs/data.json",
     "docs/index.json",
+    "docs/index.html",  # generated permit-coverage counts (#870)
     "docs/permits.html",
     "docs/permits-default.html",
     "docs/permit-ids.json",
