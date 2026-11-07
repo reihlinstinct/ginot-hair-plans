@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-01",
+ "generated": "2026-11-04",
  "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
  "batch": {
   "offset": 4600,
@@ -198,7 +198,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 31",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1910/0586.04",
@@ -9585,11 +9585,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1958/0366.01",
@@ -9598,11 +9598,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1958/0384.00",
@@ -9861,8 +9861,11 @@
    "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
+   "rehovName": "",
+   "mispBait": "",
+   "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1958/0519.00",
@@ -10447,7 +10450,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1959/0336.01",
@@ -10460,7 +10463,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1959/0336.02",
@@ -10473,7 +10476,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1959/0336.03",
@@ -10486,7 +10489,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1959/0362.00",
@@ -14213,7 +14216,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1962/0220.01",
@@ -14226,7 +14229,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1962/0243.03",
@@ -14663,7 +14666,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוידזון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1962/0531.00",
@@ -14702,7 +14705,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 1 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1962/0535.00",
@@ -17517,7 +17520,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  68 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1964/0448.00",
@@ -17725,7 +17728,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1964/0551.01",
@@ -17738,7 +17741,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1964/0562.00",
@@ -18998,7 +19001,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  41 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1965/0663.00",
@@ -19167,7 +19170,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1965/0879.00",
@@ -19232,7 +19235,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1965/0932.00",
@@ -19622,7 +19625,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1966/0134.01",
@@ -19635,7 +19638,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-06-21",
    "address": "אלעזר בן יאיר  23 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1966/0247.00",
@@ -20075,7 +20078,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1966/0619.01",
@@ -20088,7 +20091,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1966/0634.00",
@@ -20341,7 +20344,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  41 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1966/0921.00",
@@ -20728,7 +20731,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1967/0195.01",
@@ -20741,7 +20744,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1967/0195.02",
@@ -20754,7 +20757,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1967/0213.00",
@@ -22527,7 +22530,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  25 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1968/0748.00",
@@ -22851,7 +22854,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 47 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1968/1107.01",
@@ -22864,7 +22867,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1968/1107.02",
@@ -22877,7 +22880,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 47 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1968/1107.03",
@@ -22890,7 +22893,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 47 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1968/1108.00",
@@ -23834,7 +23837,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0238.00",
@@ -24259,7 +24262,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי תנחומא 7 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0373.00",
@@ -24272,7 +24275,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 27 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0374.00",
@@ -24285,7 +24288,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 41 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0375.00",
@@ -24298,7 +24301,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 44 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0376.00",
@@ -24311,7 +24314,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 42 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0376.02",
@@ -24324,7 +24327,7 @@
    "publication_start": "2018-09-04",
    "publication_end_planned": "2018-10-09",
    "address": "יוסי בן יועזר 42 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0394.00",
@@ -24635,7 +24638,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0556.01",
@@ -24648,7 +24651,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0556.02",
@@ -24661,7 +24664,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0556.03",
@@ -24674,7 +24677,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0556.04",
@@ -24687,7 +24690,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0556.05",
@@ -24700,7 +24703,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1969/0559.00",
@@ -26092,7 +26095,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0004.00",
@@ -26244,11 +26247,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30165,
-   "helka": 9,
+   "helka": 10,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0082.00",
@@ -26707,7 +26710,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0365.00",
@@ -26950,11 +26953,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 9,
+   "helka": 10,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0478.01",
@@ -26963,11 +26966,11 @@
    "status": "התקבל תיק ורוד / מסמכים חתומים",
    "status_date": "",
    "gush": 30165,
-   "helka": 9,
+   "helka": 10,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0478.02",
@@ -26976,11 +26979,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30165,
-   "helka": 9,
+   "helka": 10,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0480.00",
@@ -27149,7 +27152,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1970/0560.00",
@@ -30261,7 +30264,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 5 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0011.01",
@@ -30274,7 +30277,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-08-19",
    "address": "י.ל. דיסקין 5 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0053.00",
@@ -31302,7 +31305,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0543.01",
@@ -31315,7 +31318,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0544.00",
@@ -31610,7 +31613,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן צבי יצחק רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0674.01",
@@ -31623,7 +31626,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן צבי יצחק רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0686.00",
@@ -31910,7 +31913,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/0871.00",
@@ -32118,7 +32121,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1058.07",
@@ -32644,7 +32647,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 145 גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1376.00",
@@ -32670,7 +32673,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 13 קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1389.01",
@@ -32683,7 +32686,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1390.00",
@@ -32696,7 +32699,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 15 קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1390.01",
@@ -32709,7 +32712,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1390.02",
@@ -32722,7 +32725,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 15 קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1972/1451.00",
@@ -33181,7 +33184,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1973/0150.01",
@@ -33194,7 +33197,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1973/0150.02",
@@ -33207,7 +33210,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1973/0153.03",
@@ -34874,11 +34877,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 10,
+   "helka": 22,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 60 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1974/0028.02",
@@ -34891,7 +34894,7 @@
    "publication_start": "2025-03-30",
    "publication_end_planned": "",
    "address": "ניות 60 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1974/0055.01",
@@ -34956,7 +34959,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1974/0081.00",
@@ -36596,11 +36599,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30143,
-   "helka": 17,
+   "helka": 165,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המצור 1 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1974/0668.05",
@@ -36857,7 +36860,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1974/0762.01",
@@ -36870,7 +36873,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הברון הירש 25 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0012.00",
@@ -37117,7 +37120,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0151.01",
@@ -37130,7 +37133,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0151.02",
@@ -37143,7 +37146,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0180.00",
@@ -37458,7 +37461,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0229.01",
@@ -37471,7 +37474,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0277.00",
@@ -37562,7 +37565,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0316.01",
@@ -37575,7 +37578,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0322.00",
@@ -37986,7 +37989,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0597.01",
@@ -37999,7 +38002,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0601.00",
@@ -38395,11 +38398,11 @@
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0745.01",
@@ -38408,11 +38411,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0745.02",
@@ -38421,11 +38424,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0745.03",
@@ -38434,11 +38437,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0745.04",
@@ -38447,11 +38450,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 8 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1975/0745.05",
@@ -38869,7 +38872,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1976/0097.01",
@@ -39423,7 +39426,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1976/0306.00",
@@ -40133,7 +40136,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1976/0548.00",
@@ -41339,7 +41342,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0152.01",
@@ -41352,7 +41355,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0159.00",
@@ -42446,7 +42449,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  25 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.01",
@@ -42459,7 +42462,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  25 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.02",
@@ -42472,7 +42475,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  25 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.03",
@@ -42485,7 +42488,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.04",
@@ -42498,7 +42501,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-01-30",
    "address": "אלעזר בן יאיר  25 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.05",
@@ -42511,7 +42514,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-11-12",
    "address": "אלעזר בן יאיר  25 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.06",
@@ -42524,7 +42527,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-01-07",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0486.07",
@@ -42537,7 +42540,7 @@
    "publication_start": "2022-01-06",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  25 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0494.00",
@@ -43275,7 +43278,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 55 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0690.01",
@@ -43288,7 +43291,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 55 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0690.02",
@@ -43301,7 +43304,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 55 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1977/0707.00",
@@ -44775,7 +44778,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נתאי הארבלי 44 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0399.05",
@@ -44784,11 +44787,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
-   "helka": 35,
+   "helka": 193,
    "publication_start": "",
    "publication_end_planned": "2002-05-22",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0409.00",
@@ -45622,7 +45625,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0583.00",
@@ -46407,7 +46410,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.01",
@@ -46420,7 +46423,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.02",
@@ -46433,7 +46436,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.03",
@@ -46446,7 +46449,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-05-22",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.04",
@@ -46459,7 +46462,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.05",
@@ -46472,7 +46475,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0778.06",
@@ -46485,7 +46488,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-07-01",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1978/0784.00",
@@ -47711,7 +47714,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0329.00",
@@ -48575,7 +48578,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0568.01",
@@ -48588,7 +48591,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0571.00",
@@ -48692,7 +48695,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0611.00",
@@ -49088,7 +49091,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0690.01",
@@ -49101,7 +49104,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0692.00",
@@ -49458,7 +49461,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 34",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0759.02",
@@ -49471,7 +49474,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 34",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0759.03",
@@ -49484,7 +49487,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 34 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0791.00",
@@ -49623,11 +49626,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30133,
-   "helka": 49,
+   "helka": 85,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1979/0901.00",
@@ -50090,7 +50093,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1980/0078.00",
@@ -50814,7 +50817,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן צבי יצחק 47 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1980/0317.00",
@@ -53743,7 +53746,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1981/0168.00",
@@ -53818,7 +53821,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1981/0249.00",
@@ -54400,7 +54403,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1981/0407.01",
@@ -54413,7 +54416,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1981/0417.00",
@@ -57183,7 +57186,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1982/0116.00",
@@ -58063,7 +58066,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 40 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1982/0542.00",
@@ -58594,7 +58597,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נתאי הארבלי 32 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1982/0776.00",
@@ -61146,7 +61149,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1983/0820.00",
@@ -64698,7 +64701,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1984/0627.00",
@@ -65825,7 +65828,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0027.00",
@@ -66395,7 +66398,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0116.01",
@@ -66408,7 +66411,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-05-31",
    "address": "אלכסנדריון קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0116.02",
@@ -66434,7 +66437,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 11 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0141.00",
@@ -67081,7 +67084,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0358.00",
@@ -68089,7 +68092,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 21 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0615.01",
@@ -68102,7 +68105,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 21 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1985/0625.00",
@@ -68732,7 +68735,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-11-27",
    "address": "אברהם גרנות 1 קרית האומה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1986/0088.00",
@@ -70109,7 +70112,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1986/0506.00",
@@ -70972,7 +70975,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1986/0774.00",
@@ -71261,7 +71264,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1986/0886.00",
@@ -71676,7 +71679,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 31 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.01",
@@ -71689,7 +71692,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 31 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.02",
@@ -71702,7 +71705,7 @@
    "publication_start": "",
    "publication_end_planned": "2001-09-25",
    "address": "קנאי הגליל 31 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.03",
@@ -71715,7 +71718,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 31 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.04",
@@ -71728,7 +71731,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-04-04",
    "address": "קנאי הגליל 31 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.05",
@@ -71741,7 +71744,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-12-10",
    "address": "קנאי הגליל 31 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0102.06",
@@ -71754,7 +71757,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קנאי הגליל 31 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0114.00",
@@ -73726,7 +73729,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0492.00",
@@ -73761,11 +73764,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30145,
-   "helka": 16,
+   "helka": 19,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך רופין נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0519.00",
@@ -73830,7 +73833,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0531.00",
@@ -74028,7 +74031,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.01",
@@ -74041,7 +74044,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.02",
@@ -74054,7 +74057,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-04-08",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.03",
@@ -74067,7 +74070,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-08-28",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.04",
@@ -74080,7 +74083,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.05",
@@ -74093,7 +74096,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-05-05",
    "address": "אלעזר בן יאיר  19 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.06",
@@ -74106,7 +74109,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.07",
@@ -74119,7 +74122,7 @@
    "publication_start": "2020-10-11",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0608.08",
@@ -74132,7 +74135,7 @@
    "publication_start": "2021-06-21",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0616.02",
@@ -75662,7 +75665,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 55 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1987/0956.00",
@@ -76175,7 +76178,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.01",
@@ -76188,7 +76191,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.02",
@@ -76201,7 +76204,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.03",
@@ -76214,7 +76217,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.04",
@@ -76227,7 +76230,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.05",
@@ -76240,7 +76243,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-12-24",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.06",
@@ -76253,7 +76256,7 @@
    "publication_start": "2019-02-07",
    "publication_end_planned": "2019-02-19",
    "address": "טוביה 6 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0030.07",
@@ -76266,7 +76269,7 @@
    "publication_start": "2023-01-12",
    "publication_end_planned": "",
    "address": "טוביה 6 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0047.00",
@@ -76318,7 +76321,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0063.01",
@@ -76331,7 +76334,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0063.02",
@@ -76344,7 +76347,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-03-18",
    "address": "אלכסנדריון 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0063.03",
@@ -76357,7 +76360,7 @@
    "publication_start": "2019-07-11",
    "publication_end_planned": "2017-03-14",
    "address": "אלכסנדריון 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0063.04",
@@ -76370,7 +76373,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0065.00",
@@ -77251,7 +77254,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 49 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0302.00",
@@ -77897,7 +77900,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0494.00",
@@ -78953,7 +78956,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0660.01",
@@ -78966,7 +78969,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0660.02",
@@ -78979,7 +78982,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0660.03",
@@ -78992,7 +78995,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0660.04",
@@ -79005,7 +79008,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 22 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0670.00",
@@ -79031,7 +79034,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0676.01",
@@ -79044,7 +79047,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 51 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0678.00",
@@ -79387,7 +79390,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברל לוקר 13 פת",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0716.00",
@@ -79731,7 +79734,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1988/0805.00",
@@ -82571,7 +82574,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.01",
@@ -82584,7 +82587,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-06-25",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.02",
@@ -82597,7 +82600,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.03",
@@ -82610,7 +82613,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.04",
@@ -82623,7 +82626,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.05",
@@ -82636,7 +82639,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.06",
@@ -82649,7 +82652,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טוביה 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.07",
@@ -82662,7 +82665,7 @@
    "publication_start": "2017-09-25",
    "publication_end_planned": "2017-10-31",
    "address": "טוביה 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0416.08",
@@ -82675,7 +82678,7 @@
    "publication_start": "2026-04-16",
    "publication_end_planned": "",
    "address": "טוביה 8 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0422.00",
@@ -83467,11 +83470,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30143,
-   "helka": 189,
+   "helka": 193,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0593.01",
@@ -83480,11 +83483,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30143,
-   "helka": 189,
+   "helka": 193,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0593.02",
@@ -83493,11 +83496,11 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30143,
-   "helka": 170,
+   "helka": 193,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0598.00",
@@ -84866,7 +84869,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0796.01",
@@ -84879,7 +84882,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 61 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0796.02",
@@ -84892,7 +84895,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 61 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1989/0797.00",
@@ -87477,7 +87480,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0221.01",
@@ -87490,7 +87493,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0221.02",
@@ -87503,7 +87506,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-10-23",
    "address": "אלעזר בן יאיר  24 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0221.03",
@@ -87516,7 +87519,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  24 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0222.00",
@@ -87553,7 +87556,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0224.01",
@@ -87566,7 +87569,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-06-21",
    "address": "יוסי בן יועזר 61 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0224.03",
@@ -87579,7 +87582,7 @@
    "publication_start": "2019-12-30",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0224.04",
@@ -87592,7 +87595,7 @@
    "publication_start": "2023-03-19",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0224.05",
@@ -87605,7 +87608,7 @@
    "publication_start": "2025-09-03",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 61 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0224.06",
@@ -87618,7 +87621,7 @@
    "publication_start": "2026-10-28",
    "publication_end_planned": "2026-10-26",
    "address": "יוסי בן יועזר 61 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0225.00",
@@ -91439,7 +91442,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.01",
@@ -91452,7 +91455,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.02",
@@ -91465,7 +91468,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.03",
@@ -91478,7 +91481,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-05-09",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.04",
@@ -91491,7 +91494,7 @@
    "publication_start": "",
    "publication_end_planned": "2006-06-11",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.05",
@@ -91504,7 +91507,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.06",
@@ -91517,7 +91520,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.07",
@@ -91530,7 +91533,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.08",
@@ -91543,7 +91546,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.09",
@@ -91556,7 +91559,7 @@
    "publication_start": "2016-07-25",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0909.10",
@@ -91569,7 +91572,7 @@
    "publication_start": "2016-07-10",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/0917.00",
@@ -92334,7 +92337,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 3 קרית וולפסון",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/1034.01",
@@ -92347,7 +92350,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 3 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/1034.02",
@@ -92360,7 +92363,7 @@
    "publication_start": "2019-12-29",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 3 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/1051.00",
@@ -92373,7 +92376,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1990/1072.00",
@@ -97213,7 +97216,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.01",
@@ -97226,7 +97229,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-05-19",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.02",
@@ -97239,7 +97242,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.03",
@@ -97252,7 +97255,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-03-18",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.05",
@@ -97265,7 +97268,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-09-26",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.06",
@@ -97278,7 +97281,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.07",
@@ -97291,7 +97294,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-01-23",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.08",
@@ -97304,7 +97307,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-09-05",
    "address": "אלכסנדריון 20 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0918.09",
@@ -97317,7 +97320,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 20 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1991/0920.00",
@@ -100929,7 +100932,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.01",
@@ -100942,7 +100945,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.02",
@@ -100955,7 +100958,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.03",
@@ -100968,7 +100971,7 @@
    "publication_start": "",
    "publication_end_planned": "1995-04-28",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.04",
@@ -100981,7 +100984,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-04-05",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.05",
@@ -100994,7 +100997,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-07-18",
    "address": "יוסי בן יועזר 63 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.06",
@@ -101007,7 +101010,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.07",
@@ -101020,7 +101023,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.08",
@@ -101033,7 +101036,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 63 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0092.09",
@@ -101046,7 +101049,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-03-15",
    "address": "יוסי בן יועזר 63 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0095.00",
@@ -101330,7 +101333,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד הזז חיים עמק המצלבה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1993/0283.00",
@@ -104472,7 +104475,7 @@
    "publication_start": "",
    "publication_end_planned": "1996-03-10",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1994/0826.01",
@@ -104485,7 +104488,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גונן ח",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1994/0826.02",
@@ -104498,7 +104501,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-07-31",
    "address": "השומר 2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1994/0826.03",
@@ -104511,7 +104514,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "השומר 2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1994/0834.00",
@@ -105360,7 +105363,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.01",
@@ -105373,7 +105376,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.02",
@@ -105386,7 +105389,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.03",
@@ -105399,7 +105402,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.04",
@@ -105412,7 +105415,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.05",
@@ -105425,7 +105428,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.06",
@@ -105438,7 +105441,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-11-16",
    "address": "י.צ. מיכאלסון 5 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.07",
@@ -105451,7 +105454,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0233.08",
@@ -105464,7 +105467,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0239.00",
@@ -106274,7 +106277,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.01",
@@ -106300,7 +106303,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.03",
@@ -106313,7 +106316,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-08-08",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.04",
@@ -106326,7 +106329,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.05",
@@ -106339,7 +106342,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-10-24",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.06",
@@ -106352,7 +106355,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.07",
@@ -106365,7 +106368,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.08",
@@ -106378,7 +106381,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.09",
@@ -106404,7 +106407,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.11",
@@ -106417,7 +106420,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-12-30",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.12",
@@ -106430,7 +106433,7 @@
    "publication_start": "2025-04-21",
    "publication_end_planned": "",
    "address": "דב הוז 10 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0533.13",
@@ -106443,7 +106446,7 @@
    "publication_start": "2024-05-16",
    "publication_end_planned": "",
    "address": "דב הוז 10 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1995/0534.00",
@@ -112292,7 +112295,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 34 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0257.00",
@@ -112553,7 +112556,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.01",
@@ -112566,7 +112569,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.02",
@@ -112579,7 +112582,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.03",
@@ -112592,7 +112595,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.04",
@@ -112605,7 +112608,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.05",
@@ -112618,7 +112621,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-11-06",
    "address": "אלכסנדריון 16 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.06",
@@ -112631,7 +112634,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0427.07",
@@ -112644,7 +112647,7 @@
    "publication_start": "2024-12-12",
    "publication_end_planned": "",
    "address": "אלכסנדריון 16 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0467.00",
@@ -113344,7 +113347,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 8 קרית האומה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0745.00",
@@ -113489,7 +113492,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 24 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1997/0887.00",
@@ -115778,7 +115781,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  21 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0017.06",
@@ -116205,7 +116208,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוידזון 4 ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0116.01",
@@ -116218,7 +116221,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוידזון 4 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0145.00",
@@ -116956,7 +116959,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 53 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0539.01",
@@ -116969,7 +116972,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 53 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0539.02",
@@ -116982,7 +116985,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 53 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0539.03",
@@ -116995,7 +116998,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 53 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0539.04",
@@ -117008,7 +117011,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-05-19",
    "address": "רשב\"ג 53 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0556.00",
@@ -117021,7 +117024,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 1 קרית האומה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "1999/0589.00",
@@ -117928,15 +117931,15 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30199,
-   "helka": 43,
+   "gush": 30169,
+   "helka": 4,
    "publication_start": "",
    "publication_end_planned": "",
+   "address": "דב הוז 999",
    "rehovName": "דב הוז",
    "mispBait": "999",
    "schunaName": "גונן ח",
-   "address": "דב הוז 999",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2000/0138.00",
@@ -119330,7 +119333,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 27 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2000/0839.01",
@@ -119343,7 +119346,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 27 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2000/0861.00",
@@ -121722,7 +121725,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דב הוז 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2001/0556.00",
@@ -123368,7 +123371,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 1 קרית האומה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2002/0592.00",
@@ -123446,7 +123449,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2003/0034.00",
@@ -125203,7 +125206,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גונן ג",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2004/0092.01",
@@ -125216,7 +125219,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 18 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2004/0100.00",
@@ -129701,7 +129704,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0829.02",
@@ -129714,7 +129717,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 14 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0830.00",
@@ -129740,7 +129743,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0830.02",
@@ -129753,7 +129756,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 12 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0830.03",
@@ -129766,7 +129769,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0830.04",
@@ -129779,7 +129782,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0830.05",
@@ -129792,7 +129795,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 6 גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2005/0832.00",
@@ -131467,7 +131470,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 1 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0616.01",
@@ -131480,7 +131483,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 1 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0616.02",
@@ -131493,7 +131496,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 1 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0630.00",
@@ -131879,7 +131882,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0821.01",
@@ -131892,7 +131895,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0822.00",
@@ -131905,7 +131908,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0822.01",
@@ -131918,7 +131921,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0822.02",
@@ -131931,7 +131934,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0823.00",
@@ -131944,7 +131947,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0823.01",
@@ -131957,7 +131960,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול גונן ב",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0823.02",
@@ -131970,7 +131973,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0828.00",
@@ -132113,7 +132116,7 @@
    "publication_start": "2018-10-04",
    "publication_end_planned": "2018-10-23",
    "address": "יוסי בן יועזר 36 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2006/0868.00",
@@ -134118,7 +134121,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 999 ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2008/0218.02",
@@ -134131,7 +134134,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 999 ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2008/0218.03",
@@ -134144,7 +134147,7 @@
    "publication_start": "2019-02-20",
    "publication_end_planned": "2019-03-05",
    "address": "ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2008/0223.00",
@@ -135041,7 +135044,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חוסה דה סן מרטין 10 גונן ט",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2008/0611.00",
@@ -136004,7 +136007,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי תנחומא 7,9,11 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2009/0270.01",
@@ -136017,7 +136020,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-08-14",
    "address": "רבי תנחומא 7 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2009/0270.02",
@@ -136030,7 +136033,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-05-23",
    "address": "רבי תנחומא 7 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2009/0275.00",
@@ -137680,7 +137683,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע ה. ייבין 15 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0236.01",
@@ -137693,7 +137696,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע ה. ייבין 15 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0257.00",
@@ -138184,7 +138187,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 50 ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0682.00",
@@ -138197,7 +138200,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע ה. ייבין 1 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0682.01",
@@ -138210,7 +138213,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע ה. ייבין 1 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0743.00",
@@ -138863,7 +138866,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 11 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0976.01",
@@ -138876,7 +138879,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-02-19",
    "address": "אלכסנדריון 11 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0976.02",
@@ -138889,7 +138892,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 11 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/0981.00",
@@ -139316,7 +139319,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 54 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2010/1036.00",
@@ -140025,7 +140028,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0169.00",
@@ -140167,7 +140170,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהודה הנשיא 26 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0207.00",
@@ -140577,7 +140580,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0362.01",
@@ -140590,7 +140593,7 @@
    "publication_start": "2022-09-13",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0362.02",
@@ -140603,33 +140606,49 @@
    "publication_start": "2022-11-13",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0362.03",
    "mahut": "תוספת בניה + מרפסת גג",
    "sugbakasha": "",
-   "status": "הוכנה טיוטת היתר בניה",
+   "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30144,
    "helka": 41,
    "publication_start": "2024-07-14",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0362.04",
    "mahut": "תוספת בניה עפ\"י תב\"ע, הרחבה לבניין קיים, מרפסות זיז",
    "sugbakasha": "",
-   "status": "תחילת פרסום הבקשה להקלה",
+   "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30144,
    "helka": 41,
    "publication_start": "2026-09-23",
-   "publication_end_planned": "2026-11-08",
+   "publication_end_planned": "",
    "address": "אלעזר בן יאיר  23 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
+  },
+  {
+   "tik_num": "2011/0362.05",
+   "mahut": "תוספת ממ\"ד והגדלת שטח מחסן לעד 8% המותרים .",
+   "sugbakasha": "",
+   "status": "שולמה מקדמה",
+   "status_date": "",
+   "gush": 30144,
+   "helka": 41,
+   "publication_start": "",
+   "publication_end_planned": "",
+   "rehovName": "אלעזר בן יאיר",
+   "mispBait": "23",
+   "schunaName": "גוננים",
+   "address": "אלעזר בן יאיר 23",
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0377.00",
@@ -141709,7 +141728,7 @@
    "publication_start": "",
    "publication_end_planned": "2011-11-03",
    "address": "אברהם גרנות 1 קרית האומה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0819.01",
@@ -141722,7 +141741,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אברהם גרנות 1 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2011/0822.00",
@@ -143882,7 +143901,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 2 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2012/0693.01",
@@ -143895,7 +143914,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 2 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2012/0695.00",
@@ -144065,7 +144084,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 4 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2012/0774.00",
@@ -144298,7 +144317,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 56 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2012/0901.01",
@@ -144311,7 +144330,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 56 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2012/0918.00",
@@ -144547,7 +144566,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.ל. דיסקין 1 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2013/0066.00",
@@ -145720,7 +145739,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-12-01",
    "address": "רבי תנחומא 13 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2013/0565.00",
@@ -150022,7 +150041,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2015/0454.00",
@@ -151065,7 +151084,7 @@
    "publication_start": "2016-01-31",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2015/0952.01",
@@ -151078,7 +151097,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רשב\"ג 59 גונן ו",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2015/0962.00",
@@ -151091,7 +151110,7 @@
    "publication_start": "2016-01-11",
    "publication_end_planned": "",
    "address": "השומר 2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2015/0964.00",
@@ -151703,7 +151722,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 2 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2016/0273.01",
@@ -151716,7 +151735,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 2",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2016/0290.00",
@@ -151878,7 +151897,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נתאי הארבלי 42",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2016/0358.00",
@@ -153514,7 +153533,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע ה. ייבין נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2016/1189.00",
@@ -153969,7 +153988,7 @@
    "publication_start": "2017-03-26",
    "publication_end_planned": "2017-04-25",
    "address": "השומר 2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2017/0118.00",
@@ -156016,12 +156035,12 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30122,
-   "helka": 5,
+   "gush": 30169,
+   "helka": 4,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת יעקב פת",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2017/1080.01",
@@ -156437,7 +156456,7 @@
    "publication_start": "2018-08-12",
    "publication_end_planned": "2018-09-04",
    "address": "יוסי בן יועזר 42 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2018/0253.00",
@@ -156528,7 +156547,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י.צ. מיכאלסון 2 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2018/0357.00",
@@ -157117,7 +157136,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גונן ד",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2019/0011.00",
@@ -160205,7 +160224,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 10 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0045.00",
@@ -160325,7 +160344,7 @@
    "publication_start": "2022-03-15",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 4 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0095.01",
@@ -160338,7 +160357,7 @@
    "publication_start": "2023-03-28",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 4 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0095.02",
@@ -160351,7 +160370,7 @@
    "publication_start": "2025-04-28",
    "publication_end_planned": "",
    "address": "אלכסנדריון 21 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0095.03",
@@ -160364,7 +160383,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול 4 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0113.00",
@@ -160493,11 +160512,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30143,
-   "helka": 117,
+   "helka": 207,
    "publication_start": "2022-07-04",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 24 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0157.01",
@@ -160523,7 +160542,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 24 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0210.00",
@@ -161019,7 +161038,7 @@
    "publication_start": "2024-12-01",
    "publication_end_planned": "",
    "address": "נתאי הארבלי 42 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2022/0574.00",
@@ -161580,7 +161599,7 @@
    "publication_start": "2023-08-27",
    "publication_end_planned": "2023-09-06",
    "address": "קנאי הגליל 40 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2023/0335.00",
@@ -162386,14 +162405,14 @@
    "tik_num": "2024/0165.00",
    "mahut": "הקמת תחנת טרנספורמציה תת קרקעית",
    "sugbakasha": "",
-   "status": "נדונה בוועדת המשנה",
+   "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30143,
    "helka": 93,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 45 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0172.00",
@@ -162500,7 +162519,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 17 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0211.00",
@@ -162513,20 +162532,20 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0211.01",
    "mahut": "תוספת שטח עיקרי מכח 5% השלמת קומת הגג",
    "sugbakasha": "",
-   "status": "נפתח תיק רישוי",
+   "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30143,
    "helka": 172,
    "publication_start": "2025-08-04",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0211.02",
@@ -162539,20 +162558,20 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0211.03",
    "mahut": "הפיכת שטח חניה פרטית למחסן סגור בהליך של שימוש חורג מהיתר בניה",
    "sugbakasha": "",
-   "status": "תחילת פרסום הבקשה להקלה",
+   "status": "תום תקופת פרסום",
    "status_date": "",
    "gush": 30143,
    "helka": 172,
    "publication_start": "2026-09-17",
-   "publication_end_planned": "2026-11-04",
+   "publication_end_planned": "",
    "address": "יוסי בן יועזר 36 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0213.00",
@@ -162792,7 +162811,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0339.00",
@@ -162805,7 +162824,7 @@
    "publication_start": "2025-11-13",
    "publication_end_planned": "",
    "address": "אלעזר בן יאיר  19 קטמון הישנה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0349.00",
@@ -162959,7 +162978,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן צבי יצחק 47 רחביה",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0432.00",
@@ -163014,7 +163033,7 @@
    "publication_start": "2025-03-13",
    "publication_end_planned": "2026-04-15",
    "address": "אנטיגנוס 35 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0499.00",
@@ -163153,7 +163172,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 52 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0543.01",
@@ -163166,7 +163185,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 50 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0543.02",
@@ -163179,7 +163198,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 52 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2024/0546.00",
@@ -163334,11 +163353,11 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30143,
-   "helka": 136,
+   "helka": 165,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אליעזר הגדול  2 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2025/0046.00",
@@ -163956,7 +163975,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2025/0397.01",
@@ -163969,7 +163988,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2025/0428.00",
@@ -164003,12 +164022,12 @@
    "sugbakasha": "",
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
-   "gush": 30172,
-   "helka": 187,
+   "gush": 30143,
+   "helka": 93,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהודה הנשיא 1 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2025/0473.00",
@@ -164141,7 +164160,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניות 32 נוה שאנן/ניות",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2025/0569.00",
@@ -164513,7 +164532,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלכסנדריון 0 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2026/0211.00",
@@ -164552,7 +164571,7 @@
    "publication_start": "2026-10-21",
    "publication_end_planned": "2026-11-29",
    "address": "אלעזר בן יאיר  24 גוננים",
-   "details_checked_on": "2026-10-24"
+   "details_checked_on": "2026-11-04"
   },
   {
    "tik_num": "2026/0245.00",
