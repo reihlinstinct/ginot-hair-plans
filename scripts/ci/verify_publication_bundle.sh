@@ -39,7 +39,7 @@ read -r -a parents <<<"$(git rev-list --parents -n 1 "$tip")"
 parent=${parents[1]}
 git merge-base --is-ancestor "$parent" "$base" || fail "parent is not on $base"
 
-allowed='^(data/.+|docs/data\.json|docs/index\.json|docs/badge/parcel-[^/]+\.json|docs/permits\.html|docs/permits-default\.html|docs/permit-ids\.json|docs/permit-points\.json)$'
+allowed='^(data/.+|docs/data\.json|docs/index\.json|docs/index\.html|docs/badge/parcel-[^/]+\.json|docs/permits\.html|docs/permits-default\.html|docs/permit-ids\.json|docs/permit-points\.json)$'
 count=0
 while IFS= read -r -d '' meta && IFS= read -r -d '' path; do
   count=$((count + 1))
