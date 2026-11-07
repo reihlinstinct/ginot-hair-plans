@@ -1,5 +1,6 @@
 {
- "generated": "2026-11-02",
+ "generated": "2026-11-04",
+ "ingest_marker": "sha256:6d3aa63d85f4b4a9",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
