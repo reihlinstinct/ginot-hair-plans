@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-03",
+ "generated": "2026-11-07",
  "source": "Israel Land Authority TabaSearch public API",
  "plans": {
   "101-0049056": {
@@ -1437,6 +1437,13 @@
    "land_city": "ירושלים",
    "is_deposit_publication": true
   },
+  "101-1146505": {
+   "land_status": "פרסום לתוקף בעיתונים",
+   "land_status_date": "2026-03-19",
+   "land_plan_id": 1056171,
+   "land_city": "ירושלים",
+   "is_deposit_publication": false
+  },
   "101-1150374": {
    "land_status": "פרסום לתוקף ברשומות",
    "land_status_date": "2024-07-07",
@@ -1634,8 +1641,8 @@
    "is_deposit_publication": false
   },
   "101-1246404": {
-   "land_status": "החלטת אישור",
-   "land_status_date": "2026-01-25",
+   "land_status": "פרסום לתוקף באתר מנה\"ת",
+   "land_status_date": "2026-10-29",
    "land_plan_id": 1056132,
    "land_city": "ירושלים",
    "is_deposit_publication": false
@@ -1697,18 +1704,18 @@
    "is_deposit_publication": false
   },
   "101-1301753": {
-   "land_status": "פרסום להפקדה בעיתונים",
-   "land_status_date": "2025-12-26",
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-10-29",
    "land_plan_id": 1056686,
    "land_city": "ירושלים",
-   "is_deposit_publication": true
+   "is_deposit_publication": false
   },
   "101-1307255": {
-   "land_status": "פרסום הפקדה ברשומות",
-   "land_status_date": "2025-11-30",
+   "land_status": "החלטת אישור",
+   "land_status_date": "2026-10-29",
    "land_plan_id": 1056616,
    "land_city": "ירושלים",
-   "is_deposit_publication": true
+   "is_deposit_publication": false
   },
   "101-1309061": {
    "land_status": "פרסום לתוקף בעיתונים",
@@ -1854,6 +1861,13 @@
    "land_status": "פרסום הפקדה ברשומות",
    "land_status_date": "2026-08-20",
    "land_plan_id": 1057135,
+   "land_city": "ירושלים",
+   "is_deposit_publication": true
+  },
+  "101-1415090": {
+   "land_status": "פרסום הפקדה ברשומות",
+   "land_status_date": "2026-11-03",
+   "land_plan_id": 1057280,
    "land_city": "ירושלים",
    "is_deposit_publication": true
   },
