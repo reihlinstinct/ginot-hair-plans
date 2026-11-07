@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-04",
- "ingest_marker": "sha256:6d3aa63d85f4b4a9",
+ "generated": "2026-11-07",
+ "ingest_marker": "sha256:4c8b75155499b28e",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
@@ -2120,7 +2120,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -2135,7 +2135,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -81250,7 +81250,7 @@
    "parcels": [
     30
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -107575,7 +107575,7 @@
    "parcels": [
     77
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -111597,7 +111597,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -118355,8 +118355,8 @@
   },
   {
    "tik_num": "1989/0750.08",
-   "status": "השלמת הודעות לפני תקנה 36",
-   "status_date": "2026-10-15",
+   "status": "תום תקופת פרסום",
+   "status_date": "2026-11-05",
    "sugbakasha": "עבודות הריסה, תוספת בניה / הרחבה לבניין קיים, ממ\"ד, בנית מחסן/מחסנים",
    "mahut": "הריסת תוספת בניה ישנה ובניית תוספת חדשה להרחבת יחידת הדיור, שינוי פנים ותוספת ממ\"ד ומחסן",
    "address": "אלכסנדריון 12 גונן ג",
@@ -118364,7 +118364,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
    "mirror_last_seen": ""
   },
@@ -118484,7 +118484,7 @@
    "parcels": [
     135
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -121777,7 +121777,7 @@
    "parcels": [
     61
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-28",
@@ -122820,8 +122820,8 @@
   },
   {
    "tik_num": "1990/0451.04",
-   "status": "תום תקופת פרסום",
-   "status_date": "2026-06-02",
+   "status": "נדונה בוועדת המשנה",
+   "status_date": "2026-11-04",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
    "mahut": "החלפת גג רעפים עם גג שטוח חדש + הרבת דירה + המשך מדרגות ומעלית לקומה מעל",
    "address": "מולכו 4 רחביה",
@@ -122829,7 +122829,7 @@
    "parcels": [
     96
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-14T02:42:27.339427+00:00",
    "mirror_last_seen": ""
   },
@@ -124089,7 +124089,7 @@
    "parcels": [
     80
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -124104,7 +124104,7 @@
    "parcels": [
     32
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -139853,7 +139853,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -143105,7 +143105,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -148702,7 +148702,7 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -150630,7 +150630,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -155092,7 +155092,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -166121,8 +166121,8 @@
   },
   {
    "tik_num": "2003/0073.06",
-   "status": "תחילת פרסום הבקשה להקלה",
-   "status_date": "2026-09-23",
+   "status": "נפתח תיק רישוי",
+   "status_date": "2026-11-03",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד, בניית מרפסת, סגירת מרפסת",
    "mahut": "ממ\"ד, הרחבת מרפסת",
    "address": "דוד אלרואי 3 קטמון הישנה",
@@ -166130,7 +166130,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-04",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -170324,7 +170324,7 @@
    "parcels": [
     126
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -177222,7 +177222,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -178497,7 +178497,7 @@
    "parcels": [
     225
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -184548,7 +184548,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": "",
    "publication_start": "",
@@ -185107,7 +185107,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -185758,8 +185758,8 @@
   },
   {
    "tik_num": "2011/0362.04",
-   "status": "תחילת פרסום הבקשה להקלה",
-   "status_date": "2026-09-23",
+   "status": "הבקשה נסגרה",
+   "status_date": "2026-11-02",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד",
    "mahut": "תוספת בניה עפ\"י תב\"ע, הרחבה לבניין קיים, מרפסות זיז",
    "address": "אלעזר בן יאיר 23 גוננים",
@@ -185767,7 +185767,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-04",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -186202,7 +186202,7 @@
    "parcels": [
     129
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -187245,8 +187245,8 @@
   },
   {
    "tik_num": "2011/0847.03",
-   "status": "תחילת הודעות לפני תקנה 36",
-   "status_date": "2026-10-21",
+   "status": "השלמת הודעות לפני תקנה 36",
+   "status_date": "2026-10-22",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, עבודות הריסה, ממ\"ד",
    "mahut": "בניית ממ\"ד",
    "address": "איתמר בן אבי 7 קריית שמואל",
@@ -187254,7 +187254,7 @@
    "parcels": [
     149
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": "",
    "publication_start": "2023-09-04",
@@ -188769,7 +188769,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": ""
   },
@@ -188859,7 +188859,7 @@
    "parcels": [
     138
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -198829,7 +198829,7 @@
    "parcels": [
     2
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -201407,7 +201407,7 @@
    "parcels": [
     88
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -202188,7 +202188,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -202459,7 +202459,7 @@
    "parcels": [
     34
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -202549,7 +202549,7 @@
    "parcels": [
     125
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -204479,7 +204479,7 @@
    "parcels": [
     181
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-27",
@@ -205433,7 +205433,7 @@
    "parcels": [
     183
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -205926,8 +205926,8 @@
   },
   {
    "tik_num": "2019/0551.01",
-   "status": "תום תקופת פרסום",
-   "status_date": "2026-10-29",
+   "status": "נפתח תיק רישוי",
+   "status_date": "2026-11-03",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בנית מחסן/מחסנים, ממ\"ד, בניית מרפסת, תוספת יח\"ד באמצעות תוספת בניה",
    "mahut": "הפיכת מחסן בקומת מרתף למגורים,הרחבת קומת המסחר,מעלון ו-3 מקומות חנייה",
    "address": "ש. טשרניחובסקי 42 גבעת הורדים",
@@ -205935,7 +205935,7 @@
    "parcels": [
     33
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-04",
    "mirror_first_seen": "2026-10-10T21:52:35.602061+00:00",
    "mirror_last_seen": ""
   },
@@ -205980,7 +205980,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-29T22:32:12.089016+00:00",
    "mirror_last_seen": ""
   },
@@ -207439,7 +207439,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208405,7 +208405,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -211313,8 +211313,8 @@
   },
   {
    "tik_num": "2024/0172.00",
-   "status": "השלמת הודעות לפני תקנה 36",
-   "status_date": "2026-10-15",
+   "status": "תום תקופת פרסום",
+   "status_date": "2026-11-05",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד, תוספת בניה על גג בניין מגורים",
    "mahut": "תוספת של שתי קומות, מרתף, עליית גג, ממ\"דים וחדר מדרגות משותף על גבי מבנה לשימור חד קומתי בקומת הקרקע. בריכה ע\"ג מרפסת גג.",
    "address": "יהושפט 6 המושבה היוונית",
@@ -211322,7 +211322,7 @@
    "parcels": [
     57
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-17T21:55:58.022301+00:00",
    "mirror_last_seen": ""
   },
@@ -211463,8 +211463,8 @@
   },
   {
    "tik_num": "2024/0211.03",
-   "status": "תחילת פרסום הבקשה להקלה",
-   "status_date": "2026-09-17",
+   "status": "תום תקופת פרסום",
+   "status_date": "2026-10-27",
    "sugbakasha": "רישוי בניה - שימוש חורג מהיתר, בנית מחסן/מחסנים",
    "mahut": "הפיכת שטח חניה פרטית למחסן סגור בהליך של שימוש חורג מהיתר בניה",
    "address": "יוסי בן יועזר 36 גוננים",
@@ -211472,7 +211472,7 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -211592,7 +211592,7 @@
    "parcels": [
     76
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -211824,7 +211824,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -211959,7 +211959,7 @@
    "parcels": [
     212
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -212093,7 +212093,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -212138,7 +212138,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -212273,7 +212273,7 @@
    "parcels": [
     8
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -212672,7 +212672,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -213317,7 +213317,7 @@
    "parcels": [
     63
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-08-26T22:02:45.485464+00:00",
    "mirror_last_seen": ""
   },
@@ -213617,7 +213617,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -213707,7 +213707,7 @@
    "parcels": [
     52
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -213797,7 +213797,7 @@
    "parcels": [
     95
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -214022,7 +214022,7 @@
    "parcels": [
     12
    ],
-   "mirror_sample_date": "2026-11-01",
+   "mirror_sample_date": "2026-11-07",
    "mirror_first_seen": "2026-10-17T21:55:58.122466+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-18",
@@ -214116,6 +214116,21 @@
    ],
    "mirror_sample_date": "2026-10-31",
    "mirror_first_seen": "2026-10-31T22:08:15.613410+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2026/0489.00",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "2026-11-04",
+   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, ממ\"ד, תוספת יח\"ד באמצעות תוספת בניה, תמ\"א 38 - תוספות",
+   "mahut": "תוספת קומה וחצי לבניין קיים בין 3 קומות וקומת מרתף",
+   "address": "הרב חיים ברלין 2 קריית שמואל",
+   "gush": 30024,
+   "parcels": [
+    47
+   ],
+   "mirror_sample_date": "2026-11-07",
+   "mirror_first_seen": "2026-11-07T02:07:56.642136+00:00",
    "mirror_last_seen": ""
   }
  ]
