@@ -1,71 +1,16 @@
 {
- "generated": "2026-11-03",
+ "generated": "2026-11-07",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
-   "plan": "101-1095330",
+   "plan": "101-1377753",
    "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1214279",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1185578",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1215656",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1293554",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1350594",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1409366",
-   "reasons": [
-    "טקסט העמוד השתנה"
+    "טקסט העמוד השתנה",
+    "התנגדויות: 0 -> 2"
    ]
   },
   {
    "plan": "101-1488261",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1158146",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1336049",
-   "reasons": [
-    "טקסט העמוד השתנה",
-    "מסמכים: +37/-35",
-    "כמויות: +4/-4"
-   ]
-  },
-  {
-   "plan": "101-1432244",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -699,8 +644,8 @@
   "101-1377753": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "0857adc4c2383b5a",
-   "page_chars": 1340,
+   "fingerprint": "51752040b853fbc3",
+   "page_chars": 1370,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136616195|קו כחול|24/02/2025|",
@@ -789,8 +734,8 @@
      "AUTHORISED_QUANTITY=+3,083|AUTHORISED_QUANTITY_ADD=+7,297|DETAILED_PLAN=|ID=1001913897|IMPLEMENTATION=10,380|LAST_UPDATE=10/09/2026 09:25|LAST_UPDATER=jgshiraam|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר",
      "AUTHORISED_QUANTITY=+45|AUTHORISED_QUANTITY_ADD=+57|DETAILED_PLAN=|ID=1001913895|IMPLEMENTATION=102|LAST_UPDATE=10/09/2026 09:25|LAST_UPDATER=jgshiraam|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=|ROW_NUM=1|UNIT_DESC=יח\"ד"
     ],
-    "oppositions_count": 0,
-    "fingerprint": "cff394e51e18048a"
+    "oppositions_count": 2,
+    "fingerprint": "98ef7be306b62b28"
    },
    "mp_id": "1005407450"
   },
@@ -1044,8 +989,8 @@
   "101-1488261": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "da83d0a6ae16d12e",
-   "page_chars": 1216,
+   "fingerprint": "2c30efb94a292ec6",
+   "page_chars": 1462,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136641001|ישויות פוליגונליות, קוויות ונקודתיות|06/08/2026|",
@@ -1424,8 +1369,8 @@
   "101-0617134": {
    "deadline_text": "",
    "station_text": "בבדיקה תכנונית",
-   "fingerprint": "47365bf1dbe8923a",
-   "page_chars": 1446,
+   "fingerprint": "f7b163099b69b2d7",
+   "page_chars": 1200,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000298162249|קבצי התכנית (SHP)|04/11/2025|",
