@@ -34,6 +34,13 @@ Everything in this repo is public - treat it that way.
 4. **Squash merge** once checks pass. Commit messages explain the why and
    reference the issue.
 
+## Branch cleanup
+
+Use the [branch-cleanup checklist](docs/operations/branch-cleanup.md) before
+deleting merged branches. In particular, `mirror` is the Cloudflare Pages
+production branch and must never be deleted by cleanup. Deployment branches
+can be in use even when their commits are fully merged and they have no open PR.
+
 ## Project layout
 
 - `src/ginot/` - site generation (`page.py`), diffing, selection logic.

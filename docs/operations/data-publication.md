@@ -23,6 +23,25 @@ state first; deploy and verify it separately. Until that continuation is perform
 the mirror may lag main. No callback or PR body text authorizes a scan, deployment,
 or successor workflow.
 
+### Cloudflare production branch: keep `mirror`
+
+The existing Cloudflare Pages project `ginot-hair-plans` serves
+`https://ginot-hair-plans.pages.dev/` from **`mirror`**, not `main`, using
+`docs/` as the asset output directory and no build command. Preview deployments
+are disabled. A reviewed merge to `main` alone does not update this mirror.
+
+**Never delete `mirror` during branch cleanup**, even when its tip is fully
+merged into `main` and it has no open PR. It is a deployment target, not a
+finished feature branch. GitHub Pages environment pins do not list this external
+Cloudflare dependency. See the [branch-cleanup checklist](branch-cleanup.md).
+
+Before an authorized mirror continuation, verify the current production branch
+in Cloudflare and the current Git ref, then use the confirmed reviewed main
+commit. If `mirror` is missing or the deployment configuration differs, stop
+and report it before recreating a ref or changing settings. After deployment,
+verify the production URL, source commit, data date and counts separately from
+the primary site.
+
 Audit-result, mavat-watch and mirror-ingest now stage reviewed PRs only.
 Permit-feed successor routing remains fail-closed pending #565.
 
