@@ -227,7 +227,7 @@ def test_status_legends_clickable(tmp_path):
     # plans legend: raw-status chips; permits legend (#521): status-group
     # chips, objection groups selected by default, rest behind a disclosure
     assert "מקרא סטטוסים" in html
-    assert "<b>סטטוסים:</b>" in html
+    assert "<b>קבוצות תצוגה:</b>" in html
     assert 'class="chip c-deposit" data-status="הפקדה להתנגדויות"' in html
     assert 'class="chip c-deposit sel" data-group="obj"' in html
     assert 'class="chip c-review sel" data-group="pre"' in html
@@ -863,7 +863,7 @@ def test_permit_status_group_mapping_covers_live_statuses():
     # every mapped status maps back to its own group
     assert _permit_status_group("תחילת פרסום הבקשה להקלה") == (
         "obj",
-        "פתוח להתנגדויות",
+        "פרסום / הודעות להתנגדות",
         True,
     )
     assert _permit_status_group("ממתין לאישור נוסח פרסום") == (

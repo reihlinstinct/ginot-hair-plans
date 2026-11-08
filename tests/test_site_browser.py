@@ -875,7 +875,7 @@ def test_legend_options_and_counts_follow_the_live_fragment(browser, tmp_path, r
             # legend chip counts come from the fragment rows, not the shell;
             # chips are status GROUPS since #521 (raw statuses fill the select)
             chips = pg.locator("#permits .legend .chip").all_text_contents()
-            assert "פתוח להתנגדויות (2)" in chips
+            assert "פרסום / הודעות להתנגדות (2)" in chips
             assert "לא מסווג (1)" in chips
             assert "סגור/אחר (1)" in chips
             # closed count label follows the fragment
@@ -1288,6 +1288,84 @@ def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser
         assert page.locator("#pfcount").inner_text() == "מציג 1 מתוך 1"
     finally:
         page.close()
+        server.shutdown()
+
+
+def test_publication_group_explains_raw_status_and_exact_filter(tmp_path, browser):
+    """#882: publication evidence can include a different raw status, visibly."""
+    from ginot.page import render_site
+
+    source = tmp_path / "source"
+    source.mkdir()
+    requests = [
+        {
+            "tik_num": "2000/0001.00",
+            "status": "שולמה מקדמה",
+            "address": "רחביה",
+            "publication_start": "",
+            "publication_end_planned": "",
+        },
+        {
+            "tik_num": "2000/0002.00",
+            "status": "תחילת פרסום הבקשה להקלה",
+            "address": "רחביה",
+            "publication_start": today_il().isoformat(),
+            "publication_end_planned": "",
+        },
+    ]
+    (source / "permit_requests.json").write_text(json.dumps({"requests": requests}))
+    (source / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2000/0001.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    out = tmp_path / "site"
+    render_site([], [], str(out), permits_path=str(source / "permit_requests.json"))
+    handler = functools.partial(
+        http.server.SimpleHTTPRequestHandler, directory=str(out)
+    )
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    pg = browser.new_page()
+    try:
+        pg.goto(f"http://127.0.0.1:{server.server_port}/")
+        pg.wait_for_function(
+            "window.__permitsDefaultLoaded && window.__permitPublicationEvidenceLoaded"
+        )
+        row = pg.locator('tr[data-tik="2000/0001.00"]')
+        assert row.is_visible()
+        assert row.get_attribute("data-status") == "שולמה מקדמה"
+        assert row.get_attribute("data-group") == "pubcheck"
+        assert "קבוצת התצוגה נקבעת לפי הפרסום" in row.inner_text()
+        assert "מועד התנגדות לא ידוע" in row.inner_text()
+        assert "לא לפי סטטוס מדויק" in pg.locator("#permit-group-help").inner_text()
+        assert (
+            "פרסום / הודעות להתנגדות"
+            in pg.locator('#pfgroups .chip[data-group="obj"]').inner_text()
+        )
+        # The two groups are independent: paid advance is not in objection group.
+        pg.locator('#pfgroups .chip[data-group="pubcheck"]').click()
+        pg.wait_for_function("window.__permitsLoaded === true")
+        assert not row.is_visible()
+        assert pg.locator('tr[data-tik="2000/0002.00"]').is_visible()
+        pg.locator('#pfgroups .chip[data-group="pubcheck"]').click()
+        assert row.is_visible()
+        pg.locator("#pfstatus").select_option("תחילת פרסום הבקשה להקלה")
+        pg.wait_for_function("window.__permitsLoaded === true")
+        assert not row.is_visible()
+        assert pg.locator('tr[data-tik="2000/0002.00"]').is_visible()
+        pg.locator("#pfstatus").select_option("שולמה מקדמה")
+        assert row.is_visible()
+        assert not pg.locator('tr[data-tik="2000/0002.00"]').is_visible()
+    finally:
+        pg.close()
         server.shutdown()
 
 

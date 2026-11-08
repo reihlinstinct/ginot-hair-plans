@@ -468,7 +468,7 @@ _PERMIT_TERMINAL_STATUSES = frozenset(
 PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
     (
         "obj",
-        "פתוח להתנגדויות",
+        "פרסום / הודעות להתנגדות",
         frozenset(
             {
                 "תחילת פרסום הבקשה להקלה",
@@ -479,6 +479,7 @@ PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
         ),
         True,
     ),
+    ("pubcheck", "פרסום עירוני - דורש בדיקה", frozenset(), True),
     (
         "pre",
         "פרסום מתקרב",
@@ -528,6 +529,7 @@ PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
 _PERMIT_GROUP_CLASS = {
     "obj": "c-deposit",
     "pre": "c-review",
+    "pubcheck": "c-inproc",
     "review": "c-inproc",
     "draft": "c-cond",
     "postpub": "c-inproc",
@@ -869,7 +871,7 @@ def _permits_section(
     if _gcounts.get("unmapped"):
         main_chips.append(_gchip("unmapped", "לא מסווג", True))
     plegend = (
-        '<div class="legend" id="pfgroups"><b>סטטוסים:</b> '
+        '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
         + " ".join(main_chips)
         + ' <details class="more-statuses"><summary>סטטוסים נוספים</summary> '
         + " ".join(more_chips)
@@ -877,7 +879,7 @@ def _permits_section(
     )
     n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
-    status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
+    status_opts = "<option value=''>כל סטטוסי המקור</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
     )
     sug_opts = "<option value=''>כל הסוגים</option>" + "".join(
@@ -901,6 +903,12 @@ def _permits_section(
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
 עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
 {plegend}
+<p class="permits-note" id="permit-group-help">הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.
+קבוצת "פרסום / הודעות להתנגדות" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,
+אפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס "שולמה מקדמה" אינן מועברות לקבוצה זו:
+פרסום עירוני שלהן מוצג בקבוצה נפרדת "פרסום עירוני - דורש בדיקה".
+פרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.
+לסינון סטטוס מדויק השתמשו ברשימה "כל סטטוסי המקור"; הסטטוס המקורי נשמר בכל שורה.</p>
 <details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
 <p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
 <span id="permit-coverage-counts">{coverage_text}</span></p>
@@ -910,7 +918,7 @@ def _permits_section(
 לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש מספר / כתובת / מהות; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
-<select id="pfstatus">{status_opts}</select>
+<select id="pfstatus" aria-label="סטטוס מדויק מהמקור">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
 <label>עד <input type="date" id="pfto"></label>
@@ -1155,7 +1163,7 @@ function rebuildDerived(){
     values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
-  refill(pfstatus,'כל הסטטוסים',Object.keys(counts).sort());
+  refill(pfstatus,'כל סטטוסי המקור',Object.keys(counts).sort());
   refill(pfsug,'כל הסוגים',Object.keys(sugs).sort());
   if(pfclosed&&pfclosed.parentNode&&pfclosed.parentNode.lastChild){
     pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';
@@ -1208,13 +1216,14 @@ function applyPublicationEvidence(){
     if(validIso(stage)&&p.publication_date<=stage)return;
     // An older/repeated listing cannot resurrect a later workflow state.
     if(validIso(current)&&p.publication_date<=current)return;
-    r.setAttribute('data-group','obj');
+    // A publication sighting does not establish filing eligibility for paid advance.
+    r.setAttribute('data-group',r.getAttribute('data-status')==='שולמה מקדמה'?'pubcheck':'obj');
     r.setAttribute('data-publication-evidence',p.publication_date);
     r.setAttribute('data-pub',p.publication_date);
     r.setAttribute('data-pubcat','dated');
     var cell=r.querySelector('[data-publication-cell]');
     if(cell){
-      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני)';
+      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)';
       cell.setAttribute('data-iso',p.publication_date);
     }
   });
