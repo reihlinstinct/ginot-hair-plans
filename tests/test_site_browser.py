@@ -1535,7 +1535,7 @@ def test_evidence_outside_subset_triggers_full_load(tmp_path, browser, request):
             pg.wait_for_function("window.__permitsLoaded === true")
             row = pg.locator('tr[data-tik="2026/0205.00"]')
             row.wait_for(state="visible")
-            assert row.get_attribute("data-group") == "obj"
+            assert row.get_attribute("data-group") == "pubcheck"
             assert seen == {"permits.html": 1, "permits-default.html": 1}
             assert errors == []
     finally:
@@ -1827,6 +1827,10 @@ def test_failed_evidence_full_load_offers_retry_and_keeps_subset(
             pg.wait_for_function("window.__permitsLoaded === true")
             assert pg.locator("#pfload").inner_text() == ""
             pg.locator('tr[data-tik="2026/0205.00"]').wait_for(state="visible")
+            assert (
+                pg.locator('tr[data-tik="2026/0205.00"]').get_attribute("data-group")
+                == "pubcheck"
+            )
             assert errors == []
     finally:
         srv.shutdown()
