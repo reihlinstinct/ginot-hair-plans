@@ -32,8 +32,7 @@
       "requirements.txt",
       "ruff.toml",
       ".repo-layout.yml",
-      "API_PRIVACY.md",
-      "deps-inventory.json"
+      "API_PRIVACY.md"
     ],
     "deny": [
       "*.py"
