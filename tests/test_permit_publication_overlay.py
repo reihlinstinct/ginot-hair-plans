@@ -74,19 +74,22 @@ console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,st
     payload = json.loads(r.stdout)
     results = payload["results"]
     stages = payload["stageResults"]
-    assert payload["today"]["data-group"] == "obj"  # same-day evidence accepted
-    assert payload["boundary"]["data-group"] == "obj"  # exactly90 days accepted
-    assert [x["data-group"] for x in stages] == [
-        "postpub",
-        "postpub",
-        "review",
-        "obj",
-        "postpub",  # stale evidence for the current stage cannot demote it
-        "obj",  # one day newer than the stage: selection follows the publication date
-        "obj",  # review group + ancient status date + in-window publication promotes
-        "obj",  # review group + no status date + in-window publication promotes
-        "review",  # ancient status date + out-of-window publication does not
-    ]
+    assert payload["today"]["data-group"] == "pubcheck"  # same-day evidence accepted
+    assert payload["boundary"]["data-group"] == "pubcheck"  # exactly90 days accepted
+    assert (
+        [x["data-group"] for x in stages]
+        == [
+            "postpub",
+            "postpub",
+            "review",
+            "pubcheck",
+            "postpub",  # stale evidence for the current stage cannot demote it
+            "pubcheck",  # one day newer than the stage: selection follows the publication date
+            "pubcheck",  # review group + ancient status date + in-window publication promotes
+            "pubcheck",  # review group + no status date + in-window publication promotes
+            "review",  # ancient status date + out-of-window publication does not
+        ]
+    )
     assert [bool(x["text"]) for x in payload["deadlineNotes"]] == [True, False, True]
     assert all(x["end"] == "2026-12-01" for x in payload["deadlineNotes"])
     assert [bool(x["text"]) for x in payload["stageNotes"]] == [
@@ -108,7 +111,7 @@ console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,st
         "obj",
     ]
     first = results[0]
-    assert first["attrs"]["data-group"] == "obj"
+    assert first["attrs"]["data-group"] == "pubcheck"
     assert first["attrs"]["data-pub"] == "2026-10-26"
     assert first["attrs"]["data-status"] == "שולמה מקדמה"
     assert first["attrs"]["data-pubend"] == ""  # no fabricated deadline

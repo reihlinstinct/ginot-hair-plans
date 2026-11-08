@@ -257,7 +257,8 @@ function _renderUrgent(){
       name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
   });
   document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
-    if(r.getAttribute('data-group')!=='obj'||r.getAttribute('data-scope')==='out')return;
+    var group=r.getAttribute('data-group');
+    if((group!=='obj'&&group!=='pubcheck')||r.getAttribute('data-scope')==='out')return;
     var a=r.querySelector('td a'),num=a?a.textContent.trim():'';
     function validDeadline(value){
       if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value||''))return false;
@@ -266,6 +267,7 @@ function _renderUrgent(){
     }
     var candidate=(window.__permitOfficialDeadlines||{})[num];
     var official=validDeadline(candidate)?candidate:'';
+    if(group==='pubcheck'&&!official)return;
     var planned=r.getAttribute('data-pubend');
     var d=official||(validDeadline(planned)?planned:'');if(!d)return;
     var parsed=Date.parse(d+'T00:00:00Z');
@@ -273,12 +275,12 @@ function _renderUrgent(){
     var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
       name:'בקשת היתר: '+(r.cells[1]?r.cells[1].textContent:''),
-      d:d.split('-').reverse().join('.'),permit:true,official:!!official});
+      d:d.split('-').reverse().join('.'),permit:true,official:!!official,verify:group==='pubcheck'});
   });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - '+(it.permit?(it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+           ' - '+(it.permit?(it.verify?'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ':it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
 window.__renderUrgent=_renderUrgent;
 _renderUrgent();
@@ -468,7 +470,7 @@ _PERMIT_TERMINAL_STATUSES = frozenset(
 PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
     (
         "obj",
-        "פתוח להתנגדויות",
+        "פרסום / הודעות להתנגדות",
         frozenset(
             {
                 "תחילת פרסום הבקשה להקלה",
@@ -479,6 +481,7 @@ PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
         ),
         True,
     ),
+    ("pubcheck", "פרסום עירוני - דורש בדיקה", frozenset(), True),
     (
         "pre",
         "פרסום מתקרב",
@@ -528,6 +531,7 @@ PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
 _PERMIT_GROUP_CLASS = {
     "obj": "c-deposit",
     "pre": "c-review",
+    "pubcheck": "c-inproc",
     "review": "c-inproc",
     "draft": "c-cond",
     "postpub": "c-inproc",
@@ -857,7 +861,9 @@ def _permits_section(
         dflt = " data-default='1'" if default_on else ""
         return (
             f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
-            f'{dflt} data-label="{_e(label)}">{_e(label)} ({_gcounts.get(key, 0)})</span>'
+            f'{dflt} data-label="{_e(label)}">{_e(label)}'
+            + ("" if key == "pubcheck" else f" ({_gcounts.get(key, 0)})")
+            + "</span>"
         )
 
     main_chips: list[str] = []
@@ -869,15 +875,15 @@ def _permits_section(
     if _gcounts.get("unmapped"):
         main_chips.append(_gchip("unmapped", "לא מסווג", True))
     plegend = (
-        '<div class="legend" id="pfgroups"><b>סטטוסים:</b> '
+        '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
         + " ".join(main_chips)
-        + ' <details class="more-statuses"><summary>סטטוסים נוספים</summary> '
+        + ' <details class="more-statuses"><summary>קבוצות נוספות</summary> '
         + " ".join(more_chips)
         + "</details></div>"
     )
     n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
-    status_opts = "<option value=''>כל הסטטוסים</option>" + "".join(
+    status_opts = "<option value=''>כל סטטוסי המקור</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
     )
     sug_opts = "<option value=''>כל הסוגים</option>" + "".join(
@@ -891,7 +897,7 @@ def _permits_section(
 (סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
 בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
 כברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או
-לקראת פרסום - בשכונות גינות העיר; שאר הסטטוסים זמינים תחת "סטטוסים נוספים",
+לקראת פרסום - בשכונות גינות העיר; שאר הקבוצות זמינות תחת "קבוצות נוספות",
 ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
 בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
 שהבקשה ישנה או שלא פורסמה.
@@ -901,6 +907,12 @@ def _permits_section(
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
 עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
 {plegend}
+<p class="permits-note" id="permit-group-help">הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.
+קבוצת "פרסום / הודעות להתנגדות" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,
+אפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס "שולמה מקדמה" אינן מועברות לקבוצה זו:
+פרסום עירוני שלהן מוצג בקבוצה נפרדת "פרסום עירוני - דורש בדיקה".
+פרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.
+לסינון סטטוס מדויק השתמשו ברשימה "כל סטטוסי המקור"; הסטטוס המקורי נשמר בכל שורה.</p>
 <details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
 <p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
 <span id="permit-coverage-counts">{coverage_text}</span></p>
@@ -910,7 +922,7 @@ def _permits_section(
 לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="חיפוש מספר / כתובת / מהות; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
-<select id="pfstatus">{status_opts}</select>
+<select id="pfstatus" aria-label="סטטוס מדויק מהמקור">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
 <label>עד <input type="date" id="pfto"></label>
@@ -1155,7 +1167,7 @@ function rebuildDerived(){
     values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
-  refill(pfstatus,'כל הסטטוסים',Object.keys(counts).sort());
+  refill(pfstatus,'כל סטטוסי המקור',Object.keys(counts).sort());
   refill(pfsug,'כל הסוגים',Object.keys(sugs).sort());
   if(pfclosed&&pfclosed.parentNode&&pfclosed.parentNode.lastChild){
     pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';
@@ -1208,13 +1220,14 @@ function applyPublicationEvidence(){
     if(validIso(stage)&&p.publication_date<=stage)return;
     // An older/repeated listing cannot resurrect a later workflow state.
     if(validIso(current)&&p.publication_date<=current)return;
-    r.setAttribute('data-group','obj');
+    // A publication sighting does not establish filing eligibility for paid advance.
+    r.setAttribute('data-group',r.getAttribute('data-status')==='שולמה מקדמה'?'pubcheck':'obj');
     r.setAttribute('data-publication-evidence',p.publication_date);
     r.setAttribute('data-pub',p.publication_date);
     r.setAttribute('data-pubcat','dated');
     var cell=r.querySelector('[data-publication-cell]');
     if(cell){
-      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני)';
+      cell.textContent=p.publication_date.split('-').reverse().join('.')+' (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)';
       cell.setAttribute('data-iso',p.publication_date);
     }
   });
