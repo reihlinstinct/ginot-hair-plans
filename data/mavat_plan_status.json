@@ -1,12 +1,23 @@
 {
- "generated": "2026-11-07",
+ "generated": "2026-11-08",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
-   "plan": "101-1377753",
+   "plan": "101-1215656",
    "reasons": [
-    "טקסט העמוד השתנה",
-    "התנגדויות: 0 -> 2"
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1409366",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1451699",
+   "reasons": [
+    "טקסט העמוד השתנה"
    ]
   },
   {
@@ -16,7 +27,7 @@
    ]
   },
   {
-   "plan": "101-0617134",
+   "plan": "101-1432244",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -551,8 +562,8 @@
   "101-1215656": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "5e7d39795d94e2f0",
-   "page_chars": 1320,
+   "fingerprint": "1a4a41e572602895",
+   "page_chars": 1566,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136453667|גבול התכנית תלת מימד (KML)|05/03/2024|",
@@ -881,8 +892,8 @@
   "101-1409366": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "c3e550ac868dc769",
-   "page_chars": 1113,
+   "fingerprint": "e7f510e98265a58b",
+   "page_chars": 1359,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136643571|דרכים תנועה וחניה|13/02/2025|",
@@ -936,8 +947,8 @@
   "101-1451699": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "f3d551e669cf8296",
-   "page_chars": 1441,
+   "fingerprint": "f2b50db74d5a82c9",
+   "page_chars": 1195,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136806771|סקר עצים|18/06/2026|",
@@ -989,8 +1000,8 @@
   "101-1488261": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "2c30efb94a292ec6",
-   "page_chars": 1462,
+   "fingerprint": "da83d0a6ae16d12e",
+   "page_chars": 1216,
    "api": {
     "docs": [
      "rsPlanDocsAdd|77001136641001|ישויות פוליגונליות, קוויות ונקודתיות|06/08/2026|",
@@ -1306,8 +1317,8 @@
   "101-1432244": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "f0e2a1853f4ddf8a",
-   "page_chars": 1292,
+   "fingerprint": "be545f1f989091cc",
+   "page_chars": 1538,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001134013249|שמירה על עצים בוגרים|27/07/2025|נספח מס' 4- נספח סקר עצים",
