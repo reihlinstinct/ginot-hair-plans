@@ -257,7 +257,8 @@ function _renderUrgent(){
       name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
   });
   document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
-    if(r.getAttribute('data-group')!=='obj'||r.getAttribute('data-scope')==='out')return;
+    var group=r.getAttribute('data-group');
+    if((group!=='obj'&&group!=='pubcheck')||r.getAttribute('data-scope')==='out')return;
     var a=r.querySelector('td a'),num=a?a.textContent.trim():'';
     function validDeadline(value){
       if(!/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(value||''))return false;
@@ -266,6 +267,7 @@ function _renderUrgent(){
     }
     var candidate=(window.__permitOfficialDeadlines||{})[num];
     var official=validDeadline(candidate)?candidate:'';
+    if(group==='pubcheck'&&!official)return;
     var planned=r.getAttribute('data-pubend');
     var d=official||(validDeadline(planned)?planned:'');if(!d)return;
     var parsed=Date.parse(d+'T00:00:00Z');
@@ -273,12 +275,12 @@ function _renderUrgent(){
     var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
       name:'בקשת היתר: '+(r.cells[1]?r.cells[1].textContent:''),
-      d:d.split('-').reverse().join('.'),permit:true,official:!!official});
+      d:d.split('-').reverse().join('.'),permit:true,official:!!official,verify:group==='pubcheck'});
   });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - '+(it.permit?(it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+           ' - '+(it.permit?(it.verify?'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ':it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
 window.__renderUrgent=_renderUrgent;
 _renderUrgent();
@@ -859,7 +861,9 @@ def _permits_section(
         dflt = " data-default='1'" if default_on else ""
         return (
             f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
-            f'{dflt} data-label="{_e(label)}">{_e(label)} ({_gcounts.get(key, 0)})</span>'
+            f'{dflt} data-label="{_e(label)}">{_e(label)}'
+            + ("" if key == "pubcheck" else f" ({_gcounts.get(key, 0)})")
+            + "</span>"
         )
 
     main_chips: list[str] = []
@@ -873,7 +877,7 @@ def _permits_section(
     plegend = (
         '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
         + " ".join(main_chips)
-        + ' <details class="more-statuses"><summary>סטטוסים נוספים</summary> '
+        + ' <details class="more-statuses"><summary>קבוצות נוספות</summary> '
         + " ".join(more_chips)
         + "</details></div>"
     )

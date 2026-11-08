@@ -1291,7 +1291,10 @@ def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser
         server.shutdown()
 
 
-def test_publication_group_explains_raw_status_and_exact_filter(tmp_path, browser):
+@pytest.mark.parametrize("official_deadline", [True, False])
+def test_publication_group_explains_raw_status_and_exact_filter(
+    tmp_path, browser, official_deadline
+):
     """#882: publication evidence can include a different raw status, visibly."""
     from ginot.page import render_site
 
@@ -1321,7 +1324,11 @@ def test_publication_group_explains_raw_status_and_exact_filter(tmp_path, browse
                     "tik_num": "2000/0001.00",
                     "in_polygon": True,
                     "publication_date": today_il().isoformat(),
-                    "objection_deadline": None,
+                    "objection_deadline": (
+                        (today_il() + datetime.timedelta(days=3)).isoformat()
+                        if official_deadline
+                        else None
+                    ),
                 }
             ]
         )
@@ -1344,7 +1351,18 @@ def test_publication_group_explains_raw_status_and_exact_filter(tmp_path, browse
         assert row.get_attribute("data-status") == "שולמה מקדמה"
         assert row.get_attribute("data-group") == "pubcheck"
         assert "קבוצת התצוגה נקבעת לפי הפרסום" in row.inner_text()
-        assert "מועד התנגדות לא ידוע" in row.inner_text()
+        if official_deadline:
+            assert "אפשרות הגשה לא אומתה" in pg.locator("#urgent-list").inner_text()
+            assert (
+                "פרסום עירוני - דורש בדיקה" in pg.locator("#urgent-list").inner_text()
+            )
+        else:
+            assert "2000/0001.00" not in pg.locator("#urgent-list").inner_text()
+            assert "מועד התנגדות לא ידוע" in row.inner_text()
+        assert (
+            pg.locator('#pfgroups .chip[data-group="pubcheck"]').inner_text()
+            == "פרסום עירוני - דורש בדיקה"
+        )
         assert "לא לפי סטטוס מדויק" in pg.locator("#permit-group-help").inner_text()
         assert (
             "פרסום / הודעות להתנגדות"
