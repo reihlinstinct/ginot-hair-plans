@@ -1306,7 +1306,9 @@ def test_publication_group_explains_raw_status_and_exact_filter(
             "status": "שולמה מקדמה",
             "address": "רחביה",
             "publication_start": "",
-            "publication_end_planned": "",
+            "publication_end_planned": (
+                today_il() + datetime.timedelta(days=2)
+            ).isoformat(),
         },
         {
             "tik_num": "2000/0002.00",
