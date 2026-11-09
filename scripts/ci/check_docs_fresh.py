@@ -71,102 +71,7 @@ class CheckError(Exception):
     """The check could not run (as opposed to: the docs are stale)."""
 
 
-def stamp_date(path: Path) -> str | None:
-    """The generated date stamped in a committed file, or None when the file
-    carries no stamp. A stamp that is present but not a real date raises
-    CheckError: the clock cannot be pinned, so the check cannot run. (A
-    committed JSON output that does not parse has no stamp; it then compares
-    as stale against the render.)"""
-    if not path.is_file():
-        return None
-    if path.suffix == ".json":
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-        except (ValueError, UnicodeDecodeError):
-            return None
-        if not isinstance(data, dict) or "generated" not in data:
-            return None
-        value = data["generated"]
-    elif path.suffix in (".html", ".xml"):
-        text = path.read_text(encoding="utf-8", errors="replace")
-        m = (_FEED_STAMP if path.suffix == ".xml" else _HTML_STAMP).search(text)
-        if not m:
-            return None
-        value = m.group(1)
-    else:
-        return None
-    if not (isinstance(value, str) and _iso(value)):
-        raise CheckError(f"invalid generated date stamp {value!r} in {path.name}")
-    return value
-
-
-def _iso(value: str) -> bool:
-    try:
-        datetime.date.fromisoformat(value)
-    except ValueError:
-        return False
-    return True
-
-
-def render(out_dir: Path, date: str) -> None:
-    """render_site over the committed inputs with today_il pinned to date."""
-    from ginot import page
-
-    inputs = {
-        "snapshot": ROOT / "snapshots" / "latest.json",
-        "changes": ROOT / "out" / "changes.json",
-        "permits": ROOT / "data" / "permit_requests.json",
-    }
-    missing = [str(p.relative_to(ROOT)) for p in inputs.values() if not p.is_file()]
-    if missing:
-        raise CheckError(f"missing committed input(s): {', '.join(missing)}")
-    try:
-        rows = json.loads(inputs["snapshot"].read_text(encoding="utf-8"))["rows"]
-        changes = json.loads(inputs["changes"].read_text(encoding="utf-8"))["changes"]
-        json.loads(inputs["permits"].read_text(encoding="utf-8"))["requests"]
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        raise CheckError(
-            f"unreadable committed input: {type(exc).__name__}: {exc}"
-        ) from exc
-    pinned = datetime.date.fromisoformat(date)
-    original = page.today_il
-    page.today_il = lambda: pinned
-    cwd = os.getcwd()
-    try:
-        os.chdir(ROOT)  # render_site reads data/ and plans/ relative to cwd
-        page.render_site(
-            rows,
-            changes,
-            str(out_dir),
-            base_url=BASE_URL,
-            permits_path="data/permit_requests.json",
-            council_geojson="data/council_ginot_hair.geojson",
-        )
-    finally:
-        os.chdir(cwd)
-        page.today_il = original
-
-
-def _files(tree: Path) -> list[str]:
-    return sorted(
-        p.relative_to(tree).as_posix()
-        for p in tree.rglob("*")
-        if p.is_file()
-        and not p.name.endswith(SKIP_SUFFIXES)
-        and p.relative_to(tree).as_posix() not in EXCLUDED
-    )
-
-
-def _normalized(path: Path) -> bytes:
-    return path.read_bytes().replace(b"\r\n", b"\n")
-
-
-def first_difference(a: bytes, b: bytes) -> int:
-    """1-based line number of the first differing line."""
-    for n, (x, y) in enumerate(zip(a.split(b"\n"), b.split(b"\n")), start=1):
-        if x != y:
-            return n
-    return min(a.count(b"\n"), b.count(b"\n")) + 1
+# Section: Freshness check
 
 
 def check(
@@ -222,6 +127,113 @@ def check(
     return problems
 
 
+# Section: Date stamps
+
+
+def stamp_date(path: Path) -> str | None:
+    """The generated date stamped in a committed file, or None when the file
+    carries no stamp. A stamp that is present but not a real date raises
+    CheckError: the clock cannot be pinned, so the check cannot run. (A
+    committed JSON output that does not parse has no stamp; it then compares
+    as stale against the render.)"""
+    if not path.is_file():
+        return None
+    if path.suffix == ".json":
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (ValueError, UnicodeDecodeError):
+            return None
+        if not isinstance(data, dict) or "generated" not in data:
+            return None
+        value = data["generated"]
+    elif path.suffix in (".html", ".xml"):
+        text = path.read_text(encoding="utf-8", errors="replace")
+        m = (_FEED_STAMP if path.suffix == ".xml" else _HTML_STAMP).search(text)
+        if not m:
+            return None
+        value = m.group(1)
+    else:
+        return None
+    if not (isinstance(value, str) and _iso(value)):
+        raise CheckError(f"invalid generated date stamp {value!r} in {path.name}")
+    return value
+
+
+def _iso(value: str) -> bool:
+    try:
+        datetime.date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
+
+
+# Section: Pinned rendering
+
+
+def render(out_dir: Path, date: str) -> None:
+    """render_site over the committed inputs with today_il pinned to date."""
+    from ginot import page
+
+    inputs = {
+        "snapshot": ROOT / "snapshots" / "latest.json",
+        "changes": ROOT / "out" / "changes.json",
+        "permits": ROOT / "data" / "permit_requests.json",
+    }
+    missing = [str(p.relative_to(ROOT)) for p in inputs.values() if not p.is_file()]
+    if missing:
+        raise CheckError(f"missing committed input(s): {', '.join(missing)}")
+    try:
+        rows = json.loads(inputs["snapshot"].read_text(encoding="utf-8"))["rows"]
+        changes = json.loads(inputs["changes"].read_text(encoding="utf-8"))["changes"]
+        json.loads(inputs["permits"].read_text(encoding="utf-8"))["requests"]
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        raise CheckError(
+            f"unreadable committed input: {type(exc).__name__}: {exc}"
+        ) from exc
+    pinned = datetime.date.fromisoformat(date)
+    original = page.today_il
+    page.today_il = lambda: pinned
+    cwd = os.getcwd()
+    try:
+        os.chdir(ROOT)  # render_site reads data/ and plans/ relative to cwd
+        page.render_site(
+            rows,
+            changes,
+            str(out_dir),
+            base_url=BASE_URL,
+            permits_path="data/permit_requests.json",
+            council_geojson="data/council_ginot_hair.geojson",
+        )
+    finally:
+        os.chdir(cwd)
+        page.today_il = original
+
+
+# Section: File comparison
+
+
+def _files(tree: Path) -> list[str]:
+    return sorted(
+        p.relative_to(tree).as_posix()
+        for p in tree.rglob("*")
+        if p.is_file()
+        and not p.name.endswith(SKIP_SUFFIXES)
+        and p.relative_to(tree).as_posix() not in EXCLUDED
+    )
+
+
+def _normalized(path: Path) -> bytes:
+    return path.read_bytes().replace(b"\r\n", b"\n")
+
+
+def first_difference(a: bytes, b: bytes) -> int:
+    """1-based line number of the first differing line."""
+    for n, (x, y) in enumerate(zip(a.split(b"\n"), b.split(b"\n")), start=1):
+        if x != y:
+            return n
+    return min(a.count(b"\n"), b.count(b"\n")) + 1
+
+
 def orphans(docs: Path, rendered: set[str]) -> list[str]:
     """Committed render-owned files the current render does not produce."""
     found = set()
@@ -237,6 +249,9 @@ def orphans(docs: Path, rendered: set[str]) -> list[str]:
     return sorted(found)
 
 
+# Section: Coverage inventory
+
+
 def uncovered(docs: Path) -> list[str]:
     with tempfile.TemporaryDirectory(prefix="docs-fresh-") as tmp:
         base_date = stamp_date(docs / "index.html")
@@ -249,6 +264,9 @@ def uncovered(docs: Path) -> list[str]:
         + [f"{n} ({why})" for n, why in sorted(EXCLUDED.items())]
         + sorted(p.relative_to(docs).as_posix() for p in docs.rglob("*.png"))
     )
+
+
+# Section: Command line
 
 
 def main(argv: list[str] | None = None) -> int:
