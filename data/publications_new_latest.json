@@ -1,4 +1,155 @@
 {
   "new_in_polygon": [],
-  "unresolved_new": []
+  "unresolved_new": [
+    {
+      "myIndex": 16564229,
+      "tik_num": "1969/0250.02",
+      "street": "הרב עוזיאל",
+      "house_number": "78",
+      "neighborhood": "בית וגן",
+      "place_description": null,
+      "publication_date": "2026-11-08",
+      "objection_deadline": null,
+      "ed700": "2026-11-03",
+      "connected_rec_id": 1258508,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-08T00:00:00",
+          "ED700": "2026-11-03T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16479969,
+      "tik_num": "1987/0157.02",
+      "street": "הארבעה",
+      "house_number": "50",
+      "neighborhood": "פסגת זאב",
+      "place_description": null,
+      "publication_date": "2026-11-08",
+      "objection_deadline": null,
+      "ed700": "2026-09-14",
+      "connected_rec_id": 1190658,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-08T00:00:00",
+          "ED700": "2026-09-14T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16482858,
+      "tik_num": "2026/0370.00",
+      "street": "עלית הנוער",
+      "house_number": "34",
+      "neighborhood": "רמות",
+      "place_description": null,
+      "publication_date": "2026-11-08",
+      "objection_deadline": null,
+      "ed700": "2026-10-06",
+      "connected_rec_id": null,
+      "doc_id": "91759bfe-b0c0-444e-8638-1819bb4440f6",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "91759bfe-b0c0-444e-8638-1819bb44",
+          "ED800": "2026-11-08T00:00:00",
+          "ED700": "2026-10-06T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    }
+  ]
 }
