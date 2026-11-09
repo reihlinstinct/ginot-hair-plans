@@ -19,7 +19,7 @@ def render_email_page(rows: list[dict], generated: str, council_name: str) -> st
     open_rows = [r for r in rows if r.get("_open_obj")]
     options = "".join(
         f'<option value="{_e(r.get("pl_number") or "")}">'
-        f'{_e(r.get("pl_number") or "")} - {_e(r.get("pl_name") or "")}</option>'
+        f"{_e(r.get('pl_number') or '')} - {_e(r.get('pl_name') or '')}</option>"
         for r in open_rows
     )
     return f"""<!DOCTYPE html>
