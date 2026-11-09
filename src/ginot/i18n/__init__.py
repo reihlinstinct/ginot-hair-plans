@@ -84,8 +84,8 @@ def switcher(lang: str, name: str) -> str:
         href = escape(asset_prefix(lang) + page_path(code, name))
         sel = " selected" if code == lang else ""
         options.append(
-            f'<option value="{href}" lang="{escape(m["lang"])}"{sel}>'
-            f"{escape(m['name'])}</option>"
+            f'<option value="{href}" lang="{escape(m["lang"])}" '
+            f'title="{escape(m["name"])}"{sel}>{escape(m["label"])}</option>'
         )
         links.append(
             f'<a href="{href}" hreflang="{escape(m["lang"])}" '

@@ -23,6 +23,9 @@ def test_document_is_complete_for_every_language():
     for code, m in doc["languages"].items():
         assert m["dir"] in ("rtl", "ltr"), code
         assert m["lang"] and m["name"], code
+        assert m["label"] == m["label"].strip() and 2 <= len(m["label"]) <= 3, code
+    labels = [m["label"] for m in doc["languages"].values()]
+    assert len(set(labels)) == len(labels), "language labels must be unique"
     for key, entry in doc["strings"].items():
         assert set(entry) == set(doc["languages"]), (
             f"{key}: translations {sorted(entry)} != languages "
@@ -66,6 +69,7 @@ def test_new_language_added_to_the_document_flows_everywhere(monkeypatch):
     doc = json.loads(json.dumps(i18n.load()))
     doc["languages"]["es"] = {
         "name": "Español",
+        "label": "ES",
         "lang": "es",
         "dir": "ltr",
         "draft": True,
@@ -77,17 +81,23 @@ def test_new_language_added_to_the_document_flows_everywhere(monkeypatch):
     assert 'lang="es"' in html and "Español" in html
     assert '<option value="../es/email.html"' in i18n.switcher("en", "email.html")
     assert "es" in i18n.lang_codes()
+    assert ">ES</option>" in i18n.switcher("en", "email.html")
 
 
 def test_switcher_is_a_select_whose_options_come_from_the_document():
     root = i18n.switcher("he", "email.html")
     assert '<select id="lang-select"' in root and '<label for="lang-select">' in root
-    opts = re.findall(r'<option value="([^"]*)" lang="([^"]*)"( selected)?>', root)
+    opts = re.findall(
+        r'<option value="([^"]*)" lang="([^"]*)" title="([^"]*)"( selected)?>([^<]*)</option>',
+        root,
+    )
+    assert [o[4] for o in opts] == [i18n.meta(c)["label"] for c in i18n.lang_codes()]
+    assert [o[2] for o in opts] == [i18n.meta(c)["name"] for c in i18n.lang_codes()]
     assert [o[1] for o in opts] == [i18n.meta(c)["lang"] for c in i18n.lang_codes()]
     assert [o[0] for o in opts] == ["email.html"] + [
         f"{c}/email.html" for c in i18n.lang_codes() if c != "he"
     ]
-    assert [bool(o[2]) for o in opts] == [c == "he" for c in i18n.lang_codes()]
+    assert [bool(o[3]) for o in opts] == [c == "he" for c in i18n.lang_codes()]
     en = i18n.switcher("en", "email.html")
     assert '<option value="../email.html"' in en
     assert '<option value="../ar/email.html"' in en

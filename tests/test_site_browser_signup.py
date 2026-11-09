@@ -127,14 +127,16 @@ def test_language_select_lists_document_languages_and_navigates(page, served):
     )  # links are the no-JS fallback only
     for code, m in doc["languages"].items():
         page.goto(served + "/email.html")
-        page.select_option("#lang-select", label=m["name"])
+        page.select_option("#lang-select", label=m["label"])
         page.wait_for_load_state()
         page.wait_for_selector("#lang-select")
         assert page.locator("html").get_attribute("dir") == m["dir"]
         assert page.locator("html").get_attribute("lang") == m["lang"]
         assert page.locator("#lang").get_attribute("value") == code
         selected = page.locator("#lang-select option:checked").text_content()
-        assert selected == m["name"]
+        assert selected == m["label"]
+        title = page.locator("#lang-select option:checked").get_attribute("title")
+        assert title == m["name"]
         assert page.locator("label[for=lang-select]").is_visible()
 
 

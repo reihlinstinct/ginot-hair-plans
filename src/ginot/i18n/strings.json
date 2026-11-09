@@ -4,36 +4,42 @@
  "languages": {
   "he": {
    "name": "עברית",
+   "label": "HE",
    "lang": "he",
    "dir": "rtl",
    "draft": false
   },
   "en": {
    "name": "English",
+   "label": "EN",
    "lang": "en",
    "dir": "ltr",
    "draft": true
   },
   "ar": {
    "name": "العربية",
+   "label": "AR",
    "lang": "ar",
    "dir": "rtl",
    "draft": true
   },
   "ru": {
    "name": "Русский",
+   "label": "RU",
    "lang": "ru",
    "dir": "ltr",
    "draft": true
   },
   "am": {
    "name": "አማርኛ",
+   "label": "AM",
    "lang": "am",
    "dir": "ltr",
    "draft": true
   },
   "fr": {
    "name": "Français",
+   "label": "FR",
    "lang": "fr",
    "dir": "ltr",
    "draft": true
