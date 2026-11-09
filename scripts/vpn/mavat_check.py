@@ -62,14 +62,12 @@ DEADLINE_RE = re.compile(r"מועד אחרון להגשת הערות[^<\\n]{0,12
 STATION_RE = re.compile(
     r"(הפקדה להתנגדויות/השגות|בבדיקה תכנונית|במילוי תנאים להפקדה|הכרעה בהתנגדויות|אישור)"
 )
-
-
-def normalize(text):
-    text = re.sub(r"\s+", " ", text or "")
-    return text.strip()
-
-
 PAGE_API_JSON = {}
+
+API_DOC_ARRAYS = ("rsPlanDocs", "rsPlanDocsAdd", "rsPlanDocsGen", "rsPubDocs")
+
+
+# Section: Page evidence
 
 
 def scrape_plan(page, mp_id, num):
@@ -117,15 +115,12 @@ def scrape_plan(page, mp_id, num):
     }
 
 
-API_DOC_ARRAYS = ("rsPlanDocs", "rsPlanDocsAdd", "rsPlanDocsGen", "rsPubDocs")
+def normalize(text):
+    text = re.sub(r"\s+", " ", text or "")
+    return text.strip()
 
 
-def _s(v):
-    if v is None:
-        return ""
-    if isinstance(v, float) and v == int(v):
-        return str(int(v))
-    return str(v).strip()
+# Section: API evidence
 
 
 def api_snapshot(page, mp_id, page_url):
@@ -210,6 +205,14 @@ def api_snapshot(page, mp_id, page_url):
     return snap
 
 
+def _s(v):
+    if v is None:
+        return ""
+    if isinstance(v, float) and v == int(v):
+        return str(int(v))
+    return str(v).strip()
+
+
 def diff_snapshots(old, new):
     """Human-readable change reasons between two api snapshots."""
     reasons = []
@@ -231,6 +234,9 @@ def diff_snapshots(old, new):
             f"{new.get('oppositions_count')}"
         )
     return reasons
+
+
+# Section: Command line
 
 
 def main():
