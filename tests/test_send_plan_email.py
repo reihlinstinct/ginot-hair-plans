@@ -28,21 +28,60 @@ PLAN = {
 }
 
 
+class FakeKV:
+    """In-memory stand-in for the Upstash REST commands the function uses."""
+
+    def __init__(self):
+        self.d = {}
+
+    def __call__(self, *a):
+        cmd, args = a[0], a[1:]
+        if cmd == "set":
+            self.d[args[0]] = args[1]
+            return "OK"
+        if cmd == "get":
+            return self.d.get(args[0])
+        if cmd == "getdel":
+            return self.d.pop(args[0], None)
+        if cmd == "del":
+            return 1 if self.d.pop(args[0], None) is not None else 0
+        if cmd == "incr":
+            self.d[args[0]] = int(self.d.get(args[0], 0)) + 1
+            return self.d[args[0]]
+        if cmd == "expire":
+            return 1
+        if cmd == "sadd":
+            self.d.setdefault(args[0], set()).add(args[1])
+            return 1
+        if cmd == "srem":
+            self.d.get(args[0], set()).discard(args[1])
+            return 1
+        if cmd == "smembers":
+            return sorted(self.d.get(args[0], set()))
+        raise AssertionError(cmd)
+
+    def pending(self):
+        return {k: v for k, v in self.d.items() if k.startswith("pending:")}
+
+
 @pytest.fixture(autouse=True)
 def _clean_state(monkeypatch):
     """Fresh throttle/cache state and sender env per test."""
-    spe._IP_HITS.clear()
     spe._DAILY.clear()
     spe._CACHE.update(at=0.0, plans={})
     for var in ("EMAIL_FROM_NAME", "EMAIL_REPLY_TO", "EMAIL_FROM_ADDRESS"):
         monkeypatch.delenv(var, raising=False)
     monkeypatch.setenv("SMTP_USER", "sender@example.com")
     monkeypatch.setenv("SMTP_PASSWORD", "secret")
+    monkeypatch.setattr(spe, "KV_URL", "https://kv.example")
+    monkeypatch.setattr(spe, "KV_TOKEN", "tok")
+    monkeypatch.setattr(spe, "_kv", FakeKV())
 
 
 def _post(payload: dict, ip: str = "203.0.113.1"):
     """Run do_POST on a socket-free handler; return (status, json body)."""
     h = spe.handler.__new__(spe.handler)
+    h.path = "/api/send_plan_email"
     raw = json.dumps(payload).encode("utf-8")
     h.rfile = io.BytesIO(raw)
     h.wfile = io.BytesIO()
@@ -119,38 +158,101 @@ def test_unknown_plan_rejected(monkeypatch):
     assert sent == []
 
 
-def test_happy_path_sends(monkeypatch):
-    sent = _fake_send(monkeypatch)
+def _plans(monkeypatch):
     monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
+
+
+def test_request_sends_only_confirmation(monkeypatch):
+    """Nothing but the confirmation goes out before the owner confirms."""
+    sent = _fake_send(monkeypatch)
+    _plans(monkeypatch)
     code, body = _post({"email": "v@example.com", "plan_number": PLAN["pl_number"]})
     assert code == 200 and body == {"ok": True}
     assert [to for _, to in sent] == ["v@example.com"]
+    text = sent[0][0].get_payload(decode=True).decode("utf-8")
+    assert "action=confirm&token=" in text
+    assert PLAN["mavat_url"] not in text  # the plan email itself is not sent yet
+    assert len(spe._kv.pending()) == 1
 
 
-# Section: throttles
+def test_no_storage_refuses_and_sends_nothing(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    _plans(monkeypatch)
+    monkeypatch.setattr(spe, "KV_URL", "")
+    code, _ = _post({"email": "v@example.com", "plan_number": PLAN["pl_number"]})
+    assert code == 503 and sent == []
+
+
+def test_storage_write_failure_sends_nothing(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    _plans(monkeypatch)
+    monkeypatch.setattr(spe, "store_pending", lambda token, record: False)
+    code, _ = _post({"email": "v@example.com", "plan_number": PLAN["pl_number"]})
+    assert code == 502 and sent == []
+
+
+# Section: throttles (counters live in KV)
 
 
 def test_per_ip_hourly_cap(monkeypatch):
     sent = _fake_send(monkeypatch)
-    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
-    payload = {"email": "v@example.com", "plan_number": PLAN["pl_number"]}
-    for _ in range(spe.PER_IP_HOURLY_CAP):
+    _plans(monkeypatch)
+    for i in range(spe.PER_IP_HOURLY_CAP):
+        payload = {"email": f"v{i}@example.com", "plan_number": PLAN["pl_number"]}
         assert _post(payload)[0] == 200
-    assert _post(payload)[0] == 429
-    assert _post(payload, ip="198.51.100.9")[0] == 200  # another IP unaffected
+    over = {"email": "x@example.com", "plan_number": PLAN["pl_number"]}
+    assert _post(over)[0] == 429
+    assert _post(over, ip="198.51.100.9")[0] == 200  # another IP unaffected
     assert len(sent) == spe.PER_IP_HOURLY_CAP + 1
+
+
+def test_per_recipient_daily_cap_across_ips(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    _plans(monkeypatch)
+    payload = {"email": "victim@example.com", "plan_number": PLAN["pl_number"]}
+    codes = [_post(payload, ip=f"198.51.100.{i}")[0] for i in range(1, 6)]
+    assert codes[: spe.PER_RECIPIENT_DAILY_CAP] == [200] * spe.PER_RECIPIENT_DAILY_CAP
+    assert set(codes[spe.PER_RECIPIENT_DAILY_CAP :]) == {429}
+    assert len(sent) == spe.PER_RECIPIENT_DAILY_CAP
 
 
 def test_daily_cap(monkeypatch):
     _fake_send(monkeypatch)
-    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
-    today = time.strftime("%Y-%m-%d", time.gmtime())
-    spe._DAILY[today] = spe.DAILY_SEND_CAP
+    _plans(monkeypatch)
+    day = time.strftime("%Y%m%d", time.gmtime())
+    spe._kv.d[f"rl:day:{day}"] = spe.DAILY_SEND_CAP
     code, _ = _post(
-        {"email": "v@example.com", "plan_number": PLAN["pl_number"]},
-        ip="192.0.2.7",
+        {"email": "v@example.com", "plan_number": PLAN["pl_number"]}, ip="192.0.2.7"
     )
     assert code == 429
+
+
+def test_client_ip_prefers_platform_header(monkeypatch):
+    h = spe.handler.__new__(spe.handler)
+    h.client_address = ("10.0.0.1", 1)
+    h.headers = {
+        "x-forwarded-for": "1.1.1.1, 2.2.2.2",
+        "x-vercel-forwarded-for": "9.9.9.9",
+    }
+    assert h._client_ip() == "9.9.9.9"
+    h.headers = {"x-forwarded-for": "1.1.1.1, 2.2.2.2"}
+    assert h._client_ip() == "1.1.1.1"
+
+
+def test_address_validation_is_strict():
+    ok = spe._valid_email
+    assert ok("a@example.com")
+    for bad in (
+        "a@x.org,b@y.org",
+        "a@x.org;b@y.org",
+        "a b@x.org",
+        "a\tb@x.org",
+        "a@@x.org",
+        "<a@x.org>",
+        "a@x",
+        "",
+    ):
+        assert not ok(bad), bad
 
 
 # Section: data loading and SMTP
@@ -263,86 +365,145 @@ def test_compose_with_unsubscribe_link():
     assert "action=unsubscribe&token=tok123" in body
 
 
-# Section: subscription flow (storage faked)
+# Section: confirm, subscribe and unsubscribe (real storage code, faked KV)
 
 
-def test_subscribe_sends_confirmation(monkeypatch):
+def _request(monkeypatch, subscribe: bool, lang: str = "en"):
+    """Submit the form; return (sent mails, confirm token)."""
     sent = _fake_send(monkeypatch)
-    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
-    stored = {}
-    monkeypatch.setattr(
-        spe,
-        "store_pending",
-        lambda token, record: stored.update({token: record}) or True,
-    )
+    _plans(monkeypatch)
     code, _ = _post(
         {
             "email": "v@example.com",
             "plan_number": PLAN["pl_number"],
-            "lang": "en",
-            "subscribe": True,
+            "lang": lang,
+            "subscribe": subscribe,
         }
     )
     assert code == 200
-    assert len(sent) == 2  # plan email + confirmation email
-    record = next(iter(stored.values()))
-    assert record["lang"] == "en" and record["plan"] == PLAN["pl_number"]
-    confirm = sent[1][0].get_payload(decode=True).decode("utf-8")
-    assert "action=confirm&token=" in confirm
+    token = next(iter(spe._kv.pending())).split(":", 1)[1]
+    return sent, token
 
 
-def test_subscribe_without_storage_still_sends(monkeypatch):
-    sent = _fake_send(monkeypatch)
-    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
-    monkeypatch.setattr(spe, "store_pending", lambda token, record: False)
-    code, _ = _post(
-        {"email": "v@example.com", "plan_number": PLAN["pl_number"], "subscribe": True}
-    )
-    assert code == 200
-    assert len(sent) == 1  # one-time email only, no confirmation
+def _post_action(path: str, headers: dict | None = None):
+    h = spe.handler.__new__(spe.handler)
+    h.path = path
+    h.rfile = io.BytesIO()
+    h.wfile = io.BytesIO()
+    h.headers = headers or {}
+    h.client_address = ("203.0.113.5", 1)
+    codes = []
+    h.send_response = codes.append
+    h.send_header = lambda *a, **k: None
+    h.end_headers = lambda: None
+    h.do_POST()
+    return codes[0], h.wfile.getvalue().decode("utf-8")
 
 
-def test_confirm_and_unsubscribe(monkeypatch):
-    monkeypatch.setattr(
-        spe, "confirm_pending", lambda token: {"plan": "x"} if token == "good" else None
-    )
-    assert _get("/api/send_plan_email?action=confirm&token=good")[0] == 200
-    assert _get("/api/send_plan_email?action=confirm&token=bad")[0] == 400
-    monkeypatch.setattr(spe, "unsubscribe", lambda token: token == "good")
-    assert _get("/api/send_plan_email?action=unsubscribe&token=good")[0] == 200
-    assert _get("/api/send_plan_email?action=unsubscribe&token=bad")[0] == 400
+def test_get_confirm_changes_nothing(monkeypatch):
+    sent, token = _request(monkeypatch, subscribe=True)
+    code, page = _get(f"/api/send_plan_email?action=confirm&token={token}")
+    assert code == 200 and "<form" in page and 'method="post"' in page
+    assert len(sent) == 1  # still only the confirmation
+    assert f"pending:{token}" in spe._kv.d  # not consumed by a GET (scanner safe)
+    assert not [k for k in spe._kv.d if k.startswith("sub:")]
+
+
+def test_confirm_post_sends_plan_email_once(monkeypatch):
+    sent, token = _request(monkeypatch, subscribe=False, lang="en")
+    code, _ = _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    assert code == 200 and len(sent) == 2
+    body = sent[1][0].get_payload(decode=True).decode("utf-8")
+    assert PLAN["mavat_url"] in body and "Objection deadline" in body
+    assert not [k for k in spe._kv.d if k.startswith("sub:")]  # one-time only
+    assert _post_action(f"/api/send_plan_email?action=confirm&token={token}")[0] == 400
+    assert len(sent) == 2  # a second confirm sends nothing
+
+
+def test_confirm_with_subscribe_creates_one_subscription(monkeypatch):
+    sent, token = _request(monkeypatch, subscribe=True)
+    assert _post_action(f"/api/send_plan_email?action=confirm&token={token}")[0] == 200
+    subs = [k for k in spe._kv.d if k.startswith("sub:")]
+    assert len(subs) == 1
+    mail = sent[1][0]
+    assert "List-Unsubscribe=One-Click" in mail["List-Unsubscribe-Post"]
+    unsub = subs[0].split(":", 1)[1]
+    assert unsub in mail["List-Unsubscribe"]
+    # A second (concurrent) confirm cannot create another subscription.
+    assert _post_action(f"/api/send_plan_email?action=confirm&token={token}")[0] == 400
+    assert len([k for k in spe._kv.d if k.startswith("sub:")]) == 1
+
+
+def test_confirm_send_failure_rolls_back(monkeypatch):
+    _sent, token = _request(monkeypatch, subscribe=True)
+
+    def boom(msg, to_addr):
+        raise OSError("smtp down")
+
+    monkeypatch.setattr(spe, "send", boom)
+    assert _post_action(f"/api/send_plan_email?action=confirm&token={token}")[0] == 502
+    assert not [k for k in spe._kv.d if k.startswith("sub:")]
+    assert f"pending:{token}" in spe._kv.d  # retry possible
+
+
+def test_unsubscribe_get_is_inert_post_deletes(monkeypatch):
+    _sent, token = _request(monkeypatch, subscribe=True)
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    unsub = next(k for k in spe._kv.d if k.startswith("sub:")).split(":", 1)[1]
+    path = f"/api/send_plan_email?action=unsubscribe&token={unsub}"
+    code, page = _get(path)
+    assert code == 200 and "<form" in page
+    assert f"sub:{unsub}" in spe._kv.d  # GET did not delete
+    assert _post_action(path)[0] == 200
+    assert f"sub:{unsub}" not in spe._kv.d
+    assert _post_action(path)[0] == 400
+    assert list(spe.iter_subscriptions()) == []
 
 
 def test_notify_requires_secret(monkeypatch):
     monkeypatch.setenv("CRON_SECRET", "s3cret")
     assert _get("/api/send_plan_email?action=notify")[0] == 403
     code, _ = _get(
-        "/api/send_plan_email?action=notify",
-        {"Authorization": "Bearer wrong"},
+        "/api/send_plan_email?action=notify", {"Authorization": "Bearer wrong"}
     )
     assert code == 403
 
 
-def test_notify_sends_due_notices(monkeypatch):
-    sent = _fake_send(monkeypatch)
+def _subscribe_and_confirm(monkeypatch):
+    sent, token = _request(monkeypatch, subscribe=True, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    return sent
+
+
+def test_notify_deadline_notice_is_sent_once(monkeypatch):
+    sent = _subscribe_and_confirm(monkeypatch)
+    plan = dict(
+        PLAN,
+        objection_deadline_derived_2m_from_publication=time.strftime(
+            "%Y-%m-%d", time.gmtime(time.time() + 3 * 86400)
+        ),
+    )
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: plan})
     monkeypatch.setenv("CRON_SECRET", "s3cret")
-    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
-    record = {
-        "email": "v@example.com",
-        "plan": PLAN["pl_number"],
-        "lang": "he",
-        "unsub_token": "tok",
-    }
-    monkeypatch.setattr(
-        spe, "_subscription_notices", lambda plans: [(record, "deadline near")]
-    )
-    saved = {}
-    monkeypatch.setattr(spe, "save_subscription", lambda t, r: saved.update({t: r}))
-    code, body = _get(
-        "/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"}
-    )
-    assert code == 200 and b'"sent": 1' in body.encode() or b'"sent":1' in body.encode()
-    assert sent and "tok" in str(saved)
+    auth = {"Authorization": "Bearer s3cret"}
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body
+    assert len(sent) == before + 1
+    assert "List-Unsubscribe" in sent[-1][0]
+    # Next day's cron: same deadline, same status -> nothing more.
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert '"sent": 0' in body and len(sent) == before + 1
+
+
+def test_notify_status_change(monkeypatch):
+    sent = _subscribe_and_confirm(monkeypatch)
+    changed = dict(PLAN, land_status="אישור")
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: changed})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    before = len(sent)
+    _get("/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"})
+    assert len(sent) == before + 1
 
 
 def test_days_until():
@@ -351,8 +512,49 @@ def test_days_until():
 
 
 def test_kv_inert_without_config(monkeypatch):
+    monkeypatch.undo()
     monkeypatch.setattr(spe, "KV_URL", "")
     monkeypatch.setattr(spe, "KV_TOKEN", "")
     assert spe._kv("get", "anything") is None
     assert spe.store_pending("t", {}) is False
     assert list(spe.iter_subscriptions()) == []
+
+
+def test_cors_preflight_has_no_body():
+    h = spe.handler.__new__(spe.handler)
+    h.wfile = io.BytesIO()
+    h.headers = {}
+    codes = []
+    h.send_response = codes.append
+    h.send_header = lambda *a, **k: None
+    h.end_headers = lambda: None
+    h.do_OPTIONS()
+    assert codes == [204] and h.wfile.getvalue() == b""
+
+
+def test_port_587_uses_starttls(monkeypatch):
+    calls = []
+
+    class FakeSMTP:
+        def __init__(self, host, port, timeout):
+            calls.append(("init", port))
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def starttls(self):
+            calls.append("starttls")
+
+        def login(self, user, password):
+            calls.append("login")
+
+        def send_message(self, msg, from_addr, to_addrs):
+            calls.append("sent")
+
+    monkeypatch.setenv("SMTP_PORT", "587")
+    monkeypatch.setattr(spe.smtplib, "SMTP", FakeSMTP)
+    spe.send(spe.compose(PLAN, "v@example.com"), "v@example.com")
+    assert calls == [("init", 587), "starttls", "login", "sent"]

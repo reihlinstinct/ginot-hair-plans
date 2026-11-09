@@ -33,9 +33,12 @@ def render_email_page(rows: list[dict], generated: str, council_name: str) -> st
 <meta name="theme-color" content="#101f5b">
 <link rel="stylesheet" href="style.css">{_ANALYTICS_SNIPPET}</head><body>
 <h1>קבלת מייל על תוכנית</h1>
-<p>בחרו תוכנית בהפקדה וקבלו מייל חד-פעמי עם פרטי התוכנית, המועד האחרון
-להגשת התנגדות וקישור לעמוד התוכנית במב"ת. כתובת המייל משמשת לשליחה בלבד
-ואינה נשמרת. עודכן: {_e(generated)}.</p>
+<p>בחרו תוכנית בהפקדה וקבלו מייל עם פרטי התוכנית, המועד האחרון להגשת
+התנגדות וקישור לעמוד התוכנית במב"ת. כדי למנוע שליחה לכתובת של אדם אחר,
+נשלח קודם מייל אישור ורק אחרי לחיצה על כפתור בו נשלח המייל עצמו.
+הכתובת נשמרת עד 48 שעות להמתנה לאישור ואז נמחקת; אם סימנתם הרשמה
+לעדכונים היא נשמרת (עם התוכנית והשפה בלבד) עד שתסירו את עצמכם בקישור
+שבכל מייל. עודכן: {_e(generated)}.</p>
 <form id="email-form" method="post" action="#">
 <p><label>תוכנית:<br>
 <select id="plan" name="plan_number" required>{options}</select></label></p>
@@ -61,7 +64,7 @@ fetch('{EMAIL_ENDPOINT}',{{method:'POST',headers:{{'Content-Type':'application/j
 body:JSON.stringify({{email:form.email.value,plan_number:form.plan_number.value,
 lang:form.lang.value,subscribe:form.subscribe.checked,
 website:form.website.value}})}}).then(function(r){{
-st.textContent=r.ok?'אם הכתובת תקינה, המייל בדרך.':'לא ניתן לשלוח כרגע, נסו מאוחר יותר.';
+st.textContent=r.ok?'אם הכתובת תקינה, נשלח אליה מייל אישור.':'לא ניתן לשלוח כרגע, נסו מאוחר יותר.';
 }}).catch(function(){{st.textContent='לא ניתן לשלוח כרגע, נסו מאוחר יותר.';}});
 }});
 }})();

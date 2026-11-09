@@ -1,35 +1,37 @@
 """On-demand plan-objection email endpoint (Vercel Python serverless function).
 
 A visitor submits {email, plan_number, lang, subscribe} from the site's
-email.html page; the function reads the plan's PUBLIC data from the site's
-own published JSON and composes an email in the language of the page the
-visitor used (he/en/ar/ru/am/fr; machine drafts except Hebrew). The email
-carries the plan number/name, status, objection deadline, mavat link and a
-how-to-object pointer, and is signed "reihlinstinct".
+email.html page. Nothing is sent to the typed address until its owner
+confirms: the function stores a pending record (48h expiry) and sends ONE
+confirmation email; the link opens a page with a button, and only the
+button's POST (never a GET, so link scanners cannot trigger it) sends the
+plan email, composed in the page's language (he/en/ar/ru/am/fr; machine
+drafts except Hebrew), signed "reihlinstinct". With subscribe=true the same
+confirmation also creates a subscription: a notification when the plan's
+objection deadline is within 7 days (once per deadline) or its status
+changes (daily Vercel cron calls GET ?action=notify with the CRON_SECRET
+bearer). Unsubscribe is a page with a POST button, plus RFC 8058
+List-Unsubscribe-Post one-click headers on every subscriber email; it deletes
+the record immediately. Minimal data only: address, plan id, language,
+tokens, timestamps. Nothing else is stored, shared or logged.
 
-With subscribe=true the visitor gets a double opt-in confirmation email and,
-once confirmed, a notification when the plan's objection deadline is within
-7 days or its status changes (daily cron calls GET ?action=notify with the
-CRON_SECRET bearer). One-click unsubscribe: GET ?action=unsubscribe&token=...
-deletes the record immediately. Minimal data only: address, plan id,
-language, tokens, timestamps. Nothing else is stored, shared or logged.
-
-Storage is Vercel KV (Upstash Redis) via KV_REST_API_URL/KV_REST_API_TOKEN.
-Without them the subscription paths are inert and the endpoint still sends
-one-time emails. Pending confirmations expire after 48h.
+Storage is Vercel KV (Upstash Redis) via KV_REST_API_URL/KV_REST_API_TOKEN;
+without it the endpoint refuses requests (503) rather than sending
+unconfirmed mail. Abuse protection: honeypot (silent fake success), strict
+address check, confirm-before-send, and KV-backed counters (atomic INCR):
+per-IP hourly, per-recipient daily and a global daily cap, counting every
+message sent. Gmail's own ~500/day SMTP cap is the last backstop.
 
 Sender account is fully env-driven (one documented swap place, no code
 change): SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM_ADDRESS
 / EMAIL_FROM_NAME / EMAIL_REPLY_TO. See api/README.md.
 
-Abuse protection (public form): honeypot field (silent fake success),
-per-IP hourly throttle and a global daily cap. Both throttles are per
-serverless instance (in-memory) - Gmail's own ~500/day SMTP cap is the hard
-backstop. Cloudflare Turnstile can be added behind REQUIRE_TURNSTILE later.
-
 Stdlib only; the Vercel Python runtime serves the `handler` class.
 """
 
+import hashlib
+import hmac
+import html
 import json
 import os
 import secrets
@@ -47,14 +49,15 @@ SITE_DATA_URL = os.environ.get(
     "https://reihlinstinct.github.io/ginot-hair-plans/data.json",
 )
 BASE_URL = os.environ.get("BASE_URL", "https://ginot-hair-plans.vercel.app")
-ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "*")
+ALLOWED_ORIGIN = os.environ.get("ALLOWED_ORIGIN", "https://reihlinstinct.github.io")
 PER_IP_HOURLY_CAP = int(os.environ.get("PER_IP_HOURLY_CAP", "3"))
+PER_RECIPIENT_DAILY_CAP = int(os.environ.get("PER_RECIPIENT_DAILY_CAP", "3"))
 DAILY_SEND_CAP = int(os.environ.get("DAILY_SEND_CAP", "50"))
 PENDING_TTL_SECONDS = 48 * 3600  # double opt-in records expire
 NOTIFY_WINDOW_DAYS = 7
 
-# Per-instance throttle state (documented limitation: resets on cold start).
-_IP_HITS: dict[str, list[float]] = {}
+# In-memory counter fallback, used only when KV answers nothing (storage
+# outage); the normal path counts in KV so every instance shares one count.
 _DAILY: dict[str, int] = {}
 
 # Public-data cache (the dataset changes at most a few times a day).
@@ -108,9 +111,9 @@ _STRINGS = {
         "status": "الحالة: {status}",
         "deadline": "الموعد الأخير لتقديم اعتراض: {deadline}",
         "no_deadline": "الموعد الأخير لتقديم اعتراض: لم يُنشر بعد",
-        "mavat": "صفحة الخطة في مب\"ت: {url}",
+        "mavat": 'صفحة الخطة في مب"ت: {url}',
         "howto": "تُقدَّم الاعتراضات إلى اللجنة المحلية للتخطيط والبناء في القدس، "
-        "عبر الإنترنت من صفحة الخطة في مب\"ت أو وفقًا لإعلان الإيداع.",
+        'عبر الإنترنت من صفحة الخطة في مب"ت أو وفقًا لإعلان الإيداع.',
         "disclaimer": "المعلومات مجموعة من مصادر عامة فقط وليست بديلاً عن استشارة مهنية.",
         "confirm_subject": "تأكيد الاشتراك في تحديثات الخطة {number}",
         "confirm_intro": "لتأكيد الاشتراك في تحديثات الخطة {number}، افتح: {url}",
@@ -203,9 +206,12 @@ def plan_status(plan: dict) -> str:
 
 
 def plan_deadline(plan: dict) -> str:
-    return plan.get("objection_deadline_derived_2m_from_publication") or plan.get(
-        "objection_deadline_derived_60d_from_publication"
-    ) or plan.get("objection_deadline") or ""
+    return (
+        plan.get("objection_deadline_derived_2m_from_publication")
+        or plan.get("objection_deadline_derived_60d_from_publication")
+        or plan.get("objection_deadline")
+        or ""
+    )
 
 
 # Section: subscription storage (Vercel KV / Upstash REST; inert when unset)
@@ -231,28 +237,32 @@ def _kv(*args: str):
 
 
 def store_pending(token: str, record: dict) -> bool:
-    ok = _kv("set", f"pending:{token}", json.dumps(record), "EX", str(PENDING_TTL_SECONDS))
+    ok = _kv(
+        "set", f"pending:{token}", json.dumps(record), "EX", str(PENDING_TTL_SECONDS)
+    )
     return ok == "OK"
 
 
-def load_pending(token: str):
-    raw = _kv("get", f"pending:{token}")
-    return json.loads(raw) if raw else None
-
-
 def confirm_pending(token: str) -> dict | None:
-    record = load_pending(token)
-    if not record:
+    """Atomically consume a pending record (GETDEL: two interleaved confirms
+    cannot both succeed). Creates the subscription when it asked for one."""
+    raw = _kv("getdel", f"pending:{token}")
+    if not raw:
         return None
-    unsub = secrets.token_urlsafe(24)
-    record["unsub_token"] = unsub
-    record["confirmed_at"] = int(time.time())
-    record["last_notified"] = ""
-    if _kv("set", f"sub:{unsub}", json.dumps(record)) != "OK":
-        return None
-    _kv("sadd", f"plans:{record['plan']}", unsub)
-    _kv("sadd", "plans", record["plan"])
-    _kv("del", f"pending:{token}")
+    record = json.loads(raw)
+    if record.get("subscribe"):
+        unsub = secrets.token_urlsafe(24)
+        sub = dict(
+            record,
+            unsub_token=unsub,
+            confirmed_at=int(time.time()),
+            deadline_notified="",
+        )
+        if _kv("set", f"sub:{unsub}", json.dumps(sub)) != "OK":
+            return None
+        _kv("sadd", f"plans:{record['plan']}", unsub)
+        _kv("sadd", "plans", record["plan"])
+        record["unsub_token"] = unsub
     return record
 
 
@@ -300,7 +310,20 @@ def _message(subject: str, lines: list[str], to_addr: str) -> MIMEText:
     return msg
 
 
-def compose(plan: dict, to_addr: str, lang: str = "he", unsub_token: str = "") -> MIMEText:
+def _unsub_url(token: str) -> str:
+    return f"{BASE_URL}/api/send_plan_email?action=unsubscribe&token={token}"
+
+
+def _one_click(msg: MIMEText, unsub_token: str) -> None:
+    """RFC 8058 one-click unsubscribe headers (POST to the unsubscribe URL)."""
+    if unsub_token:
+        msg["List-Unsubscribe"] = f"<{_unsub_url(unsub_token)}>"
+        msg["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
+
+
+def compose(
+    plan: dict, to_addr: str, lang: str = "he", unsub_token: str = ""
+) -> MIMEText:
     """The public plan facts as an email in the page's language. Nothing
     about the recipient is logged; the address only enters the To header."""
     s = _strings(lang)
@@ -319,9 +342,11 @@ def compose(plan: dict, to_addr: str, lang: str = "he", unsub_token: str = "") -
         lines += [s["mavat"].format(url=mavat), ""]
     lines += [s["howto"], "", s["disclaimer"]]
     if unsub_token:
-        url = f"{BASE_URL}/api/send_plan_email?action=unsubscribe&token={unsub_token}"
+        url = _unsub_url(unsub_token)
         lines += ["", s["unsub"].format(url=url)]
-    return _message(s["subject"].format(number=number), lines, to_addr)
+    msg = _message(s["subject"].format(number=number), lines, to_addr)
+    _one_click(msg, unsub_token)
+    return msg
 
 
 def compose_confirm(record: dict, token: str) -> MIMEText:
@@ -333,20 +358,19 @@ def compose_confirm(record: dict, token: str) -> MIMEText:
         "",
         s["confirm_expiry"],
     ]
-    return _message(s["confirm_subject"].format(number=record["plan"]), lines, record["email"])
+    return _message(
+        s["confirm_subject"].format(number=record["plan"]), lines, record["email"]
+    )
 
 
 def compose_notify(record: dict, reason: str) -> MIMEText:
     """The subscription notification (status change / deadline near)."""
     s = _strings(record.get("lang", "he"))
     plan = record["plan"]
-    lines = [reason, ""]
-    lines += [
-        s["unsub"].format(
-            url=f"{BASE_URL}/api/send_plan_email?action=unsubscribe&token={record['unsub_token']}"
-        )
-    ]
-    return _message(s["subject"].format(number=plan), lines, record["email"])
+    lines = [reason, "", s["unsub"].format(url=_unsub_url(record["unsub_token"]))]
+    msg = _message(s["subject"].format(number=plan), lines, record["email"])
+    _one_click(msg, record["unsub_token"])
+    return msg
 
 
 def send(msg: MIMEText, to_addr: str) -> None:
@@ -354,37 +378,60 @@ def send(msg: MIMEText, to_addr: str) -> None:
     port = int(os.environ.get("SMTP_PORT", "465"))
     user = os.environ["SMTP_USER"]
     password = os.environ["SMTP_PASSWORD"]
+    if port == 587:  # submission port: STARTTLS instead of implicit SSL
+        with smtplib.SMTP(host, port, timeout=20) as smtp:
+            smtp.starttls()
+            smtp.login(user, password)
+            smtp.send_message(msg, from_addr=user, to_addrs=[to_addr])
+        return
     with smtplib.SMTP_SSL(host, port, timeout=20) as smtp:
         smtp.login(user, password)
         smtp.send_message(msg, from_addr=user, to_addrs=[to_addr])
 
 
 def _valid_email(addr: str) -> bool:
-    if not addr or len(addr) > 254 or "@" not in addr:
+    if not addr or len(addr) > 254 or addr.count("@") != 1:
+        return False
+    if any(c in addr for c in ",;<>") or any(
+        ord(c) <= 32 or ord(c) == 127 for c in addr
+    ):
         return False
     local, _, domain = addr.rpartition("@")
-    return bool(local) and "." in domain and " " not in addr
+    return bool(local) and "." in domain and not domain.startswith((".", "-"))
 
 
-def _throttled(ip: str) -> bool:
-    now = time.time()
-    hits = [t for t in _IP_HITS.get(ip, []) if now - t < 3600]
-    _IP_HITS[ip] = hits
-    if len(hits) >= PER_IP_HOURLY_CAP:
-        return True
-    today = time.strftime("%Y-%m-%d", time.gmtime(now))
-    return _DAILY.get(today, 0) >= DAILY_SEND_CAP
+def _digest(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()[:24]
 
 
-def _record_send(ip: str) -> None:
-    _IP_HITS.setdefault(ip, []).append(time.time())
-    today = time.strftime("%Y-%m-%d", time.gmtime())
-    _DAILY[today] = _DAILY.get(today, 0) + 1
+def _incr(key: str, ttl: int) -> int:
+    """Atomic counter in KV (INCR, EXPIRE on first hit); in-memory fallback
+    when KV answers nothing."""
+    n = _kv("incr", key)
+    if n is None:
+        _DAILY[key] = _DAILY.get(key, 0) + 1
+        return _DAILY[key]
+    if int(n) == 1:
+        _kv("expire", key, str(ttl))
+    return int(n)
+
+
+def _over_limit(ip: str, email: str = "", per_ip: bool = True) -> bool:
+    """Count one message against the caps; True when any cap is exceeded."""
+    now = time.gmtime()
+    hour, day = time.strftime("%Y%m%d%H", now), time.strftime("%Y%m%d", now)
+    over = _incr(f"rl:day:{day}", 172800) > DAILY_SEND_CAP
+    if per_ip:
+        over |= _incr(f"rl:ip:{_digest(ip)}:{hour}", 7200) > PER_IP_HOURLY_CAP
+    if email:
+        key = f"rl:to:{_digest(email.lower())}:{day}"
+        over |= _incr(key, 172800) > PER_RECIPIENT_DAILY_CAP
+    return over
 
 
 def _subscription_notices(plans: dict) -> list[tuple[dict, str]]:
-    """(record, reason) for subscribers due a notification."""
-    today = time.strftime("%Y-%m-%d", time.gmtime())
+    """(record, reason) for subscribers due a notification: one on every
+    status change, and one per deadline once it is within the window."""
     out = []
     for token, record in iter_subscriptions():
         plan = plans.get(record.get("plan", ""))
@@ -393,21 +440,21 @@ def _subscription_notices(plans: dict) -> list[tuple[dict, str]]:
         record["unsub_token"] = token
         status = plan_status(plan)
         deadline = plan_deadline(plan)
-        marker = f"{status}|{deadline}|{today}"
-        if record.get("last_notified") == marker:
-            continue
         s = _strings(record.get("lang", "he"))
         if status and status != record.get("status"):
             reason = s["notify_status"].format(number=record["plan"], status=status)
-        elif deadline and 0 <= _days_until(deadline) <= NOTIFY_WINDOW_DAYS:
-            reason = s["notify_deadline"].format(number=record["plan"], deadline=deadline)
+        elif (
+            deadline
+            and 0 <= _days_until(deadline) <= NOTIFY_WINDOW_DAYS
+            and record.get("deadline_notified") != deadline
+        ):
+            reason = s["notify_deadline"].format(
+                number=record["plan"], deadline=deadline
+            )
+            record["deadline_notified"] = deadline
         else:
-            record["status"] = status
-            record["last_notified"] = marker
-            save_subscription(token, record)
             continue
         record["status"] = status
-        record["last_notified"] = marker
         out.append((record, reason))
     return out
 
@@ -423,56 +470,93 @@ def _days_until(iso_date: str) -> int:
     return (then - datetime.datetime.now(datetime.timezone.utc).date()).days
 
 
+def _action_page(text: str, button: str = "", action_url: str = "") -> str:
+    form = ""
+    if button:
+        form = (
+            f'<form method="post" action="{html.escape(action_url)}">'
+            f'<button type="submit">{html.escape(button)}</button></form>'
+        )
+    return (
+        '<!DOCTYPE html><html><head><meta charset="utf-8">'
+        '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        '<meta name="robots" content="noindex"></head><body>'
+        f"<p>{html.escape(text)}</p>{form}</body></html>"
+    )
+
+
 class handler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
 
-    def _reply(self, code: int, body: dict) -> None:
-        payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
+    def _send(self, code: int, payload: bytes, ctype: str, cors: bool = False) -> None:
         self.send_response(code)
-        self.send_header("Content-Type", "application/json; charset=utf-8")
-        self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Content-Type", ctype)
+        if cors:
+            self.send_header("Access-Control-Allow-Origin", ALLOWED_ORIGIN)
+            self.send_header("Access-Control-Allow-Headers", "Content-Type")
+            self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
         self.send_header("Content-Length", str(len(payload)))
         self.end_headers()
         self.wfile.write(payload)
 
-    def _reply_html(self, code: int, text: str) -> None:
-        payload = (
-            "<!DOCTYPE html><html><body><p>" + text + "</p></body></html>"
-        ).encode("utf-8")
-        self.send_response(code)
-        self.send_header("Content-Type", "text/html; charset=utf-8")
-        self.send_header("Content-Length", str(len(payload)))
-        self.end_headers()
-        self.wfile.write(payload)
+    def _reply(self, code: int, body: dict) -> None:
+        payload = json.dumps(body, ensure_ascii=False).encode("utf-8")
+        self._send(code, payload, "application/json; charset=utf-8", cors=True)
+
+    def _reply_html(
+        self, code: int, text: str, button: str = "", url: str = ""
+    ) -> None:
+        payload = _action_page(text, button, url).encode("utf-8")
+        self._send(code, payload, "text/html; charset=utf-8")
 
     def _query(self) -> dict:
         from urllib.parse import parse_qs, urlparse
 
         return {k: v[0] for k, v in parse_qs(urlparse(self.path).query).items()}
 
-    def do_OPTIONS(self) -> None:  # CORS preflight
-        self._reply(204, {})
+    def _client_ip(self) -> str:
+        """The platform-set client address (not the client-appendable
+        x-forwarded-for chain) when present."""
+        for name in ("x-vercel-forwarded-for", "x-real-ip", "x-forwarded-for"):
+            value = self.headers.get(name)
+            if value:
+                return value.split(",")[0].strip()
+        return self.client_address[0]
+
+    def do_OPTIONS(self) -> None:  # CORS preflight: no body
+        self._send(204, b"", "text/plain", cors=True)
 
     def do_GET(self) -> None:
         q = self._query()
         action = q.get("action", "")
+        token = urllib.parse.quote(q.get("token", ""), safe="")
+        # Confirm/unsubscribe GETs only show a button; the state change is the
+        # button's POST, so mail link scanners and prefetchers change nothing.
         if action == "confirm":
-            record = confirm_pending(q.get("token", ""))
-            return self._reply_html(200 if record else 400, "OK" if record else "Invalid")
+            return self._reply_html(
+                200,
+                "Press to confirm and receive the plan email / לחצו לאישור וקבלת המייל",
+                "Confirm / אישור",
+                f"?action=confirm&token={token}",
+            )
         if action == "unsubscribe":
             return self._reply_html(
-                200 if unsubscribe(q.get("token", "")) else 400, "OK"
+                200,
+                "Press to unsubscribe / לחצו להסרה מרשימת העדכונים",
+                "Unsubscribe / הסרה",
+                f"?action=unsubscribe&token={token}",
             )
         if action == "notify":
             secret = os.environ.get("CRON_SECRET", "")
             auth = self.headers.get("Authorization", "")
-            if not secret or auth != f"Bearer {secret}":
+            if not secret or not hmac.compare_digest(auth, f"Bearer {secret}"):
                 return self._reply(403, {"ok": False})
             sent = 0
             try:
                 notices = _subscription_notices(load_plans())
                 for record, reason in notices:
+                    if _over_limit("", per_ip=False):
+                        break
                     send(compose_notify(record, reason), record["email"])
                     save_subscription(record["unsub_token"], record)
                     sent += 1
@@ -481,7 +565,49 @@ class handler(BaseHTTPRequestHandler):
             return self._reply(200, {"ok": True, "sent": sent})
         return self._reply(404, {"ok": False})
 
+    def _confirm(self, token: str) -> None:
+        """POST ?action=confirm: consume the pending record, send the plan
+        email (and create the subscription when it asked for one)."""
+        if _over_limit(self._client_ip(), per_ip=False):
+            return self._reply_html(429, "Try again later / נסו שוב מאוחר יותר")
+        record = confirm_pending(token)
+        if not record:
+            return self._reply_html(400, "Invalid or expired link / הקישור אינו תקף")
+        try:
+            plan = load_plans().get(record["plan"])
+            if not plan:
+                raise LookupError
+            send(
+                compose(
+                    plan,
+                    record["email"],
+                    record.get("lang", "he"),
+                    record.get("unsub_token", ""),
+                ),
+                record["email"],
+            )
+        except Exception:  # noqa: BLE001 - generic 502, never leak internals
+            if record.get("unsub_token"):
+                unsubscribe(record["unsub_token"])
+            store_pending(
+                token, {k: v for k, v in record.items() if k != "unsub_token"}
+            )
+            return self._reply_html(502, "Try again later / נסו שוב מאוחר יותר")
+        return self._reply_html(200, "Done - the email is on its way / המייל בדרך")
+
     def do_POST(self) -> None:
+        q = self._query()
+        action = q.get("action", "")
+        if action == "confirm":
+            return self._confirm(q.get("token", ""))
+        if action == "unsubscribe":
+            ok = unsubscribe(q.get("token", ""))
+            return self._reply_html(
+                200 if ok else 400,
+                "Unsubscribed / הוסרתם מהרשימה"
+                if ok
+                else "Invalid link / קישור לא תקף",
+            )
         # Generic responses only: no oracle on plan existence or send state.
         try:
             length = int(self.headers.get("Content-Length") or 0)
@@ -489,6 +615,8 @@ class handler(BaseHTTPRequestHandler):
                 return self._reply(400, {"ok": False})
             body = json.loads(self.rfile.read(length).decode("utf-8"))
         except (ValueError, UnicodeDecodeError):
+            return self._reply(400, {"ok": False})
+        if not isinstance(body, dict):
             return self._reply(400, {"ok": False})
 
         # Honeypot: bots that fill the hidden field get a fake success.
@@ -503,9 +631,10 @@ class handler(BaseHTTPRequestHandler):
         subscribe = bool(body.get("subscribe"))
         if not _valid_email(email) or not plan_number:
             return self._reply(400, {"ok": False})
+        if not (KV_URL and KV_TOKEN):  # no storage: never send unconfirmed mail
+            return self._reply(503, {"ok": False})
 
-        ip = self.headers.get("x-forwarded-for", self.client_address[0]).split(",")[0].strip()
-        if _throttled(ip):
+        if _over_limit(self._client_ip(), email):
             return self._reply(429, {"ok": False})
 
         try:
@@ -515,17 +644,21 @@ class handler(BaseHTTPRequestHandler):
         if not plan:
             return self._reply(400, {"ok": False})
 
+        token = secrets.token_urlsafe(24)
+        record = {
+            "email": email,
+            "plan": plan_number,
+            "lang": lang,
+            "subscribe": subscribe,
+            "created": int(time.time()),
+            "status": plan_status(plan),
+        }
         try:
-            send(compose(plan, email, lang), email)
-            if subscribe:
-                token = secrets.token_urlsafe(24)
-                record = {"email": email, "plan": plan_number, "lang": lang,
-                          "created": int(time.time()), "status": plan_status(plan)}
-                if store_pending(token, record):
-                    send(compose_confirm(record, token), email)
+            if not store_pending(token, record):
+                return self._reply(502, {"ok": False})
+            send(compose_confirm(record, token), email)
         except Exception:  # noqa: BLE001 - generic 502, never leak internals
             return self._reply(502, {"ok": False})
-        _record_send(ip)
         return self._reply(200, {"ok": True})
 
     def log_message(self, format: str, *args) -> None:  # no request logging

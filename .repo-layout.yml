@@ -34,7 +34,8 @@
       "pyproject.toml",
       "pytest.ini",
       "requirements.txt",
-      "ruff.toml"
+      "ruff.toml",
+      "vercel.json"
     ],
     "deny": [
       "*.py"
