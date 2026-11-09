@@ -16,6 +16,9 @@ bf = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(bf)
 
 
+# Section: Offline fixtures
+
+
 def _row(tik, address=None, raw=False):
     r = {"tik_num": tik, "status": "בבדיקה", "details_checked_on": "2026-10-24"}
     if address is not None:
@@ -53,6 +56,9 @@ def _run(tmp_path, rows, fake, monkeypatch, extra_args=()):
 
 def _fields(street="", num="", schuna=""):
     return {"rehovName": street, "mispBait": num, "schunaName": schuna}
+
+
+# Section: Address field semantics
 
 
 def test_has_house_number():
@@ -136,6 +142,9 @@ def test_strict_fetch_distinguishes_failure_from_empty(monkeypatch):
         lambda *a: [{"rehovName": "", "mispBait": "", "schunaName": ""}],
     )
     assert bf.address_fields_strict("2026/0001.01") == _fields()
+
+
+# Section: Checkpoint and failure lifecycle
 
 
 def test_main_enriches_and_resumes(tmp_path, monkeypatch):

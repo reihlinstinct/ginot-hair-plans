@@ -9,6 +9,9 @@ mirror_ingest = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(mirror_ingest)
 
 
+# Section: Parcel mapping and public projection
+
+
 def test_parcel_interval():
     assert mirror_ingest.parcel_interval({"מחלקה": "126", "עד חלקה": "126"}) == (
         set(),
@@ -102,6 +105,9 @@ def test_preserve_enriched_fields_keeps_publication_dates():
     assert new["B/2"]["publication_start"] == ""
     assert "publication_start" not in new["C/3"]
     assert "publication_start" not in new["D/4"]
+
+
+# Section: Bounded collection
 
 
 def mock_pages(monkeypatch, pages):
@@ -295,6 +301,9 @@ def test_main_allow_empty_flag_and_fresh_start(monkeypatch, tmp_path):
     assert mirror_ingest.main() == 0
     assert json.loads(out.read_text(encoding="utf-8"))["requests"] == []
     assert json.loads(diff.read_text())["gone_tiks"] == ["A"]
+
+
+# Section: Sighting and queue preservation
 
 
 def test_preserve_sample_bounds_keeps_earliest_first_seen():
