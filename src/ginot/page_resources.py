@@ -171,3 +171,29 @@ fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.j
 
 def _e(s):
     return html.escape(str(s or ""))
+
+
+def _iso(d) -> str:
+    d = (d or "").strip()[:10]
+    if len(d) < 10 or d[4] != "-" or d[7] != "-":
+        return ""
+    try:
+        m, day = int(d[5:7]), int(d[8:10])
+    except ValueError:
+        return ""
+    # scraper-sourced field: reject impossible months/days so a malformed
+    # publication_start degrades to "date unknown" instead of a bogus date
+    return d if 1 <= m <= 12 and 1 <= day <= 31 else ""
+
+
+def _fmt(d) -> str:
+    iso = _iso(d)
+    return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
+
+
+def _date_cell(d) -> str:
+    iso = _iso(d)
+    return f"<span dir='ltr' data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
+
+
+COLLAPSE_TOP = 20
