@@ -10,6 +10,9 @@ from test_site_browser import plan_ids
 pytest_plugins = ["test_site_browser"]
 
 
+# Section: Map loading and geometry
+
+
 def test_map_lazy_filter_legend_and_live_boundary(page):
     points = [
         {
@@ -229,6 +232,9 @@ def test_map_overlap_prefers_smallest_and_excludes_holes_and_hidden_rows(page):
     page.locator(".leaflet-popup").wait_for(state="detached")
 
 
+# Section: Offline map fixtures
+
+
 def _stub_map_network(pg):
     numbers = [f"200-{i}" for i in range(1, 23)] + [f"300-{i}" for i in range(1, 5)]
     requests = []
@@ -297,6 +303,9 @@ def map_network(page):
 @pytest.fixture
 def map_network_mobile(mobile_page):
     return _stub_map_network(mobile_page)
+
+
+# Section: Map interaction and accessibility
 
 
 def test_map_sort_status_reset_and_no_numbered_markers(page, map_network):

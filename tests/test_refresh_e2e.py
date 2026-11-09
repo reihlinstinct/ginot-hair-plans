@@ -27,6 +27,9 @@ BASE_MS = int(
 )
 
 
+# Section: Synthetic refresh fixtures
+
+
 def feat(num, status, **kw):
     attrs = {
         "pl_number": num,
@@ -96,6 +99,9 @@ def run_refresh(monkeypatch, tmp):
         ],
     )
     refresh.main()
+
+
+# Section: Refresh artifacts and provenance
 
 
 def test_full_refresh_produces_all_public_artifacts(workdir, monkeypatch):
@@ -264,6 +270,9 @@ def test_land_status_recomputes_deadline_from_latest_publication(tmp_path):
 
 
 # ---------- iplan.query_plans (curl stubbed) ----------
+
+
+# Section: Offline source and geometry adapters
 
 
 def stub_curl(monkeypatch, outputs):
