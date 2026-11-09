@@ -19,7 +19,9 @@
       ".coveragerc",
       ".gitattributes",
       ".gitignore",
+      ".repo-layout.yml",
       "ACCESSIBILITY.md",
+      "API_PRIVACY.md",
       "CHANGELOG.md",
       "CODE_OF_CONDUCT.md",
       "CONTRIBUTING.md",
@@ -28,11 +30,10 @@
       "SECURITY.md",
       "WORKING-WITH-CLAUDE.md",
       "mypy.ini",
+      "pyproject.toml",
       "pytest.ini",
       "requirements.txt",
-      "ruff.toml",
-      ".repo-layout.yml",
-      "API_PRIVACY.md"
+      "ruff.toml"
     ],
     "deny": [
       "*.py"

@@ -1,0 +1,5 @@
+# Vercel's Python runtime loads this module:variable as the function handler
+# and routes requests to it (the repo's static site is served by GitHub
+# Pages; this project exists only for the email function). See api/README.md.
+[tool.vercel]
+entrypoint = "api.send_plan_email:handler"
