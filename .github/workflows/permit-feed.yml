@@ -317,6 +317,9 @@ jobs:
           python3 scripts/ci/check_docs_fresh.py --include-data-json
           git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html docs/permit-ids.json docs/permit-points.json docs/data.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
+          # #874: fail here, not in later PR CI, when a covered docs output
+          # changed outside the staged allowlist above. Paths only.
+          python3 scripts/ci/check_publication_clean.py
           mkdir -p "$RUNNER_TEMP/publication"
           git bundle create "$RUNNER_TEMP/publication/publication.bundle" origin/main..HEAD
           echo "changed=true" >> "$GITHUB_OUTPUT"
