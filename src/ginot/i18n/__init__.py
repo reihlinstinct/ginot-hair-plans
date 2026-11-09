@@ -62,13 +62,19 @@ def page_path(lang: str, name: str) -> str:
 
 
 _SWITCH_JS = """(function(){var s=document.getElementById('lang-select');
-if(!s)return;var kb=false,pending=null;
-function go(v){if(v&&v!==s.getAttribute('data-current')){location.href=v;}}
+if(!s)return;var cur=s.getAttribute('data-current'),pending=null,mouse=false;
+function go(v){if(v&&v!==cur){location.href=v;}}
+function reset(){s.value=cur;pending=null;}
+reset();
+window.addEventListener('pageshow',reset);
+s.addEventListener('pointerdown',function(){mouse=true;});
 s.addEventListener('keydown',function(e){
+mouse=false;
 if(e.key==='Enter'){go(pending||s.value);}
-else if(['ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].indexOf(e.key)>-1){kb=true;}});
-s.addEventListener('change',function(){if(kb){pending=s.value;}else{go(s.value);}kb=false;});
-s.addEventListener('blur',function(){if(pending){go(pending);}});
+else if(e.key==='Escape'){reset();}});
+s.addEventListener('change',function(){
+if(mouse||document.activeElement!==s){go(s.value);}else{pending=s.value;}mouse=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 })();"""
 
 
@@ -76,7 +82,7 @@ def switcher(lang: str, name: str) -> str:
     """The language selector for page name: a drop-down whose options come
     from the document. Mouse and touch navigate on selection; keyboard users
     move through the options and confirm with Enter (or by leaving the
-    field), so arrow keys do not trigger navigation. Without JavaScript the
+    field), so arrow keys and type-ahead do not trigger navigation. Without JavaScript the
     same languages show as plain links."""
     options, links = [], []
     for code in lang_codes():
@@ -96,7 +102,7 @@ def switcher(lang: str, name: str) -> str:
     return (
         f'<nav class="lang-switch" aria-label="{label}">'
         f'<label for="lang-select">{label}</label> '
-        f'<select id="lang-select" data-current="{here}">'
+        f'<select id="lang-select" autocomplete="off" data-current="{here}">'
         + "".join(options)
         + "</select>"
         f"<noscript> {' &middot; '.join(links)}</noscript>"

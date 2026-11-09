@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "api/send_plan_email.py": { "includeFiles": "src/ginot/i18n/strings.json" }
+  },
   "crons": [
     { "path": "/api/send_plan_email?action=notify", "schedule": "0 5 * * *" }
   ]

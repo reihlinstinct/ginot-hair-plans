@@ -122,3 +122,15 @@ def test_hebrew_page_is_unchanged_in_key_markers():
     html = render_email_page(ROWS, "2026-11-09", "Council")
     assert "<title>קבלת מייל על תוכנית - Council</title>" in html
     assert 'value="he"' in html and "draft-note" not in html
+
+
+# Section: the mail API reads the same document
+def test_api_languages_come_from_the_document():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "send_plan_email", ROOT / "api" / "send_plan_email.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert set(mod.LANGS) == set(i18n.lang_codes())

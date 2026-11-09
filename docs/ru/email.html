@@ -15,14 +15,20 @@ box-sizing:border-box;font-size:16px;min-height:44px}
 #email-form input[type=email]{direction:ltr;text-align:left}</style>
 <!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
-<nav class="lang-switch" aria-label="Язык"><label for="lang-select">Язык</label> <select id="lang-select" data-current="../ru/email.html"><option value="../email.html" lang="he" title="עברית">HE</option><option value="../en/email.html" lang="en" title="English">EN</option><option value="../ar/email.html" lang="ar" title="العربية">AR</option><option value="../ru/email.html" lang="ru" title="Русский" selected>RU</option><option value="../am/email.html" lang="am" title="አማርኛ">AM</option><option value="../fr/email.html" lang="fr" title="Français">FR</option></select><noscript> <a href="../email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/email.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
-if(!s)return;var kb=false,pending=null;
-function go(v){if(v&&v!==s.getAttribute('data-current')){location.href=v;}}
+<nav class="lang-switch" aria-label="Язык"><label for="lang-select">Язык</label> <select id="lang-select" autocomplete="off" data-current="../ru/email.html"><option value="../email.html" lang="he" title="עברית">HE</option><option value="../en/email.html" lang="en" title="English">EN</option><option value="../ar/email.html" lang="ar" title="العربية">AR</option><option value="../ru/email.html" lang="ru" title="Русский" selected>RU</option><option value="../am/email.html" lang="am" title="አማርኛ">AM</option><option value="../fr/email.html" lang="fr" title="Français">FR</option></select><noscript> <a href="../email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/email.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var cur=s.getAttribute('data-current'),pending=null,mouse=false;
+function go(v){if(v&&v!==cur){location.href=v;}}
+function reset(){s.value=cur;pending=null;}
+reset();
+window.addEventListener('pageshow',reset);
+s.addEventListener('pointerdown',function(){mouse=true;});
 s.addEventListener('keydown',function(e){
+mouse=false;
 if(e.key==='Enter'){go(pending||s.value);}
-else if(['ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].indexOf(e.key)>-1){kb=true;}});
-s.addEventListener('change',function(){if(kb){pending=s.value;}else{go(s.value);}kb=false;});
-s.addEventListener('blur',function(){if(pending){go(pending);}});
+else if(e.key==='Escape'){reset();}});
+s.addEventListener('change',function(){
+if(mouse||document.activeElement!==s){go(s.value);}else{pending=s.value;}mouse=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 })();</script></nav>
 <h1>Получить письмо о плане</h1>
 <p class="draft-note" lang="ru">Черновой машинный перевод, ещё не проверен носителем языка.</p><p>Выберите план на стадии депонирования и получите письмо с данными плана, последним сроком подачи возражения и ссылкой на страницу плана в «Мавате». Чтобы не отправлять письмо на чужой адрес, сначала мы шлём письмо с подтверждением, а письмо о плане отправляется только после нажатия кнопки в нём. Адрес хранится до 48 часов в ожидании подтверждения, затем удаляется; если вы отметили подписку на обновления, он хранится (только с планом и языком) до отписки по ссылке в каждом письме. Обновлено: 2026-11-07.</p>

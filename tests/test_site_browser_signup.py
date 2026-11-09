@@ -13,6 +13,31 @@ ENDPOINT = "https://ginot-hair-plans.vercel.app/api/send_plan_email"
 
 
 # Section: Signup button on the main page
+def test_language_select_typeahead_and_escape_do_not_navigate(page, served):
+    page.goto(served + "/email.html")
+    page.focus("#lang-select")
+    page.keyboard.press("e")  # type-ahead picks EN; must not navigate
+    page.wait_for_timeout(300)
+    assert page.url.endswith("/email.html")
+    page.keyboard.press("Escape")  # cancels the pending choice
+    assert page.locator("#lang-select").input_value() == "email.html"
+    page.keyboard.press("ArrowDown")
+    page.keyboard.press("Escape")
+    page.keyboard.press("Tab")
+    page.wait_for_timeout(300)
+    assert page.url.endswith("/email.html")
+
+
+def test_language_select_back_restores_the_current_language(page, served):
+    page.goto(served + "/email.html")
+    page.select_option("#lang-select", label="EN")
+    page.wait_for_url("**/en/email.html")
+    page.go_back()
+    page.wait_for_url("**/email.html")
+    page.wait_for_timeout(300)
+    assert page.locator("#lang-select").input_value() == "email.html"
+
+
 @pytest.mark.evidence
 def test_signup_button_visible_and_links_to_form_on_phone(mobile_page):
     """A visible, tappable button leads from the main page to the email form."""
