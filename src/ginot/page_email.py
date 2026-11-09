@@ -11,7 +11,7 @@ from . import __version__
 from .page_resources import _ANALYTICS_SNIPPET, _e
 
 # The one documented place for the function URL (api/README.md explains).
-EMAIL_ENDPOINT = "https://REPLACE-WITH-VERCEL-URL.vercel.app/api/send_plan_email"
+EMAIL_ENDPOINT = "https://ginot-hair-plans.vercel.app/api/send_plan_email"
 
 
 def render_email_page(rows: list[dict], generated: str, council_name: str) -> str:
@@ -42,6 +42,10 @@ def render_email_page(rows: list[dict], generated: str, council_name: str) -> st
 <p><label>כתובת מייל:<br>
 <input type="email" id="email" name="email" required size="30"
  autocomplete="email" dir="ltr"></label></p>
+<p><label><input type="checkbox" id="subscribe" name="subscribe">
+עדכנו אותי במייל כשהסטטוס משתנה או שהמועד מתקרב (אחרי אישור ההרשמה במייל;
+אפשר להסיר בכל עת בקישור במייל)</label></p>
+<input type="hidden" id="lang" name="lang" value="he">
 <p style="display:none" aria-hidden="true"><label>אתר:
 <input type="text" id="website" name="website" tabindex="-1"
  autocomplete="off"></label></p>
@@ -55,6 +59,7 @@ form.addEventListener('submit',function(ev){{
 ev.preventDefault();st.textContent='שולח...';
 fetch('{EMAIL_ENDPOINT}',{{method:'POST',headers:{{'Content-Type':'application/json'}},
 body:JSON.stringify({{email:form.email.value,plan_number:form.plan_number.value,
+lang:form.lang.value,subscribe:form.subscribe.checked,
 website:form.website.value}})}}).then(function(r){{
 st.textContent=r.ok?'אם הכתובת תקינה, המייל בדרך.':'לא ניתן לשלוח כרגע, נסו מאוחר יותר.';
 }}).catch(function(){{st.textContent='לא ניתן לשלוח כרגע, נסו מאוחר יותר.';}});

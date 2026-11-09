@@ -37,6 +37,34 @@ the repo, never in logs.
 | `ALLOWED_ORIGIN` | `*` | CORS origin for the form |
 | `PER_IP_HOURLY_CAP` | `3` | Per-IP hourly send throttle |
 | `DAILY_SEND_CAP` | `50` | Global daily send cap |
+| `BASE_URL` | project `.vercel.app` origin | Base for confirm/unsubscribe links |
+| `CRON_SECRET` | - (required for notify) | Bearer secret for the daily cron call |
+| `KV_REST_API_URL` / `KV_REST_API_TOKEN` | unset | Vercel KV (Upstash) storage; unset = subscriptions inert |
+
+## Subscriptions (privacy-first)
+
+The form's subscribe checkbox starts a double opt-in: a confirmation email
+with a 48-hour link; only after it is confirmed does a subscriber record
+exist. Stored fields, nothing else: email address, plan id, page language,
+confirm/unsubscribe tokens, timestamps. One-click unsubscribe (link in every
+notification) deletes the record immediately - no flag, no archive. Pending
+records expire after 48 hours. No content logging, no sharing.
+
+Storage: Vercel KV (Upstash Redis), region eu-central-1 (Frankfurt), free
+tier, no card. Retention: a record lives only until unsubscribe.
+
+A daily Vercel cron GETs `/api/send_plan_email?action=notify` with
+`Authorization: Bearer $CRON_SECRET`; subscribers get a mail (in their page
+language) when the plan's objection deadline is within 7 days or its status
+changed.
+
+## Email languages
+
+The email is composed in the language of the page the visitor used
+(`lang` field: he/en/ar/ru/am/fr; unknown values fall back to Hebrew).
+Hebrew is the source of truth; the rest are machine drafts pending
+native-speaker review (issue #942). The signature is always
+"reihlinstinct".
 
 ### Abuse protection
 

@@ -208,3 +208,151 @@ def test_send_uses_smtp_env(monkeypatch):
     assert recorded["host"] == ("smtp.gmail.com", 465)
     assert recorded["login"] == ("sender@example.com", "secret")
     assert recorded["sent"] == ("sender@example.com", ["v@example.com"])
+
+
+def _get(path: str, headers: dict | None = None):
+    """Run do_GET on a socket-free handler; return (status, body text)."""
+    h = spe.handler.__new__(spe.handler)
+    h.path = path
+    h.rfile = io.BytesIO()
+    h.wfile = io.BytesIO()
+    h.headers = headers or {}
+    h.client_address = ("203.0.113.1", 12345)
+    codes = []
+    h.send_response = codes.append
+    h.send_header = lambda *a, **k: None
+    h.end_headers = lambda: None
+    h.do_GET()
+    return codes[0], h.wfile.getvalue().decode("utf-8")
+
+
+# Section: localization
+
+
+def test_all_languages_have_all_keys():
+    base = set(spe._STRINGS["he"])
+    for lang in spe.LANGS:
+        assert set(spe._STRINGS[lang]) == base, lang
+
+
+def test_compose_in_english():
+    body = (
+        spe.compose(PLAN, "v@example.com", lang="en")
+        .get_payload(decode=True)
+        .decode("utf-8")
+    )
+    assert "You asked for an update on plan" in body
+    assert body.rstrip().endswith("reihlinstinct")
+
+
+def test_unknown_lang_falls_back_to_hebrew():
+    body = (
+        spe.compose(PLAN, "v@example.com", lang="xx")
+        .get_payload(decode=True)
+        .decode("utf-8")
+    )
+    assert "ביקשת עדכון" in body
+
+
+def test_compose_with_unsubscribe_link():
+    body = (
+        spe.compose(PLAN, "v@example.com", unsub_token="tok123")
+        .get_payload(decode=True)
+        .decode("utf-8")
+    )
+    assert "action=unsubscribe&token=tok123" in body
+
+
+# Section: subscription flow (storage faked)
+
+
+def test_subscribe_sends_confirmation(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
+    stored = {}
+    monkeypatch.setattr(
+        spe,
+        "store_pending",
+        lambda token, record: stored.update({token: record}) or True,
+    )
+    code, _ = _post(
+        {
+            "email": "v@example.com",
+            "plan_number": PLAN["pl_number"],
+            "lang": "en",
+            "subscribe": True,
+        }
+    )
+    assert code == 200
+    assert len(sent) == 2  # plan email + confirmation email
+    record = next(iter(stored.values()))
+    assert record["lang"] == "en" and record["plan"] == PLAN["pl_number"]
+    confirm = sent[1][0].get_payload(decode=True).decode("utf-8")
+    assert "action=confirm&token=" in confirm
+
+
+def test_subscribe_without_storage_still_sends(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
+    monkeypatch.setattr(spe, "store_pending", lambda token, record: False)
+    code, _ = _post(
+        {"email": "v@example.com", "plan_number": PLAN["pl_number"], "subscribe": True}
+    )
+    assert code == 200
+    assert len(sent) == 1  # one-time email only, no confirmation
+
+
+def test_confirm_and_unsubscribe(monkeypatch):
+    monkeypatch.setattr(
+        spe, "confirm_pending", lambda token: {"plan": "x"} if token == "good" else None
+    )
+    assert _get("/api/send_plan_email?action=confirm&token=good")[0] == 200
+    assert _get("/api/send_plan_email?action=confirm&token=bad")[0] == 400
+    monkeypatch.setattr(spe, "unsubscribe", lambda token: token == "good")
+    assert _get("/api/send_plan_email?action=unsubscribe&token=good")[0] == 200
+    assert _get("/api/send_plan_email?action=unsubscribe&token=bad")[0] == 400
+
+
+def test_notify_requires_secret(monkeypatch):
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    assert _get("/api/send_plan_email?action=notify")[0] == 403
+    code, _ = _get(
+        "/api/send_plan_email?action=notify",
+        {"Authorization": "Bearer wrong"},
+    )
+    assert code == 403
+
+
+def test_notify_sends_due_notices(monkeypatch):
+    sent = _fake_send(monkeypatch)
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: PLAN})
+    record = {
+        "email": "v@example.com",
+        "plan": PLAN["pl_number"],
+        "lang": "he",
+        "unsub_token": "tok",
+    }
+    monkeypatch.setattr(
+        spe, "_subscription_notices", lambda plans: [(record, "deadline near")]
+    )
+    saved = {}
+    monkeypatch.setattr(spe, "save_subscription", lambda t, r: saved.update({t: r}))
+    code, body = _get(
+        "/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"}
+    )
+    assert code == 200 and b'"sent": 1' in body.encode() or b'"sent":1' in body.encode()
+    assert sent and "tok" in str(saved)
+
+
+def test_days_until():
+    assert spe._days_until("not-a-date") == -1
+    assert spe._days_until("2999-01-01") > 0
+
+
+def test_kv_inert_without_config(monkeypatch):
+    monkeypatch.setattr(spe, "KV_URL", "")
+    monkeypatch.setattr(spe, "KV_TOKEN", "")
+    assert spe._kv("get", "anything") is None
+    assert spe.store_pending("t", {}) is False
+    assert list(spe.iter_subscriptions()) == []
