@@ -58,7 +58,8 @@
         "*.js",
         "*.py",
         "LICENSE",
-        "public-api-fields.json"
+        "public-api-fields.json",
+        "strings.json"
       ]
     },
     "scripts": {

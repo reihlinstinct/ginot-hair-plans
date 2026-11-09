@@ -43,6 +43,7 @@ from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import formataddr
 from http.server import BaseHTTPRequestHandler
+from pathlib import Path
 
 SITE_DATA_URL = os.environ.get(
     "SITE_DATA_URL",
@@ -64,7 +65,16 @@ _DAILY: dict[str, int] = {}
 _CACHE: dict = {"at": 0.0, "plans": {}}
 _CACHE_TTL = 3600.0
 
-LANGS = ("he", "en", "ar", "ru", "am", "fr")
+
+def _languages() -> tuple:
+    """Language codes from the single strings document (the same file the
+    site generator reads), so a language added there is accepted here."""
+    path = Path(__file__).resolve().parent.parent / "src/ginot/i18n/strings.json"
+    # No silent fallback: if the document did not ship, fail loudly.
+    return tuple(json.loads(path.read_text(encoding="utf-8"))["languages"])
+
+
+LANGS = _languages()
 
 # Email strings per language. Hebrew is the source of truth; the rest are
 # machine drafts pending native-speaker review (tracked in issue #942).

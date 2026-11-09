@@ -13,5 +13,12 @@ man/
 worker/
 tests/
 scripts/
-src/
+# src/ is excluded except the one strings document the mail API reads
+# (gitignore rules: a file can only be re-included if its parents are).
+src/*
+!src/ginot/
+src/ginot/*
+!src/ginot/i18n/
+src/ginot/i18n/*
+!src/ginot/i18n/strings.json
 .github/
