@@ -12,11 +12,18 @@
 box-sizing:border-box;font-size:16px;min-height:44px}
 #email-form button{font-size:16px;min-height:44px;padding:0 20px}
 #email-form label{display:block}
-.lang-switch{font-size:14px;margin:0 0 8px}.lang-switch a[aria-current]{font-weight:700;text-decoration:none}
 #email-form input[type=email]{direction:ltr;text-align:left}</style>
 <!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
-<nav class="lang-switch" aria-label="שפה"><a href="email.html" hreflang="he" lang="he" aria-current="true">עברית</a> &middot; <a href="en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="fr/email.html" hreflang="fr" lang="fr">Français</a></nav>
+<nav class="lang-switch" aria-label="שפה"><label for="lang-select">שפה</label> <select id="lang-select" data-current="email.html"><option value="email.html" lang="he" selected>עברית</option><option value="en/email.html" lang="en">English</option><option value="ar/email.html" lang="ar">العربية</option><option value="ru/email.html" lang="ru">Русский</option><option value="am/email.html" lang="am">አማርኛ</option><option value="fr/email.html" lang="fr">Français</option></select><noscript> <a href="email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="fr/email.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var kb=false,pending=null;
+function go(v){if(v&&v!==s.getAttribute('data-current')){location.href=v;}}
+s.addEventListener('keydown',function(e){
+if(e.key==='Enter'){go(pending||s.value);}
+else if(['ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].indexOf(e.key)>-1){kb=true;}});
+s.addEventListener('change',function(){if(kb){pending=s.value;}else{go(s.value);}kb=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}});
+})();</script></nav>
 <h1>קבלת מייל על תוכנית</h1>
 <p>בחרו תוכנית בהפקדה וקבלו מייל עם פרטי התוכנית, המועד האחרון להגשת התנגדות וקישור לעמוד התוכנית במב&quot;ת. כדי למנוע שליחה לכתובת של אדם אחר, נשלח קודם מייל אישור ורק אחרי לחיצה על כפתור בו נשלח המייל עצמו. הכתובת נשמרת עד 48 שעות להמתנה לאישור ואז נמחקת; אם סימנתם הרשמה לעדכונים היא נשמרת (עם התוכנית והשפה בלבד) עד שתסירו את עצמכם בקישור שבכל מייל. עודכן: 2026-11-07.</p>
 <form id="email-form" method="post" action="#">

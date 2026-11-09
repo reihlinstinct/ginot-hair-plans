@@ -12,11 +12,18 @@
 box-sizing:border-box;font-size:16px;min-height:44px}
 #email-form button{font-size:16px;min-height:44px;padding:0 20px}
 #email-form label{display:block}
-.lang-switch{font-size:14px;margin:0 0 8px}.lang-switch a[aria-current]{font-weight:700;text-decoration:none}
 #email-form input[type=email]{direction:ltr;text-align:left}</style>
 <!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
-<nav class="lang-switch" aria-label="Langue"><a href="../email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/email.html" hreflang="fr" lang="fr" aria-current="true">Français</a></nav>
+<nav class="lang-switch" aria-label="Langue"><label for="lang-select">Langue</label> <select id="lang-select" data-current="../fr/email.html"><option value="../email.html" lang="he">עברית</option><option value="../en/email.html" lang="en">English</option><option value="../ar/email.html" lang="ar">العربية</option><option value="../ru/email.html" lang="ru">Русский</option><option value="../am/email.html" lang="am">አማርኛ</option><option value="../fr/email.html" lang="fr" selected>Français</option></select><noscript> <a href="../email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/email.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/email.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var kb=false,pending=null;
+function go(v){if(v&&v!==s.getAttribute('data-current')){location.href=v;}}
+s.addEventListener('keydown',function(e){
+if(e.key==='Enter'){go(pending||s.value);}
+else if(['ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].indexOf(e.key)>-1){kb=true;}});
+s.addEventListener('change',function(){if(kb){pending=s.value;}else{go(s.value);}kb=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}});
+})();</script></nav>
 <h1>Recevoir un e-mail sur un plan</h1>
 <p class="draft-note" lang="fr">Traduction automatique provisoire, pas encore relue par un locuteur natif.</p><p>Choisissez un plan en dépôt et recevez un e-mail avec les détails du plan, la date limite pour déposer une objection et un lien vers la page du plan sur Mavat. Pour éviter d&#x27;écrire à l&#x27;adresse d&#x27;une autre personne, nous envoyons d&#x27;abord un e-mail de confirmation, et l&#x27;e-mail du plan n&#x27;est envoyé qu&#x27;après un clic sur le bouton qu&#x27;il contient. L&#x27;adresse est conservée au plus 48 heures dans l&#x27;attente de la confirmation, puis supprimée ; si vous avez coché l&#x27;abonnement, elle est conservée (avec le plan et la langue seulement) jusqu&#x27;à votre désabonnement via le lien présent dans chaque e-mail. Mis à jour : 2026-11-07.</p>
 <form id="email-form" method="post" action="#">

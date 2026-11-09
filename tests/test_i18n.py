@@ -75,18 +75,24 @@ def test_new_language_added_to_the_document_flows_everywhere(monkeypatch):
     monkeypatch.setattr(i18n, "load", lambda: doc)
     html = render_email_page(ROWS, "2026-11-09", "Council", "es")
     assert 'lang="es"' in html and "Español" in html
-    assert '<a href="../es/email.html"' in i18n.switcher("en", "email.html")
+    assert '<option value="../es/email.html"' in i18n.switcher("en", "email.html")
     assert "es" in i18n.lang_codes()
 
 
-def test_switcher_links_are_relative_to_the_current_page():
+def test_switcher_is_a_select_whose_options_come_from_the_document():
     root = i18n.switcher("he", "email.html")
-    assert 'href="email.html"' in root and 'href="en/email.html"' in root
-    assert 'aria-current="true"' in root
+    assert '<select id="lang-select"' in root and '<label for="lang-select">' in root
+    opts = re.findall(r'<option value="([^"]*)" lang="([^"]*)"( selected)?>', root)
+    assert [o[1] for o in opts] == [i18n.meta(c)["lang"] for c in i18n.lang_codes()]
+    assert [o[0] for o in opts] == ["email.html"] + [
+        f"{c}/email.html" for c in i18n.lang_codes() if c != "he"
+    ]
+    assert [bool(o[2]) for o in opts] == [c == "he" for c in i18n.lang_codes()]
     en = i18n.switcher("en", "email.html")
-    assert 'href="../email.html"' in en and 'href="../ar/email.html"' in en
-    for code in i18n.lang_codes():
-        assert f'hreflang="{i18n.meta(code)["lang"]}"' in root
+    assert '<option value="../email.html"' in en
+    assert '<option value="../ar/email.html"' in en
+    assert '<option value="en/email.html"' not in en
+    assert "<noscript>" in en and 'href="../ar/email.html"' in en
 
 
 @pytest.mark.parametrize("code", i18n.lang_codes())

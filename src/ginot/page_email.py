@@ -57,7 +57,6 @@ def render_email_page(
 box-sizing:border-box;font-size:16px;min-height:44px}}
 #email-form button{{font-size:16px;min-height:44px;padding:0 20px}}
 #email-form label{{display:block}}
-.lang-switch{{font-size:14px;margin:0 0 8px}}.lang-switch a[aria-current]{{font-weight:700;text-decoration:none}}
 #email-form input[type=email]{{direction:ltr;text-align:left}}</style>{_ANALYTICS_SNIPPET}</head><body>
 {i18n.switcher(lang, "email.html")}
 <h1>{_e(t("email.title"))}</h1>

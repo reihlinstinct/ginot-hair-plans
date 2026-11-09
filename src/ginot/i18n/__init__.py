@@ -61,20 +61,44 @@ def page_path(lang: str, name: str) -> str:
     return name if lang == default_lang() else f"{lang}/{name}"
 
 
+_SWITCH_JS = """(function(){var s=document.getElementById('lang-select');
+if(!s)return;var kb=false,pending=null;
+function go(v){if(v&&v!==s.getAttribute('data-current')){location.href=v;}}
+s.addEventListener('keydown',function(e){
+if(e.key==='Enter'){go(pending||s.value);}
+else if(['ArrowUp','ArrowDown','Home','End','PageUp','PageDown'].indexOf(e.key)>-1){kb=true;}});
+s.addEventListener('change',function(){if(kb){pending=s.value;}else{go(s.value);}kb=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}});
+})();"""
+
+
 def switcher(lang: str, name: str) -> str:
-    """The language selector for page name, rendered from the document."""
-    items = []
+    """The language selector for page name: a drop-down whose options come
+    from the document. Mouse and touch navigate on selection; keyboard users
+    move through the options and confirm with Enter (or by leaving the
+    field), so arrow keys do not trigger navigation. Without JavaScript the
+    same languages show as plain links."""
+    options, links = [], []
     for code in lang_codes():
         m = meta(code)
-        href = asset_prefix(lang) + page_path(code, name)
-        current = ' aria-current="true"' if code == lang else ""
-        items.append(
-            f'<a href="{escape(href)}" hreflang="{escape(m["lang"])}" '
-            f'lang="{escape(m["lang"])}"{current}>{escape(m["name"])}</a>'
+        href = escape(asset_prefix(lang) + page_path(code, name))
+        sel = " selected" if code == lang else ""
+        options.append(
+            f'<option value="{href}" lang="{escape(m["lang"])}"{sel}>'
+            f"{escape(m['name'])}</option>"
+        )
+        links.append(
+            f'<a href="{href}" hreflang="{escape(m["lang"])}" '
+            f'lang="{escape(m["lang"])}">{escape(m["name"])}</a>'
         )
     label = escape(t(lang, "ui.language"))
+    here = escape(asset_prefix(lang) + page_path(lang, name))
     return (
         f'<nav class="lang-switch" aria-label="{label}">'
-        + " &middot; ".join(items)
-        + "</nav>"
+        f'<label for="lang-select">{label}</label> '
+        f'<select id="lang-select" data-current="{here}">'
+        + "".join(options)
+        + "</select>"
+        f"<noscript> {' &middot; '.join(links)}</noscript>"
+        f"<script>{_SWITCH_JS}</script></nav>"
     )
