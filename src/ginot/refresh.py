@@ -36,7 +36,8 @@ def merge_land_status(rows, land_path="data/land_plan_status.json"):
     The statutory objection clock runs from the LATEST deposit-notice
     publication (Planning and Building Law s.102), so when the land feed
     reports a deposit-publication status with a status date, the derived
-    deadline is recomputed as max(iplan publication, land status date) + 60d.
+    deadlines are recomputed from max(iplan publication, land status date):
+    +60d (legacy display) and +2 calendar months (statutory s.102 window).
     """
     import datetime as _dt
 
@@ -62,10 +63,15 @@ def merge_land_status(rows, land_path="data/land_plan_status.json"):
                     _dt.date.fromisoformat(latest)
                     + _dt.timedelta(days=outputs.OBJECTION_WINDOW_DAYS)
                 ).isoformat()
-                if dl != r.get("objection_deadline_derived_60d_from_publication"):
+                dl2m = outputs._plus_months(latest, outputs.OBJECTION_WINDOW_MONTHS)
+                if (
+                    dl != r.get("objection_deadline_derived_60d_from_publication")
+                    or dl2m != r.get("objection_deadline_derived_2m_from_publication")
+                ):
                     r["objection_deadline_derived_60d_from_publication"] = dl
+                    r["objection_deadline_derived_2m_from_publication"] = dl2m
                     r["deadline_source_note"] = (
-                        "max(iplan, land.gov.il) publication + 60d"
+                        "max(iplan, land.gov.il) publication + 60d / +2 months"
                     )
     return rows
 

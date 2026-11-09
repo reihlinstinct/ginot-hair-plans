@@ -1,11 +1,20 @@
 """Build the plan table (CSV/XLSX rows) from ArcGIS features.
 
-Objection deadline: DERIVED as (publication of deposit notice, else latest
-deposit date, else depositing date) + 60 days - the statutory objection window
-for deposited plans. Flagged as derived in the column name; only meaningful
-for plans in הפקדה status.
+Objection deadlines (both DERIVED from the publication of the deposit notice):
+- objection_deadline_derived_60d_from_publication: +60 days, the legacy
+  conservative display basis.
+- objection_deadline_derived_2m_from_publication: +2 calendar months, the
+  statutory window for deposited plans (Planning and Building Law 5725-1965
+  s.102: "תוך חודשיים" from the latest newspaper publication), computed per
+  Interpretation Law 5741-1981 s.10(b): the period ends on the same
+  day-of-month in the final month, or the final month's last day when short.
+  Rest-day postponement (s.10(c)) is deliberately NOT applied: the true final
+  day can then only be later than this derived date, which stays on the safe
+  (earlier) side for filers. Flagged as derived in the column name; only
+  meaningful for plans in הפקדה status.
 """
 
+import calendar
 import csv
 import datetime
 
@@ -14,6 +23,7 @@ from shapely.ops import unary_union
 
 DAY = 86400
 OBJECTION_WINDOW_DAYS = 60
+OBJECTION_WINDOW_MONTHS = 2
 INSIDE_FRACTION = 0.995
 
 
@@ -33,6 +43,21 @@ def _plus_days(ms, days):
     ).strftime("%Y-%m-%d")
 
 
+def _plus_months(iso: str, months: int) -> str:
+    """Calendar-month arithmetic per Interpretation Law 5741-1981 s.10(b).
+
+    The period ends on the same day-of-month in the final month; when that
+    month is short, it ends on its last day (e.g. 31.12 + 2m -> 28/29.02).
+    """
+    if not iso:
+        return ""
+    d = datetime.date.fromisoformat(iso)
+    m = d.month - 1 + months
+    y, m = d.year + m // 12, m % 12 + 1
+    last = calendar.monthrange(y, m)[1]
+    return datetime.date(y, m, min(d.day, last)).isoformat()
+
+
 COLUMNS = [
     "pl_number",
     "pl_name",
@@ -47,6 +72,7 @@ COLUMNS = [
     "pl_date_advertise",
     "pl_date_8_approval",
     "objection_deadline_derived_60d_from_publication",
+    "objection_deadline_derived_2m_from_publication",
     "pl_area_dunam",
     "intersection_dunam",
     "inside_flag",
@@ -86,6 +112,9 @@ def row_from_feature(attrs: dict, geom: dict | None, council: Polygon | None) ->
         "pl_date_8_approval": _iso(attrs.get("pl_date_8")),
         "objection_deadline_derived_60d_from_publication": _plus_days(
             pub, OBJECTION_WINDOW_DAYS
+        ),
+        "objection_deadline_derived_2m_from_publication": _plus_months(
+            _iso(pub), OBJECTION_WINDOW_MONTHS
         ),
         "pl_area_dunam": attrs.get("pl_area_dunam"),
         "intersection_dunam": inter_dunam,

@@ -29,6 +29,7 @@ PUBLIC_FIELDS = (
     "depositing_date",
     "pl_last_deposit_date",
     "objection_deadline_derived_60d_from_publication",
+    "objection_deadline_derived_2m_from_publication",
     "pl_area_dunam",
     "mavat_url",
     "last_update_date",
