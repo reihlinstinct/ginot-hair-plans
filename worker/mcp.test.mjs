@@ -4,9 +4,9 @@ import assert from "node:assert/strict";
 import { callTool, rpc, handleRequest, reviewText, loadReviews } from "./mcp.mjs";
 
 const data = { generated: "2026-10-22", rows: [
-  { pl_number: "A-1", pl_name: "Alpha", station_desc: "הפקדה להתנגדויות", objection_deadline_derived_60d_from_publication: "2026-11-05", private_note: "SECRET" },
-  { pl_number: "B-2", pl_name: "Beta", station_desc: "אישור", objection_deadline_derived_60d_from_publication: "2026-11-06" },
-  { pl_number: "C-3", pl_name: "Gamma", station_desc: "הפקדה", objection_deadline_derived_60d_from_publication: "bad" },
+  { pl_number: "A-1", pl_name: "Alpha", station_desc: "הפקדה להתנגדויות", objection_deadline_derived_2m_from_publication: "2026-11-05", private_note: "SECRET" },
+  { pl_number: "B-2", pl_name: "Beta", station_desc: "אישור", objection_deadline_derived_2m_from_publication: "2026-11-06" },
+  { pl_number: "C-3", pl_name: "Gamma", station_desc: "הפקדה", objection_deadline_derived_2m_from_publication: "bad" },
 ] };
 const post = (body) => new Request("https://x/mcp", { method: "POST", body: typeof body === "string" ? body : JSON.stringify(body) });
 const fake = async () => new Response(JSON.stringify(data));

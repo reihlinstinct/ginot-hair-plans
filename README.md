@@ -57,7 +57,7 @@ human reviewer.
 4. `src/ginot/outputs.py` - plan table: number, name, status, deposit /
    publication / approval dates, area, inside-vs-partial flag, Mavat link
    (`pl_url`), and a **derived** objection deadline (publication of the deposit
-   notice + 60 days; flagged as derived - always verify against Mavat).
+   notice + two calendar months (s.102); flagged as derived - always verify against Mavat).
 5. `src/ginot/tracking.py` - merge the planner's local tracking states into
    the rows; advisory urgent flag when an undecided plan's derived objection
    deadline is within 30 days.

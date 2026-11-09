@@ -10,10 +10,10 @@ const REVIEW_BASE = "https://reihlinstinct.github.io/ginot-hair-plans/reviews/ta
 const PL_RE = /^\d{3}-\d{7}$/;
 const MAX_REVIEW = 30000;
 const PROTOCOL = "2024-11-05";
-const NOTE = "Derived from publication dates (60 days); not a verified official deadline. Check the plan's source page.";
+const NOTE = "Derived from publication dates (two calendar months, s.102); not a verified official deadline. Check the plan's source page.";
 const FIELDS = ["pl_number", "pl_name", "station_desc", "internet_short_status", "entity_subtype_desc",
   "receiving_date", "open_date", "depositing_date", "pl_last_deposit_date",
-  "objection_deadline_derived_60d_from_publication", "pl_area_dunam", "mavat_url",
+  "objection_deadline_derived_2m_from_publication", "pl_area_dunam", "mavat_url",
   "last_update_date", "land_status", "land_status_date"];
 const pub = (r, pts) => {
   const o = Object.fromEntries(FIELDS.filter((k) => k in r).map((k) => [k, r[k]]));
@@ -144,7 +144,7 @@ export function callTool(data, name, args = {}) {
     if (Number.isNaN(+start) || (args.as_of && !/^\d{4}-\d{2}-\d{2}$/.test(args.as_of))) throw new Error("as_of must be YYYY-MM-DD");
     const out = [];
     for (const r of rows) {
-      const end = new Date((r.objection_deadline_derived_60d_from_publication || "") + "T00:00:00Z");
+      const end = new Date((r.objection_deadline_derived_2m_from_publication || "") + "T00:00:00Z");
       if (Number.isNaN(+end) || !(r.station_desc || "").includes("הפקדה")) continue;
       const left = Math.round((end - start) / 864e5);
       if (left >= 0 && left <= days) out.push({ ...pub(r), days_left_derived: left });
