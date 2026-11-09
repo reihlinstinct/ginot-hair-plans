@@ -12,6 +12,9 @@ ROOT = Path(__file__).parent.parent
 SCRIPT = ROOT / "scripts" / "render_permits_page.py"
 
 
+# Section: Offline render fixture
+
+
 def _run(cwd):
     return subprocess.run(
         [sys.executable, str(SCRIPT)],
@@ -20,6 +23,9 @@ def _run(cwd):
         capture_output=True,
         text=True,
     )
+
+
+# Section: Rendered data and atomic writes
 
 
 def test_newly_published_tik_renders_as_visible_searchable_row(tmp_path):
@@ -150,6 +156,9 @@ def test_refuses_to_overwrite_with_empty_feed(tmp_path):
     assert not (tmp_path / "docs" / "permits.html").exists()
 
 
+# Section: Published identifiers and geometry
+
+
 def test_permit_ids_published_for_submit_worker(tmp_path):
     """#515: the same run writes docs/permit-ids.json, the list the submit
     worker checks tik_num against. Sorted, de-duplicated, malformed ids dropped."""
@@ -248,6 +257,9 @@ def test_permit_ai_review_mobile_label_and_no_sort_button():
     )
     assert "סקירת AI" in header
     assert "<button" not in header
+
+
+# Section: Default subset and privacy projection
 
 
 def test_default_subset_rendered_with_full_fragment(tmp_path):
