@@ -13,6 +13,8 @@ tbody tr:nth-child(even){background:#f3f6ff}
 .chip.c-cond{background:#c8a4de;color:#1f2937}.chip.c-decision{background:#ff8c00;color:#1f2937}
 .chip.c-inproc{background:#51b89a;color:#fff}.chip.c-approved{background:#6db633;color:#fff}
 .chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
+.cta-email{display:inline-block;background:#2f7f68;color:#fff;font-weight:700;text-decoration:none;border-radius:8px;padding:10px 16px;min-height:24px}
+.cta-email:hover,.cta-email:focus{background:#101f5b;color:#fff}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
 .more-statuses{flex:1 1 100%}

@@ -31,7 +31,11 @@ def render_email_page(rows: list[dict], generated: str, council_name: str) -> st
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css">{_ANALYTICS_SNIPPET}</head><body>
+<link rel="stylesheet" href="style.css">
+<style>#email-form select,#email-form input[type=email]{{width:100%;max-width:100%;
+box-sizing:border-box;font-size:16px;min-height:44px}}
+#email-form button{{font-size:16px;min-height:44px;padding:0 20px}}
+#email-form label{{display:block}}</style>{_ANALYTICS_SNIPPET}</head><body>
 <h1>קבלת מייל על תוכנית</h1>
 <p>בחרו תוכנית בהפקדה וקבלו מייל עם פרטי התוכנית, המועד האחרון להגשת
 התנגדות וקישור לעמוד התוכנית במב"ת. כדי למנוע שליחה לכתובת של אדם אחר,
@@ -58,6 +62,8 @@ def render_email_page(rows: list[dict], generated: str, council_name: str) -> st
 <script>
 (function(){{
 var form=document.getElementById('email-form'),st=document.getElementById('form-status');
+var want=new URLSearchParams(location.search).get('plan');
+if(want){{Array.prototype.forEach.call(form.plan_number.options,function(o){{if(o.value===want){{form.plan_number.value=want;}}}});}}
 form.addEventListener('submit',function(ev){{
 ev.preventDefault();st.textContent='שולח...';
 fetch('{EMAIL_ENDPOINT}',{{method:'POST',headers:{{'Content-Type':'application/json'}},
