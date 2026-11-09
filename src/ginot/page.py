@@ -13,18 +13,43 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 
 import datetime
 import json
-import re
-import urllib.parse as _urlparse_mod
 
 from . import __version__
 from .dates import today_il
+from .page_permit_policy import (  # noqa: F401 - keep the page module API
+    _PERMIT_GROUP_CLASS,
+    _PERMIT_PUB_EVIDENCE_STATUSES,
+    _PERMIT_SCOPE_IN,
+    _PERMIT_SCOPE_OUT,
+    _PERMIT_TERMINAL_STATUSES,
+    COMMUNITY_SOURCE_CASES,
+    COMMUNITY_SOURCE_RECORDS,
+    COMMUNITY_SOURCE_URL,
+    PERMIT_AI_REVIEWS,
+    PERMIT_ID_RE,
+    PERMIT_STATUS_GROUPS,
+    _community_source_link,
+    _is_default_permit_candidate,
+    _permit_review_cell,
+    _permit_scope,
+    _permit_status_class,
+    _permit_status_group,
+    _permit_tik_link,
+    publication_evidence_tiks,
+    write_permit_ids,
+)
+from .page_permits import _permits_section
 from .page_resources import (  # noqa: F401 - keep the page module API
     _ANALYTICS_SNIPPET,
     _CSS,
     _DATASETS_JS,
     _SOURCES_REDIRECT,
     _SOURCES_ROWS,
+    COLLAPSE_TOP,
+    _date_cell,
     _e,
+    _fmt,
+    _iso,
 )
 from .page_secondary import (  # noqa: F401 - keep the page module API
     render_about,
@@ -39,8 +64,6 @@ from .public_api import project as public_project
 URGENT_DAYS = 30  # objection-window days for the urgent row (issue #153)
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
 DEPOSIT_MARK = "הפקדה"
-COLLAPSE_TOP = 20
-
 # Shared search folding for the plans (#fq) and permits (#pfq) tables, applied
 # identically to the query and to each row's data-search text (#413, #468).
 # Lowercases; drops niqqud/cantillation (U+0591-U+05C7, which includes maqaf),
@@ -228,29 +251,6 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 # Section: Plan formatting and statistics
 
 
-def _iso(d) -> str:
-    d = (d or "").strip()[:10]
-    if len(d) < 10 or d[4] != "-" or d[7] != "-":
-        return ""
-    try:
-        m, day = int(d[5:7]), int(d[8:10])
-    except ValueError:
-        return ""
-    # scraper-sourced field: reject impossible months/days so a malformed
-    # publication_start degrades to "date unknown" instead of a bogus date
-    return d if 1 <= m <= 12 and 1 <= day <= 31 else ""
-
-
-def _fmt(d) -> str:
-    iso = _iso(d)
-    return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
-
-
-def _date_cell(d) -> str:
-    iso = _iso(d)
-    return f"<span dir='ltr' data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
-
-
 def _deposit_date(r) -> str:
     return r.get("pl_last_deposit_date") or r.get("depositing_date") or ""
 
@@ -351,523 +351,6 @@ def stats_section(rows: list[dict]) -> str:
 <div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits_by_month)}</div>
 <div><h3>אישורים לפי שנה</h3>{_bars(approvals_by_year)}</div>
 </div></details>"""
-
-
-# Section: Permit policy and projection
-
-
-def _permit_status_class(status: str) -> str:
-    """Colour class for a permit-request status (mirrors the plan chip palette)."""
-    st = status or ""
-    if "נסגרה" in st or st == "נדחתה":
-        return "c-closed"
-    if "הופק" in st:
-        return "c-approved"
-    if "פרסום" in st or "הודעות לפני תקנה" in st:
-        return "c-deposit"
-    if "וועד" in st or "ועדת" in st or "רשות הרישוי" in st:
-        return "c-review"
-    if "טיוטת היתר" in st:
-        return "c-cond"
-    return "c-inproc"
-
-
-_PERMIT_PUB_EVIDENCE_STATUSES = frozenset(
-    {
-        "תום תקופת פרסום",
-        "פורסמה בקשה להקלה",
-    }
-)
-
-_PERMIT_TERMINAL_STATUSES = frozenset(
-    {
-        "נדחתה",
-        "הבקשה נסגרה",
-        "הופק-הוצא היתר בניה",
-        "הופק היתר מוארך",
-    }
-)
-
-# Issue #521: the feed carries ~25 raw request statuses; they group into a few
-# objection-workflow stages. Only the objection-relevant groups are selected by
-# default; the rest sit behind a "סטטוסים נוספים" disclosure. The raw status
-# stays on every row and in the status select.
-PERMIT_STATUS_GROUPS: tuple[tuple[str, str, frozenset, bool], ...] = (
-    (
-        "obj",
-        "פרסום / הודעות להתנגדות",
-        frozenset(
-            {
-                "תחילת פרסום הבקשה להקלה",
-                "פורסמה בקשה להקלה",
-                "תחילת הודעות לפני תקנה 36",
-                "השלמת הודעות לפני תקנה 36",
-            }
-        ),
-        True,
-    ),
-    ("pubcheck", "פרסום עירוני - דורש בדיקה", frozenset(), True),
-    (
-        "pre",
-        "פרסום מתקרב",
-        frozenset({"ממתין לאישור נוסח פרסום", "נוסח פרסום אושר"}),
-        True,
-    ),
-    (
-        "review",
-        "בטיפול/דיונים",
-        frozenset(
-            {
-                "נפתח תיק רישוי",
-                "הגשה מקוונת הושלמה",
-                "נדונה בוועדת המשנה",
-                "נדונה ברשות הרישוי",
-                "נדונה בועדת ערר",
-                "התקבל ערר",
-                "התקבלה בקשה לדיון המועצה",
-                "חידוש טיפול בבקשה",
-                "שולמה מקדמה",
-                'אושר ע"י מהנדס העיר',
-            }
-        ),
-        False,
-    ),
-    (
-        "draft",
-        "טיוטת היתר",
-        frozenset({"הוכנה טיוטת היתר בניה", "התקבל תיק ורוד / מסמכים חתומים"}),
-        False,
-    ),
-    ("postpub", "אחרי פרסום", frozenset({"תום תקופת פרסום"}), False),
-    (
-        "issued",
-        "הופק היתר",
-        frozenset({"הופק-הוצא היתר בניה", "הופק היתר מוארך"}),
-        False,
-    ),
-    (
-        "closed",
-        "סגור/אחר",
-        frozenset({"הבקשה נסגרה", "הבקשה נגנזה", "נדחתה", ""}),
-        False,
-    ),
-)
-
-_PERMIT_GROUP_CLASS = {
-    "obj": "c-deposit",
-    "pre": "c-review",
-    "pubcheck": "c-inproc",
-    "review": "c-inproc",
-    "draft": "c-cond",
-    "postpub": "c-inproc",
-    "issued": "c-approved",
-    "closed": "c-closed",
-    "unmapped": "c-inproc",
-}
-
-
-def _permit_status_group(status: str) -> tuple[str, str, bool]:
-    """(group key, group label, default-visible) for a raw permit status.
-    An unmapped (e.g. newly added) status fails VISIBLE: missing an objection
-    window is worse than extra noise (issue #521)."""
-    st = status or ""
-    for key, label, statuses, default_visible in PERMIT_STATUS_GROUPS:
-        if st in statuses:
-            return key, label, default_visible
-    return "unmapped", "לא מסווג", True
-
-
-# Issue #521 (+ #529): scope flag by the council's 7 neighbourhoods
-# (ginothair.org.il). "in" = one of the 7; "out" = another Jerusalem
-# neighbourhood seen in the feed; "unknown" = no usable neighbourhood signal
-# (kept visible by default - fail visible, never hide a possible objection).
-_PERMIT_SCOPE_IN = frozenset(
-    {
-        "קטמון הישנה",
-        "רחביה",
-        "קריית שמואל",
-        "מושבה גרמנית",
-        "המושבה היוונית",
-        "טלביה",
-        "טלביה/המוגרבים",
-        "נוה שאנן/ניות",
-        "ניות",
-    }
-)
-_PERMIT_SCOPE_OUT = frozenset(
-    {
-        "בית וגן",
-        "בית צפפה",
-        "גאולים - בקעה",
-        "גבעת אורן",
-        "גבעת הורדים",
-        "גבעת המטוס",
-        "גבעת הפורצים",
-        "גבעת מרדכי",
-        "גבעת רם",
-        "גונן ב",
-        "גונן ג",
-        "גונן ה",
-        "גונן ו",
-        "גונן ח",
-        "גונן ט",
-        "גוננים",
-        "גילה",
-        "מנחת",
-        "מקור חיים",
-        "נוה גרנות",
-        "סן סימון",
-        "עומריה",
-        "פת",
-        "קרית האומה",
-        "שרפת",
-        "תלפיות",
-        "תלפיות תעשיה",
-    }
-)
-
-
-def _permit_scope(p: dict) -> str:
-    """Scope flag for a permit row: in / out / unknown (issue #521).
-    schunaName is definitive when present; otherwise the feed's legacy
-    address string ends with the neighbourhood ("הפלמח 41 קטמון הישנה")."""
-    schuna = (p.get("schunaName") or "").strip()
-    if schuna:
-        return "in" if schuna in _PERMIT_SCOPE_IN else "out"
-    address = (p.get("address") or "").strip()
-    if not address:
-        return "unknown"
-    for name in _PERMIT_SCOPE_IN:
-        if address.endswith(name):
-            return "in"
-    for name in _PERMIT_SCOPE_OUT:
-        if address.endswith(name):
-            return "out"
-    return "unknown"
-
-
-def _permit_tik_link(tik_num: str | None) -> str:
-    """Link a permit request number to its file in the municipality's
-    licensing data viewer (תיק רישוי בניה, SystemCode 26400046). Issue #96."""
-    tik = (tik_num or "").strip()
-    if not tik:
-        return ""
-    url = (
-        "https://ykpubdata.jerusalem.muni.il/#/Details?TikNum="
-        + _urlparse_mod.quote(tik, safe="")
-        + "&SystemCode=26400046&Page=BakashalInfo"
-    )
-    return f"<a href='{url}' target='_blank' rel='noopener'>{_e(tik)}</a>"
-
-
-PERMIT_ID_RE = re.compile(r"^\d{4}/\d{4}\.\d{2}$")
-
-
-def write_permit_ids(permits: list[dict], path: str) -> int:
-    """Write the public list of permit request numbers (tik_num) the submit worker
-    validates external reviews against (#515). Sorted, de-duplicated, no timestamp,
-    so the file only changes when the set of requests changes. Returns the count."""
-    ids = sorted(
-        {
-            str(p.get("tik_num") or "").strip()
-            for p in permits
-            if PERMIT_ID_RE.match(str(p.get("tik_num") or "").strip())
-        }
-    )
-    with open(path, "w", encoding="utf-8") as fh:
-        json.dump({"ids": ids}, fh, ensure_ascii=False, separators=(",", ":"))
-        fh.write("\n")
-    return len(ids)
-
-
-# Curated community sources, distinct from AI reviews and official notices.
-COMMUNITY_SOURCE_CASES = frozenset({"101-1389568", "101-1377753", "1993/0664.03"})
-COMMUNITY_SOURCE_URL = "reviews/forum-2026-10-14/summary-redacted.pdf"
-COMMUNITY_SOURCE_RECORDS = (
-    (COMMUNITY_SOURCE_CASES, COMMUNITY_SOURCE_URL, "14.10.26"),
-    (
-        frozenset({"101-1377753", "2026/0439.00", "101-1488261"}),
-        "reviews/forum-2026-11-04-source/summary-redacted.pdf",
-        "04.11.26",
-    ),
-)
-
-
-def _community_source_link(case_id):
-    return "".join(
-        f" <a class='community-source' href='{url}' "
-        f"title='סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
-        f"סיכום פורום {date}</a>"
-        for cases, url, date in COMMUNITY_SOURCE_RECORDS
-        if case_id in cases
-    )
-
-
-# Only already-published public reviews are linked. External/unreviewed
-# submissions never become table links automatically.
-PERMIT_AI_REVIEWS = {
-    "2026/0439.00": "reviews/palmach41/review-2026-0439.00.html",
-}
-
-
-def _permit_review_cell(tik_num):
-    url = PERMIT_AI_REVIEWS.get((tik_num or "").strip())
-    source = _community_source_link((tik_num or "").strip())
-    if url:
-        return (
-            f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
-            + source
-        )
-    return '<span class="derived">טרם פורסמה סקירה</span>' + source
-
-
-def _is_default_permit_candidate(
-    group_default: bool, scope: str, active: str, tik: str, evidence_tiks: frozenset
-) -> bool:
-    """#441: a row the default (no-interaction) view may need without the full
-    fragment. Default-visible groups (unmapped fails visible) that are active
-    and not out of scope, plus every active row whose tik has publication
-    evidence, because the #573 overlay can promote it into the "obj" group."""
-    if active != "1":
-        return False
-    return (group_default and scope != "out") or tik in evidence_tiks
-
-
-def publication_evidence_tiks(path: str) -> frozenset:
-    """#441: tiks the #573 overlay may promote, read from the normalized
-    publication list (data/publications_active.json). Every in-polygon entry
-    counts regardless of its date: the client applies the freshness window
-    against its own today, so the subset must not pre-filter by date. A missing
-    or invalid list yields no evidence, the same as the page, which then has
-    no overlay to apply."""
-    try:
-        with open(path, encoding="utf-8") as fh:
-            entries = json.load(fh)
-    except (FileNotFoundError, json.JSONDecodeError, UnicodeError):
-        return frozenset()
-    if not isinstance(entries, list):
-        return frozenset()
-    return frozenset(
-        e["tik_num"]
-        for e in entries
-        if isinstance(e, dict)
-        and e.get("in_polygon") is True
-        and isinstance(e.get("tik_num"), str)
-        and e["tik_num"]
-    )
-
-
-def _permits_section(
-    permits: list[dict],
-    rows_file: str | None = None,
-    default_rows_file: str | None = None,
-    evidence_tiks: frozenset = frozenset(),
-) -> str:
-    """Separate DRAFT-labeled permit-requests section (issue: permit feed).
-    A permit request is NOT a deposited plan; the section is visually and
-    textually distinct from the plans table. Terminal requests (closed / rejected /
-    permit issued) are hidden by default - the planner can no longer act
-    on them - and revealed by one checkbox. Dates render dd.mm.yy with the
-    ISO value kept in data-iso for filtering."""
-    if not permits:
-        return ""
-
-    def _address_display(p):
-        # #408: when the feed preserved the raw source fields, a street
-        # address shows only if a street name exists; a neighborhood is
-        # labeled as one, never disguised as an address. Rows from an older
-        # feed carry only the legacy joined "address" string - shown as-is.
-        if "rehovName" in p:
-            street = (p.get("rehovName") or "").strip()
-            if street:
-                num = (p.get("mispBait") or "").strip()
-                return f"{street} {num}".strip(), ""
-            schuna = (p.get("schunaName") or "").strip()
-            if schuna:
-                return f"שכונה: {schuna}", "לא צוינה כתובת מדויקת בתיק"
-            return "כתובת לא זמינה", ""
-        return (p.get("address") or "").strip(), ""
-
-    rows = []
-    default_rows = []
-    for p in permits:
-        status = p.get("status") or ""
-        group_key, _group_label, _group_default = _permit_status_group(status)
-        scope = _permit_scope(p)
-        sug = p.get("sugbakasha") or ""
-        address_text, address_note = _address_display(p)
-        address_note_html = (
-            " <span class='pub-missing'>" + _e(address_note) + "</span>"
-            if address_note
-            else ""
-        )
-        if p.get("_map_missing"):
-            address_note_html += " <span class='pub-missing'>אין מיקום</span>"
-        active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
-        pub_iso = _iso(p.get("publication_start"))
-        search = _e(
-            " ".join(
-                [
-                    p.get("tik_num") or "",
-                    p.get("address") or "",
-                    p.get("schunaName") or "",
-                    p.get("mahut") or "",
-                    sug,
-                    f"גוש {p.get('gush')}" if p.get("gush") else "",
-                    f"חלקה {p.get('helka')}" if p.get("helka") else "",
-                ]
-            ).lower()
-        )
-        pub_end_iso = _iso(p.get("publication_end_planned"))
-        if pub_iso:
-            pubcat = "dated"
-        elif status in _PERMIT_PUB_EVIDENCE_STATUSES or pub_end_iso:
-            pubcat = "pub-nodate"
-        else:
-            pubcat = "no-evidence"
-        pub_cell = (
-            _date_cell(p.get("publication_start"))
-            if pub_iso
-            else "<span class='pub-missing'>תאריך פרסום חסר</span>"
-        )
-        rows.append(
-            f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
-            f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}' data-statusdate='{_iso(p.get('status_date'))}'"
-            f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
-            f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
-            f"<td>{_e(address_text)}{address_note_html}</td>"
-            f"<td>{_e(p.get('mahut') or '')}</td>"
-            f"<td>{_e(sug)}</td>"
-            f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
-            f"<td>{_date_cell(p.get('status_date'))}</td>"
-            f"<td data-publication-cell>{pub_cell}</td>"
-            f"<td>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
-            f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
-        )
-        if _is_default_permit_candidate(
-            _group_default, scope, active, p.get("tik_num") or "", evidence_tiks
-        ):
-            default_rows.append(rows[-1])
-    if default_rows_file:
-        with open(default_rows_file, "w", encoding="utf-8") as fh:
-            fh.write("".join(default_rows))
-    if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
-        with open(rows_file, "w", encoding="utf-8") as fh:
-            fh.write("".join(rows))
-    body = "".join(rows[:COLLAPSE_TOP])
-    n_terminal = sum(
-        1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
-    )
-
-    def valid_coverage_date(value):
-        try:
-            datetime.date.fromisoformat(_iso(value))
-            return True
-        except (TypeError, ValueError):
-            return False
-
-    n_dated = sum(valid_coverage_date(p.get("publication_start")) for p in permits)
-    n_planned = sum(
-        valid_coverage_date(p.get("publication_end_planned")) for p in permits
-    )
-    coverage_text = (
-        f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
-        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits) - n_dated} ללא תאריך תחילת פרסום."
-    )
-    statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
-    from collections import Counter as _PCounter
-
-    _gcounts = _PCounter(
-        _permit_status_group(p.get("status") or "")[0] for p in permits
-    )
-
-    def _gchip(key: str, label: str, default_on: bool) -> str:
-        sel = " sel" if default_on else ""
-        dflt = " data-default='1'" if default_on else ""
-        return (
-            f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
-            f'{dflt} data-label="{_e(label)}">{_e(label)}'
-            + ("" if key == "pubcheck" else f" ({_gcounts.get(key, 0)})")
-            + "</span>"
-        )
-
-    main_chips: list[str] = []
-    more_chips: list[str] = []
-    for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
-        (main_chips if default_on else more_chips).append(
-            _gchip(key, label, default_on)
-        )
-    if _gcounts.get("unmapped"):
-        main_chips.append(_gchip("unmapped", "לא מסווג", True))
-    plegend = (
-        '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
-        + " ".join(main_chips)
-        + ' <details class="more-statuses"><summary>קבוצות נוספות</summary> '
-        + " ".join(more_chips)
-        + "</details></div>"
-    )
-    n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
-    sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
-    status_opts = "<option value=''>כל סטטוסי המקור</option>" + "".join(
-        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
-    )
-    sug_opts = "<option value=''>כל הסוגים</option>" + "".join(
-        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs
-    )
-    return f"""
-<section id="permits" dir="rtl">
-<h2>בקשות היתר</h2>
-<p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
-בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
-(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
-בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
-כברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או
-לקראת פרסום - בשכונות גינות העיר; שאר הקבוצות זמינות תחת "קבוצות נוספות",
-ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
-בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
-שהבקשה ישנה או שלא פורסמה.
-פרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;
-אין בכך אישור למועד התנגדות שאינו ידוע.
-מספר הבקשה מקשר לתיק במערכת
-<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
-עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
-{plegend}
-<p class="permits-note" id="permit-group-help">הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.
-קבוצת "פרסום / הודעות להתנגדות" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,
-אפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס "שולמה מקדמה" אינן מועברות לקבוצה זו:
-פרסום עירוני שלהן מוצג בקבוצה נפרדת "פרסום עירוני - דורש בדיקה".
-פרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.
-לסינון סטטוס מדויק השתמשו ברשימה "כל סטטוסי המקור"; הסטטוס המקורי נשמר בכל שורה.</p>
-<details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
-<p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
-<span id="permit-coverage-counts">{coverage_text}</span></p>
-<p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
-תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
-סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
-לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
-<div id="pfilters">
-<input type="search" id="pfq" placeholder="חיפוש מספר / כתובת / מהות; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
-<select id="pfstatus" aria-label="סטטוס מדויק מהמקור">{status_opts}</select>
-<select id="pfsug">{sug_opts}</select>
-<label>מתאריך פרסום <input type="date" id="pffrom"></label>
-<label>עד <input type="date" id="pfto"></label>
-<label><input type="checkbox" id="pfopenonly" checked> רק מועד התנגדות שלא עבר</label>
-<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
-<label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
-<button id="pfreset" type="button">נקה</button>
-<button id="copy-permit-link" type="button">העתק קישור לסינון</button>
-<span id="pfcount"></span>
-<span id="pfunknown"></span>
-<span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
-</div>
-<table id="permits-table"><thead><tr>
-<th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
-<th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
-<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>
-</tr></thead><tbody>{body}</tbody></table>
-<noscript><p>מוצגות {COLLAPSE_TOP} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
-<button id="pmore" type="button"></button>
-</section>"""
 
 
 # Section: Permit browser controller
