@@ -1,0 +1,156 @@
+{
+ "_comment": "The single source of truth for site languages and UI strings. To add a language: add its entry under languages and a translation for every key under strings (tests enforce completeness). Nothing else in the code lists languages. Hebrew is the default and the fallback.",
+ "default": "he",
+ "languages": {
+  "he": {
+   "name": "עברית",
+   "lang": "he",
+   "dir": "rtl",
+   "draft": false
+  },
+  "en": {
+   "name": "English",
+   "lang": "en",
+   "dir": "ltr",
+   "draft": true
+  },
+  "ar": {
+   "name": "العربية",
+   "lang": "ar",
+   "dir": "rtl",
+   "draft": true
+  },
+  "ru": {
+   "name": "Русский",
+   "lang": "ru",
+   "dir": "ltr",
+   "draft": true
+  },
+  "am": {
+   "name": "አማርኛ",
+   "lang": "am",
+   "dir": "ltr",
+   "draft": true
+  },
+  "fr": {
+   "name": "Français",
+   "lang": "fr",
+   "dir": "ltr",
+   "draft": true
+  }
+ },
+ "strings": {
+  "ui.language": {
+   "he": "שפה",
+   "en": "Language",
+   "ar": "اللغة",
+   "ru": "Язык",
+   "am": "ቋንቋ",
+   "fr": "Langue"
+  },
+  "ui.draft_note": {
+   "he": "תרגום ראשוני (מכונה), טרם נבדק על ידי דובר השפה.",
+   "en": "Draft machine translation, not yet reviewed by a native speaker.",
+   "ar": "ترجمة آلية أولية لم يراجعها بعد متحدث أصلي.",
+   "ru": "Черновой машинный перевод, ещё не проверен носителем языка.",
+   "am": "የመጀመሪያ የማሽን ትርጉም ነው፣ በቋንቋው ተናጋሪ ገና አልተገመገመም።",
+   "fr": "Traduction automatique provisoire, pas encore relue par un locuteur natif."
+  },
+  "ui.back_home": {
+   "he": "חזרה לעמוד הראשי",
+   "en": "Back to the main page (Hebrew)",
+   "ar": "العودة إلى الصفحة الرئيسية (بالعبرية)",
+   "ru": "На главную страницу (на иврите)",
+   "am": "ወደ ዋናው ገጽ ተመለስ (በዕብራይስጥ)",
+   "fr": "Retour à la page principale (en hébreu)"
+  },
+  "ui.site_footer": {
+   "he": "אתר נתונים אוטומטי של ועדת גינות העיר.",
+   "en": "Automated data site of the Ginot HaIr committee.",
+   "ar": "موقع بيانات آلي للجنة جنوت هعير.",
+   "ru": "Автоматический сайт данных комитета «Гинот а-Ир».",
+   "am": "የጊኖት ሃኢር ኮሚቴ ራስ-ሰር የመረጃ ድረ-ገጽ።",
+   "fr": "Site de données automatique du comité Ginot HaIr."
+  },
+  "email.title": {
+   "he": "קבלת מייל על תוכנית",
+   "en": "Get a plan email",
+   "ar": "الحصول على بريد إلكتروني عن مخطط",
+   "ru": "Получить письмо о плане",
+   "am": "ስለ ዕቅድ ኢሜይል ያግኙ",
+   "fr": "Recevoir un e-mail sur un plan"
+  },
+  "email.intro": {
+   "he": "בחרו תוכנית בהפקדה וקבלו מייל עם פרטי התוכנית, המועד האחרון להגשת התנגדות וקישור לעמוד התוכנית במב\"ת. כדי למנוע שליחה לכתובת של אדם אחר, נשלח קודם מייל אישור ורק אחרי לחיצה על כפתור בו נשלח המייל עצמו. הכתובת נשמרת עד 48 שעות להמתנה לאישור ואז נמחקת; אם סימנתם הרשמה לעדכונים היא נשמרת (עם התוכנית והשפה בלבד) עד שתסירו את עצמכם בקישור שבכל מייל. עודכן: {generated}.",
+   "en": "Choose a plan in deposit and get an email with the plan details, the last day to file an objection and a link to the plan page on Mavat. To avoid sending to someone else's address, we first send a confirmation email, and the plan email is sent only after you press a button in it. The address is kept for up to 48 hours while waiting for confirmation and then deleted; if you ticked the subscription box it is kept (with the plan and language only) until you unsubscribe with the link in every email. Updated: {generated}.",
+   "ar": "اختاروا مخططًا في مرحلة الإيداع واحصلوا على بريد إلكتروني فيه تفاصيل المخطط وآخر موعد لتقديم اعتراض ورابط صفحة المخطط في «مباط». لتجنّب الإرسال إلى عنوان شخص آخر نرسل أولًا رسالة تأكيد، ولا تُرسل رسالة المخطط إلا بعد الضغط على زر فيها. يُحفظ العنوان حتى 48 ساعة بانتظار التأكيد ثم يُحذف؛ وإذا اخترتم الاشتراك في التحديثات يُحفظ (مع المخطط واللغة فقط) حتى تلغوا الاشتراك بالرابط الموجود في كل رسالة. آخر تحديث: {generated}.",
+   "ru": "Выберите план на стадии депонирования и получите письмо с данными плана, последним сроком подачи возражения и ссылкой на страницу плана в «Мавате». Чтобы не отправлять письмо на чужой адрес, сначала мы шлём письмо с подтверждением, а письмо о плане отправляется только после нажатия кнопки в нём. Адрес хранится до 48 часов в ожидании подтверждения, затем удаляется; если вы отметили подписку на обновления, он хранится (только с планом и языком) до отписки по ссылке в каждом письме. Обновлено: {generated}.",
+   "am": "በማስቀመጥ ደረጃ ላይ ያለ ዕቅድ ይምረጡ፤ የዕቅዱን ዝርዝር፣ ተቃውሞ ለማቅረብ የመጨረሻውን ቀን እና በ«ማቫት» ላይ ወደ ዕቅዱ ገጽ የሚወስድ አገናኝ ያለው ኢሜይል ያግኙ። ወደ ሌላ ሰው አድራሻ እንዳይላክ መጀመሪያ የማረጋገጫ ኢሜይል እንልካለን፤ የዕቅዱ ኢሜይል የሚላከው በዚያ ኢሜይል ውስጥ ያለውን ቁልፍ ከተጫኑ በኋላ ብቻ ነው። አድራሻው ማረጋገጫ እስኪደርስ እስከ 48 ሰዓት ይቆያል፤ ከዚያ ይሰረዛል። የዝማኔ ምዝገባ ከመረጡ (ከዕቅዱና ቋንቋው ጋር ብቻ) በእያንዳንዱ ኢሜይል ያለውን አገናኝ ተጠቅመው እስኪወጡ ድረስ ይቆያል። የተዘመነው፦ {generated}።",
+   "fr": "Choisissez un plan en dépôt et recevez un e-mail avec les détails du plan, la date limite pour déposer une objection et un lien vers la page du plan sur Mavat. Pour éviter d'écrire à l'adresse d'une autre personne, nous envoyons d'abord un e-mail de confirmation, et l'e-mail du plan n'est envoyé qu'après un clic sur le bouton qu'il contient. L'adresse est conservée au plus 48 heures dans l'attente de la confirmation, puis supprimée ; si vous avez coché l'abonnement, elle est conservée (avec le plan et la langue seulement) jusqu'à votre désabonnement via le lien présent dans chaque e-mail. Mis à jour : {generated}."
+  },
+  "email.plan_label": {
+   "he": "תוכנית:",
+   "en": "Plan:",
+   "ar": "المخطط:",
+   "ru": "План:",
+   "am": "ዕቅድ፦",
+   "fr": "Plan :"
+  },
+  "email.email_label": {
+   "he": "כתובת מייל:",
+   "en": "Email address:",
+   "ar": "عنوان البريد الإلكتروني:",
+   "ru": "Адрес электронной почты:",
+   "am": "የኢሜይል አድራሻ፦",
+   "fr": "Adresse e-mail :"
+  },
+  "email.subscribe": {
+   "he": "עדכנו אותי במייל כשהסטטוס משתנה או שהמועד מתקרב (אחרי אישור ההרשמה במייל; אפשר להסיר בכל עת בקישור במייל)",
+   "en": "Email me when the status changes or the deadline gets close (after you confirm by email; you can unsubscribe any time with the link in the email)",
+   "ar": "أرسلوا لي بريدًا عندما تتغير الحالة أو يقترب الموعد (بعد تأكيد التسجيل بالبريد؛ يمكن الإلغاء في أي وقت بالرابط الموجود في الرسالة)",
+   "ru": "Присылайте письмо, когда статус изменится или срок приблизится (после подтверждения по почте; отписаться можно в любой момент по ссылке в письме)",
+   "am": "ሁኔታው ሲቀየር ወይም የመጨረሻው ቀን ሲቀርብ በኢሜይል አሳውቁኝ (በኢሜይል ካረጋገጡ በኋላ፤ በኢሜይሉ ውስጥ ባለው አገናኝ በማንኛውም ጊዜ መውጣት ይቻላል)",
+   "fr": "Prévenez-moi par e-mail quand le statut change ou que l'échéance approche (après confirmation par e-mail ; désabonnement possible à tout moment via le lien de l'e-mail)"
+  },
+  "email.submit": {
+   "he": "שלחו לי מייל",
+   "en": "Email me",
+   "ar": "أرسلوا لي بريدًا",
+   "ru": "Отправить мне письмо",
+   "am": "ኢሜይል ላኩልኝ",
+   "fr": "Envoyez-moi l'e-mail"
+  },
+  "email.sending": {
+   "he": "שולח...",
+   "en": "Sending...",
+   "ar": "جارٍ الإرسال...",
+   "ru": "Отправка...",
+   "am": "በመላክ ላይ...",
+   "fr": "Envoi..."
+  },
+  "email.ok": {
+   "he": "אם הכתובת תקינה, נשלח אליה מייל אישור.",
+   "en": "If the address is valid, a confirmation email is on its way.",
+   "ar": "إذا كان العنوان صحيحًا فستصله رسالة تأكيد.",
+   "ru": "Если адрес верный, на него отправлено письмо с подтверждением.",
+   "am": "አድራሻው ትክክል ከሆነ የማረጋገጫ ኢሜይል ይላካል።",
+   "fr": "Si l'adresse est valide, un e-mail de confirmation vous est envoyé."
+  },
+  "email.error": {
+   "he": "לא ניתן לשלוח כרגע, נסו מאוחר יותר.",
+   "en": "Cannot send right now, please try again later.",
+   "ar": "تعذّر الإرسال الآن، حاولوا لاحقًا.",
+   "ru": "Сейчас отправить не удаётся, попробуйте позже.",
+   "am": "አሁን መላክ አልተቻለም፣ እባክዎ ቆይተው ይሞክሩ።",
+   "fr": "Envoi impossible pour le moment, réessayez plus tard."
+  },
+  "email.honeypot": {
+   "he": "אתר:",
+   "en": "Website:",
+   "ar": "الموقع:",
+   "ru": "Сайт:",
+   "am": "ድረ-ገጽ፦",
+   "fr": "Site web :"
+  }
+ }
+}

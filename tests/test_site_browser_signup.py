@@ -102,3 +102,26 @@ def test_signup_form_fits_a_phone_without_sideways_scroll(mobile_page, served):
     for sel in ("#plan", "#email", "#email-form button[type=submit]"):
         box = mobile_page.locator(sel).bounding_box()
         assert box and box["x"] >= 0 and box["x"] + box["width"] <= 391, (sel, box)
+
+
+# Section: Language selector (options come from i18n/strings.json)
+def test_language_selector_switches_page_language_and_post_lang(page, served):
+    import json
+    from pathlib import Path
+
+    doc = json.loads(
+        (Path(__file__).parent.parent / "src/ginot/i18n/strings.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    page.goto(served + "/email.html")
+    links = page.locator("nav.lang-switch a")
+    assert links.count() == len(doc["languages"])
+    for code, m in doc["languages"].items():
+        page.goto(served + "/email.html")
+        page.locator(f'nav.lang-switch a[hreflang="{m["lang"]}"]').click()
+        page.wait_for_load_state()
+        assert page.locator("html").get_attribute("dir") == m["dir"]
+        assert page.locator("html").get_attribute("lang") == m["lang"]
+        assert page.locator("#lang").get_attribute("value") == code
+        assert page.locator("nav.lang-switch a[aria-current]").count() == 1

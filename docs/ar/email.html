@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الحصول على بريد إلكتروني عن مخطط - גינות העיר</title>
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="../favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=20261022">
+<meta name="theme-color" content="#101f5b">
+<link rel="stylesheet" href="../style.css">
+<style>#email-form select,#email-form input[type=email]{width:100%;max-width:100%;
+box-sizing:border-box;font-size:16px;min-height:44px}
+#email-form button{font-size:16px;min-height:44px;padding:0 20px}
+#email-form label{display:block}
+.lang-switch{font-size:14px;margin:0 0 8px}.lang-switch a[aria-current]{font-weight:700;text-decoration:none}
+#email-form input[type=email]{direction:ltr;text-align:left}</style>
+<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
+<nav class="lang-switch" aria-label="اللغة"><a href="../email.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/email.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/email.html" hreflang="ar" lang="ar" aria-current="true">العربية</a> &middot; <a href="../ru/email.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/email.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/email.html" hreflang="fr" lang="fr">Français</a></nav>
+<h1>الحصول على بريد إلكتروني عن مخطط</h1>
+<p class="draft-note" lang="ar">ترجمة آلية أولية لم يراجعها بعد متحدث أصلي.</p><p>اختاروا مخططًا في مرحلة الإيداع واحصلوا على بريد إلكتروني فيه تفاصيل المخطط وآخر موعد لتقديم اعتراض ورابط صفحة المخطط في «مباط». لتجنّب الإرسال إلى عنوان شخص آخر نرسل أولًا رسالة تأكيد، ولا تُرسل رسالة المخطط إلا بعد الضغط على زر فيها. يُحفظ العنوان حتى 48 ساعة بانتظار التأكيد ثم يُحذف؛ وإذا اخترتم الاشتراك في التحديثات يُحفظ (مع المخطط واللغة فقط) حتى تلغوا الاشتراك بالرابط الموجود في كل رسالة. آخر تحديث: 2026-11-07.</p>
+<form id="email-form" method="post" action="#">
+<p><label>المخطط:<br>
+<select id="plan" name="plan_number" required><option value="101-1095330">101-1095330 - מתחם רג&#x27;ואן - הסדנא-פייר קניג</option><option value="101-1386671">101-1386671 - התחדשות עירונית - לינקולן 13</option><option value="101-1377753">101-1377753 - התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2</option><option value="101-1348069">101-1348069 - הרחבת יח&quot;ד קיימת ברחוב דוד מרכוס 11, טלביה</option><option value="101-1415090">101-1415090 - בית כנסת חורב</option><option value="101-1488261">101-1488261 - שינוי בקווי בניין מאושרים  מלון ענבל</option><option value="101-1451699">101-1451699 - תכנית איחוד וחלוקה עבור מדרשיית הרטמן לבנות</option><option value="101-1549260">101-1549260 - הסדנא 2 - תוספת שטחים</option><option value="101-1487560">101-1487560 - שינוי קווי בניין לשם שינוי תכנון ללא תוספת שטחים-מבוא יורם 1</option></select></label></p>
+<p><label>عنوان البريد الإلكتروني:<br>
+<input type="email" id="email" name="email" required size="30"
+ autocomplete="email" dir="ltr"></label></p>
+<p><label><input type="checkbox" id="subscribe" name="subscribe">
+أرسلوا لي بريدًا عندما تتغير الحالة أو يقترب الموعد (بعد تأكيد التسجيل بالبريد؛ يمكن الإلغاء في أي وقت بالرابط الموجود في الرسالة)</label></p>
+<input type="hidden" id="lang" name="lang" value="ar">
+<p style="display:none" aria-hidden="true"><label>الموقع:
+<input type="text" id="website" name="website" tabindex="-1"
+ autocomplete="off"></label></p>
+<p><button type="submit">أرسلوا لي بريدًا</button></p>
+<p id="form-status" role="status"></p>
+</form>
+<script>
+(function(){
+var form=document.getElementById('email-form'),st=document.getElementById('form-status');
+var want=new URLSearchParams(location.search).get('plan');
+if(want){Array.prototype.forEach.call(form.plan_number.options,function(o){if(o.value===want){form.plan_number.value=want;}});}
+form.addEventListener('submit',function(ev){
+ev.preventDefault();st.textContent="جارٍ الإرسال...";
+fetch('https://ginot-hair-plans.vercel.app/api/send_plan_email',{method:'POST',headers:{'Content-Type':'application/json'},
+body:JSON.stringify({email:form.email.value,plan_number:form.plan_number.value,
+lang:form.lang.value,subscribe:form.subscribe.checked,
+website:form.website.value})}).then(function(r){
+st.textContent=r.ok?"إذا كان العنوان صحيحًا فستصله رسالة تأكيد.":"تعذّر الإرسال الآن، حاولوا لاحقًا.";
+}).catch(function(){st.textContent="تعذّر الإرسال الآن، حاولوا لاحقًا.";});
+});
+})();
+</script>
+<footer dir="rtl"><p>
+موقع بيانات آلي للجنة جنوت هعير.
+<a href="../index.html">العودة إلى الصفحة الرئيسية (بالعبرية)</a>
+</p><p class="site-version">גרסה <span dir="ltr">0.2.1</span> · Version 0.2.1</p></footer>
+</body></html>

@@ -13,6 +13,7 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 
 import datetime
 import json
+import os
 
 from . import __version__
 from .dates import today_il
@@ -1178,7 +1179,6 @@ def render_site(
     external_reviews_path: str = "data/external_reviews.json",
 ):
     import glob
-    import os
     import re as _re
     import shutil
 
@@ -1294,10 +1294,14 @@ def render_site(
                 )
     with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
         fh.write(render_about(generated, council_name))
+    from . import i18n
     from .page_email import render_email_page
 
-    with open(f"{out_dir}/email.html", "w", encoding="utf-8") as fh:
-        fh.write(render_email_page(rows, generated, council_name))
+    for code in i18n.lang_codes():  # languages come from i18n/strings.json
+        email_path = f"{out_dir}/{i18n.page_path(code, 'email.html')}"
+        os.makedirs(os.path.dirname(email_path), exist_ok=True)
+        with open(email_path, "w", encoding="utf-8") as fh:
+            fh.write(render_email_page(rows, generated, council_name, code))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
         fh.write(_SOURCES_REDIRECT)
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
