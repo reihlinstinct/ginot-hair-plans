@@ -3,6 +3,7 @@
 
 import argparse
 import ast
+import fnmatch
 import html
 import json
 import os
@@ -245,6 +246,19 @@ def check_detail(info, state, detail, name):
     return lines
 
 
+def _browser_module_selected(name, config):
+    """True when a checked-in pytest selection token covers this module's file.
+
+    Accepts exact paths (tests/test_site_browser.py) and prefix globs
+    (tests/test_site_browser*.py), so split browser modules stay verified.
+    """
+    path = name.replace(".", "/") + ".py"
+    return any(
+        token.startswith("tests/") and fnmatch.fnmatch(path, token)
+        for token in config.split()
+    )
+
+
 def skip_explanation(name, detail):
     """Only name a replacement job when its checked-in workflow verifies it."""
     browser_modules = ("tests.test_site_browser", "tests.test_map_browser")
@@ -254,7 +268,7 @@ def skip_explanation(name, detail):
         any(name.startswith(module) for module in browser_modules)
         and "No module named 'playwright'" in detail
         and "pip install -r requirements.txt playwright" in config
-        and "tests/test_site_browser.py tests/test_map_browser.py" in config
+        and _browser_module_selected(name, config)
     ):
         return (
             "This Python job does not install Playwright, so browser test modules "
