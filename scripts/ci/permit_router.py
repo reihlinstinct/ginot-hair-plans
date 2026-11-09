@@ -58,22 +58,48 @@ DATA_FILES = {
 }
 DATA_GLOB = "docs/badge/parcel-*.json"
 
+# Every review state GitHub emits today. States outside this set are not
+# skipped silently: they stop the router red (see approved_at_head).
+KNOWN_REVIEW_STATES = {
+    "APPROVED",
+    "CHANGES_REQUESTED",
+    "COMMENTED",
+    "DISMISSED",
+    "PENDING",
+}
+
 
 class RouterError(Exception):
     """The merged state could not be established; the job fails closed."""
 
 
-def _sha(value):
-    return isinstance(value, str) and SHA.match(value) is not None
+# Section: Routing decision
 
 
-def _int(value):
-    return type(value) is int
-
-
-def marker(number, head_sha, run_id):
-    """The fixed dedup marker for one routed (PR, head, run)."""
-    return f"{MARKER}{number} {head_sha} {run_id} -->"
+def decide(repo, pr, read):
+    """Return ``(verdict, reason)``. ``read`` answers the fixed questions below."""
+    skip = check_pr(repo, pr)
+    if skip:
+        return "skip", skip
+    if not read("ancestor", pr["merge_commit_sha"], "main"):
+        raise RouterError("merge commit is not on main")
+    check_files(pr, read("files", pr["number"]))
+    prov = read("provenance", pr["head"]["sha"])
+    if prov is None:
+        return "skip", "no scan provenance"
+    # The file persists on main after each merged batch, so a non-scan PR's tree
+    # still carries the previous batch's record. Only a record this PR changed binds it.
+    if prov == read("provenance", pr["base"]["sha"]):
+        return "skip", "provenance not changed by this PR"
+    run_id = check_provenance(prov)
+    run_head = check_run(repo, read("run", run_id), run_id)
+    if not read("ancestor", run_head, pr["base"]["sha"]):
+        raise RouterError("source run is not behind the PR base")
+    if marker(pr["number"], pr["head"]["sha"], run_id) in read("markers", pr["number"]):
+        return "skip", "already routed"
+    if not approved_at_head(pr, read("reviews", pr["number"])):
+        return "hold", "no approval at the exact head"
+    return "route-scan-audit", "verified"
 
 
 def check_pr(repo, pr):
@@ -105,16 +131,12 @@ def check_pr(repo, pr):
     return None
 
 
-def _data_path(path):
-    if not isinstance(path, str) or not path or "\\" in path or path.startswith("/"):
-        return False
-    if any(part in ("", ".", "..") for part in path.split("/")):
-        return False
-    if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
-        return True
-    return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count(
-        "/"
-    )
+def _sha(value):
+    return isinstance(value, str) and SHA.match(value) is not None
+
+
+def _int(value):
+    return type(value) is int
 
 
 def check_files(pr, files):
@@ -133,6 +155,18 @@ def check_files(pr, files):
             paths.append(entry["previous_filename"])
         if not all(_data_path(path) for path in paths):
             raise RouterError("PR changes paths outside the generated data")
+
+
+def _data_path(path):
+    if not isinstance(path, str) or not path or "\\" in path or path.startswith("/"):
+        return False
+    if any(part in ("", ".", "..") for part in path.split("/")):
+        return False
+    if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
+        return True
+    return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count(
+        "/"
+    )
 
 
 def check_provenance(prov):
@@ -183,15 +217,9 @@ def check_run(repo, run, run_id):
     return run["head_sha"]
 
 
-# Every review state GitHub emits today. States outside this set are not
-# skipped silently: they stop the router red (see approved_at_head).
-KNOWN_REVIEW_STATES = {
-    "APPROVED",
-    "CHANGES_REQUESTED",
-    "COMMENTED",
-    "DISMISSED",
-    "PENDING",
-}
+def marker(number, head_sha, run_id):
+    """The fixed dedup marker for one routed (PR, head, run)."""
+    return f"{MARKER}{number} {head_sha} {run_id} -->"
 
 
 def approved_at_head(pr, reviews):
@@ -229,30 +257,7 @@ def approved_at_head(pr, reviews):
     return ("APPROVED", pr["head"]["sha"]) in states
 
 
-def decide(repo, pr, read):
-    """Return ``(verdict, reason)``. ``read`` answers the fixed questions below."""
-    skip = check_pr(repo, pr)
-    if skip:
-        return "skip", skip
-    if not read("ancestor", pr["merge_commit_sha"], "main"):
-        raise RouterError("merge commit is not on main")
-    check_files(pr, read("files", pr["number"]))
-    prov = read("provenance", pr["head"]["sha"])
-    if prov is None:
-        return "skip", "no scan provenance"
-    # The file persists on main after each merged batch, so a non-scan PR's tree
-    # still carries the previous batch's record. Only a record this PR changed binds it.
-    if prov == read("provenance", pr["base"]["sha"]):
-        return "skip", "provenance not changed by this PR"
-    run_id = check_provenance(prov)
-    run_head = check_run(repo, read("run", run_id), run_id)
-    if not read("ancestor", run_head, pr["base"]["sha"]):
-        raise RouterError("source run is not behind the PR base")
-    if marker(pr["number"], pr["head"]["sha"], run_id) in read("markers", pr["number"]):
-        return "skip", "already routed"
-    if not approved_at_head(pr, read("reviews", pr["number"])):
-        return "hold", "no approval at the exact head"
-    return "route-scan-audit", "verified"
+# Section: GitHub transport
 
 
 class GitHubHTTPError(RouterError):
@@ -364,6 +369,9 @@ def github_reader(repo, gh=_gh):
         raise RouterError("unknown question")
 
     return read
+
+
+# Section: Command line
 
 
 def main(argv=None, gh=_gh):
