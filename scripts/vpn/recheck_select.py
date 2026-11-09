@@ -7,7 +7,9 @@ Tier "rotation": every other already-scanned parcel, oldest check first
 (parcels never checked go first), capped per run. Slow rotation.
 
 Public data only: gush/helka numbers and status text already in the feed.
-Usage: python3 scripts/vpn/recheck_select.py --tier active|rotation [--cap 150]
+Usage: python3 scripts/vpn/recheck_select.py --tier active|rotation [--cap N]
+An explicit cap applies with or without --stale-before (issue #875); without
+one the active tier returns all active parcels and rotation defaults to 150.
 Prints a JSON list of [gush, helka] pairs.
 """
 
@@ -83,7 +85,13 @@ def main():
     ap.add_argument("--tier", choices=("active", "rotation"), required=True)
     ap.add_argument("--feed", default="data/permit_requests.json")
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
-    ap.add_argument("--cap", type=int, default=150)
+    ap.add_argument(
+        "--cap",
+        type=int,
+        default=None,
+        help="max parcels; active tier default is all active parcels, "
+        "rotation tier default is 150",
+    )
     ap.add_argument(
         "--stale-before",
         default=None,
@@ -94,15 +102,18 @@ def main():
         feed = json.load(fh)
     requests = feed.get("requests", [])
     if args.tier == "active":
-        sel = active_parcels(
-            requests, args.stale_before, args.cap if args.stale_before else None
-        )
+        # An explicit cap bounds the run with or without a stale-before
+        # filter (issue #875); no cap keeps the legacy full-active default.
+        sel = active_parcels(requests, args.stale_before, args.cap)
     else:
         with open(args.parcels, encoding="utf-8") as fh:
             parcels = all_parcels_of(json.load(fh))
         b = feed.get("batch", {})
         sel = rotation_parcels(
-            requests, parcels, b.get("offset", 0) + b.get("limit", 0), args.cap
+            requests,
+            parcels,
+            b.get("offset", 0) + b.get("limit", 0),
+            args.cap if args.cap is not None else 150,
         )
     print(json.dumps([list(p) for p in sel]))
 

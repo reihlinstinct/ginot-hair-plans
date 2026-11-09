@@ -170,3 +170,86 @@ def test_main_rotation_tier_uses_scan_cursor(tmp_path, capsys, monkeypatch):
     rs.main()
     # cursor = offset+limit = 2 -> only (1,1),(2,2) scanned; (2,2) active excluded
     assert _json.loads(capsys.readouterr().out) == [[1, 1]]
+
+
+# Section: Explicit cap applies with or without stale-before (issue #875)
+
+
+def _run_main(tmp_path, capsys, monkeypatch, argv):
+    import json as _json
+
+    monkeypatch.setattr("sys.argv", argv)
+    rs.main()
+    return _json.loads(capsys.readouterr().out)
+
+
+def _active_feed(tmp_path):
+    return _write_feed(
+        tmp_path,
+        [
+            req("1", "נפתח תיק רישוי", 1, 1, "2026-09-01"),
+            req("2", "נפתח תיק רישוי", 2, 2, "2026-10-20"),
+            req("3", "נפתח תיק רישוי", 3, 3, "2026-10-25"),
+            req("4", "הבקשה נסגרה", 4, 4, ""),
+        ],
+    )
+
+
+def test_main_active_cap_honored_without_stale_before(tmp_path, capsys, monkeypatch):
+    feed = _active_feed(tmp_path)
+    out = _run_main(
+        tmp_path,
+        capsys,
+        monkeypatch,
+        ["recheck_select.py", "--tier", "active", "--feed", feed, "--cap", "2"],
+    )
+    # oldest check first, capped at 2 of the 3 active parcels
+    assert out == [[1, 1], [2, 2]]
+
+
+def test_main_active_zero_and_negative_cap_select_nothing(
+    tmp_path, capsys, monkeypatch
+):
+    feed = _active_feed(tmp_path)
+    for cap in ("0", "-3"):
+        out = _run_main(
+            tmp_path,
+            capsys,
+            monkeypatch,
+            ["recheck_select.py", "--tier", "active", "--feed", feed, "--cap", cap],
+        )
+        assert out == []
+
+
+def test_main_active_no_cap_keeps_full_active_default(tmp_path, capsys, monkeypatch):
+    feed = _active_feed(tmp_path)
+    out = _run_main(
+        tmp_path, capsys, monkeypatch, ["recheck_select.py", "--tier", "active", "--feed", feed]
+    )
+    assert out == [[1, 1], [2, 2], [3, 3]]
+
+
+def test_main_rotation_no_cap_keeps_default_150(tmp_path, capsys, monkeypatch):
+    feed = _write_feed(
+        tmp_path,
+        [req("1", "הבקשה נסגרה", 1, 1, "2026-10-01")],
+        offset=0,
+        limit=2,
+    )
+    parcels = _write_parcels(tmp_path, [(1, 1), (2, 2)])
+    out = _run_main(
+        tmp_path,
+        capsys,
+        monkeypatch,
+        [
+            "recheck_select.py",
+            "--tier",
+            "rotation",
+            "--feed",
+            feed,
+            "--parcels",
+            parcels,
+        ],
+    )
+    # never-checked (2,2) sorts before checked (1,1); default cap 150 keeps both
+    assert out == [[2, 2], [1, 1]]
