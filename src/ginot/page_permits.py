@@ -163,8 +163,9 @@ def _permits_section(
         '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
         + " ".join(main_chips)
         + ' <details class="more-statuses"><summary>קבוצות נוספות</summary> '
+        + '<div class="more-chips">'
         + " ".join(more_chips)
-        + "</details></div>"
+        + "</div></details></div>"
     )
     n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})

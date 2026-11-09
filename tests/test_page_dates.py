@@ -157,3 +157,12 @@ def test_sort_rows_deadline_equal_to_utc_today_is_not_open_in_israel(monkeypatch
     )
     out = page.sort_rows([row])
     assert out[0]["_open_obj"] is False
+
+
+# Section: extra group chips sit in their own flex wrapper (phone overlap fix)
+def test_more_groups_css_wraps_chips_in_flex_container():
+    from ginot import page_resources
+
+    css = page_resources._CSS
+    assert ".more-chips{display:flex;flex-wrap:wrap;gap:6px" in css
+    assert ".more-statuses{flex:1 1 100%}" in css
