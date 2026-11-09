@@ -31,26 +31,26 @@ def _ms(iso: str) -> int:
     )
 
 
-# Section: _plus_months calendar rules (Interpretation Law s.10(b))
+# Section: plus_months calendar rules (Interpretation Law s.10(b))
 
 
 def test_plus_months_same_day_of_month():
-    assert outputs._plus_months("2026-09-19", 2) == "2026-11-19"
-    assert outputs._plus_months("2026-08-31", 2) == "2026-10-31"
-    assert outputs._plus_months("2026-10-15", 2) == "2026-12-15"
+    assert outputs.plus_months("2026-09-19", 2) == "2026-11-19"
+    assert outputs.plus_months("2026-08-31", 2) == "2026-10-31"
+    assert outputs.plus_months("2026-10-15", 2) == "2026-12-15"
 
 
 def test_plus_months_year_boundary():
-    assert outputs._plus_months("2026-12-10", 2) == "2027-02-10"
+    assert outputs.plus_months("2026-12-10", 2) == "2027-02-10"
 
 
 def test_plus_months_short_final_month_ends_on_its_last_day():
-    assert outputs._plus_months("2025-12-31", 2) == "2026-02-28"
-    assert outputs._plus_months("2027-12-31", 2) == "2028-02-29"  # leap year
+    assert outputs.plus_months("2025-12-31", 2) == "2026-02-28"
+    assert outputs.plus_months("2027-12-31", 2) == "2028-02-29"  # leap year
 
 
 def test_plus_months_empty_publication_stays_empty():
-    assert outputs._plus_months("", 2) == ""
+    assert outputs.plus_months("", 2) == ""
 
 
 # Section: rest-day (Saturday) end is NOT postponed (documented safe side)
@@ -59,7 +59,7 @@ def test_plus_months_empty_publication_stays_empty():
 def test_saturday_end_is_not_postponed():
     # 2026-11-14 is a Saturday. s.10(c) would move the true final day later;
     # the derived field keeps the Saturday so it never exceeds the true date.
-    assert outputs._plus_months("2026-09-14", 2) == "2026-11-14"
+    assert outputs.plus_months("2026-09-14", 2) == "2026-11-14"
 
 
 # Section: row_from_feature derives both fields from the publication date
@@ -81,6 +81,26 @@ def test_row_without_publication_derives_nothing():
     row = outputs.row_from_feature({"pl_number": "X"}, None, None)
     assert row["objection_deadline_derived_60d_from_publication"] == ""
     assert row["objection_deadline_derived_2m_from_publication"] == ""
+
+
+# Section: 60d is NOT always the conservative side (pins the documented caveat)
+
+
+def test_60d_can_land_after_the_statutory_2m_window():
+    # Publication 15.01.2027 (non-leap year): +60d is 16.03, +2 months is the
+    # statutory 15.03 - the 60d field is one day LATER, so it must not be
+    # described as the conservative basis for these publication dates.
+    row = outputs.row_from_feature(
+        {"pl_number": "T", "pl_date_advertise": _ms("2027-01-15")}, None, None
+    )
+    assert row["objection_deadline_derived_60d_from_publication"] == "2027-03-16"
+    assert row["objection_deadline_derived_2m_from_publication"] == "2027-03-15"
+    # 31.12.2026 publication: +60d 01.03.2027 vs statutory 28.02.2027.
+    row = outputs.row_from_feature(
+        {"pl_number": "T", "pl_date_advertise": _ms("2026-12-31")}, None, None
+    )
+    assert row["objection_deadline_derived_60d_from_publication"] == "2027-03-01"
+    assert row["objection_deadline_derived_2m_from_publication"] == "2027-02-28"
 
 
 # Section: merge_land_status recomputes both fields from the latest publication

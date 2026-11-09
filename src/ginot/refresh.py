@@ -63,7 +63,7 @@ def merge_land_status(rows, land_path="data/land_plan_status.json"):
                     _dt.date.fromisoformat(latest)
                     + _dt.timedelta(days=outputs.OBJECTION_WINDOW_DAYS)
                 ).isoformat()
-                dl2m = outputs._plus_months(latest, outputs.OBJECTION_WINDOW_MONTHS)
+                dl2m = outputs.plus_months(latest, outputs.OBJECTION_WINDOW_MONTHS)
                 if dl != r.get(
                     "objection_deadline_derived_60d_from_publication"
                 ) or dl2m != r.get("objection_deadline_derived_2m_from_publication"):

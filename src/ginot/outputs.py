@@ -2,7 +2,9 @@
 
 Objection deadlines (both DERIVED from the publication of the deposit notice):
 - objection_deadline_derived_60d_from_publication: +60 days, the legacy
-  conservative display basis.
+  display basis. NOTE: 60d is not always the safe side - for publications in
+  January of a non-leap year or on 31 December it lands one day AFTER the
+  statutory 2-month window (e.g. 15.01.2027 -> 60d 16.03 vs 2m 15.03).
 - objection_deadline_derived_2m_from_publication: +2 calendar months, the
   statutory window for deposited plans (Planning and Building Law 5725-1965
   s.102: "תוך חודשיים" from the latest newspaper publication), computed per
@@ -43,7 +45,7 @@ def _plus_days(ms, days):
     ).strftime("%Y-%m-%d")
 
 
-def _plus_months(iso: str, months: int) -> str:
+def plus_months(iso: str, months: int) -> str:
     """Calendar-month arithmetic per Interpretation Law 5741-1981 s.10(b).
 
     The period ends on the same day-of-month in the final month; when that
@@ -113,7 +115,7 @@ def row_from_feature(attrs: dict, geom: dict | None, council: Polygon | None) ->
         "objection_deadline_derived_60d_from_publication": _plus_days(
             pub, OBJECTION_WINDOW_DAYS
         ),
-        "objection_deadline_derived_2m_from_publication": _plus_months(
+        "objection_deadline_derived_2m_from_publication": plus_months(
             _iso(pub), OBJECTION_WINDOW_MONTHS
         ),
         "pl_area_dunam": attrs.get("pl_area_dunam"),
