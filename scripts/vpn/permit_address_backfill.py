@@ -47,6 +47,33 @@ RAW_FIELDS = ("rehovName", "mispBait", "schunaName")
 ADDRESS_PROC = 242700455
 
 
+# Section: Target selection
+
+
+def select_targets(rows):
+    """Tik numbers needing backfill, in stable feed order."""
+    return [r["tik_num"] for r in rows if needs_backfill(r)]
+
+
+def needs_backfill(row):
+    """Rows whose rendered address could change once raw fields exist:
+    raw fields absent AND (address empty OR address with no house number).
+    Rows already showing a real street address render identically (#452)."""
+    if "rehovName" in row:
+        return False
+    address = (row.get("address") or "").strip()
+    return not address or not has_house_number(address)
+
+
+def has_house_number(address):
+    """A house number is a digit sequence; neighborhood-only strings (#408)
+    like "קטמון הישנה" have none."""
+    return any(ch.isdigit() for ch in address or "")
+
+
+# Section: Strict source fields
+
+
 def address_fields_strict(tik):
     """Raw address fields for the tik from procedure 242700455, WITHOUT
     permit_feed.address_of's None-tolerance: a failed/unparseable response
@@ -82,41 +109,23 @@ def address_fields_strict(tik):
     return {"rehovName": "", "mispBait": "", "schunaName": ""}
 
 
-def data_fingerprint(payload):
-    """Binds a checkpoint to the exact data generation it enriched: if the
-    data file is replaced (e.g. a weekly refresh lands mid-backfill), a
-    stale checkpoint must not skip re-enrichment."""
-    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()
-    return hashlib.sha256(raw).hexdigest()
-
-
-def has_house_number(address):
-    """A house number is a digit sequence; neighborhood-only strings (#408)
-    like "קטמון הישנה" have none."""
-    return any(ch.isdigit() for ch in address or "")
-
-
-def needs_backfill(row):
-    """Rows whose rendered address could change once raw fields exist:
-    raw fields absent AND (address empty OR address with no house number).
-    Rows already showing a real street address render identically (#452)."""
-    if "rehovName" in row:
-        return False
-    address = (row.get("address") or "").strip()
-    return not address or not has_house_number(address)
-
-
-def select_targets(rows):
-    """Tik numbers needing backfill, in stable feed order."""
-    return [r["tik_num"] for r in rows if needs_backfill(r)]
-
-
 def apply_fields(row, fields):
     """Feed semantics (#408): store the raw fields exactly as sourced and
     re-derive the joined address the same way a fresh scan would. An empty
     source yields empty fields - never a guessed address."""
     row.update({k: (fields.get(k) or "") for k in RAW_FIELDS})
     row["address"] = street_address(fields)
+
+
+# Section: Checkpoint identity
+
+
+def data_fingerprint(payload):
+    """Binds a checkpoint to the exact data generation it enriched: if the
+    data file is replaced (e.g. a weekly refresh lands mid-backfill), a
+    stale checkpoint must not skip re-enrichment."""
+    raw = json.dumps(payload, ensure_ascii=False, sort_keys=True).encode()
+    return hashlib.sha256(raw).hexdigest()
 
 
 def load_checkpoint(path, fingerprint):
@@ -141,6 +150,9 @@ def load_checkpoint(path, fingerprint):
         return set()
 
 
+# Section: Durable progress
+
+
 def save_checkpoint(path, done, data_payload):
     """The fingerprint must be computed AT SAVE TIME from the just-flushed
     data: the pre-run fingerprint goes stale the moment flush_data writes
@@ -155,15 +167,18 @@ def save_checkpoint(path, done, data_payload):
     _atomic_write(path, payload)
 
 
-def flush_data(path, payload):
-    _atomic_write(path, payload)
-
-
 def _atomic_write(path, payload):
     tmp = f"{path}.tmp"
     with open(tmp, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=1)
     os.replace(tmp, path)
+
+
+def flush_data(path, payload):
+    _atomic_write(path, payload)
+
+
+# Section: Command line
 
 
 def main():
