@@ -338,3 +338,13 @@ test("forum meeting date is separate from document date", () => {
   assert.equal(november.meeting_date, "2026-11-04");
   assert.equal(november.document_date, "2026-11-04");
 });
+
+test("windows use the 2m field, not the legacy 60d field, and both are returned", () => {
+  const rows = [{ pl_number: "D-4", station_desc: "הפקדה",
+    objection_deadline_derived_60d_from_publication: "2026-11-05",
+    objection_deadline_derived_2m_from_publication: "2026-11-20" }];
+  const r = callTool({ rows }, "upcoming_objection_windows", { days: 30, as_of: "2026-11-01" });
+  assert.equal(r.plans[0].days_left_derived, 19);
+  assert.equal(r.plans[0].objection_deadline_derived_60d_from_publication, "2026-11-05");
+  assert.equal(r.plans[0].objection_deadline_derived_2m_from_publication, "2026-11-20");
+});

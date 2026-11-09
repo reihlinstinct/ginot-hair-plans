@@ -13,7 +13,7 @@ const PROTOCOL = "2024-11-05";
 const NOTE = "Derived from publication dates (two calendar months, s.102); not a verified official deadline. Check the plan's source page.";
 const FIELDS = ["pl_number", "pl_name", "station_desc", "internet_short_status", "entity_subtype_desc",
   "receiving_date", "open_date", "depositing_date", "pl_last_deposit_date",
-  "objection_deadline_derived_2m_from_publication", "pl_area_dunam", "mavat_url",
+  "objection_deadline_derived_2m_from_publication", "objection_deadline_derived_60d_from_publication", "pl_area_dunam", "mavat_url",
   "last_update_date", "land_status", "land_status_date"];
 const pub = (r, pts) => {
   const o = Object.fromEntries(FIELDS.filter((k) => k in r).map((k) => [k, r[k]]));
