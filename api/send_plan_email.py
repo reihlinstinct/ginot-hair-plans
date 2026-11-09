@@ -69,11 +69,9 @@ _CACHE_TTL = 3600.0
 def _languages() -> tuple:
     """Language codes from the single strings document (the same file the
     site generator reads), so a language added there is accepted here."""
-    try:
-        path = Path(__file__).resolve().parent.parent / "src/ginot/i18n/strings.json"
-        return tuple(json.loads(path.read_text(encoding="utf-8"))["languages"])
-    except (OSError, ValueError, KeyError):
-        return ("he",)
+    path = Path(__file__).resolve().parent.parent / "src/ginot/i18n/strings.json"
+    # No silent fallback: if the document did not ship, fail loudly.
+    return tuple(json.loads(path.read_text(encoding="utf-8"))["languages"])
 
 
 LANGS = _languages()

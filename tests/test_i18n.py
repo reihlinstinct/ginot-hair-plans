@@ -134,3 +134,26 @@ def test_api_languages_come_from_the_document():
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     assert set(mod.LANGS) == set(i18n.lang_codes())
+
+
+def test_vercelignore_ships_the_strings_document():
+    """The mail API reads strings.json at runtime, so .vercelignore must not
+    drop it with the rest of src/ (checked with git's own ignore rules)."""
+    import subprocess
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as d:
+        subprocess.run(["git", "init", "-q", d], check=True)
+        (Path(d) / ".gitignore").write_text((ROOT / ".vercelignore").read_text())
+        kept = "src/ginot/i18n/strings.json"
+        dropped = ["src/ginot/page.py", "src/ginot/i18n/__init__.py"]
+        for rel in [kept, *dropped]:
+            (Path(d) / rel).parent.mkdir(parents=True, exist_ok=True)
+            (Path(d) / rel).write_text("x")
+
+        def ignored(rel):
+            r = subprocess.run(["git", "-C", d, "check-ignore", "-q", rel], check=False)
+            return r.returncode == 0
+
+        assert not ignored(kept)
+        assert all(ignored(x) for x in dropped)
