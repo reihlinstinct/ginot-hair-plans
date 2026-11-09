@@ -163,3 +163,26 @@ def test_mobile_ai_header_hidden_review_links_preserved(browser, served):
     assert pg.locator("#plans thead th button").first.is_visible()
     assert pg.locator("#plans tbody tr").first.locator("td:nth-child(8)").is_visible()
     ctx.close()
+
+
+# Section: Layout regression - group chips must not overlap on a phone
+@pytest.mark.evidence
+def test_mobile_group_chips_do_not_overlap(mobile_page):
+    """Real layout check at 390px: with "קבוצות נוספות" open, no two legend
+    chips intersect and every chip stays inside the viewport. Markup and CSS
+    string tests cannot catch this (phone screenshot, PR #948)."""
+    mobile_page.evaluate(
+        "document.querySelector('#pfgroups .more-statuses').open = true"
+    )
+    boxes = mobile_page.locator("#pfgroups .chip").evaluate_all(
+        "els => els.map(e => { const r = e.getBoundingClientRect();"
+        " return {t: e.textContent.trim(), l: r.left, r: r.right,"
+        " tp: r.top, b: r.bottom}; })"
+    )
+    assert len(boxes) >= 4, boxes
+    for i, a in enumerate(boxes):
+        assert a["l"] >= -1 and a["r"] <= 391, f"outside viewport: {a}"
+        for b in boxes[i + 1 :]:
+            overlap_x = min(a["r"], b["r"]) - max(a["l"], b["l"])
+            overlap_y = min(a["b"], b["b"]) - max(a["tp"], b["tp"])
+            assert not (overlap_x > 1 and overlap_y > 1), f"chips overlap: {a} {b}"
