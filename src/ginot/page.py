@@ -12,111 +12,34 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 """
 
 import datetime
-import html
 import json
 import re
 import urllib.parse as _urlparse_mod
 
 from . import __version__
 from .dates import today_il
+from .page_resources import (  # noqa: F401 - keep the page module API
+    _ANALYTICS_SNIPPET,
+    _CSS,
+    _DATASETS_JS,
+    _SOURCES_REDIRECT,
+    _SOURCES_ROWS,
+    _e,
+)
+from .page_secondary import (  # noqa: F401 - keep the page module API
+    render_about,
+    render_feed,
+    render_review,
+    review_social_meta,
+)
 from .public_api import project as public_project
+
+# Section: Main table controls and search
 
 URGENT_DAYS = 30  # objection-window days for the urgent row (issue #153)
 ACTIVE_STATUSES = ("הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך")
 DEPOSIT_MARK = "הפקדה"
 COLLAPSE_TOP = 20
-
-_CSS = """body{font-family:system-ui,Arial;max-width:1100px;margin:1em auto;padding:0 1em;background:#f3f6ff;color:#1f2937}
-h1{color:#101f5b;border-right:6px solid #51b89a;padding-right:12px}
-h2{color:#101f5b}
-a{color:#00a8cf}
-table{border-collapse:collapse;width:100%;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(16,31,91,.08)}
-td,th{border:1px solid #dde4f6;padding:4px 8px;font-size:14px}
-th{background:#101f5b;color:#fff;position:sticky;top:0}
-th button{background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:0}
-th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:" ▼"}
-tbody tr:nth-child(even){background:#f3f6ff}
-.chip{border-radius:8px;padding:1px 8px;background:#dde4f6;color:#101f5b;white-space:nowrap}
-.chip.c-deposit{background:#e8c31d;color:#1f2937}.chip.c-review{background:#00a8cf;color:#fff}
-.chip.c-cond{background:#c8a4de;color:#1f2937}.chip.c-decision{background:#ff8c00;color:#1f2937}
-.chip.c-inproc{background:#51b89a;color:#fff}.chip.c-approved{background:#6db633;color:#fff}
-.chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
-.legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
-.legend .chip{cursor:pointer}
-.more-statuses{display:inline}
-.more-statuses summary{display:inline-block;cursor:pointer;color:#101f5b;font-weight:700}
-.legend .chip.sel{outline:2px solid #101f5b;outline-offset:1px}
-.derived{color:#666}.new td{background:#fdf3d7}
-#filters,#pfilters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 8px;
-padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-shadow:0 1px 3px rgba(16,31,91,.08)}
-#filters input[type=search],#pfilters input[type=search]{flex:1;min-width:180px}
-#fcount{font-size:12px;color:#555}
-#more,#freset,#pfreset{background:#51b89a;color:#fff;border:0;border-radius:8px;cursor:pointer}
-#more{margin:6px 0;padding:8px 16px}
-#freset,#pfreset{padding:6px 12px}
-tr.filtered-out{display:none}
-.pub-missing{color:#8a6d00;font-size:.85em;font-style:italic}
-#urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
-#changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
-#changes-list li{margin:4px 0}
-.ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
-.review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
-.review-body h1{font-size:22px}.review-body h2{font-size:18px;margin-top:18px}.review-body h3{font-size:16px}
-.review-body li{margin:4px 0}
-.external-reviews{max-width:900px;margin:14px 0;border:1px dashed #9aa6c8;border-radius:10px;padding:8px 14px;background:#f7f8fc}
-.external-reviews summary{cursor:pointer;font-weight:600}.ext-note,.ext-meta{color:#5a6485;font-size:13px}
-#urgent-list li{margin:4px 0}
-#datasets-list li{margin:4px 0}
-footer{margin-top:24px;padding-top:10px;border-top:1px solid #dde4f6;font-size:13px;color:#555}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:1em}
-.stats>div{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:10px}
-.bars .bar{display:flex;align-items:center;gap:6px;margin:2px 0}
-.bars .bl{flex:0 0 10em;overflow-wrap:anywhere}.bars .bt{display:block;flex:1;min-width:30px;height:14px;background:#e1e7ed;border-radius:4px;overflow:hidden}.bars .bf{display:block;height:100%;background:#101f5b;border-radius:4px}.bars .bv{flex:0 0 3ch;text-align:left;font-variant-numeric:tabular-nums}
-
-@media (max-width:700px){
-body{margin:.5em auto;padding:0 .75em;font-size:16px;line-height:1.45}
-h1{font-size:22px;line-height:1.3}h2{font-size:19px}
-body>p{font-size:14px}
-#filters,#pfilters{flex-direction:column;align-items:stretch;gap:10px}
-#filters input,#filters select,#filters button,#pfilters input,#pfilters select,#pfilters button{
-font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
-#filters label,#pfilters label{display:flex;align-items:center;gap:10px;min-height:44px;font-size:16px}
-#filters input[type=checkbox],#pfilters input[type=checkbox]{width:24px;min-height:24px;height:24px}
-#more{width:100%;min-height:44px;font-size:16px}
-.legend .chip{padding:8px 12px;font-size:14px}
-#plans,#plans tbody,#plans tr,#plans td,#permits-table,#permits-table tbody,#permits-table tr,#permits-table td{display:block;width:auto}
-#plans thead tr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-#plans thead th{display:block;background:#fff;border:1px solid #51b89a;border-radius:16px;padding:0;position:static;color:#101f5b}
-#plans thead th button{color:#101f5b}
-#plans thead th:nth-child(8){display:none}
-
-#plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
-#permits-table td:nth-child(9)::before{content:"סקירת AI"}
-#permits-table thead{display:none}
-#plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
-#plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-#plans td::before,#permits-table td::before{color:#666;font-size:13px;flex:none}
-#plans td:nth-child(1){font-weight:600;font-size:17px}
-#plans td:nth-child(2){font-size:16px;padding-bottom:6px}
-#plans td:nth-child(3){padding-bottom:6px}
-#plans td:nth-child(4)::before{content:"קליטה"}
-#plans td:nth-child(5)::before{content:"הפקדה"}
-#plans td:nth-child(6)::before{content:"אחרון להתנגדות (משוער)"}
-#plans td:nth-child(7)::before{content:"שטח (דונם)"}
-#plans td:nth-child(8)::before{content:"סקירת AI"}
-#permits-table td:nth-child(1){font-weight:600}
-#permits-table td:nth-child(2)::before{content:"כתובת"}
-#permits-table td:nth-child(3)::before{content:"מהות"}
-#permits-table td:nth-child(4)::before{content:"סוג"}
-#permits-table td:nth-child(5)::before{content:"סטטוס"}
-#permits-table td:nth-child(6)::before{content:"תאריך סטטוס"}
-#permits-table td:nth-child(7)::before{content:"תחילת פרסום"}
-#permits-table td:nth-child(8)::before{content:"סיום פרסום"}
-tr.filtered-out{display:none!important}
-.stats{grid-template-columns:1fr}.bars .bl{width:8em}
-footer{font-size:14px;line-height:1.8}footer a{display:inline-block;min-height:32px}
-}
-"""
 
 # Shared search folding for the plans (#fq) and permits (#pfq) tables, applied
 # identically to the query and to each row's data-search text (#413, #468).
@@ -302,8 +225,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
-def _e(s):
-    return html.escape(str(s or ""))
+# Section: Plan formatting and statistics
 
 
 def _iso(d) -> str:
@@ -429,6 +351,9 @@ def stats_section(rows: list[dict]) -> str:
 <div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits_by_month)}</div>
 <div><h3>אישורים לפי שנה</h3>{_bars(approvals_by_year)}</div>
 </div></details>"""
+
+
+# Section: Permit policy and projection
 
 
 def _permit_status_class(status: str) -> str:
@@ -945,6 +870,8 @@ def _permits_section(
 </section>"""
 
 
+# Section: Permit browser controller
+
 _PERMITS_JS = """
 (function(){
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
@@ -1441,6 +1368,9 @@ sortRows();apply();
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
+# Section: Main page rendering
+
+
 def _social_meta(council_name: str, base_url: str, preview_image: bool) -> str:
     """Open Graph + Twitter card tags. The image URL must be absolute, so the
     image tags appear only with a base_url and a generated og.png."""
@@ -1658,63 +1588,7 @@ if(dirty)history.replaceState(null,'',u);}}catch(e){{}}}})();</script>
 </body></html>"""
 
 
-_SOURCES_ROWS = [
-    (
-        "תכניות במינהל",
-        "שירות התכנון הציבורי (iplan), מנהל התכנון",
-        "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
-        "רענון שבועי (יום שלישי) ורענונים ידניים",
-        '<a href="data.json">data.json</a>',
-    ),
-    (
-        "פרסומי הפקדה",
-        "land.gov.il - מינהל מקרקעי ישראל",
-        "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
-        "רענון שבועי",
-        '<a href="https://land.gov.il">land.gov.il</a>',
-    ),
-    (
-        "בקשות היתר",
-        "איתור נתונים ברישוי, עיריית ירושלים",
-        "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
-        "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
-        '<a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a>',
-    ),
-    (
-        "מסמכי תכנית וסקירות AI",
-        'מאב"ת - מערכת איתור בינוי ותכניות',
-        "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
-        "לפי צורך, לתכניות נבחרות",
-        '<a href="https://mavat.iplan.gov.il/">מאב"ת</a>',
-    ),
-    (
-        "גבול המינהל",
-        "קובץ גבול גיאוגרפי במאגר",
-        "פוליגון שטח המינהל הקהילתי (geojson)",
-        "עדכון ידני בשינוי גבול",
-        '<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a>',
-    ),
-]
-
-_ANALYTICS_SNIPPET = (
-    "\n<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->"
-    "\n<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js'"
-    ' data-cf-beacon=\'{"token": "ddb51e25c65545bea5cda52329983b4c"}\'></script>'
-)
-
-
-_SOURCES_REDIRECT = """<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
-<meta http-equiv="refresh" content="0; url=about.html">
-<title>מקורות נתונים</title>
-<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="favicon.ico?v=20261022">
-<link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=20261022">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
-<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
-<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head>
-<body><p>העמוד עבר: <a href="about.html">אודות ומקורות נתונים</a></p></body></html>
-"""
+# Section: Privacy-limited usage counters
 
 _STATS_JS = r"""
 // Anonymous usage statistics (#821): aggregate counters only. A search is
@@ -1804,218 +1678,7 @@ function reportPermits(){
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
-_DATASETS_JS = """
-fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
-  var ul=document.getElementById('datasets-list');if(!ul)return;
-  ul.innerHTML=(ix.datasets||[]).map(function(d){
-    return '<li><a href="'+String(d.url).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'">'+String(d.name).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</a>'+
-      (d.records!=null?' - '+d.records+' \u05e8\u05e9\u05d5\u05de\u05d5\u05ea':'')+'</li>';
-  }).join('')||'<li>\u05d0\u05d9\u05df</li>';
-}).catch(function(){
-  var ul=document.getElementById('datasets-list');
-  if(ul)ul.innerHTML='<li>\u05e8\u05e9\u05d9\u05de\u05ea \u05de\u05e2\u05e8\u05db\u05d9 \u05d4\u05e0\u05ea\u05d5\u05e0\u05d9\u05dd \u05dc\u05d0 \u05d6\u05de\u05d9\u05e0\u05d4 \u05db\u05e8\u05d2\u05e2</li>';
-});
-"""
-
-
-def render_about(generated: str, council_name: str) -> str:
-    """Combined About + data-sources + datasets page (issue: datasets off the
-    main page, owner request 2026-10-21). Generated with the site so the
-    update stamp stays current; the datasets list loads from index.json."""
-    rows = "".join(
-        f"<tr><td>{_e(name)}</td><td>{_e(src)}</td><td>{_e(what)}</td>"
-        f"<td>{_e(cad)}</td><td>{link}</td></tr>"
-        for name, src, what, cad, link in _SOURCES_ROWS
-    )
-    return f"""<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>אודות ומקורות נתונים - {_e(council_name)}</title>
-<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="favicon.ico?v=20261022">
-<link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=20261022">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
-<meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css">{_ANALYTICS_SNIPPET}</head><body>
-<h1>אודות האתר</h1>
-<p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
-<strong>גינות העיר</strong> בירושלים, ומתעדכן אוטומטית. עודכן: {_e(generated)}.</p>
-<div class="ai-banner">האתר הוא <strong>יוזמה עצמאית של הוועד</strong> ואינו אתר רשמי של עיריית
-ירושלים, מנהל התכנון או רשות מקרקעי ישראל. המידע באתר הוא לנוחות בלבד,
-אינו תחליף למקורות הרשמיים ואינו ייעוץ משפטי. מועדי התנגדות המוצגים הם
-הערכה בלבד - המועד המחייב נקבע לפי הודעות ההפקדה הרשמיות.</div>
-<h2>מקורות נתונים</h2>
-<table id="plans"><thead><tr><th>מערך נתונים</th><th>מקור</th><th>מה נאסף</th><th>תדירות עדכון</th><th>קישורים</th></tr></thead>
-<tbody>{rows}</tbody></table>
-<h2>מערכי נתונים</h2>
-<ul id="datasets-list"><li>טוען רשימה...</li></ul>
-<h2>גישה לנתונים (API)</h2>
-<p>הנתונים זמינים כקבצים סטטיים (JSON / Atom) לשימוש חופשי, עם CORS פתוח.
-אין שאילתות צד-שרת - הסינון מתבצע אצל הלקוח. כל הקבצים מתעדכנים בכל רענון
-של האתר (רענון שבועי ורענונים ידניים).</p>
-<table id="plans"><thead><tr><th>קובץ</th><th>תוכן</th><th>מבנה</th></tr></thead><tbody>
-<tr><td><a href="data.json">data.json</a></td><td>מערך הנתונים המלא: תכניות, שינויים אחרונים ובקשות היתר</td>
-<td>{{generated, rows[], changes[], permits[]}} - שמות השדות כפי שהגיעו מ-iplan / איתור הנתונים ברישוי</td></tr>
-<tr><td><a href="open.json">open.json</a></td><td>תכניות פתוחות בלבד (עדיין בתהליך תכנוני)</td>
-<td>{{generated, definition, count, plans[]}} - כל רשומה כוללת in_objection_period (חלון התנגדויות פתוח היום)</td></tr>
-<tr><td><a href="feed.xml">feed.xml</a></td><td>פיד Atom של תכניות חדשות ושינויים</td><td>Atom 1.0</td></tr>
-<tr><td><a href="badge/plans.json">badge/*.json</a></td><td>נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)</td>
-<td>{{schemaVersion, label, message, color}}</td></tr>
-<tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
-<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status</td>
-<td>JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)</td></tr>
-</tbody></table>
-<h2>פרטיות</h2>
-<p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
-(למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
-אף שהם גלויים במקור.</p>
-<p>ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים
-בלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו
-נשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.</p>
-<p>סטטיסטיקת שימוש: האתר אוסף מונים מצטברים ואנונימיים על חיפושים ומסננים
-(אילו תכניות, רחובות ומסננים מחפשים). חיפוש נספר רק כשהוא תואם בדיוק לערך
-מהנתונים עצמם; טקסט חופשי לעולם אינו יוצא מהדפדפן. המונים פומביים ומוצגים
-בסעיף "סטטיסטיקת שימוש" בעמוד זה.</p>
-<h2>סטטיסטיקת שימוש</h2>
-<p>מונים מצטברים ואנונימיים של חיפושים ומסננים באתר (30 יום אחרונים),
-ישירות ממוני השרת הציבוריים.</p>
-<div id="usage-stats">טוען…</div>
-<script>(function(){{
-var el=document.getElementById('usage-stats');if(!el)return;
-function esc(s){{return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}}
-fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){{return r.json();}}).then(function(d){{
-  var NAMES={{search:'חיפושי תכניות',permits_search:'חיפושי בקשות',filter:'מסנני תכניות',permits_filter:'מסנני בקשות'}};
-  var html='',any=false;
-  Object.keys(NAMES).forEach(function(e){{
-    var m=(d.events||{{}})[e];if(!m)return;
-    var keys=Object.keys(m).slice(0,10);if(!keys.length)return;
-    var items=keys.map(function(k){{
-      // Defense in depth: render counts only as plain integers.
-      var n=parseInt(m[k],10);
-      return isFinite(n)&&n>=0?'<li>'+esc(k)+': '+n+'</li>':'';
-    }}).join('');
-    if(items){{any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}}
-  }});
-  el.innerHTML=any?html:'<p>אין עדיין נתונים.</p>';
-}}).catch(function(){{el.textContent='';}});
-}})();</script>
-<h2>קוד ונתונים</h2>
-<p>קוד האתר והנתונים המעובדים פתוחים:
-<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
-רוצים לעזור? <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>.</p>
-<p><a href="index.html">חזרה לעמוד הראשי</a></p>
-<footer dir="rtl"><p>
-אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
-<script>{_DATASETS_JS}</script>
-</body></html>"""
-
-
-def review_social_meta(pl_number, plan_name, base_url, has_image, early_intent=False):
-    title = f"סקירת AI - {pl_number}" + (f" | {plan_name}" if plan_name else "")
-    desc = (
-        "נקודות לדיון מתוך מסמכי התכנית. סיכום אוטומטי, לא מסמך רשמי ולא ייעוץ מקצועי."
-    )
-    if early_intent:
-        desc = (
-            "הכנה מוקדמת בלבד מרישום ציבורי. לא נבדקה תכנית מפורטת; "
-            "אין תחזית הפקדה. סיכום אוטומטי, לא מסמך רשמי ולא ייעוץ מקצועי."
-        )
-    tags = [
-        ("property", "og:type", "article"),
-        ("property", "og:locale", "he_IL"),
-        ("property", "og:title", title),
-        ("property", "og:description", desc),
-        ("name", "description", desc),
-        ("name", "twitter:title", title),
-        ("name", "twitter:description", desc),
-    ]
-    if base_url:
-        base = base_url.rstrip("/") + "/"
-        tags.append(
-            ("property", "og:url", base + f"reviews/talking_points_{pl_number}.html")
-        )
-        image = base + (f"reviews/og_{pl_number}.png" if has_image else "og.png")
-        tags += [
-            ("property", "og:image", image),
-            ("property", "og:image:width", "1200"),
-            ("property", "og:image:height", "630"),
-            ("property", "og:image:type", "image/png"),
-            ("property", "og:image:alt", title),
-            ("name", "twitter:image", image),
-            ("name", "twitter:card", "summary_large_image"),
-        ]
-    else:
-        tags.append(("name", "twitter:card", "summary"))
-    return "\n".join(
-        f'<meta {key}="{name}" content="{_e(value)}">' for key, name, value in tags
-    )
-
-
-def render_review(
-    pl_number: str,
-    md_text: str,
-    generated: str,
-    council_name: str,
-    base_url: str = "",
-    plan_name: str = "",
-    preview_image: bool = False,
-    external_html: str = "",
-) -> str:
-    """Render a plan's AI talking-points markdown as a styled site page
-    (issue #177). The .md stays the source of truth in the repo; the site
-    render converts it - no separate Action. Clearly labelled AI content."""
-    import markdown
-
-    body = markdown.markdown(
-        md_text, extensions=["tables", "fenced_code", "sane_lists"]
-    )
-    early_intent = "<!-- review-stage: early-intent -->" in md_text
-    social = review_social_meta(
-        pl_number, plan_name, base_url, preview_image, early_intent
-    )
-    basis = (
-        "הכנה מוקדמת מרישום ציבורי בלבד; לא נבדקה תכנית מפורטת."
-        if early_intent
-        else "מתוך מסמכי התכנית הרשמיים."
-    )
-    return f"""<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>סקירת AI - תכנית {_e(pl_number)}</title>
-{social}
-<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="../favicon.ico?v=20261022">
-<link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg?v=20261022">
-<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=20261022">
-<meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="../style.css">{_ANALYTICS_SNIPPET}</head><body>
-<div class="ai-banner"><b>סקירת AI</b> - סיכום נקודות לדיון שהופק <b>אוטומטית באמצעות AI</b>
-{basis} התוכן אינו מסמך רשמי ואינו תחליף לקריאתם במו"ת.</div>
-<article class="review-body">
-{body}
-</article>
-{external_html}
-<p><a href="../index.html">חזרה לעמוד הראשי</a> &middot; עודכן: {_e(generated)}</p>
-<footer dir="rtl"><p>
-אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
-</body></html>"""
-
-
-def render_feed(
-    changes: list[dict], generated: str, council_name: str, base_url: str = ""
-) -> str:
-    entries = "".join(
-        f"""<entry><title>{_e(c["kind"])}: {_e(c["pl_number"])} {_e(c["pl_name"])}</title>
-<link href="{_e(c["mavat_url"])}"/><id>urn:ginot:{_e(c["pl_number"])}:{_e(c["kind"])}:{_e(generated)}</id>
-<updated>{_e(generated)}T00:00:00Z</updated></entry>"""
-        for c in changes
-    )
-    return f"""<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="he">
-<title>תכניות חדשות - {_e(council_name)}</title><id>{_e(base_url or "urn:ginot:feed")}</id>
-<updated>{_e(generated)}T00:00:00Z</updated>{entries}</feed>"""
+# Section: Site output orchestration
 
 
 def render_site(
