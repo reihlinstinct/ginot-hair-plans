@@ -20,6 +20,9 @@ REPO = "owner/data-repo"
 PREFIX = "weekly-refresh/"
 
 
+# Section: Synthetic GitHub responses
+
+
 def pr(number, ref, repo=REPO):
     head_repo = None if repo is None else {"full_name": repo}
     return {"number": number, "head": {"ref": ref, "repo": head_repo}}
@@ -39,6 +42,9 @@ def fake(pages, calls=None):
         return body if isinstance(body, str) else json.dumps(body)
 
     return fetch
+
+
+# Section: Pending pull request selection
 
 
 def test_none_pending():
@@ -137,6 +143,9 @@ def test_malformed_pages_fail_closed(page):
 def test_empty_prefix_fails_closed():
     with pytest.raises(guard.GuardError):
         guard.pending_prs(REPO, "", fetch=fake([[]]))
+
+
+# Section: CLI and transport boundaries
 
 
 def test_main_api_error_exits_nonzero_without_verdict(tmp_path, monkeypatch, capsys):

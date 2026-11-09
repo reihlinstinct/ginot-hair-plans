@@ -18,6 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 CHECKER = ROOT / "scripts" / "ci" / "check_repo_layout.py"
 
 
+# Section: Isolated repository fixtures
+
+
 @pytest.fixture(autouse=True)
 def isolate_git_environment(monkeypatch):
     import importlib.util
@@ -36,6 +39,9 @@ def run_checker():
         capture_output=True,
         text=True,
     )
+
+
+# Section: Repository contract checks
 
 
 def test_repo_layout_conforms():
@@ -109,6 +115,9 @@ def test_checker_rejects_unlisted_directory_and_wrong_file_type(tmp_path):
     assert result.returncode == 1
     assert "unlisted top-level directory: unplanned/" in result.stdout
     assert "type not allowed in data/: data/stray.py" in result.stdout
+
+
+# Section: Workflow and environment boundaries
 
 
 def test_ci_layout_guard_is_unconditional_and_before_lint():

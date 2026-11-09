@@ -94,6 +94,9 @@ PERMISSION_ALLOWLIST = {
 }
 
 
+# Section: Command normalization and gate checks
+
+
 def normalize(text):
     text = text.replace("\\\n", " ")
     lines = [ln for ln in text.splitlines() if not ln.lstrip().startswith("#")]
@@ -176,6 +179,9 @@ def scan_script(file, text):
     return found
 
 
+# Section: Checked-in workflow audit
+
+
 def test_no_workflow_or_ci_script_can_bypass_review():
     found = []
     for path in sorted(p for p in WORKFLOWS.iterdir() if p.suffix in {".yml", ".yaml"}):
@@ -219,6 +225,9 @@ jobs:
           gh pr create --base main --head "$BRANCH"
           git push origin HEAD:badge-data
 """
+
+
+# Section: Synthetic bypass regressions
 
 
 def planted(

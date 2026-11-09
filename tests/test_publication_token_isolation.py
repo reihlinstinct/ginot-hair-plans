@@ -26,6 +26,9 @@ PUBLICATION_SECRETS = ("REFRESH_DISPATCH_TOKEN", "PARCEL_AUDIT_DISPATCH_TOKEN")
 INTERPRETER = re.compile(r"\b(python[0-9.]*|pip[0-9.]*|pytest|node|npm|npx|uv|pipx)\b")
 
 
+# Section: Workflow boundary inspection
+
+
 def load(text=None):
     return yaml.safe_load(text if text is not None else WORKFLOW.read_text())
 
@@ -74,6 +77,9 @@ def violations(doc):
                 f"{name}: renderer dependencies share a job with a publication secret"
             )
     return found
+
+
+# Section: Token isolation assertions
 
 
 def test_publication_secrets_never_share_a_job_with_python():
@@ -185,6 +191,9 @@ def test_mutations_that_expose_the_token_are_caught(mutation):
 # ---- bundle verification against synthetic repositories -------------------
 
 
+# Section: Offline publication repository fixtures
+
+
 def git(cwd, *args):
     return subprocess.run(
         ["git", *args], cwd=cwd, check=True, capture_output=True, text=True
@@ -241,6 +250,9 @@ def write(rel, text="{}\n"):
         (repo / rel).write_text(text)
 
     return change
+
+
+# Section: Bundle validation
 
 
 @pytest.mark.parametrize(
