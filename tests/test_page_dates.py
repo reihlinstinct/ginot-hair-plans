@@ -11,7 +11,7 @@ def _row(n, status, recv="", dep="", deadline="", flag="inside"):
         "receiving_date": recv,
         "pl_last_deposit_date": dep,
         "depositing_date": "",
-        "objection_deadline_derived_60d_from_publication": deadline,
+        "objection_deadline_derived_2m_from_publication": deadline,
         "pl_area_dunam": 1.0,
         "inside_flag": flag,
         "mavat_url": "https://mavat.iplan.gov.il/x",
@@ -166,3 +166,15 @@ def test_more_groups_css_wraps_chips_in_flex_container():
     css = page_resources._CSS
     assert ".more-chips{display:flex;flex-wrap:wrap;gap:6px" in css
     assert ".more-statuses{flex:1 1 100%}" in css
+
+
+# Section: the 2m field drives behaviour, not the legacy 60d field (#937)
+def test_open_objection_uses_2m_not_60d_field():
+    # 15.01 publication: 60d ends 16.03, 2m ends 15.03.
+    r = {
+        "station_desc": "הפקדה להתנגדויות",
+        "objection_deadline_derived_60d_from_publication": "2026-03-16",
+        "objection_deadline_derived_2m_from_publication": "2026-03-15",
+    }
+    assert page._is_open_objection(r, "2026-03-15") is True
+    assert page._is_open_objection(r, "2026-03-16") is False

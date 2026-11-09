@@ -4,9 +4,9 @@ import assert from "node:assert/strict";
 import { callTool, rpc, handleRequest, reviewText, loadReviews } from "./mcp.mjs";
 
 const data = { generated: "2026-10-22", rows: [
-  { pl_number: "A-1", pl_name: "Alpha", station_desc: "הפקדה להתנגדויות", objection_deadline_derived_60d_from_publication: "2026-11-05", private_note: "SECRET" },
-  { pl_number: "B-2", pl_name: "Beta", station_desc: "אישור", objection_deadline_derived_60d_from_publication: "2026-11-06" },
-  { pl_number: "C-3", pl_name: "Gamma", station_desc: "הפקדה", objection_deadline_derived_60d_from_publication: "bad" },
+  { pl_number: "A-1", pl_name: "Alpha", station_desc: "הפקדה להתנגדויות", objection_deadline_derived_2m_from_publication: "2026-11-05", private_note: "SECRET" },
+  { pl_number: "B-2", pl_name: "Beta", station_desc: "אישור", objection_deadline_derived_2m_from_publication: "2026-11-06" },
+  { pl_number: "C-3", pl_name: "Gamma", station_desc: "הפקדה", objection_deadline_derived_2m_from_publication: "bad" },
 ] };
 const post = (body) => new Request("https://x/mcp", { method: "POST", body: typeof body === "string" ? body : JSON.stringify(body) });
 const fake = async () => new Response(JSON.stringify(data));
@@ -337,4 +337,14 @@ test("forum meeting date is separate from document date", () => {
   const november = sources.get("urban-forum-2026-11-04");
   assert.equal(november.meeting_date, "2026-11-04");
   assert.equal(november.document_date, "2026-11-04");
+});
+
+test("windows use the 2m field, not the legacy 60d field, and both are returned", () => {
+  const rows = [{ pl_number: "D-4", station_desc: "הפקדה",
+    objection_deadline_derived_60d_from_publication: "2026-11-05",
+    objection_deadline_derived_2m_from_publication: "2026-11-20" }];
+  const r = callTool({ rows }, "upcoming_objection_windows", { days: 30, as_of: "2026-11-01" });
+  assert.equal(r.plans[0].days_left_derived, 19);
+  assert.equal(r.plans[0].objection_deadline_derived_60d_from_publication, "2026-11-05");
+  assert.equal(r.plans[0].objection_deadline_derived_2m_from_publication, "2026-11-20");
 });

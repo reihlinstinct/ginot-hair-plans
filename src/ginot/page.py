@@ -257,7 +257,7 @@ def _deposit_date(r) -> str:
 
 def _is_open_objection(r, today: str) -> bool:
     st = r.get("station_desc") or ""
-    deadline = _iso(r.get("objection_deadline_derived_60d_from_publication"))
+    deadline = _iso(r.get("objection_deadline_derived_2m_from_publication"))
     return bool(DEPOSIT_MARK in st and deadline and deadline >= today)
 
 
@@ -281,16 +281,16 @@ def sort_rows(rows: list[dict], today: str | None = None) -> list[dict]:
         (
             r
             for r in rows
-            if _iso(r.get("objection_deadline_derived_60d_from_publication"))
+            if _iso(r.get("objection_deadline_derived_2m_from_publication"))
         ),
-        key=lambda r: _iso(r["objection_deadline_derived_60d_from_publication"]),
+        key=lambda r: _iso(r.get("objection_deadline_derived_2m_from_publication")),
         reverse=True,
     )
     without_dl = sorted(
         (
             r
             for r in rows
-            if not _iso(r.get("objection_deadline_derived_60d_from_publication"))
+            if not _iso(r.get("objection_deadline_derived_2m_from_publication"))
         ),
         key=lambda r: _iso(r.get("receiving_date")),
         reverse=True,
@@ -936,7 +936,7 @@ def render_index(
         attrs = (
             f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
             f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
-            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_iso(r['objection_deadline_derived_60d_from_publication']))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
+            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_iso(r.get('objection_deadline_derived_2m_from_publication')))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
             f"data-active='{1 if r['_open_obj'] or _is_active(r) else 0}' data-search='{search}'"
         )
         cls = "new" if r.get("_is_new") else ""
@@ -946,7 +946,7 @@ def render_index(
             f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
             f"<td>{_date_cell(r['receiving_date'])}</td>"
             f"<td>{_date_cell(_deposit_date(r))}</td>"
-            f"<td class='derived'>{_date_cell(r['objection_deadline_derived_60d_from_publication'])}</td>"
+            f"<td class='derived'>{_date_cell(r.get('objection_deadline_derived_2m_from_publication'))}</td>"
             f"<td>{_e(r['pl_area_dunam'])}</td><td>{review_cell(r)}</td></tr>"
         )
 
@@ -965,7 +965,7 @@ def render_index(
     gen_d = datetime.date.fromisoformat(generated)
 
     def _urgent_window(r):
-        iso = _iso(r["objection_deadline_derived_60d_from_publication"])
+        iso = _iso(r.get("objection_deadline_derived_2m_from_publication"))
         if not iso:
             return False
         try:
@@ -976,12 +976,12 @@ def render_index(
 
     urgent = sorted(
         (r for r in rows if _urgent_window(r)),
-        key=lambda r: _iso(r["objection_deadline_derived_60d_from_publication"]),
+        key=lambda r: _iso(r.get("objection_deadline_derived_2m_from_publication")),
     )
     urgent_html = (
         "".join(
             f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
-            f"אחרון להתנגדות (משוער): {_e(_fmt(r['objection_deadline_derived_60d_from_publication']))}</li>"
+            f"אחרון להתנגדות (משוער): {_e(_fmt(r.get('objection_deadline_derived_2m_from_publication')))}</li>"
             for r in urgent
         )
         or "<li>אין</li>"
@@ -1025,7 +1025,7 @@ def render_index(
 תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.
 מוצגות {COLLAPSE_TOP} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.
 תכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו "הצג תכניות מאושרות" כדי לראותן.</p>
-<p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + 60 יום) - לבדיקה מול המו"ת.</p>
+<p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים) - לבדיקה מול המו"ת.</p>
 <p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
 {legend}
 <div id="filters">

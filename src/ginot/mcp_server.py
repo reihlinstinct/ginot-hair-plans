@@ -15,7 +15,7 @@ from .dates import today_il
 
 PROTOCOL = "2024-11-05"
 DERIVED_NOTE = (
-    "Derived from publication dates (60 days); not a verified official "
+    "Derived from publication dates (two calendar months); not a verified official "
     "deadline. Check the plan's source page before relying on it."
 )
 PUBLIC_FIELDS = (
@@ -127,7 +127,7 @@ def call_tool(data, name, args):
             raise ToolError("as_of must be YYYY-MM-DD")
         out = []
         for r in rows:
-            raw = r.get("objection_deadline_derived_60d_from_publication")
+            raw = r.get("objection_deadline_derived_2m_from_publication")
             try:
                 end = datetime.date.fromisoformat(raw)
             except (TypeError, ValueError):

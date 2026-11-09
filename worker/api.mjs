@@ -51,7 +51,7 @@ export function filterPlans(rows, p) {
   const deadline = p.get("before"); // objection deadline on/before YYYY-MM-DD
   if (deadline) {
     out = out.filter((r) => {
-      const d = r.objection_deadline_derived_60d_from_publication;
+      const d = r.objection_deadline_derived_2m_from_publication;
       return d && d <= deadline;
     });
   }

@@ -57,7 +57,7 @@ human reviewer.
 4. `src/ginot/outputs.py` - plan table: number, name, status, deposit /
    publication / approval dates, area, inside-vs-partial flag, Mavat link
    (`pl_url`), and a **derived** objection deadline (publication of the deposit
-   notice + 60 days; flagged as derived - always verify against Mavat).
+   notice + two calendar months (s.102); flagged as derived - always verify against Mavat).
 5. `src/ginot/tracking.py` - merge the planner's local tracking states into
    the rows; advisory urgent flag when an undecided plan's derived objection
    deadline is within 30 days.
@@ -132,7 +132,7 @@ Served from `https://reihlinstinct.github.io/ginot-hair-plans/` with
 | File | Contents |
 | --- | --- |
 | `data.json` | Full dataset: `{generated, rows[], changes[], permits[]}` - field names as they arrive from iplan / the municipal permit search |
-| `open.json` | Open plans only (still in the planning process; definition: `station_desc != "אישור"`). `{generated, definition, count, plans[]}`, each row with `in_objection_period` - evaluated as of `generated` (Israel time); to recompute "now" from scratch, derive it from `objection_deadline_derived_60d_from_publication` instead |
+| `open.json` | Open plans only (still in the planning process; definition: `station_desc != "אישור"`). `{generated, definition, count, plans[]}`, each row with `in_objection_period` - evaluated as of `generated` (Israel time); to recompute "now" from scratch, derive it from `objection_deadline_derived_2m_from_publication` instead |
 | `feed.xml` | Atom feed of new/changed plans |
 | `badge/*.json` | shields.io endpoints (plan count, per-status counts, updated date) |
 
@@ -228,7 +228,7 @@ updates, CODEOWNERS, SECURITY.md. No credentials or personal data in the repo
 
 - `receiving_date` is used as "entry into the system" for the sort order;
   `open_date`/`date_saf` are also exported per plan.
-- The objection deadline is a computed estimate (+60d); only plans in הפקדה
+- The objection deadline is a computed estimate (+2 calendar months, the statutory s.102 window); only plans in הפקדה
   status have a live objection window.
 - Plan documents (הוראות/תשריט) from Mavat: feasibility research in progress
   (see issues); nothing is downloaded or auto-filed.

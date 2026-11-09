@@ -4,10 +4,10 @@ import { filterPlans, filterPermits, handleRequest, streetOf } from "./api.mjs";
 
 const rows = [
   { pl_number: "101-1", pl_name: "שימור אבן שפרוט", station_desc: "הפקדה להתנגדויות/השגות",
-    objection_deadline_derived_60d_from_publication: "2026-12-09" },
+    objection_deadline_derived_2m_from_publication: "2026-12-09" },
   { pl_number: "101-2", pl_name: "בניין מגורים", station_desc: "אישור" },
   { pl_number: "101-3", pl_name: "תוספת קומה", station_desc: "בבדיקה תכנונית",
-    objection_deadline_derived_60d_from_publication: "2026-11-01" },
+    objection_deadline_derived_2m_from_publication: "2026-11-01" },
 ];
 const permits = [
   { tik_num: "2024-1", address: "עמק רפאים 12 מושבה גרמנית", status: "בטיפול", sugbakasha: "דירה" },
@@ -199,4 +199,12 @@ test("/permits q matches published tik_num and address after public projection",
     assert.equal(data.permits[0].tik_num, permit.tik_num);
   }
   assert.deepEqual(filterPermits([permit], new URLSearchParams("q=not-found")), []);
+});
+
+test("filterPlans before= reads the 2m field, not the legacy 60d field", () => {
+  const two = [{ pl_number: "X-1", station_desc: "הפקדה",
+    objection_deadline_derived_60d_from_publication: "2026-03-16",
+    objection_deadline_derived_2m_from_publication: "2026-03-15" }];
+  assert.equal(filterPlans(two, new URLSearchParams("before=2026-03-15")).length, 1);
+  assert.equal(filterPlans(two, new URLSearchParams("before=2026-03-14")).length, 0);
 });
