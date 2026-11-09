@@ -558,3 +558,12 @@ def test_port_587_uses_starttls(monkeypatch):
     monkeypatch.setattr(spe.smtplib, "SMTP", FakeSMTP)
     spe.send(spe.compose(PLAN, "v@example.com"), "v@example.com")
     assert calls == [("init", 587), "starttls", "login", "sent"]
+
+
+# Section: operator log line for failed sends carries no content
+def test_log_failure_names_class_only(capsys):
+    exc = RuntimeError("550 rejected user@example.com")
+    spe._log_failure("confirm-send", exc)
+    out = capsys.readouterr().out
+    assert "stage=confirm-send" in out and "RuntimeError" in out
+    assert "user@example.com" not in out

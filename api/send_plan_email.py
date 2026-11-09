@@ -373,6 +373,13 @@ def compose_notify(record: dict, reason: str) -> MIMEText:
     return msg
 
 
+def _log_failure(where: str, exc: Exception) -> None:
+    """Operator log line: the stage and the exception class only. Never the
+    message, the address or any credential (SMTP errors can echo them)."""
+    code = getattr(exc, "smtp_code", "")
+    print(f"send_plan_email failure stage={where} error={type(exc).__name__} {code}")
+
+
 def send(msg: MIMEText, to_addr: str) -> None:
     host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
     port = int(os.environ.get("SMTP_PORT", "465"))
@@ -657,7 +664,8 @@ class handler(BaseHTTPRequestHandler):
             if not store_pending(token, record):
                 return self._reply(502, {"ok": False})
             send(compose_confirm(record, token), email)
-        except Exception:  # noqa: BLE001 - generic 502, never leak internals
+        except Exception as exc:  # noqa: BLE001 - generic 502, never leak internals
+            _log_failure("confirm-send", exc)
             return self._reply(502, {"ok": False})
         return self._reply(200, {"ok": True})
 
