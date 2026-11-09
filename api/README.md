@@ -93,3 +93,13 @@ Production (`main`) deploys the function. Scope `SMTP_PASSWORD` and
 `CRON_SECRET` to Production only, so branch previews cannot send mail. The
 form page reads the function URL from `EMAIL_ENDPOINT` in
 `src/ginot/page_email.py` - the one place to update if the domain changes.
+
+### Languages
+
+The accepted language codes come from `src/ginot/i18n/strings.json`, the same
+document the site generator reads. `.vercelignore` re-includes that one file so
+it ships with the function. The function reads it at import time and fails
+loudly if it is missing: if every route (confirm, unsubscribe, the daily
+`notify` cron) returns 500, check that `strings.json` was bundled. Branch
+previews cannot send mail (no `SMTP_PASSWORD`), so check a non-Hebrew send on
+production after a change here.
