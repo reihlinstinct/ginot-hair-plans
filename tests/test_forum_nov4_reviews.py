@@ -5,6 +5,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+# Section: Review scope and primary sources
+
+
 def test_inbal_review_has_scoped_claims_and_deadline_conflict():
     text = (
         ROOT / "plans/101-1488261/analysis/talking_points_101-1488261.md"
@@ -180,6 +183,9 @@ def test_municipal_original_gaps_are_explicit_and_not_policy_page_claims():
         assert term in text
 
 
+# Section: Executive summaries and drawing evidence
+
+
 def test_professional_executive_summaries_precede_explanation_and_link_drawings():
     p41 = (ROOT / "docs/reviews/palmach41/focused-2026-11-04.md").read_text()
     inbal = (
@@ -272,6 +278,9 @@ def test_executive_internal_anchors_resolve_and_forum_link_is_current():
         "https://reihlinstinct.github.io/ginot-hair-plans/reviews/forum-2026-11-04.html"
         in text
     )
+
+
+# Section: Government source boundaries
 
 
 def government_host(hostname):

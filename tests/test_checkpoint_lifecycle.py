@@ -25,6 +25,9 @@ OTHER = "d" * 40
 CP_DATE = "2026-10-29T03:30:00Z"
 
 
+# Section: Synthetic lifecycle fixtures
+
+
 def _prov(commit=CP, offset=280, limit=280):
     return lc.provenance(commit, offset, limit, "123")
 
@@ -37,6 +40,9 @@ def _pr(number, state="closed", merged=False, prov=None):
 
 CP_BATCH = {"offset": 280, "limit": 280, "done": 281}
 MAIN_BEFORE = {"offset": 0, "limit": 280}  # cursor before the checkpoint batch
+
+
+# Section: Checkpoint decisions
 
 
 def test_no_checkpoint_proceeds():
@@ -103,6 +109,9 @@ def test_checkpoint_without_batch_fails_closed():
 
 
 # --- fake GitHub -------------------------------------------------------------
+
+
+# Section: Bounded GitHub gate responses
 
 
 def _b64(obj):
@@ -312,6 +321,9 @@ def test_gate_fails_closed(monkeypatch, breakage):
 
 
 # --- main(): end-to-end regression ---------------------------------------------
+
+
+# Section: Offline feed integration
 
 
 def _run(monkeypatch, tmp_path, gh, offset=280):

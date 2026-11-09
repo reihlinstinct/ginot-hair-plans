@@ -31,6 +31,9 @@ Security Associations (1 up, 0 connecting):
 """
 
 
+# Section: Process isolation
+
+
 @pytest.fixture(autouse=True)
 def clean_module_state():
     l2tp.DIAGNOSTICS.clear()
@@ -43,6 +46,9 @@ def clean_module_state():
 
 
 # --- summarize_negotiation: classification is fixed categories only ---------
+
+
+# Section: Negotiation diagnostics
 
 
 def test_negotiation_classifies_daemon_unavailable():
@@ -104,6 +110,9 @@ def test_negotiation_empty_output_is_empty_categories():
 
 
 # --- quote / settings: credential and server validation ---------------------
+
+
+# Section: Settings and safe configuration
 
 
 def test_quote_escapes_backslash_and_dquote():
@@ -185,6 +194,9 @@ def test_established_snapshot_requires_ike_and_transport():
 
 
 # --- run(): subprocess boundary ------------------------------------------------
+
+
+# Section: Transport and readiness
 
 
 class _Result:
@@ -276,6 +288,9 @@ def test_require_established_raises_until_sa_up(monkeypatch):
 
 
 # --- down(): teardown safety ----------------------------------------------------
+
+
+# Section: Connection lifecycle
 
 
 def test_down_without_root_dir_is_noop(monkeypatch, tmp_path):
@@ -375,6 +390,9 @@ def test_connect_bounded_merges_charon_log_diagnostics(monkeypatch, capsys, tmp_
 
 
 # --- main(): entrypoint discipline ----------------------------------------------
+
+
+# Section: Command-line and failure stages
 
 
 def test_main_requires_root(monkeypatch):

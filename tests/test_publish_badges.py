@@ -18,6 +18,9 @@ JUNIT = """<testsuite><testcase classname="a" name="t1"/>
 <testcase classname="a" name="t3"/></testsuite>"""
 
 
+# Section: Measured badge inputs
+
+
 def test_python_metrics_happy_path():
     cov = json.dumps({"totals": {"percent_covered": 81.234}})
     out = pb.metrics("python", JUNIT, cov)
@@ -59,6 +62,9 @@ def test_go_metrics_missing_coverage_raises():
         pb.metrics("go", '{"Action":"pass","Test":"T"}', "no percentage here")
 
 
+# Section: Badge generation
+
+
 def test_main_writes_badge_files(tmp_path):
     import subprocess
     import sys
@@ -86,6 +92,9 @@ def test_main_writes_badge_files(tmp_path):
     coverage_badge = json.loads((outdir / "coverage.json").read_text())
     assert tests_badge["color"] == "brightgreen"
     assert coverage_badge["message"] == "90.0%"
+
+
+# Section: Publication failure recovery
 
 
 def test_push_badges_recovers_from_racing_push(tmp_path):
