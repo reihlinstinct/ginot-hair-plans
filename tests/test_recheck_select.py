@@ -224,7 +224,10 @@ def test_main_active_zero_and_negative_cap_select_nothing(
 def test_main_active_no_cap_keeps_full_active_default(tmp_path, capsys, monkeypatch):
     feed = _active_feed(tmp_path)
     out = _run_main(
-        tmp_path, capsys, monkeypatch, ["recheck_select.py", "--tier", "active", "--feed", feed]
+        tmp_path,
+        capsys,
+        monkeypatch,
+        ["recheck_select.py", "--tier", "active", "--feed", feed],
     )
     assert out == [[1, 1], [2, 2], [3, 3]]
 
