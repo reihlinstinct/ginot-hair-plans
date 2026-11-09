@@ -28,3 +28,24 @@ Owner decision recorded November 6, 2026 in issue #123.
 The synthetic privacy tests inject unknown personal/tracking fields into the
 static publisher and every query response route. They also reject nested
 values in allowed fields. They contain no real private values.
+
+## On-demand plan email (api/send_plan_email.py, Vercel)
+
+A separate opt-in service, owner-approved November 9, 2026; it reads only the
+public rows above and exposes no private data.
+
+- What is stored: the typed email address, plan id, page language, a random
+  token, timestamps (and the status last seen, for subscribers). Nothing else;
+  no request logging, no analytics on the endpoint, no sharing.
+- Nothing is emailed to an address until its owner presses the confirm button
+  on the confirmation link's page (a GET never changes state, so link scanners
+  cannot confirm or unsubscribe anyone).
+- Retention: a pending request is deleted on confirmation or after 48 hours.
+  A subscription (only if the subscribe box was ticked) lives until the
+  person unsubscribes; unsubscribing deletes the record at once.
+- Where: Vercel serverless function (Hobby) with Upstash Redis in Frankfurt
+  (eu-central-1), free tier. Sending uses the owner's SMTP account (Gmail app
+  password) held only in Vercel environment variables.
+- Abuse counters are kept as hashed keys (IP and recipient digests) with
+  automatic expiry; they hold no readable addresses.
+

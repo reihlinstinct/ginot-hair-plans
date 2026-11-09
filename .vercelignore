@@ -1,0 +1,17 @@
+# The Vercel project ships only the api/ email function; the site itself is
+# served by GitHub Pages. Without this, the function bundle includes the
+# repo's data/PDFs and exceeds the 500 MB function limit.
+data/
+plans/
+docs/
+out/
+snapshots/
+reference/
+releases/
+design/
+man/
+worker/
+tests/
+scripts/
+src/
+.github/

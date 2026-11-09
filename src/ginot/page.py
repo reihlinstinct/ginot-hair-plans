@@ -1059,6 +1059,7 @@ def render_index(
 אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
 &middot; <a href="about.html">אודות ומקורות נתונים</a>
+&middot; <a href="email.html">קבלת מייל על תוכנית</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="filter-links.js"></script>
@@ -1292,6 +1293,10 @@ def render_site(
                 )
     with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
         fh.write(render_about(generated, council_name))
+    from .page_email import render_email_page
+
+    with open(f"{out_dir}/email.html", "w", encoding="utf-8") as fh:
+        fh.write(render_email_page(rows, generated, council_name))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
         fh.write(_SOURCES_REDIRECT)
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
