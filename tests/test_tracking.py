@@ -6,7 +6,7 @@ from ginot import tracking
 def row(num, deadline=""):
     return {
         "pl_number": num,
-        "objection_deadline_derived_60d_from_publication": deadline,
+        "objection_deadline_derived_2m_from_publication": deadline,
     }
 
 

@@ -34,7 +34,7 @@ def test_rendered_json_drops_injected_private_fields(tmp_path):
             "receiving_date": "",
             "depositing_date": "",
             "inside_flag": "inside",
-            "objection_deadline_derived_60d_from_publication": "",
+            "objection_deadline_derived_2m_from_publication": "",
             **private,
         }
     ]

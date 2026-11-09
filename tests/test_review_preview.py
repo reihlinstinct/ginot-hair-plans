@@ -8,7 +8,7 @@ def test_review_card_uses_public_fields_no_derived_deadline(tmp_path):
         "pl_number": "101-1158146",
         "pl_name": "בית הנוער העברי",
         "station_desc": "במילוי תנאים להפקדה",
-        "objection_deadline_derived_60d_from_publication": "2026-11-07",
+        "objection_deadline_derived_2m_from_publication": "2026-11-07",
     }
     image = tmp_path / "card.png"
     assert preview.render_review_preview(row, "2026-10-22", image)
@@ -54,7 +54,7 @@ def test_existing_render_step_builds_review_metadata_and_image(tmp_path):
                 "mavat_url": "https://example.invalid/plan",
                 "inside_flag": "inside",
                 "pl_area_dunam": 1,
-                "objection_deadline_derived_60d_from_publication": "",
+                "objection_deadline_derived_2m_from_publication": "",
                 "receiving_date": "",
                 "pl_last_deposit_date": "",
                 "depositing_date": "",

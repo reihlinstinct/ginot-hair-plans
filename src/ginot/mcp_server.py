@@ -127,7 +127,7 @@ def call_tool(data, name, args):
             raise ToolError("as_of must be YYYY-MM-DD")
         out = []
         for r in rows:
-            raw = r.get("objection_deadline_derived_60d_from_publication")
+            raw = r.get("objection_deadline_derived_2m_from_publication")
             try:
                 end = datetime.date.fromisoformat(raw)
             except (TypeError, ValueError):

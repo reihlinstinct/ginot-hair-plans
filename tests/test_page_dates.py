@@ -11,7 +11,7 @@ def _row(n, status, recv="", dep="", deadline="", flag="inside"):
         "receiving_date": recv,
         "pl_last_deposit_date": dep,
         "depositing_date": "",
-        "objection_deadline_derived_60d_from_publication": deadline,
+        "objection_deadline_derived_2m_from_publication": deadline,
         "pl_area_dunam": 1.0,
         "inside_flag": flag,
         "mavat_url": "https://mavat.iplan.gov.il/x",
