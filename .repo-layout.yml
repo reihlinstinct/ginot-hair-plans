@@ -162,6 +162,13 @@
         "*.mjs",
         "*.toml"
       ]
+    },
+    "api": {
+      "purpose": "Vercel serverless functions (on-demand plan email)",
+      "allow": [
+        "*.py",
+        "*.md"
+      ]
     }
   }
 }
