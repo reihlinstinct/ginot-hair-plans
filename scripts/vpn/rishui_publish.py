@@ -50,13 +50,6 @@ class ChallengeError(Exception):
     """Anti-bot challenge or access denial: hard stop (exit 2), never worked around."""
 
 
-def is_challenge(status: int, body: str) -> bool:
-    if status in CHALLENGE_STATUSES:
-        return True
-    low = body.lower()
-    return any(marker in low for marker in CHALLENGE_MARKERS)
-
-
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
     """Single-GET contract: never follow redirects. A redirect would turn the
     one allowed request into several (and is how anti-bot systems bounce
@@ -67,33 +60,6 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
 
 
 _OPENER = urllib.request.build_opener(_NoRedirect)
-
-
-def fetch_publish(url: str = PUBLISH_URL, timeout: int = 40) -> list[dict]:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    try:
-        with _OPENER.open(req, timeout=timeout) as resp:
-            status = resp.status
-            body = resp.read().decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as exc:
-        if 300 <= exc.code < 400:
-            raise ChallengeError(f"HTTP {exc.code} redirect (not followed)") from exc
-        if exc.code in CHALLENGE_STATUSES:
-            raise ChallengeError(f"HTTP {exc.code}") from exc
-        body = exc.read().decode("utf-8", errors="replace") if exc.fp else ""
-        if is_challenge(exc.code, body):
-            raise ChallengeError(f"HTTP {exc.code}") from exc
-        raise
-    if is_challenge(status, body):
-        raise ChallengeError(f"HTTP {status}")
-    return parse_rows(body)
-
-
-def _date(value: object) -> str | None:
-    if not value:
-        return None
-    return str(value)[:10]
-
 
 # Keys the pipeline reads upstream (issue #805). The diagnostic projection
 # tracks their presence/type plus an allowlisted raw copy, so a null in the
@@ -122,6 +88,103 @@ _MAX_RAW_LEN = 32
 _MAX_DOC_ID_LEN = 64
 _MAX_UNEXPECTED_KEYS = 20
 _MAX_KEY_LEN = 64
+
+
+# Section: Publication fetch
+
+
+def fetch_publish(url: str = PUBLISH_URL, timeout: int = 40) -> list[dict]:
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with _OPENER.open(req, timeout=timeout) as resp:
+            status = resp.status
+            body = resp.read().decode("utf-8", errors="replace")
+    except urllib.error.HTTPError as exc:
+        if 300 <= exc.code < 400:
+            raise ChallengeError(f"HTTP {exc.code} redirect (not followed)") from exc
+        if exc.code in CHALLENGE_STATUSES:
+            raise ChallengeError(f"HTTP {exc.code}") from exc
+        body = exc.read().decode("utf-8", errors="replace") if exc.fp else ""
+        if is_challenge(exc.code, body):
+            raise ChallengeError(f"HTTP {exc.code}") from exc
+        raise
+    if is_challenge(status, body):
+        raise ChallengeError(f"HTTP {status}")
+    return parse_rows(body)
+
+
+def is_challenge(status: int, body: str) -> bool:
+    if status in CHALLENGE_STATUSES:
+        return True
+    low = body.lower()
+    return any(marker in low for marker in CHALLENGE_MARKERS)
+
+
+def parse_rows(payload: str) -> list[dict]:
+    data = json.loads(payload)
+    if not isinstance(data, list):
+        raise TypeError("publish API did not return a list")
+    rows = []
+    for item in data:
+        if not isinstance(item, dict):
+            raise TypeError("unexpected publish API row shape")
+        # myIndex is the dedup key and tik_num the permit join key: both must
+        # be real scalars, not null/containers (a null myIndex would collapse
+        # detect_new's known-set onto one key).
+        my_index = item.get("myIndex")
+        tik_num = item.get("tik_num")
+        if (
+            isinstance(my_index, bool)
+            or not isinstance(my_index, (int, str))
+            or my_index == ""
+        ):
+            raise ValueError("unexpected publish API row shape: bad myIndex")
+        if not isinstance(tik_num, str) or not tik_num:
+            raise ValueError("unexpected publish API row shape: bad tik_num")
+        rows.append(normalize_row(item))
+    return rows
+
+
+def normalize_row(item: dict) -> dict:
+    return {
+        "myIndex": item["myIndex"],
+        "tik_num": item["tik_num"],
+        "street": item.get("rehov"),
+        "house_number": item.get("misp_bait"),
+        "neighborhood": item.get("schn"),
+        "place_description": item.get("teur_makom"),
+        "publication_date": _date(item.get("ED800")),
+        "objection_deadline": _date(item.get("PD900")),
+        "ed700": _date(item.get("ED700")),
+        "connected_rec_id": item.get("connectedRecID"),
+        "doc_id": item.get("DocId"),
+        "diagnostics": row_diagnostics(item),
+    }
+
+
+def _date(value: object) -> str | None:
+    if not value:
+        return None
+    return str(value)[:10]
+
+
+# Section: Source diagnostics
+
+
+def row_diagnostics(item: dict) -> dict:
+    """Privacy-safe schema diagnostics for one upstream row (issue #805).
+
+    Key names of unexpected fields are schema information, not data, so they
+    are safe to keep; their VALUES are never copied. A renamed upstream key
+    shows up as the expected key missing plus a new unexpected key name.
+    """
+    unexpected = sorted(str(k)[:_MAX_KEY_LEN] for k in item if k not in KNOWN_KEYS)
+    return {
+        "fields": {key: _field_diag(item, key) for key in TRACKED_KEYS},
+        "raw": {key: _raw_copy(key, item.get(key)) for key in RAW_KEYS},
+        "unexpected_keys": unexpected[:_MAX_UNEXPECTED_KEYS],
+        "unexpected_keys_total": len(unexpected),
+    }
 
 
 def _field_diag(item: dict, key: str) -> dict:
@@ -154,61 +217,25 @@ def _raw_copy(key: str, value: object) -> object:
     return text[:_MAX_RAW_LEN]
 
 
-def row_diagnostics(item: dict) -> dict:
-    """Privacy-safe schema diagnostics for one upstream row (issue #805).
-
-    Key names of unexpected fields are schema information, not data, so they
-    are safe to keep; their VALUES are never copied. A renamed upstream key
-    shows up as the expected key missing plus a new unexpected key name.
-    """
-    unexpected = sorted(str(k)[:_MAX_KEY_LEN] for k in item if k not in KNOWN_KEYS)
-    return {
-        "fields": {key: _field_diag(item, key) for key in TRACKED_KEYS},
-        "raw": {key: _raw_copy(key, item.get(key)) for key in RAW_KEYS},
-        "unexpected_keys": unexpected[:_MAX_UNEXPECTED_KEYS],
-        "unexpected_keys_total": len(unexpected),
-    }
+# Section: Verified scope joins
 
 
-def normalize_row(item: dict) -> dict:
-    return {
-        "myIndex": item["myIndex"],
-        "tik_num": item["tik_num"],
-        "street": item.get("rehov"),
-        "house_number": item.get("misp_bait"),
-        "neighborhood": item.get("schn"),
-        "place_description": item.get("teur_makom"),
-        "publication_date": _date(item.get("ED800")),
-        "objection_deadline": _date(item.get("PD900")),
-        "ed700": _date(item.get("ED700")),
-        "connected_rec_id": item.get("connectedRecID"),
-        "doc_id": item.get("DocId"),
-        "diagnostics": row_diagnostics(item),
-    }
-
-
-def parse_rows(payload: str) -> list[dict]:
-    data = json.loads(payload)
-    if not isinstance(data, list):
-        raise TypeError("publish API did not return a list")
-    rows = []
-    for item in data:
-        if not isinstance(item, dict):
-            raise TypeError("unexpected publish API row shape")
-        # myIndex is the dedup key and tik_num the permit join key: both must
-        # be real scalars, not null/containers (a null myIndex would collapse
-        # detect_new's known-set onto one key).
-        my_index = item.get("myIndex")
-        tik_num = item.get("tik_num")
-        if (
-            isinstance(my_index, bool)
-            or not isinstance(my_index, (int, str))
-            or my_index == ""
-        ):
-            raise ValueError("unexpected publish API row shape: bad myIndex")
-        if not isinstance(tik_num, str) or not tik_num:
-            raise ValueError("unexpected publish API row shape: bad tik_num")
-        rows.append(normalize_row(item))
+def resolve_in_polygon(
+    rows: list[dict],
+    tik_parcels: dict[str, tuple[int, int]],
+    parcel_keys: set[tuple[int, int]],
+) -> list[dict]:
+    """Stamp each row: in_polygon True (neighborhood in the 7 AND parcel inside
+    the polygon), False otherwise, or None when the tik is unknown (not yet in
+    the tracker) and must not be silently dropped."""
+    for row in rows:
+        parcel = tik_parcels.get(row["tik_num"])
+        if parcel is None:
+            row["in_polygon"] = None
+        else:
+            row["in_polygon"] = (
+                parcel in parcel_keys and row.get("neighborhood") in SCOPE_SCHN
+            )
     return rows
 
 
@@ -236,23 +263,7 @@ def load_tik_parcels(permit_requests: Path) -> dict[str, tuple[int, int]]:
     return mapping
 
 
-def resolve_in_polygon(
-    rows: list[dict],
-    tik_parcels: dict[str, tuple[int, int]],
-    parcel_keys: set[tuple[int, int]],
-) -> list[dict]:
-    """Stamp each row: in_polygon True (neighborhood in the 7 AND parcel inside
-    the polygon), False otherwise, or None when the tik is unknown (not yet in
-    the tracker) and must not be silently dropped."""
-    for row in rows:
-        parcel = tik_parcels.get(row["tik_num"])
-        if parcel is None:
-            row["in_polygon"] = None
-        else:
-            row["in_polygon"] = (
-                parcel in parcel_keys and row.get("neighborhood") in SCOPE_SCHN
-            )
-    return rows
+# Section: Change reporting
 
 
 def detect_new(old_rows: list[dict], new_rows: list[dict]) -> list[dict]:
@@ -289,6 +300,9 @@ def summarize(rows: list[dict]) -> str:
             f"{row['neighborhood']} | published {row['publication_date']} | deadline {deadline}{marker}"
         )
     return "\n".join(lines)
+
+
+# Section: Command line
 
 
 def main(argv: list[str] | None = None) -> int:
