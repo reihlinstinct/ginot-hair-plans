@@ -16,6 +16,14 @@ branch is an external setting, not a GitHub Pages environment pin. The
 [reviewed publication procedure](data-publication.md#cloudflare-production-branch-keep-mirror)
 explains the separate mirror continuation.
 
+## Never use `main` or `mirror` as a PR head
+
+This repository automatically deletes a PR's head branch after merge. A PR
+whose head is `mirror` would therefore delete the Cloudflare production
+branch on merge, and a PR whose head is `main` would delete the default
+branch. Neither may ever serve as a disposable PR head: always open PRs from
+a topic branch.
+
 ## Before deleting any other branch
 
 - Read the current branch list, default branch and branch-protection rules.
@@ -26,9 +34,9 @@ explains the separate mirror continuation.
   check to workflow checkout refs or dismiss a documented deployment target
   because no workflow currently pushes it.
 - Check open PRs, merged PR heads and current branch tips. Being fully merged
-  or having a merged PR is not proof that a branch is unused. Preserve data, ledger, baseline, evidence and other
-  operational branches unless their purpose has been checked and deletion is
-  explicitly authorized.
+  or having a merged PR is not proof that a branch is unused. Preserve data,
+  ledger, baseline, evidence and other operational branches unless their
+  purpose has been checked and deletion is explicitly authorized.
 - If a deployment setting cannot be inspected, a reference is ambiguous, or a
   branch has a purpose not covered by the cleanup approval, keep the branch and
   report the gap. Do not delete it to test whether anything still depends on it.
@@ -42,4 +50,6 @@ On 3 November 2026 at 10:34 Asia/Jerusalem, `mirror` was deleted during a
 merged-branch cleanup despite remaining the Cloudflare production target. The
 site stayed on its last successful 25 October deployment. On 7 November the
 branch was restored at the reviewed main commit and Cloudflare production was
-verified current. See [the branch activity](https://github.com/reihlinstinct/ginot-hair-plans/activity?ref=mirror).
+verified current. Restoration commit:
+`fb32135c6db315b9ea14ecbd41c038eb3fe8e93c`; tip before the deletion:
+`2b0734ae2562d57b7df3d265de47d0fbea5b0e96`. See [the branch activity](https://github.com/reihlinstinct/ginot-hair-plans/activity?ref=mirror).
