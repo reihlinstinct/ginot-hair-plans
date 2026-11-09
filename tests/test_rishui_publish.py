@@ -33,6 +33,9 @@ RAW_ROW = {
 }
 
 
+# Section: Source normalization
+
+
 def test_parse_rows_normalizes_fields():
     rows = rishui_publish.parse_rows(json.dumps([RAW_ROW]))
     row = dict(rows[0])
@@ -183,6 +186,9 @@ def test_scope_schn_is_the_seven_council_neighborhoods():
         "נוה שאנן/ניות",
     ):
         assert name in rishui_publish.SCOPE_SCHN
+
+
+# Section: Challenge and transport boundaries
 
 
 def test_challenge_on_status():

@@ -9,10 +9,16 @@ permit_enrich = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(permit_enrich)
 
 
+# Section: Selection fixtures
+
+
 def req(tik, status, **kw):
     r = {"tik_num": tik, "status": status}
     r.update(kw)
     return r
+
+
+# Section: Selection and backfill
 
 
 def test_select_tiks_diff_only():
@@ -97,6 +103,9 @@ def test_count_only_prints_selection_without_fetching(tmp_path, capsys, monkeypa
         "publication_start"
         not in json.loads(mirror.read_text(encoding="utf-8"))["requests"][1]
     )
+
+
+# Section: Pending queue lifecycle
 
 
 def test_failed_fetch_queued_and_retried_after_field_preserved(tmp_path, monkeypatch):
