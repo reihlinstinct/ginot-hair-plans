@@ -211,7 +211,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt playwright
       - run: python -m playwright install --with-deps ${{ matrix.browser }}
-      - run: python -m pytest -q tests/test_site_browser.py tests/test_map_browser.py --junitxml=browser-results.xml
+      - run: python -m pytest -q tests/test_site_browser*.py tests/test_map_browser*.py --junitxml=browser-results.xml
       - name: Test run summary
         if: ${{ always() }}
         run: python scripts/ci/test_summary.py --junit browser-results.xml --title "Browser tests (${{ matrix.browser }})"

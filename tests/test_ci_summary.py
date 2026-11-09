@@ -112,6 +112,11 @@ def test_browser_skip_plain_reason_names_only_verified_replacement_job():
     assert "does not install Playwright" in text
     assert "site-browser job" in text
     assert "not a browser pass" in text
+    # Split modules selected via the ci.yml glob are verified the same way.
+    split = summary.skip_explanation(
+        "tests.test_site_browser_mobile", "No module named 'playwright'"
+    )
+    assert "does not install Playwright" in split
     other = summary.skip_explanation("tests.test_unknown", "conditional skip")
     assert "No alternative job is confirmed" in other
 
