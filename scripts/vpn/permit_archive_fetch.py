@@ -59,6 +59,9 @@ class Stop(Exception):
     """Challenge or access denied: stop the run, no retry, no workaround."""
 
 
+STOP_STATUSES = (401, 403, 429, 503)
+
+
 def is_challenge(body: bytes, markers: bool = True) -> bool:
     """Access-denied page always; challenge words only when markers=True
     (the viewer's own JS bundle may mention captcha libraries legitimately)."""
@@ -131,11 +134,17 @@ def _guard(path, markers=True):
     return body
 
 
+def _stop_on_status(status):
+    if status in STOP_STATUSES:
+        raise Stop(f"http_{status}")
+
+
 def api_call(proc, params, label):
     out = f"{WORK}/api_{label}.bin"
     payload = json.dumps({"Cnn": "cnnGisYk", "ProcName": proc, "Parameters": params})
     status, _ = _curl(API, out, payload)
     body = _guard(out) if os.path.exists(out) else b""
+    _stop_on_status(status)
     try:
         shape = shape_of(json.loads(body))
     except (ValueError, UnicodeDecodeError):
@@ -186,9 +195,9 @@ def main():
         for t in tik_variants(tik):
             calls.append((242700452, {"sysId": SYS, "tikNum": t}))
             calls.append((242700571, {"sysId": "26400056", "tikNum": t}))
-        for p in procs[:MAX_DISCOVERED_PROCS]:
-            calls.append((p, {"sysId": SYS, "tikNum": tik}))
-            calls.append((p, {"systemCode": SYS, "tikNum": tik}))
+        # Discovered procs are only listed (never called): an unknown stored
+        # procedure may return personal data. Call one only via extra_calls.
+        print(f"discovered procs listed, not called: {procs[:MAX_DISCOVERED_PROCS]}")
         extra = os.environ.get("PROBE_EXTRA_CALLS", "").strip()
         if extra:
             for item in json.loads(extra):
@@ -212,6 +221,7 @@ def main():
             if size and size < 200000:
                 _guard(out)
             print(f"item {n:02d} status={status} bytes={size} type={ctype[:40]}")
+            _stop_on_status(status)
             time.sleep(PACE_SECONDS)
     except Stop as exc:
         print(f"STOP: {exc}")

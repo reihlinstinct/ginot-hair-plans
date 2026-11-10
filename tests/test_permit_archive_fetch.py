@@ -9,6 +9,8 @@ uploaded.
 import importlib.util
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).parent.parent
 SPEC = importlib.util.spec_from_file_location(
     "permit_archive_fetch", ROOT / "scripts/vpn/permit_archive_fetch.py"
@@ -78,3 +80,18 @@ def test_dispatch_inputs_reach_the_script_through_env_only():
         "sudo --preserve-env=PROBE_TIK,PROBE_EXTRA_CALLS,PROBE_EXTRA_GUIDS "
         "python3 scripts/vpn/permit_archive_fetch.py"
     ) in WORKFLOW
+
+
+# Section: stop statuses and discovered procs are never called
+def test_plain_denial_statuses_stop_the_run():
+    for status in (401, 403, 429, 503):
+        with pytest.raises(pf.Stop):
+            pf._stop_on_status(status)
+    pf._stop_on_status(200)
+    pf._stop_on_status(404)
+
+
+def test_discovered_procs_are_listed_not_called():
+    src = Path(pf.__file__).read_text(encoding="utf-8")
+    assert "listed, not called" in src
+    assert 'calls.append((p, {"sysId"' not in src
