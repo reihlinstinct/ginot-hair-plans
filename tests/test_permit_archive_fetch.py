@@ -67,7 +67,7 @@ def test_workflow_uploads_only_the_encrypted_archive_and_metadata_log():
 
 
 def test_workflow_pins_the_owner_key_and_encrypts_before_upload():
-    assert "7FA1020C23B76EB06811AD7820BE6D898B75B408" in WORKFLOW
+    assert "6969AD2C9FA2D5241B39D605CEC3D6B550B6422B" in WORKFLOW
     enc = WORKFLOW.index("--encrypt")
     assert enc < WORKFLOW.index("upload-artifact")
     assert "sudo rm -rf /tmp/archive-work" in WORKFLOW

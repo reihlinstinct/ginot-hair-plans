@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      OWNER_GPG_FPR: 7FA1020C23B76EB06811AD7820BE6D898B75B408
+      OWNER_GPG_FPR: 6969AD2C9FA2D5241B39D605CEC3D6B550B6422B
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
