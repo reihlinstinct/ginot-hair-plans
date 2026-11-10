@@ -1,0 +1,111 @@
+name: Jerusalem permit archive fetch (VPN)
+
+# One request, read-only: ask the public permit viewer's own API for the
+# archive list of one permit request and download the listed public
+# documents through the owner-operated L2TP/IPsec tunnel. Manual dispatch
+# only, serial, three-second spacing, stop on any challenge (exit 2, no
+# workaround). The run log is public, so the script prints only statuses,
+# sizes and key names. Everything fetched is encrypted to the owner's
+# public GPG key (fingerprint pinned below) before upload; the artifact is
+# useless to anyone else and is kept 3 days. No plaintext is uploaded.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tik:
+        description: "Permit request, e.g. 2025/0147.00"
+        required: true
+      extra_calls:
+        description: 'Optional JSON list of {"proc": int, "params": {...}} (retry without a code change)'
+        required: false
+        default: ""
+      extra_guids:
+        description: "Optional comma-separated archive item ids to download"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  permit-archive-fetch:
+    if: ${{ vars.PERMIT_PROBE_ENABLED != 'false' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      OWNER_GPG_FPR: D9AD033086DA866791E1616FFFEAA024C5F45CBA
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl gnupg > /dev/null 2>&1
+
+      - name: Import the owner's public GPG key and check its fingerprint
+        run: |
+          curl -fsS https://github.com/reihlinstinct.gpg -o owner.gpg
+          gpg --batch --import owner.gpg
+          gpg --batch --list-keys --with-colons | grep -q "^fpr:::::::::${OWNER_GPG_FPR}:"
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Fetch the archive documents of one permit request
+        env:
+          PROBE_TIK: ${{ inputs.tik }}
+          PROBE_EXTRA_CALLS: ${{ inputs.extra_calls }}
+          PROBE_EXTRA_GUIDS: ${{ inputs.extra_guids }}
+        run: |
+          set -o pipefail
+          sudo --preserve-env=PROBE_TIK,PROBE_EXTRA_CALLS,PROBE_EXTRA_GUIDS python3 scripts/vpn/permit_archive_fetch.py | tee fetch-log.txt
+
+      - name: Encrypt everything fetched to the owner's key
+        if: always()
+        run: |
+          sudo chmod -R a+rX /tmp/archive-work 2>/dev/null || true
+          if [ -d /tmp/archive-work ]; then
+            tar -czf - -C /tmp archive-work | gpg --batch --yes --trust-model always \
+              --recipient "${OWNER_GPG_FPR}" --encrypt --output archive.tar.gz.gpg
+          fi
+          sudo rm -rf /tmp/archive-work
+
+      - name: Upload the encrypted archive (and the metadata-only log)
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: permit-archive-encrypted
+          path: |
+            archive.tar.gz.gpg
+            fetch-log.txt
+          if-no-files-found: warn
+          retention-days: 3
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [permit-archive-fetch]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py
