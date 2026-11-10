@@ -12,6 +12,7 @@
  "pl_date_advertise": "2026-08-28",
  "pl_date_8_approval": "",
  "objection_deadline_derived_60d_from_publication": "2026-11-05",
+ "objection_deadline_derived_2m_from_publication": "2026-11-06",
  "pl_area_dunam": 1.473,
  "intersection_dunam": 1.5,
  "inside_flag": "inside",
@@ -22,6 +23,6 @@
  "land_status": "פרסום הפקדה ברשומות",
  "land_status_date": "2026-09-06",
  "land_plan_id": 1057167,
- "deadline_source_note": "max(iplan, land.gov.il) publication + 60d",
+ "deadline_source_note": "max(iplan, land.gov.il) publication + 60d / +2 months",
  "advisory_urgent": false
 }

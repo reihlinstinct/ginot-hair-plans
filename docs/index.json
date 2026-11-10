@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09",
+ "generated": "2026-11-10",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -39,7 +39,7 @@
    "path": "data/land_plan_status.json",
    "kind": "json",
    "records": null,
-   "bytes": 61200,
+   "bytes": 61406,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/land_plan_status.json"
   },
   {
