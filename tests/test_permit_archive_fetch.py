@@ -67,7 +67,7 @@ def test_workflow_uploads_only_the_encrypted_archive_and_metadata_log():
 
 
 def test_workflow_pins_the_owner_key_and_encrypts_before_upload():
-    assert "D9AD033086DA866791E1616FFFEAA024C5F45CBA" in WORKFLOW
+    assert "6969AD2C9FA2D5241B39D605CEC3D6B550B6422B" in WORKFLOW
     enc = WORKFLOW.index("--encrypt")
     assert enc < WORKFLOW.index("upload-artifact")
     assert "sudo rm -rf /tmp/archive-work" in WORKFLOW
@@ -95,3 +95,11 @@ def test_discovered_procs_are_listed_not_called():
     src = Path(pf.__file__).read_text(encoding="utf-8")
     assert "listed, not called" in src
     assert 'calls.append((p, {"sysId"' not in src
+
+
+# Section: the committed recipient key matches the pinned fingerprint
+def test_recipient_key_file_is_public_and_present():
+    key = (ROOT / "scripts/vpn/archive-recipient.pub.asc").read_text(encoding="utf-8")
+    assert key.startswith("-----BEGIN PGP PUBLIC KEY BLOCK-----")
+    assert "PRIVATE" not in key
+    assert "scripts/vpn/archive-recipient.pub.asc" in WORKFLOW
