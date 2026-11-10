@@ -6,7 +6,7 @@ name: Jerusalem permit archive fetch (VPN)
 # only, serial, three-second spacing, stop on any challenge (exit 2, no
 # workaround). The run log is public, so the script prints only statuses,
 # sizes and key names. Everything fetched is encrypted to the owner's
-# public GPG key (fingerprint pinned below) before upload; the artifact is
+# encryption-only public key (scripts/vpn/archive-recipient.pub.asc, fingerprint pinned below) before upload; the artifact is
 # useless to anyone else and is kept 3 days. No plaintext is uploaded.
 
 on:
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      OWNER_GPG_FPR: D9AD033086DA866791E1616FFFEAA024C5F45CBA
+      OWNER_GPG_FPR: 7FA1020C23B76EB06811AD7820BE6D898B75B408
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
@@ -44,10 +44,11 @@ jobs:
           sudo apt-get update -qq > /dev/null 2>&1
           sudo apt-get install -y strongswan xl2tpd ppp curl gnupg > /dev/null 2>&1
 
-      - name: Import the owner's public GPG key and check its fingerprint
+      - name: Import the archive recipient public key and check its fingerprint
         run: |
-          curl -fsS https://github.com/reihlinstinct.gpg -o owner.gpg
-          gpg --batch --import owner.gpg
+          # Encryption-only public key kept in the repo (the owner's signing key
+          # on github.com cannot encrypt); the private half stays with the owner.
+          gpg --batch --import scripts/vpn/archive-recipient.pub.asc
           gpg --batch --list-keys --with-colons | grep -q "^fpr:::::::::${OWNER_GPG_FPR}:"
 
       - name: Bring up owner-operated L2TP/IPsec tunnel
