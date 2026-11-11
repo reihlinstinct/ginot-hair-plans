@@ -91,15 +91,15 @@ ALLOWLIST = [
         "pages",
         "actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e",
         None,
-        "owner-approved Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds",
+        "Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds; flip and permissions pending the owner decision at merge time",
     ),
 ]
 
 # Workflow-level permissions that are known and reviewed elsewhere.
 PERMISSION_ALLOWLIST = {
     ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
-    ("pages.yml", "pages"): "owner-approved Pages deploy of the reviewed merged main commit (#959); deploy job only",
-    ("pages.yml", "id-token"): "OIDC auth for the same owner-approved deploy-pages step (#959); deploy job only",
+    ("pages.yml", "pages"): "Pages deploy of the reviewed merged main commit (#959); deploy job only; permission set and Pages flip pending the owner decision at merge time",
+    ("pages.yml", "id-token"): "OIDC auth for the same deploy-pages step (#959); deploy job only; pending the same owner decision",
 }
 
 

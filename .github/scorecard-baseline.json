@@ -279,7 +279,7 @@
       "scope": "deploy",
       "evidence": "pages: write",
       "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/959",
-      "reason": "Owner-approved (2026-11-11) Pages deploy from an Actions build; deploy-pages requires pages: write on the deploy job only. Owner approval required before merge."
+      "reason": "Pages deploy from an Actions build (#959); deploy-pages requires pages: write on the deploy job only. Project approved 2026-11-11; the permission set and the Pages source flip still need the owner's decision at merge time."
     },
     {
       "path": ".github/workflows/pages.yml",
@@ -287,7 +287,7 @@
       "scope": "deploy",
       "evidence": "id-token: write",
       "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/959",
-      "reason": "Owner-approved (2026-11-11) Pages deploy from an Actions build; deploy-pages authenticates via OIDC id-token on the deploy job only. Owner approval required before merge."
+      "reason": "Pages deploy from an Actions build (#959); deploy-pages authenticates via OIDC id-token on the deploy job only. Project approved 2026-11-11; the permission set and the Pages source flip still need the owner's decision at merge time."
     }
   ]
 }
