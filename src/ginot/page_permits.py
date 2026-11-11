@@ -20,11 +20,24 @@ from .page_resources import COLLAPSE_TOP, _date_cell, _e, _iso
 # innerHTML. Opened directly (a shared link, a search hit) they render as an
 # unstyled wall of rows. This guard runs only when the fragment is the
 # top-level document - innerHTML never executes scripts - and sends the
-# visitor to the index's permits section instead.
+# visitor to the index's permits section instead, keeping any query string.
 _FRAGMENT_REDIRECT = (
     "<script>if(!document.getElementById('permits-table'))"
-    "{location.replace('index.html#permits');}</script>"
+    "{location.replace('index.html'+location.search+'#permits');}</script>"
 )
+
+
+def _fragment_noscript(lang: str) -> str:
+    """No-JS fallback inside the fragment: a direct link to the styled table.
+    Injected with innerHTML it stays inert; served top-level with scripting
+    off it is the only way off the bare rows."""
+    from .i18n import t as _t
+
+    return (
+        "<noscript><p><a href='index.html#permits'>"
+        + _e(_t(lang, "permits.fragment_noscript"))
+        + "</a></p></noscript>"
+    )
 
 
 def _permits_section(
@@ -132,10 +145,12 @@ def _permits_section(
             default_rows.append(rows[-1])
     if default_rows_file:
         with open(default_rows_file, "w", encoding="utf-8") as fh:
-            fh.write(_FRAGMENT_REDIRECT + "".join(default_rows))
+            fh.write(
+                _FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(default_rows)
+            )
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
-            fh.write(_FRAGMENT_REDIRECT + "".join(rows))
+            fh.write(_FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(rows))
     body = "".join(rows[:COLLAPSE_TOP])
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES

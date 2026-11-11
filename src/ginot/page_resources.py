@@ -11,7 +11,7 @@ td,th{border:1px solid #dde4f6;padding:4px 8px;font-size:14px}
 th{background:#101f5b;color:#fff;position:sticky;top:0}
 th button{background:none;border:0;font:inherit;color:inherit;cursor:pointer;padding:0}
 th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:" ▼"}
-tbody tr:nth-child(even){background:#f3f6ff}
+tbody tr:nth-of-type(even){background:#f3f6ff}
 .chip{border-radius:8px;padding:1px 8px;background:#dde4f6;color:#101f5b;white-space:nowrap}
 .chip.c-deposit{background:#e8c31d;color:#1f2937}.chip.c-review{background:#007996;color:#fff}
 .chip.c-cond{background:#c8a4de;color:#1f2937}.chip.c-decision{background:#ff8c00;color:#1f2937}

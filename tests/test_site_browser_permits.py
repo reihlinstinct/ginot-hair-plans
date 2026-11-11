@@ -495,7 +495,8 @@ def test_publication_group_explains_raw_status_and_exact_filter(
 
 
 @pytest.mark.parametrize("code", i18n.lang_codes())
-def test_permits_fragment_opens_the_index_section(browser, served, code):
+@pytest.mark.parametrize("fragment", ["permits.html", "permits-default.html"])
+def test_permits_fragment_opens_the_index_section(browser, served, code, fragment):
     # The rows fragments are data files the index injects with innerHTML;
     # opened directly (a shared link, a search hit) they used to render as an
     # unstyled wall of rows (user report 2026-11-11). The guard at the top of
@@ -503,10 +504,32 @@ def test_permits_fragment_opens_the_index_section(browser, served, code):
     # section; innerHTML injection never runs it, so table loads still work.
     pg = browser.new_page()
     try:
-        pg.goto(served + "/" + i18n.page_path(code, "permits.html"))
+        pg.goto(served + "/" + i18n.page_path(code, fragment))
         pg.wait_for_url("**/" + i18n.page_path(code, "index.html") + "#permits")
         pg.wait_for_selector("#permits-table tbody tr")
         assert pg.locator("#permits-table tbody tr").count() > 0
         assert pg.evaluate("document.styleSheets.length") > 0
     finally:
         pg.close()
+
+
+def test_permits_fragment_keeps_the_query_string(browser, served):
+    # A shared link may carry a query (filter state); the redirect keeps it.
+    pg = browser.new_page()
+    try:
+        pg.goto(served + "/permits.html?x=1")
+        pg.wait_for_url("**/index.html?x=1#permits")
+    finally:
+        pg.close()
+
+
+def test_permits_fragment_nojs_links_to_the_index(served):
+    # With scripting off the redirect cannot run: the fragment must carry a
+    # plain link to the styled table instead (#974).
+    import urllib.request
+
+    for code in i18n.lang_codes():
+        url = served + "/" + i18n.page_path(code, "permits-default.html")
+        html = urllib.request.urlopen(url).read().decode("utf-8")
+        assert "<noscript>" in html
+        assert "index.html#permits" in html
