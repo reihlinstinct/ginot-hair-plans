@@ -209,6 +209,14 @@ def test_permits_table_is_slim_and_full_set_ships_as_permits_html(tmp_path):
     assert permits_html.count("<tr ") == 25
     assert "fetch('permits.html')" in html
     assert "<noscript>" in html and "20 הבקשות הראשונות" in html
+    # Direct navigation to a fragment redirects to the index's permits
+    # section (user report 2026-11-11); innerHTML injection never runs it.
+    from ginot.page_permits import _FRAGMENT_REDIRECT
+
+    assert permits_html.startswith(_FRAGMENT_REDIRECT)
+    default_html = (tmp_path / "permits-default.html").read_text(encoding="utf-8")
+    assert default_html.startswith(_FRAGMENT_REDIRECT)
+    assert "permits-table" in _FRAGMENT_REDIRECT and "#permits" in _FRAGMENT_REDIRECT
 
 
 def test_permits_recency_markup(tmp_path):
