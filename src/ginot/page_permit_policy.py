@@ -261,11 +261,13 @@ COMMUNITY_SOURCE_RECORDS = (
 )
 
 
-def _community_source_link(case_id):
+def _community_source_link(case_id, lang: str = "he", pre: str = ""):
+    from .i18n import t as _tt
+
     return "".join(
-        f" <a class='community-source' href='{url}' "
-        f"title='סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
-        f"סיכום פורום {date}</a>"
+        f" <a class='community-source' href='{pre}{url}' "
+        f'title="{_e(_tt(lang, "cs.forum_title", date=date))}">'
+        f"{_e(_tt(lang, 'cs.forum_text', date=date))}</a>"
         for cases, url, date in COMMUNITY_SOURCE_RECORDS
         if case_id in cases
     )
@@ -278,15 +280,19 @@ PERMIT_AI_REVIEWS = {
 }
 
 
-def _permit_review_cell(tik_num):
+def _permit_review_cell(tik_num, lang: str = "he", pre: str = ""):
+    from .i18n import t as _t
+
     url = PERMIT_AI_REVIEWS.get((tik_num or "").strip())
-    source = _community_source_link((tik_num or "").strip())
+    source = _community_source_link((tik_num or "").strip(), lang, pre)
     if url:
         return (
-            f"<a href='{_e(url)}' title='סיכום AI - אינו מסמך רשמי'>סקירת AI</a>"
-            + source
+            f"<a href='{pre}{_e(url)}' title='{_e(_t(lang, 'permits.review_link_title'))}'>"
+            f"{_e(_t(lang, 'permits.col_review'))}</a>" + source
         )
-    return '<span class="derived">טרם פורסמה סקירה</span>' + source
+    return (
+        f'<span class="derived">{_e(_t(lang, "permits.review_none"))}</span>' + source
+    )
 
 
 # Section: Default subset and publication evidence

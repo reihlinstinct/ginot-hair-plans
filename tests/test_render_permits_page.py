@@ -249,14 +249,13 @@ def test_permit_ai_review_column_links_published_review_and_labels_missing():
 def test_permit_ai_review_mobile_label_and_no_sort_button():
     from ginot.page import _CSS, _permits_section
 
-    assert '#permits-table td:nth-child(9)::before{content:"סקירת AI"}' in _CSS
-    header = (
-        _permits_section([{"tik_num": "2026/0439.00"}])
-        .split("<thead>", 1)[1]
-        .split("</thead>", 1)[0]
-    )
+    # mobile row labels come from data-label attributes (i18n-aware), not CSS content
+    assert "content:attr(data-label)" in _CSS
+    section = _permits_section([{"tik_num": "2026/0439.00"}])
+    header = section.split("<thead>", 1)[1].split("</thead>", 1)[0]
     assert "סקירת AI" in header
     assert "<button" not in header
+    assert "data-label='סקירת AI'" in section
 
 
 # Section: Default subset and privacy projection

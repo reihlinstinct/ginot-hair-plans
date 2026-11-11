@@ -115,6 +115,7 @@ def test_email_page_renders_in_every_language(code):
     assert ('class="draft-note"' in html) == i18n.is_draft(code)
     pre = i18n.asset_prefix(code)
     assert f'href="{pre}style.css"' in html
+    assert f'href="{pre}{i18n.page_path(code, "index.html")}"' in html
     assert "{generated}" not in html
 
 
@@ -122,6 +123,63 @@ def test_hebrew_page_is_unchanged_in_key_markers():
     html = render_email_page(ROWS, "2026-11-09", "Council")
     assert "<title>קבלת מייל על תוכנית - Council</title>" in html
     assert 'value="he"' in html and "draft-note" not in html
+
+
+# Section: the main pages render in every language
+
+
+def _index_row():
+    return {
+        "pl_number": "101-1",
+        "pl_name": "תכנית 1",
+        "station_desc": "הפקדה",
+        "receiving_date": "",
+        "pl_last_deposit_date": "",
+        "depositing_date": "",
+        "objection_deadline_derived_2m_from_publication": "",
+        "pl_area_dunam": 1.0,
+        "inside_flag": "inside",
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+
+
+@pytest.mark.parametrize("code", i18n.lang_codes())
+def test_index_page_renders_in_every_language(code):
+    from ginot.page import render_index
+
+    permits = [
+        {
+            "tik_num": "2026/0439.00",
+            "status": "בבדיקה",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+        }
+    ]
+    html = render_index(
+        [_index_row()], [], "2026-11-11", "גינות העיר", permits=permits, lang=code
+    )
+    m = i18n.meta(code)
+    assert f'<html dir="{m["dir"]}" lang="{m["lang"]}">' in html
+    assert ('class="draft-note"' in html) == i18n.is_draft(code)
+    pre = i18n.asset_prefix(code)
+    assert f'href="{pre}style.css"' in html
+    assert "{generated}" not in html
+    # permits table mobile labels are translated data-label attributes
+    assert f"data-label='{_e(i18n.t(code, 'permits.col_address'))}'" in html
+    # data values (plan names, permit statuses) stay Hebrew in every language
+    assert "תכנית 1" in html and "בבדיקה" in html
+    # the table fragments are per-language and load from next to the page,
+    # never from the Hebrew root (#961 review)
+    assert "fetch('rows.html')" in html
+    assert "fetch('permits.html')" in html
+    assert "fetch('permits-default.html')" in html
+    assert "fetch('../rows.html')" not in html
+    assert "fetch('../permits.html')" not in html
+    assert "fetch('../permits-default.html')" not in html
+    # shared data is fetched from the root
+    assert f"fetch('{pre}publications_active.json')" in html
+    # review and source links point at the root reviews tree from every language
+    assert f"href='{pre}reviews/palmach41/review-2026-0439.00.html'" in html
 
 
 # Section: the mail API reads the same document

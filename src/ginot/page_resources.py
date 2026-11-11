@@ -72,27 +72,14 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #plans thead th:nth-child(8){display:none}
 
 #plans thead th button{min-height:44px;padding:0 14px;font-size:14px}
-#permits-table td:nth-child(9)::before{content:"סקירת AI"}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-#plans td::before,#permits-table td::before{color:#666;font-size:13px;flex:none}
+#plans td::before,#permits-table td::before{content:attr(data-label);color:#666;font-size:13px;flex:none}
 #plans td:nth-child(1){font-weight:600;font-size:17px}
 #plans td:nth-child(2){font-size:16px;padding-bottom:6px}
 #plans td:nth-child(3){padding-bottom:6px}
-#plans td:nth-child(4)::before{content:"קליטה"}
-#plans td:nth-child(5)::before{content:"הפקדה"}
-#plans td:nth-child(6)::before{content:"אחרון להתנגדות (משוער)"}
-#plans td:nth-child(7)::before{content:"שטח (דונם)"}
-#plans td:nth-child(8)::before{content:"סקירת AI"}
 #permits-table td:nth-child(1){font-weight:600}
-#permits-table td:nth-child(2)::before{content:"כתובת"}
-#permits-table td:nth-child(3)::before{content:"מהות"}
-#permits-table td:nth-child(4)::before{content:"סוג"}
-#permits-table td:nth-child(5)::before{content:"סטטוס"}
-#permits-table td:nth-child(6)::before{content:"תאריך סטטוס"}
-#permits-table td:nth-child(7)::before{content:"תחילת פרסום"}
-#permits-table td:nth-child(8)::before{content:"סיום פרסום"}
 tr.filtered-out{display:none!important}
 .stats{grid-template-columns:1fr}.bars .bl{width:8em}
 footer{font-size:14px;line-height:1.8}footer a{display:inline-block;min-height:32px}
@@ -100,43 +87,50 @@ footer{font-size:14px;line-height:1.8}footer a{display:inline-block;min-height:3
 """
 
 
-_SOURCES_ROWS = [
-    (
-        "תכניות במינהל",
-        "שירות התכנון הציבורי (iplan), מנהל התכנון",
-        "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
-        "רענון שבועי (יום שלישי) ורענונים ידניים",
-        '<a href="data.json">data.json</a>',
-    ),
-    (
-        "פרסומי הפקדה",
-        "land.gov.il - מינהל מקרקעי ישראל",
-        "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
-        "רענון שבועי",
-        '<a href="https://land.gov.il">land.gov.il</a>',
-    ),
-    (
-        "בקשות היתר",
-        "איתור נתונים ברישוי, עיריית ירושלים",
-        "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
-        "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
-        '<a href="https://ykpubdata.jerusalem.muni.il/">איתור נתונים ברישוי</a>',
-    ),
-    (
-        "מסמכי תכנית וסקירות AI",
-        'מאב"ת - מערכת איתור בינוי ותכניות',
-        "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
-        "לפי צורך, לתכניות נבחרות",
-        '<a href="https://mavat.iplan.gov.il/">מאב"ת</a>',
-    ),
-    (
-        "גבול המינהל",
-        "קובץ גבול גיאוגרפי במאגר",
-        "פוליגון שטח המינהל הקהילתי (geojson)",
-        "עדכון ידני בשינוי גבול",
-        '<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">תיקיית data</a>',
-    ),
-]
+def _sources_rows(
+    lang: str = "he", pre: str = ""
+) -> list[tuple[str, str, str, str, str]]:
+    """The About page's sources table in lang; pre prefixes the relative
+    data.json link from a per-language page."""
+    from .i18n import t as _tt
+
+    return [
+        (
+            _tt(lang, "sources.r1.name"),
+            _tt(lang, "sources.r1.src"),
+            _tt(lang, "sources.r1.what"),
+            _tt(lang, "sources.r1.cad"),
+            f'<a href="{pre}data.json">data.json</a>',
+        ),
+        (
+            _tt(lang, "sources.r2.name"),
+            _tt(lang, "sources.r2.src"),
+            _tt(lang, "sources.r2.what"),
+            _tt(lang, "sources.r2.cad"),
+            '<a href="https://land.gov.il">land.gov.il</a>',
+        ),
+        (
+            _tt(lang, "sources.r3.name"),
+            _tt(lang, "sources.r3.src"),
+            _tt(lang, "sources.r3.what"),
+            _tt(lang, "sources.r3.cad"),
+            f'<a href="https://ykpubdata.jerusalem.muni.il/">{_tt(lang, "sources.viewer_name")}</a>',
+        ),
+        (
+            _tt(lang, "sources.r4.name"),
+            _tt(lang, "sources.r4.src"),
+            _tt(lang, "sources.r4.what"),
+            _tt(lang, "sources.r4.cad"),
+            f'<a href="https://mavat.iplan.gov.il/">{_tt(lang, "sources.mavat_name")}</a>',
+        ),
+        (
+            _tt(lang, "sources.r5.name"),
+            _tt(lang, "sources.r5.src"),
+            _tt(lang, "sources.r5.what"),
+            _tt(lang, "sources.r5.cad"),
+            f'<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">{_tt(lang, "sources.data_dir")}</a>',
+        ),
+    ]
 
 
 _ANALYTICS_SNIPPET = (
@@ -174,6 +168,27 @@ fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.j
 """
 
 
+def _datasets_js(lang: str = "he", pre: str = "") -> str:
+    """The datasets-list script in lang; pre prefixes the index.json fetch
+    from a per-language page."""
+    import json as _json
+
+    from .i18n import t as _tt
+
+    def J(key: str) -> str:
+        return _json.dumps(_tt(lang, key), ensure_ascii=False)
+
+    return (
+        _DATASETS_JS.replace("fetch('index.json')", f"fetch('{pre}index.json')")
+        .replace("'רשומות'", J("ds.records"))
+        .replace("'<li>אין</li>'", "'<li>'+" + J("ds.none") + "+'</li>'")
+        .replace(
+            "'<li>רשימת מערכי הנתונים לא זמינה כרגע</li>'",
+            "'<li>'+" + J("ds.unavailable") + "+'</li>'",
+        )
+    )
+
+
 def _e(s):
     return html.escape(str(s or ""))
 
@@ -202,3 +217,6 @@ def _date_cell(d) -> str:
 
 
 COLLAPSE_TOP = 20
+
+
+_SOURCES_ROWS = _sources_rows()

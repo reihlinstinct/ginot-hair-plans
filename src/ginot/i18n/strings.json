@@ -157,6 +157,1750 @@
    "ru": "Сайт:",
    "am": "ድረ-ገጽ፦",
    "fr": "Site web :"
+  },
+  "index.html_title": {
+   "he": "תכניות במינהל הקהילתי {council}",
+   "en": "Plans in the {council} community council",
+   "ar": "مخططات في المجلس المحلي {council}",
+   "ru": "Планы в общинном совете {council}",
+   "am": "በ{council} የማህበረሰብ ምክር ቤት ውስጥ ያሉ እቅዶች",
+   "fr": "Plans du conseil de quartier {council}"
+  },
+  "index.h1": {
+   "he": "תכניות תכנון ובנייה בשטח המינהל הקהילתי {council}",
+   "en": "Building plans in the {council} community council area",
+   "ar": "مخططات البناء والتخطيط في منطقة المجلس المحلي {council}",
+   "ru": "Планы застройки на территории общинного совета {council}",
+   "am": "በ{council} የማህበረሰብ ምክር ቤት አካባቢ ያሉ የግንባታ እቅዶች",
+   "fr": "Plans de construction dans le secteur du conseil de quartier {council}"
+  },
+  "index.updated": {
+   "he": "עודכן: {generated}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.",
+   "en": "Updated: {generated}. Source: the public planning service (iplan) - approximate data, for information only.",
+   "ar": "آخر تحديث: {generated}. المصدر: خدمة التخطيط العامة (iplan) - بيانات تقريبية، للمعلومات فقط.",
+   "ru": "Обновлено: {generated}. Источник: публичный сервис планирования (iplan) - приблизительные данные, только для информации.",
+   "am": "የተዘመነው: {generated}። ምንጭ: የሕዝብ እቅድ አገልግሎት (iplan) - ግምት ውስጥ የሚገቡ ውሂቦች፣ ለመረጃ ብቻ።",
+   "fr": "Mis à jour : {generated}. Source : service public de planification (iplan) - données approximatives, à titre indicatif uniquement."
+  },
+  "index.email_cta": {
+   "he": "קבלת מייל על תוכנית (עם אפשרות להרשמה לעדכונים)",
+   "en": "Get email about a plan (with an option to subscribe to updates)",
+   "ar": "تلقّي بريد حول مخطط (مع إمكانية الاشتراك في التحديثات)",
+   "ru": "Получать письма о плане (с возможностью подписки на обновления)",
+   "am": "ስለ እቅድ ኢሜይል ይቀበሉ (ለዝማኔዎች የመመዝገቢያ አማራጭ ጋር)",
+   "fr": "Recevoir un e-mail sur un plan (avec possibilité de s'abonner aux mises à jour)"
+  },
+  "index.default_order_html": {
+   "he": "<b>סדר ברירת המחדל:</b> לפי \"אחרון להתנגדות\" (משוער) - התאריך הרחוק ביותר למעלה; תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.\nמוצגות {top} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.\nתכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו \"הצג תכניות מאושרות\" כדי לראותן.",
+   "en": "<b>Default order:</b> by \"last day to object\" (estimated) - the latest date on top; plans without an objection deadline appear below those that have one. Clicking a column header sorts by it.\nThe {top} most relevant plans are shown; filtering and search work on all plans.\nApproved plans ({n_approved}) are hidden by default - check \"Show approved plans\" to see them.",
+   "ar": "<b>الترتيب الافتراضي:</b> حسب \"آخر يوم للاعتراض\" (تقديري) - التاريخ الأبعد أولاً؛ المخططات بدون موعد نهائي للاعتراض تظهر أسفل تلك التي لها موعد. النقر على عنوان عمود يرتّب حسبه.\nتُعرض أكثر {top} مخططات صلة؛ يعمل التصفية والبحث على جميع المخططات.\nالمخططات المصادق عليها ({n_approved}) مخفية افتراضيًا - فعّلوا \"إظهار المخططات المصادق عليها\" لرؤيتها.",
+   "ru": "<b>Порядок по умолчанию:</b> по «последнему дню возражений» (оценка) - самая поздняя дата сверху; планы без срока возражений идут ниже тех, у кого он есть. Нажатие на заголовок столбца сортирует по нему.\nПоказаны {top} наиболее актуальных планов; фильтр и поиск работают по всем планам.\nУтверждённые планы ({n_approved}) скрыты по умолчанию - отметьте «Показать утверждённые планы», чтобы увидеть их.",
+   "am": "<b>ነባሪ ቅደም ተከተል:</b> በ\"የመቃወሚያ መጨረሻ ቀን\" (ግምት) - ረዘም ያለው ቀን ከላይ ይገኛል፤ የመቃወሚያ ቀን የሌላቸው እቅዶች ያለባቸውን ስር ይታያሉ። የአምድ ርዕስ ጠቅ ማድረግ ያደራጃል።\nበጣም ተዛማጅ {top} እቅዶች ይታያሉ፤ ማጣሪያ እና ፍለጋ በሁሉም እቅዶች ላይ ይሰራሉ።\nየጸደቁ እቅዶች ({n_approved}) በነባሪነት ይደበቃሉ - ለማየት \"የጸደቁ እቅዶችን አሳይ\" ይምረጡ።",
+   "fr": "<b>Ordre par défaut :</b> par « dernier jour d'objection » (estimé) - la date la plus lointaine en haut ; les plans sans date limite d'objection apparaissent en dessous de ceux qui en ont une. Cliquer sur un en-tête de colonne trie par celle-ci.\nLes {top} plans les plus pertinents sont affichés ; le filtre et la recherche portent sur tous les plans.\nLes plans approuvés ({n_approved}) sont masqués par défaut - cochez « Afficher les plans approuvés » pour les voir."
+  },
+  "index.obj_column_note_html": {
+   "he": "עמודת \"אחרון להתנגדות\" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים) - לבדיקה מול המו\"ת.",
+   "en": "The \"last day to object\" column is a <b>computed estimate</b> (deposit publication + two months) - verify with the planning authorities.",
+   "ar": "عمود \"آخر يوم للاعتراض\" هو <b>تقدير محسوب</b> (نشر الإيداع + شهرين) - يُرجى التحقق لدى سلطات التخطيط.",
+   "ru": "Столбец «последний день возражений» - <b>вычисленная оценка</b> (публикация депозита + два месяца) - проверяйте в планировочных органах.",
+   "am": "የ\"መቃወሚያ መጨረሻ ቀን\" አምድ <b>የተሰላ ግምት</b> ነው (የተቀማጭነት ማተሚያ + ሁለት ወራት) - ከእቅድ ባለሥልጣናት ጋር ያረጋግጡ።",
+   "fr": "La colonne « dernier jour d'objection » est une <b>estimation calculée</b> (publication du dépôt + deux mois) - à vérifier auprès des autorités de planification."
+  },
+  "index.review_note_html": {
+   "he": "עמודת \"סקירת AI\" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו\"ת.",
+   "en": "The \"AI review\" column links to discussion-point summaries produced <b>automatically by AI</b> from the plan documents - the content is not an official document and is no substitute for reading the documents at the planning authorities.",
+   "ar": "عمود \"مراجعة AI\" يرتبط بملخصات نقاط النقاش المنتَجة <b>تلقائيًا بواسطة الذكاء الاصطناعي</b> من وثائق المخطط - المحتوى ليس وثيقة رسمية وليس بديلاً عن قراءة الوثائق لدى سلطات التخطيط.",
+   "ru": "Столбец «AI-обзор» ведёт на автоматически созданные <b>с помощью ИИ</b> сводки пунктов обсуждения из документов плана - это не официальный документ и не замена чтению документов в планировочных органах.",
+   "am": "የ\"AI ግምገማ\" አምድ ከእቅዱ ሰነዶች <b>በራስ-ሰር በAI</b> ከሚዘጋጁ የውይይት ነጥቦች ማጠቃለያዎች ጋር ያገናኛል - ይህ ይዘት የሚይዝ ሰነድ አይደለም እና ሰነዶቹን በእቅድ ባለሥልጣናት ማንበብን አይተካም።",
+   "fr": "La colonne « Revue IA » renvoie vers des résumés de points de discussion produits <b>automatiquement par IA</b> à partir des documents du plan - ce contenu n'est pas un document officiel et ne remplace pas la lecture des documents auprès des autorités."
+  },
+  "index.legend_label": {
+   "he": "מקרא סטטוסים:",
+   "en": "Status legend:",
+   "ar": "دليل الحالات:",
+   "ru": "Легенда статусов:",
+   "am": "የሁኔታ መፈታት:",
+   "fr": "Légende des statuts :"
+  },
+  "index.search_placeholder": {
+   "he": "חיפוש מספר / שם; או עם |",
+   "en": "Search number / name; alternatives with |",
+   "ar": "بحث عن رقم / اسم؛ بدائل مع |",
+   "ru": "Поиск по номеру / названию; варианты через |",
+   "am": "ቁጥር / ስም ፈልግ፤ አማራጮች በ|",
+   "fr": "Rechercher un numéro / nom ; variantes avec |"
+  },
+  "index.search_title": {
+   "he": "לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' \" ’), ממקפים, מניקוד ומרווחים כפולים",
+   "en": "Separate alternatives with |, e.g.: Palmach 41 | Palmach 49. A comma stays a regular character. The search ignores apostrophes and quotes, hyphens, vowel marks and double spaces",
+   "ar": "لبحث البدائل افصلوا بـ |، مثال: فلماح 41 | فلماح 49. الفاصلة تبقى حرفًا عاديًا. البحث يتجاهل الفواصل العليا وعلامات الاقتباس والشرطات والتشكيل والمسافات المزدوجة",
+   "ru": "Варианты разделяйте через |, например: Пальмах 41 | Пальмах 49. Запятая остаётся обычным символом. Поиск игнорирует апострофы и кавычки, дефисы, огласовки и двойные пробелы",
+   "am": "አማራጮችን በ| ይለዩ፣ ለምሳሌ፡ ፓልማክ 41 | ፓልማክ 49። ኮማ ልዩ ቁምፊ ነው። ፍለጋው አፖስትሮፊን እና ጥቅስ ምልክቶችን፣ ሰረዞችን እና ድርብ ክፍተቶችን ይተዋል",
+   "fr": "Séparez les variantes par |, ex. : Palmah 41 | Palmah 49. La virgule reste un caractère ordinaire. La recherche ignore apostrophes et guillemets, tirets, voyelles et espaces doubles"
+  },
+  "index.all_statuses": {
+   "he": "כל הסטטוסים",
+   "en": "All statuses",
+   "ar": "كل الحالات",
+   "ru": "Все статусы",
+   "am": "ሁሉም ሁኔታዎች",
+   "fr": "Tous les statuts"
+  },
+  "index.flag_all": {
+   "he": "בתוך + חלקי",
+   "en": "Inside + partial",
+   "ar": "داخل + جزئي",
+   "ru": "Внутри + частично",
+   "am": "ውስጥ + ከፍላይ",
+   "fr": "Dedans + partiel"
+  },
+  "index.flag_inside": {
+   "he": "בתוך השטח",
+   "en": "Inside the area",
+   "ar": "داخل المنطقة",
+   "ru": "Внутри участка",
+   "am": "በአካባቢው ውስጥ",
+   "fr": "Dans la zone"
+  },
+  "index.flag_partial": {
+   "he": "חפיפה חלקית",
+   "en": "Partial overlap",
+   "ar": "تداخل جزئي",
+   "ru": "Частичное пересечение",
+   "am": "ከፍላይ ግንኙነት",
+   "fr": "Chevauchement partiel"
+  },
+  "index.open_obj_label": {
+   "he": "חלון התנגדות פתוח (משוער)",
+   "en": "Objection window open (estimated)",
+   "ar": "نافذة اعتراض مفتوحة (تقديري)",
+   "ru": "Окно возражений открыто (оценка)",
+   "am": "የመቃወሚያ መስኮት ክፍት (ግምት)",
+   "fr": "Fenêtre d'objection ouverte (estimé)"
+  },
+  "index.show_approved": {
+   "he": "הצג תכניות מאושרות ({n})",
+   "en": "Show approved plans ({n})",
+   "ar": "إظهار المخططات المصادق عليها ({n})",
+   "ru": "Показать утверждённые планы ({n})",
+   "am": "የጸደቁ እቅዶችን አሳይ ({n})",
+   "fr": "Afficher les plans approuvés ({n})"
+  },
+  "index.from_date": {
+   "he": "מתאריך",
+   "en": "From date",
+   "ar": "من تاريخ",
+   "ru": "С даты",
+   "am": "ከቀን",
+   "fr": "Du"
+  },
+  "index.to_date": {
+   "he": "עד",
+   "en": "To",
+   "ar": "إلى",
+   "ru": "По",
+   "am": "እስከ",
+   "fr": "Au"
+  },
+  "index.reset": {
+   "he": "נקה סינון",
+   "en": "Clear filters",
+   "ar": "مسح التصفية",
+   "ru": "Сбросить фильтр",
+   "am": "ማጣሪያ አጽዳ",
+   "fr": "Effacer les filtres"
+  },
+  "index.copy_link": {
+   "he": "העתק קישור לסינון",
+   "en": "Copy filter link",
+   "ar": "نسخ رابط التصفية",
+   "ru": "Скопировать ссылку на фильтр",
+   "am": "የማጣሪያ አገናኝ ቅዳ",
+   "fr": "Copier le lien du filtre"
+  },
+  "index.col_num": {
+   "he": "מספר תכנית",
+   "en": "Plan number",
+   "ar": "رقم المخطط",
+   "ru": "Номер плана",
+   "am": "የእቅድ ቁጥር",
+   "fr": "Numéro du plan"
+  },
+  "index.col_name": {
+   "he": "שם",
+   "en": "Name",
+   "ar": "الاسم",
+   "ru": "Название",
+   "am": "ስም",
+   "fr": "Nom"
+  },
+  "index.col_status": {
+   "he": "סטטוס",
+   "en": "Status",
+   "ar": "الحالة",
+   "ru": "Статус",
+   "am": "ሁኔታ",
+   "fr": "Statut"
+  },
+  "index.col_recv": {
+   "he": "קליטה",
+   "en": "Received",
+   "ar": "الاستلام",
+   "ru": "Приём",
+   "am": "መቀበያ",
+   "fr": "Réception"
+  },
+  "index.col_dep": {
+   "he": "הפקדה",
+   "en": "Deposit",
+   "ar": "الإيداع",
+   "ru": "Депозит",
+   "am": "ተቀማጭ",
+   "fr": "Dépôt"
+  },
+  "index.col_obj": {
+   "he": "אחרון להתנגדות (משוער)",
+   "en": "Last day to object (estimated)",
+   "ar": "آخر يوم للاعتراض (تقديري)",
+   "ru": "Последний день возражений (оценка)",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት)",
+   "fr": "Dernier jour d'objection (estimé)"
+  },
+  "index.col_area": {
+   "he": "שטח (דונם)",
+   "en": "Area (dunam)",
+   "ar": "المساحة (دونم)",
+   "ru": "Площадь (дунам)",
+   "am": "ስፋት (ዱናም)",
+   "fr": "Superficie (dounam)"
+  },
+  "index.col_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "AI ግምገማ",
+   "fr": "Revue IA"
+  },
+  "index.col_review_title": {
+   "he": "סיכום שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "Summary produced by AI - not an official document",
+   "ar": "ملخص أنتج بواسطة الذكاء الاصطناعي - ليس وثيقة رسمية",
+   "ru": "Сводка, созданная ИИ, - не официальный документ",
+   "am": "በAI የተዘጋጀ ማጠቃለያ - የሚይዝ ሰነድ አይደለም",
+   "fr": "Résumé produit par IA - pas un document officiel"
+  },
+  "index.review_link_text": {
+   "he": "סקירה",
+   "en": "Review",
+   "ar": "مراجعة",
+   "ru": "Обзор",
+   "am": "ግምገማ",
+   "fr": "Revue"
+  },
+  "index.review_link_title": {
+   "he": "סיכום נקודות לדיון שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "Discussion-point summary produced by AI - not an official document",
+   "ar": "ملخص نقاط نقاش أنتج بواسطة الذكاء الاصطناعي - ليس وثيقة رسمية",
+   "ru": "Сводка пунктов обсуждения, созданная ИИ, - не официальный документ",
+   "am": "በAI የተዘጋጀ የውይይት ነጥቦች ማጠቃለያ - የሚይዝ ሰነድ አይደለም",
+   "fr": "Résumé des points de discussion produit par IA - pas un document officiel"
+  },
+  "index.noscript": {
+   "he": "מוצגות {top} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.",
+   "en": "Only the top {top} plans are shown - enable JavaScript to see all plans and use the filters.",
+   "ar": "تُعرض أهم {top} مخططات فقط - فعّلوا JavaScript لعرض جميع المخططات واستخدام التصفية.",
+   "ru": "Показаны только первые {top} планов - включите JavaScript, чтобы увидеть все планы и пользоваться фильтрами.",
+   "am": "ዋና {top} እቅዶች ብቻ ይታያሉ - ሁሉንም እቅዶች ለማየት እና ማጣሪያውን ለመጠቀም JavaScript ያንቁ።",
+   "fr": "Seuls les {top} premiers plans sont affichés - activez JavaScript pour voir tous les plans et utiliser les filtres."
+  },
+  "index.show_all": {
+   "he": "הצג את כל {n} התכניות",
+   "en": "Show all {n} plans",
+   "ar": "إظهار كل المخططات الـ{n}",
+   "ru": "Показать все {n} планов",
+   "am": "ሁሉንም {n} እቅዶች አሳይ",
+   "fr": "Afficher les {n} plans"
+  },
+  "index.show_first": {
+   "he": "הצג {top} הראשונות",
+   "en": "Show the first {top}",
+   "ar": "إظهار أول {top}",
+   "ru": "Показать первые {top}",
+   "am": "የመጀመሪያዎቹን {top} አሳይ",
+   "fr": "Afficher les {top} premiers"
+  },
+  "index.count_showing": {
+   "he": "מציג {shown} מתוך {total}",
+   "en": "Showing {shown} of {total}",
+   "ar": "عرض {shown} من {total}",
+   "ru": "Показано {shown} из {total}",
+   "am": "{shown} ከ{total} በማሳየት ላይ",
+   "fr": "Affichage de {shown} sur {total}"
+  },
+  "index.urgent_h": {
+   "he": "דחוף להתנגדות",
+   "en": "Urgent objections",
+   "ar": "اعتراضات عاجلة",
+   "ru": "Срочные возражения",
+   "am": "አስቸኳይ ተቃውሞዎች",
+   "fr": "Objections urgentes"
+  },
+  "index.changes_h": {
+   "he": "שינויים אחרונים",
+   "en": "Recent changes",
+   "ar": "تغييرات أخيرة",
+   "ru": "Последние изменения",
+   "am": "የቅርብ ጊዜ ለውጦች",
+   "fr": "Changements récents"
+  },
+  "index.urgent_deadline": {
+   "he": "אחרון להתנגדות (משוער):",
+   "en": "Last day to object (estimated):",
+   "ar": "آخر يوم للاعتراض (تقديري):",
+   "ru": "Последний день возражений (оценка):",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት):",
+   "fr": "Dernier jour d'objection (estimé) :"
+  },
+  "index.none": {
+   "he": "אין",
+   "en": "None",
+   "ar": "لا يوجد",
+   "ru": "Нет",
+   "am": "የለም",
+   "fr": "Aucun"
+  },
+  "index.no_changes": {
+   "he": "אין שינויים מהסריקה הקודמת",
+   "en": "No changes since the previous scan",
+   "ar": "لا تغييرات منذ الفحص السابق",
+   "ru": "Нет изменений с прошлого сканирования",
+   "am": "ካለፈው ስካን ምንም ለውጥ የለም",
+   "fr": "Aucun changement depuis le dernier balayage"
+  },
+  "index.footer_html": {
+   "he": "אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:",
+   "en": "An automated data site of the Ginot HaIr committee. Source code and data:",
+   "ar": "موقع بيانات آلي للجنة غينوت هاعير. الكود المصدري والبيانات:",
+   "ru": "Автоматический сайт данных комитета Гинот-ха-Ир. Исходный код и данные:",
+   "am": "የጊኖት ሃኢር ኮሚቴ ራስ-ሰር የውሂብ ጣቢያ። የምንጭ ኮድ እና ውሂብ:",
+   "fr": "Site de données automatisé du comité Ginot HaIr. Code source et données :"
+  },
+  "index.footer_about": {
+   "he": "אודות ומקורות נתונים",
+   "en": "About and data sources",
+   "ar": "حول ومصادر البيانات",
+   "ru": "О сайте и источники данных",
+   "am": "ስለ እና የውሂብ ምንጮች",
+   "fr": "À propos et sources des données"
+  },
+  "index.footer_email": {
+   "he": "קבלת מייל על תוכנית",
+   "en": "Get email about a plan",
+   "ar": "تلقّي بريد حول مخطط",
+   "ru": "Получать письма о плане",
+   "am": "ስለ እቅድ ኢሜይል ይቀበሉ",
+   "fr": "Recevoir un e-mail sur un plan"
+  },
+  "index.footer_contrib": {
+   "he": "איך לתרום",
+   "en": "How to contribute",
+   "ar": "كيف تساهم",
+   "ru": "Как помочь",
+   "am": "እንዴት ማበርከት ይቻላል",
+   "fr": "Comment contribuer"
+  },
+  "index.version": {
+   "he": "גרסה",
+   "en": "Version",
+   "ar": "الإصدار",
+   "ru": "Версия",
+   "am": "ስሪት",
+   "fr": "Version"
+  },
+  "stats.title": {
+   "he": "סטטיסטיקה",
+   "en": "Statistics",
+   "ar": "إحصائيات",
+   "ru": "Статистика",
+   "am": "ስታቲስቲክስ",
+   "fr": "Statistiques"
+  },
+  "stats.by_status": {
+   "he": "לפי סטטוס",
+   "en": "By status",
+   "ar": "حسب الحالة",
+   "ru": "По статусу",
+   "am": "በሁኔታ",
+   "fr": "Par statut"
+  },
+  "stats.by_flag": {
+   "he": "בתוך השטח / חפיפה חלקית",
+   "en": "Inside the area / partial overlap",
+   "ar": "داخل المنطقة / تداخل جزئي",
+   "ru": "Внутри участка / частичное пересечение",
+   "am": "በአካባቢው ውስጥ / ከፍላይ ግንኙነት",
+   "fr": "Dans la zone / chevauchement partiel"
+  },
+  "stats.deposits": {
+   "he": "הפקדות לפי חודש (24 אחרונים)",
+   "en": "Deposits by month (last 24)",
+   "ar": "الإيداعات حسب الشهر (آخر 24)",
+   "ru": "Депозиты по месяцам (24 последних)",
+   "am": "ተቀማጮች በወር (የመጨረሻ 24)",
+   "fr": "Dépôts par mois (24 derniers)"
+  },
+  "stats.approvals": {
+   "he": "אישורים לפי שנה",
+   "en": "Approvals by year",
+   "ar": "المصادقات حسب السنة",
+   "ru": "Утверждения по годам",
+   "am": "ማጽደቃት በዓመት",
+   "fr": "Approbations par année"
+  },
+  "stats.no_label": {
+   "he": "(ללא)",
+   "en": "(none)",
+   "ar": "(لا شيء)",
+   "ru": "(нет)",
+   "am": "(የለም)",
+   "fr": "(aucun)"
+  },
+  "map.summary": {
+   "he": "מפת התכניות ובקשות ההיתר - נקודות וגבולות",
+   "en": "Map of plans and permit requests - points and boundaries",
+   "ar": "خريطة المخططات وطلبات الرخص - نقاط وحدود",
+   "ru": "Карта планов и заявок на разрешения - точки и границы",
+   "am": "የእቅዶች እና የፈቃድ ጥያቄዎች ካርታ - ነጥቦች እና ወሰኖች",
+   "fr": "Carte des plans et demandes de permis - points et limites"
+  },
+  "map.intro": {
+   "he": "המפה מציגה רק את השורות הגלויות בטבלאות התכניות ובקשות ההיתר. ריבוע סגול: בקשות היתר לפי גוש וחלקה, בנקודה פנימית בחלקה ולא בכניסה לבניין. כמה בקשות באותה חלקה מופיעות יחד. קווים: גבולות תכנית. נקודה קטנה: מיקום מייצג בלבד, לא כתובת כניסה. המפה אינה מסמך רשמי.",
+   "en": "The map shows only the rows visible in the plans and permit-requests tables. Purple square: permit requests by block and parcel, at an interior point of the parcel, not at the building entrance. Several requests on the same parcel appear together. Lines: plan boundaries. Small dot: representative location only, not an entrance address. The map is not an official document.",
+   "ar": "الخريطة تعرض فقط الصفوف الظاهرة في جدولي المخططات وطلبات الرخص. مربع بنفسجي: طلبات رخص حسب القطعة، في نقطة داخلية بالقطعة وليس عند مدخل المبنى. عدة طلبات في نفس القطعة تظهر معًا. خطوط: حدود المخطط. نقطة صغيرة: موقع تمثيلي فقط، وليس عنوان مدخل. الخريطة ليست وثيقة رسمية.",
+   "ru": "Карта показывает только строки, видимые в таблицах планов и заявок. Фиолетовый квадрат: заявки на разрешения по кварталу и участку, во внутренней точке участка, а не у входа в здание. Несколько заявок на одном участке показаны вместе. Линии: границы планов. Маленькая точка: только ориентировочное место, не адрес входа. Карта не является официальным документом.",
+   "am": "ካርታው በእቅዶች እና በፈቃድ ጥያቄዎች ሰንጠረዦች ውስጥ የሚታዩትን ረድፎች ብቻ ያሳያል። ሐምራዊ ካሬ: የፈቃድ ጥያቄዎች በብሎክ እና በቦታ፣ በቦታው ውስጣዊ ነጥብ፣ በሕንፃ መግቢያ አይደለም። በአንድ ቦታ ላይ ብዙ ጥያቄዎች አብረው ይታያሉ። መስመሮች: የእቅድ ወሰኖች። ትንሽ ነጥብ: ተወካይ ቦታ ብቻ፣ የመግቢያ አድራሻ አይደለም። ካርታው የሚይዝ ሰነድ አይደለም።",
+   "fr": "La carte n'affiche que les lignes visibles dans les tableaux des plans et des demandes de permis. Carré violet : demandes de permis par bloc et parcelle, à un point intérieur de la parcelle, pas à l'entrée du bâtiment. Plusieurs demandes sur une même parcelle apparaissent ensemble. Lignes : limites des plans. Petit point : emplacement indicatif uniquement, pas une adresse d'entrée. La carte n'est pas un document officiel."
+  },
+  "map.boundaries_label": {
+   "he": "הצג גבולות לכל התכניות המוצגות",
+   "en": "Show boundaries for all displayed plans",
+   "ar": "إظهار الحدود لكل المخططات المعروضة",
+   "ru": "Показывать границы всех отображаемых планов",
+   "am": "ለሚታዩ እቅዶች ሁሉ ወሰኖችን አሳይ",
+   "fr": "Afficher les limites de tous les plans affichés"
+  },
+  "map.legend_toggle": {
+   "he": "מקרא צבעי המפה",
+   "en": "Map colour legend",
+   "ar": "دليل ألوان الخريطة",
+   "ru": "Легенда цветов карты",
+   "am": "የካርታ ቀለም መፈታት",
+   "fr": "Légende des couleurs"
+  },
+  "map.status_open": {
+   "he": "פתחו את המפה לטעינת הנקודות.",
+   "en": "Open the map to load the points.",
+   "ar": "افتحوا الخريطة لتحميل النقاط.",
+   "ru": "Откройте карту, чтобы загрузить точки.",
+   "am": "ነጥቦችን ለመጫን ካርታውን ይክፈቱ።",
+   "fr": "Ouvrez la carte pour charger les points."
+  },
+  "map.aria": {
+   "he": "מפת מיקומי תכניות ובקשות היתר",
+   "en": "Map of plan and permit-request locations",
+   "ar": "خريطة مواقع المخططات وطلبات الرخص",
+   "ru": "Карта расположения планов и заявок",
+   "am": "የእቅዶች እና የፈቃድ ጥያቄዎች ቦታዎች ካርታ",
+   "fr": "Carte des emplacements des plans et demandes de permis"
+  },
+  "map.note": {
+   "he": "גבולות נטענים אוטומטית לעד 20 תכניות; בתצוגה רחבה מאוד מוצגות נקודות. לחצו על קו או נקודה לשם התכנית ומספרה. הגבול נטען ישירות משירות מינהל התכנון לדפדפן, ואינו נשמר באתר.",
+   "en": "Boundaries load automatically for up to 20 plans; at very wide zoom, points are shown. Click a line or point for the plan's name and number. The boundary loads directly from the Planning Administration service to your browser and is not stored on the site.",
+   "ar": "الحدود تُحمَّل تلقائيًا حتى 20 مخططًا؛ في التكبير البعيد جدًا تُعرض نقاط. انقروا على خط أو نقطة لاسم المخطط ورقمه. الحد يُحمَّل مباشرة من خدمة إدارة التخطيط إلى المتصفح ولا يُحفظ في الموقع.",
+   "ru": "Границы загружаются автоматически для 20 планов; при очень широком масштабе показываются точки. Нажмите на линию или точку, чтобы увидеть название и номер плана. Граница загружается напрямую из сервиса Управления планирования в браузер и не хранится на сайте.",
+   "am": "ወሰኖች እስከ 20 እቅዶች በራስ-ሰር ይጫናሉ፤ በሰፊ ዝም ነጥቦች ይታያሉ። የእቅዱን ስም እና ቁጥር ለማየት መስመር ወይም ነጥብ ላይ ይጫኑ። ወሰኑ በቀጥታ ከእቅድ አስተዳደር አገልግሎት ወደ አሳሽዎ ይጫናል እና በጣቢያው ላይ አይቀመጥም።",
+   "fr": "Les limites se chargent automatiquement jusqu'à 20 plans ; à un zoom très large, des points sont affichés. Cliquez sur une ligne ou un point pour le nom et le numéro du plan. La limite est chargée directement du service de l'administration de planification vers votre navigateur et n'est pas stockée sur le site."
+  },
+  "map.credit": {
+   "he": "מקור מיקומי תכניות וגבולות: מינהל התכנון. מיקומי בקשות היתר: שכבת חלקות ציבורית (גוש וחלקה), לא מדידה רשמית. הזמינות והעדכניות אינן מובטחות.",
+   "en": "Source of plan locations and boundaries: the Planning Administration. Permit-request locations: public parcel layer (block and parcel), not an official survey. Availability and freshness are not guaranteed.",
+   "ar": "مصدر مواقع المخططات والحدود: إدارة التخطيط. مواقع طلبات الرخص: طبقة قطع عامة (قسيمة وقطعة)، وليست مسحًا رسميًا. التوفر والحداثة غير مضمونين.",
+   "ru": "Источник расположения планов и границ: Управление планирования. Расположение заявок: публичный слой участков (квартал и участок), не официальная съёмка. Доступность и актуальность не гарантируются.",
+   "am": "የእቅድ ቦታዎች እና ወሰኖች ምንጭ: የእቅድ አስተዳደር። የፈቃድ ጥያቄ ቦታዎች: የሕዝባዊ ቦታ ንብረት (ብሎክ እና ቦታ)፣ የሚይዝ መለኪያ አይደለም። ተገኝነት እና ወቅታዊነት አይረጋገጥም።",
+   "fr": "Source des emplacements et limites des plans : l'administration de planification. Emplacements des demandes de permis : couche publique des parcelles (bloc et parcelle), pas un relevé officiel. Disponibilité et actualité non garanties."
+  },
+  "indexjs.permit_prefix": {
+   "he": "בקשת היתר: ",
+   "en": "Permit request: ",
+   "ar": "طلب رخصة: ",
+   "ru": "Заявка на разрешение: ",
+   "am": "የፈቃድ ጥያቄ: ",
+   "fr": "Demande de permis : "
+  },
+  "indexjs.permit_pubcheck": {
+   "he": "פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ",
+   "en": "Municipal publication - requires verification; submission option unverified. Date in publication: ",
+   "ar": "نشر بلدي - يتطلب تحققًا؛ إمكانية التقديم غير مؤكدة. التاريخ في النشر: ",
+   "ru": "Муниципальная публикация - требует проверки; возможность подачи не подтверждена. Дата в публикации: ",
+   "am": "የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን: ",
+   "fr": "Publication municipale - à vérifier ; possibilité de dépôt non confirmée. Date dans la publication : "
+  },
+  "indexjs.permit_official": {
+   "he": "מועד התנגדות (פרסום עירוני): ",
+   "en": "Objection deadline (municipal publication): ",
+   "ar": "موعد الاعتراض (نشر بلدي): ",
+   "ru": "Срок возражений (муниципальная публикация): ",
+   "am": "የመቃወሚያ ቀን (የከተማ ማተሚያ): ",
+   "fr": "Date limite d'objection (publication municipale) : "
+  },
+  "indexjs.permit_planned": {
+   "he": "סיום פרסום מתוכנן (לא מאומת): ",
+   "en": "Planned publication end (unverified): ",
+   "ar": "نهاية نشر مخططة (غير مؤكدة): ",
+   "ru": "Плановый конец публикации (не подтверждено): ",
+   "am": "የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ): ",
+   "fr": "Fin de publication prévue (non confirmée) : "
+  },
+  "fl.aria": {
+   "he": "קישור לסינון הנוכחי",
+   "en": "Link to the current filter",
+   "ar": "رابط للتصفية الحالية",
+   "ru": "Ссылка на текущий фильтр",
+   "am": "ከአሁኑ ማጣሪያ ጋር አገናኝ",
+   "fr": "Lien vers le filtre actuel"
+  },
+  "fl.not_copied": {
+   "he": "לא הועתק. אפשר לבחור ולהעתיק את הקישור המוצג.",
+   "en": "Not copied. You can select and copy the displayed link.",
+   "ar": "لم يُنسخ. يمكنكم تحديد الرابط المعروض ونسخه.",
+   "ru": "Не скопировано. Можно выделить и скопировать показанную ссылку.",
+   "am": "አልተቀዳም። የታየውን አገናኝ መምረጥ እና መቅዳት ይችላሉ።",
+   "fr": "Non copié. Vous pouvez sélectionner et copier le lien affiché."
+  },
+  "fl.copied": {
+   "he": "הקישור הועתק",
+   "en": "Link copied",
+   "ar": "نُسخ الرابط",
+   "ru": "Ссылка скопирована",
+   "am": "አገናኙ ተቀድቷል",
+   "fr": "Lien copié"
+  },
+  "mapjs.plan_prefix": {
+   "he": "תכנית ",
+   "en": "Plan ",
+   "ar": "مخطط ",
+   "ru": "План ",
+   "am": "እቅድ ",
+   "fr": "Plan "
+  },
+  "mapjs.status_unknown": {
+   "he": "סטטוס לא ידוע",
+   "en": "Status unknown",
+   "ar": "الحالة غير معروفة",
+   "ru": "Статус неизвестен",
+   "am": "ሁኔታ አይታወቅም",
+   "fr": "Statut inconnu"
+  },
+  "mapjs.load_boundary": {
+   "he": "טען גבול תכנית",
+   "en": "Load plan boundary",
+   "ar": "تحميل حد المخطط",
+   "ru": "Загрузить границу плана",
+   "am": "የእቅድ ወሰን ጫን",
+   "fr": "Charger la limite du plan"
+  },
+  "mapjs.mavat": {
+   "he": "פרטי התכנית במאב\"ת",
+   "en": "Plan details on Mavat",
+   "ar": "تفاصيل المخطط في ماب\"ت",
+   "ru": "Детали плана в Мават",
+   "am": "የእቅድ ዝርዝሮች በማቭ\"ት",
+   "fr": "Détails du plan sur Mavat"
+  },
+  "mapjs.ai_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "AI ግምገማ",
+   "fr": "Revue IA"
+  },
+  "mapjs.overlap": {
+   "he": "{n} תכניות חופפות בנקודה זו - הקטנה מוצגת ראשונה.",
+   "en": "{n} plans overlap at this point - the smallest is shown first.",
+   "ar": "{n} مخططات متداخلة في هذه النقطة - الأصغر يظهر أولاً.",
+   "ru": "{n} планов пересекаются в этой точке - сначала показан наименьший.",
+   "am": "{n} እቅዶች በዚህ ነጥብ ይተራረፋሉ - አነስተኛው መጀመሪያ ይታያል።",
+   "fr": "{n} plans se chevauchent à ce point - le plus petit est affiché en premier."
+  },
+  "mapjs.permits_same_parcel": {
+   "he": "בקשות היתר באותה חלקה",
+   "en": "Permit requests on the same parcel",
+   "ar": "طلبات رخص في نفس القطعة",
+   "ru": "Заявки на разрешения на том же участке",
+   "am": "በተመሳሳይ ቦታ ላይ የፈቃድ ጥያቄዎች",
+   "fr": "Demandes de permis sur la même parcelle"
+  },
+  "mapjs.permit_point_note": {
+   "he": "נקודה מייצגת בחלקה לפי גוש וחלקה, לא כתובת כניסה.",
+   "en": "Representative point in the parcel by block and parcel, not an entrance address.",
+   "ar": "نقطة تمثيلية في القطعة حسب القسيمة والقطعة، وليست عنوان مدخل.",
+   "ru": "Ориентировочная точка в участке по кварталу и участку, не адрес входа.",
+   "am": "በብሎክ እና ቦታ መሠረት ተወካይ ነጥብ፣ የመግቢያ አድራሻ አይደለም።",
+   "fr": "Point indicatif dans la parcelle selon bloc et parcelle, pas une adresse d'entrée."
+  },
+  "mapjs.permits_title": {
+   "he": "בקשות היתר: ",
+   "en": "Permit requests: ",
+   "ar": "طلبات رخص: ",
+   "ru": "Заявки на разрешения: ",
+   "am": "የፈቃድ ጥያቄዎች: ",
+   "fr": "Demandes de permis : "
+  },
+  "mapjs.permits_status": {
+   "he": " בקשות היתר: {visible} שורות גלויות, {with_loc} עם מיקום בחלקה ({points} נקודות), {missing} אין מיקום.",
+   "en": " Permit requests: {visible} visible rows, {with_loc} with a parcel location ({points} points), {missing} without a location.",
+   "ar": " طلبات رخص: {visible} صفوف ظاهرة، {with_loc} مع موقع في القطعة ({points} نقاط)، {missing} بدون موقع.",
+   "ru": " Заявки на разрешения: {visible} видимых строк, {with_loc} с точкой на участке ({points} точек), {missing} без местоположения.",
+   "am": " የፈቃድ ጥያቄዎች: {visible} የሚታዩ ረድፎች፣ {with_loc} በቦታ ላይ ቦታ ያላቸው ({points} ነጥቦች)፣ {missing} ቦታ የሌላቸው።",
+   "fr": " Demandes de permis : {visible} lignes visibles, {with_loc} avec un emplacement sur la parcelle ({points} points), {missing} sans emplacement."
+  },
+  "mapjs.boundaries_off": {
+   "he": " הצגת גבולות אוטומטית כבויה; ניתן לטעון גבול מתוך כל נקודה.",
+   "en": " Automatic boundary display is off; a boundary can be loaded from any point.",
+   "ar": " عرض الحدود التلقائي مطفأ؛ يمكن تحميل حد من أي نقطة.",
+   "ru": " Автоматический показ границ выключен; границу можно загрузить из любой точки.",
+   "am": " ራስ-ሰር የወሰን ማሳያ ጠፍቷል፤ ወሰን ከማንኛውም ነጥብ መጫን ይቻላል።",
+   "fr": " L'affichage automatique des limites est désactivé ; une limite peut être chargée depuis n'importe quel point."
+  },
+  "mapjs.too_many": {
+   "he": " יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.",
+   "en": " More than 20 plans: filter the table to show boundaries.",
+   "ar": " أكثر من 20 مخططًا: صفّوا الجدول لعرض الحدود.",
+   "ru": " Больше 20 планов: отфильтруйте таблицу, чтобы показать границы.",
+   "am": " ከ20 በላይ እቅዶች: ወሰኖችን ለማሳየት ሰንጠረዡን ያጣሩ።",
+   "fr": " Plus de 20 plans : filtrez le tableau pour afficher les limites."
+  },
+  "mapjs.zoom_in": {
+   "he": " התקרבו במפה להצגת גבולות.",
+   "en": " Zoom in on the map to show boundaries.",
+   "ar": " قرّبوا الخريطة لعرض الحدود.",
+   "ru": " Приблизьте карту, чтобы показать границы.",
+   "am": " ወሰኖችን ለማሳየት ካርታውን ያቅርቡ።",
+   "fr": " Zoomez sur la carte pour afficher les limites."
+  },
+  "mapjs.no_match": {
+   "he": "אין תכניות התואמות לחיפוש או לסינון.",
+   "en": "No plans match the search or filter.",
+   "ar": "لا توجد مخططات مطابقة للبحث أو التصفية.",
+   "ru": "Нет планов, подходящих под поиск или фильтр.",
+   "am": "ከፍለጋ ወይም ማጣሪያ ጋር የሚዛመዱ እቅዶች የሉም።",
+   "fr": "Aucun plan ne correspond à la recherche ou au filtre."
+  },
+  "mapjs.status_rows": {
+   "he": "{allowed} שורות גלויות בטבלה: {count} גבולות, {points} נקודות, {noloc} ללא מיקום.{note} תאריך מיקומים: {date}.",
+   "en": "{allowed} visible rows in the table: {count} boundaries, {points} points, {noloc} without a location.{note} Locations date: {date}.",
+   "ar": "{allowed} صفوف ظاهرة في الجدول: {count} حدود، {points} نقاط، {noloc} بدون موقع.{note} تاريخ المواقع: {date}.",
+   "ru": "{allowed} видимых строк в таблице: {count} границ, {points} точек, {noloc} без местоположения.{note} Дата местоположений: {date}.",
+   "am": "{allowed} የሚታዩ ረድፎች በሰንጠረዡ: {count} ወሰኖች፣ {points} ነጥቦች፣ {noloc} ቦታ የሌላቸው።{note} የቦታዎች ቀን: {date}.",
+   "fr": "{allowed} lignes visibles dans le tableau : {count} limites, {points} points, {noloc} sans emplacement.{note} Date des emplacements : {date}."
+  },
+  "mapjs.some_failed": {
+   "he": " חלק מהגבולות לא נטענו; הנקודות נשארות זמינות.",
+   "en": " Some boundaries failed to load; the points remain available.",
+   "ar": " بعض الحدود لم تُحمَّل؛ النقاط تبقى متاحة.",
+   "ru": " Некоторые границы не загрузились; точки остаются доступными.",
+   "am": " አንዳንድ ወሰኖች አልተጫኑም፤ ነጥቦቹ እንደሚገኙ ይቆያሉ።",
+   "fr": " Certaines limites n'ont pas été chargées ; les points restent disponibles."
+  },
+  "mapjs.loading_boundaries": {
+   "he": " טוען גבולות ממינהל התכנון…",
+   "en": " Loading boundaries from the Planning Administration…",
+   "ar": " تحميل الحدود من إدارة التخطيط…",
+   "ru": " Загрузка границ из Управления планирования…",
+   "am": " ወሰኖችን ከእቅድ አስተዳደር በመጫን ላይ…",
+   "fr": " Chargement des limites depuis l'administration de planification…"
+  },
+  "mapjs.boundary_unavailable": {
+   "he": "גבול תכנית {num} אינו זמין כרגע; הנקודה והקישור למקור נשארים זמינים.",
+   "en": "The boundary of plan {num} is unavailable right now; the point and the source link remain available.",
+   "ar": "حد المخطط {num} غير متاح حاليًا؛ النقطة ورابط المصدر يبقيان متاحين.",
+   "ru": "Граница плана {num} сейчас недоступна; точка и ссылка на источник остаются доступными.",
+   "am": "የእቅድ {num} ወሰን በአሁኑ ጊዜ አይገኝም፤ ነጥቡ እና የምንጭ አገናኙ እንደሚገኙ ይቆያሉ።",
+   "fr": "La limite du plan {num} est indisponible pour le moment ; le point et le lien source restent disponibles."
+  },
+  "mapjs.loading_map": {
+   "he": "טוען מפת תכניות…",
+   "en": "Loading the plans map…",
+   "ar": "تحميل خريطة المخططات…",
+   "ru": "Загрузка карты планов…",
+   "am": "የእቅዶች ካርታ በመጫን ላይ…",
+   "fr": "Chargement de la carte des plans…"
+  },
+  "mapjs.map_unavailable": {
+   "he": "לא ניתן לטעון את המפה כרגע. טבלת התכניות נשארת זמינה.",
+   "en": "The map cannot be loaded right now. The plans table remains available.",
+   "ar": "لا يمكن تحميل الخريطة حاليًا. جدول المخططات يبقى متاحًا.",
+   "ru": "Карту сейчас загрузить нельзя. Таблица планов остаётся доступной.",
+   "am": "ካርታውን በአሁኑ ጊዜ መጫን አይቻልም። የእቅዶች ሰንጠረዥ እንደሚገኝ ይቆያል።",
+   "fr": "La carte ne peut pas être chargée pour le moment. Le tableau des plans reste disponible."
+  },
+  "mapjs.legend_line": {
+   "he": "קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.",
+   "en": "Line: plan boundary. Point: representative location when the boundary is unavailable or at wide zoom. The colour marks status, as in the table.",
+   "ar": "خط: حد مخطط. نقطة: موقع تمثيلي عندما يكون الحد غير متاح أو في التكبير البعيد. اللون يدل على الحالة، كما في الجدول.",
+   "ru": "Линия: граница плана. Точка: ориентировочное место, когда граница недоступна или при широком масштабе. Цвет обозначает статус, как в таблице.",
+   "am": "መስመር: የእቅድ ወሰን። ነጥብ: ወሰኑ ሲጎድል ወይም በሰፊ ዝም ተወካይ ቦታ። ቀለሙ ሁኔታን ያመለክታል፣ እንደ ሰንጠረዡ።",
+   "fr": "Ligne : limite du plan. Point : emplacement indicatif quand la limite est indisponible ou à zoom large. La couleur indique le statut, comme dans le tableau."
+  },
+  "mapjs.legend_permits": {
+   "he": "ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.",
+   "en": "Purple square: permit requests on the same parcel. An interior point of the parcel, not an entrance.",
+   "ar": "مربع بنفسجي: طلبات رخص في نفس القطعة. نقطة داخلية في القطعة، وليست مدخلاً.",
+   "ru": "Фиолетовый квадрат: заявки на разрешения на том же участке. Внутренняя точка участка, не вход.",
+   "am": "ሐምራዊ ካሬ: በተመሳሳይ ቦታ ላይ የፈቃድ ጥያቄዎች። የቦታው ውስጣዊ ነጥብ፣ መግቢያ አይደለም።",
+   "fr": "Carré violet : demandes de permis sur la même parcelle. Point intérieur de la parcelle, pas une entrée."
+  },
+  "stats.no_data": {
+   "he": "אין נתונים",
+   "en": "No data",
+   "ar": "لا توجد بيانات",
+   "ru": "Нет данных",
+   "am": "ውሂብ የለም",
+   "fr": "Pas de données"
+  },
+  "cs.forum_text": {
+   "he": "סיכום פורום {date}",
+   "en": "Forum summary {date}",
+   "ar": "ملخص منتدى {date}",
+   "ru": "Сводка форума {date}",
+   "am": "የመድረክ ማጠቃለያ {date}",
+   "fr": "Résumé du forum {date}"
+  },
+  "cs.forum_title": {
+   "he": "סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית",
+   "en": "Forum summary {date}, redacted copy; positions for discussion, not an official notice",
+   "ar": "ملخص منتدى {date}، نسخة منقّحة؛ مواقف للنقاش، وليست إشعارًا رسميًا",
+   "ru": "Сводка форума {date}, отредактированная копия; позиции для обсуждения, не официальное уведомление",
+   "am": "የመድረክ ማጠቃለያ {date}፣ የተጠራጠረ ቅጂ፤ ለውይይት የቀረቡ አቋሞች፣ የሚይዝ ማሳወቂያ አይደለም",
+   "fr": "Résumé du forum {date}, copie expurgée ; positions pour discussion, pas un avis officiel"
+  },
+  "about.title": {
+   "he": "אודות ומקורות נתונים - {council}",
+   "en": "About and data sources - {council}",
+   "ar": "حول ومصادر البيانات - {council}",
+   "ru": "О сайте и источники данных - {council}",
+   "am": "ስለ እና የውሂብ ምንጮች - {council}",
+   "fr": "À propos et sources des données - {council}"
+  },
+  "about.h1": {
+   "he": "אודות האתר",
+   "en": "About this site",
+   "ar": "حول الموقع",
+   "ru": "О сайте",
+   "am": "ስለ ጣቢያው",
+   "fr": "À propos du site"
+  },
+  "about.intro_html": {
+   "he": "אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת\n<strong>{council}</strong> בירושלים, ומתעדכן אוטומטית. עודכן: {generated}.",
+   "en": "This site collects public information about plans and permit requests relevant to the\n<strong>{council}</strong> committee area in Jerusalem, and updates automatically. Updated: {generated}.",
+   "ar": "يجمع هذا الموقع معلومات عامة عن المخططات وطلبات الرخص ذات الصلة بمنطقة لجنة\n<strong>{council}</strong> في القدس، ويتحدث تلقائيًا. آخر تحديث: {generated}.",
+   "ru": "Этот сайт собирает публичную информацию о планах и заявках на разрешения, относящихся к району комитета\n<strong>{council}</strong> в Иерусалиме, и обновляется автоматически. Обновлено: {generated}.",
+   "am": "ይህ ጣቢያ በኢሩሳሌም የ<strong>{council}</strong> ኮሚቴ አካባቢ የሚነኩ እቅዶች እና የፈቃድ ጥያቄዎች ላይ ሕዝባዊ መረጃ ያቀነባብራል እና በራስ-ሰር ይዘምናል። የተዘመነው: {generated}።",
+   "fr": "Ce site rassemble les informations publiques sur les plans et demandes de permis concernant le secteur du comité\n<strong>{council}</strong> à Jérusalem, et se met à jour automatiquement. Mis à jour : {generated}."
+  },
+  "about.banner_html": {
+   "he": "האתר הוא <strong>יוזמה עצמאית של הוועד</strong> ואינו אתר רשמי של עיריית\nירושלים, מנהל התכנון או רשות מקרקעי ישראל. המידע באתר הוא לנוחות בלבד,\nאינו תחליף למקורות הרשמיים ואינו ייעוץ משפטי. מועדי התנגדות המוצגים הם\nהערכה בלבד - המועד המחייב נקבע לפי הודעות ההפקדה הרשמיות.",
+   "en": "The site is <strong>an independent initiative of the committee</strong> and is not an official site of the Jerusalem\nMunicipality, the Planning Administration or the Israel Land Authority. The information is for convenience only,\nis no substitute for the official sources and is not legal advice. The objection deadlines shown are\nestimates only - the binding deadline is set by the official deposit notices.",
+   "ar": "الموقع هو <strong>مبادرة مستقلة للجنة</strong> وليس موقعًا رسميًا لبلدية\nالقدس أو إدارة التخطيط أو سلطة أراضي إسرائيل. المعلومات في الموقع للتيسير فقط،\nوليست بديلاً عن المصادر الرسمية وليست استشارة قانونية. مواعيد الاعتراض المعروضة هي\nتقديرات فقط - الموعد الملزم يتحدد وفق إشعارات الإيداع الرسمية.",
+   "ru": "Сайт - <strong>независимая инициатива комитета</strong> и не является официальным сайтом мэрии\nИерусалима, Управления планирования или Управления земель Израиля. Информация на сайте - только для удобства,\nне заменяет официальные источники и не является юридической консультацией. Показанные сроки возражений -\nлишь оценки; обязательный срок определяется официальными уведомлениями о депозите.",
+   "am": "ጣቢያው <strong>የኮሚቴው ራስ ገዝ ተቀራራቢ</strong> ነው እና የኢሩሳሌም ከተማ፣ የእቅድ አስተዳደር ወይም የእስራኤል መሬት ባለሥልጣን የሚይዝ ጣቢያ አይደለም። መረጃው ለምቾት ብቻ ነው፣\nየሚይዞችን ምንጮች አይተካም እና የሕግ ምክር አይደለም። የሚታዩ የመቃወሚያ ቀኖች\nግምቶች ብቻ ናቸው - አስገዳጁ ቀን በሚይዝ የተቀማጭነት ማሳወቂያዎች ይወሰናል።",
+   "fr": "Le site est <strong>une initiative indépendante du comité</strong> et n'est pas un site officiel de la municipalité de\nJérusalem, de l'administration de planification ou de l'autorité foncière d'Israël. Les informations sont fournies pour commodité,\nne remplacent pas les sources officielles et ne constituent pas un avis juridique. Les dates limites d'objection affichées sont\ndes estimations - la date obligatoire est fixée par les avis de dépôt officiels."
+  },
+  "about.sources_h": {
+   "he": "מקורות נתונים",
+   "en": "Data sources",
+   "ar": "مصادر البيانات",
+   "ru": "Источники данных",
+   "am": "የውሂብ ምንጮች",
+   "fr": "Sources des données"
+  },
+  "about.col_dataset": {
+   "he": "מערך נתונים",
+   "en": "Dataset",
+   "ar": "مجموعة البيانات",
+   "ru": "Набор данных",
+   "am": "የውሂብ ስብስብ",
+   "fr": "Jeu de données"
+  },
+  "about.col_source": {
+   "he": "מקור",
+   "en": "Source",
+   "ar": "المصدر",
+   "ru": "Источник",
+   "am": "ምንጭ",
+   "fr": "Source"
+  },
+  "about.col_what": {
+   "he": "מה נאסף",
+   "en": "What is collected",
+   "ar": "ما يُجمَع",
+   "ru": "Что собирается",
+   "am": "ምን ይሰበሰባል",
+   "fr": "Ce qui est collecté"
+  },
+  "about.col_cadence": {
+   "he": "תדירות עדכון",
+   "en": "Update cadence",
+   "ar": "وتيرة التحديث",
+   "ru": "Частота обновления",
+   "am": "የዝማኔ ድግግሞሽ",
+   "fr": "Fréquence de mise à jour"
+  },
+  "about.col_links": {
+   "he": "קישורים",
+   "en": "Links",
+   "ar": "روابط",
+   "ru": "Ссылки",
+   "am": "አገናኞች",
+   "fr": "Liens"
+  },
+  "about.datasets_h": {
+   "he": "מערכי נתונים",
+   "en": "Datasets",
+   "ar": "مجموعات البيانات",
+   "ru": "Наборы данных",
+   "am": "የውሂብ ስብስቦች",
+   "fr": "Jeux de données"
+  },
+  "about.loading_list": {
+   "he": "טוען רשימה...",
+   "en": "Loading list...",
+   "ar": "تحميل القائمة...",
+   "ru": "Загрузка списка...",
+   "am": "ዝርዝር በመጫን ላይ...",
+   "fr": "Chargement de la liste..."
+  },
+  "about.api_h": {
+   "he": "גישה לנתונים (API)",
+   "en": "Data access (API)",
+   "ar": "الوصول إلى البيانات (API)",
+   "ru": "Доступ к данным (API)",
+   "am": "የውሂብ መዳሰሻ (API)",
+   "fr": "Accès aux données (API)"
+  },
+  "about.api_intro": {
+   "he": "הנתונים זמינים כקבצים סטטיים (JSON / Atom) לשימוש חופשי, עם CORS פתוח.\nאין שאילתות צד-שרת - הסינון מתבצע אצל הלקוח. כל הקבצים מתעדכנים בכל רענון\nשל האתר (רענון שבועי ורענונים ידניים).",
+   "en": "The data is available as static files (JSON / Atom) for free use, with open CORS.\nThere are no server-side queries - filtering happens on the client. All files update on every site\nrefresh (a weekly refresh and manual refreshes).",
+   "ar": "البيانات متاحة كملفات ثابتة (JSON / Atom) للاستخدام الحر، مع CORS مفتوح.\nلا توجد استعلامات من الخادم - التصفية تتم لدى العميل. جميع الملفات تتحدث مع كل تحديث\nللموقع (تحديث أسبوعي وتحديثات يدوية).",
+   "ru": "Данные доступны как статические файлы (JSON / Atom) для свободного использования, с открытым CORS.\nСерверных запросов нет - фильтрация происходит на клиенте. Все файлы обновляются при каждом обновлении\nсайта (еженедельное обновление и ручные обновления).",
+   "am": "ውሂቡ እንደ ስታቲክ ፋይሎች (JSON / Atom) ለነፃ አጠቃቀም ይገኛል፣ ክፍት CORS ጋር።\nየአገልጋይ-ጎን ጥያቄዎች የሉም - ማጣሪያው በደንበኛው ዘንድ ይካሄዳል። ሁሉም ፋይሎች በእያንዳንዱ የጣቢያ\nዝማኔ (ሳምንታዊ ዝማኔ እና በእጅ ዝማኔዎች) ይዘምናሉ።",
+   "fr": "Les données sont disponibles sous forme de fichiers statiques (JSON / Atom) en libre usage, avec CORS ouvert.\nIl n'y a pas de requêtes côté serveur - le filtrage se fait côté client. Tous les fichiers sont mis à jour à chaque rafraîchissement\ndu site (un rafraîchissement hebdomadaire et des rafraîchissements manuels)."
+  },
+  "about.col_file": {
+   "he": "קובץ",
+   "en": "File",
+   "ar": "ملف",
+   "ru": "Файл",
+   "am": "ፋይል",
+   "fr": "Fichier"
+  },
+  "about.col_content": {
+   "he": "תוכן",
+   "en": "Content",
+   "ar": "المحتوى",
+   "ru": "Содержимое",
+   "am": "ይዘት",
+   "fr": "Contenu"
+  },
+  "about.col_structure": {
+   "he": "מבנה",
+   "en": "Structure",
+   "ar": "البنية",
+   "ru": "Структура",
+   "am": "መዋቅር",
+   "fr": "Structure"
+  },
+  "about.data_json_desc": {
+   "he": "מערך הנתונים המלא: תכניות, שינויים אחרונים ובקשות היתר",
+   "en": "The full dataset: plans, recent changes and permit requests",
+   "ar": "مجموعة البيانات الكاملة: مخططات، تغييرات أخيرة وطلبات رخص",
+   "ru": "Полный набор данных: планы, последние изменения и заявки на разрешения",
+   "am": "ሙሉው የውሂብ ስብስብ: እቅዶች፣ የቅርብ ጊዜ ለውጦች እና የፈቃድ ጥያቄዎች",
+   "fr": "Le jeu de données complet : plans, changements récents et demandes de permis"
+  },
+  "about.data_json_struct": {
+   "he": "שמות השדות כפי שהגיעו מ-iplan / איתור הנתונים ברישוי",
+   "en": "Field names as received from iplan / the licensing data viewer",
+   "ar": "أسماء الحقول كما وردت من iplan / نظام أيتور البيانات بالترخيص",
+   "ru": "Имена полей, как получено из iplan / системы данных лицензирования",
+   "am": "የመስኮች ስሞች ከiplan / ከፍቃድ ውሂብ ማይታ ስሪት እንደደረሱ",
+   "fr": "Noms des champs tels que reçus d'iplan / du système de données des licences"
+  },
+  "about.open_json_desc": {
+   "he": "תכניות פתוחות בלבד (עדיין בתהליך תכנוני)",
+   "en": "Open plans only (still in the planning process)",
+   "ar": "مخططات مفتوحة فقط (ما زالت في عملية التخطيط)",
+   "ru": "Только открытые планы (ещё в процессе планирования)",
+   "am": "ክፍት እቅዶች ብቻ (አሁንም በእቅድ ሂደት ውስጥ)",
+   "fr": "Plans ouverts uniquement (encore en cours de planification)"
+  },
+  "about.open_json_struct": {
+   "he": "כל רשומה כוללת in_objection_period (חלון התנגדויות פתוח היום)",
+   "en": "Each record includes in_objection_period (objection window open today)",
+   "ar": "كل سجل يتضمن in_objection_period (نافذة اعتراض مفتوحة اليوم)",
+   "ru": "Каждая запись включает in_objection_period (окно возражений открыто сегодня)",
+   "am": "እያንዳንዱ መዝገብ in_objection_period (የመቃወሚያ መስኮት ዛሬ ክፍት) ያካትታል",
+   "fr": "Chaque enregistrement inclut in_objection_period (fenêtre d'objection ouverte aujourd'hui)"
+  },
+  "about.feed_desc": {
+   "he": "פיד Atom של תכניות חדשות ושינויים",
+   "en": "Atom feed of new plans and changes",
+   "ar": "خلاصة Atom للمخططات الجديدة والتغييرات",
+   "ru": "Atom-лента новых планов и изменений",
+   "am": "የአዳዲስ እቅዶች እና ለውጦች Atom ፊድ",
+   "fr": "Flux Atom des nouveaux plans et changements"
+  },
+  "about.badge_desc": {
+   "he": "נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)",
+   "en": "Endpoints for shields.io badges (plan count, status breakdown, update date)",
+   "ar": "نقاط نهاية لشارات shields.io (عدد المخططات، تفصيل الحالات، تاريخ التحديث)",
+   "ru": "Эндпоинты для значков shields.io (число планов, разбивка статусов, дата обновления)",
+   "am": "ለshields.io ባጆች የሚያገለግሉ ነጥቦች (የእቅዶች ብዛት፣ የሁኔታዎች ዝርዝር፣ የዝማኔ ቀን)",
+   "fr": "Points d'accès pour les badges shields.io (nombre de plans, répartition des statuts, date de mise à jour)"
+  },
+  "about.api_desc": {
+   "he": "שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status",
+   "en": "A read-only query layer (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status",
+   "ar": "طبقة استعلامات للقراءة فقط (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status",
+   "ru": "Слой запросов только для чтения (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status",
+   "am": "ለንባብ ብቻ የሚውል የጥያቄ ንብርብር (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status",
+   "fr": "Une couche de requêtes en lecture seule (Cloudflare Worker) : /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status"
+  },
+  "about.api_struct": {
+   "he": "JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)",
+   "en": "JSON; 5-minute edge cache; rate limit 120 requests per minute (best-effort)",
+   "ar": "JSON؛ ذاكرة مؤقتة طرفية 5 دقائق؛ حد معدل 120 طلبًا في الدقيقة (بأقصى جهد)",
+   "ru": "JSON; кэш на краю 5 минут; лимит 120 запросов в минуту (best-effort)",
+   "am": "JSON፤ የ5 ደቂቃ ካሽ፤ የፍጥነት ገደብ 120 ጥያቄዎች በደቂቃ (best-effort)",
+   "fr": "JSON ; cache de périphérie de 5 minutes ; limite de 120 requêtes par minute (best-effort)"
+  },
+  "about.privacy_h": {
+   "he": "פרטיות",
+   "en": "Privacy",
+   "ar": "الخصوصية",
+   "ru": "Конфиденциальность",
+   "am": "ግላዊነት",
+   "fr": "Confidentialité"
+  },
+  "about.privacy1": {
+   "he": "האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים\n(למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,\nאף שהם גלויים במקור.",
+   "en": "The site shows data from public sources only. Fields identifying private stakeholders\n(for example stakeholders in permit requests) are removed in the processing pipeline and are not shown here,\neven though they are visible at the source.",
+   "ar": "الموقع يعرض بيانات من مصادر عامة فقط. الحقول المحددة لأصحاب المصلحة الخاصين\n(مثل أصحاب المصلحة في طلبات الرخص) تُزال في مسار المعالجة ولا تُعرض هنا،\nرغم أنها ظاهرة في المصدر.",
+   "ru": "Сайт показывает данные только из публичных источников. Поля, идентифицирующие частных заинтересованных лиц\n(например, заявителей в заявках на разрешения), удаляются при обработке и здесь не показываются,\nхотя в источнике они видны.",
+   "am": "ጣቢያው ከሕዝባዊ ምንጮች ብቻ ውሂብ ያሳያል። የግል ባለድርሻ አካላትን የሚያሳዩ መስኮች\n(ለምሳሌ በፈቃድ ጥያቄዎች ውስጥ ያሉ ባለድርሻ አካላት) በማቀነባበሪያው ውስጥ ይወገዳሉ እና እዚህ አይታዩም፣\nምንም እንኳን በምንጩ ላይ ቢታዩም።",
+   "fr": "Le site n'affiche que des données issues de sources publiques. Les champs identifiant des parties privées\n(par exemple les demandeurs dans les demandes de permis) sont supprimés dans le pipeline de traitement et ne sont pas affichés ici,\nbien qu'ils soient visibles à la source."
+  },
+  "about.privacy2": {
+   "he": "ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים\nבלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו\nנשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.",
+   "en": "Visit counting: the site uses Cloudflare Web Analytics to measure the number of visits\nonly, without cookies, without storing IP addresses and without personal tracking. Free-text search is not\nsent: it is removed from the page address before the measurement is sent.",
+   "ar": "عدّ الزيارات: يستخدم الموقع Cloudflare Web Analytics لقياس عدد الزيارات\nفقط، بدون ملفات تعريف ارتباط، وبدون تخزين عناوين IP وبدون تتبع شخصي. نص البحث الحر لا\nيُرسَل: يُزال من عنوان الصفحة قبل إرسال القياس.",
+   "ru": "Подсчёт посещений: сайт использует Cloudflare Web Analytics только для подсчёта числа посещений,\nбез cookie, без хранения IP-адресов и без персонального отслеживания. Свободный текст поиска не\nотправляется: он удаляется из адреса страницы до отправки измерения.",
+   "am": "የጉብኝት ቆጠራ: ጣቢያው የጉብኝቶችን ብዛት ብቻ ለመለካት Cloudflare Web Analytics ይጠቀማል፣\nየበሩ ቁልፎችን (አይፒ) ያላከለ፣ ኩኪዎችን ሳይጠቀም እና የግል ክትትል ሳያደርግ። ነፃ የፍለጋ ጽሑፍ አይላክም:\nመለኪያው ከመላኩ በፊት ከገጹ አድራሻ ይወገዳል።",
+   "fr": "Comptage des visites : le site utilise Cloudflare Web Analytics pour mesurer uniquement le nombre de visites,\nsans cookies, sans stockage d'adresses IP et sans suivi personnel. Le texte de recherche libre n'est pas\nenvoyé : il est retiré de l'adresse de la page avant l'envoi de la mesure."
+  },
+  "about.privacy3": {
+   "he": "סטטיסטיקת שימוש: האתר אוסף מונים מצטברים ואנונימיים על חיפושים ומסננים\n(אילו תכניות, רחובות ומסננים מחפשים). חיפוש נספר רק כשהוא תואם בדיוק לערך\nמהנתונים עצמם; טקסט חופשי לעולם אינו יוצא מהדפדפן. המונים פומביים ומוצגים\nבסעיף \"סטטיסטיקת שימוש\" בעמוד זה.",
+   "en": "Usage statistics: the site collects aggregate, anonymous counters about searches and filters\n(which plans, streets and filters people search). A search is counted only when it exactly matches a value\nfrom the data itself; free text never leaves the browser. The counters are public and shown\nin the \"Usage statistics\" section on this page.",
+   "ar": "إحصاءات الاستخدام: يجمع الموقع عدادات إجمالية ومجهولة عن عمليات البحث والتصفية\n(أي مخططات وشوارع ومرشحات يبحث عنها الناس). يُحتسب البحث فقط عندما يطابق بالضبط قيمة\nمن البيانات نفسها؛ النص الحر لا يغادر المتصفح أبدًا. العدادات عامة وتُعرض\nفي قسم \"إحصاءات الاستخدام\" في هذه الصفحة.",
+   "ru": "Статистика использования: сайт собирает суммарные анонимные счётчики поисков и фильтров\n(какие планы, улицы и фильтры ищут). Поиск засчитывается только при точном совпадении со значением\nиз самих данных; свободный текст никогда не покидает браузер. Счётчики публичны и показаны\nв разделе «Статистика использования» на этой странице.",
+   "am": "የአጠቃቀም ስታቲስቲክስ: ጣቢያው ስለ ፍለጋዎች እና ማጣሪያዎች ድምር እና ስም-አልባ ቆጣሪዎችን ይሰበስባል\n(ሰዎች ምን እቅዶችን፣ ጎዳናዎችን እና ማጣሪያዎችን እንደሚፈልጉ)። ፍለጋ ከውሂቡ እሴት ጋር በትክክል ሲዛመድ ብቻ ይቆጠራል፤\nነፃ ጽሑፍ ከአሳሹ አይወጣም። ቆጣሪዎቹ ሕዝባዊ ናቸው እና በዚህ ገጽ \"የአጠቃቀም ስታቲስቲክስ\" ክፍል ውስጥ ይታያሉ።",
+   "fr": "Statistiques d'usage : le site collecte des compteurs agrégés et anonymes sur les recherches et filtres\n(quels plans, rues et filtres les gens recherchent). Une recherche n'est comptée que lorsqu'elle correspond exactement à une valeur\ndes données elles-mêmes ; le texte libre ne quitte jamais le navigateur. Les compteurs sont publics et affichés\ndans la section « Statistiques d'usage » de cette page."
+  },
+  "about.usage_h": {
+   "he": "סטטיסטיקת שימוש",
+   "en": "Usage statistics",
+   "ar": "إحصاءات الاستخدام",
+   "ru": "Статистика использования",
+   "am": "የአጠቃቀም ስታቲስቲክስ",
+   "fr": "Statistiques d'usage"
+  },
+  "about.usage_intro": {
+   "he": "מונים מצטברים ואנונימיים של חיפושים ומסננים באתר (30 יום אחרונים),\nישירות ממוני השרת הציבוריים.",
+   "en": "Aggregate, anonymous counters of searches and filters on the site (last 30 days),\ndirectly from the public server counters.",
+   "ar": "عدادات إجمالية ومجهولة لعمليات البحث والتصفية في الموقع (آخر 30 يومًا)،\nمباشرة من عدادات الخادم العامة.",
+   "ru": "Суммарные анонимные счётчики поисков и фильтров на сайте (последние 30 дней),\nнапрямую из публичных серверных счётчиков.",
+   "am": "የጣቢያው ፍለጋዎች እና ማጣሪያዎች ድምር እና ስም-አልባ ቆጣሪዎች (የመጨረሻ 30 ቀናት)፣\nበቀጥታ ከሕዝባዊ አገልጋይ ቆጣሪዎች።",
+   "fr": "Compteurs agrégés et anonymes des recherches et filtres du site (30 derniers jours),\ndirectement issus des compteurs publics du serveur."
+  },
+  "about.usage_loading": {
+   "he": "טוען…",
+   "en": "Loading…",
+   "ar": "تحميل…",
+   "ru": "Загрузка…",
+   "am": "በመጫን ላይ…",
+   "fr": "Chargement…"
+  },
+  "about.usage_empty": {
+   "he": "אין עדיין נתונים.",
+   "en": "No data yet.",
+   "ar": "لا توجد بيانات بعد.",
+   "ru": "Данных пока нет.",
+   "am": "ገና ውሂብ የለም።",
+   "fr": "Pas encore de données."
+  },
+  "us.search": {
+   "he": "חיפושי תכניות",
+   "en": "Plan searches",
+   "ar": "عمليات بحث المخططات",
+   "ru": "Поиски планов",
+   "am": "የእቅዶች ፍለጋዎች",
+   "fr": "Recherches de plans"
+  },
+  "us.permits_search": {
+   "he": "חיפושי בקשות",
+   "en": "Permit-request searches",
+   "ar": "عمليات بحث الطلبات",
+   "ru": "Поиски заявок",
+   "am": "የጥያቄዎች ፍለጋዎች",
+   "fr": "Recherches de demandes"
+  },
+  "us.filter": {
+   "he": "מסנני תכניות",
+   "en": "Plan filters",
+   "ar": "مرشحات المخططات",
+   "ru": "Фильтры планов",
+   "am": "የእቅዶች ማጣሪያዎች",
+   "fr": "Filtres de plans"
+  },
+  "us.permits_filter": {
+   "he": "מסנני בקשות",
+   "en": "Permit-request filters",
+   "ar": "مرشحات الطلبات",
+   "ru": "Фильтры заявок",
+   "am": "የጥያቄዎች ማጣሪያዎች",
+   "fr": "Filtres de demandes"
+  },
+  "about.code_h": {
+   "he": "קוד ונתונים",
+   "en": "Code and data",
+   "ar": "الكود والبيانات",
+   "ru": "Код и данные",
+   "am": "ኮድ እና ውሂብ",
+   "fr": "Code et données"
+  },
+  "about.code_open": {
+   "he": "קוד האתר והנתונים המעובדים פתוחים:",
+   "en": "The site's code and processed data are open:",
+   "ar": "كود الموقع والبيانات المعالجة مفتوحة:",
+   "ru": "Код сайта и обработанные данные открыты:",
+   "am": "የጣቢያው ኮድ እና የተቀነባበሩ ውሂቦች ክፍት ናቸው:",
+   "fr": "Le code du site et les données traitées sont ouverts :"
+  },
+  "about.code_help": {
+   "he": "רוצים לעזור?",
+   "en": "Want to help?",
+   "ar": "تريدون المساعدة؟",
+   "ru": "Хотите помочь?",
+   "am": "ለመርዳት ይፈልጋሉ?",
+   "fr": "Envie d'aider ?"
+  },
+  "about.footer_html": {
+   "he": "אתר נתונים אוטומטי של ועדת {council} - בלתי רשמי.",
+   "en": "An automated data site of the {council} committee - unofficial.",
+   "ar": "موقع بيانات آلي للجنة {council} - غير رسمي.",
+   "ru": "Автоматический сайт данных комитета {council} - неофициальный.",
+   "am": "የ{council} ኮሚቴ ራስ-ሰር የውሂብ ጣቢያ - ይይዛዊ ያልሆነ።",
+   "fr": "Site de données automatisé du comité {council} - non officiel."
+  },
+  "sources.r1.name": {
+   "he": "תכניות במינהל",
+   "en": "Council-area plans",
+   "ar": "مخططات في منطقة المجلس",
+   "ru": "Планы в районе совета",
+   "am": "በምክር ቤት አካባቢ ያሉ እቅዶች",
+   "fr": "Plans du secteur"
+  },
+  "sources.r1.src": {
+   "he": "שירות התכנון הציבורי (iplan), מנהל התכנון",
+   "en": "The public planning service (iplan), Planning Administration",
+   "ar": "خدمة التخطيط العامة (iplan)، إدارة التخطيط",
+   "ru": "Публичный сервис планирования (iplan), Управление планирования",
+   "am": "የሕዝብ እቅድ አገልግሎት (iplan)፣ የእቅድ አስተዳደር",
+   "fr": "Le service public de planification (iplan), administration de planification"
+  },
+  "sources.r1.what": {
+   "he": "מספר ושם התכנית, סטטוס, תאריכי קליטה והפקדה, שטח; מועד אחרון להתנגדות מחושב (הערכה)",
+   "en": "Plan number and name, status, receiving and deposit dates, area; computed last objection date (estimate)",
+   "ar": "رقم المخطط واسمه، الحالة، تواريخ الاستلام والإيداع، المساحة؛ موعد اعتراض أخير محسوب (تقدير)",
+   "ru": "Номер и название плана, статус, даты приёма и депозита, площадь; вычисленный последний срок возражений (оценка)",
+   "am": "የእቅድ ቁጥር እና ስም፣ ሁኔታ፣ የመቀበያ እና የተቀማጭነት ቀኖች፣ ስፋት፤ የተሰላ የመጨረሻ መቃወሚያ ቀን (ግምት)",
+   "fr": "Numéro et nom du plan, statut, dates de réception et dépôt, superficie ; dernière date d'objection calculée (estimation)"
+  },
+  "sources.r1.cad": {
+   "he": "רענון שבועי (יום שלישי) ורענונים ידניים",
+   "en": "Weekly refresh (Tuesday) and manual refreshes",
+   "ar": "تحديث أسبوعي (الثلاثاء) وتحديثات يدوية",
+   "ru": "Еженедельное обновление (вторник) и ручные обновления",
+   "am": "ሳምንታዊ ዝማኔ (ሦስት) እና በእጅ ዝማኔዎች",
+   "fr": "Rafraîchissement hebdomadaire (mardi) et rafraîchissements manuels"
+  },
+  "sources.r2.name": {
+   "he": "פרסומי הפקדה",
+   "en": "Deposit publications",
+   "ar": "منشورات الإيداع",
+   "ru": "Публикации депозитов",
+   "am": "የተቀማጭነት ማተሚያዎች",
+   "fr": "Publications de dépôt"
+  },
+  "sources.r2.src": {
+   "he": "land.gov.il - מינהל מקרקעי ישראל",
+   "en": "land.gov.il - Israel Land Authority",
+   "ar": "land.gov.il - سلطة أراضي إسرائيل",
+   "ru": "land.gov.il - Управление земель Израиля",
+   "am": "land.gov.il - የእስራኤል መሬት ባለሥልጣን",
+   "fr": "land.gov.il - Autorité foncière d'Israël"
+  },
+  "sources.r2.what": {
+   "he": "תאריכי פרסום ההפקדה בעיתונים וביתרונות לכל תכנית",
+   "en": "Deposit publication dates in newspapers and gazettes for each plan",
+   "ar": "تواريخ نشر الإيداع في الصحف والجريدة الرسمية لكل مخطط",
+   "ru": "Даты публикации депозитов в газетах и ведомостях для каждого плана",
+   "am": "ለእያንዳንዱ እቅድ በጋዜጦች እና በጋዜጣዎች ውስጥ የተቀማጭነት ማተሚያ ቀኖች",
+   "fr": "Dates de publication des dépôts dans la presse et au journal officiel pour chaque plan"
+  },
+  "sources.r2.cad": {
+   "he": "רענון שבועי",
+   "en": "Weekly refresh",
+   "ar": "تحديث أسبوعي",
+   "ru": "Еженедельное обновление",
+   "am": "ሳምንታዊ ዝማኔ",
+   "fr": "Rafraîchissement hebdomadaire"
+  },
+  "sources.r3.name": {
+   "he": "בקשות היתר",
+   "en": "Permit requests",
+   "ar": "طلبات رخص",
+   "ru": "Заявки на разрешения",
+   "am": "የፈቃድ ጥያቄዎች",
+   "fr": "Demandes de permis"
+  },
+  "sources.r3.src": {
+   "he": "איתור נתונים ברישוי, עיריית ירושלים",
+   "en": "Licensing data viewer, Jerusalem Municipality",
+   "ar": "نظام أيتور البيانات بالترخيص، بلدية القدس",
+   "ru": "Система данных лицензирования, мэрия Иерусалима",
+   "am": "የፍቃድ ውሂብ ማይታ ስሪት፣ የኢሩሳሌም ከተማ",
+   "fr": "Système de données des licences, municipalité de Jérusalem"
+  },
+  "sources.r3.what": {
+   "he": "מספר בקשה, כתובת, מהות, סוג, סטטוס, תאריכי סטטוס ופרסום, גוש וחלקה",
+   "en": "Request number, address, essence, type, status, status and publication dates, block and parcel",
+   "ar": "رقم الطلب، العنوان، الجوهر، النوع، الحالة، تواريخ الحالة والنشر، القسيمة والقطعة",
+   "ru": "Номер заявки, адрес, суть, тип, статус, даты статуса и публикации, квартал и участок",
+   "am": "የጥያቄ ቁጥር፣ አድራሻ፣ ይዘት፣ አይነት፣ ሁኔታ፣ የሁኔታ እና የማተሚያ ቀኖች፣ ብሎክ እና ቦታ",
+   "fr": "Numéro de demande, adresse, nature, type, statut, dates de statut et publication, bloc et parcelle"
+  },
+  "sources.r3.cad": {
+   "he": "סריקת חלקות באצוות ליליות (בשלבי השלמה ראשונית) והעשרת סטטוסים",
+   "en": "Nightly batch parcel scans (in early completion stages) and status enrichment",
+   "ar": "مسح قطع بدفعات ليلية (في مراحل إكمال أولية) وإثراء الحالات",
+   "ru": "Ночные пакетные сканирования участков (на ранних стадиях) и обогащение статусов",
+   "am": "የሌሊት ቡድን ቦታ ስካኖች (በመጀመሪያ ማጠናቀቂያ ደረጃዎች) እና የሁኔታ ማበልፀግ",
+   "fr": "Scans de parcelles par lots nocturnes (premières étapes de finalisation) et enrichissement des statuts"
+  },
+  "sources.r4.name": {
+   "he": "מסמכי תכנית וסקירות AI",
+   "en": "Plan documents and AI reviews",
+   "ar": "وثائق المخطط ومراجعات AI",
+   "ru": "Документы планов и AI-обзоры",
+   "am": "የእቅድ ሰነዶች እና AI ግምገማዎች",
+   "fr": "Documents des plans et revues IA"
+  },
+  "sources.r4.src": {
+   "he": "מאב\"ת - מערכת איתור בינוי ותכניות",
+   "en": "Mavat - the building and plans data system",
+   "ar": "ماب\"ت - نظام أيتور البناء والمخططات",
+   "ru": "Мават - система данных о строительстве и планах",
+   "am": "ማቭ\"ት - የግንባታ እና እቅዶች ውሂብ ስሪት",
+   "fr": "Mavat - le système de données sur la construction et les plans"
+  },
+  "sources.r4.what": {
+   "he": "מסמכי הוראות, תשריט והודעות; סיכומי נקודות לדיון שהופקו באמצעות AI (מסומנים, אינם מסמך רשמי)",
+   "en": "Instruction documents, blueprints and notices; AI-produced discussion-point summaries (labelled, not an official document)",
+   "ar": "وثائق التعليمات والمخططات والإشعارات؛ ملخصات نقاط نقاش منتجة بالذكاء الاصطناعي (معلّمة، ليست وثيقة رسمية)",
+   "ru": "Документы-инструкции, чертежи и уведомления; созданные ИИ сводки пунктов обсуждения (помечены, не официальный документ)",
+   "am": "የመመሪያ ሰነዶች፣ ንድፎች እና ማሳወቂያዎች፤ በAI የተዘጋጁ የውይይት ነጥቦች ማጠቃለያዎች (ምልክት የተደረገባቸው፣ የሚይዝ ሰነድ አይደሉም)",
+   "fr": "Documents d'instructions, plans et avis ; résumés de points de discussion produits par IA (étiquetés, pas un document officiel)"
+  },
+  "sources.r4.cad": {
+   "he": "לפי צורך, לתכניות נבחרות",
+   "en": "As needed, for selected plans",
+   "ar": "حسب الحاجة، لمخططات مختارة",
+   "ru": "По мере необходимости, для отдельных планов",
+   "am": "በፍላጎት መሠረት፣ ለተመረጡ እቅዶች",
+   "fr": "Selon les besoins, pour des plans sélectionnés"
+  },
+  "sources.r5.name": {
+   "he": "גבול המינהל",
+   "en": "Council boundary",
+   "ar": "حد المجلس",
+   "ru": "Граница района совета",
+   "am": "የምክር ቤት ወሰን",
+   "fr": "Limite du conseil"
+  },
+  "sources.r5.src": {
+   "he": "קובץ גבול גיאוגרפי במאגר",
+   "en": "A geographic boundary file in the repository",
+   "ar": "ملف حد جغرافي في المستودع",
+   "ru": "Файл географической границы в репозитории",
+   "am": "በማከማቻው ውስጥ የጂኦግራፊክ ወሰን ፋይል",
+   "fr": "Un fichier de limite géographique dans le dépôt"
+  },
+  "sources.r5.what": {
+   "he": "פוליגון שטח המינהל הקהילתי (geojson)",
+   "en": "Polygon of the community council area (geojson)",
+   "ar": "مضلع منطقة المجلس المحلي (geojson)",
+   "ru": "Полигон территории общинного совета (geojson)",
+   "am": "የማህበረሰብ ምክር ቤት አካባቢ ፖሊጎን (geojson)",
+   "fr": "Polygone du secteur du conseil de quartier (geojson)"
+  },
+  "sources.r5.cad": {
+   "he": "עדכון ידני בשינוי גבול",
+   "en": "Manual update when the boundary changes",
+   "ar": "تحديث يدوي عند تغير الحد",
+   "ru": "Ручное обновление при изменении границы",
+   "am": "ወሰኑ ሲቀየር በእጅ ዝማኔ",
+   "fr": "Mise à jour manuelle lors d'un changement de limite"
+  },
+  "sources.mavat_name": {
+   "he": "מאב\"ת",
+   "en": "Mavat",
+   "ar": "ماب\"ت",
+   "ru": "Мават",
+   "am": "ማቭ\"ት",
+   "fr": "Mavat"
+  },
+  "sources.viewer_name": {
+   "he": "איתור נתונים ברישוי",
+   "en": "Licensing data viewer",
+   "ar": "نظام أيتور البيانات بالترخيص",
+   "ru": "Система данных лицензирования",
+   "am": "የፍቃድ ውሂብ ማይታ",
+   "fr": "Système de données des licences"
+  },
+  "sources.data_dir": {
+   "he": "תיקיית data",
+   "en": "The data directory",
+   "ar": "مجلد data",
+   "ru": "Каталог data",
+   "am": "የdata ማክፈያ",
+   "fr": "Le répertoire data"
+  },
+  "ds.records": {
+   "he": "רשומות",
+   "en": "records",
+   "ar": "سجلات",
+   "ru": "записей",
+   "am": "መዝገቦች",
+   "fr": "enregistrements"
+  },
+  "ds.none": {
+   "he": "אין",
+   "en": "None",
+   "ar": "لا يوجد",
+   "ru": "Нет",
+   "am": "የለም",
+   "fr": "Aucun"
+  },
+  "ds.unavailable": {
+   "he": "רשימת מערכי הנתונים לא זמינה כרגע",
+   "en": "The datasets list is unavailable right now",
+   "ar": "قائمة مجموعات البيانات غير متاحة حاليًا",
+   "ru": "Список наборов данных сейчас недоступен",
+   "am": "የውሂብ ስብስቦች ዝርዝር በአሁኑ ጊዜ አይገኝም",
+   "fr": "La liste des jeux de données est indisponible pour le moment"
+  },
+  "permits.h2": {
+   "he": "בקשות היתר",
+   "en": "Permit requests",
+   "ar": "طلبات الترخيص",
+   "ru": "Заявки на разрешения",
+   "am": "የፍቃድ ጥያቄዎች",
+   "fr": "Demandes de permis"
+  },
+  "permits.note_html": {
+   "he": "מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.\nבקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום\n(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.\nבקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.\nכברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או\nלקראת פרסום - בשכונות גינות העיר; שאר הקבוצות זמינות תחת \"קבוצות נוספות\",\nובסימון \"הצג גם מחוץ ל-7 השכונות\". הסטטוס הגולמי מהמקור מוצג בכל שורה.\nבקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה\nשהבקשה ישנה או שלא פורסמה.\nפרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;\nאין בכך אישור למועד התנגדות שאינו ידוע.\nמספר הבקשה מקשר לתיק במערכת\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.\nעמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.",
+   "en": "Source: the Jerusalem municipality permit-data system.\nA permit request is NOT a deposited plan - objections to a request are filed\naccording to the publication terms (section 149 of the Planning and Building Law)\nand the deadlines stated in the publication itself.\nCompleted requests (closed or permit issued) are hidden by default.\nBy default only objection-relevant requests are shown - open for objections or\napproaching publication - in the Ginot HaIr neighborhoods; the other groups are\nunder \"More groups\", plus the \"Also show outside the 7 neighborhoods\" toggle.\nThe raw source status is shown in every row.\nRequests with no known publication date stay visible and marked - a missing\ndate is not evidence that the request is old or unpublished.\nA verified municipal publication is used for display grouping and the publication\ndate even when the raw status has not caught up; it does not confirm an unknown\nobjection deadline.\nThe request number links to the case in the\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>municipal permit-data system</a>.\nThe AI-review column links to an automatic summary when published; it is not an\nofficial document and does not file an objection.",
+   "ar": "المصدر: نظام بيانات الترخيص في بلدية القدس.\nطلب الترخيص ليس مخططًا مودعًا - تُقدَّم الاعتراضات على الطلب وفق شروط النشر\n(البند 149 من قانون التخطيط والبناء) والمواعيد الواردة في النشر نفسه.\nالطلبات المنتهية (أُغلقت أو صدر الترخيص) مخفية افتراضيًا.\nافتراضيًا تُعرض فقط الطلبات ذات الصلة بالاعتراضات - المفتوحة للاعتراضات أو\nالمقتربة من النشر - في أحياء غينوت هعير؛ بقية المجموعات تحت \"مجموعات إضافية\"،\nومع خيار \"عرض أيضًا خارج الأحياء السبعة\". حالة المصدر الخام تظهر في كل صف.\nالطلبات بلا تاريخ نشر معروف تبقى ظاهرة ومعلَّمة - غياب التاريخ ليس دليلًا على\nأن الطلب قديم أو غير منشور.\nالنشر البلدي الموثَّق يُستخدم لتصنيف العرض وتاريخ النشر حتى لو لم تُحدَّث حالة\nالمصدر بعد؛ وليس في ذلك تأكيد لموعد اعتراض غير معروف.\nرقم الطلب يربط بالملف في\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>نظام بيانات الترخيص البلدي</a>.\nعمود مراجعة AI يربط بملخص آلي عند نشره؛ ليس مستندًا رسميًا ولا يقدّم اعتراضًا.",
+   "ru": "Источник: муниципальная система данных о лицензировании Иерусалима.\nЗаявка на разрешение - НЕ депонированный план; возражения на заявку подаются\nпо правилам публикации (п. 149 Закона о планировании и строительстве) и в сроки,\nуказанные в самой публикации.\nЗавершённые заявки (закрыты или разрешение выдано) скрыты по умолчанию.\nПо умолчанию показаны только заявки, относящиеся к возражениям - открытые для\nвозражений или приближающиеся к публикации - в кварталах Гинот hа-Ир; остальные\nгруппы - под \"Дополнительные группы\" и через \"Показать также за пределами\n7 кварталов\". Сырая статуса из источника показана в каждой строке.\nЗаявки без известной даты публикации остаются видимыми и отмеченными - отсутствие\nдаты не доказывает, что заявка старая или не опубликована.\nПодтверждённая муниципальная публикация используется для группировки отображения\nи даты публикации, даже если сырая статуса ещё не обновлена; это не подтверждает\nнеизвестный срок возражений.\nНомер заявки ведёт к делу в\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>муниципальной системе данных о лицензировании</a>.\nКолонка \"AI-обзор\" ведёт к автоматическому резюме, когда оно опубликовано; это\nне официальный документ и не подача возражения.",
+   "am": "ምንጭ፡ የኢየሩሳሌም ከተማ የፍቃድ ውሂብ ስርዓት።\nየፍቃድ ጥያቄ የተቀረጸ እቅድ አይደለም - ቅሬታዎች በሕጽሣዊ ህትመት መመሪያዎች (የእቅድና ሕንጻ ህግ\nአንቀጽ 149) እና በራሱ ህትመት ውስጥ በተጠቀሱት ጊዜዎች ይቀርባሉ።\nየተጠናቀቁ ጥያቄዎች (ተዘግተዋል ወይም ፍቃድ ወጥቷል) በነባሪነት ይደበቃሉ።\nበነባሪነት ከቅሬታ ጋር ተያያዥ ያሉ ጥያቄዎች ብቻ ይታያሉ - ለቅሬታ ክፍት ወይም ህትመት የሚጠጉ -\nበጊኖት ኃዒር አካባቢዎች; የቀሩት ቡድኖች በ\"ተጨማሪ ቡድኖች\" እና በ\"ከ7 አካባቢዎች ውጭ አሳይ\" ምርጫ።\nየምንጩ ጥራጥሬ ሁኔታ በእያንዳንዱ ረድፍ ይታያል።\nየህትመት ቀን የሌላቸው ጥያቄዎች ተይዘው እና ተመልክተው ይቆያሉ - ቀኑ መጥፋት ጥያቄው አሮጌ\nመሆኑን ወይም ያልታተመ መሆኑን አያረጋግጥም።\nየተረጋገጠ የከተማ ህትመት ለማሳያ ምደባ እና ለህትመት ቀን ይጠቅማል, ምንጩ ጥራጥሬ ሁኔታ\nገና ሳይዘመን; ያልታወቀ የቅሬታ ጊዜ አያረጋግጥም።\nየጥያቄ ቁጥሩ ወደ\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>የከተማ የፍቃድ ውሂብ ስርዓት</a> መዝገብ ይያዛል።\nየAI-ግምገማ አምድ ሲታተም ወደ ራስ-ሰር ማጠቃለያ ይያዛል; ኦፊሴላዊ ሰነድ አይደለም እና ቅሬታ አያቀርብም።",
+   "fr": "Source : le système municipal de données des permis de Jérusalem.\nUne demande de permis n'est PAS un plan déposé - les objections à une demande\nse déposent selon les conditions de publication (article 149 de la loi sur\nl'aménagement et la construction) et les délais de la publication elle-même.\nLes demandes terminées (closes ou permis délivré) sont masquées par défaut.\nPar défaut seules les demandes pertinentes pour les objections sont affichées -\nouvertes aux objections ou proches de la publication - dans les quartiers de\nGinot HaIr ; les autres groupes sont sous \"Groupes supplémentaires\", avec\nl'option \"Afficher aussi hors des 7 quartiers\". Le statut brut de la source\nest affiché dans chaque ligne.\nLes demandes sans date de publication connue restent visibles et signalées -\nl'absence de date ne prouve ni que la demande est ancienne ni qu'elle n'a pas\nété publiée.\nUne publication municipale vérifiée sert au regroupement d'affichage et à la\ndate de publication même quand le statut brut n'est pas encore à jour ; cela\nne confirme pas un délai d'objection inconnu.\nLe numéro de demande renvoie au dossier dans le\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>système municipal de données des permis</a>.\nLa colonne d'analyse IA renvoie à un résumé automatique lorsqu'il est publié ;\nce n'est pas un document officiel et cela ne dépose pas d'objection."
+  },
+  "permits.legend_groups": {
+   "he": "קבוצות תצוגה:",
+   "en": "Display groups:",
+   "ar": "مجموعات العرض:",
+   "ru": "Группы отображения:",
+   "am": "የማሳያ ቡድኖች:",
+   "fr": "Groupes d'affichage :"
+  },
+  "permits.more_groups": {
+   "he": "קבוצות נוספות",
+   "en": "More groups",
+   "ar": "مجموعات إضافية",
+   "ru": "Дополнительные группы",
+   "am": "ተጨማሪ ቡድኖች",
+   "fr": "Groupes supplémentaires"
+  },
+  "permits.group_help": {
+   "he": "הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.\nקבוצת \"פרסום / הודעות להתנגדות\" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,\nאפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס \"שולמה מקדמה\" אינן מועברות לקבוצה זו:\nפרסום עירוני שלהן מוצג בקבוצה נפרדת \"פרסום עירוני - דורש בדיקה\".\nפרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.\nלסינון סטטוס מדויק השתמשו ברשימה \"כל סטטוסי המקור\"; הסטטוס המקורי נשמר בכל שורה.",
+   "en": "The buttons filter by display groups, not by exact status.\nThe \"Publication / objection notices\" group includes publication stages from the\nsource and requests with a verified municipal publication, even if their source\nstatus differs. Requests in \"advance paid\" status are not moved into this group:\ntheir municipal publication shows in a separate group, \"Municipal publication -\nneeds review\".\nA publication alone does not confirm that an objection can be filed now.\nTo filter an exact status use the \"All source statuses\" list; the original status\nis kept in every row.",
+   "ar": "الأزرار تصفّي حسب مجموعات العرض، لا حسب حالة دقيقة.\nمجموعة \"نشر / إشعارات للاعتراضات\" تشمل مراحل النشر من المصدر وأيضًا طلبات مع\nنشر بلدي موثَّق، حتى لو اختلفت حالة المصدر. الطلبات بحالة \"دُفعت دفعة مقدمة\" لا\nتُنقل إلى هذه المجموعة: نشرها البلدي يظهر في مجموعة منفصلة \"نشر بلدي - يتطلب\nفحصًا\".\nالنشر وحده ليس تأكيدًا بأنه يمكن تقديم اعتراض الآن.\nلتصفية حالة دقيقة استخدموا قائمة \"كل حالات المصدر\"؛ الحالة الأصلية محفوظة في كل\nصف.",
+   "ru": "Кнопки фильтруют по группам отображения, а не по точному статусу.\nГруппа \"Публикация / уведомления для возражений\" включает стадии публикации из\nисточника и заявки с подтверждённой муниципальной публикацией, даже если их\nстатус в источнике другой. Заявки в статусе \"оплачен аванс\" не переносятся в эту\nгруппу: их муниципальная публикация показывается в отдельной группе\n\"Муниципальная публикация - требует проверки\".\nСама публикация не подтверждает, что возражение можно подать сейчас.\nДля фильтра по точному статусу используйте список \"Все статусы источника\";\nисходный статус сохраняется в каждой строке.",
+   "am": "ቁልፎቹ በማሳያ ቡድኖች ያጣራሉ, በትክክለኛ ሁኔታ ሳይሆን።\n\"ህትመት / የቅሬታ ማሳወቂያዎች\" ቡድን ከምንጭ የህትመት ደረጃዎችን እና የተረጋገጠ የከተማ ህትመት ያላቸው\nጥያቄዎችን ያካትታል, የምንጭ ሁኔታቸው ቢለያይም። \"ቅድሚያ ክፍያ ተከፍሏል\" ሁኔታ ያላቸው ጥያቄዎች ወደዚህ\nቡድን አይተላለፉም: የከተማ ህትመታቸው በተለየ ቡድን \"የከተማ ህትመት - ግምገማ ይፈልጋል\" ይታያል።\nህትመት ብቻውን አሁን ቅሬታ ማቅረብ እንደሚቻል አያረጋግጥም።\nትክክለኛ ሁኔታ ለማጣራት \"የምንጭ ሁኔታዎች ሁሉ\" ዝርዝሩን ይጠቀሙ; ኦሪጅናሉ ሁኔታ በእያንዳንዱ ረድፍ\nይቀመጣል።",
+   "fr": "Les boutons filtrent par groupes d'affichage, pas par statut exact.\nLe groupe \"Publication / avis d'objection\" inclut les étapes de publication de la\nsource et les demandes avec une publication municipale vérifiée, même si leur\nstatut source diffère. Les demandes au statut \"acompte payé\" ne sont pas déplacées\ndans ce groupe : leur publication municipale apparaît dans un groupe séparé\n\"Publication municipale - à vérifier\".\nUne publication seule ne confirme pas qu'une objection peut être déposée.\nPour filtrer un statut exact, utilisez la liste \"Tous les statuts de la source\" ;\nle statut d'origine est conservé dans chaque ligne."
+  },
+  "permits.coverage_summary": {
+   "he": "מקור הנתונים וכיסוי תאריכי הפרסום",
+   "en": "Data source and publication-date coverage",
+   "ar": "مصدر البيانات وتغطية تواريخ النشر",
+   "ru": "Источник данных и покрытие дат публикаций",
+   "am": "የውሂብ ምንጭ እና የህትመት ቀኖች ሽፋን",
+   "fr": "Source des données et couverture des dates de publication"
+  },
+  "permits.coverage_p1": {
+   "he": "הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.",
+   "en": "The table holds the permit-request data and publication-stage dates collected from the municipal licensing system.",
+   "ar": "يتضمن الجدول بيانات طلبات الترخيص وتواريخ مراحل النشر المجموعة من نظام الترخيص البلدي.",
+   "ru": "Таблица содержит данные заявок на разрешения и даты стадий публикации, собранные из муниципальной системы лицензирования.",
+   "am": "ሰንጠረዡ የፍቃድ ጥያቄዎችን ውሂብ እና ከከተማ ፍቃድ ስርዓት የተሰበሰቡ የህትመት ደረጃ ቀኖችን ያካትታል።",
+   "fr": "Le tableau contient les données des demandes de permis et les dates des étapes de publication collectées dans le système municipal."
+  },
+  "permits.coverage_text": {
+   "he": "{total} בקשות במאגר; {dated} עם תאריך תחילת פרסום; {planned} עם סיום פרסום מתוכנן; {nodate} ללא תאריך תחילת פרסום.",
+   "en": "{total} requests in the dataset; {dated} with a publication start date; {planned} with a planned publication end; {nodate} with no publication start date.",
+   "ar": "{total} طلبًا في المجموعة؛ {dated} مع تاريخ بدء نشر؛ {planned} مع انتهاء نشر مخطط؛ {nodate} بدون تاريخ بدء نشر.",
+   "ru": "{total} заявок в базе; {dated} с датой начала публикации; {planned} с планируемым окончанием публикации; {nodate} без даты начала публикации.",
+   "am": "{total} ጥያቄዎች በውሂብ ስብስብ; {dated} የህትመት ጅምር ቀን ያላቸው; {planned} የታቀደ የህትመት ማብቂያ ያላቸው; {nodate} የህትመት ጅምር ቀን የሌላቸው።",
+   "fr": "{total} demandes dans la base ; {dated} avec une date de début de publication ; {planned} avec une fin de publication prévue ; {nodate} sans date de début de publication."
+  },
+  "permits.coverage_p2": {
+   "he": "הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.\nתאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.\nסיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.\nלא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.",
+   "en": "The counts cover every request in the dataset, before display filtering.\nA missing publication date does not prove a request was not published.\nA planned publication end is not a confirmed objection deadline; the deadline in\nthe original publication notice prevails.\nNo cases from the external mirror or case documents were added here.",
+   "ar": "تشمل الأعداد كل الطلبات في المجموعة، قبل تصفية العرض.\nتاريخ النشر المفقود لا يثبت أن الطلب لم يُنشر.\nانتهاء النشر المخطط ليس موعد اعتراض مؤكدًا؛ الموعد في إشعار النشر الأصلي هو\nالحاسم.\nلم تُضف هنا ملفات من المرآة الخارجية أو مستندات الملفات.",
+   "ru": "Подсчёт охватывает все заявки в базе, до фильтрации отображения.\nОтсутствие даты публикации не доказывает, что заявка не была опубликована.\nПланируемое окончание публикации - не подтверждённый срок возражений; решающим\nявляется срок в исходном уведомлении о публикации.\nСюда не добавлялись дела из внешнего зеркала или документы дел.",
+   "am": "ቆጠራው ከማሳያ ማጣራት በፊት በውሂብ ስብስብ ውስጥ ያሉትን ጥያቄዎች ሁሉ ይሸፍናል።\nየጠፋ የህትመት ቀን ጥያቄው ያልታተመ መሆኑን አያረጋግጥም።\nየታቀደ የህትመት ማብቂያ የተረጋገጠ የቅሬታ ጊዜ አይደለም; በዋናው የህትመት ማሳወቂያ ውስጥ ያለው\nጊዜ ወሳኝ ነው።\nከውጫዊው ማንጸባረቅ ወይም ከመዝገብ ሰነዶች እዚህ ምንም መዝገቦች አልተጨመሩም።",
+   "fr": "Le décompte couvre toutes les demandes de la base, avant le filtrage d'affichage.\nUne date de publication manquante ne prouve pas qu'une demande n'a pas été publiée.\nUne fin de publication prévue n'est pas un délai d'objection confirmé ; le délai\nde l'avis de publication d'origine prévaut.\nAucun dossier du miroir externe ni document de dossier n'a été ajouté ici."
+  },
+  "permits.search_placeholder": {
+   "he": "חיפוש מספר / כתובת / מהות; או עם |",
+   "en": "Search number / address / essence; or with |",
+   "ar": "ابحث برقم / عنوان / ماهية؛ أو بـ |",
+   "ru": "Поиск по номеру / адресу / сути; или через |",
+   "am": "በቁጥር / አድራሻ / ይዘት ፈልግ; ወይም በ |",
+   "fr": "Recherche numéro / adresse / objet ; ou avec |"
+  },
+  "permits.search_title": {
+   "he": "לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' ” ’), ממקפים, מניקוד ומרווחים כפולים",
+   "en": "Separate alternatives with |, e.g.: Palmach 41 | Palmach 49. A comma stays a normal character. The search ignores apostrophes and quotes (׳ ״ ' ” ’), hyphens, cantillation marks and double spaces",
+   "ar": "افصل البدائل بـ |، مثال: فلمح 41 | فلمح 49. الفاصلة تبقى حرفًا عاديًا. البحث يتجاهل الفواصل العليا وعلامات الاقتباس (׳ ״ ' ” ’) والشرطات والتشكيل والمسافات المزدوجة",
+   "ru": "Разделяйте варианты через |, например: Пальмах 41 | Пальмах 49. Запятая остаётся обычным символом. Поиск игнорирует апострофы и кавычки (׳ ״ ' ” ’), дефисы, огласовки и двойные пробелы",
+   "am": "አማራጮችን በ | ይለዩ, ለምሳሌ: ፓልማኽ 41 | ፓልማኽ 49. ነጠላ ሰረዝ መደበኛ ቁምፊ ይቆያል። ፍለጋው ነጠላ እና ድርብ ጥቅስ ምልክቶችን (׳ ״ ' ” ’), ሰረገላዎችን, ንባብ ምልክቶችን እና ድርብ ክፍተቶችን ይተዋል",
+   "fr": "Séparez les alternatives avec |, par ex. : Palmah 41 | Palmah 49. La virgule reste un caractère normal. La recherche ignore apostrophes et guillemets (׳ ״ ' ” ’), tirets, signes de cantillation et espaces doubles"
+  },
+  "permits.status_all": {
+   "he": "כל סטטוסי המקור",
+   "en": "All source statuses",
+   "ar": "كل حالات المصدر",
+   "ru": "Все статусы источника",
+   "am": "የምንጭ ሁኔታዎች ሁሉ",
+   "fr": "Tous les statuts de la source"
+  },
+  "permits.sug_all": {
+   "he": "כל הסוגים",
+   "en": "All types",
+   "ar": "كل الأنواع",
+   "ru": "Все типы",
+   "am": "ዓይነቶች ሁሉ",
+   "fr": "Tous les types"
+  },
+  "permits.openonly": {
+   "he": "רק מועד התנגדות שלא עבר",
+   "en": "Only objection deadlines not yet passed",
+   "ar": "فقط مواعيد اعتراض لم تنتهِ",
+   "ru": "Только неистёкшие сроки возражений",
+   "am": "ያላለፈ የቅሬታ ጊዜ ብቻ",
+   "fr": "Uniquement les délais d'objection non échus"
+  },
+  "permits.scope": {
+   "he": "הצג גם מחוץ ל-7 השכונות ({n})",
+   "en": "Also show outside the 7 neighborhoods ({n})",
+   "ar": "عرض أيضًا خارج الأحياء السبعة ({n})",
+   "ru": "Показать также за пределами 7 кварталов ({n})",
+   "am": "ከ7 አካባቢዎች ውጭም አሳይ ({n})",
+   "fr": "Afficher aussi hors des 7 quartiers ({n})"
+  },
+  "permits.closed": {
+   "he": "הצג בקשות שהסתיימו ({n})",
+   "en": "Show completed requests ({n})",
+   "ar": "عرض الطلبات المنتهية ({n})",
+   "ru": "Показать завершённые заявки ({n})",
+   "am": "የተጠናቀቁ ጥያቄዎችን አሳይ ({n})",
+   "fr": "Afficher les demandes terminées ({n})"
+  },
+  "permits.reset": {
+   "he": "נקה",
+   "en": "Clear",
+   "ar": "مسح",
+   "ru": "Сбросить",
+   "am": "አጽዳ",
+   "fr": "Réinitialiser"
+  },
+  "permits.copy_link": {
+   "he": "העתק קישור לסינון",
+   "en": "Copy filter link",
+   "ar": "نسخ رابط التصفية",
+   "ru": "Копировать ссылку на фильтр",
+   "am": "የማጣሪያ አገናኝ ቅዳ",
+   "fr": "Copier le lien du filtre"
+  },
+  "permits.flag_invalid": {
+   "he": "תאריך לא תקין - הוחזרה ברירת המחדל",
+   "en": "Invalid date - default restored",
+   "ar": "تاريخ غير صالح - أُعيد الافتراضي",
+   "ru": "Недопустимая дата - восстановлено по умолчанию",
+   "am": "ልክ ያልሆነ ቀን - ነባሪ ተመልሷል",
+   "fr": "Date invalide - valeur par défaut rétablie"
+  },
+  "permits.col_tik": {
+   "he": "מספר בקשה",
+   "en": "Request no.",
+   "ar": "رقم الطلب",
+   "ru": "№ заявки",
+   "am": "የጥያቄ ቁጥር",
+   "fr": "N° de demande"
+  },
+  "permits.col_address": {
+   "he": "כתובת",
+   "en": "Address",
+   "ar": "العنوان",
+   "ru": "Адрес",
+   "am": "አድራሻ",
+   "fr": "Adresse"
+  },
+  "permits.col_mahut": {
+   "he": "מהות",
+   "en": "Essence",
+   "ar": "الماهية",
+   "ru": "Суть",
+   "am": "ይዘት",
+   "fr": "Objet"
+  },
+  "permits.col_sug": {
+   "he": "סוג",
+   "en": "Type",
+   "ar": "النوع",
+   "ru": "Тип",
+   "am": "ዓይነት",
+   "fr": "Type"
+  },
+  "permits.col_status": {
+   "he": "סטטוס",
+   "en": "Status",
+   "ar": "الحالة",
+   "ru": "Статус",
+   "am": "ሁኔታ",
+   "fr": "Statut"
+  },
+  "permits.col_statusdate": {
+   "he": "תאריך סטטוס",
+   "en": "Status date",
+   "ar": "تاريخ الحالة",
+   "ru": "Дата статуса",
+   "am": "የሁኔታ ቀን",
+   "fr": "Date du statut"
+  },
+  "permits.col_pubstart": {
+   "he": "תחילת פרסום",
+   "en": "Publication start",
+   "ar": "بدء النشر",
+   "ru": "Начало публикации",
+   "am": "የህትመት ጅምር",
+   "fr": "Début de publication"
+  },
+  "permits.col_pubend": {
+   "he": "סיום פרסום (מתוכנן)",
+   "en": "Publication end (planned)",
+   "ar": "انتهاء النشر (مخطط)",
+   "ru": "Окончание публикации (план)",
+   "am": "የህትመት ማብቂያ (የታቀደ)",
+   "fr": "Fin de publication (prévue)"
+  },
+  "permits.col_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "የAI ግምገማ",
+   "fr": "Analyse IA"
+  },
+  "permits.col_review_title": {
+   "he": "סיכום שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "AI-generated summary - not an official document",
+   "ar": "ملخص منشأ بواسطة AI - ليس مستندًا رسميًا",
+   "ru": "Резюме, созданное ИИ - не официальный документ",
+   "am": "በAI የተፈጠረ ማጠቃለያ - ኦፊሴላዊ ሰነድ አይደለም",
+   "fr": "Résumé généré par IA - pas un document officiel"
+  },
+  "permits.review_link_title": {
+   "he": "סיכום AI - אינו מסמך רשמי",
+   "en": "AI summary - not an official document",
+   "ar": "ملخص AI - ليس مستندًا رسميًا",
+   "ru": "Резюме ИИ - не официальный документ",
+   "am": "የAI ማጠቃለያ - ኦፊሴላዊ ሰነድ አይደለም",
+   "fr": "Résumé IA - pas un document officiel"
+  },
+  "permits.review_none": {
+   "he": "טרם פורסמה סקירה",
+   "en": "No review published yet",
+   "ar": "لم تُنشر مراجعة بعد",
+   "ru": "Обзор ещё не опубликован",
+   "am": "ግምገማ ገና አልታተመም",
+   "fr": "Pas encore d'analyse publiée"
+  },
+  "permits.noscript": {
+   "he": "מוצגות {n} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.",
+   "en": "Only the first {n} requests are shown - enable JavaScript to see them all and use the filters.",
+   "ar": "تُعرض أول {n} طلبًا فقط - فعّلوا JavaScript لعرضها جميعًا واستخدام التصفية.",
+   "ru": "Показаны только первые {n} заявок - включите JavaScript, чтобы увидеть все и использовать фильтры.",
+   "am": "የመጀመሪያዎቹ {n} ጥያቄዎች ብቻ ይታያሉ - ሁሉንም ለማየት እና ማጣሪያዎችን ለመጠቀም JavaScript ያንቁ።",
+   "fr": "Seules les {n} premières demandes sont affichées - activez JavaScript pour toutes les voir et utiliser les filtres."
+  },
+  "permits.schuna": {
+   "he": "שכונה: {schuna}",
+   "en": "Neighborhood: {schuna}",
+   "ar": "الحي: {schuna}",
+   "ru": "Квартал: {schuna}",
+   "am": "አካባቢ: {schuna}",
+   "fr": "Quartier : {schuna}"
+  },
+  "permits.no_exact_address": {
+   "he": "לא צוינה כתובת מדויקת בתיק",
+   "en": "No exact address given in the case file",
+   "ar": "لم يُحدَّد عنوان دقيق في الملف",
+   "ru": "Точный адрес в деле не указан",
+   "am": "ትክክለኛ አድራሻ በመዝገቡ አልተጠቀሰም",
+   "fr": "Aucune adresse exacte indiquée dans le dossier"
+  },
+  "permits.no_address": {
+   "he": "כתובת לא זמינה",
+   "en": "Address unavailable",
+   "ar": "العنوان غير متوفر",
+   "ru": "Адрес недоступен",
+   "am": "አድራሻ አይገኝም",
+   "fr": "Adresse indisponible"
+  },
+  "permits.no_map": {
+   "he": "אין מיקום",
+   "en": "No location",
+   "ar": "لا يوجد موقع",
+   "ru": "Нет местоположения",
+   "am": "አካባቢ የለም",
+   "fr": "Pas de localisation"
+  },
+  "permits.pub_missing": {
+   "he": "תאריך פרסום חסר",
+   "en": "Publication date missing",
+   "ar": "تاريخ النشر مفقود",
+   "ru": "Дата публикации отсутствует",
+   "am": "የህትመት ቀን ጠፍቷል",
+   "fr": "Date de publication manquante"
+  },
+  "permits.group.obj": {
+   "he": "פרסום / הודעות להתנגדות",
+   "en": "Publication / objection notices",
+   "ar": "نشر / إشعارات للاعتراضات",
+   "ru": "Публикация / уведомления для возражений",
+   "am": "ህትመት / የቅሬታ ማሳወቂያዎች",
+   "fr": "Publication / avis d'objection"
+  },
+  "permits.group.pubcheck": {
+   "he": "פרסום עירוני - דורש בדיקה",
+   "en": "Municipal publication - needs review",
+   "ar": "نشر بلدي - يتطلب فحصًا",
+   "ru": "Муниципальная публикация - требует проверки",
+   "am": "የከተማ ህትመት - ግምገማ ይፈልጋል",
+   "fr": "Publication municipale - à vérifier"
+  },
+  "permits.group.pre": {
+   "he": "פרסום מתקרב",
+   "en": "Publication approaching",
+   "ar": "النشر يقترب",
+   "ru": "Публикация приближается",
+   "am": "ህትመት ይቀርባል",
+   "fr": "Publication proche"
+  },
+  "permits.group.review": {
+   "he": "בטיפול/דיונים",
+   "en": "In process / hearings",
+   "ar": "قيد المعالجة / جلسات",
+   "ru": "В обработке / слушания",
+   "am": "በሂደት ላይ / ውይይቶች",
+   "fr": "En cours / délibérations"
+  },
+  "permits.group.draft": {
+   "he": "טיוטת היתר",
+   "en": "Permit draft",
+   "ar": "مسودة الترخيص",
+   "ru": "Проект разрешения",
+   "am": "የፍቃድ ረቂቅ",
+   "fr": "Projet de permis"
+  },
+  "permits.group.postpub": {
+   "he": "אחרי פרסום",
+   "en": "After publication",
+   "ar": "بعد النشر",
+   "ru": "После публикации",
+   "am": "ከህትመት በኋላ",
+   "fr": "Après publication"
+  },
+  "permits.group.issued": {
+   "he": "הופק היתר",
+   "en": "Permit issued",
+   "ar": "صدر الترخيص",
+   "ru": "Разрешение выдано",
+   "am": "ፍቃድ ወጥቷል",
+   "fr": "Permis délivré"
+  },
+  "permits.group.closed": {
+   "he": "סגור/אחר",
+   "en": "Closed / other",
+   "ar": "مغلق / أخرى",
+   "ru": "Закрыто / прочее",
+   "am": "ዝግ / ሌላ",
+   "fr": "Clos / autre"
+  },
+  "permitsjs.show_first20": {
+   "he": "הצג 20 הראשונות",
+   "en": "Show first 20",
+   "ar": "عرض أول 20",
+   "ru": "Показать первые 20",
+   "am": "የመጀመሪያዎቹን 20 አሳይ",
+   "fr": "Afficher les 20 premières"
+  },
+  "permitsjs.show_all": {
+   "he": "הצג את כל {n} הבקשות",
+   "en": "Show all {n} requests",
+   "ar": "عرض كل الطلبات الـ{n}",
+   "ru": "Показать все {n} заявок",
+   "am": "ሁሉንም {n} ጥያቄዎች አሳይ",
+   "fr": "Afficher les {n} demandes"
+  },
+  "permitsjs.showing": {
+   "he": "מציג {shown} מתוך {total}",
+   "en": "Showing {shown} of {total}",
+   "ar": "عرض {shown} من {total}",
+   "ru": "Показано {shown} из {total}",
+   "am": "{shown} ከ {total} በማሳየት ላይ",
+   "fr": "Affichage de {shown} sur {total}"
+  },
+  "permitsjs.unknown": {
+   "he": "תאריך פרסום חסר: {c3} (פורסם, תאריך לא ידוע) · {c4} (אין ראיית פרסום)",
+   "en": "Publication date missing: {c3} (published, date unknown) · {c4} (no publication evidence)",
+   "ar": "تاريخ النشر مفقود: {c3} (نُشر، التاريخ غير معروف) · {c4} (لا دليل نشر)",
+   "ru": "Дата публикации отсутствует: {c3} (опубликовано, дата неизвестна) · {c4} (нет свидетельств публикации)",
+   "am": "የህትመት ቀን ጠፍቷል: {c3} (ታትሟል, ቀኑ አይታወቅም) · {c4} (የህትመት ማስረጃ የለም)",
+   "fr": "Date de publication manquante : {c3} (publié, date inconnue) · {c4} (aucune preuve de publication)"
+  },
+  "permitsjs.group_unmapped": {
+   "he": "לא מסווג",
+   "en": "Unclassified",
+   "ar": "غير مصنَّف",
+   "ru": "Не классифицировано",
+   "am": "ያልተመደበ",
+   "fr": "Non classé"
+  },
+  "permitsjs.retry_load": {
+   "he": "טעינת הרשימה המלאה נכשלה. ",
+   "en": "Loading the full list failed. ",
+   "ar": "فشل تحميل القائمة الكاملة. ",
+   "ru": "Не удалось загрузить полный список. ",
+   "am": "ሙሉውን ዝርዝር መጫን አልተሳካም። ",
+   "fr": "Échec du chargement de la liste complète. "
+  },
+  "permitsjs.retry": {
+   "he": "נסו שוב",
+   "en": "Try again",
+   "ar": "حاولوا مجددًا",
+   "ru": "Повторить",
+   "am": "እንደገና ሞክሩ",
+   "fr": "Réessayer"
+  },
+  "permitsjs.loading_full": {
+   "he": "טוען את הרשימה המלאה…",
+   "en": "Loading the full list…",
+   "ar": "جارٍ تحميل القائمة الكاملة…",
+   "ru": "Загрузка полного списка…",
+   "am": "ሙሉውን ዝርዝር በመጫን ላይ…",
+   "fr": "Chargement de la liste complète…"
+  },
+  "permitsjs.render_failed": {
+   "he": "הרשימה נטענה אך עיבוד התצוגה נכשל. ",
+   "en": "The list loaded but display processing failed. ",
+   "ar": "تم تحميل القائمة لكن فشلت معالجة العرض. ",
+   "ru": "Список загружен, но обработка отображения не удалась. ",
+   "am": "ዝርዝሩ ጫንቷል ግን የማሳያ ሂደት አልተሳካም። ",
+   "fr": "La liste est chargée mais le traitement de l'affichage a échoué. "
+  },
+  "permitsjs.deadline_unknown": {
+   "he": " מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני",
+   "en": " Objection deadline unknown - check the municipal publication",
+   "ar": " موعد الاعتراض غير معروف - يجب التحقق في النشر البلدي",
+   "ru": " Срок возражений неизвестен - проверьте муниципальную публикацию",
+   "am": " የቅሬታ ጊዜ አይታወቅም - በከተማ ህትመት ያረጋግጡ",
+   "fr": " Délai d'objection inconnu - vérifier la publication municipale"
+  },
+  "permitsjs.pubcell_suffix": {
+   "he": " (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)",
+   "en": " (municipal publication; display group set by the publication)",
+   "ar": " (نشر بلدي؛ مجموعة العرض تُحدَّد حسب النشر)",
+   "ru": " (муниципальная публикация; группа отображения определяется публикацией)",
+   "am": " (የከተማ ህትመት; የማሳያ ቡድኑ በህትመቱ ይወሰናል)",
+   "fr": " (publication municipale ; le groupe d'affichage est fixé par la publication)"
+  },
+  "permits.status_aria": {
+   "he": "סטטוס מדויק מהמקור",
+   "en": "Exact status from the source",
+   "ar": "حالة دقيقة من المصدر",
+   "ru": "Точный статус из источника",
+   "am": "ትክክለኛ ሁኔታ ከምንጭ",
+   "fr": "Statut exact de la source"
+  },
+  "permits.from_label": {
+   "he": "מתאריך פרסום",
+   "en": "From publication date",
+   "ar": "من تاريخ النشر",
+   "ru": "С даты публикации",
+   "am": "ከህትመት ቀን ጀምሮ",
+   "fr": "À partir de la date de publication"
+  },
+  "permits.to_label": {
+   "he": "עד",
+   "en": "Until",
+   "ar": "حتى",
+   "ru": "До",
+   "am": "እስከ",
+   "fr": "Jusqu'à"
+  },
+  "permits.mobile_pubend": {
+   "he": "סיום פרסום",
+   "en": "Publication end",
+   "ar": "انتهاء النشر",
+   "ru": "Окончание публикации",
+   "am": "የህትመት ማብቂያ",
+   "fr": "Fin de publication"
   }
  }
 }

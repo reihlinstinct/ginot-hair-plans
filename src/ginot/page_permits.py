@@ -22,6 +22,8 @@ def _permits_section(
     rows_file: str | None = None,
     default_rows_file: str | None = None,
     evidence_tiks: frozenset = frozenset(),
+    lang: str = "he",
+    pre: str = "",
 ) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
@@ -29,6 +31,10 @@ def _permits_section(
     permit issued) are hidden by default - the planner can no longer act
     on them - and revealed by one checkbox. Dates render dd.mm.yy with the
     ISO value kept in data-iso for filtering."""
+    from .i18n import meta as _meta
+    from .i18n import t as _t
+
+    _dir = _meta(lang)["dir"]
     if not permits:
         return ""
 
@@ -44,8 +50,10 @@ def _permits_section(
                 return f"{street} {num}".strip(), ""
             schuna = (p.get("schunaName") or "").strip()
             if schuna:
-                return f"שכונה: {schuna}", "לא צוינה כתובת מדויקת בתיק"
-            return "כתובת לא זמינה", ""
+                return _t(lang, "permits.schuna", schuna=schuna), _t(
+                    lang, "permits.no_exact_address"
+                )
+            return _t(lang, "permits.no_address"), ""
         return (p.get("address") or "").strip(), ""
 
     rows = []
@@ -62,7 +70,9 @@ def _permits_section(
             else ""
         )
         if p.get("_map_missing"):
-            address_note_html += " <span class='pub-missing'>אין מיקום</span>"
+            address_note_html += (
+                " <span class='pub-missing'>" + _t(lang, "permits.no_map") + "</span>"
+            )
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
         search = _e(
@@ -88,21 +98,23 @@ def _permits_section(
         pub_cell = (
             _date_cell(p.get("publication_start"))
             if pub_iso
-            else "<span class='pub-missing'>תאריך פרסום חסר</span>"
+            else "<span class='pub-missing'>"
+            + _t(lang, "permits.pub_missing")
+            + "</span>"
         )
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
             f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}' data-statusdate='{_iso(p.get('status_date'))}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
-            f"<td>{_e(address_text)}{address_note_html}</td>"
-            f"<td>{_e(p.get('mahut') or '')}</td>"
-            f"<td>{_e(sug)}</td>"
-            f'<td><span class="chip {_permit_status_class(status)}">{_e(status)}</span></td>'
-            f"<td>{_date_cell(p.get('status_date'))}</td>"
-            f"<td data-publication-cell>{pub_cell}</td>"
-            f"<td>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
-            f"<td>{_permit_review_cell(p.get('tik_num'))}</td></tr>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_address'))}'>{_e(address_text)}{address_note_html}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_mahut'))}'>{_e(p.get('mahut') or '')}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_sug'))}'>{_e(sug)}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(status)}</span></td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_statusdate'))}'>{_date_cell(p.get('status_date'))}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_pubstart'))}' data-publication-cell>{pub_cell}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.mobile_pubend'))}'>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_review'))}'>{_permit_review_cell(p.get('tik_num'), lang, pre)}</td></tr>"
         )
         if _is_default_permit_candidate(
             _group_default, scope, active, p.get("tik_num") or "", evidence_tiks
@@ -130,9 +142,13 @@ def _permits_section(
     n_planned = sum(
         valid_coverage_date(p.get("publication_end_planned")) for p in permits
     )
-    coverage_text = (
-        f"{len(permits)} בקשות במאגר; {n_dated} עם תאריך תחילת פרסום; "
-        f"{n_planned} עם סיום פרסום מתוכנן; {len(permits) - n_dated} ללא תאריך תחילת פרסום."
+    coverage_text = _t(
+        lang,
+        "permits.coverage_text",
+        total=len(permits),
+        dated=n_dated,
+        planned=n_planned,
+        nodate=len(permits) - n_dated,
     )
     statuses = sorted({(p.get("status") or "") for p in permits if p.get("status")})
     from collections import Counter as _PCounter
@@ -153,79 +169,61 @@ def _permits_section(
 
     main_chips: list[str] = []
     more_chips: list[str] = []
-    for key, label, _sts, default_on in PERMIT_STATUS_GROUPS:
+    for key, _he_label, _sts, default_on in PERMIT_STATUS_GROUPS:
         (main_chips if default_on else more_chips).append(
-            _gchip(key, label, default_on)
+            _gchip(key, _t(lang, f"permits.group.{key}"), default_on)
         )
     if _gcounts.get("unmapped"):
-        main_chips.append(_gchip("unmapped", "לא מסווג", True))
+        main_chips.append(
+            _gchip("unmapped", _t(lang, "permitsjs.group_unmapped"), True)
+        )
     plegend = (
-        '<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> '
+        f'<div class="legend" id="pfgroups"><b>{_e(_t(lang, "permits.legend_groups"))}</b> '
         + " ".join(main_chips)
-        + ' <details class="more-statuses"><summary>קבוצות נוספות</summary> '
+        + f' <details class="more-statuses"><summary>{_e(_t(lang, "permits.more_groups"))}</summary> '
         + '<div class="more-chips">'
         + " ".join(more_chips)
         + "</div></details></div>"
     )
     n_out_scope = sum(1 for p in permits if _permit_scope(p) == "out")
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
-    status_opts = "<option value=''>כל סטטוסי המקור</option>" + "".join(
-        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses
+    status_opts = (
+        f"<option value=''>{_e(_t(lang, 'permits.status_all'))}</option>"
+        + "".join(f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses)
     )
-    sug_opts = "<option value=''>כל הסוגים</option>" + "".join(
+    sug_opts = f"<option value=''>{_e(_t(lang, 'permits.sug_all'))}</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs
     )
     return f"""
-<section id="permits" dir="rtl">
-<h2>בקשות היתר</h2>
-<p class="permits-note">מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.
-בקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום
-(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.
-בקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.
-כברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או
-לקראת פרסום - בשכונות גינות העיר; שאר הקבוצות זמינות תחת "קבוצות נוספות",
-ובסימון "הצג גם מחוץ ל-7 השכונות". הסטטוס הגולמי מהמקור מוצג בכל שורה.
-בקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה
-שהבקשה ישנה או שלא פורסמה.
-פרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;
-אין בכך אישור למועד התנגדות שאינו ידוע.
-מספר הבקשה מקשר לתיק במערכת
-<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
-עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
+<section id="permits" dir="{_dir}">
+<h2>{_e(_t(lang, "permits.h2"))}</h2>
+<p class="permits-note">{_t(lang, "permits.note_html")}</p>
 {plegend}
-<p class="permits-note" id="permit-group-help">הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.
-קבוצת "פרסום / הודעות להתנגדות" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,
-אפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס "שולמה מקדמה" אינן מועברות לקבוצה זו:
-פרסום עירוני שלהן מוצג בקבוצה נפרדת "פרסום עירוני - דורש בדיקה".
-פרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.
-לסינון סטטוס מדויק השתמשו ברשימה "כל סטטוסי המקור"; הסטטוס המקורי נשמר בכל שורה.</p>
-<details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
-<p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
-<span id="permit-coverage-counts">{coverage_text}</span></p>
-<p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
-תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
-סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
-לא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.</p></details>
+<p class="permits-note" id="permit-group-help">{_t(lang, "permits.group_help")}</p>
+<details id="permit-coverage"><summary>{_e(_t(lang, "permits.coverage_summary"))}</summary>
+<p>{_e(_t(lang, "permits.coverage_p1"))}
+<span id="permit-coverage-counts">{_e(coverage_text)}</span></p>
+<p>{_t(lang, "permits.coverage_p2")}</p></details>
 <div id="pfilters">
-<input type="search" id="pfq" placeholder="חיפוש מספר / כתובת / מהות; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
-<select id="pfstatus" aria-label="סטטוס מדויק מהמקור">{status_opts}</select>
+<input type="search" id="pfq" placeholder="{_e(_t(lang, "permits.search_placeholder"))}" title="{_e(_t(lang, "permits.search_title"))}">
+<select id="pfstatus" aria-label="{_e(_t(lang, "permits.status_aria"))}">{status_opts}</select>
 <select id="pfsug">{sug_opts}</select>
-<label>מתאריך פרסום <input type="date" id="pffrom"></label>
-<label>עד <input type="date" id="pfto"></label>
-<label><input type="checkbox" id="pfopenonly" checked> רק מועד התנגדות שלא עבר</label>
-<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות ({n_out_scope})</label>
-<label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו ({n_terminal})</label>
-<button id="pfreset" type="button">נקה</button>
-<button id="copy-permit-link" type="button">העתק קישור לסינון</button>
+<label>{_e(_t(lang, "permits.from_label"))} <input type="date" id="pffrom"></label>
+<label>{_e(_t(lang, "permits.to_label"))} <input type="date" id="pfto"></label>
+<label><input type="checkbox" id="pfopenonly" checked> {_e(_t(lang, "permits.openonly"))}</label>
+<label><input type="checkbox" id="pfscope"> {_e(_t(lang, "permits.scope", n=n_out_scope))}</label>
+<label><input type="checkbox" id="pfclosed"> {_e(_t(lang, "permits.closed", n=n_terminal))}</label>
+<button id="pfreset" type="button">{_e(_t(lang, "permits.reset"))}</button>
+<button id="copy-permit-link" type="button">{_e(_t(lang, "permits.copy_link"))}</button>
 <span id="pfcount"></span>
 <span id="pfunknown"></span>
-<span id="pfflag" class="pub-missing" style="display:none">תאריך לא תקין - הוחזרה ברירת המחדל</span>
+<span id="pfflag" class="pub-missing" style="display:none">{_e(_t(lang, "permits.flag_invalid"))}</span>
 </div>
 <table id="permits-table"><thead><tr>
-<th>מספר בקשה</th><th>כתובת</th><th>מהות</th><th>סוג</th><th>סטטוס</th>
-<th>תאריך סטטוס</th><th>תחילת פרסום</th><th>סיום פרסום (מתוכנן)</th>
-<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th>
+<th>{_e(_t(lang, "permits.col_tik"))}</th><th>{_e(_t(lang, "permits.col_address"))}</th><th>{_e(_t(lang, "permits.col_mahut"))}</th><th>{_e(_t(lang, "permits.col_sug"))}</th><th>{_e(_t(lang, "permits.col_status"))}</th>
+<th>{_e(_t(lang, "permits.col_statusdate"))}</th><th>{_e(_t(lang, "permits.col_pubstart"))}</th><th>{_e(_t(lang, "permits.col_pubend"))}</th>
+<th title="{_e(_t(lang, "permits.col_review_title"))}">{_e(_t(lang, "permits.col_review"))}</th>
 </tr></thead><tbody>{body}</tbody></table>
-<noscript><p>מוצגות {COLLAPSE_TOP} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
+<noscript><p>{_e(_t(lang, "permits.noscript", n=COLLAPSE_TOP))}</p></noscript>
 <button id="pmore" type="button"></button>
 </section>"""

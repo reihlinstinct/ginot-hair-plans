@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About and data sources - גינות העיר</title>
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="../favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=20261022">
+<meta name="theme-color" content="#101f5b">
+<link rel="stylesheet" href="../style.css">
+<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
+<nav class="lang-switch" aria-label="Language"><label for="lang-select">Language</label> <select id="lang-select" autocomplete="off" data-current="../en/about.html"><option value="../about.html" lang="he" title="עברית">HE</option><option value="../en/about.html" lang="en" title="English" selected>EN</option><option value="../ar/about.html" lang="ar" title="العربية">AR</option><option value="../ru/about.html" lang="ru" title="Русский">RU</option><option value="../am/about.html" lang="am" title="አማርኛ">AM</option><option value="../fr/about.html" lang="fr" title="Français">FR</option></select><noscript> <a href="../about.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/about.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/about.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/about.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/about.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/about.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var cur=s.getAttribute('data-current'),pending=null,mouse=false;
+function go(v){if(v&&v!==cur){location.href=v;}}
+function reset(){s.value=cur;pending=null;}
+reset();
+window.addEventListener('pageshow',reset);
+s.addEventListener('pointerdown',function(){mouse=true;});
+s.addEventListener('keydown',function(e){
+mouse=false;
+if(e.key==='Enter'){go(pending||s.value);}
+else if(e.key==='Escape'){reset();}});
+s.addEventListener('change',function(){
+if(mouse||document.activeElement!==s){go(s.value);}else{pending=s.value;}mouse=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
+})();</script></nav>
+<h1>About this site</h1>
+<p>This site collects public information about plans and permit requests relevant to the
+<strong>גינות העיר</strong> committee area in Jerusalem, and updates automatically. Updated: 2026-11-10.</p>
+<p class="draft-note" lang="en">Draft machine translation, not yet reviewed by a native speaker.</p>
+<div class="ai-banner">The site is <strong>an independent initiative of the committee</strong> and is not an official site of the Jerusalem
+Municipality, the Planning Administration or the Israel Land Authority. The information is for convenience only,
+is no substitute for the official sources and is not legal advice. The objection deadlines shown are
+estimates only - the binding deadline is set by the official deposit notices.</div>
+<h2>Data sources</h2>
+<table id="plans"><thead><tr><th>Dataset</th><th>Source</th><th>What is collected</th><th>Update cadence</th><th>Links</th></tr></thead>
+<tbody><tr><td>Council-area plans</td><td>The public planning service (iplan), Planning Administration</td><td>Plan number and name, status, receiving and deposit dates, area; computed last objection date (estimate)</td><td>Weekly refresh (Tuesday) and manual refreshes</td><td><a href="../data.json">data.json</a></td></tr><tr><td>Deposit publications</td><td>land.gov.il - Israel Land Authority</td><td>Deposit publication dates in newspapers and gazettes for each plan</td><td>Weekly refresh</td><td><a href="https://land.gov.il">land.gov.il</a></td></tr><tr><td>Permit requests</td><td>Licensing data viewer, Jerusalem Municipality</td><td>Request number, address, essence, type, status, status and publication dates, block and parcel</td><td>Nightly batch parcel scans (in early completion stages) and status enrichment</td><td><a href="https://ykpubdata.jerusalem.muni.il/">Licensing data viewer</a></td></tr><tr><td>Plan documents and AI reviews</td><td>Mavat - the building and plans data system</td><td>Instruction documents, blueprints and notices; AI-produced discussion-point summaries (labelled, not an official document)</td><td>As needed, for selected plans</td><td><a href="https://mavat.iplan.gov.il/">Mavat</a></td></tr><tr><td>Council boundary</td><td>A geographic boundary file in the repository</td><td>Polygon of the community council area (geojson)</td><td>Manual update when the boundary changes</td><td><a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">The data directory</a></td></tr></tbody></table>
+<h2>Datasets</h2>
+<ul id="datasets-list"><li>Loading list...</li></ul>
+<h2>Data access (API)</h2>
+<p>The data is available as static files (JSON / Atom) for free use, with open CORS.
+There are no server-side queries - filtering happens on the client. All files update on every site
+refresh (a weekly refresh and manual refreshes).</p>
+<table id="plans"><thead><tr><th>File</th><th>Content</th><th>Structure</th></tr></thead><tbody>
+<tr><td><a href="../data.json">data.json</a></td><td>The full dataset: plans, recent changes and permit requests</td>
+<td>{generated, rows[], changes[], permits[]} - Field names as received from iplan / the licensing data viewer</td></tr>
+<tr><td><a href="../open.json">open.json</a></td><td>Open plans only (still in the planning process)</td>
+<td>{generated, definition, count, plans[]} - Each record includes in_objection_period (objection window open today)</td></tr>
+<tr><td><a href="../feed.xml">feed.xml</a></td><td>Atom feed of new plans and changes</td><td>Atom 1.0</td></tr>
+<tr><td><a href="../badge/plans.json">badge/*.json</a></td><td>Endpoints for shields.io badges (plan count, status breakdown, update date)</td>
+<td>{schemaVersion, label, message, color}</td></tr>
+<tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
+<td>A read-only query layer (Cloudflare Worker): /plans?open=1&amp;status=&amp;q=&amp;before=YYYY-MM-DD&amp;limit=, /permits?street=&amp;status=&amp;type=&amp;q=&amp;limit=, /open, /status</td>
+<td>JSON; 5-minute edge cache; rate limit 120 requests per minute (best-effort)</td></tr>
+</tbody></table>
+<h2>Privacy</h2>
+<p>The site shows data from public sources only. Fields identifying private stakeholders
+(for example stakeholders in permit requests) are removed in the processing pipeline and are not shown here,
+even though they are visible at the source.</p>
+<p>Visit counting: the site uses Cloudflare Web Analytics to measure the number of visits
+only, without cookies, without storing IP addresses and without personal tracking. Free-text search is not
+sent: it is removed from the page address before the measurement is sent.</p>
+<p>Usage statistics: the site collects aggregate, anonymous counters about searches and filters
+(which plans, streets and filters people search). A search is counted only when it exactly matches a value
+from the data itself; free text never leaves the browser. The counters are public and shown
+in the &quot;Usage statistics&quot; section on this page.</p>
+<h2>Usage statistics</h2>
+<p>Aggregate, anonymous counters of searches and filters on the site (last 30 days),
+directly from the public server counters.</p>
+<div id="usage-stats">Loading…</div>
+<script>(function(){
+var el=document.getElementById('usage-stats');if(!el)return;
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){return r.json();}).then(function(d){
+  var NAMES={search:"Plan searches",permits_search:"Permit-request searches",filter:"Plan filters",permits_filter:"Permit-request filters"};
+  var html='',any=false;
+  Object.keys(NAMES).forEach(function(e){
+    var m=(d.events||{})[e];if(!m)return;
+    var keys=Object.keys(m).slice(0,10);if(!keys.length)return;
+    var items=keys.map(function(k){
+      // Defense in depth: render counts only as plain integers.
+      var n=parseInt(m[k],10);
+      return isFinite(n)&&n>=0?'<li>'+esc(k)+': '+n+'</li>':'';
+    }).join('');
+    if(items){any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}
+  });
+  el.innerHTML=any?html:'<p>'+"No data yet."+'</p>';
+}).catch(function(){el.textContent='';});
+})();</script>
+<h2>Code and data</h2>
+<p>The site&#x27;s code and processed data are open:
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
+Want to help? <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">How to contribute</a>.</p>
+<p><a href="../en/index.html">Back to the main page (Hebrew)</a></p>
+<footer dir="ltr"><p>
+An automated data site of the גינות העיר committee - unofficial.
+</p><p class="site-version">Version <span dir="ltr">0.2.1</span> · Version 0.2.1</p></footer>
+<script>
+fetch('../index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
+  var ul=document.getElementById('datasets-list');if(!ul)return;
+  ul.innerHTML=(ix.datasets||[]).map(function(d){
+    return '<li><a href="'+String(d.url).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'">'+String(d.name).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</a>'+
+      (d.records!=null?' - '+d.records+' רשומות':'')+'</li>';
+  }).join('')||'<li>'+"None"+'</li>';
+}).catch(function(){
+  var ul=document.getElementById('datasets-list');
+  if(ul)ul.innerHTML='<li>'+"The datasets list is unavailable right now"+'</li>';
+});
+</script>
+</body></html>
