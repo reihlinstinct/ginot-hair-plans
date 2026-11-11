@@ -54,6 +54,7 @@ from .page_resources import (  # noqa: F401 - keep the page module API
 )
 from .page_secondary import (  # noqa: F401 - keep the page module API
     render_about,
+    render_accessibility,
     render_feed,
     render_review,
     review_social_meta,
@@ -108,7 +109,8 @@ var expanded=false;
 }
 function apply(){
   document.querySelectorAll('.plan-legend .chip').forEach(function(c){
-    c.classList.toggle('sel',c.getAttribute('data-status')===fstatus.value);
+    var on=c.getAttribute('data-status')===fstatus.value;
+    c.classList.toggle('sel',on);c.setAttribute('aria-pressed',on?'true':'false');
   });
   var n=0;
   rows.forEach(function(r){
@@ -163,7 +165,8 @@ document.querySelectorAll('.plan-legend .chip').forEach(function(c){
     var st=c.getAttribute('data-status');
     fstatus.value=(fstatus.value===st)?'':st;
     document.querySelectorAll('.plan-legend .chip').forEach(function(x){
-      x.classList.toggle('sel',x.getAttribute('data-status')===fstatus.value);
+      var on=x.getAttribute('data-status')===fstatus.value;
+      x.classList.toggle('sel',on);x.setAttribute('aria-pressed',on?'true':'false');
     });
     expanded=false;apply();
   });
@@ -553,7 +556,10 @@ if(pfclosed&&pfgroups){
     cancelPendingUrlState();
     pfgroups.querySelectorAll('.chip').forEach(function(c){
       var g=c.getAttribute('data-group');
-      if(g==='closed'||g==='issued')c.classList.toggle('sel',pfclosed.checked);
+      if(g==='closed'||g==='issued'){
+        c.classList.toggle('sel',pfclosed.checked);
+        c.setAttribute('aria-pressed',pfclosed.checked?'true':'false');
+      }
     });
     expanded=false;apply();
   });
@@ -563,7 +569,8 @@ document.getElementById('pfreset').addEventListener('click',function(){
   pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
   pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
   pfgroups.querySelectorAll('.chip').forEach(function(c){
-    c.classList.toggle('sel',c.getAttribute('data-default')==='1');
+    var on=c.getAttribute('data-default')==='1';
+    c.classList.toggle('sel',on);c.setAttribute('aria-pressed',on?'true':'false');
   });
   expanded=false;apply();
 });
@@ -646,6 +653,7 @@ if(pfgroups){
     var c=ev.target.closest?ev.target.closest('.chip'):null;
     if(!c||!pfgroups.contains(c))return;
     cancelPendingUrlState();c.classList.toggle('sel');
+    c.setAttribute('aria-pressed',c.classList.contains('sel')?'true':'false');
     expanded=false;apply();
   });
 }
@@ -1054,23 +1062,31 @@ def render_index(
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
+    def _status_class(st):
+        if "הפקדה" in st:
+            return "c-deposit"
+        if "בדיקה" in st:
+            return "c-review"
+        if "תנאים" in st:
+            return "c-cond"
+        if "הכרעה" in st:
+            return "c-decision"
+        if "בהליך" in st:
+            return "c-inproc"
+        if "אישור" in st:
+            return "c-approved"
+        return ""
+
     def chip(st):
         st = st or ""
-        if "הפקדה" in st:
-            cls = "c-deposit"
-        elif "בדיקה" in st:
-            cls = "c-review"
-        elif "תנאים" in st:
-            cls = "c-cond"
-        elif "הכרעה" in st:
-            cls = "c-decision"
-        elif "בהליך" in st:
-            cls = "c-inproc"
-        elif "אישור" in st:
-            cls = "c-approved"
-        else:
-            cls = ""
-        return f'<span class="chip {cls}" data-status="{_e(st)}">{_e(st)}</span>'
+        return f'<span class="chip {_status_class(st)}" data-status="{_e(st)}">{_e(st)}</span>'
+
+    def legend_chip(st):
+        st = st or ""
+        return (
+            f'<button type="button" class="chip {_status_class(st)}"'
+            f' data-status="{_e(st)}" aria-pressed="false">{_e(st)}</button>'
+        )
 
     def review_cell(r):
         url = reviews.get(r["pl_number"])
@@ -1154,7 +1170,7 @@ def render_index(
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
     legend = (
         f'<div class="legend plan-legend"><b>{_e(_t("index.legend_label"))}</b> '
-        + " ".join(chip(s) for s in statuses)
+        + " ".join(legend_chip(s) for s in statuses)
         + "</div>"
     )
     return f"""<!DOCTYPE html>
@@ -1181,8 +1197,8 @@ def render_index(
 {legend}
 <div id="filters">
 <input id="fq" type="search" placeholder="{_e(_t("index.search_placeholder"))}" title="{_e(_t("index.search_title"))}">
-<select id="fstatus"><option value="">{_e(_t("index.all_statuses"))}</option>{status_opts}</select>
-<select id="fflag"><option value="">{_e(_t("index.flag_all"))}</option><option value="inside">{_e(_t("index.flag_inside"))}</option><option value="partial">{_e(_t("index.flag_partial"))}</option></select>
+<select id="fstatus" aria-label="{_e(_t("index.fstatus_aria"))}"><option value="">{_e(_t("index.all_statuses"))}</option>{status_opts}</select>
+<select id="fflag" aria-label="{_e(_t("index.fflag_aria"))}"><option value="">{_e(_t("index.flag_all"))}</option><option value="inside">{_e(_t("index.flag_inside"))}</option><option value="partial">{_e(_t("index.flag_partial"))}</option></select>
 <label><input type="checkbox" id="fobj"> {_e(_t("index.open_obj_label"))}</label>
 <label><input type="checkbox" id="fappr"> {_e(_t("index.show_approved", n=n_approved))}</label>
 <label>{_e(_t("index.from_date"))} <input type="date" id="ffrom"></label>
@@ -1212,6 +1228,7 @@ def render_index(
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
 &middot; <a href="{pre}{_i18n.page_path(lang, "about.html")}">{_e(_t("index.footer_about"))}</a>
 &middot; <a href="{pre}{_i18n.page_path(lang, "email.html")}">{_e(_t("index.footer_email"))}</a>
+&middot; <a href="{pre}{_i18n.page_path(lang, "accessibility.html")}">{_e(_t("index.footer_a11y"))}</a>
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">{_e(_t("index.footer_contrib"))}</a>
 </p><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="{pre}filter-links.js"></script>
@@ -1460,6 +1477,9 @@ def render_site(
         os.makedirs(os.path.dirname(about_path), exist_ok=True)
         with open(about_path, "w", encoding="utf-8") as fh:
             fh.write(render_about(generated, council_name, code))
+        a11y_path = f"{out_dir}/{i18n.page_path(code, 'accessibility.html')}"
+        with open(a11y_path, "w", encoding="utf-8") as fh:
+            fh.write(render_accessibility(generated, council_name, code))
     from .page_email import render_email_page
 
     for code in i18n.lang_codes():  # languages come from i18n/strings.json

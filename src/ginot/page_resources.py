@@ -3,9 +3,9 @@
 import html
 
 _CSS = """body{font-family:system-ui,Arial;max-width:1100px;margin:1em auto;padding:0 1em;background:#f3f6ff;color:#1f2937}
-h1{color:#101f5b;border-right:6px solid #51b89a;padding-right:12px}
+h1{color:#101f5b;border-right:6px solid #387e6a;padding-right:12px}
 h2{color:#101f5b}
-a{color:#00a8cf}
+a{color:#007996}
 table{border-collapse:collapse;width:100%;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 1px 3px rgba(16,31,91,.08)}
 td,th{border:1px solid #dde4f6;padding:4px 8px;font-size:14px}
 th{background:#101f5b;color:#fff;position:sticky;top:0}
@@ -13,16 +13,17 @@ th button{background:none;border:0;font:inherit;color:inherit;cursor:pointer;pad
 th button.sorted-asc::after{content:" ▲"}th button.sorted-desc::after{content:" ▼"}
 tbody tr:nth-child(even){background:#f3f6ff}
 .chip{border-radius:8px;padding:1px 8px;background:#dde4f6;color:#101f5b;white-space:nowrap}
-.chip.c-deposit{background:#e8c31d;color:#1f2937}.chip.c-review{background:#00a8cf;color:#fff}
+.chip.c-deposit{background:#e8c31d;color:#1f2937}.chip.c-review{background:#007996;color:#fff}
 .chip.c-cond{background:#c8a4de;color:#1f2937}.chip.c-decision{background:#ff8c00;color:#1f2937}
-.chip.c-inproc{background:#51b89a;color:#fff}.chip.c-approved{background:#6db633;color:#fff}
-.chip.c-closed{background:#ececec;color:#777;text-decoration:line-through}
+.chip.c-inproc{background:#387e6a;color:#fff}.chip.c-approved{background:#4c7f24;color:#fff}
+.chip.c-closed{background:#ececec;color:#686868;text-decoration:line-through}
 .lang-switch{font-size:14px;margin:0 0 8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .lang-switch select{font-size:16px;min-height:40px;max-width:100%;padding:0 8px;border:1px solid #101f5b;border-radius:8px;background:#fff;color:#101f5b}
 .cta-email{display:inline-block;background:#2f7f68;color:#fff;font-weight:700;text-decoration:none;border-radius:8px;padding:10px 16px;min-height:24px}
 .cta-email:hover,.cta-email:focus{background:#101f5b;color:#fff}
 .legend{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;margin:4px 0 8px}
 .legend .chip{cursor:pointer}
+button.chip{font:inherit;border:0}
 .more-statuses{flex:1 1 100%}
 .more-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .more-statuses summary{display:inline-block;cursor:pointer;color:#101f5b;font-weight:700}
@@ -32,14 +33,14 @@ tbody tr:nth-child(even){background:#f3f6ff}
 padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-shadow:0 1px 3px rgba(16,31,91,.08)}
 #filters input[type=search],#pfilters input[type=search]{flex:1;min-width:180px}
 #fcount{font-size:12px;color:#555}
-#more,#freset,#pfreset{background:#51b89a;color:#fff;border:0;border-radius:8px;cursor:pointer}
+#more,#freset,#pfreset{background:#387e6a;color:#fff;border:0;border-radius:8px;cursor:pointer}
 #more{margin:6px 0;padding:8px 16px}
 #freset,#pfreset{padding:6px 12px}
 tr.filtered-out{display:none}
 .pub-missing{color:#8a6d00;font-size:.85em;font-style:italic}
 .pub-official{color:#1f6b3a;font-size:.85em;font-weight:600}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
-#changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
+#changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #387e6a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list li{margin:4px 0}
 .ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
 .review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
@@ -68,7 +69,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 .legend .chip{padding:8px 12px;font-size:14px}
 #plans,#plans tbody,#plans tr,#plans td,#permits-table,#permits-table tbody,#permits-table tr,#permits-table td{display:block;width:auto}
 #plans thead tr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
-#plans thead th{display:block;background:#fff;border:1px solid #51b89a;border-radius:16px;padding:0;position:static;color:#101f5b}
+#plans thead th{display:block;background:#fff;border:1px solid #387e6a;border-radius:16px;padding:0;position:static;color:#101f5b}
 #plans thead th button{color:#101f5b}
 #plans thead th:nth-child(8){display:none}
 

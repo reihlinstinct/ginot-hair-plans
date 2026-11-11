@@ -74,6 +74,7 @@
     "tests": {
       "purpose": "Automated tests and fixtures",
       "allow": [
+        "*.js",
         "*.md",
         "*.py"
       ]

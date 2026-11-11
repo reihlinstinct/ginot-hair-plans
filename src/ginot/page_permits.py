@@ -160,11 +160,13 @@ def _permits_section(
     def _gchip(key: str, label: str, default_on: bool) -> str:
         sel = " sel" if default_on else ""
         dflt = " data-default='1'" if default_on else ""
+        pressed = "true" if default_on else "false"
         return (
-            f'<span class="chip {_PERMIT_GROUP_CLASS[key]}{sel}" data-group="{key}"'
+            f'<button type="button" class="chip {_PERMIT_GROUP_CLASS[key]}{sel}"'
+            f' data-group="{key}" aria-pressed="{pressed}"'
             f'{dflt} data-label="{_e(label)}">{_e(label)}'
             + ("" if key == "pubcheck" else f" ({_gcounts.get(key, 0)})")
-            + "</span>"
+            + "</button>"
         )
 
     main_chips: list[str] = []
@@ -207,7 +209,7 @@ def _permits_section(
 <div id="pfilters">
 <input type="search" id="pfq" placeholder="{_e(_t(lang, "permits.search_placeholder"))}" title="{_e(_t(lang, "permits.search_title"))}">
 <select id="pfstatus" aria-label="{_e(_t(lang, "permits.status_aria"))}">{status_opts}</select>
-<select id="pfsug">{sug_opts}</select>
+<select id="pfsug" aria-label="{_e(_t(lang, "permits.sug_aria"))}">{sug_opts}</select>
 <label>{_e(_t(lang, "permits.from_label"))} <input type="date" id="pffrom"></label>
 <label>{_e(_t(lang, "permits.to_label"))} <input type="date" id="pfto"></label>
 <label><input type="checkbox" id="pfopenonly" checked> {_e(_t(lang, "permits.openonly"))}</label>

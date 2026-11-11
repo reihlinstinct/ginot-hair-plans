@@ -7,7 +7,8 @@ user-facing content and interfaces.
 
 - Semantic markup and keyboard-navigable interfaces.
 - Readable contrast and scalable text.
-- The project ships a web site. Automated browser tests run in CI in both Chromium and WebKit, including keyboard interaction and accessibility-relevant assertions on the site UI; visual changes are reviewed on desktop and mobile.
+- The project ships a web site. Automated browser tests run in CI in both Chromium and WebKit, including keyboard interaction and accessibility-relevant assertions on the site UI; visual changes are reviewed on desktop and mobile. A pinned axe-core build scans every generated page in CI and fails on any WCAG 2.1 A/AA violation (SI 5568).
+- The site ships an on-site accessibility statement (SI 5568 regulation 35) linked from every page footer.
 
 ## Known limitations
 

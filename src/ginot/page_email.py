@@ -95,5 +95,6 @@ st.textContent=r.ok?{_js(t("email.ok"))}:{_js(t("email.error"))};
 <footer dir="{m["dir"]}"><p>
 {_e(t("ui.site_footer"))}
 <a href="{pre}{i18n.page_path(lang, "index.html")}">{_e(t("ui.back_home"))}</a>
+&middot; <a href="{pre}{i18n.page_path(lang, "accessibility.html")}">{_e(t("index.footer_a11y"))}</a>
 </p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 </body></html>"""
