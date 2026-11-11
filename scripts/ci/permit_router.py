@@ -180,9 +180,9 @@ def _language_permit_fragment(path):
         return False
     if parts[2] not in ("permits.html", "permits-default.html"):
         return False
-    sys.path.insert(
-        0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "src")
-    )
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+    import _src_path  # noqa: F401  (shared bootstrap: adds the repo src/ to sys.path)
+
     from ginot import i18n
 
     return parts[1] in frozenset(i18n.lang_codes()) - {i18n.default_lang()}

@@ -20,7 +20,7 @@ import os
 import sys
 import tempfile
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
+import _src_path  # noqa: F401  (shared bootstrap: adds the repo src/ to sys.path)
 
 from ginot.mapdata import permit_points, write_permit_points
 from ginot.page import _permits_section, publication_evidence_tiks, write_permit_ids
