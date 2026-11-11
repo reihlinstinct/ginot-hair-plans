@@ -16,6 +16,16 @@ from .page_permit_policy import (
 )
 from .page_resources import COLLAPSE_TOP, _date_cell, _e, _iso
 
+# The rows fragments are data files the index page fetches and injects with
+# innerHTML. Opened directly (a shared link, a search hit) they render as an
+# unstyled wall of rows. This guard runs only when the fragment is the
+# top-level document - innerHTML never executes scripts - and sends the
+# visitor to the index's permits section instead.
+_FRAGMENT_REDIRECT = (
+    "<script>if(!document.getElementById('permits-table'))"
+    "{location.replace('index.html#permits');}</script>"
+)
+
 
 def _permits_section(
     permits: list[dict],
@@ -122,10 +132,10 @@ def _permits_section(
             default_rows.append(rows[-1])
     if default_rows_file:
         with open(default_rows_file, "w", encoding="utf-8") as fh:
-            fh.write("".join(default_rows))
+            fh.write(_FRAGMENT_REDIRECT + "".join(default_rows))
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
-            fh.write("".join(rows))
+            fh.write(_FRAGMENT_REDIRECT + "".join(rows))
     body = "".join(rows[:COLLAPSE_TOP])
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES

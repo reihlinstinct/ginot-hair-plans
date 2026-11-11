@@ -12,7 +12,7 @@ import threading
 import pytest
 from test_site_browser import FEATURES, ROOT, _d, _Quiet, _ThreadingServer, plan_ids
 
-from ginot import refresh
+from ginot import i18n, refresh
 from ginot.dates import today_il
 
 pytest_plugins = ["test_site_browser"]
@@ -489,3 +489,24 @@ def test_publication_group_explains_raw_status_and_exact_filter(
     finally:
         pg.close()
         server.shutdown()
+
+
+# Section: Direct fragment navigation
+
+
+@pytest.mark.parametrize("code", i18n.lang_codes())
+def test_permits_fragment_opens_the_index_section(browser, served, code):
+    # The rows fragments are data files the index injects with innerHTML;
+    # opened directly (a shared link, a search hit) they used to render as an
+    # unstyled wall of rows (user report 2026-11-11). The guard at the top of
+    # each fragment redirects top-level navigation to the index's permits
+    # section; innerHTML injection never runs it, so table loads still work.
+    pg = browser.new_page()
+    try:
+        pg.goto(served + "/" + i18n.page_path(code, "permits.html"))
+        pg.wait_for_url("**/" + i18n.page_path(code, "index.html") + "#permits")
+        pg.wait_for_selector("#permits-table tbody tr")
+        assert pg.locator("#permits-table tbody tr").count() > 0
+        assert pg.evaluate("document.styleSheets.length") > 0
+    finally:
+        pg.close()
