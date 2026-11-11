@@ -63,7 +63,8 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(
     monkeypatch.chdir(tmp_path)
     for directory in ("data", "docs"):
         (tmp_path / directory).mkdir()
-    for path in module.FILES:
+    for path in module.staged_files():
+        (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / path).write_text("[]")
     (tmp_path / "data/publications_active.json").write_text(
         json.dumps(
@@ -89,13 +90,10 @@ def test_staged_pr_returns_without_check_poll_merge_or_dispatch(
         if "/git/commits/" in path:
             return {"tree": {"sha": "b" * 40}}
         if path.endswith("/git/trees"):
-            assert {entry["path"] for entry in payload["tree"]} == {
-                "data/publications_active.json",
-                "data/publications_new_latest.json",
-                "docs/publications_active.json",
-                "docs/index.json",
-                "docs/permits-default.html",
-            }
+            # includes every non-default language's default fragment (#942)
+            assert {entry["path"] for entry in payload["tree"]} == set(
+                module.staged_files()
+            )
             projection = next(
                 entry
                 for entry in payload["tree"]
@@ -141,7 +139,8 @@ def test_main_pending_and_no_change_never_write(tmp_path, monkeypatch, capsys):
     monkeypatch.chdir(tmp_path)
     for directory in ("data", "docs"):
         (tmp_path / directory).mkdir()
-    for path in module.FILES:
+    for path in module.staged_files():
+        (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / path).write_text("[]")
     monkeypatch.setenv("GITHUB_REPOSITORY", "synthetic/repo")
     processes = []

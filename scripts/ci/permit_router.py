@@ -164,6 +164,12 @@ def _data_path(path):
         return False
     if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
         return True
+    # Per-language permit fragments regenerated with the root ones (#942).
+    if (
+        fnmatch.fnmatchcase(path, "docs/*/permits.html")
+        or fnmatch.fnmatchcase(path, "docs/*/permits-default.html")
+    ) and path.count("/") == 2:
+        return True
     return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count(
         "/"
     )

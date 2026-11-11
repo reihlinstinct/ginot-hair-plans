@@ -19,6 +19,18 @@ FILES = (
 )
 
 
+def staged_files() -> list[str]:
+    # Every non-default language's default fragment regenerates with the root
+    # one (render_permits_page.py), so stage it too (i18n pages, #942).
+    from ginot import i18n
+
+    return list(FILES) + [
+        f"docs/{code}/permits-default.html"
+        for code in i18n.lang_codes()
+        if code != i18n.default_lang()
+    ]
+
+
 def gh(*args, payload=None):
     cmd = ["gh", *args]
     if payload is not None:
@@ -97,7 +109,7 @@ def main():
             "type": "blob",
             "content": Path(path).read_text(encoding="utf-8"),
         }
-        for path in FILES
+        for path in staged_files()
     ]
     updated = gh(
         "api", f"{root}/git/trees", payload={"base_tree": tree, "tree": entries}
