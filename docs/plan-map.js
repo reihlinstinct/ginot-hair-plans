@@ -21,6 +21,28 @@
     if(s.indexOf('אישור')!==-1)return 'approved';return 'other';
   }
   function color(row){return colors[category(row.station_desc||'')];}
+  /* Status also reads by shape (WCAG 1.4.1, #971): color alone split
+     process/approved into two near-identical dark greens, and decision
+     shared the permit marker's square. Inline SVG so every silhouette keeps
+     its outline and halo (clip-path clipped both). Seven distinct shapes:
+     deposit circle, review diamond, conditions triangle, decision plus,
+     process hexagon, approved star, other dashed ring. */
+  var SHAPE_SVG={
+    deposit:'<circle cx="7" cy="7" r="5"/>',
+    review:'<rect x="3.2" y="3.2" width="7.6" height="7.6" transform="rotate(45 7 7)"/>',
+    conditions:'<polygon points="7,2 12.5,12 1.5,12"/>',
+    decision:'<path d="M5 1h4v4h4v4H9v4H5V9H1V5h4z"/>',
+    process:'<polygon points="4,2 10,2 13,7 10,12 4,12 1,7"/>',
+    approved:'<polygon points="7,1.2 8.6,5.1 12.7,5.4 9.5,8.2 10.6,12.3 7,10.1 3.4,12.3 4.5,8.2 1.3,5.4 5.4,5.1"/>',
+    other:'<circle cx="7" cy="7" r="5" fill="none" stroke-dasharray="2.5,2"/>'
+  };
+  var SHAPE_CLASS={deposit:'sh-circle',review:'sh-diamond',conditions:'sh-triangle',decision:'sh-plus',process:'sh-hexagon',approved:'sh-star',other:'sh-outline'};
+  function markerHtml(cat,colorValue){
+    /* Every marker gets the navy outline; 'other' reads as a dashed navy
+       ring with its light fill (a near-white stroke alone was invisible on
+       map tiles, WCAG 1.4.11). */
+    return '<svg class="'+SHAPE_CLASS[cat]+'" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><g fill="'+colorValue+'" stroke="#101f5b" stroke-width="1.5">'+SHAPE_SVG[cat]+'</g></svg>';
+  }
   function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
   function link(text,url){var a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';return a;}
   function asset(tag,attr,url){return new Promise(function(resolve,reject){var e=document.createElement(tag);e[attr]=url;e.onload=resolve;e.onerror=reject;if(tag==='link')e.rel='stylesheet';document.head.appendChild(e);});}
@@ -142,12 +164,12 @@
       try{var pr=await fetch(BASE+'permit-points.json');if(pr.ok){var pd=await pr.json();(pd.points||[]).forEach(function(r){var xy=r.representative_point;if(Array.isArray(xy)&&xy.length===2&&xy.every(Number.isFinite)&&Math.abs(xy[0])<=180&&Math.abs(xy[1])<=90)permitPositions.set(r.tik_num,xy);});}}catch(e){/* Missing positions stay explicit; no guessed geocodes. */}
       var states=new Set();data.points.forEach(function(row){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||S('mapjs.status_unknown','סטטוס לא ידוע');states.add(s);
-        var icon=L.divIcon({className:'plan-marker',html:'<span style="background:'+color(row)+'"></span>',iconSize:[14,14],iconAnchor:[7,7]});
+        var icon=L.divIcon({className:'plan-marker',html:markerHtml(category(row.station_desc||''),color(row)),iconSize:[14,14],iconAnchor:[7,7]});
         var marker=L.marker([xy[1],xy[0]],{icon:icon,title:S('mapjs.plan_prefix','תכנית ')+row.pl_number+' '+row.pl_name+' - '+s,alt:S('mapjs.plan_prefix','תכנית ')+row.pl_number+' '+row.pl_name});marker.bindPopup(popup(row),{maxWidth:240});marker.on('popupopen',function(){if(!rows().some(function(r){return r.dataset.num===row.pl_number;}))map.closePopup();});items.push({marker:marker,row:row});
       });
-      var legend=document.getElementById('map-legend');legend.replaceChildren(el('p',S('mapjs.legend_line','קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.')));
+      var legend=document.getElementById('map-legend');legend.replaceChildren(el('p',S('mapjs.legend_line','קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע והצורה מסמנים סטטוס, כמו בטבלה.')));
       legend.append(el('p',S('mapjs.legend_permits','ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.')));
-      Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.style.background=colors[category(s)];item.append(swatch,document.createTextNode(s));legend.append(item);});
+      Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.innerHTML=markerHtml(category(s),colors[category(s)]);item.append(swatch,document.createTextNode(s));legend.append(item);});
       pointsDate=data.generated;syncFilter();map.on('zoomend',boundaries);
     }catch(e){status.textContent=S('mapjs.map_unavailable','לא ניתן לטעון את המפה כרגע. טבלת התכניות נשארת זמינה.');loading=false;}
   }

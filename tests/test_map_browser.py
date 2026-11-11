@@ -580,3 +580,69 @@ def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
         "0 עם מיקום בחלקה (0 נקודות), 1 אין מיקום"
         in page.locator("#map-status").inner_text()
     )
+
+
+# Section: Status encoding on the map
+
+
+def test_map_statuses_have_distinct_shapes_and_legend_matches(page):
+    # Status reads by shape as well as color (WCAG 1.4.1, #971): process and
+    # approved share near-identical dark greens, so color alone failed.
+    # Free-text "200-1" leaves exactly rows 200-1 and 200-10..200-19 visible
+    # (same filter the lazy-loading test relies on), so these seven plans are
+    # guaranteed drawable as points.
+    stations = [
+        ("200-1", "הפקדה להתנגדויות", "sh-circle", "circle"),
+        ("200-10", "בדיקה", "sh-diamond", "rect"),
+        ("200-11", "תנאים", "sh-triangle", "polygon"),
+        ("200-12", "הכרעה", "sh-plus", "path"),
+        ("200-13", "בהליך", "sh-hexagon", "polygon"),
+        ("200-14", "אישור", "sh-star", "polygon"),
+        ("200-15", "אחר", "sh-outline", "circle"),
+    ]
+    points = [
+        {
+            "pl_number": num,
+            "pl_name": f"Shape {num}",
+            "station_desc": station,
+            "representative_point": [35.213 + i * 0.0001, 31.768],
+        }
+        for i, (num, station, _cls, _tag) in enumerate(stations)
+    ]
+    page.fill("#fq", "200-1")
+    page.route(
+        "**/plan-points.json",
+        lambda route: route.fulfill(json={"generated": "2026-10-22", "points": points}),
+    )
+    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
+    page.route(
+        "https://ags.iplan.gov.il/**",
+        lambda route: route.fulfill(status=503, body="unavailable"),
+    )
+    page.locator("#plan-map-panel summary").click()
+    page.wait_for_function("document.querySelectorAll('.plan-marker').length===7")
+    # Rendered check per category, not class names only: the marker's SVG
+    # carries the shape class AND a real shape element with a visible stroke.
+    for _num, _station, cls, tag in stations:
+        svg = page.locator(f".plan-marker svg.{cls}")
+        assert svg.count() == 1, cls
+        shape = svg.locator(tag).first
+        assert shape.count() >= 1, (cls, tag)
+        style = shape.evaluate(
+            "e=>[getComputedStyle(e).stroke,getComputedStyle(e).strokeWidth]"
+        )
+        # Navy #101f5b outline on every shape, including the light 'other'
+        # ring: a near-white stroke is invisible on map tiles (1.4.11).
+        assert style == ["rgb(16, 31, 91)", "1.5px"], (cls, style)
+    # The 'other' ring is dashed (shape cue) with a navy stroke (contrast).
+    other = page.locator(".plan-marker svg.sh-outline circle").first
+    assert other.get_attribute("stroke-dasharray")
+    assert other.evaluate("e=>getComputedStyle(e).stroke") == "rgb(16, 31, 91)"
+    # The legend swatches reuse the same marker shapes, one per status.
+    page.locator("#map-legend-toggle").click()
+    swatches = page.locator("#map-legend .map-swatch svg").evaluate_all(
+        "els=>els.map(e=>Array.from(e.classList).find(c=>c.startsWith('sh-')))"
+    )
+    assert set(swatches) == {cls for _n, _s, cls, _t in stations}
+    # The legend tells the reader status is encoded by color AND shape.
+    assert "הצורה" in page.locator("#map-legend").inner_text()

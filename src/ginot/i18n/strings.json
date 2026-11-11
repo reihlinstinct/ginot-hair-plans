@@ -847,12 +847,12 @@
    "fr": "La carte ne peut pas être chargée pour le moment. Le tableau des plans reste disponible."
   },
   "mapjs.legend_line": {
-   "he": "קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.",
-   "en": "Line: plan boundary. Point: representative location when the boundary is unavailable or at wide zoom. The colour marks status, as in the table.",
-   "ar": "خط: حد مخطط. نقطة: موقع تمثيلي عندما يكون الحد غير متاح أو في التكبير البعيد. اللون يدل على الحالة، كما في الجدول.",
-   "ru": "Линия: граница плана. Точка: ориентировочное место, когда граница недоступна или при широком масштабе. Цвет обозначает статус, как в таблице.",
-   "am": "መስመር: የእቅድ ወሰን። ነጥብ: ወሰኑ ሲጎድል ወይም በሰፊ ዝም ተወካይ ቦታ። ቀለሙ ሁኔታን ያመለክታል፣ እንደ ሰንጠረዡ።",
-   "fr": "Ligne : limite du plan. Point : emplacement indicatif quand la limite est indisponible ou à zoom large. La couleur indique le statut, comme dans le tableau."
+   "he": "קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע והצורה מסמנים סטטוס, כמו בטבלה.",
+   "en": "Line: plan boundary. Point: representative location when the boundary is unavailable or at wide zoom. Color and shape mark status, as in the table.",
+   "ar": "خط: حد مخطط. نقطة: موقع تمثيلي عندما يكون الحد غير متاح أو في التكبير البعيد. اللون والشكل يدلان على الحالة، كما في الجدول.",
+   "ru": "Линия: граница плана. Точка: ориентировочное место, когда граница недоступна или при широком масштабе. Цвет и форма обозначают статус, как в таблице.",
+   "am": "መስመር: የእቅድ ወሰን። ነጥብ: ወሰኑ ሲጎድል ወይም በሰፊ ዝም ተወካይ ቦታ። ቀለሙ እና ቅርጹ ሁኔታን ያመለክታሉ፣ እንደ ሰንጠረዡ።",
+   "fr": "Ligne : limite du plan. Point : emplacement indicatif quand la limite est indisponible ou à zoom large. La couleur et la forme indiquent le statut, comme dans le tableau."
   },
   "mapjs.legend_permits": {
    "he": "ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.",
