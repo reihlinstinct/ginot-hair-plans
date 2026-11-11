@@ -1,0 +1,55 @@
+name: Pages build and deploy
+
+# Deploys the GitHub Pages site with a real build step (#959). The site is
+# re-rendered from committed inputs (scripts/ci/check_docs_fresh.py --write),
+# which also draws the og preview PNGs (src/ginot/preview.py), so image
+# binaries live only in the deployed artifact and stop churning git history.
+# Requires the repo Pages source set to "GitHub Actions"; until that settings
+# flip, branch deploys keep serving the committed docs/ as before.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Render the site from committed inputs (writes docs/, incl. og PNGs)
+        run: python3 scripts/ci/check_docs_fresh.py --include-data-json --write
+      - name: Verify the render is fresh
+        run: python3 scripts/ci/check_docs_fresh.py --include-data-json
+      - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+        with:
+          path: docs/
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

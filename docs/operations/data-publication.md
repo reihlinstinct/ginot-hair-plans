@@ -14,8 +14,12 @@ approving review. Use a normal merge, never an admin override. If the head moves
 repeat the affected reviews and checks.
 
 After the reviewed merge is confirmed, verify the deployed site's data and dates.
-GitHub Pages may already deploy from the normal merge. If a build request is
-needed, a maintainer may request it after verifying the merged commit on main.
+With the Pages source set to GitHub Actions (#959), the pages.yml workflow
+deploys on every merge to main: it re-renders the site from the committed
+inputs and draws the og preview PNGs at deploy time, so the image binaries no
+longer live in git. Until that settings flip, branch deploys keep serving the
+committed docs/ as before, and a maintainer may request a build after
+verifying the merged commit on main.
 The fetch workflow no longer requests builds or advances the Cloudflare mirror.
 Do not force-push the mirror from a still-running fetch job. Any manual mirror
 continuation must use the confirmed reviewed main commit and check current mirror
