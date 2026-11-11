@@ -1991,12 +1991,12 @@
    "fr": "Limites connues"
   },
   "a11y.limits_html": {
-   "he": "<ul><li>המפה היא רכיב חזותי; הנתונים שבה זמינים גם בטבלאות הטקסט של האתר.</li><li>התרגומים לשפות שאינן עברית נוצרים בתרגום מכונה ומסומנים כטיוטה.</li></ul>",
-   "en": "<ul><li>The map is a visual component; its data is also available in the site's text tables.</li><li>Translations into languages other than Hebrew are machine-generated and marked as drafts.</li></ul>",
-   "ar": "<ul><li>الخريطة مكوّن مرئي؛ وتتوفر بياناتها أيضًا في جداول النص بالموقع.</li><li>الترجمات إلى غير العبرية مولّدة آليًا ومعلَّمة كمسودات.</li></ul>",
-   "ru": "<ul><li>Карта - визуальный компонент; её данные также доступны в текстовых таблицах сайта.</li><li>Переводы на языки, кроме иврита, созданы машинным переводом и помечены как черновики.</li></ul>",
-   "am": "<ul><li>ካርታው የእይታ ክፍል ነው፤ ውሂቡ በጣቢያው የጽሑፍ ሰንጠረዦች ውስጥም ይገኛል።</li><li>ከዕብራይስጥ ወደ ሌሎች ቋንቋዎች የተሰሩ ትርጉሞች በማሽን ተርጉመዋል እና እንደ ረቂቅ ተመልክተዋል።</li></ul>",
-   "fr": "<ul><li>La carte est un composant visuel ; ses données sont aussi disponibles dans les tableaux textuels du site.</li><li>Les traductions dans les langues autres que l'hébreu sont générées automatiquement et marquées comme brouillons.</li></ul>"
+   "he": "<ul><li>המפה היא רכיב חזותי; הנתונים שבה זמינים גם בטבלאות הטקסט של האתר.</li><li>התרגומים לשפות שאינן עברית נוצרים בתרגום מכונה ומסומנים כטיוטה.</li><li>בדיקות הנגישות האוטומטיות אינן ביקורת נגישות ידנית; לא בוצעה ביקורת ידנית או ביקורת ת\"י 5568 של האתר.</li></ul>",
+   "en": "<ul><li>The map is a visual component; its data is also available in the site's text tables.</li><li>Translations into languages other than Hebrew are machine-generated and marked as drafts.</li><li>Automated scans are not a manual accessibility audit; no manual or SI 5568 audit of the site has been performed.</li></ul>",
+   "ar": "<ul><li>الخريطة مكوّن مرئي؛ وتتوفر بياناتها أيضًا في جداول النص بالموقع.</li><li>الترجمات إلى غير العبرية مولّدة آليًا ومعلَّمة كمسودات.</li><li>الفحوصات الآلية ليست تدقيق إتاحة يدويًا؛ ولم يُجرَ أي تدقيق يدوي أو تدقيق وفق المعيار الإسرائيلي 5568 للموقع.</li></ul>",
+   "ru": "<ul><li>Карта - визуальный компонент; её данные также доступны в текстовых таблицах сайта.</li><li>Переводы на языки, кроме иврита, созданы машинным переводом и помечены как черновики.</li><li>Автоматические проверки не заменяют ручной аудит доступности; ручной аудит или аудит по СИ 5568 не проводился.</li></ul>",
+   "am": "<ul><li>ካርታው የእይታ ክፍል ነው፤ ውሂቡ በጣቢያው የጽሑፍ ሰንጠረዦች ውስጥም ይገኛል።</li><li>ከዕብራይስጥ ወደ ሌሎች ቋንቋዎች የተሰሩ ትርጉሞች በማሽን ተርጉመዋል እና እንደ ረቂቅ ተመልክተዋል።</li><li>ራስ-ሰር ምርመራዎች የእጅ ተደራሽነት ኦዲት አይደሉም፤ የእጅ ወይም የSI 5568 ኦዲት አልተደረገም።</li></ul>",
+   "fr": "<ul><li>La carte est un composant visuel ; ses données sont aussi disponibles dans les tableaux textuels du site.</li><li>Les traductions dans les langues autres que l'hébreu sont générées automatiquement et marquées comme brouillons.</li><li>Les analyses automatisées ne remplacent pas un audit manuel d'accessibilité ; aucun audit manuel ni audit SI 5568 du site n'a été réalisé.</li></ul>"
   },
   "a11y.contact_h": {
    "he": "יצירת קשר בנושא נגישות",
