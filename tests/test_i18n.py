@@ -124,6 +124,51 @@ def test_hebrew_page_is_unchanged_in_key_markers():
     assert 'value="he"' in html and "draft-note" not in html
 
 
+# Section: the main pages render in every language
+
+
+def _index_row():
+    return {
+        "pl_number": "101-1",
+        "pl_name": "תכנית 1",
+        "station_desc": "הפקדה",
+        "receiving_date": "",
+        "pl_last_deposit_date": "",
+        "depositing_date": "",
+        "objection_deadline_derived_2m_from_publication": "",
+        "pl_area_dunam": 1.0,
+        "inside_flag": "inside",
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+
+
+@pytest.mark.parametrize("code", i18n.lang_codes())
+def test_index_page_renders_in_every_language(code):
+    from ginot.page import render_index
+
+    permits = [
+        {
+            "tik_num": "2026/0001.00",
+            "status": "בבדיקה",
+            "mahut": "מ",
+            "sugbakasha": "היתר",
+        }
+    ]
+    html = render_index(
+        [_index_row()], [], "2026-11-11", "גינות העיר", permits=permits, lang=code
+    )
+    m = i18n.meta(code)
+    assert f'<html dir="{m["dir"]}" lang="{m["lang"]}">' in html
+    assert ('class="draft-note"' in html) == i18n.is_draft(code)
+    pre = i18n.asset_prefix(code)
+    assert f'href="{pre}style.css"' in html
+    assert "{generated}" not in html
+    # permits table mobile labels are translated data-label attributes
+    assert f"data-label='{_e(i18n.t(code, 'permits.col_address'))}'" in html
+    # data values (plan names, permit statuses) stay Hebrew in every language
+    assert "תכנית 1" in html and "בבדיקה" in html
+
+
 # Section: the mail API reads the same document
 def test_api_languages_come_from_the_document():
     import importlib.util

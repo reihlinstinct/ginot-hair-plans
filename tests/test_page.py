@@ -329,7 +329,10 @@ def test_ai_review_links_discovered_from_plans_tree(tmp_path):
 def test_mobile_label_for_ai_review_column(tmp_path):
     page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
     css = (tmp_path / "style.css").read_text(encoding="utf-8")
-    assert '#plans td:nth-child(8)::before{content:"סקירת AI"}' in css
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # mobile row labels come from data-label attributes (i18n-aware), not CSS content
+    assert "content:attr(data-label)" in css
+    assert "data-label='סקירת AI'" in html
     assert "בתוך/חלקי" not in css
 
 

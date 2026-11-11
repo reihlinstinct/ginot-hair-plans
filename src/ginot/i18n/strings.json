@@ -1421,6 +1421,486 @@
    "ru": "Список наборов данных сейчас недоступен",
    "am": "የውሂብ ስብስቦች ዝርዝር በአሁኑ ጊዜ አይገኝም",
    "fr": "La liste des jeux de données est indisponible pour le moment"
+  },
+  "permits.h2": {
+   "he": "בקשות היתר",
+   "en": "Permit requests",
+   "ar": "طلبات الترخيص",
+   "ru": "Заявки на разрешения",
+   "am": "የፍቃድ ጥያቄዎች",
+   "fr": "Demandes de permis"
+  },
+  "permits.note_html": {
+   "he": "מקור: מערכת איתור הנתונים ברישוי של עיריית ירושלים.\nבקשת היתר אינה תכנית מופקדת - ההתנגדות לבקשה מוגשת לפי הוראות הפרסום\n(סעיף 149 לחוק התכנון והבניה) ובמועדים שבפרסום עצמו.\nבקשות שהסתיימו (נסגרו או הופק היתר) מוסתרות כברירת מחדל.\nכברירת מחדל מוצגות רק בקשות הרלוונטיות להתנגדות - פתוחות להתנגדויות או\nלקראת פרסום - בשכונות גינות העיר; שאר הקבוצות זמינות תחת \"קבוצות נוספות\",\nובסימון \"הצג גם מחוץ ל-7 השכונות\". הסטטוס הגולמי מהמקור מוצג בכל שורה.\nבקשות ללא תאריך פרסום ידוע נשארות גלויות ומסומנות - היעדר התאריך אינו ראיה\nשהבקשה ישנה או שלא פורסמה.\nפרסום עירוני מאומת משמש לסיווג התצוגה ולתאריך הפרסום גם כשהסטטוס הגולמי טרם עודכן;\nאין בכך אישור למועד התנגדות שאינו ידוע.\nמספר הבקשה מקשר לתיק במערכת\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.\nעמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.",
+   "en": "Source: the Jerusalem municipality permit-data system.\nA permit request is NOT a deposited plan - objections to a request are filed\naccording to the publication terms (section 149 of the Planning and Building Law)\nand the deadlines stated in the publication itself.\nCompleted requests (closed or permit issued) are hidden by default.\nBy default only objection-relevant requests are shown - open for objections or\napproaching publication - in the Ginot HaIr neighborhoods; the other groups are\nunder \"More groups\", plus the \"Also show outside the 7 neighborhoods\" toggle.\nThe raw source status is shown in every row.\nRequests with no known publication date stay visible and marked - a missing\ndate is not evidence that the request is old or unpublished.\nA verified municipal publication is used for display grouping and the publication\ndate even when the raw status has not caught up; it does not confirm an unknown\nobjection deadline.\nThe request number links to the case in the\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>municipal permit-data system</a>.\nThe AI-review column links to an automatic summary when published; it is not an\nofficial document and does not file an objection.",
+   "ar": "المصدر: نظام بيانات الترخيص في بلدية القدس.\nطلب الترخيص ليس مخططًا مودعًا - تُقدَّم الاعتراضات على الطلب وفق شروط النشر\n(البند 149 من قانون التخطيط والبناء) والمواعيد الواردة في النشر نفسه.\nالطلبات المنتهية (أُغلقت أو صدر الترخيص) مخفية افتراضيًا.\nافتراضيًا تُعرض فقط الطلبات ذات الصلة بالاعتراضات - المفتوحة للاعتراضات أو\nالمقتربة من النشر - في أحياء غينوت هعير؛ بقية المجموعات تحت \"مجموعات إضافية\"،\nومع خيار \"عرض أيضًا خارج الأحياء السبعة\". حالة المصدر الخام تظهر في كل صف.\nالطلبات بلا تاريخ نشر معروف تبقى ظاهرة ومعلَّمة - غياب التاريخ ليس دليلًا على\nأن الطلب قديم أو غير منشور.\nالنشر البلدي الموثَّق يُستخدم لتصنيف العرض وتاريخ النشر حتى لو لم تُحدَّث حالة\nالمصدر بعد؛ وليس في ذلك تأكيد لموعد اعتراض غير معروف.\nرقم الطلب يربط بالملف في\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>نظام بيانات الترخيص البلدي</a>.\nعمود مراجعة AI يربط بملخص آلي عند نشره؛ ليس مستندًا رسميًا ولا يقدّم اعتراضًا.",
+   "ru": "Источник: муниципальная система данных о лицензировании Иерусалима.\nЗаявка на разрешение - НЕ депонированный план; возражения на заявку подаются\nпо правилам публикации (п. 149 Закона о планировании и строительстве) и в сроки,\nуказанные в самой публикации.\nЗавершённые заявки (закрыты или разрешение выдано) скрыты по умолчанию.\nПо умолчанию показаны только заявки, относящиеся к возражениям - открытые для\nвозражений или приближающиеся к публикации - в кварталах Гинот hа-Ир; остальные\nгруппы - под \"Дополнительные группы\" и через \"Показать также за пределами\n7 кварталов\". Сырая статуса из источника показана в каждой строке.\nЗаявки без известной даты публикации остаются видимыми и отмеченными - отсутствие\nдаты не доказывает, что заявка старая или не опубликована.\nПодтверждённая муниципальная публикация используется для группировки отображения\nи даты публикации, даже если сырая статуса ещё не обновлена; это не подтверждает\nнеизвестный срок возражений.\nНомер заявки ведёт к делу в\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>муниципальной системе данных о лицензировании</a>.\nКолонка \"AI-обзор\" ведёт к автоматическому резюме, когда оно опубликовано; это\nне официальный документ и не подача возражения.",
+   "am": "ምንጭ፡ የኢየሩሳሌም ከተማ የፍቃድ ውሂብ ስርዓት።\nየፍቃድ ጥያቄ የተቀረጸ እቅድ አይደለም - ቅሬታዎች በሕጽሣዊ ህትመት መመሪያዎች (የእቅድና ሕንጻ ህግ\nአንቀጽ 149) እና በራሱ ህትመት ውስጥ በተጠቀሱት ጊዜዎች ይቀርባሉ።\nየተጠናቀቁ ጥያቄዎች (ተዘግተዋል ወይም ፍቃድ ወጥቷል) በነባሪነት ይደበቃሉ።\nበነባሪነት ከቅሬታ ጋር ተያያዥ ያሉ ጥያቄዎች ብቻ ይታያሉ - ለቅሬታ ክፍት ወይም ህትመት የሚጠጉ -\nበጊኖት ኃዒር አካባቢዎች; የቀሩት ቡድኖች በ\"ተጨማሪ ቡድኖች\" እና በ\"ከ7 አካባቢዎች ውጭ አሳይ\" ምርጫ።\nየምንጩ ጥራጥሬ ሁኔታ በእያንዳንዱ ረድፍ ይታያል።\nየህትመት ቀን የሌላቸው ጥያቄዎች ተይዘው እና ተመልክተው ይቆያሉ - ቀኑ መጥፋት ጥያቄው አሮጌ\nመሆኑን ወይም ያልታተመ መሆኑን አያረጋግጥም።\nየተረጋገጠ የከተማ ህትመት ለማሳያ ምደባ እና ለህትመት ቀን ይጠቅማል, ምንጩ ጥራጥሬ ሁኔታ\nገና ሳይዘመን; ያልታወቀ የቅሬታ ጊዜ አያረጋግጥም።\nየጥያቄ ቁጥሩ ወደ\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>የከተማ የፍቃድ ውሂብ ስርዓት</a> መዝገብ ይያዛል።\nየAI-ግምገማ አምድ ሲታተም ወደ ራስ-ሰር ማጠቃለያ ይያዛል; ኦፊሴላዊ ሰነድ አይደለም እና ቅሬታ አያቀርብም።",
+   "fr": "Source : le système municipal de données des permis de Jérusalem.\nUne demande de permis n'est PAS un plan déposé - les objections à une demande\nse déposent selon les conditions de publication (article 149 de la loi sur\nl'aménagement et la construction) et les délais de la publication elle-même.\nLes demandes terminées (closes ou permis délivré) sont masquées par défaut.\nPar défaut seules les demandes pertinentes pour les objections sont affichées -\nouvertes aux objections ou proches de la publication - dans les quartiers de\nGinot HaIr ; les autres groupes sont sous \"Groupes supplémentaires\", avec\nl'option \"Afficher aussi hors des 7 quartiers\". Le statut brut de la source\nest affiché dans chaque ligne.\nLes demandes sans date de publication connue restent visibles et signalées -\nl'absence de date ne prouve ni que la demande est ancienne ni qu'elle n'a pas\nété publiée.\nUne publication municipale vérifiée sert au regroupement d'affichage et à la\ndate de publication même quand le statut brut n'est pas encore à jour ; cela\nne confirme pas un délai d'objection inconnu.\nLe numéro de demande renvoie au dossier dans le\n<a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>système municipal de données des permis</a>.\nLa colonne d'analyse IA renvoie à un résumé automatique lorsqu'il est publié ;\nce n'est pas un document officiel et cela ne dépose pas d'objection."
+  },
+  "permits.legend_groups": {
+   "he": "קבוצות תצוגה:",
+   "en": "Display groups:",
+   "ar": "مجموعات العرض:",
+   "ru": "Группы отображения:",
+   "am": "የማሳያ ቡድኖች:",
+   "fr": "Groupes d'affichage :"
+  },
+  "permits.more_groups": {
+   "he": "קבוצות נוספות",
+   "en": "More groups",
+   "ar": "مجموعات إضافية",
+   "ru": "Дополнительные группы",
+   "am": "ተጨማሪ ቡድኖች",
+   "fr": "Groupes supplémentaires"
+  },
+  "permits.group_help": {
+   "he": "הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.\nקבוצת \"פרסום / הודעות להתנגדות\" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,\nאפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס \"שולמה מקדמה\" אינן מועברות לקבוצה זו:\nפרסום עירוני שלהן מוצג בקבוצה נפרדת \"פרסום עירוני - דורש בדיקה\".\nפרסום כשלעצמו אינו אישור שניתן להגיש התנגדות כעת.\nלסינון סטטוס מדויק השתמשו ברשימה \"כל סטטוסי המקור\"; הסטטוס המקורי נשמר בכל שורה.",
+   "en": "The buttons filter by display groups, not by exact status.\nThe \"Publication / objection notices\" group includes publication stages from the\nsource and requests with a verified municipal publication, even if their source\nstatus differs. Requests in \"advance paid\" status are not moved into this group:\ntheir municipal publication shows in a separate group, \"Municipal publication -\nneeds review\".\nA publication alone does not confirm that an objection can be filed now.\nTo filter an exact status use the \"All source statuses\" list; the original status\nis kept in every row.",
+   "ar": "الأزرار تصفّي حسب مجموعات العرض، لا حسب حالة دقيقة.\nمجموعة \"نشر / إشعارات للاعتراضات\" تشمل مراحل النشر من المصدر وأيضًا طلبات مع\nنشر بلدي موثَّق، حتى لو اختلفت حالة المصدر. الطلبات بحالة \"دُفعت دفعة مقدمة\" لا\nتُنقل إلى هذه المجموعة: نشرها البلدي يظهر في مجموعة منفصلة \"نشر بلدي - يتطلب\nفحصًا\".\nالنشر وحده ليس تأكيدًا بأنه يمكن تقديم اعتراض الآن.\nلتصفية حالة دقيقة استخدموا قائمة \"كل حالات المصدر\"؛ الحالة الأصلية محفوظة في كل\nصف.",
+   "ru": "Кнопки фильтруют по группам отображения, а не по точному статусу.\nГруппа \"Публикация / уведомления для возражений\" включает стадии публикации из\nисточника и заявки с подтверждённой муниципальной публикацией, даже если их\nстатус в источнике другой. Заявки в статусе \"оплачен аванс\" не переносятся в эту\nгруппу: их муниципальная публикация показывается в отдельной группе\n\"Муниципальная публикация - требует проверки\".\nСама публикация не подтверждает, что возражение можно подать сейчас.\nДля фильтра по точному статусу используйте список \"Все статусы источника\";\nисходный статус сохраняется в каждой строке.",
+   "am": "ቁልፎቹ በማሳያ ቡድኖች ያጣራሉ, በትክክለኛ ሁኔታ ሳይሆን።\n\"ህትመት / የቅሬታ ማሳወቂያዎች\" ቡድን ከምንጭ የህትመት ደረጃዎችን እና የተረጋገጠ የከተማ ህትመት ያላቸው\nጥያቄዎችን ያካትታል, የምንጭ ሁኔታቸው ቢለያይም። \"ቅድሚያ ክፍያ ተከፍሏል\" ሁኔታ ያላቸው ጥያቄዎች ወደዚህ\nቡድን አይተላለፉም: የከተማ ህትመታቸው በተለየ ቡድን \"የከተማ ህትመት - ግምገማ ይፈልጋል\" ይታያል።\nህትመት ብቻውን አሁን ቅሬታ ማቅረብ እንደሚቻል አያረጋግጥም።\nትክክለኛ ሁኔታ ለማጣራት \"የምንጭ ሁኔታዎች ሁሉ\" ዝርዝሩን ይጠቀሙ; ኦሪጅናሉ ሁኔታ በእያንዳንዱ ረድፍ\nይቀመጣል።",
+   "fr": "Les boutons filtrent par groupes d'affichage, pas par statut exact.\nLe groupe \"Publication / avis d'objection\" inclut les étapes de publication de la\nsource et les demandes avec une publication municipale vérifiée, même si leur\nstatut source diffère. Les demandes au statut \"acompte payé\" ne sont pas déplacées\ndans ce groupe : leur publication municipale apparaît dans un groupe séparé\n\"Publication municipale - à vérifier\".\nUne publication seule ne confirme pas qu'une objection peut être déposée.\nPour filtrer un statut exact, utilisez la liste \"Tous les statuts de la source\" ;\nle statut d'origine est conservé dans chaque ligne."
+  },
+  "permits.coverage_summary": {
+   "he": "מקור הנתונים וכיסוי תאריכי הפרסום",
+   "en": "Data source and publication-date coverage",
+   "ar": "مصدر البيانات وتغطية تواريخ النشر",
+   "ru": "Источник данных и покрытие дат публикаций",
+   "am": "የውሂብ ምንጭ እና የህትመት ቀኖች ሽፋን",
+   "fr": "Source des données et couverture des dates de publication"
+  },
+  "permits.coverage_p1": {
+   "he": "הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.",
+   "en": "The table holds the permit-request data and publication-stage dates collected from the municipal licensing system.",
+   "ar": "يتضمن الجدول بيانات طلبات الترخيص وتواريخ مراحل النشر المجموعة من نظام الترخيص البلدي.",
+   "ru": "Таблица содержит данные заявок на разрешения и даты стадий публикации, собранные из муниципальной системы лицензирования.",
+   "am": "ሰንጠረዡ የፍቃድ ጥያቄዎችን ውሂብ እና ከከተማ ፍቃድ ስርዓት የተሰበሰቡ የህትመት ደረጃ ቀኖችን ያካትታል።",
+   "fr": "Le tableau contient les données des demandes de permis et les dates des étapes de publication collectées dans le système municipal."
+  },
+  "permits.coverage_text": {
+   "he": "{total} בקשות במאגר; {dated} עם תאריך תחילת פרסום; {planned} עם סיום פרסום מתוכנן; {nodate} ללא תאריך תחילת פרסום.",
+   "en": "{total} requests in the dataset; {dated} with a publication start date; {planned} with a planned publication end; {nodate} with no publication start date.",
+   "ar": "{total} طلبًا في المجموعة؛ {dated} مع تاريخ بدء نشر؛ {planned} مع انتهاء نشر مخطط؛ {nodate} بدون تاريخ بدء نشر.",
+   "ru": "{total} заявок в базе; {dated} с датой начала публикации; {planned} с планируемым окончанием публикации; {nodate} без даты начала публикации.",
+   "am": "{total} ጥያቄዎች በውሂብ ስብስብ; {dated} የህትመት ጅምር ቀን ያላቸው; {planned} የታቀደ የህትመት ማብቂያ ያላቸው; {nodate} የህትመት ጅምር ቀን የሌላቸው።",
+   "fr": "{total} demandes dans la base ; {dated} avec une date de début de publication ; {planned} avec une fin de publication prévue ; {nodate} sans date de début de publication."
+  },
+  "permits.coverage_p2": {
+   "he": "הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.\nתאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.\nסיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.\nלא נוספו לכאן תיקים מהמראה החיצונית או מסמכי תיק.",
+   "en": "The counts cover every request in the dataset, before display filtering.\nA missing publication date does not prove a request was not published.\nA planned publication end is not a confirmed objection deadline; the deadline in\nthe original publication notice prevails.\nNo cases from the external mirror or case documents were added here.",
+   "ar": "تشمل الأعداد كل الطلبات في المجموعة، قبل تصفية العرض.\nتاريخ النشر المفقود لا يثبت أن الطلب لم يُنشر.\nانتهاء النشر المخطط ليس موعد اعتراض مؤكدًا؛ الموعد في إشعار النشر الأصلي هو\nالحاسم.\nلم تُضف هنا ملفات من المرآة الخارجية أو مستندات الملفات.",
+   "ru": "Подсчёт охватывает все заявки в базе, до фильтрации отображения.\nОтсутствие даты публикации не доказывает, что заявка не была опубликована.\nПланируемое окончание публикации - не подтверждённый срок возражений; решающим\nявляется срок в исходном уведомлении о публикации.\nСюда не добавлялись дела из внешнего зеркала или документы дел.",
+   "am": "ቆጠራው ከማሳያ ማጣራት በፊት በውሂብ ስብስብ ውስጥ ያሉትን ጥያቄዎች ሁሉ ይሸፍናል።\nየጠፋ የህትመት ቀን ጥያቄው ያልታተመ መሆኑን አያረጋግጥም።\nየታቀደ የህትመት ማብቂያ የተረጋገጠ የቅሬታ ጊዜ አይደለም; በዋናው የህትመት ማሳወቂያ ውስጥ ያለው\nጊዜ ወሳኝ ነው።\nከውጫዊው ማንጸባረቅ ወይም ከመዝገብ ሰነዶች እዚህ ምንም መዝገቦች አልተጨመሩም።",
+   "fr": "Le décompte couvre toutes les demandes de la base, avant le filtrage d'affichage.\nUne date de publication manquante ne prouve pas qu'une demande n'a pas été publiée.\nUne fin de publication prévue n'est pas un délai d'objection confirmé ; le délai\nde l'avis de publication d'origine prévaut.\nAucun dossier du miroir externe ni document de dossier n'a été ajouté ici."
+  },
+  "permits.search_placeholder": {
+   "he": "חיפוש מספר / כתובת / מהות; או עם |",
+   "en": "Search number / address / essence; or with |",
+   "ar": "ابحث برقم / عنوان / ماهية؛ أو بـ |",
+   "ru": "Поиск по номеру / адресу / сути; или через |",
+   "am": "በቁጥር / አድራሻ / ይዘት ፈልግ; ወይም በ |",
+   "fr": "Recherche numéro / adresse / objet ; ou avec |"
+  },
+  "permits.search_title": {
+   "he": "לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' ” ’), ממקפים, מניקוד ומרווחים כפולים",
+   "en": "Separate alternatives with |, e.g.: Palmach 41 | Palmach 49. A comma stays a normal character. The search ignores apostrophes and quotes (׳ ״ ' ” ’), hyphens, cantillation marks and double spaces",
+   "ar": "افصل البدائل بـ |، مثال: فلمح 41 | فلمح 49. الفاصلة تبقى حرفًا عاديًا. البحث يتجاهل الفواصل العليا وعلامات الاقتباس (׳ ״ ' ” ’) والشرطات والتشكيل والمسافات المزدوجة",
+   "ru": "Разделяйте варианты через |, например: Пальмах 41 | Пальмах 49. Запятая остаётся обычным символом. Поиск игнорирует апострофы и кавычки (׳ ״ ' ” ’), дефисы, огласовки и двойные пробелы",
+   "am": "አማራጮችን በ | ይለዩ, ለምሳሌ: ፓልማኽ 41 | ፓልማኽ 49. ነጠላ ሰረዝ መደበኛ ቁምፊ ይቆያል። ፍለጋው ነጠላ እና ድርብ ጥቅስ ምልክቶችን (׳ ״ ' ” ’), ሰረገላዎችን, ንባብ ምልክቶችን እና ድርብ ክፍተቶችን ይተዋል",
+   "fr": "Séparez les alternatives avec |, par ex. : Palmah 41 | Palmah 49. La virgule reste un caractère normal. La recherche ignore apostrophes et guillemets (׳ ״ ' ” ’), tirets, signes de cantillation et espaces doubles"
+  },
+  "permits.status_all": {
+   "he": "כל סטטוסי המקור",
+   "en": "All source statuses",
+   "ar": "كل حالات المصدر",
+   "ru": "Все статусы источника",
+   "am": "የምንጭ ሁኔታዎች ሁሉ",
+   "fr": "Tous les statuts de la source"
+  },
+  "permits.sug_all": {
+   "he": "כל הסוגים",
+   "en": "All types",
+   "ar": "كل الأنواع",
+   "ru": "Все типы",
+   "am": "ዓይነቶች ሁሉ",
+   "fr": "Tous les types"
+  },
+  "permits.openonly": {
+   "he": "רק מועד התנגדות שלא עבר",
+   "en": "Only objection deadlines not yet passed",
+   "ar": "فقط مواعيد اعتراض لم تنتهِ",
+   "ru": "Только неистёкшие сроки возражений",
+   "am": "ያላለፈ የቅሬታ ጊዜ ብቻ",
+   "fr": "Uniquement les délais d'objection non échus"
+  },
+  "permits.scope": {
+   "he": "הצג גם מחוץ ל-7 השכונות ({n})",
+   "en": "Also show outside the 7 neighborhoods ({n})",
+   "ar": "عرض أيضًا خارج الأحياء السبعة ({n})",
+   "ru": "Показать также за пределами 7 кварталов ({n})",
+   "am": "ከ7 አካባቢዎች ውጭም አሳይ ({n})",
+   "fr": "Afficher aussi hors des 7 quartiers ({n})"
+  },
+  "permits.closed": {
+   "he": "הצג בקשות שהסתיימו ({n})",
+   "en": "Show completed requests ({n})",
+   "ar": "عرض الطلبات المنتهية ({n})",
+   "ru": "Показать завершённые заявки ({n})",
+   "am": "የተጠናቀቁ ጥያቄዎችን አሳይ ({n})",
+   "fr": "Afficher les demandes terminées ({n})"
+  },
+  "permits.reset": {
+   "he": "נקה",
+   "en": "Clear",
+   "ar": "مسح",
+   "ru": "Сбросить",
+   "am": "አጽዳ",
+   "fr": "Réinitialiser"
+  },
+  "permits.copy_link": {
+   "he": "העתק קישור לסינון",
+   "en": "Copy filter link",
+   "ar": "نسخ رابط التصفية",
+   "ru": "Копировать ссылку на фильтр",
+   "am": "የማጣሪያ አገናኝ ቅዳ",
+   "fr": "Copier le lien du filtre"
+  },
+  "permits.flag_invalid": {
+   "he": "תאריך לא תקין - הוחזרה ברירת המחדל",
+   "en": "Invalid date - default restored",
+   "ar": "تاريخ غير صالح - أُعيد الافتراضي",
+   "ru": "Недопустимая дата - восстановлено по умолчанию",
+   "am": "ልክ ያልሆነ ቀን - ነባሪ ተመልሷል",
+   "fr": "Date invalide - valeur par défaut rétablie"
+  },
+  "permits.col_tik": {
+   "he": "מספר בקשה",
+   "en": "Request no.",
+   "ar": "رقم الطلب",
+   "ru": "№ заявки",
+   "am": "የጥያቄ ቁጥር",
+   "fr": "N° de demande"
+  },
+  "permits.col_address": {
+   "he": "כתובת",
+   "en": "Address",
+   "ar": "العنوان",
+   "ru": "Адрес",
+   "am": "አድራሻ",
+   "fr": "Adresse"
+  },
+  "permits.col_mahut": {
+   "he": "מהות",
+   "en": "Essence",
+   "ar": "الماهية",
+   "ru": "Суть",
+   "am": "ይዘት",
+   "fr": "Objet"
+  },
+  "permits.col_sug": {
+   "he": "סוג",
+   "en": "Type",
+   "ar": "النوع",
+   "ru": "Тип",
+   "am": "ዓይነት",
+   "fr": "Type"
+  },
+  "permits.col_status": {
+   "he": "סטטוס",
+   "en": "Status",
+   "ar": "الحالة",
+   "ru": "Статус",
+   "am": "ሁኔታ",
+   "fr": "Statut"
+  },
+  "permits.col_statusdate": {
+   "he": "תאריך סטטוס",
+   "en": "Status date",
+   "ar": "تاريخ الحالة",
+   "ru": "Дата статуса",
+   "am": "የሁኔታ ቀን",
+   "fr": "Date du statut"
+  },
+  "permits.col_pubstart": {
+   "he": "תחילת פרסום",
+   "en": "Publication start",
+   "ar": "بدء النشر",
+   "ru": "Начало публикации",
+   "am": "የህትመት ጅምር",
+   "fr": "Début de publication"
+  },
+  "permits.col_pubend": {
+   "he": "סיום פרסום (מתוכנן)",
+   "en": "Publication end (planned)",
+   "ar": "انتهاء النشر (مخطط)",
+   "ru": "Окончание публикации (план)",
+   "am": "የህትመት ማብቂያ (የታቀደ)",
+   "fr": "Fin de publication (prévue)"
+  },
+  "permits.col_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "የAI ግምገማ",
+   "fr": "Analyse IA"
+  },
+  "permits.col_review_title": {
+   "he": "סיכום שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "AI-generated summary - not an official document",
+   "ar": "ملخص منشأ بواسطة AI - ليس مستندًا رسميًا",
+   "ru": "Резюме, созданное ИИ - не официальный документ",
+   "am": "በAI የተፈጠረ ማጠቃለያ - ኦፊሴላዊ ሰነድ አይደለም",
+   "fr": "Résumé généré par IA - pas un document officiel"
+  },
+  "permits.review_link_title": {
+   "he": "סיכום AI - אינו מסמך רשמי",
+   "en": "AI summary - not an official document",
+   "ar": "ملخص AI - ليس مستندًا رسميًا",
+   "ru": "Резюме ИИ - не официальный документ",
+   "am": "የAI ማጠቃለያ - ኦፊሴላዊ ሰነድ አይደለም",
+   "fr": "Résumé IA - pas un document officiel"
+  },
+  "permits.review_none": {
+   "he": "טרם פורסמה סקירה",
+   "en": "No review published yet",
+   "ar": "لم تُنشر مراجعة بعد",
+   "ru": "Обзор ещё не опубликован",
+   "am": "ግምገማ ገና አልታተመም",
+   "fr": "Pas encore d'analyse publiée"
+  },
+  "permits.noscript": {
+   "he": "מוצגות {n} הבקשות הראשונות בלבד - להצגת כולן ולהשתמש בסינון יש להפעיל JavaScript.",
+   "en": "Only the first {n} requests are shown - enable JavaScript to see them all and use the filters.",
+   "ar": "تُعرض أول {n} طلبًا فقط - فعّلوا JavaScript لعرضها جميعًا واستخدام التصفية.",
+   "ru": "Показаны только первые {n} заявок - включите JavaScript, чтобы увидеть все и использовать фильтры.",
+   "am": "የመጀመሪያዎቹ {n} ጥያቄዎች ብቻ ይታያሉ - ሁሉንም ለማየት እና ማጣሪያዎችን ለመጠቀም JavaScript ያንቁ።",
+   "fr": "Seules les {n} premières demandes sont affichées - activez JavaScript pour toutes les voir et utiliser les filtres."
+  },
+  "permits.schuna": {
+   "he": "שכונה: {schuna}",
+   "en": "Neighborhood: {schuna}",
+   "ar": "الحي: {schuna}",
+   "ru": "Квартал: {schuna}",
+   "am": "አካባቢ: {schuna}",
+   "fr": "Quartier : {schuna}"
+  },
+  "permits.no_exact_address": {
+   "he": "לא צוינה כתובת מדויקת בתיק",
+   "en": "No exact address given in the case file",
+   "ar": "لم يُحدَّد عنوان دقيق في الملف",
+   "ru": "Точный адрес в деле не указан",
+   "am": "ትክክለኛ አድራሻ በመዝገቡ አልተጠቀሰም",
+   "fr": "Aucune adresse exacte indiquée dans le dossier"
+  },
+  "permits.no_address": {
+   "he": "כתובת לא זמינה",
+   "en": "Address unavailable",
+   "ar": "العنوان غير متوفر",
+   "ru": "Адрес недоступен",
+   "am": "አድራሻ አይገኝም",
+   "fr": "Adresse indisponible"
+  },
+  "permits.no_map": {
+   "he": "אין מיקום",
+   "en": "No location",
+   "ar": "لا يوجد موقع",
+   "ru": "Нет местоположения",
+   "am": "አካባቢ የለም",
+   "fr": "Pas de localisation"
+  },
+  "permits.pub_missing": {
+   "he": "תאריך פרסום חסר",
+   "en": "Publication date missing",
+   "ar": "تاريخ النشر مفقود",
+   "ru": "Дата публикации отсутствует",
+   "am": "የህትመት ቀን ጠፍቷል",
+   "fr": "Date de publication manquante"
+  },
+  "permits.group.obj": {
+   "he": "פרסום / הודעות להתנגדות",
+   "en": "Publication / objection notices",
+   "ar": "نشر / إشعارات للاعتراضات",
+   "ru": "Публикация / уведомления для возражений",
+   "am": "ህትመት / የቅሬታ ማሳወቂያዎች",
+   "fr": "Publication / avis d'objection"
+  },
+  "permits.group.pubcheck": {
+   "he": "פרסום עירוני - דורש בדיקה",
+   "en": "Municipal publication - needs review",
+   "ar": "نشر بلدي - يتطلب فحصًا",
+   "ru": "Муниципальная публикация - требует проверки",
+   "am": "የከተማ ህትመት - ግምገማ ይፈልጋል",
+   "fr": "Publication municipale - à vérifier"
+  },
+  "permits.group.pre": {
+   "he": "פרסום מתקרב",
+   "en": "Publication approaching",
+   "ar": "النشر يقترب",
+   "ru": "Публикация приближается",
+   "am": "ህትመት ይቀርባል",
+   "fr": "Publication proche"
+  },
+  "permits.group.review": {
+   "he": "בטיפול/דיונים",
+   "en": "In process / hearings",
+   "ar": "قيد المعالجة / جلسات",
+   "ru": "В обработке / слушания",
+   "am": "በሂደት ላይ / ውይይቶች",
+   "fr": "En cours / délibérations"
+  },
+  "permits.group.draft": {
+   "he": "טיוטת היתר",
+   "en": "Permit draft",
+   "ar": "مسودة الترخيص",
+   "ru": "Проект разрешения",
+   "am": "የፍቃድ ረቂቅ",
+   "fr": "Projet de permis"
+  },
+  "permits.group.postpub": {
+   "he": "אחרי פרסום",
+   "en": "After publication",
+   "ar": "بعد النشر",
+   "ru": "После публикации",
+   "am": "ከህትመት በኋላ",
+   "fr": "Après publication"
+  },
+  "permits.group.issued": {
+   "he": "הופק היתר",
+   "en": "Permit issued",
+   "ar": "صدر الترخيص",
+   "ru": "Разрешение выдано",
+   "am": "ፍቃድ ወጥቷል",
+   "fr": "Permis délivré"
+  },
+  "permits.group.closed": {
+   "he": "סגור/אחר",
+   "en": "Closed / other",
+   "ar": "مغلق / أخرى",
+   "ru": "Закрыто / прочее",
+   "am": "ዝግ / ሌላ",
+   "fr": "Clos / autre"
+  },
+  "permitsjs.show_first20": {
+   "he": "הצג 20 הראשונות",
+   "en": "Show first 20",
+   "ar": "عرض أول 20",
+   "ru": "Показать первые 20",
+   "am": "የመጀመሪያዎቹን 20 አሳይ",
+   "fr": "Afficher les 20 premières"
+  },
+  "permitsjs.show_all": {
+   "he": "הצג את כל {n} הבקשות",
+   "en": "Show all {n} requests",
+   "ar": "عرض كل الطلبات الـ{n}",
+   "ru": "Показать все {n} заявок",
+   "am": "ሁሉንም {n} ጥያቄዎች አሳይ",
+   "fr": "Afficher les {n} demandes"
+  },
+  "permitsjs.showing": {
+   "he": "מציג {shown} מתוך {total}",
+   "en": "Showing {shown} of {total}",
+   "ar": "عرض {shown} من {total}",
+   "ru": "Показано {shown} из {total}",
+   "am": "{shown} ከ {total} በማሳየት ላይ",
+   "fr": "Affichage de {shown} sur {total}"
+  },
+  "permitsjs.unknown": {
+   "he": "תאריך פרסום חסר: {c3} (פורסם, תאריך לא ידוע) · {c4} (אין ראיית פרסום)",
+   "en": "Publication date missing: {c3} (published, date unknown) · {c4} (no publication evidence)",
+   "ar": "تاريخ النشر مفقود: {c3} (نُشر، التاريخ غير معروف) · {c4} (لا دليل نشر)",
+   "ru": "Дата публикации отсутствует: {c3} (опубликовано, дата неизвестна) · {c4} (нет свидетельств публикации)",
+   "am": "የህትመት ቀን ጠፍቷል: {c3} (ታትሟል, ቀኑ አይታወቅም) · {c4} (የህትመት ማስረጃ የለም)",
+   "fr": "Date de publication manquante : {c3} (publié, date inconnue) · {c4} (aucune preuve de publication)"
+  },
+  "permitsjs.group_unmapped": {
+   "he": "לא מסווג",
+   "en": "Unclassified",
+   "ar": "غير مصنَّف",
+   "ru": "Не классифицировано",
+   "am": "ያልተመደበ",
+   "fr": "Non classé"
+  },
+  "permitsjs.retry_load": {
+   "he": "טעינת הרשימה המלאה נכשלה. ",
+   "en": "Loading the full list failed. ",
+   "ar": "فشل تحميل القائمة الكاملة. ",
+   "ru": "Не удалось загрузить полный список. ",
+   "am": "ሙሉውን ዝርዝር መጫን አልተሳካም። ",
+   "fr": "Échec du chargement de la liste complète. "
+  },
+  "permitsjs.retry": {
+   "he": "נסו שוב",
+   "en": "Try again",
+   "ar": "حاولوا مجددًا",
+   "ru": "Повторить",
+   "am": "እንደገና ሞክሩ",
+   "fr": "Réessayer"
+  },
+  "permitsjs.loading_full": {
+   "he": "טוען את הרשימה המלאה…",
+   "en": "Loading the full list…",
+   "ar": "جارٍ تحميل القائمة الكاملة…",
+   "ru": "Загрузка полного списка…",
+   "am": "ሙሉውን ዝርዝር በመጫን ላይ…",
+   "fr": "Chargement de la liste complète…"
+  },
+  "permitsjs.render_failed": {
+   "he": "הרשימה נטענה אך עיבוד התצוגה נכשל. ",
+   "en": "The list loaded but display processing failed. ",
+   "ar": "تم تحميل القائمة لكن فشلت معالجة العرض. ",
+   "ru": "Список загружен, но обработка отображения не удалась. ",
+   "am": "ዝርዝሩ ጫንቷል ግን የማሳያ ሂደት አልተሳካም። ",
+   "fr": "La liste est chargée mais le traitement de l'affichage a échoué. "
+  },
+  "permitsjs.deadline_unknown": {
+   "he": " מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני",
+   "en": " Objection deadline unknown - check the municipal publication",
+   "ar": " موعد الاعتراض غير معروف - يجب التحقق في النشر البلدي",
+   "ru": " Срок возражений неизвестен - проверьте муниципальную публикацию",
+   "am": " የቅሬታ ጊዜ አይታወቅም - በከተማ ህትመት ያረጋግጡ",
+   "fr": " Délai d'objection inconnu - vérifier la publication municipale"
+  },
+  "permitsjs.pubcell_suffix": {
+   "he": " (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)",
+   "en": " (municipal publication; display group set by the publication)",
+   "ar": " (نشر بلدي؛ مجموعة العرض تُحدَّد حسب النشر)",
+   "ru": " (муниципальная публикация; группа отображения определяется публикацией)",
+   "am": " (የከተማ ህትመት; የማሳያ ቡድኑ በህትመቱ ይወሰናል)",
+   "fr": " (publication municipale ; le groupe d'affichage est fixé par la publication)"
+  },
+  "permits.status_aria": {
+   "he": "סטטוס מדויק מהמקור",
+   "en": "Exact status from the source",
+   "ar": "حالة دقيقة من المصدر",
+   "ru": "Точный статус из источника",
+   "am": "ትክክለኛ ሁኔታ ከምንጭ",
+   "fr": "Statut exact de la source"
+  },
+  "permits.from_label": {
+   "he": "מתאריך פרסום",
+   "en": "From publication date",
+   "ar": "من تاريخ النشر",
+   "ru": "С даты публикации",
+   "am": "ከህትመት ቀን ጀምሮ",
+   "fr": "À partir de la date de publication"
+  },
+  "permits.to_label": {
+   "he": "עד",
+   "en": "Until",
+   "ar": "حتى",
+   "ru": "До",
+   "am": "እስከ",
+   "fr": "Jusqu'à"
+  },
+  "permits.mobile_pubend": {
+   "he": "סיום פרסום",
+   "en": "Publication end",
+   "ar": "انتهاء النشر",
+   "ru": "Окончание публикации",
+   "am": "የህትመት ማብቂያ",
+   "fr": "Fin de publication"
   }
  }
 }

@@ -904,6 +904,93 @@ sortRows();apply();
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
+def _permits_js(lang: str, pre: str) -> str:
+    """The permits-section script in lang; pre prefixes the data fetches from
+    a per-language page. Source-status matching strings stay Hebrew (they
+    match raw values from the municipal feed)."""
+    import json as _json
+
+    from . import i18n as _i18n
+
+    def J(key: str) -> str:
+        return _json.dumps(_i18n.t(lang, key), ensure_ascii=False)
+
+    out = _PERMITS_JS
+    out = out.replace(
+        "(function(){\nvar rows=",
+        "(function(){\nvar TF=function(s,m){return String(s).replace(/\\{(\\w+)\\}/g,function(_,k){return m[k];});};\nvar rows=",
+    )
+    out = out.replace(
+        "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
+    )
+    out = out.replace(
+        "fetch('permits-default.html')", f"fetch('{pre}permits-default.html')"
+    )
+    out = out.replace("fetch('permits.html')", f"fetch('{pre}permits.html')")
+    out = out.replace(
+        "pmore.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' הבקשות';",
+        f"pmore.textContent=expanded?{J('permitsjs.show_first20')}:TF({J('permitsjs.show_all')},{{n:n}});",
+    )
+    out = out.replace(
+        "pfcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;",
+        f"pfcount.textContent=TF({J('permitsjs.showing')},{{shown:Math.min(n,expanded?n:20),total:n}});",
+    )
+    out = out.replace(
+        "pfunknown.textContent=(c3||c4)?'תאריך פרסום חסר: '+c3+' (פורסם, תאריך לא ידוע) · '+c4+' (אין ראיית פרסום)':'';",
+        f"pfunknown.textContent=(c3||c4)?TF({J('permitsjs.unknown')},{{c3:c3,c4:c4}}):'';",
+    )
+    out = out.replace(
+        "if(coverage)coverage.textContent=rows.length+' בקשות במאגר; '+dated+\n"
+        "    ' עם תאריך תחילת פרסום; '+planned+' עם סיום פרסום מתוכנן; '+\n"
+        "    (rows.length-dated)+' ללא תאריך תחילת פרסום.';",
+        f"if(coverage)coverage.textContent=TF({J('permits.coverage_text')},{{total:rows.length,dated:dated,planned:planned,nodate:rows.length-dated}});",
+    )
+    out = out.replace(
+        "refill(pfstatus,'כל סטטוסי המקור',",
+        f"refill(pfstatus,{J('permits.status_all')},",
+    )
+    out = out.replace(
+        "refill(pfsug,'כל הסוגים',",
+        f"refill(pfsug,{J('permits.sug_all')},",
+    )
+    out = out.replace(
+        "pfclosed.parentNode.lastChild.textContent=' הצג בקשות שהסתיימו ('+closed+')';",
+        f"pfclosed.parentNode.lastChild.textContent=' '+TF({J('permits.closed')},{{n:closed}});",
+    )
+    out = out.replace(
+        "pfscope.parentNode.lastChild.textContent=' הצג גם מחוץ ל-7 השכונות ('+outscope+')';",
+        f"pfscope.parentNode.lastChild.textContent=' '+TF({J('permits.scope')},{{n:outscope}});",
+    )
+    out = out.replace(
+        "var GROUP_LABELS={'unmapped':'לא מסווג'};",
+        f"var GROUP_LABELS={{'unmapped':{J('permitsjs.group_unmapped')}}};",
+    )
+    out = out.replace(
+        "pfload.textContent='טעינת הרשימה המלאה נכשלה. ';",
+        f"pfload.textContent={J('permitsjs.retry_load')};",
+    )
+    out = out.replace(
+        "b.textContent='נסו שוב';", f"b.textContent={J('permitsjs.retry')};"
+    )
+    out = out.replace(
+        "pfload.textContent='טוען את הרשימה המלאה…';",
+        f"pfload.textContent={J('permitsjs.loading_full')};",
+    )
+    out = out.replace(
+        "pfload.textContent='הרשימה נטענה אך עיבוד התצוגה נכשל. ';",
+        f"pfload.textContent={J('permitsjs.render_failed')};",
+    )
+    out = out.replace(
+        "' מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני'",
+        J("permitsjs.deadline_unknown"),
+    )
+    out = out.replace(
+        "' (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)'",
+        J("permitsjs.pubcell_suffix"),
+    )
+    return out
+
+
 # Section: Main page rendering
 
 
@@ -1005,10 +1092,10 @@ def render_index(
             f"<tr class='{cls}' {attrs}>"
             f"<td><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a></td>"
             f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
-            f"<td>{_date_cell(r['receiving_date'])}</td>"
-            f"<td>{_date_cell(_deposit_date(r))}</td>"
-            f"<td class='derived'>{_date_cell(r.get('objection_deadline_derived_2m_from_publication'))}</td>"
-            f"<td>{_e(r['pl_area_dunam'])}</td><td>{review_cell(r)}</td></tr>"
+            f"<td data-label='{_e(_t('index.col_recv'))}'>{_date_cell(r['receiving_date'])}</td>"
+            f"<td data-label='{_e(_t('index.col_dep'))}'>{_date_cell(_deposit_date(r))}</td>"
+            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_date_cell(r.get('objection_deadline_derived_2m_from_publication'))}</td>"
+            f"<td data-label='{_e(_t('index.col_area'))}'>{_e(r['pl_area_dunam'])}</td><td data-label='{_e(_t('index.col_review'))}'>{review_cell(r)}</td></tr>"
         )
 
     new_ids = {c["pl_number"] for c in changes if c["kind"] == "new"}
@@ -1112,7 +1199,7 @@ def render_index(
 <tbody>{body}</tbody></table>
 <noscript><p>{_e(_t("index.noscript", top=COLLAPSE_TOP))}</p></noscript>
 <button id="more" type="button">{_e(_t("index.show_all", n=len(rows)))}</button>
-{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks)}
+{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre)}
 {mapview.panel(lang, pre)}
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>{_e(_t("index.changes_h"))}</h2><ul id="changes-list">{changes_html}</ul>
@@ -1125,7 +1212,7 @@ def render_index(
 &middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">{_e(_t("index.footer_contrib"))}</a>
 </p><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script src="{pre}filter-links.js"></script>
-<script>{_js(lang, pre)}{_PERMITS_JS}{_STATS_JS}</script>
+<script>{_js(lang, pre)}{_permits_js(lang, pre)}{_STATS_JS}</script>
 <script>// Strip free-text search params from the URL before the analytics beacon
 // executes (deferred), so search text never leaves the browser in the ping (#821).
 (function(){{try{{var u=new URL(location.href),dirty=false;
