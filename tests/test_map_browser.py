@@ -628,10 +628,16 @@ def test_map_statuses_have_distinct_shapes_and_legend_matches(page):
         assert svg.count() == 1, cls
         shape = svg.locator(tag).first
         assert shape.count() >= 1, (cls, tag)
-        assert shape.evaluate("e=>getComputedStyle(e).strokeWidth") != "0px"
-    # The dashed 'other' ring is transparent with a colored dashed stroke.
+        style = shape.evaluate(
+            "e=>[getComputedStyle(e).stroke,getComputedStyle(e).strokeWidth]"
+        )
+        # Navy #101f5b outline on every shape, including the light 'other'
+        # ring: a near-white stroke is invisible on map tiles (1.4.11).
+        assert style == ["rgb(16, 31, 91)", "1.5px"], (cls, style)
+    # The 'other' ring is dashed (shape cue) with a navy stroke (contrast).
     other = page.locator(".plan-marker svg.sh-outline circle").first
     assert other.get_attribute("stroke-dasharray")
+    assert other.evaluate("e=>getComputedStyle(e).stroke") == "rgb(16, 31, 91)"
     # The legend swatches reuse the same marker shapes, one per status.
     page.locator("#map-legend-toggle").click()
     swatches = page.locator("#map-legend .map-swatch svg").evaluate_all(

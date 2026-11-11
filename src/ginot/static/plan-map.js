@@ -38,9 +38,10 @@
   };
   var SHAPE_CLASS={deposit:'sh-circle',review:'sh-diamond',conditions:'sh-triangle',decision:'sh-plus',process:'sh-hexagon',approved:'sh-star',other:'sh-outline'};
   function markerHtml(cat,colorValue){
-    var outline=cat==='other'?colorValue:'#101f5b';
-    var fill=cat==='other'?'none':colorValue;
-    return '<svg class="'+SHAPE_CLASS[cat]+'" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><g fill="'+fill+'" stroke="'+outline+'" stroke-width="1.5">'+SHAPE_SVG[cat]+'</g></svg>';
+    /* Every marker gets the navy outline; 'other' reads as a dashed navy
+       ring with its light fill (a near-white stroke alone was invisible on
+       map tiles, WCAG 1.4.11). */
+    return '<svg class="'+SHAPE_CLASS[cat]+'" viewBox="0 0 14 14" width="14" height="14" aria-hidden="true"><g fill="'+colorValue+'" stroke="#101f5b" stroke-width="1.5">'+SHAPE_SVG[cat]+'</g></svg>';
   }
   function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
   function link(text,url){var a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';return a;}
