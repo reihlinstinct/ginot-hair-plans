@@ -164,15 +164,28 @@ def _data_path(path):
         return False
     if path.startswith(DATA_PREFIXES) or path in DATA_FILES:
         return True
-    # Per-language permit fragments regenerated with the root ones (#942).
-    if (
-        fnmatch.fnmatchcase(path, "docs/*/permits.html")
-        or fnmatch.fnmatchcase(path, "docs/*/permits-default.html")
-    ) and path.count("/") == 2:
+    # Per-language permit fragments regenerated with the root ones (#942):
+    # docs/<lang>/permits{,-default}.html for a real i18n code only - a data
+    # PR may never write docs/reviews/, docs/vendor/ or any other subtree.
+    if _language_permit_fragment(path):
         return True
     return fnmatch.fnmatchcase(path, DATA_GLOB) and path.count("/") == DATA_GLOB.count(
         "/"
     )
+
+
+def _language_permit_fragment(path):
+    parts = path.split("/")
+    if len(parts) != 3 or parts[0] != "docs":
+        return False
+    if parts[2] not in ("permits.html", "permits-default.html"):
+        return False
+    sys.path.insert(
+        0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "src")
+    )
+    from ginot import i18n
+
+    return parts[1] in frozenset(i18n.lang_codes()) - {i18n.default_lang()}
 
 
 def check_provenance(prov):
