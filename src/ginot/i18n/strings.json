@@ -1959,7 +1959,7 @@
    "fr": "Déclaration d'accessibilité"
   },
   "a11y.intro_html": {
-   "he": "ועדת {council} פועל להנגשת אתר זה לכלל הציבור, לרבות אנשים עם מוגבלות. האתר שואף לעמוד בדרישות תקן ישראלי 5568 לנגישות שירותי מידע מקוונים (התאמה של WCAG 2.1) ברמה AA.",
+   "he": "ועדת {council} פועלת להנגשת אתר זה לכלל הציבור, לרבות אנשים עם מוגבלות. האתר שואף לעמוד בדרישות תקן ישראלי 5568 לנגישות שירותי מידע מקוונים (התאמה של WCAG 2.1) ברמה AA.",
    "en": "The {council} committee works to make this site accessible to the general public, including people with disabilities. The site aims to meet Israeli Standard 5568 for web accessibility (an adoption of WCAG 2.1) at level AA.",
    "ar": "تعمل لجنة {council} على إتاحة هذا الموقع لعموم الجمهور، بما في ذلك الأشخاص ذوو الإعاقة. ويهدف الموقع إلى استيفاء متطلبات المعيار الإسرائيلي 5568 لإتاحة خدمات المعلومات عبر الإنترنت (مطابقة WCAG 2.1) بالمستوى AA.",
    "ru": "Комитет {council} работает над тем, чтобы этот сайт был доступен всем, включая людей с ограниченными возможностями. Сайт стремится соответствовать израильскому стандарту 5568 о доступности онлайн-информации (адаптация WCAG 2.1) на уровне AA.",
@@ -1967,7 +1967,7 @@
    "fr": "Le comité {council} œuvre pour rendre ce site accessible à tous, y compris aux personnes en situation de handicap. Le site vise à respecter la norme israélienne 5568 d'accessibilité des services d'information en ligne (adaptation des WCAG 2.1) au niveau AA."
   },
   "a11y.measures_h": {
-   "he": "אמצעי הנגישה באתר",
+   "he": "אמצעי ההנגשה באתר",
    "en": "Accessibility measures",
    "ar": "تدابير إمكانية الوصول",
    "ru": "Меры по обеспечению доступности",
