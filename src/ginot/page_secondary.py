@@ -1,76 +1,76 @@
 """Secondary site pages: About, AI reviews, social metadata and Atom feed."""
 
 from . import __version__
-from .page_resources import _ANALYTICS_SNIPPET, _DATASETS_JS, _SOURCES_ROWS, _e
+from . import i18n as _i18n
+from .page_resources import _ANALYTICS_SNIPPET, _datasets_js, _e, _sources_rows
 
 
-def render_about(generated: str, council_name: str) -> str:
+def render_about(generated: str, council_name: str, lang: str = "he") -> str:
     """Combined About + data-sources + datasets page (issue: datasets off the
     main page, owner request 2026-10-21). Generated with the site so the
     update stamp stays current; the datasets list loads from index.json."""
+    import json as _json
+
+    meta = _i18n.meta(lang)
+    pre = _i18n.asset_prefix(lang)
+
+    def _t(key: str, **fmt) -> str:
+        return _i18n.t(lang, key, **fmt)
+
+    def J(key: str) -> str:
+        return _json.dumps(_t(key), ensure_ascii=False)
+
     rows = "".join(
         f"<tr><td>{_e(name)}</td><td>{_e(src)}</td><td>{_e(what)}</td>"
         f"<td>{_e(cad)}</td><td>{link}</td></tr>"
-        for name, src, what, cad, link in _SOURCES_ROWS
+        for name, src, what, cad, link in _sources_rows(lang, pre)
     )
     return f"""<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<html dir="{meta["dir"]}" lang="{meta["lang"]}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>אודות ומקורות נתונים - {_e(council_name)}</title>
-<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="favicon.ico?v=20261022">
-<link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=20261022">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
+<title>{_e(_t("about.title", council=council_name))}</title>
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="{pre}apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css">{_ANALYTICS_SNIPPET}</head><body>
-<h1>אודות האתר</h1>
-<p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
-<strong>גינות העיר</strong> בירושלים, ומתעדכן אוטומטית. עודכן: {_e(generated)}.</p>
-<div class="ai-banner">האתר הוא <strong>יוזמה עצמאית של הוועד</strong> ואינו אתר רשמי של עיריית
-ירושלים, מנהל התכנון או רשות מקרקעי ישראל. המידע באתר הוא לנוחות בלבד,
-אינו תחליף למקורות הרשמיים ואינו ייעוץ משפטי. מועדי התנגדות המוצגים הם
-הערכה בלבד - המועד המחייב נקבע לפי הודעות ההפקדה הרשמיות.</div>
-<h2>מקורות נתונים</h2>
-<table id="plans"><thead><tr><th>מערך נתונים</th><th>מקור</th><th>מה נאסף</th><th>תדירות עדכון</th><th>קישורים</th></tr></thead>
+<link rel="stylesheet" href="{pre}style.css">{_ANALYTICS_SNIPPET}</head><body>
+{_i18n.switcher(lang, "about.html")}
+<h1>{_e(_t("about.h1"))}</h1>
+<p>{_t("about.intro_html", council=council_name, generated=generated)}</p>
+{_i18n.draft_note(lang)}
+<div class="ai-banner">{_t("about.banner_html")}</div>
+<h2>{_e(_t("about.sources_h"))}</h2>
+<table id="plans"><thead><tr><th>{_e(_t("about.col_dataset"))}</th><th>{_e(_t("about.col_source"))}</th><th>{_e(_t("about.col_what"))}</th><th>{_e(_t("about.col_cadence"))}</th><th>{_e(_t("about.col_links"))}</th></tr></thead>
 <tbody>{rows}</tbody></table>
-<h2>מערכי נתונים</h2>
-<ul id="datasets-list"><li>טוען רשימה...</li></ul>
-<h2>גישה לנתונים (API)</h2>
-<p>הנתונים זמינים כקבצים סטטיים (JSON / Atom) לשימוש חופשי, עם CORS פתוח.
-אין שאילתות צד-שרת - הסינון מתבצע אצל הלקוח. כל הקבצים מתעדכנים בכל רענון
-של האתר (רענון שבועי ורענונים ידניים).</p>
-<table id="plans"><thead><tr><th>קובץ</th><th>תוכן</th><th>מבנה</th></tr></thead><tbody>
-<tr><td><a href="data.json">data.json</a></td><td>מערך הנתונים המלא: תכניות, שינויים אחרונים ובקשות היתר</td>
-<td>{{generated, rows[], changes[], permits[]}} - שמות השדות כפי שהגיעו מ-iplan / איתור הנתונים ברישוי</td></tr>
-<tr><td><a href="open.json">open.json</a></td><td>תכניות פתוחות בלבד (עדיין בתהליך תכנוני)</td>
-<td>{{generated, definition, count, plans[]}} - כל רשומה כוללת in_objection_period (חלון התנגדויות פתוח היום)</td></tr>
-<tr><td><a href="feed.xml">feed.xml</a></td><td>פיד Atom של תכניות חדשות ושינויים</td><td>Atom 1.0</td></tr>
-<tr><td><a href="badge/plans.json">badge/*.json</a></td><td>נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)</td>
+<h2>{_e(_t("about.datasets_h"))}</h2>
+<ul id="datasets-list"><li>{_e(_t("about.loading_list"))}</li></ul>
+<h2>{_e(_t("about.api_h"))}</h2>
+<p>{_e(_t("about.api_intro"))}</p>
+<table id="plans"><thead><tr><th>{_e(_t("about.col_file"))}</th><th>{_e(_t("about.col_content"))}</th><th>{_e(_t("about.col_structure"))}</th></tr></thead><tbody>
+<tr><td><a href="{pre}data.json">data.json</a></td><td>{_e(_t("about.data_json_desc"))}</td>
+<td>{{generated, rows[], changes[], permits[]}} - {_e(_t("about.data_json_struct"))}</td></tr>
+<tr><td><a href="{pre}open.json">open.json</a></td><td>{_e(_t("about.open_json_desc"))}</td>
+<td>{{generated, definition, count, plans[]}} - {_e(_t("about.open_json_struct"))}</td></tr>
+<tr><td><a href="{pre}feed.xml">feed.xml</a></td><td>{_e(_t("about.feed_desc"))}</td><td>Atom 1.0</td></tr>
+<tr><td><a href="{pre}badge/plans.json">badge/*.json</a></td><td>{_e(_t("about.badge_desc"))}</td>
 <td>{{schemaVersion, label, message, color}}</td></tr>
 <tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
-<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status</td>
-<td>JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)</td></tr>
+<td>{_e(_t("about.api_desc"))}</td>
+<td>{_e(_t("about.api_struct"))}</td></tr>
 </tbody></table>
-<h2>פרטיות</h2>
-<p>האתר מציג נתונים ממקורות ציבוריים בלבד. שדות המזהים בעלי עניין פרטיים
-(למשל בעלי עניין בבקשות היתר) מוסרים בצינור העיבוד ואינם מוצגים כאן,
-אף שהם גלויים במקור.</p>
-<p>ספירת ביקורים: האתר משתמש ב-Cloudflare Web Analytics למדידת מספר ביקורים
-בלבד, ללא עוגיות, ללא שמירת כתובות IP וללא מעקב אישי. טקסט חיפוש חופשי אינו
-נשלח: הוא מוסר מכתובת העמוד לפני שהמדידה נשלחת.</p>
-<p>סטטיסטיקת שימוש: האתר אוסף מונים מצטברים ואנונימיים על חיפושים ומסננים
-(אילו תכניות, רחובות ומסננים מחפשים). חיפוש נספר רק כשהוא תואם בדיוק לערך
-מהנתונים עצמם; טקסט חופשי לעולם אינו יוצא מהדפדפן. המונים פומביים ומוצגים
-בסעיף "סטטיסטיקת שימוש" בעמוד זה.</p>
-<h2>סטטיסטיקת שימוש</h2>
-<p>מונים מצטברים ואנונימיים של חיפושים ומסננים באתר (30 יום אחרונים),
-ישירות ממוני השרת הציבוריים.</p>
-<div id="usage-stats">טוען…</div>
+<h2>{_e(_t("about.privacy_h"))}</h2>
+<p>{_e(_t("about.privacy1"))}</p>
+<p>{_e(_t("about.privacy2"))}</p>
+<p>{_e(_t("about.privacy3"))}</p>
+<h2>{_e(_t("about.usage_h"))}</h2>
+<p>{_e(_t("about.usage_intro"))}</p>
+<div id="usage-stats">{_e(_t("about.usage_loading"))}</div>
 <script>(function(){{
 var el=document.getElementById('usage-stats');if(!el)return;
 function esc(s){{return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}}
 fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){{return r.json();}}).then(function(d){{
-  var NAMES={{search:'חיפושי תכניות',permits_search:'חיפושי בקשות',filter:'מסנני תכניות',permits_filter:'מסנני בקשות'}};
+  var NAMES={{search:{J("us.search")},permits_search:{J("us.permits_search")},filter:{J("us.filter")},permits_filter:{J("us.permits_filter")}}};
   var html='',any=false;
   Object.keys(NAMES).forEach(function(e){{
     var m=(d.events||{{}})[e];if(!m)return;
@@ -82,18 +82,18 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
     }}).join('');
     if(items){{any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}}
   }});
-  el.innerHTML=any?html:'<p>אין עדיין נתונים.</p>';
+  el.innerHTML=any?html:'<p>'+{J("about.usage_empty")}+'</p>';
 }}).catch(function(){{el.textContent='';}});
 }})();</script>
-<h2>קוד ונתונים</h2>
-<p>קוד האתר והנתונים המעובדים פתוחים:
+<h2>{_e(_t("about.code_h"))}</h2>
+<p>{_e(_t("about.code_open"))}
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
-רוצים לעזור? <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>.</p>
-<p><a href="index.html">חזרה לעמוד הראשי</a></p>
-<footer dir="rtl"><p>
-אתר נתונים אוטומטי של ועדת {_e(council_name)} - בלתי רשמי.
-</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
-<script>{_DATASETS_JS}</script>
+{_e(_t("about.code_help"))} <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">{_e(_t("index.footer_contrib"))}</a>.</p>
+<p><a href="{pre}{_i18n.page_path(lang, "index.html")}">{_e(_t("ui.back_home"))}</a></p>
+<footer dir="{meta["dir"]}"><p>
+{_e(_t("about.footer_html", council=council_name))}
+</p><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
+<script>{_datasets_js(lang, pre)}</script>
 </body></html>"""
 
 

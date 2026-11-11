@@ -1365,9 +1365,11 @@ def render_site(
                         _er.render_section(external, pl),
                     )
                 )
-    with open(f"{out_dir}/about.html", "w", encoding="utf-8") as fh:
-        fh.write(render_about(generated, council_name))
-    from . import i18n
+    for code in i18n.lang_codes():  # languages come from i18n/strings.json
+        about_path = f"{out_dir}/{i18n.page_path(code, 'about.html')}"
+        os.makedirs(os.path.dirname(about_path), exist_ok=True)
+        with open(about_path, "w", encoding="utf-8") as fh:
+            fh.write(render_about(generated, council_name, code))
     from .page_email import render_email_page
 
     for code in i18n.lang_codes():  # languages come from i18n/strings.json
