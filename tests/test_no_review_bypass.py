@@ -98,8 +98,14 @@ ALLOWLIST = [
 # Workflow-level permissions that are known and reviewed elsewhere.
 PERMISSION_ALLOWLIST = {
     ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
-    ("pages.yml", "pages"): "Pages deploy of the reviewed merged main commit (#959); deploy job only; permission set and Pages flip pending the owner decision at merge time",
-    ("pages.yml", "id-token"): "OIDC auth for the same deploy-pages step (#959); deploy job only; pending the same owner decision",
+    (
+        "pages.yml",
+        "pages",
+    ): "Pages deploy of the reviewed merged main commit (#959); deploy job only; permission set and Pages flip pending the owner decision at merge time",
+    (
+        "pages.yml",
+        "id-token",
+    ): "OIDC auth for the same deploy-pages step (#959); deploy job only; pending the same owner decision",
 }
 
 
@@ -156,9 +162,10 @@ def scan_workflow(file, text):
         found += _permission_violations(file, job.get("permissions"), f"job {job_id}")
         for step in job.get("steps") or []:
             uses = step.get("uses", "")
-            if re.search(RULES[[r[0] for r in RULES].index("pages")][1], uses):
-                if not _allowed(file, "pages", uses, step.get("if")):
-                    found.append((file, "pages", uses))
+            if re.search(
+                RULES[[r[0] for r in RULES].index("pages")][1], uses
+            ) and not _allowed(file, "pages", uses, step.get("if")):
+                found.append((file, "pages", uses))
             run = step.get("run")
             if not run and "actions/github-script" in uses:
                 run = (step.get("with") or {}).get("script")
@@ -212,11 +219,11 @@ def test_every_allowlist_entry_still_matches_a_real_step():
         doc = yaml.safe_load((WORKFLOWS / file).read_text())
         steps = [s for j in doc["jobs"].values() for s in j.get("steps") or []]
         hits = [
-                s
-                for s in steps
-                if needle in normalize(s.get("run") or "")
-                or needle in normalize(s.get("uses") or "")
-            ]
+            s
+            for s in steps
+            if needle in normalize(s.get("run") or "")
+            or needle in normalize(s.get("uses") or "")
+        ]
         assert len(hits) == 1, (file, needle)
         if gate:
             assert _gate_holds(hits[0].get("if"), gate), (file, needle)
