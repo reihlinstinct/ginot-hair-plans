@@ -2021,6 +2021,14 @@
    "ru": "Декларация обновлена {updated}.",
    "am": "ይህ መግለጫ በ-{updated} ተዘምኗል።",
    "fr": "Cette déclaration a été mise à jour le {updated}."
+  },
+  "permits.fragment_noscript": {
+   "he": "לצפייה בטבלת ההיתרים המלאה",
+   "en": "View the full permit requests table",
+   "ar": "عرض جدول طلبات الترخيص الكامل",
+   "ru": "Открыть полную таблицу запросов на разрешения",
+   "am": "ሙሉውን የፍቃድ ጥያቄዎች ሰንጠረዥ ይመልከቱ",
+   "fr": "Voir le tableau complet des demandes de permis"
   }
  }
 }
