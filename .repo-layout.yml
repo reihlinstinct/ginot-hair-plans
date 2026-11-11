@@ -33,6 +33,7 @@
       "mypy.ini",
       "pyproject.toml",
       "pytest.ini",
+      "requirements-pages.txt",
       "requirements.txt",
       "ruff.toml",
       "vercel.json"
