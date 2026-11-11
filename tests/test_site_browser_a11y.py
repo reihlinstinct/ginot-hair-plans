@@ -16,12 +16,11 @@ import hashlib
 import json
 
 import pytest
-
 from test_site_browser import ROOT
 
 pytest_plugins = ["test_site_browser"]
 
-from ginot import i18n  # noqa: E402  (sys.path set up by test_site_browser)
+from ginot import i18n
 
 # Section: Vendored axe-core fixture
 
@@ -54,9 +53,7 @@ def test_axe_scan_options_cover_wcag21_without_an_impact_filter():
 
 def _axe_violations(pg):
     pg.add_script_tag(path=str(AXE_PATH))
-    return pg.evaluate("async (opts) => await axe.run(opts)", AXE_OPTIONS)[
-        "violations"
-    ]
+    return pg.evaluate("async (opts) => await axe.run(opts)", AXE_OPTIONS)["violations"]
 
 
 def _format(violations):
@@ -82,9 +79,7 @@ def test_axe_index_page(browser, served, code):
     pg.wait_for_function(
         "window.__permitsLoaded === true || window.__permitsFailed === true"
     )
-    assert pg.evaluate("window.__permitsLoaded") is True, (
-        "permits.html failed to load"
-    )
+    assert pg.evaluate("window.__permitsLoaded") is True, "permits.html failed to load"
     assert pg.locator("#plans tbody tr").count() > 0
     assert pg.locator("#permits-table tbody tr").count() > 0
     violations = _axe_violations(pg)
