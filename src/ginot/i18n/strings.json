@@ -2007,12 +2007,12 @@
    "fr": "Retour sur l'accessibilité"
   },
   "a11y.contact_html": {
-   "he": "נתקלתם בבעיית נגישות או שיש לכם הצעה לשיפור? דווחו דרך <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">מערכת הדיווח של האתר</a> ונטפל בהקדם.",
-   "en": "Found an accessibility problem or have a suggestion? Report it via the <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">site's issue tracker</a> and we will handle it promptly.",
-   "ar": "هل واجهتم مشكلة في إمكانية الوصول أو لديكم اقتراح؟ أبلغونا عبر <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">نظام البلاغات في الموقع</a> وسنعالجها في أقرب وقت.",
-   "ru": "Нашли проблему с доступностью или есть предложение? Сообщите через <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">систему отчётов сайта</a>, и мы оперативно разберёмся.",
-   "am": "የተደራሽነት ችግር አገኛችሁ ወይም ጥቆማ አላችሁ? በጣቢያው <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">የሪፖርት ስርዓት</a> ሪፖርት ያድርጉ እና በፍጥነት እናስተናግዳለን።",
-   "fr": "Un problème d'accessibilité ou une suggestion ? Signalez-le via le <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues/new/choose\">système de tickets du site</a> et nous le traiterons rapidement."
+   "he": "באמצעות אימייל לכתובת <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> או דרך <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "en": "By email to <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> or via <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "ar": "عبر البريد الإلكتروني <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> أو عبر <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "ru": "По электронной почте <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> или через <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "am": "በኢሜይል <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> ወይም በ<a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "fr": "Par email à <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> ou via <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>."
   },
   "a11y.updated": {
    "he": "הצהרה זו עודכנה לאחרונה ב-{updated}.",
