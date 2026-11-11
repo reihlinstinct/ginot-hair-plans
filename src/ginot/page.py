@@ -491,7 +491,9 @@ function selectedGroups(){
   // a row whose (planned) window already closed is hidden while checked;
   // no end date = stays visible (deadline unknown, not elapsed).
   if(g==='obj'&&pfopenonly&&pfopenonly.checked){
-    var pe=r.getAttribute('data-pubend');
+    // #519: the official printed-notice deadline (PD900), when the overlay
+    // supplied one, binds over the feed's planned end.
+    var pe=r.getAttribute('data-pubend-official')||r.getAttribute('data-pubend');
     var evidence=r.getAttribute('data-publication-evidence')||'';
     // Keep raw planned end, but a later official publication makes that old
     // window stale. The new deadline remains unknown, not auto-extended.
@@ -672,11 +674,16 @@ function applyPublicationEvidence(){
     if((!validIso(current)||p.publication_date>=current)&&
        (group==='obj'||(!validIso(stage)||p.publication_date>=stage))&&
        (group!=='postpub'||(validIso(stage)&&p.publication_date>stage))){
+      var official=validIso(p.objection_deadline)?p.objection_deadline:'';
+      // #519: the official printed-notice deadline (PD900) is a NEW field
+      // alongside the feed's planned end; the printed notice wins for
+      // objection work (Palmach 41: official 13.11 vs feed-planned 24.11).
+      r.setAttribute('data-pubend-official',official);
       var note=r.querySelector('[data-deadline-note]');
       if(note){
-        note.textContent=validIso(p.objection_deadline)?'':
-          ' מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני';
-        note.className=validIso(p.objection_deadline)?'':'pub-missing';
+        note.textContent=official?TF('{_DL_OFFICIAL_TMPL_}',{date:official.split('-').reverse().join('.')}):
+          '{_DL_UNKNOWN_}';
+        note.className=official?'pub-official':'pub-missing';
       }
     }
     if(group==='postpub'&&(!validIso(stage)||p.publication_date<=stage))return;
@@ -978,10 +985,8 @@ def _permits_js(lang: str, pre: str) -> str:
         "pfload.textContent='הרשימה נטענה אך עיבוד התצוגה נכשל. ';",
         f"pfload.textContent={J('permitsjs.render_failed')};",
     )
-    out = out.replace(
-        "' מועד התנגדות לא ידוע - יש לבדוק בפרסום העירוני'",
-        J("permitsjs.deadline_unknown"),
-    )
+    out = out.replace("'{_DL_UNKNOWN_}'", J("permitsjs.deadline_unknown"))
+    out = out.replace("'{_DL_OFFICIAL_TMPL_}'", J("permitsjs.official_deadline"))
     out = out.replace(
         "' (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)'",
         J("permitsjs.pubcell_suffix"),

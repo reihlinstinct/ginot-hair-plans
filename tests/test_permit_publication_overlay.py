@@ -13,12 +13,23 @@ def test_new_publication_overlays_stale_tel_hai_status_but_not_deadline():
     overlay = source.split("function applyPublicationEvidence(){", 1)[1].split(
         "fetch('publications_active.json')", 1
     )[0]
+    # Substitute the i18n templates exactly as _permits_js does for Hebrew.
+    strings = json.loads((ROOT / "src/ginot/i18n/strings.json").read_text())["strings"]
+    overlay = overlay.replace(
+        "'{_DL_UNKNOWN_}'",
+        json.dumps(strings["permitsjs.deadline_unknown"]["he"], ensure_ascii=False),
+    )
+    overlay = overlay.replace(
+        "'{_DL_OFFICIAL_TMPL_}'",
+        json.dumps(strings["permitsjs.official_deadline"]["he"], ensure_ascii=False),
+    )
     policy = re.search(r"var PUBLICATION_EVIDENCE_MAX_DAYS=\d+;", source).group(0)
     # Pin the clock fixture, but execute the deployed policy constant verbatim.
     js = (
         policy
         + """
 const TODAY='2026-10-27';
+function TF(s,m){return String(s).replace(/\\{(\\w+)\\}/g,function(_,k){return m[k];});}
 const original={"data-tik":"1975/0743.02","data-group":"review","data-active":"1",
 "data-status":"שולמה מקדמה","data-pub":"","data-pubend":""};
 function validIso(s){return /^\\d{4}-\\d{2}-\\d{2}$/.test(s||'')&&new Date(s+'T00:00:00Z').toISOString().slice(0,10)===s;}
@@ -54,7 +65,7 @@ const today={...row.a},deadlineNotes=[];
 for(const deadline of [null,'2026-11-13','2026-02-30']){
  row.a={...original,'data-pubend':'2026-12-01'};note.textContent='';
  publicationEvidence=[{tik_num:'1975/0743.02',in_polygon:true,publication_date:TODAY,objection_deadline:deadline}];
- applyPublicationEvidence();deadlineNotes.push({text:note.textContent,end:row.a['data-pubend']});
+ applyPublicationEvidence();deadlineNotes.push({text:note.textContent,cls:note.className,end:row.a['data-pubend'],official:row.a['data-pubend-official']});
 }
 const stageNotes=[];
 for(const [group,stage,current] of [
@@ -90,7 +101,20 @@ console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,st
             "review",  # ancient status date + out-of-window publication does not
         ]
     )
-    assert [bool(x["text"]) for x in payload["deadlineNotes"]] == [True, False, True]
+    # #519: a valid PD900 now SURFACES the official deadline (it used to
+    # blank the note); null/invalid values keep the unknown-deadline warning.
+    assert [bool(x["text"]) for x in payload["deadlineNotes"]] == [True, True, True]
+    assert [x["cls"] for x in payload["deadlineNotes"]] == [
+        "pub-missing",
+        "pub-official",
+        "pub-missing",
+    ]
+    assert "13.11.2026" in payload["deadlineNotes"][1]["text"]
+    assert [x["official"] for x in payload["deadlineNotes"]] == [
+        "",
+        "2026-11-13",
+        "",
+    ]
     assert all(x["end"] == "2026-12-01" for x in payload["deadlineNotes"])
     assert [bool(x["text"]) for x in payload["stageNotes"]] == [
         True,
@@ -125,6 +149,8 @@ console.log(JSON.stringify({results,stageResults,boundary,today,deadlineNotes,st
 
 def test_superseded_planned_end_is_preserved_but_does_not_hide_new_publication():
     source = (ROOT / "src/ginot/page.py").read_text()
+    # #519: the open-window filter binds the official PD900 over the planned end.
+    assert "data-pubend-official')||r.getAttribute('data-pubend')" in source
     body = (
         source.split(
             "    var evidence=r.getAttribute('data-publication-evidence')||'';", 1

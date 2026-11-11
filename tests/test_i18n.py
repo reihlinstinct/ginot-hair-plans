@@ -180,6 +180,8 @@ def test_index_page_renders_in_every_language(code):
     assert f"fetch('{pre}publications_active.json')" in html
     # review and source links point at the root reviews tree from every language
     assert f"href='{pre}reviews/palmach41/review-2026-0439.00.html'" in html
+    # #519: the official PD900 deadline note template renders per language
+    assert i18n.t(code, "permitsjs.official_deadline") in html
 
 
 # Section: the mail API reads the same document
