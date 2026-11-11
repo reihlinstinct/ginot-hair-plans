@@ -130,6 +130,20 @@ def test_write_images_drops_a_review_png_whose_page_no_longer_renders(docs):
     assert other.read_bytes() == b"other pipeline"
 
 
+def test_write_images_fails_closed_when_no_pngs_render(docs, monkeypatch):
+    """#959 review: without Pillow or a Hebrew font the render produces no og
+    PNGs; --write-images must refuse to run, not silently keep the committed
+    images and deploy them as if fresh."""
+    from ginot import preview
+
+    monkeypatch.setattr(preview, "render_preview", lambda *a, **k: False)
+    monkeypatch.setattr(preview, "render_review_preview", lambda *a, **k: False)
+    (docs / "og.png").write_bytes(b"committed earlier")
+    with pytest.raises(fresh.CheckError, match="Pillow or a Hebrew font"):
+        fresh.check(docs, write=True, write_images=True)
+    assert (docs / "og.png").read_bytes() == b"committed earlier"
+
+
 def test_stale_data_json_fails(docs):
     """#559: the public data endpoint is covered like every other render."""
     (docs / "data.json").write_text(

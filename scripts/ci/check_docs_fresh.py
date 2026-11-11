@@ -34,7 +34,10 @@ Regenerate the site from the committed inputs (same pinned clock):
 --write-images (with --write) also copies the rendered og PNGs (og.png,
 reviews/og_*.png) into docs/ and drops a review og PNG whose review page no
 longer renders. The Pages deploy build uses it (#959); the CI freshness gate
-stays PNG-blind because the images depend on font versions.
+stays PNG-blind because the images depend on font versions. --write-images
+fails closed: when the render produced no og.png or a review page has no
+review og PNG (Pillow or a Hebrew font missing), the check refuses to run
+instead of silently keeping the committed PNGs.
 
 Exit codes: 0 fresh, 1 stale (or a rendered file is missing from docs/),
 2 the check itself could not run: a missing or unreadable input, a missing
@@ -144,10 +147,26 @@ def _write_images(docs: Path, renders: dict[str, Path], rendered: set[str]) -> N
 
     Only render-produced images are touched: og.png and reviews/og_*.png.
     docs/ images from other pipelines (favicons, design/) are left alone.
-    A committed og.png is never deleted, only overwritten when rendered -
-    without Pillow or a Hebrew font the render produces no image and the
-    committed one stays.
+    A committed og.png is never deleted, only overwritten when rendered.
+    Fail closed: a render that produced no og.png or missed a review og PNG
+    means Pillow or a Hebrew font is absent, and keeping the committed PNGs
+    would silently deploy stale images - so the check refuses to run.
     """
+    missing: list[str] = []
+    for tree in renders.values():
+        if not (tree / "og.png").is_file():
+            missing.append("og.png")
+        for page in tree.glob("reviews/talking_points_*.html"):
+            stem = page.stem.removeprefix("talking_points_")
+            if not (tree / "reviews" / f"og_{stem}.png").is_file():
+                missing.append(f"reviews/og_{stem}.png")
+    if missing:
+        raise CheckError(
+            "--write-images but the render produced no "
+            + ", ".join(sorted(set(missing)))
+            + " (Pillow or a Hebrew font missing?) - refusing to keep the "
+            "committed PNGs silently"
+        )
     for tree in renders.values():
         for png in tree.rglob("*.png"):
             target = docs / png.relative_to(tree)
