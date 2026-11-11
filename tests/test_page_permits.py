@@ -424,9 +424,9 @@ def test_permits_default_view_markup(tmp_path):
     assert html.count("data-group='obj' data-scope='out'") == 2
     assert "data-group='review' data-scope='in'" in html
     # objection groups default-selected, others behind the disclosure
-    assert "data-group=\"obj\" data-default='1'" in html
-    assert "data-group=\"pre\" data-default='1'" in html
-    assert 'data-group="review" data-default' not in html
+    assert 'data-group="obj" aria-pressed="true" data-default=\'1\'' in html
+    assert 'data-group="pre" aria-pressed="true" data-default=\'1\'' in html
+    assert 'data-group="review" aria-pressed="false" data-default' not in html
     assert "סטטוסים נוספים" in html
     # new filter controls with live counts
     assert 'id="pfopenonly" checked' in html

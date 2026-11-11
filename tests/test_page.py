@@ -284,7 +284,7 @@ def test_inside_column_hidden_but_filterable(tmp_path):
     # no visible inside/partial column (#162)
     assert 'data-sort="flag"' not in html and "בתוך/חלקי" not in html
     # ...but the filter select and the row attribute remain
-    assert '<select id="fflag">' in html
+    assert '<select id="fflag" aria-label=' in html
     assert "data-flag='inside'" in html
 
 
@@ -339,9 +339,10 @@ def test_mobile_label_for_ai_review_column(tmp_path):
 def test_stylesheet_uses_approved_ginothair_palette(tmp_path):
     page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
     css = (tmp_path / "style.css").read_text(encoding="utf-8")
-    # approved 2026-10-21 (#154): ginothair.org.il-inspired palette
-    assert "#101f5b" in css and "#51b89a" in css and "#f3f6ff" in css
-    assert "#c8a4de" in css and "#00a8cf" in css and "#6db633" in css
+    # approved 2026-10-21 (#154): ginothair.org.il-inspired palette;
+    # mint darkened to #387e6a for AA contrast (a11y standard, 2026-11-11)
+    assert "#101f5b" in css and "#387e6a" in css and "#f3f6ff" in css
+    assert "#c8a4de" in css and "#007996" in css and "#4c7f24" in css
     # mobile sort-header chips stay readable (white bg, mint border, navy text)
     assert "#plans thead th{display:block;background:#fff" in css
 

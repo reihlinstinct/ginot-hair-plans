@@ -1909,6 +1909,118 @@
    "ru": "Окончание публикации",
    "am": "የህትመት ማብቂያ",
    "fr": "Fin de publication"
+  },
+  "index.fstatus_aria": {
+   "he": "סינון לפי סטטוס",
+   "en": "Filter by status",
+   "ar": "تصفية حسب الحالة",
+   "ru": "Фильтр по статусу",
+   "am": "በሁኔታ ማጣራት",
+   "fr": "Filtrer par statut"
+  },
+  "index.fflag_aria": {
+   "he": "סינון לפי חפיפה לשטח",
+   "en": "Filter by area overlap",
+   "ar": "تصفية حسب التطابق مع المنطقة",
+   "ru": "Фильтр по совпадению с участком",
+   "am": "በአካባቢ መገናኛ ማጣራት",
+   "fr": "Filtrer par recouvrement de la zone"
+  },
+  "index.footer_a11y": {
+   "he": "הצהרת נגישות",
+   "en": "Accessibility statement",
+   "ar": "بيان إمكانية الوصول",
+   "ru": "Декларация доступности",
+   "am": "የተደራሽነት መግለጫ",
+   "fr": "Déclaration d'accessibilité"
+  },
+  "permits.sug_aria": {
+   "he": "סינון לפי סוג בקשה",
+   "en": "Filter by application type",
+   "ar": "تصفية حسب نوع الطلب",
+   "ru": "Фильтр по типу заявки",
+   "am": "በጥያቄ አይነት ማጣራት",
+   "fr": "Filtrer par type de demande"
+  },
+  "a11y.title": {
+   "he": "הצהרת נגישות - {council}",
+   "en": "Accessibility statement - {council}",
+   "ar": "بيان إمكانية الوصول - {council}",
+   "ru": "Декларация доступности - {council}",
+   "am": "የተደራሽነት መግለጫ - {council}",
+   "fr": "Déclaration d'accessibilité - {council}"
+  },
+  "a11y.h1": {
+   "he": "הצהרת נגישות",
+   "en": "Accessibility statement",
+   "ar": "بيان إمكانية الوصول",
+   "ru": "Декларация доступности",
+   "am": "የተደራሽነት መግለጫ",
+   "fr": "Déclaration d'accessibilité"
+  },
+  "a11y.intro_html": {
+   "he": "ועדת {council} פועלת להנגשת אתר זה לכלל הציבור, לרבות אנשים עם מוגבלות. האתר שואף לעמוד בדרישות תקן ישראלי 5568 לנגישות שירותי מידע מקוונים (התאמה של WCAG 2.1) ברמה AA.",
+   "en": "The {council} committee works to make this site accessible to the general public, including people with disabilities. The site aims to meet Israeli Standard 5568 for web accessibility (an adoption of WCAG 2.1) at level AA.",
+   "ar": "تعمل لجنة {council} على إتاحة هذا الموقع لعموم الجمهور، بما في ذلك الأشخاص ذوو الإعاقة. ويهدف الموقع إلى استيفاء متطلبات المعيار الإسرائيلي 5568 لإتاحة خدمات المعلومات عبر الإنترنت (مطابقة WCAG 2.1) بالمستوى AA.",
+   "ru": "Комитет {council} работает над тем, чтобы этот сайт был доступен всем, включая людей с ограниченными возможностями. Сайт стремится соответствовать израильскому стандарту 5568 о доступности онлайн-информации (адаптация WCAG 2.1) на уровне AA.",
+   "am": "የ{council} ኮሚቴ ይህን ጣቢያ ለሁሉም ሕዝብ፣ ለአካል ጉዳተኞች ጨምሮ፣ ተደራሽ ለማድረግ ይሰራል። ጣቢያው የይስራኤልን መስፈርት 5568 የመስመር ላይ መረጃ ተደራሽነት (የWCAG 2.1 ማመሳሰል) በAA ደረጃ ለማሟላት ያለምታል።",
+   "fr": "Le comité {council} œuvre pour rendre ce site accessible à tous, y compris aux personnes en situation de handicap. Le site vise à respecter la norme israélienne 5568 d'accessibilité des services d'information en ligne (adaptation des WCAG 2.1) au niveau AA."
+  },
+  "a11y.measures_h": {
+   "he": "אמצעי ההנגשה באתר",
+   "en": "Accessibility measures",
+   "ar": "تدابير إمكانية الوصول",
+   "ru": "Меры по обеспечению доступности",
+   "am": "የተደራሽነት እርምጃዎች",
+   "fr": "Mesures d'accessibilité"
+  },
+  "a11y.measures_html": {
+   "he": "<ul><li>סימון סמנטי וניווט מלא באמצעות מקלדת, כולל מסנני הטבלאות.</li><li>ניגודיות צבעים העומדת בדרישת הרמה AA.</li><li>טפסים עם תוויות ושמות נגישים לרכיבי בחירה.</li><li>בדיקות נגישות אוטומטיות (axe, WCAG 2.1 AA) רצות בכל בנייה מחדש של האתר.</li></ul>",
+   "en": "<ul><li>Semantic markup and full keyboard operation, including the table filters.</li><li>Color contrast meeting level AA requirements.</li><li>Forms with labels and accessible names for selection controls.</li><li>Automated accessibility tests (axe, WCAG 2.1 AA) run on every site build.</li></ul>",
+   "ar": "<ul><li>ترميز دلالي وتشغيل كامل بلوحة المفاتيح، بما في ذلك مرشحات الجداول.</li><li>تباين ألوان يستوفي متطلبات المستوى AA.</li><li>نماذج بتسميات وأسماء ميسّرة لعناصر الاختيار.</li><li>فحوصات إتاحة آلية (axe، WCAG 2.1 AA) تعمل عند كل بناء للموقع.</li></ul>",
+   "ru": "<ul><li>Семантическая разметка и полное управление с клавиатуры, включая фильтры таблиц.</li><li>Контрастность цветов, соответствующая уровню AA.</li><li>Формы с подписями и доступными именами элементов выбора.</li><li>Автоматические проверки доступности (axe, WCAG 2.1 AA) при каждой сборке сайта.</li></ul>",
+   "am": "<ul><li>ሴማንቲክ ምልክት እና ሙሉ የቁልፍ ሰሌዳ አሰራር፣ የጠረጴዛ ማጣሪያዎችን ጨምሮ።</li><li>የAA ደረጃ መስፈርትን የሚያሟላ የቀለም ንፅፅር።</li><li>ለምርጫ መቆጣጠሪያዎች መለያዎች እና ተደራሽ ስሞች ያላቸው ቅጾች።</li><li>በእያንዳንዱ የጣቢያ ግንባታ ራስ-ሰር የተደራሽነት ምርመራዎች (axe, WCAG 2.1 AA) ይሰራሉ።</li></ul>",
+   "fr": "<ul><li>Balisage sémantique et navigation complète au clavier, y compris les filtres des tableaux.</li><li>Contraste des couleurs conforme au niveau AA.</li><li>Formulaires avec étiquettes et noms accessibles pour les contrôles de sélection.</li><li>Tests d'accessibilité automatisés (axe, WCAG 2.1 AA) à chaque génération du site.</li></ul>"
+  },
+  "a11y.limits_h": {
+   "he": "מגבלות ידועות",
+   "en": "Known limitations",
+   "ar": "قيود معروفة",
+   "ru": "Известные ограничения",
+   "am": "የታወቁ ገደቦች",
+   "fr": "Limites connues"
+  },
+  "a11y.limits_html": {
+   "he": "<ul><li>המפה היא רכיב חזותי; הנתונים שבה זמינים גם בטבלאות הטקסט של האתר.</li><li>התרגומים לשפות שאינן עברית נוצרים בתרגום מכונה ומסומנים כטיוטה.</li><li>בדיקות הנגישות האוטומטיות אינן ביקורת נגישות ידנית; לא בוצעה ביקורת ידנית או ביקורת ת\"י 5568 של האתר.</li></ul>",
+   "en": "<ul><li>The map is a visual component; its data is also available in the site's text tables.</li><li>Translations into languages other than Hebrew are machine-generated and marked as drafts.</li><li>Automated scans are not a manual accessibility audit; no manual or SI 5568 audit of the site has been performed.</li></ul>",
+   "ar": "<ul><li>الخريطة مكوّن مرئي؛ وتتوفر بياناتها أيضًا في جداول النص بالموقع.</li><li>الترجمات إلى غير العبرية مولّدة آليًا ومعلَّمة كمسودات.</li><li>الفحوصات الآلية ليست تدقيق إتاحة يدويًا؛ ولم يُجرَ أي تدقيق يدوي أو تدقيق وفق المعيار الإسرائيلي 5568 للموقع.</li></ul>",
+   "ru": "<ul><li>Карта - визуальный компонент; её данные также доступны в текстовых таблицах сайта.</li><li>Переводы на языки, кроме иврита, созданы машинным переводом и помечены как черновики.</li><li>Автоматические проверки не заменяют ручной аудит доступности; ручной аудит или аудит по СИ 5568 не проводился.</li></ul>",
+   "am": "<ul><li>ካርታው የእይታ ክፍል ነው፤ ውሂቡ በጣቢያው የጽሑፍ ሰንጠረዦች ውስጥም ይገኛል።</li><li>ከዕብራይስጥ ወደ ሌሎች ቋንቋዎች የተሰሩ ትርጉሞች በማሽን ተርጉመዋል እና እንደ ረቂቅ ተመልክተዋል።</li><li>ራስ-ሰር ምርመራዎች የእጅ ተደራሽነት ኦዲት አይደሉም፤ የእጅ ወይም የSI 5568 ኦዲት አልተደረገም።</li></ul>",
+   "fr": "<ul><li>La carte est un composant visuel ; ses données sont aussi disponibles dans les tableaux textuels du site.</li><li>Les traductions dans les langues autres que l'hébreu sont générées automatiquement et marquées comme brouillons.</li><li>Les analyses automatisées ne remplacent pas un audit manuel d'accessibilité ; aucun audit manuel ni audit SI 5568 du site n'a été réalisé.</li></ul>"
+  },
+  "a11y.contact_h": {
+   "he": "יצירת קשר בנושא נגישות",
+   "en": "Accessibility feedback",
+   "ar": "التواصل بشأن إمكانية الوصول",
+   "ru": "Обратная связь по доступности",
+   "am": "ስለ ተደራሽነት ግብረመልስ",
+   "fr": "Retour sur l'accessibilité"
+  },
+  "a11y.contact_html": {
+   "he": "באמצעות אימייל לכתובת <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> או דרך <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "en": "By email to <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> or via <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "ar": "عبر البريد الإلكتروني <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> أو عبر <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "ru": "По электронной почте <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> или через <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "am": "በኢሜይል <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> ወይም በ<a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>.",
+   "fr": "Par email à <a href=\"mailto:reihlinstinct@gmail.com\">reihlinstinct@gmail.com</a> ou via <a href=\"https://github.com/reihlinstinct/ginot-hair-plans/issues\">GitHub Issues</a>."
+  },
+  "a11y.updated": {
+   "he": "הצהרה זו עודכנה לאחרונה ב-{updated}.",
+   "en": "This statement was last updated on {updated}.",
+   "ar": "تم تحديث هذا البيان آخر مرة في {updated}.",
+   "ru": "Декларация обновлена {updated}.",
+   "am": "ይህ መግለጫ በ-{updated} ተዘምኗል።",
+   "fr": "Cette déclaration a été mise à jour le {updated}."
   }
  }
 }

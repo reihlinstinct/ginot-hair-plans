@@ -92,8 +92,45 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
 <p><a href="{pre}{_i18n.page_path(lang, "index.html")}">{_e(_t("ui.back_home"))}</a></p>
 <footer dir="{meta["dir"]}"><p>
 {_e(_t("about.footer_html", council=council_name))}
+<a href="{pre}{_i18n.page_path(lang, "accessibility.html")}">{_e(_t("index.footer_a11y"))}</a>
 </p><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 <script>{_datasets_js(lang, pre)}</script>
+</body></html>"""
+
+
+def render_accessibility(generated: str, council_name: str, lang: str = "he") -> str:
+    """On-site accessibility statement (SI 5568 regulation 35): standard target,
+    measures, known limitations and the feedback channel. Generated with the
+    site so the update stamp stays current."""
+    meta = _i18n.meta(lang)
+    pre = _i18n.asset_prefix(lang)
+
+    def _t(key: str, **fmt) -> str:
+        return _i18n.t(lang, key, **fmt)
+
+    return f"""<!DOCTYPE html>
+<html dir="{meta["dir"]}" lang="{meta["lang"]}"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{_e(_t("a11y.title", council=council_name))}</title>
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="{pre}apple-touch-icon.png?v=20261022">
+<meta name="theme-color" content="#101f5b">
+<link rel="stylesheet" href="{pre}style.css">{_ANALYTICS_SNIPPET}</head><body>
+{_i18n.switcher(lang, "accessibility.html")}
+<h1>{_e(_t("a11y.h1"))}</h1>
+<p>{_t("a11y.intro_html", council=council_name)}</p>
+{_i18n.draft_note(lang)}
+<h2>{_e(_t("a11y.measures_h"))}</h2>
+{_t("a11y.measures_html")}
+<h2>{_e(_t("a11y.limits_h"))}</h2>
+{_t("a11y.limits_html")}
+<h2>{_e(_t("a11y.contact_h"))}</h2>
+<p>{_t("a11y.contact_html")}</p>
+<p>{_t("a11y.updated", updated=generated)}</p>
+<p><a href="{pre}{_i18n.page_path(lang, "index.html")}">{_e(_t("ui.back_home"))}</a></p>
+<footer dir="{meta["dir"]}"><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 </body></html>"""
 
 

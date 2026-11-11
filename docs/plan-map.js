@@ -11,7 +11,7 @@
   var cache=new Map(),failed=new Set(),manual=new Set(),MAX=20,MIN_ZOOM=11;
   var toggle=document.getElementById('map-boundaries');
   var status=document.getElementById('map-status');
-  var colors={deposit:'#e8c31d',review:'#00a8cf',conditions:'#c8a4de',decision:'#ff8c00',process:'#51b89a',approved:'#6db633',other:'#dde4f6'};
+  var colors={deposit:'#e8c31d',review:'#007996',conditions:'#c8a4de',decision:'#ff8c00',process:'#387e6a',approved:'#4c7f24',other:'#dde4f6'};
   function category(s){
     if(s.indexOf('הפקדה')!==-1)return 'deposit';
     if(s.indexOf('בדיקה')!==-1)return 'review';
