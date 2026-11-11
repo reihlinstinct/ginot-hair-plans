@@ -261,11 +261,13 @@ COMMUNITY_SOURCE_RECORDS = (
 )
 
 
-def _community_source_link(case_id):
+def _community_source_link(case_id, lang: str = "he", pre: str = ""):
+    from .i18n import t as _tt
+
     return "".join(
-        f" <a class='community-source' href='{url}' "
-        f"title='סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית'>"
-        f"סיכום פורום {date}</a>"
+        f" <a class='community-source' href='{pre}{url}' "
+        f'title="{_e(_tt(lang, "cs.forum_title", date=date))}">'
+        f"{_e(_tt(lang, 'cs.forum_text', date=date))}</a>"
         for cases, url, date in COMMUNITY_SOURCE_RECORDS
         if case_id in cases
     )

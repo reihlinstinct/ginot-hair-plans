@@ -157,6 +157,734 @@
    "ru": "Сайт:",
    "am": "ድረ-ገጽ፦",
    "fr": "Site web :"
+  },
+  "index.html_title": {
+   "he": "תכניות במינהל הקהילתי {council}",
+   "en": "Plans in the {council} community council",
+   "ar": "مخططات في المجلس المحلي {council}",
+   "ru": "Планы в общинном совете {council}",
+   "am": "በ{council} የማህበረሰብ ምክር ቤት ውስጥ ያሉ እቅዶች",
+   "fr": "Plans du conseil de quartier {council}"
+  },
+  "index.h1": {
+   "he": "תכניות תכנון ובנייה בשטח המינהל הקהילתי {council}",
+   "en": "Building plans in the {council} community council area",
+   "ar": "مخططات البناء والتخطيط في منطقة المجلس المحلي {council}",
+   "ru": "Планы застройки на территории общинного совета {council}",
+   "am": "በ{council} የማህበረሰብ ምክር ቤት አካባቢ ያሉ የግንባታ እቅዶች",
+   "fr": "Plans de construction dans le secteur du conseil de quartier {council}"
+  },
+  "index.updated": {
+   "he": "עודכן: {generated}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.",
+   "en": "Updated: {generated}. Source: the public planning service (iplan) - approximate data, for information only.",
+   "ar": "آخر تحديث: {generated}. المصدر: خدمة التخطيط العامة (iplan) - بيانات تقريبية، للمعلومات فقط.",
+   "ru": "Обновлено: {generated}. Источник: публичный сервис планирования (iplan) - приблизительные данные, только для информации.",
+   "am": "የተዘመነው: {generated}። ምንጭ: የሕዝብ እቅድ አገልግሎት (iplan) - ግምት ውስጥ የሚገቡ ውሂቦች፣ ለመረጃ ብቻ።",
+   "fr": "Mis à jour : {generated}. Source : service public de planification (iplan) - données approximatives, à titre indicatif uniquement."
+  },
+  "index.email_cta": {
+   "he": "קבלת מייל על תוכנית (עם אפשרות להרשמה לעדכונים)",
+   "en": "Get email about a plan (with an option to subscribe to updates)",
+   "ar": "تلقّي بريد حول مخطط (مع إمكانية الاشتراك في التحديثات)",
+   "ru": "Получать письма о плане (с возможностью подписки на обновления)",
+   "am": "ስለ እቅድ ኢሜይል ይቀበሉ (ለዝማኔዎች የመመዝገቢያ አማራጭ ጋር)",
+   "fr": "Recevoir un e-mail sur un plan (avec possibilité de s'abonner aux mises à jour)"
+  },
+  "index.default_order_html": {
+   "he": "<b>סדר ברירת המחדל:</b> לפי \"אחרון להתנגדות\" (משוער) - התאריך הרחוק ביותר למעלה; תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.\nמוצגות {top} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.\nתכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו \"הצג תכניות מאושרות\" כדי לראותן.",
+   "en": "<b>Default order:</b> by \"last day to object\" (estimated) - the latest date on top; plans without an objection deadline appear below those that have one. Clicking a column header sorts by it.\nThe {top} most relevant plans are shown; filtering and search work on all plans.\nApproved plans ({n_approved}) are hidden by default - check \"Show approved plans\" to see them.",
+   "ar": "<b>الترتيب الافتراضي:</b> حسب \"آخر يوم للاعتراض\" (تقديري) - التاريخ الأبعد أولاً؛ المخططات بدون موعد نهائي للاعتراض تظهر أسفل تلك التي لها موعد. النقر على عنوان عمود يرتّب حسبه.\nتُعرض أكثر {top} مخططات صلة؛ يعمل التصفية والبحث على جميع المخططات.\nالمخططات المصادق عليها ({n_approved}) مخفية افتراضيًا - فعّلوا \"إظهار المخططات المصادق عليها\" لرؤيتها.",
+   "ru": "<b>Порядок по умолчанию:</b> по «последнему дню возражений» (оценка) - самая поздняя дата сверху; планы без срока возражений идут ниже тех, у кого он есть. Нажатие на заголовок столбца сортирует по нему.\nПоказаны {top} наиболее актуальных планов; фильтр и поиск работают по всем планам.\nУтверждённые планы ({n_approved}) скрыты по умолчанию - отметьте «Показать утверждённые планы», чтобы увидеть их.",
+   "am": "<b>ነባሪ ቅደም ተከተል:</b> በ\"የመቃወሚያ መጨረሻ ቀን\" (ግምት) - ረዘም ያለው ቀን ከላይ ይገኛል፤ የመቃወሚያ ቀን የሌላቸው እቅዶች ያለባቸውን ስር ይታያሉ። የአምድ ርዕስ ጠቅ ማድረግ ያደራጃል።\nበጣም ተዛማጅ {top} እቅዶች ይታያሉ፤ ማጣሪያ እና ፍለጋ በሁሉም እቅዶች ላይ ይሰራሉ።\nየጸደቁ እቅዶች ({n_approved}) በነባሪነት ይደበቃሉ - ለማየት \"የጸደቁ እቅዶችን አሳይ\" ይምረጡ።",
+   "fr": "<b>Ordre par défaut :</b> par « dernier jour d'objection » (estimé) - la date la plus lointaine en haut ; les plans sans date limite d'objection apparaissent en dessous de ceux qui en ont une. Cliquer sur un en-tête de colonne trie par celle-ci.\nLes {top} plans les plus pertinents sont affichés ; le filtre et la recherche portent sur tous les plans.\nLes plans approuvés ({n_approved}) sont masqués par défaut - cochez « Afficher les plans approuvés » pour les voir."
+  },
+  "index.obj_column_note_html": {
+   "he": "עמודת \"אחרון להתנגדות\" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים) - לבדיקה מול המו\"ת.",
+   "en": "The \"last day to object\" column is a <b>computed estimate</b> (deposit publication + two months) - verify with the planning authorities.",
+   "ar": "عمود \"آخر يوم للاعتراض\" هو <b>تقدير محسوب</b> (نشر الإيداع + شهرين) - يُرجى التحقق لدى سلطات التخطيط.",
+   "ru": "Столбец «последний день возражений» - <b>вычисленная оценка</b> (публикация депозита + два месяца) - проверяйте в планировочных органах.",
+   "am": "የ\"መቃወሚያ መጨረሻ ቀን\" አምድ <b>የተሰላ ግምት</b> ነው (የተቀማጭነት ማተሚያ + ሁለት ወራት) - ከእቅድ ባለሥልጣናት ጋር ያረጋግጡ።",
+   "fr": "La colonne « dernier jour d'objection » est une <b>estimation calculée</b> (publication du dépôt + deux mois) - à vérifier auprès des autorités de planification."
+  },
+  "index.review_note_html": {
+   "he": "עמודת \"סקירת AI\" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו\"ת.",
+   "en": "The \"AI review\" column links to discussion-point summaries produced <b>automatically by AI</b> from the plan documents - the content is not an official document and is no substitute for reading the documents at the planning authorities.",
+   "ar": "عمود \"مراجعة AI\" يرتبط بملخصات نقاط النقاش المنتَجة <b>تلقائيًا بواسطة الذكاء الاصطناعي</b> من وثائق المخطط - المحتوى ليس وثيقة رسمية وليس بديلاً عن قراءة الوثائق لدى سلطات التخطيط.",
+   "ru": "Столбец «AI-обзор» ведёт на автоматически созданные <b>с помощью ИИ</b> сводки пунктов обсуждения из документов плана - это не официальный документ и не замена чтению документов в планировочных органах.",
+   "am": "የ\"AI ግምገማ\" አምድ ከእቅዱ ሰነዶች <b>በራስ-ሰር በAI</b> ከሚዘጋጁ የውይይት ነጥቦች ማጠቃለያዎች ጋር ያገናኛል - ይህ ይዘት የሚይዝ ሰነድ አይደለም እና ሰነዶቹን በእቅድ ባለሥልጣናት ማንበብን አይተካም።",
+   "fr": "La colonne « Revue IA » renvoie vers des résumés de points de discussion produits <b>automatiquement par IA</b> à partir des documents du plan - ce contenu n'est pas un document officiel et ne remplace pas la lecture des documents auprès des autorités."
+  },
+  "index.legend_label": {
+   "he": "מקרא סטטוסים:",
+   "en": "Status legend:",
+   "ar": "دليل الحالات:",
+   "ru": "Легенда статусов:",
+   "am": "የሁኔታ መፈታት:",
+   "fr": "Légende des statuts :"
+  },
+  "index.search_placeholder": {
+   "he": "חיפוש מספר / שם; או עם |",
+   "en": "Search number / name; alternatives with |",
+   "ar": "بحث عن رقم / اسم؛ بدائل مع |",
+   "ru": "Поиск по номеру / названию; варианты через |",
+   "am": "ቁጥር / ስም ፈልግ፤ አማራጮች በ|",
+   "fr": "Rechercher un numéro / nom ; variantes avec |"
+  },
+  "index.search_title": {
+   "he": "לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' \" ’), ממקפים, מניקוד ומרווחים כפולים",
+   "en": "Separate alternatives with |, e.g.: Palmach 41 | Palmach 49. A comma stays a regular character. The search ignores apostrophes and quotes, hyphens, vowel marks and double spaces",
+   "ar": "لبحث البدائل افصلوا بـ |، مثال: فلماح 41 | فلماح 49. الفاصلة تبقى حرفًا عاديًا. البحث يتجاهل الفواصل العليا وعلامات الاقتباس والشرطات والتشكيل والمسافات المزدوجة",
+   "ru": "Варианты разделяйте через |, например: Пальмах 41 | Пальмах 49. Запятая остаётся обычным символом. Поиск игнорирует апострофы и кавычки, дефисы, огласовки и двойные пробелы",
+   "am": "አማራጮችን በ| ይለዩ፣ ለምሳሌ፡ ፓልማክ 41 | ፓልማክ 49። ኮማ ልዩ ቁምፊ ነው። ፍለጋው አፖስትሮፊን እና ጥቅስ ምልክቶችን፣ ሰረዞችን እና ድርብ ክፍተቶችን ይተዋል",
+   "fr": "Séparez les variantes par |, ex. : Palmah 41 | Palmah 49. La virgule reste un caractère ordinaire. La recherche ignore apostrophes et guillemets, tirets, voyelles et espaces doubles"
+  },
+  "index.all_statuses": {
+   "he": "כל הסטטוסים",
+   "en": "All statuses",
+   "ar": "كل الحالات",
+   "ru": "Все статусы",
+   "am": "ሁሉም ሁኔታዎች",
+   "fr": "Tous les statuts"
+  },
+  "index.flag_all": {
+   "he": "בתוך + חלקי",
+   "en": "Inside + partial",
+   "ar": "داخل + جزئي",
+   "ru": "Внутри + частично",
+   "am": "ውስጥ + ከፍላይ",
+   "fr": "Dedans + partiel"
+  },
+  "index.flag_inside": {
+   "he": "בתוך השטח",
+   "en": "Inside the area",
+   "ar": "داخل المنطقة",
+   "ru": "Внутри участка",
+   "am": "በአካባቢው ውስጥ",
+   "fr": "Dans la zone"
+  },
+  "index.flag_partial": {
+   "he": "חפיפה חלקית",
+   "en": "Partial overlap",
+   "ar": "تداخل جزئي",
+   "ru": "Частичное пересечение",
+   "am": "ከፍላይ ግንኙነት",
+   "fr": "Chevauchement partiel"
+  },
+  "index.open_obj_label": {
+   "he": "חלון התנגדות פתוח (משוער)",
+   "en": "Objection window open (estimated)",
+   "ar": "نافذة اعتراض مفتوحة (تقديري)",
+   "ru": "Окно возражений открыто (оценка)",
+   "am": "የመቃወሚያ መስኮት ክፍት (ግምት)",
+   "fr": "Fenêtre d'objection ouverte (estimé)"
+  },
+  "index.show_approved": {
+   "he": "הצג תכניות מאושרות ({n})",
+   "en": "Show approved plans ({n})",
+   "ar": "إظهار المخططات المصادق عليها ({n})",
+   "ru": "Показать утверждённые планы ({n})",
+   "am": "የጸደቁ እቅዶችን አሳይ ({n})",
+   "fr": "Afficher les plans approuvés ({n})"
+  },
+  "index.from_date": {
+   "he": "מתאריך",
+   "en": "From date",
+   "ar": "من تاريخ",
+   "ru": "С даты",
+   "am": "ከቀን",
+   "fr": "Du"
+  },
+  "index.to_date": {
+   "he": "עד",
+   "en": "To",
+   "ar": "إلى",
+   "ru": "По",
+   "am": "እስከ",
+   "fr": "Au"
+  },
+  "index.reset": {
+   "he": "נקה סינון",
+   "en": "Clear filters",
+   "ar": "مسح التصفية",
+   "ru": "Сбросить фильтр",
+   "am": "ማጣሪያ አጽዳ",
+   "fr": "Effacer les filtres"
+  },
+  "index.copy_link": {
+   "he": "העתק קישור לסינון",
+   "en": "Copy filter link",
+   "ar": "نسخ رابط التصفية",
+   "ru": "Скопировать ссылку на фильтр",
+   "am": "የማጣሪያ አገናኝ ቅዳ",
+   "fr": "Copier le lien du filtre"
+  },
+  "index.col_num": {
+   "he": "מספר תכנית",
+   "en": "Plan number",
+   "ar": "رقم المخطط",
+   "ru": "Номер плана",
+   "am": "የእቅድ ቁጥር",
+   "fr": "Numéro du plan"
+  },
+  "index.col_name": {
+   "he": "שם",
+   "en": "Name",
+   "ar": "الاسم",
+   "ru": "Название",
+   "am": "ስም",
+   "fr": "Nom"
+  },
+  "index.col_status": {
+   "he": "סטטוס",
+   "en": "Status",
+   "ar": "الحالة",
+   "ru": "Статус",
+   "am": "ሁኔታ",
+   "fr": "Statut"
+  },
+  "index.col_recv": {
+   "he": "קליטה",
+   "en": "Received",
+   "ar": "الاستلام",
+   "ru": "Приём",
+   "am": "መቀበያ",
+   "fr": "Réception"
+  },
+  "index.col_dep": {
+   "he": "הפקדה",
+   "en": "Deposit",
+   "ar": "الإيداع",
+   "ru": "Депозит",
+   "am": "ተቀማጭ",
+   "fr": "Dépôt"
+  },
+  "index.col_obj": {
+   "he": "אחרון להתנגדות (משוער)",
+   "en": "Last day to object (estimated)",
+   "ar": "آخر يوم للاعتراض (تقديري)",
+   "ru": "Последний день возражений (оценка)",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት)",
+   "fr": "Dernier jour d'objection (estimé)"
+  },
+  "index.col_area": {
+   "he": "שטח (דונם)",
+   "en": "Area (dunam)",
+   "ar": "المساحة (دونم)",
+   "ru": "Площадь (дунам)",
+   "am": "ስፋት (ዱናም)",
+   "fr": "Superficie (dounam)"
+  },
+  "index.col_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "AI ግምገማ",
+   "fr": "Revue IA"
+  },
+  "index.col_review_title": {
+   "he": "סיכום שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "Summary produced by AI - not an official document",
+   "ar": "ملخص أنتج بواسطة الذكاء الاصطناعي - ليس وثيقة رسمية",
+   "ru": "Сводка, созданная ИИ, - не официальный документ",
+   "am": "በAI የተዘጋጀ ማጠቃለያ - የሚይዝ ሰነድ አይደለም",
+   "fr": "Résumé produit par IA - pas un document officiel"
+  },
+  "index.review_link_text": {
+   "he": "סקירה",
+   "en": "Review",
+   "ar": "مراجعة",
+   "ru": "Обзор",
+   "am": "ግምገማ",
+   "fr": "Revue"
+  },
+  "index.review_link_title": {
+   "he": "סיכום נקודות לדיון שהופק באמצעות AI - אינו מסמך רשמי",
+   "en": "Discussion-point summary produced by AI - not an official document",
+   "ar": "ملخص نقاط نقاش أنتج بواسطة الذكاء الاصطناعي - ليس وثيقة رسمية",
+   "ru": "Сводка пунктов обсуждения, созданная ИИ, - не официальный документ",
+   "am": "በAI የተዘጋጀ የውይይት ነጥቦች ማጠቃለያ - የሚይዝ ሰነድ አይደለም",
+   "fr": "Résumé des points de discussion produit par IA - pas un document officiel"
+  },
+  "index.noscript": {
+   "he": "מוצגות {top} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.",
+   "en": "Only the top {top} plans are shown - enable JavaScript to see all plans and use the filters.",
+   "ar": "تُعرض أهم {top} مخططات فقط - فعّلوا JavaScript لعرض جميع المخططات واستخدام التصفية.",
+   "ru": "Показаны только первые {top} планов - включите JavaScript, чтобы увидеть все планы и пользоваться фильтрами.",
+   "am": "ዋና {top} እቅዶች ብቻ ይታያሉ - ሁሉንም እቅዶች ለማየት እና ማጣሪያውን ለመጠቀም JavaScript ያንቁ።",
+   "fr": "Seuls les {top} premiers plans sont affichés - activez JavaScript pour voir tous les plans et utiliser les filtres."
+  },
+  "index.show_all": {
+   "he": "הצג את כל {n} התכניות",
+   "en": "Show all {n} plans",
+   "ar": "إظهار كل المخططات الـ{n}",
+   "ru": "Показать все {n} планов",
+   "am": "ሁሉንም {n} እቅዶች አሳይ",
+   "fr": "Afficher les {n} plans"
+  },
+  "index.show_first": {
+   "he": "הצג {top} הראשונות",
+   "en": "Show the first {top}",
+   "ar": "إظهار أول {top}",
+   "ru": "Показать первые {top}",
+   "am": "የመጀመሪያዎቹን {top} አሳይ",
+   "fr": "Afficher les {top} premiers"
+  },
+  "index.count_showing": {
+   "he": "מציג {shown} מתוך {total}",
+   "en": "Showing {shown} of {total}",
+   "ar": "عرض {shown} من {total}",
+   "ru": "Показано {shown} из {total}",
+   "am": "{shown} ከ{total} በማሳየት ላይ",
+   "fr": "Affichage de {shown} sur {total}"
+  },
+  "index.urgent_h": {
+   "he": "דחוף להתנגדות",
+   "en": "Urgent objections",
+   "ar": "اعتراضات عاجلة",
+   "ru": "Срочные возражения",
+   "am": "አስቸኳይ ተቃውሞዎች",
+   "fr": "Objections urgentes"
+  },
+  "index.changes_h": {
+   "he": "שינויים אחרונים",
+   "en": "Recent changes",
+   "ar": "تغييرات أخيرة",
+   "ru": "Последние изменения",
+   "am": "የቅርብ ጊዜ ለውጦች",
+   "fr": "Changements récents"
+  },
+  "index.urgent_deadline": {
+   "he": "אחרון להתנגדות (משוער):",
+   "en": "Last day to object (estimated):",
+   "ar": "آخر يوم للاعتراض (تقديري):",
+   "ru": "Последний день возражений (оценка):",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት):",
+   "fr": "Dernier jour d'objection (estimé) :"
+  },
+  "index.none": {
+   "he": "אין",
+   "en": "None",
+   "ar": "لا يوجد",
+   "ru": "Нет",
+   "am": "የለም",
+   "fr": "Aucun"
+  },
+  "index.no_changes": {
+   "he": "אין שינויים מהסריקה הקודמת",
+   "en": "No changes since the previous scan",
+   "ar": "لا تغييرات منذ الفحص السابق",
+   "ru": "Нет изменений с прошлого сканирования",
+   "am": "ካለፈው ስካን ምንም ለውጥ የለም",
+   "fr": "Aucun changement depuis le dernier balayage"
+  },
+  "index.footer_html": {
+   "he": "אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:",
+   "en": "An automated data site of the Ginot HaIr committee. Source code and data:",
+   "ar": "موقع بيانات آلي للجنة غينوت هاعير. الكود المصدري والبيانات:",
+   "ru": "Автоматический сайт данных комитета Гинот-ха-Ир. Исходный код и данные:",
+   "am": "የጊኖት ሃኢር ኮሚቴ ራስ-ሰር የውሂብ ጣቢያ። የምንጭ ኮድ እና ውሂብ:",
+   "fr": "Site de données automatisé du comité Ginot HaIr. Code source et données :"
+  },
+  "index.footer_about": {
+   "he": "אודות ומקורות נתונים",
+   "en": "About and data sources",
+   "ar": "حول ومصادر البيانات",
+   "ru": "О сайте и источники данных",
+   "am": "ስለ እና የውሂብ ምንጮች",
+   "fr": "À propos et sources des données"
+  },
+  "index.footer_email": {
+   "he": "קבלת מייל על תוכנית",
+   "en": "Get email about a plan",
+   "ar": "تلقّي بريد حول مخطط",
+   "ru": "Получать письма о плане",
+   "am": "ስለ እቅድ ኢሜይል ይቀበሉ",
+   "fr": "Recevoir un e-mail sur un plan"
+  },
+  "index.footer_contrib": {
+   "he": "איך לתרום",
+   "en": "How to contribute",
+   "ar": "كيف تساهم",
+   "ru": "Как помочь",
+   "am": "እንዴት ማበርከት ይቻላል",
+   "fr": "Comment contribuer"
+  },
+  "index.version": {
+   "he": "גרסה",
+   "en": "Version",
+   "ar": "الإصدار",
+   "ru": "Версия",
+   "am": "ስሪት",
+   "fr": "Version"
+  },
+  "stats.title": {
+   "he": "סטטיסטיקה",
+   "en": "Statistics",
+   "ar": "إحصائيات",
+   "ru": "Статистика",
+   "am": "ስታቲስቲክስ",
+   "fr": "Statistiques"
+  },
+  "stats.by_status": {
+   "he": "לפי סטטוס",
+   "en": "By status",
+   "ar": "حسب الحالة",
+   "ru": "По статусу",
+   "am": "በሁኔታ",
+   "fr": "Par statut"
+  },
+  "stats.by_flag": {
+   "he": "בתוך השטח / חפיפה חלקית",
+   "en": "Inside the area / partial overlap",
+   "ar": "داخل المنطقة / تداخل جزئي",
+   "ru": "Внутри участка / частичное пересечение",
+   "am": "በአካባቢው ውስጥ / ከፍላይ ግንኙነት",
+   "fr": "Dans la zone / chevauchement partiel"
+  },
+  "stats.deposits": {
+   "he": "הפקדות לפי חודש (24 אחרונים)",
+   "en": "Deposits by month (last 24)",
+   "ar": "الإيداعات حسب الشهر (آخر 24)",
+   "ru": "Депозиты по месяцам (24 последних)",
+   "am": "ተቀማጮች በወር (የመጨረሻ 24)",
+   "fr": "Dépôts par mois (24 derniers)"
+  },
+  "stats.approvals": {
+   "he": "אישורים לפי שנה",
+   "en": "Approvals by year",
+   "ar": "المصادقات حسب السنة",
+   "ru": "Утверждения по годам",
+   "am": "ማጽደቃት በዓመት",
+   "fr": "Approbations par année"
+  },
+  "stats.no_label": {
+   "he": "(ללא)",
+   "en": "(none)",
+   "ar": "(لا شيء)",
+   "ru": "(нет)",
+   "am": "(የለም)",
+   "fr": "(aucun)"
+  },
+  "map.summary": {
+   "he": "מפת התכניות ובקשות ההיתר - נקודות וגבולות",
+   "en": "Map of plans and permit requests - points and boundaries",
+   "ar": "خريطة المخططات وطلبات الرخص - نقاط وحدود",
+   "ru": "Карта планов и заявок на разрешения - точки и границы",
+   "am": "የእቅዶች እና የፈቃድ ጥያቄዎች ካርታ - ነጥቦች እና ወሰኖች",
+   "fr": "Carte des plans et demandes de permis - points et limites"
+  },
+  "map.intro": {
+   "he": "המפה מציגה רק את השורות הגלויות בטבלאות התכניות ובקשות ההיתר. ריבוע סגול: בקשות היתר לפי גוש וחלקה, בנקודה פנימית בחלקה ולא בכניסה לבניין. כמה בקשות באותה חלקה מופיעות יחד. קווים: גבולות תכנית. נקודה קטנה: מיקום מייצג בלבד, לא כתובת כניסה. המפה אינה מסמך רשמי.",
+   "en": "The map shows only the rows visible in the plans and permit-requests tables. Purple square: permit requests by block and parcel, at an interior point of the parcel, not at the building entrance. Several requests on the same parcel appear together. Lines: plan boundaries. Small dot: representative location only, not an entrance address. The map is not an official document.",
+   "ar": "الخريطة تعرض فقط الصفوف الظاهرة في جدولي المخططات وطلبات الرخص. مربع بنفسجي: طلبات رخص حسب القطعة، في نقطة داخلية بالقطعة وليس عند مدخل المبنى. عدة طلبات في نفس القطعة تظهر معًا. خطوط: حدود المخطط. نقطة صغيرة: موقع تمثيلي فقط، وليس عنوان مدخل. الخريطة ليست وثيقة رسمية.",
+   "ru": "Карта показывает только строки, видимые в таблицах планов и заявок. Фиолетовый квадрат: заявки на разрешения по кварталу и участку, во внутренней точке участка, а не у входа в здание. Несколько заявок на одном участке показаны вместе. Линии: границы планов. Маленькая точка: только ориентировочное место, не адрес входа. Карта не является официальным документом.",
+   "am": "ካርታው በእቅዶች እና በፈቃድ ጥያቄዎች ሰንጠረዦች ውስጥ የሚታዩትን ረድፎች ብቻ ያሳያል። ሐምራዊ ካሬ: የፈቃድ ጥያቄዎች በብሎክ እና በቦታ፣ በቦታው ውስጣዊ ነጥብ፣ በሕንፃ መግቢያ አይደለም። በአንድ ቦታ ላይ ብዙ ጥያቄዎች አብረው ይታያሉ። መስመሮች: የእቅድ ወሰኖች። ትንሽ ነጥብ: ተወካይ ቦታ ብቻ፣ የመግቢያ አድራሻ አይደለም። ካርታው የሚይዝ ሰነድ አይደለም።",
+   "fr": "La carte n'affiche que les lignes visibles dans les tableaux des plans et des demandes de permis. Carré violet : demandes de permis par bloc et parcelle, à un point intérieur de la parcelle, pas à l'entrée du bâtiment. Plusieurs demandes sur une même parcelle apparaissent ensemble. Lignes : limites des plans. Petit point : emplacement indicatif uniquement, pas une adresse d'entrée. La carte n'est pas un document officiel."
+  },
+  "map.boundaries_label": {
+   "he": "הצג גבולות לכל התכניות המוצגות",
+   "en": "Show boundaries for all displayed plans",
+   "ar": "إظهار الحدود لكل المخططات المعروضة",
+   "ru": "Показывать границы всех отображаемых планов",
+   "am": "ለሚታዩ እቅዶች ሁሉ ወሰኖችን አሳይ",
+   "fr": "Afficher les limites de tous les plans affichés"
+  },
+  "map.legend_toggle": {
+   "he": "מקרא צבעי המפה",
+   "en": "Map colour legend",
+   "ar": "دليل ألوان الخريطة",
+   "ru": "Легенда цветов карты",
+   "am": "የካርታ ቀለም መፈታት",
+   "fr": "Légende des couleurs"
+  },
+  "map.status_open": {
+   "he": "פתחו את המפה לטעינת הנקודות.",
+   "en": "Open the map to load the points.",
+   "ar": "افتحوا الخريطة لتحميل النقاط.",
+   "ru": "Откройте карту, чтобы загрузить точки.",
+   "am": "ነጥቦችን ለመጫን ካርታውን ይክፈቱ።",
+   "fr": "Ouvrez la carte pour charger les points."
+  },
+  "map.aria": {
+   "he": "מפת מיקומי תכניות ובקשות היתר",
+   "en": "Map of plan and permit-request locations",
+   "ar": "خريطة مواقع المخططات وطلبات الرخص",
+   "ru": "Карта расположения планов и заявок",
+   "am": "የእቅዶች እና የፈቃድ ጥያቄዎች ቦታዎች ካርታ",
+   "fr": "Carte des emplacements des plans et demandes de permis"
+  },
+  "map.note": {
+   "he": "גבולות נטענים אוטומטית לעד 20 תכניות; בתצוגה רחבה מאוד מוצגות נקודות. לחצו על קו או נקודה לשם התכנית ומספרה. הגבול נטען ישירות משירות מינהל התכנון לדפדפן, ואינו נשמר באתר.",
+   "en": "Boundaries load automatically for up to 20 plans; at very wide zoom, points are shown. Click a line or point for the plan's name and number. The boundary loads directly from the Planning Administration service to your browser and is not stored on the site.",
+   "ar": "الحدود تُحمَّل تلقائيًا حتى 20 مخططًا؛ في التكبير البعيد جدًا تُعرض نقاط. انقروا على خط أو نقطة لاسم المخطط ورقمه. الحد يُحمَّل مباشرة من خدمة إدارة التخطيط إلى المتصفح ولا يُحفظ في الموقع.",
+   "ru": "Границы загружаются автоматически для 20 планов; при очень широком масштабе показываются точки. Нажмите на линию или точку, чтобы увидеть название и номер плана. Граница загружается напрямую из сервиса Управления планирования в браузер и не хранится на сайте.",
+   "am": "ወሰኖች እስከ 20 እቅዶች በራስ-ሰር ይጫናሉ፤ በሰፊ ዝም ነጥቦች ይታያሉ። የእቅዱን ስም እና ቁጥር ለማየት መስመር ወይም ነጥብ ላይ ይጫኑ። ወሰኑ በቀጥታ ከእቅድ አስተዳደር አገልግሎት ወደ አሳሽዎ ይጫናል እና በጣቢያው ላይ አይቀመጥም።",
+   "fr": "Les limites se chargent automatiquement jusqu'à 20 plans ; à un zoom très large, des points sont affichés. Cliquez sur une ligne ou un point pour le nom et le numéro du plan. La limite est chargée directement du service de l'administration de planification vers votre navigateur et n'est pas stockée sur le site."
+  },
+  "map.credit": {
+   "he": "מקור מיקומי תכניות וגבולות: מינהל התכנון. מיקומי בקשות היתר: שכבת חלקות ציבורית (גוש וחלקה), לא מדידה רשמית. הזמינות והעדכניות אינן מובטחות.",
+   "en": "Source of plan locations and boundaries: the Planning Administration. Permit-request locations: public parcel layer (block and parcel), not an official survey. Availability and freshness are not guaranteed.",
+   "ar": "مصدر مواقع المخططات والحدود: إدارة التخطيط. مواقع طلبات الرخص: طبقة قطع عامة (قسيمة وقطعة)، وليست مسحًا رسميًا. التوفر والحداثة غير مضمونين.",
+   "ru": "Источник расположения планов и границ: Управление планирования. Расположение заявок: публичный слой участков (квартал и участок), не официальная съёмка. Доступность и актуальность не гарантируются.",
+   "am": "የእቅድ ቦታዎች እና ወሰኖች ምንጭ: የእቅድ አስተዳደር። የፈቃድ ጥያቄ ቦታዎች: የሕዝባዊ ቦታ ንብረት (ብሎክ እና ቦታ)፣ የሚይዝ መለኪያ አይደለም። ተገኝነት እና ወቅታዊነት አይረጋገጥም።",
+   "fr": "Source des emplacements et limites des plans : l'administration de planification. Emplacements des demandes de permis : couche publique des parcelles (bloc et parcelle), pas un relevé officiel. Disponibilité et actualité non garanties."
+  },
+  "indexjs.permit_prefix": {
+   "he": "בקשת היתר: ",
+   "en": "Permit request: ",
+   "ar": "طلب رخصة: ",
+   "ru": "Заявка на разрешение: ",
+   "am": "የፈቃድ ጥያቄ: ",
+   "fr": "Demande de permis : "
+  },
+  "indexjs.permit_pubcheck": {
+   "he": "פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ",
+   "en": "Municipal publication - requires verification; submission option unverified. Date in publication: ",
+   "ar": "نشر بلدي - يتطلب تحققًا؛ إمكانية التقديم غير مؤكدة. التاريخ في النشر: ",
+   "ru": "Муниципальная публикация - требует проверки; возможность подачи не подтверждена. Дата в публикации: ",
+   "am": "የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን: ",
+   "fr": "Publication municipale - à vérifier ; possibilité de dépôt non confirmée. Date dans la publication : "
+  },
+  "indexjs.permit_official": {
+   "he": "מועד התנגדות (פרסום עירוני): ",
+   "en": "Objection deadline (municipal publication): ",
+   "ar": "موعد الاعتراض (نشر بلدي): ",
+   "ru": "Срок возражений (муниципальная публикация): ",
+   "am": "የመቃወሚያ ቀን (የከተማ ማተሚያ): ",
+   "fr": "Date limite d'objection (publication municipale) : "
+  },
+  "indexjs.permit_planned": {
+   "he": "סיום פרסום מתוכנן (לא מאומת): ",
+   "en": "Planned publication end (unverified): ",
+   "ar": "نهاية نشر مخططة (غير مؤكدة): ",
+   "ru": "Плановый конец публикации (не подтверждено): ",
+   "am": "የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ): ",
+   "fr": "Fin de publication prévue (non confirmée) : "
+  },
+  "fl.aria": {
+   "he": "קישור לסינון הנוכחי",
+   "en": "Link to the current filter",
+   "ar": "رابط للتصفية الحالية",
+   "ru": "Ссылка на текущий фильтр",
+   "am": "ከአሁኑ ማጣሪያ ጋር አገናኝ",
+   "fr": "Lien vers le filtre actuel"
+  },
+  "fl.not_copied": {
+   "he": "לא הועתק. אפשר לבחור ולהעתיק את הקישור המוצג.",
+   "en": "Not copied. You can select and copy the displayed link.",
+   "ar": "لم يُنسخ. يمكنكم تحديد الرابط المعروض ونسخه.",
+   "ru": "Не скопировано. Можно выделить и скопировать показанную ссылку.",
+   "am": "አልተቀዳም። የታየውን አገናኝ መምረጥ እና መቅዳት ይችላሉ።",
+   "fr": "Non copié. Vous pouvez sélectionner et copier le lien affiché."
+  },
+  "fl.copied": {
+   "he": "הקישור הועתק",
+   "en": "Link copied",
+   "ar": "نُسخ الرابط",
+   "ru": "Ссылка скопирована",
+   "am": "አገናኙ ተቀድቷል",
+   "fr": "Lien copié"
+  },
+  "mapjs.plan_prefix": {
+   "he": "תכנית ",
+   "en": "Plan ",
+   "ar": "مخطط ",
+   "ru": "План ",
+   "am": "እቅድ ",
+   "fr": "Plan "
+  },
+  "mapjs.status_unknown": {
+   "he": "סטטוס לא ידוע",
+   "en": "Status unknown",
+   "ar": "الحالة غير معروفة",
+   "ru": "Статус неизвестен",
+   "am": "ሁኔታ አይታወቅም",
+   "fr": "Statut inconnu"
+  },
+  "mapjs.load_boundary": {
+   "he": "טען גבול תכנית",
+   "en": "Load plan boundary",
+   "ar": "تحميل حد المخطط",
+   "ru": "Загрузить границу плана",
+   "am": "የእቅድ ወሰን ጫን",
+   "fr": "Charger la limite du plan"
+  },
+  "mapjs.mavat": {
+   "he": "פרטי התכנית במאב\"ת",
+   "en": "Plan details on Mavat",
+   "ar": "تفاصيل المخطط في ماب\"ت",
+   "ru": "Детали плана в Мават",
+   "am": "የእቅድ ዝርዝሮች በማቭ\"ት",
+   "fr": "Détails du plan sur Mavat"
+  },
+  "mapjs.ai_review": {
+   "he": "סקירת AI",
+   "en": "AI review",
+   "ar": "مراجعة AI",
+   "ru": "AI-обзор",
+   "am": "AI ግምገማ",
+   "fr": "Revue IA"
+  },
+  "mapjs.overlap": {
+   "he": "{n} תכניות חופפות בנקודה זו - הקטנה מוצגת ראשונה.",
+   "en": "{n} plans overlap at this point - the smallest is shown first.",
+   "ar": "{n} مخططات متداخلة في هذه النقطة - الأصغر يظهر أولاً.",
+   "ru": "{n} планов пересекаются в этой точке - сначала показан наименьший.",
+   "am": "{n} እቅዶች በዚህ ነጥብ ይተራረፋሉ - አነስተኛው መጀመሪያ ይታያል።",
+   "fr": "{n} plans se chevauchent à ce point - le plus petit est affiché en premier."
+  },
+  "mapjs.permits_same_parcel": {
+   "he": "בקשות היתר באותה חלקה",
+   "en": "Permit requests on the same parcel",
+   "ar": "طلبات رخص في نفس القطعة",
+   "ru": "Заявки на разрешения на том же участке",
+   "am": "በተመሳሳይ ቦታ ላይ የፈቃድ ጥያቄዎች",
+   "fr": "Demandes de permis sur la même parcelle"
+  },
+  "mapjs.permit_point_note": {
+   "he": "נקודה מייצגת בחלקה לפי גוש וחלקה, לא כתובת כניסה.",
+   "en": "Representative point in the parcel by block and parcel, not an entrance address.",
+   "ar": "نقطة تمثيلية في القطعة حسب القسيمة والقطعة، وليست عنوان مدخل.",
+   "ru": "Ориентировочная точка в участке по кварталу и участку, не адрес входа.",
+   "am": "በብሎክ እና ቦታ መሠረት ተወካይ ነጥብ፣ የመግቢያ አድራሻ አይደለም።",
+   "fr": "Point indicatif dans la parcelle selon bloc et parcelle, pas une adresse d'entrée."
+  },
+  "mapjs.permits_title": {
+   "he": "בקשות היתר: ",
+   "en": "Permit requests: ",
+   "ar": "طلبات رخص: ",
+   "ru": "Заявки на разрешения: ",
+   "am": "የፈቃድ ጥያቄዎች: ",
+   "fr": "Demandes de permis : "
+  },
+  "mapjs.permits_status": {
+   "he": " בקשות היתר: {visible} שורות גלויות, {with_loc} עם מיקום בחלקה ({points} נקודות), {missing} אין מיקום.",
+   "en": " Permit requests: {visible} visible rows, {with_loc} with a parcel location ({points} points), {missing} without a location.",
+   "ar": " طلبات رخص: {visible} صفوف ظاهرة، {with_loc} مع موقع في القطعة ({points} نقاط)، {missing} بدون موقع.",
+   "ru": " Заявки на разрешения: {visible} видимых строк, {with_loc} с точкой на участке ({points} точек), {missing} без местоположения.",
+   "am": " የፈቃድ ጥያቄዎች: {visible} የሚታዩ ረድፎች፣ {with_loc} በቦታ ላይ ቦታ ያላቸው ({points} ነጥቦች)፣ {missing} ቦታ የሌላቸው።",
+   "fr": " Demandes de permis : {visible} lignes visibles, {with_loc} avec un emplacement sur la parcelle ({points} points), {missing} sans emplacement."
+  },
+  "mapjs.boundaries_off": {
+   "he": " הצגת גבולות אוטומטית כבויה; ניתן לטעון גבול מתוך כל נקודה.",
+   "en": " Automatic boundary display is off; a boundary can be loaded from any point.",
+   "ar": " عرض الحدود التلقائي مطفأ؛ يمكن تحميل حد من أي نقطة.",
+   "ru": " Автоматический показ границ выключен; границу можно загрузить из любой точки.",
+   "am": " ራስ-ሰር የወሰን ማሳያ ጠፍቷል፤ ወሰን ከማንኛውም ነጥብ መጫን ይቻላል።",
+   "fr": " L'affichage automatique des limites est désactivé ; une limite peut être chargée depuis n'importe quel point."
+  },
+  "mapjs.too_many": {
+   "he": " יותר מ-20 תכניות: סננו את הטבלה להצגת גבולות.",
+   "en": " More than 20 plans: filter the table to show boundaries.",
+   "ar": " أكثر من 20 مخططًا: صفّوا الجدول لعرض الحدود.",
+   "ru": " Больше 20 планов: отфильтруйте таблицу, чтобы показать границы.",
+   "am": " ከ20 በላይ እቅዶች: ወሰኖችን ለማሳየት ሰንጠረዡን ያጣሩ።",
+   "fr": " Plus de 20 plans : filtrez le tableau pour afficher les limites."
+  },
+  "mapjs.zoom_in": {
+   "he": " התקרבו במפה להצגת גבולות.",
+   "en": " Zoom in on the map to show boundaries.",
+   "ar": " قرّبوا الخريطة لعرض الحدود.",
+   "ru": " Приблизьте карту, чтобы показать границы.",
+   "am": " ወሰኖችን ለማሳየት ካርታውን ያቅርቡ።",
+   "fr": " Zoomez sur la carte pour afficher les limites."
+  },
+  "mapjs.no_match": {
+   "he": "אין תכניות התואמות לחיפוש או לסינון.",
+   "en": "No plans match the search or filter.",
+   "ar": "لا توجد مخططات مطابقة للبحث أو التصفية.",
+   "ru": "Нет планов, подходящих под поиск или фильтр.",
+   "am": "ከፍለጋ ወይም ማጣሪያ ጋር የሚዛመዱ እቅዶች የሉም።",
+   "fr": "Aucun plan ne correspond à la recherche ou au filtre."
+  },
+  "mapjs.status_rows": {
+   "he": "{allowed} שורות גלויות בטבלה: {count} גבולות, {points} נקודות, {noloc} ללא מיקום.{note} תאריך מיקומים: {date}.",
+   "en": "{allowed} visible rows in the table: {count} boundaries, {points} points, {noloc} without a location.{note} Locations date: {date}.",
+   "ar": "{allowed} صفوف ظاهرة في الجدول: {count} حدود، {points} نقاط، {noloc} بدون موقع.{note} تاريخ المواقع: {date}.",
+   "ru": "{allowed} видимых строк в таблице: {count} границ, {points} точек, {noloc} без местоположения.{note} Дата местоположений: {date}.",
+   "am": "{allowed} የሚታዩ ረድፎች በሰንጠረዡ: {count} ወሰኖች፣ {points} ነጥቦች፣ {noloc} ቦታ የሌላቸው።{note} የቦታዎች ቀን: {date}.",
+   "fr": "{allowed} lignes visibles dans le tableau : {count} limites, {points} points, {noloc} sans emplacement.{note} Date des emplacements : {date}."
+  },
+  "mapjs.some_failed": {
+   "he": " חלק מהגבולות לא נטענו; הנקודות נשארות זמינות.",
+   "en": " Some boundaries failed to load; the points remain available.",
+   "ar": " بعض الحدود لم تُحمَّل؛ النقاط تبقى متاحة.",
+   "ru": " Некоторые границы не загрузились; точки остаются доступными.",
+   "am": " አንዳንድ ወሰኖች አልተጫኑም፤ ነጥቦቹ እንደሚገኙ ይቆያሉ።",
+   "fr": " Certaines limites n'ont pas été chargées ; les points restent disponibles."
+  },
+  "mapjs.loading_boundaries": {
+   "he": " טוען גבולות ממינהל התכנון…",
+   "en": " Loading boundaries from the Planning Administration…",
+   "ar": " تحميل الحدود من إدارة التخطيط…",
+   "ru": " Загрузка границ из Управления планирования…",
+   "am": " ወሰኖችን ከእቅድ አስተዳደር በመጫን ላይ…",
+   "fr": " Chargement des limites depuis l'administration de planification…"
+  },
+  "mapjs.boundary_unavailable": {
+   "he": "גבול תכנית {num} אינו זמין כרגע; הנקודה והקישור למקור נשארים זמינים.",
+   "en": "The boundary of plan {num} is unavailable right now; the point and the source link remain available.",
+   "ar": "حد المخطط {num} غير متاح حاليًا؛ النقطة ورابط المصدر يبقيان متاحين.",
+   "ru": "Граница плана {num} сейчас недоступна; точка и ссылка на источник остаются доступными.",
+   "am": "የእቅድ {num} ወሰን በአሁኑ ጊዜ አይገኝም፤ ነጥቡ እና የምንጭ አገናኙ እንደሚገኙ ይቆያሉ።",
+   "fr": "La limite du plan {num} est indisponible pour le moment ; le point et le lien source restent disponibles."
+  },
+  "mapjs.loading_map": {
+   "he": "טוען מפת תכניות…",
+   "en": "Loading the plans map…",
+   "ar": "تحميل خريطة المخططات…",
+   "ru": "Загрузка карты планов…",
+   "am": "የእቅዶች ካርታ በመጫን ላይ…",
+   "fr": "Chargement de la carte des plans…"
+  },
+  "mapjs.map_unavailable": {
+   "he": "לא ניתן לטעון את המפה כרגע. טבלת התכניות נשארת זמינה.",
+   "en": "The map cannot be loaded right now. The plans table remains available.",
+   "ar": "لا يمكن تحميل الخريطة حاليًا. جدول المخططات يبقى متاحًا.",
+   "ru": "Карту сейчас загрузить нельзя. Таблица планов остаётся доступной.",
+   "am": "ካርታውን በአሁኑ ጊዜ መጫን አይቻልም። የእቅዶች ሰንጠረዥ እንደሚገኝ ይቆያል።",
+   "fr": "La carte ne peut pas être chargée pour le moment. Le tableau des plans reste disponible."
+  },
+  "mapjs.legend_line": {
+   "he": "קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.",
+   "en": "Line: plan boundary. Point: representative location when the boundary is unavailable or at wide zoom. The colour marks status, as in the table.",
+   "ar": "خط: حد مخطط. نقطة: موقع تمثيلي عندما يكون الحد غير متاح أو في التكبير البعيد. اللون يدل على الحالة، كما في الجدول.",
+   "ru": "Линия: граница плана. Точка: ориентировочное место, когда граница недоступна или при широком масштабе. Цвет обозначает статус, как в таблице.",
+   "am": "መስመር: የእቅድ ወሰን። ነጥብ: ወሰኑ ሲጎድል ወይም በሰፊ ዝም ተወካይ ቦታ። ቀለሙ ሁኔታን ያመለክታል፣ እንደ ሰንጠረዡ።",
+   "fr": "Ligne : limite du plan. Point : emplacement indicatif quand la limite est indisponible ou à zoom large. La couleur indique le statut, comme dans le tableau."
+  },
+  "mapjs.legend_permits": {
+   "he": "ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.",
+   "en": "Purple square: permit requests on the same parcel. An interior point of the parcel, not an entrance.",
+   "ar": "مربع بنفسجي: طلبات رخص في نفس القطعة. نقطة داخلية في القطعة، وليست مدخلاً.",
+   "ru": "Фиолетовый квадрат: заявки на разрешения на том же участке. Внутренняя точка участка, не вход.",
+   "am": "ሐምራዊ ካሬ: በተመሳሳይ ቦታ ላይ የፈቃድ ጥያቄዎች። የቦታው ውስጣዊ ነጥብ፣ መግቢያ አይደለም።",
+   "fr": "Carré violet : demandes de permis sur la même parcelle. Point intérieur de la parcelle, pas une entrée."
+  },
+  "stats.no_data": {
+   "he": "אין נתונים",
+   "en": "No data",
+   "ar": "لا توجد بيانات",
+   "ru": "Нет данных",
+   "am": "ውሂብ የለም",
+   "fr": "Pas de données"
+  },
+  "cs.forum_text": {
+   "he": "סיכום פורום {date}",
+   "en": "Forum summary {date}",
+   "ar": "ملخص منتدى {date}",
+   "ru": "Сводка форума {date}",
+   "am": "የመድረክ ማጠቃለያ {date}",
+   "fr": "Résumé du forum {date}"
+  },
+  "cs.forum_title": {
+   "he": "סיכום פורום {date}, עותק מושחר; עמדות לדיון, לא הודעה רשמית",
+   "en": "Forum summary {date}, redacted copy; positions for discussion, not an official notice",
+   "ar": "ملخص منتدى {date}، نسخة منقّحة؛ مواقف للنقاش، وليست إشعارًا رسميًا",
+   "ru": "Сводка форума {date}, отредактированная копия; позиции для обсуждения, не официальное уведомление",
+   "am": "የመድረክ ማጠቃለያ {date}፣ የተጠራጠረ ቅጂ፤ ለውይይት የቀረቡ አቋሞች፣ የሚይዝ ማሳወቂያ አይደለም",
+   "fr": "Résumé du forum {date}, copie expurgée ; positions pour discussion, pas un avis officiel"
   }
  }
 }

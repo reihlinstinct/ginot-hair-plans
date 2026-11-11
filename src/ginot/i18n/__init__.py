@@ -43,12 +43,35 @@ def is_draft(lang: str) -> bool:
     return bool(meta(lang).get("draft"))
 
 
+def draft_note(lang: str) -> str:
+    """The machine-translation notice shown on draft-language pages (''
+    for Hebrew)."""
+    m = meta(lang)
+    if not m.get("draft"):
+        return ""
+    return (
+        f'<p class="draft-note" lang="{escape(m["lang"])}">'
+        f"{escape(t(lang, 'ui.draft_note'))}</p>"
+    )
+
+
 def t(lang: str, key: str, **fmt) -> str:
     """The string for key in lang; falls back to the default language when
     that language has no entry. An unknown key is a programming error."""
     entry = load()["strings"][key]
     text = entry.get(lang) or entry[default_lang()]
     return text.format(**fmt) if fmt else text
+
+
+def js_snippet(lang: str, keys: list[str]) -> str:
+    """Inline <script> exposing strings to the static JS files: window.GINOT_I18N
+    maps key to this language's text (the files keep their Hebrew literals as
+    fallback) and window.GINOT_BASE is the relative prefix back to the site
+    root, for fetches of shared JSON/vendor assets from a per-language page.
+    The keys are site strings, so the values never contain "</"."""
+    data = json.dumps({k: t(lang, k) for k in keys}, ensure_ascii=False)
+    base = json.dumps(asset_prefix(lang))
+    return f"<script>window.GINOT_I18N={data};window.GINOT_BASE={base};</script>"
 
 
 def asset_prefix(lang: str) -> str:

@@ -249,6 +249,50 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
+def _js(lang: str = "he", pre: str = "") -> str:
+    """The index filter/sort script in lang; pre prefixes the shared fetches
+    (rows.html, publications_active.json) from a per-language page."""
+    from .i18n import t as _tt
+
+    def J(key: str) -> str:
+        return json.dumps(_tt(lang, key), ensure_ascii=False)
+
+    out = _JS.replace(
+        "(function(){\nvar rows=",
+        "(function(){\nvar TF=function(s,o){return String(s).replace("
+        "/\\{(\\w+)\\}/g,function(m,k){return o&&k in o?o[k]:m;});};\nvar rows=",
+        1,
+    )
+    out = out.replace(
+        "more.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' התכניות';",
+        "more.textContent=expanded?TF("
+        + J("index.show_first")
+        + ",{top:20}):TF("
+        + J("index.show_all")
+        + ",{n:n});",
+    )
+    out = out.replace(
+        "fcount.textContent='מציג '+Math.min(n,expanded?n:20)+' מתוך '+n;",
+        "fcount.textContent=TF("
+        + J("index.count_showing")
+        + ",{shown:Math.min(n,expanded?n:20),total:n});",
+    )
+    out = out.replace("name:'בקשת היתר: '+", "name:" + J("indexjs.permit_prefix") + "+")
+    out = out.replace(
+        "'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: '",
+        J("indexjs.permit_pubcheck"),
+    )
+    out = out.replace("'מועד התנגדות (פרסום עירוני): '", J("indexjs.permit_official"))
+    out = out.replace("'סיום פרסום מתוכנן (לא מאומת): '", J("indexjs.permit_planned"))
+    out = out.replace("'אחרון להתנגדות (משוער): '", J("index.urgent_deadline"))
+    out = out.replace("'<li>אין</li>'", "'<li>'+" + J("index.none") + "+'</li>'")
+    out = out.replace("fetch('rows.html')", f"fetch('{pre}rows.html')")
+    out = out.replace(
+        "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
+    )
+    return out
+
+
 # Section: Plan formatting and statistics
 
 
@@ -302,14 +346,16 @@ def sort_rows(rows: list[dict], today: str | None = None) -> list[dict]:
     return ordered
 
 
-def _bars(counts: dict, label_map: dict | None = None) -> str:
+def _bars(counts: dict, label_map: dict | None = None, lang: str = "he") -> str:
     """Pure-CSS horizontal bars, no external services."""
+    from .i18n import t as _tt
+
     if not counts:
-        return "<p>אין נתונים</p>"
+        return f"<p>{_e(_tt(lang, 'stats.no_data'))}</p>"
     top = max(counts.values())
     out = []
     for k, v in sorted(counts.items(), key=lambda kv: -kv[1]):
-        label = (label_map or {}).get(k, k) or "(ללא)"
+        label = (label_map or {}).get(k, k) or _tt(lang, "stats.no_label")
         pct = max(2, round(100 * v / top))
         out.append(
             f"<div class='bar'><span class='bl'>{_e(label)}</span>"
@@ -323,11 +369,14 @@ def _month_key(iso: str) -> str:
     return iso[:7] if iso and len(iso) >= 7 else ""
 
 
-def stats_section(rows: list[dict]) -> str:
+def stats_section(rows: list[dict], lang: str = "he") -> str:
     from collections import Counter
 
-    by_status = Counter(r.get("station_desc") or "(ללא)" for r in rows)
-    by_flag = Counter(r.get("inside_flag") or "(ללא)" for r in rows)
+    from .i18n import t as _tt
+
+    no_label = _tt(lang, "stats.no_label")
+    by_status = Counter(r.get("station_desc") or no_label for r in rows)
+    by_flag = Counter(r.get("inside_flag") or no_label for r in rows)
     deposits = Counter(
         filter(
             None,
@@ -344,13 +393,16 @@ def stats_section(rows: list[dict]) -> str:
         filter(None, ((r.get("pl_date_8_approval") or "")[:4] for r in rows))
     )
     approvals_by_year = dict(sorted(approvals.items()))
-    flag_he = {"inside": "בתוך השטח", "partial": "חפיפה חלקית"}
-    return f"""<details id="stats"><summary>סטטיסטיקה</summary>
+    flag_labels = {
+        "inside": _tt(lang, "index.flag_inside"),
+        "partial": _tt(lang, "index.flag_partial"),
+    }
+    return f"""<details id="stats"><summary>{_e(_tt(lang, "stats.title"))}</summary>
 <div class="stats">
-<div><h3>לפי סטטוס</h3>{_bars(dict(by_status))}</div>
-<div><h3>בתוך השטח / חפיפה חלקית</h3>{_bars(dict(by_flag), flag_he)}</div>
-<div><h3>הפקדות לפי חודש (24 אחרונים)</h3>{_bars(deposits_by_month)}</div>
-<div><h3>אישורים לפי שנה</h3>{_bars(approvals_by_year)}</div>
+<div><h3>{_e(_tt(lang, "stats.by_status"))}</h3>{_bars(dict(by_status), lang=lang)}</div>
+<div><h3>{_e(_tt(lang, "stats.by_flag"))}</h3>{_bars(dict(by_flag), flag_labels, lang=lang)}</div>
+<div><h3>{_e(_tt(lang, "stats.deposits"))}</h3>{_bars(deposits_by_month, lang=lang)}</div>
+<div><h3>{_e(_tt(lang, "stats.approvals"))}</h3>{_bars(approvals_by_year, lang=lang)}</div>
 </div></details>"""
 
 
@@ -897,9 +949,17 @@ def render_index(
     permits_file: str | None = None,
     permits_default_file: str | None = None,
     evidence_tiks: frozenset = frozenset(),
+    lang: str = "he",
 ) -> str:
     reviews = reviews or {}
+    from . import i18n as _i18n
     from . import mapview
+
+    _meta = _i18n.meta(lang)
+    pre = _i18n.asset_prefix(lang)
+
+    def _t(key: str, **fmt) -> str:
+        return _i18n.t(lang, key, **fmt)
 
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
@@ -924,12 +984,12 @@ def render_index(
 
     def review_cell(r):
         url = reviews.get(r["pl_number"])
-        source = _community_source_link(r["pl_number"])
+        source = _community_source_link(r["pl_number"], lang, pre)
         if not url:
             return source or "—"
         return (
-            f"<a class='ai-review' href='{_e(url)}' "
-            f"title='סיכום נקודות לדיון שהופק באמצעות AI - אינו מסמך רשמי'>סקירה</a>"
+            f"<a class='ai-review' href='{pre}{_e(url)}' "
+            f'title="{_e(_t("index.review_link_title"))}">{_e(_t("index.review_link_text"))}</a>'
         ) + source
 
     def tr(r):
@@ -958,7 +1018,7 @@ def render_index(
         with open(rows_file, "w", encoding="utf-8") as fh:
             fh.write("\n".join(tr(r) for r in rows))
     body = "\n".join(tr(r) for r in rows[:COLLAPSE_TOP])
-    stats_html = stats_section(rows)
+    stats_html = stats_section(rows, lang)
     # Urgent = derived objection deadline within [0, URGENT_DAYS] of the
     # generation date; the browser recomputes the same window at page load
     # against "today" in Asia/Jerusalem, so the row stays current between
@@ -982,10 +1042,10 @@ def render_index(
     urgent_html = (
         "".join(
             f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
-            f"אחרון להתנגדות (משוער): {_e(_fmt(r.get('objection_deadline_derived_2m_from_publication')))}</li>"
+            f"{_e(_t('index.urgent_deadline'))} {_e(_fmt(r.get('objection_deadline_derived_2m_from_publication')))}</li>"
             for r in urgent
         )
-        or "<li>אין</li>"
+        or f"<li>{_e(_t('index.none'))}</li>"
     )
     changes_html = (
         "".join(
@@ -998,74 +1058,74 @@ def render_index(
             + "</li>"
             for c in changes
         )
-        or "<li>אין שינויים מהסריקה הקודמת</li>"
+        or f"<li>{_e(_t('index.no_changes'))}</li>"
     )
     status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
     legend = (
-        '<div class="legend plan-legend"><b>מקרא סטטוסים:</b> '
+        f'<div class="legend plan-legend"><b>{_e(_t("index.legend_label"))}</b> '
         + " ".join(chip(s) for s in statuses)
         + "</div>"
     )
     return f"""<!DOCTYPE html>
-<html dir="rtl" lang="he"><head><meta charset="utf-8">
+<html dir="{_meta["dir"]}" lang="{_meta["lang"]}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>תכניות במינהל הקהילתי {_e(council_name)}</title>
-<link rel="alternate" type="application/atom+xml" href="feed.xml">
+<title>{_e(_t("index.html_title", council=council_name))}</title>
+<link rel="alternate" type="application/atom+xml" href="{pre}feed.xml">
 {_social_meta(council_name, base_url, preview_image)}
-<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="favicon.ico?v=20261022">
-<link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=20261022">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=20261022">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=20261022">
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="{pre}apple-touch-icon.png?v=20261022">
 <meta name="theme-color" content="#101f5b">
-<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="plan-map.css">{_ANALYTICS_SNIPPET}</head><body>
-<h1>תכניות תכנון ובנייה בשטח המינהל הקהילתי {_e(council_name)}</h1>
-<p>עודכן: {_e(generated)}. מקור: שירות התכנון הציבורי (iplan) - נתונים משוערים, לצורכי מידע בלבד.</p>
-<p><a class="cta-email" href="email.html">&#9993; קבלת מייל על תוכנית (עם אפשרות להרשמה לעדכונים)</a></p>
-<p><b>סדר ברירת המחדל:</b> לפי "אחרון להתנגדות" (משוער) - התאריך הרחוק ביותר למעלה;
-תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.
-מוצגות {COLLAPSE_TOP} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.
-תכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו "הצג תכניות מאושרות" כדי לראותן.</p>
-<p>עמודת "אחרון להתנגדות" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים) - לבדיקה מול המו"ת.</p>
-<p>עמודת "סקירת AI" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו"ת.</p>
+<link rel="stylesheet" href="{pre}style.css"><link rel="stylesheet" href="{pre}plan-map.css">{_ANALYTICS_SNIPPET}</head><body>
+{_i18n.js_snippet(lang, mapview.MAP_JS_KEYS + _FL_JS_KEYS)}
+{_i18n.switcher(lang, "index.html")}
+<h1>{_e(_t("index.h1", council=council_name))}</h1>
+<p>{_e(_t("index.updated", generated=generated))}</p>
+{_i18n.draft_note(lang)}
+<p><a class="cta-email" href="{pre}{_i18n.page_path(lang, "email.html")}">&#9993; {_e(_t("index.email_cta"))}</a></p>
+<p>{_t("index.default_order_html", top=COLLAPSE_TOP, n_approved=n_approved)}</p>
+<p>{_t("index.obj_column_note_html")}</p>
+<p>{_t("index.review_note_html")}</p>
 {legend}
 <div id="filters">
-<input id="fq" type="search" placeholder="חיפוש מספר / שם; או עם |" title="לחיפוש חלופות הפרידו עם |, למשל: פלמח 41 | פלמח 49. פסיק נשאר תו רגיל. החיפוש מתעלם מגרש ומרכאות (׳ ״ ' &quot; ’), ממקפים, מניקוד ומרווחים כפולים">
-<select id="fstatus"><option value="">כל הסטטוסים</option>{status_opts}</select>
-<select id="fflag"><option value="">בתוך + חלקי</option><option value="inside">בתוך השטח</option><option value="partial">חפיפה חלקית</option></select>
-<label><input type="checkbox" id="fobj"> חלון התנגדות פתוח (משוער)</label>
-<label><input type="checkbox" id="fappr"> הצג תכניות מאושרות ({n_approved})</label>
-<label>מתאריך <input type="date" id="ffrom"></label>
-<label>עד <input type="date" id="fto"></label>
-<button id="freset" type="button">נקה סינון</button>
-<button id="copy-plan-link" type="button">העתק קישור לסינון</button>
+<input id="fq" type="search" placeholder="{_e(_t("index.search_placeholder"))}" title="{_e(_t("index.search_title"))}">
+<select id="fstatus"><option value="">{_e(_t("index.all_statuses"))}</option>{status_opts}</select>
+<select id="fflag"><option value="">{_e(_t("index.flag_all"))}</option><option value="inside">{_e(_t("index.flag_inside"))}</option><option value="partial">{_e(_t("index.flag_partial"))}</option></select>
+<label><input type="checkbox" id="fobj"> {_e(_t("index.open_obj_label"))}</label>
+<label><input type="checkbox" id="fappr"> {_e(_t("index.show_approved", n=n_approved))}</label>
+<label>{_e(_t("index.from_date"))} <input type="date" id="ffrom"></label>
+<label>{_e(_t("index.to_date"))} <input type="date" id="fto"></label>
+<button id="freset" type="button">{_e(_t("index.reset"))}</button>
+<button id="copy-plan-link" type="button">{_e(_t("index.copy_link"))}</button>
 <span id="fcount"></span>
 </div>
-<table id="plans"><thead><tr><th><button type="button" data-sort="num">מספר תכנית</button></th>
-<th><button type="button" data-sort="name">שם</button></th>
-<th><button type="button" data-sort="status">סטטוס</button></th>
-<th><button type="button" data-sort="recv">קליטה</button></th>
-<th><button type="button" data-sort="dep">הפקדה</button></th>
-<th><button type="button" data-sort="obj">אחרון להתנגדות (משוער)</button></th>
-<th><button type="button" data-sort="area">שטח (דונם)</button></th>
-<th title="סיכום שהופק באמצעות AI - אינו מסמך רשמי">סקירת AI</th></tr></thead>
+<table id="plans"><thead><tr><th><button type="button" data-sort="num">{_e(_t("index.col_num"))}</button></th>
+<th><button type="button" data-sort="name">{_e(_t("index.col_name"))}</button></th>
+<th><button type="button" data-sort="status">{_e(_t("index.col_status"))}</button></th>
+<th><button type="button" data-sort="recv">{_e(_t("index.col_recv"))}</button></th>
+<th><button type="button" data-sort="dep">{_e(_t("index.col_dep"))}</button></th>
+<th><button type="button" data-sort="obj">{_e(_t("index.col_obj"))}</button></th>
+<th><button type="button" data-sort="area">{_e(_t("index.col_area"))}</button></th>
+<th title="{_e(_t("index.col_review_title"))}">{_e(_t("index.col_review"))}</th></tr></thead>
 <tbody>{body}</tbody></table>
-<noscript><p>מוצגות {COLLAPSE_TOP} התכניות המובילות בלבד - להצגת כל התכניות ולהשתמש בסינון יש להפעיל JavaScript.</p></noscript>
-<button id="more" type="button">הצג את כל {len(rows)} התכניות</button>
+<noscript><p>{_e(_t("index.noscript", top=COLLAPSE_TOP))}</p></noscript>
+<button id="more" type="button">{_e(_t("index.show_all", n=len(rows)))}</button>
 {_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks)}
-{mapview.PANEL}
-<h2>דחוף להתנגדות</h2><ul id="urgent-list">{urgent_html}</ul>
-<h2>שינויים אחרונים</h2><ul id="changes-list">{changes_html}</ul>
+{mapview.panel(lang, pre)}
+<h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
+<h2>{_e(_t("index.changes_h"))}</h2><ul id="changes-list">{changes_html}</ul>
 {stats_html}
-<footer dir="rtl"><p>
-אתר נתונים אוטומטי של ועדת גינות העיר. קוד מקור ונתונים:
+<footer dir="{_meta["dir"]}"><p>
+{_e(_t("index.footer_html"))}
 <a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>
-&middot; <a href="about.html">אודות ומקורות נתונים</a>
-&middot; <a href="email.html">קבלת מייל על תוכנית</a>
-&middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">איך לתרום</a>
-</p><p class="site-version">גרסה <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
-<script src="filter-links.js"></script>
-<script>{_JS}{_PERMITS_JS}{_STATS_JS}</script>
+&middot; <a href="{pre}{_i18n.page_path(lang, "about.html")}">{_e(_t("index.footer_about"))}</a>
+&middot; <a href="{pre}{_i18n.page_path(lang, "email.html")}">{_e(_t("index.footer_email"))}</a>
+&middot; <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">{_e(_t("index.footer_contrib"))}</a>
+</p><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
+<script src="{pre}filter-links.js"></script>
+<script>{_js(lang, pre)}{_PERMITS_JS}{_STATS_JS}</script>
 <script>// Strip free-text search params from the URL before the analytics beacon
 // executes (deferred), so search text never leaves the browser in the ping (#821).
 (function(){{try{{var u=new URL(location.href),dirty=false;
@@ -1164,6 +1224,11 @@ function reportPermits(){
 """.replace("{_NORM_SEARCH_JS}", _NORM_SEARCH_JS)
 
 
+# Strings the static filter-links.js needs (like mapview.MAP_JS_KEYS; the file
+# keeps its Hebrew literals as fallback for pages without window.GINOT_I18N).
+_FL_JS_KEYS = ["fl.aria", "fl.not_copied", "fl.copied"]
+
+
 # Section: Site output orchestration
 
 
@@ -1241,23 +1306,31 @@ def render_site(
     )
     with open(f"{out_dir}/style.css", "w", encoding="utf-8") as fh:
         fh.write(_CSS)
-    with open(f"{out_dir}/index.html", "w", encoding="utf-8") as fh:
-        fh.write(
-            render_index(
-                rows,
-                changes,
-                generated,
-                council_name,
-                permits,
-                base_url=base_url,
-                preview_image=has_img,
-                reviews=reviews,
-                rows_file=f"{out_dir}/rows.html",
-                permits_file=f"{out_dir}/permits.html",
-                permits_default_file=f"{out_dir}/permits-default.html",
-                evidence_tiks=publication_evidence_tiks(publications_path),
+    from . import i18n
+
+    evidence_tiks = publication_evidence_tiks(publications_path)
+    for code in i18n.lang_codes():  # languages come from i18n/strings.json
+        index_path = f"{out_dir}/{i18n.page_path(code, 'index.html')}"
+        lang_dir = os.path.dirname(index_path)
+        os.makedirs(lang_dir, exist_ok=True)
+        with open(index_path, "w", encoding="utf-8") as fh:
+            fh.write(
+                render_index(
+                    rows,
+                    changes,
+                    generated,
+                    council_name,
+                    permits,
+                    base_url=base_url,
+                    preview_image=has_img,
+                    reviews=reviews,
+                    rows_file=f"{lang_dir}/rows.html",
+                    permits_file=f"{lang_dir}/permits.html",
+                    permits_default_file=f"{lang_dir}/permits-default.html",
+                    evidence_tiks=evidence_tiks,
+                    lang=code,
+                )
             )
-        )
     if permits_path:
         # Rewrite every run, even with zero requests (#530): an empty list is
         # the correct state, and skipping the write would leave the previous
