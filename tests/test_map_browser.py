@@ -589,27 +589,25 @@ def test_map_statuses_have_distinct_shapes_and_legend_matches(page):
     # Status reads by shape as well as color (WCAG 1.4.1, #971): process and
     # approved share near-identical dark greens, so color alone failed.
     # Free-text "200-1" leaves exactly rows 200-1 and 200-10..200-19 visible
-    # (same filter the lazy-loading test relies on), so these three plans are
+    # (same filter the lazy-loading test relies on), so these seven plans are
     # guaranteed drawable as points.
+    stations = [
+        ("200-1", "הפקדה להתנגדויות", "sh-circle", "circle"),
+        ("200-10", "בדיקה", "sh-diamond", "rect"),
+        ("200-11", "תנאים", "sh-triangle", "polygon"),
+        ("200-12", "הכרעה", "sh-plus", "path"),
+        ("200-13", "בהליך", "sh-hexagon", "polygon"),
+        ("200-14", "אישור", "sh-star", "polygon"),
+        ("200-15", "אחר", "sh-outline", "circle"),
+    ]
     points = [
         {
-            "pl_number": "200-1",
-            "pl_name": "Shape A",
-            "station_desc": "הפקדה להתנגדויות",
-            "representative_point": [35.213, 31.768],
-        },
-        {
-            "pl_number": "200-10",
-            "pl_name": "Shape B",
-            "station_desc": "בדיקה",
-            "representative_point": [35.2131, 31.768],
-        },
-        {
-            "pl_number": "200-11",
-            "pl_name": "Shape C",
-            "station_desc": "אישור",
-            "representative_point": [35.2132, 31.768],
-        },
+            "pl_number": num,
+            "pl_name": f"Shape {num}",
+            "station_desc": station,
+            "representative_point": [35.213 + i * 0.0001, 31.768],
+        }
+        for i, (num, station, _cls, _tag) in enumerate(stations)
     ]
     page.fill("#fq", "200-1")
     page.route(
@@ -622,13 +620,23 @@ def test_map_statuses_have_distinct_shapes_and_legend_matches(page):
         lambda route: route.fulfill(status=503, body="unavailable"),
     )
     page.locator("#plan-map-panel summary").click()
-    page.wait_for_function("document.querySelectorAll('.plan-marker').length===3")
-    shapes = page.locator(".plan-marker span").evaluate_all(
-        "els=>els.map(e=>Array.from(e.classList).find(c=>c.startsWith('sh-')))"
-    )
-    assert set(shapes) == {"sh-circle", "sh-diamond", "sh-pentagon"}
+    page.wait_for_function("document.querySelectorAll('.plan-marker').length===7")
+    # Rendered check per category, not class names only: the marker's SVG
+    # carries the shape class AND a real shape element with a visible stroke.
+    for _num, _station, cls, tag in stations:
+        svg = page.locator(f".plan-marker svg.{cls}")
+        assert svg.count() == 1, cls
+        shape = svg.locator(tag).first
+        assert shape.count() >= 1, (cls, tag)
+        assert shape.evaluate("e=>getComputedStyle(e).strokeWidth") != "0px"
+    # The dashed 'other' ring is transparent with a colored dashed stroke.
+    other = page.locator(".plan-marker svg.sh-outline circle").first
+    assert other.get_attribute("stroke-dasharray")
+    # The legend swatches reuse the same marker shapes, one per status.
     page.locator("#map-legend-toggle").click()
-    swatches = page.locator("#map-legend .map-swatch").evaluate_all(
+    swatches = page.locator("#map-legend .map-swatch svg").evaluate_all(
         "els=>els.map(e=>Array.from(e.classList).find(c=>c.startsWith('sh-')))"
     )
-    assert set(swatches) == {"sh-circle", "sh-diamond", "sh-pentagon"}
+    assert set(swatches) == {cls for _n, _s, cls, _t in stations}
+    # The legend tells the reader status is encoded by color AND shape.
+    assert "הצורה" in page.locator("#map-legend").inner_text()
