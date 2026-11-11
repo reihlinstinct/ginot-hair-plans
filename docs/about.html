@@ -10,9 +10,25 @@
 <link rel="stylesheet" href="style.css">
 <!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
 <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
+<nav class="lang-switch" aria-label="שפה"><label for="lang-select">שפה</label> <select id="lang-select" autocomplete="off" data-current="about.html"><option value="about.html" lang="he" title="עברית" selected>HE</option><option value="en/about.html" lang="en" title="English">EN</option><option value="ar/about.html" lang="ar" title="العربية">AR</option><option value="ru/about.html" lang="ru" title="Русский">RU</option><option value="am/about.html" lang="am" title="አማርኛ">AM</option><option value="fr/about.html" lang="fr" title="Français">FR</option></select><noscript> <a href="about.html" hreflang="he" lang="he">עברית</a> &middot; <a href="en/about.html" hreflang="en" lang="en">English</a> &middot; <a href="ar/about.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="ru/about.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="am/about.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="fr/about.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var cur=s.getAttribute('data-current'),pending=null,mouse=false;
+function go(v){if(v&&v!==cur){location.href=v;}}
+function reset(){s.value=cur;pending=null;}
+reset();
+window.addEventListener('pageshow',reset);
+s.addEventListener('pointerdown',function(){mouse=true;});
+s.addEventListener('keydown',function(e){
+mouse=false;
+if(e.key==='Enter'){go(pending||s.value);}
+else if(e.key==='Escape'){reset();}});
+s.addEventListener('change',function(){
+if(mouse||document.activeElement!==s){go(s.value);}else{pending=s.value;}mouse=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
+})();</script></nav>
 <h1>אודות האתר</h1>
 <p>אתר זה מרכז מידע ציבורי על תכניות ובקשות היתר הרלוונטיים לשטחי ועדת
 <strong>גינות העיר</strong> בירושלים, ומתעדכן אוטומטית. עודכן: 2026-11-10.</p>
+
 <div class="ai-banner">האתר הוא <strong>יוזמה עצמאית של הוועד</strong> ואינו אתר רשמי של עיריית
 ירושלים, מנהל התכנון או רשות מקרקעי ישראל. המידע באתר הוא לנוחות בלבד,
 אינו תחליף למקורות הרשמיים ואינו ייעוץ משפטי. מועדי התנגדות המוצגים הם
@@ -35,7 +51,7 @@
 <tr><td><a href="badge/plans.json">badge/*.json</a></td><td>נקודות קצה לתגי shields.io (מספר תכניות, פירוט סטטוסים, תאריך עדכון)</td>
 <td>{schemaVersion, label, message, color}</td></tr>
 <tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
-<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&status=&q=&before=YYYY-MM-DD&limit=, /permits?street=&status=&type=&q=&limit=, /open, /status</td>
+<td>שכבת שאילתות לקריאה בלבד (Cloudflare Worker): /plans?open=1&amp;status=&amp;q=&amp;before=YYYY-MM-DD&amp;limit=, /permits?street=&amp;status=&amp;type=&amp;q=&amp;limit=, /open, /status</td>
 <td>JSON; מטמון קצה 5 דקות; הגבלת קצב 120 בקשות לדקה (best-effort)</td></tr>
 </tbody></table>
 <h2>פרטיות</h2>
@@ -48,7 +64,7 @@
 <p>סטטיסטיקת שימוש: האתר אוסף מונים מצטברים ואנונימיים על חיפושים ומסננים
 (אילו תכניות, רחובות ומסננים מחפשים). חיפוש נספר רק כשהוא תואם בדיוק לערך
 מהנתונים עצמם; טקסט חופשי לעולם אינו יוצא מהדפדפן. המונים פומביים ומוצגים
-בסעיף "סטטיסטיקת שימוש" בעמוד זה.</p>
+בסעיף &quot;סטטיסטיקת שימוש&quot; בעמוד זה.</p>
 <h2>סטטיסטיקת שימוש</h2>
 <p>מונים מצטברים ואנונימיים של חיפושים ומסננים באתר (30 יום אחרונים),
 ישירות ממוני השרת הציבוריים.</p>
@@ -57,7 +73,7 @@
 var el=document.getElementById('usage-stats');if(!el)return;
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
 fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){return r.json();}).then(function(d){
-  var NAMES={search:'חיפושי תכניות',permits_search:'חיפושי בקשות',filter:'מסנני תכניות',permits_filter:'מסנני בקשות'};
+  var NAMES={search:"חיפושי תכניות",permits_search:"חיפושי בקשות",filter:"מסנני תכניות",permits_filter:"מסנני בקשות"};
   var html='',any=false;
   Object.keys(NAMES).forEach(function(e){
     var m=(d.events||{})[e];if(!m)return;
@@ -69,7 +85,7 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
     }).join('');
     if(items){any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}
   });
-  el.innerHTML=any?html:'<p>אין עדיין נתונים.</p>';
+  el.innerHTML=any?html:'<p>'+"אין עדיין נתונים."+'</p>';
 }).catch(function(){el.textContent='';});
 })();</script>
 <h2>קוד ונתונים</h2>
@@ -86,10 +102,10 @@ fetch('index.json').then(function(r){if(!r.ok)throw new Error('http');return r.j
   ul.innerHTML=(ix.datasets||[]).map(function(d){
     return '<li><a href="'+String(d.url).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'">'+String(d.name).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</a>'+
       (d.records!=null?' - '+d.records+' רשומות':'')+'</li>';
-  }).join('')||'<li>אין</li>';
+  }).join('')||'<li>'+"אין"+'</li>';
 }).catch(function(){
   var ul=document.getElementById('datasets-list');
-  if(ul)ul.innerHTML='<li>רשימת מערכי הנתונים לא זמינה כרגע</li>';
+  if(ul)ul.innerHTML='<li>'+"רשימת מערכי הנתונים לא זמינה כרגע"+'</li>';
 });
 </script>
 </body></html>

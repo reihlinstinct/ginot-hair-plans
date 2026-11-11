@@ -1,4 +1,8 @@
 /* Versioned public filter links (#469). No filtering logic or HTML injection. */
+function S(key, fallback) {
+  var o = window.GINOT_I18N || {};
+  return o[key] || fallback;
+}
 (function () {
   'use strict';
   var params = new URLSearchParams(location.search), adapters = {}, recognized = {};
@@ -53,7 +57,7 @@
     if (!button) return;
     var fallback = document.createElement('input');
     fallback.type = 'text'; fallback.readOnly = true; fallback.hidden = true;
-    fallback.setAttribute('aria-label', 'קישור לסינון הנוכחי');
+    fallback.setAttribute('aria-label', S('fl.aria', 'קישור לסינון הנוכחי'));
     fallback.style.maxWidth = '100%';
     var status = document.createElement('span'); status.setAttribute('role', 'status');
     button.after(fallback, status);
@@ -61,12 +65,12 @@
       var link = build(); fallback.hidden = true; status.textContent = '';
       function failed() {
         fallback.value = link; fallback.hidden = false; fallback.focus(); fallback.select();
-        status.textContent = 'לא הועתק. אפשר לבחור ולהעתיק את הקישור המוצג.';
+        status.textContent = S('fl.not_copied', 'לא הועתק. אפשר לבחור ולהעתיק את הקישור המוצג.');
       }
       if (!navigator.clipboard || !navigator.clipboard.writeText) { failed(); return; }
       try {
         Promise.resolve(navigator.clipboard.writeText(link)).then(function () {
-          status.textContent = 'הקישור הועתק';
+          status.textContent = S('fl.copied', 'הקישור הועתק');
         }, failed);
       } catch (_) { failed(); }
     });

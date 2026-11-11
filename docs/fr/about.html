@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>À propos et sources des données - גינות העיר</title>
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="../favicon.ico?v=20261022">
+<link rel="icon" type="image/svg+xml" sizes="any" href="../favicon.svg?v=20261022">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png?v=20261022">
+<link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png?v=20261022">
+<meta name="theme-color" content="#101f5b">
+<link rel="stylesheet" href="../style.css">
+<!-- Cloudflare Web Analytics: anonymous, cookieless visit counter (issue #821) -->
+<script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ddb51e25c65545bea5cda52329983b4c"}'></script></head><body>
+<nav class="lang-switch" aria-label="Langue"><label for="lang-select">Langue</label> <select id="lang-select" autocomplete="off" data-current="../fr/about.html"><option value="../about.html" lang="he" title="עברית">HE</option><option value="../en/about.html" lang="en" title="English">EN</option><option value="../ar/about.html" lang="ar" title="العربية">AR</option><option value="../ru/about.html" lang="ru" title="Русский">RU</option><option value="../am/about.html" lang="am" title="አማርኛ">AM</option><option value="../fr/about.html" lang="fr" title="Français" selected>FR</option></select><noscript> <a href="../about.html" hreflang="he" lang="he">עברית</a> &middot; <a href="../en/about.html" hreflang="en" lang="en">English</a> &middot; <a href="../ar/about.html" hreflang="ar" lang="ar">العربية</a> &middot; <a href="../ru/about.html" hreflang="ru" lang="ru">Русский</a> &middot; <a href="../am/about.html" hreflang="am" lang="am">አማርኛ</a> &middot; <a href="../fr/about.html" hreflang="fr" lang="fr">Français</a></noscript><script>(function(){var s=document.getElementById('lang-select');
+if(!s)return;var cur=s.getAttribute('data-current'),pending=null,mouse=false;
+function go(v){if(v&&v!==cur){location.href=v;}}
+function reset(){s.value=cur;pending=null;}
+reset();
+window.addEventListener('pageshow',reset);
+s.addEventListener('pointerdown',function(){mouse=true;});
+s.addEventListener('keydown',function(e){
+mouse=false;
+if(e.key==='Enter'){go(pending||s.value);}
+else if(e.key==='Escape'){reset();}});
+s.addEventListener('change',function(){
+if(mouse||document.activeElement!==s){go(s.value);}else{pending=s.value;}mouse=false;});
+s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
+})();</script></nav>
+<h1>À propos du site</h1>
+<p>Ce site rassemble les informations publiques sur les plans et demandes de permis concernant le secteur du comité
+<strong>גינות העיר</strong> à Jérusalem, et se met à jour automatiquement. Mis à jour : 2026-11-10.</p>
+<p class="draft-note" lang="fr">Traduction automatique provisoire, pas encore relue par un locuteur natif.</p>
+<div class="ai-banner">Le site est <strong>une initiative indépendante du comité</strong> et n'est pas un site officiel de la municipalité de
+Jérusalem, de l'administration de planification ou de l'autorité foncière d'Israël. Les informations sont fournies pour commodité,
+ne remplacent pas les sources officielles et ne constituent pas un avis juridique. Les dates limites d'objection affichées sont
+des estimations - la date obligatoire est fixée par les avis de dépôt officiels.</div>
+<h2>Sources des données</h2>
+<table id="plans"><thead><tr><th>Jeu de données</th><th>Source</th><th>Ce qui est collecté</th><th>Fréquence de mise à jour</th><th>Liens</th></tr></thead>
+<tbody><tr><td>Plans du secteur</td><td>Le service public de planification (iplan), administration de planification</td><td>Numéro et nom du plan, statut, dates de réception et dépôt, superficie ; dernière date d&#x27;objection calculée (estimation)</td><td>Rafraîchissement hebdomadaire (mardi) et rafraîchissements manuels</td><td><a href="../data.json">data.json</a></td></tr><tr><td>Publications de dépôt</td><td>land.gov.il - Autorité foncière d&#x27;Israël</td><td>Dates de publication des dépôts dans la presse et au journal officiel pour chaque plan</td><td>Rafraîchissement hebdomadaire</td><td><a href="https://land.gov.il">land.gov.il</a></td></tr><tr><td>Demandes de permis</td><td>Système de données des licences, municipalité de Jérusalem</td><td>Numéro de demande, adresse, nature, type, statut, dates de statut et publication, bloc et parcelle</td><td>Scans de parcelles par lots nocturnes (premières étapes de finalisation) et enrichissement des statuts</td><td><a href="https://ykpubdata.jerusalem.muni.il/">Système de données des licences</a></td></tr><tr><td>Documents des plans et revues IA</td><td>Mavat - le système de données sur la construction et les plans</td><td>Documents d&#x27;instructions, plans et avis ; résumés de points de discussion produits par IA (étiquetés, pas un document officiel)</td><td>Selon les besoins, pour des plans sélectionnés</td><td><a href="https://mavat.iplan.gov.il/">Mavat</a></td></tr><tr><td>Limite du conseil</td><td>Un fichier de limite géographique dans le dépôt</td><td>Polygone du secteur du conseil de quartier (geojson)</td><td>Mise à jour manuelle lors d&#x27;un changement de limite</td><td><a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">Le répertoire data</a></td></tr></tbody></table>
+<h2>Jeux de données</h2>
+<ul id="datasets-list"><li>Chargement de la liste...</li></ul>
+<h2>Accès aux données (API)</h2>
+<p>Les données sont disponibles sous forme de fichiers statiques (JSON / Atom) en libre usage, avec CORS ouvert.
+Il n&#x27;y a pas de requêtes côté serveur - le filtrage se fait côté client. Tous les fichiers sont mis à jour à chaque rafraîchissement
+du site (un rafraîchissement hebdomadaire et des rafraîchissements manuels).</p>
+<table id="plans"><thead><tr><th>Fichier</th><th>Contenu</th><th>Structure</th></tr></thead><tbody>
+<tr><td><a href="../data.json">data.json</a></td><td>Le jeu de données complet : plans, changements récents et demandes de permis</td>
+<td>{generated, rows[], changes[], permits[]} - Noms des champs tels que reçus d&#x27;iplan / du système de données des licences</td></tr>
+<tr><td><a href="../open.json">open.json</a></td><td>Plans ouverts uniquement (encore en cours de planification)</td>
+<td>{generated, definition, count, plans[]} - Chaque enregistrement inclut in_objection_period (fenêtre d&#x27;objection ouverte aujourd&#x27;hui)</td></tr>
+<tr><td><a href="../feed.xml">feed.xml</a></td><td>Flux Atom des nouveaux plans et changements</td><td>Atom 1.0</td></tr>
+<tr><td><a href="../badge/plans.json">badge/*.json</a></td><td>Points d&#x27;accès pour les badges shields.io (nombre de plans, répartition des statuts, date de mise à jour)</td>
+<td>{schemaVersion, label, message, color}</td></tr>
+<tr><td><a href="https://ginot-hair-api.reihlinstinct.workers.dev">ginot-hair-api.reihlinstinct.workers.dev</a></td>
+<td>Une couche de requêtes en lecture seule (Cloudflare Worker) : /plans?open=1&amp;status=&amp;q=&amp;before=YYYY-MM-DD&amp;limit=, /permits?street=&amp;status=&amp;type=&amp;q=&amp;limit=, /open, /status</td>
+<td>JSON ; cache de périphérie de 5 minutes ; limite de 120 requêtes par minute (best-effort)</td></tr>
+</tbody></table>
+<h2>Confidentialité</h2>
+<p>Le site n&#x27;affiche que des données issues de sources publiques. Les champs identifiant des parties privées
+(par exemple les demandeurs dans les demandes de permis) sont supprimés dans le pipeline de traitement et ne sont pas affichés ici,
+bien qu&#x27;ils soient visibles à la source.</p>
+<p>Comptage des visites : le site utilise Cloudflare Web Analytics pour mesurer uniquement le nombre de visites,
+sans cookies, sans stockage d&#x27;adresses IP et sans suivi personnel. Le texte de recherche libre n&#x27;est pas
+envoyé : il est retiré de l&#x27;adresse de la page avant l&#x27;envoi de la mesure.</p>
+<p>Statistiques d&#x27;usage : le site collecte des compteurs agrégés et anonymes sur les recherches et filtres
+(quels plans, rues et filtres les gens recherchent). Une recherche n&#x27;est comptée que lorsqu&#x27;elle correspond exactement à une valeur
+des données elles-mêmes ; le texte libre ne quitte jamais le navigateur. Les compteurs sont publics et affichés
+dans la section « Statistiques d&#x27;usage » de cette page.</p>
+<h2>Statistiques d&#x27;usage</h2>
+<p>Compteurs agrégés et anonymes des recherches et filtres du site (30 derniers jours),
+directement issus des compteurs publics du serveur.</p>
+<div id="usage-stats">Chargement…</div>
+<script>(function(){
+var el=document.getElementById('usage-stats');if(!el)return;
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){return r.json();}).then(function(d){
+  var NAMES={search:"Recherches de plans",permits_search:"Recherches de demandes",filter:"Filtres de plans",permits_filter:"Filtres de demandes"};
+  var html='',any=false;
+  Object.keys(NAMES).forEach(function(e){
+    var m=(d.events||{})[e];if(!m)return;
+    var keys=Object.keys(m).slice(0,10);if(!keys.length)return;
+    var items=keys.map(function(k){
+      // Defense in depth: render counts only as plain integers.
+      var n=parseInt(m[k],10);
+      return isFinite(n)&&n>=0?'<li>'+esc(k)+': '+n+'</li>':'';
+    }).join('');
+    if(items){any=true;html+='<h3>'+NAMES[e]+'</h3><ul>'+items+'</ul>';}
+  });
+  el.innerHTML=any?html:'<p>'+"Pas encore de données."+'</p>';
+}).catch(function(){el.textContent='';});
+})();</script>
+<h2>Code et données</h2>
+<p>Le code du site et les données traitées sont ouverts :
+<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>.
+Envie d&#x27;aider ? <a href="https://github.com/reihlinstinct/ginot-hair-plans/blob/main/CONTRIBUTING.md">Comment contribuer</a>.</p>
+<p><a href="../fr/index.html">Retour à la page principale (en hébreu)</a></p>
+<footer dir="ltr"><p>
+Site de données automatisé du comité גינות העיר - non officiel.
+</p><p class="site-version">Version <span dir="ltr">0.2.1</span> · Version 0.2.1</p></footer>
+<script>
+fetch('../index.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(ix){
+  var ul=document.getElementById('datasets-list');if(!ul)return;
+  ul.innerHTML=(ix.datasets||[]).map(function(d){
+    return '<li><a href="'+String(d.url).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'">'+String(d.name).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</a>'+
+      (d.records!=null?' - '+d.records+' רשומות':'')+'</li>';
+  }).join('')||'<li>'+"Aucun"+'</li>';
+}).catch(function(){
+  var ul=document.getElementById('datasets-list');
+  if(ul)ul.innerHTML='<li>'+"La liste des jeux de données est indisponible pour le moment"+'</li>';
+});
+</script>
+</body></html>
