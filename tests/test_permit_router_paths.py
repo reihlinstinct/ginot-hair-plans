@@ -220,3 +220,66 @@ def test_index_html_allowance_does_not_allow_other_html(path):
     p["changed_files"] += 1
     with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
         decide(p, w)
+
+
+# Section: per-language permit fragments (#942 follow-up; Tab review on #970)
+
+
+def _non_default_langs():
+    sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+    from ginot import i18n
+
+    return [c for c in i18n.lang_codes() if c != i18n.default_lang()]
+
+
+def test_every_language_permit_fragment_is_allowed():
+    langs = _non_default_langs()
+    assert langs, "expected at least one non-default language in the document"
+    staged = DATA_FILES[:-1] + [
+        f"docs/{code}/{name}"
+        for code in langs
+        for name in ("permits.html", "permits-default.html")
+    ]
+    p, w = pr(), World()
+    w.files = files(staged)
+    p["changed_files"] = len(staged)
+    assert decide(p, w) == ("route-scan-audit", "verified")
+
+
+@pytest.mark.parametrize(
+    "path",
+    [
+        "docs/he/permits.html",  # default language lives at the root
+        "docs/he/permits-default.html",
+        "docs/reviews/permits.html",
+        "docs/vendor/permits.html",
+        "docs/badge/permits-default.html",
+        "docs/.well-known/permits.html",
+        "docs/zz/permits.html",
+        "docs/FR/permits.html",  # codes are case-sensitive
+        "docs/en/a/permits.html",  # nested
+        "docs/en/permit.html",  # wrong filename
+        "docs/en/permits.htmlx",
+        "docs/en/permits-default.htm",
+    ],
+)
+def test_non_language_permit_fragment_paths_stop(path):
+    p, w = pr(), World()
+    w.files.append({"filename": path, "status": "modified"})
+    p["changed_files"] += 1
+    with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
+        decide(p, w)
+
+
+def test_rename_from_code_into_language_fragment_stops():
+    p, w = pr(), World()
+    w.files.append(
+        {
+            "filename": "docs/en/permits.html",
+            "status": "renamed",
+            "previous_filename": "scripts/ci/permit_router.py",
+        }
+    )
+    p["changed_files"] += 1
+    with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
+        decide(p, w)

@@ -107,14 +107,34 @@ def main() -> int:
         )
     missing = set(permit_map["missing_location"])
     permits = [dict(p, _map_missing=p.get("tik_num") in missing) for p in permits]
+    evidence = publication_evidence_tiks(PUBLICATIONS)
     if not _permits_section(
         permits,
         rows_file=None if args.default_only else OUT,
         default_rows_file=DEFAULT_OUT,
-        evidence_tiks=publication_evidence_tiks(PUBLICATIONS),
+        evidence_tiks=evidence,
     ):
         print("permits section render produced no output")
         return 1
+    # Per-language fragments (i18n pages, #942): the daily publication and
+    # permit-feed refreshes change evidence dates, so every language's
+    # fragment must regenerate with the root one or docs-fresh goes stale.
+    from ginot import i18n
+
+    for code in i18n.lang_codes():
+        if code == i18n.default_lang():
+            continue
+        os.makedirs(f"docs/{code}", exist_ok=True)
+        if not _permits_section(
+            permits,
+            rows_file=None if args.default_only else f"docs/{code}/permits.html",
+            default_rows_file=f"docs/{code}/permits-default.html",
+            evidence_tiks=evidence,
+            lang=code,
+            pre=i18n.asset_prefix(code),
+        ):
+            print(f"permits section render produced no output for {code}")
+            return 1
     if args.default_only:
         print(f"rendered default permit subset into {DEFAULT_OUT}")
         return 0
