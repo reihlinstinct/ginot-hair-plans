@@ -21,6 +21,14 @@
     if(s.indexOf('אישור')!==-1)return 'approved';return 'other';
   }
   function color(row){return colors[category(row.station_desc||'')];}
+  /* Status also reads by shape (WCAG 1.4.1, #971): color alone split
+     process/approved into two near-identical dark greens. */
+  var shapes={deposit:'sh-circle',review:'sh-diamond',conditions:'sh-triangle',decision:'sh-square',process:'sh-hexagon',approved:'sh-pentagon',other:'sh-outline'};
+  function markerHtml(cat,colorValue){
+    var sh=shapes[cat];
+    var style=sh==='sh-outline'?'background:transparent;border-color:'+colorValue:'background:'+colorValue;
+    return '<span class="'+sh+'" style="'+style+'"></span>';
+  }
   function el(tag,text){var e=document.createElement(tag);if(text)e.textContent=text;return e;}
   function link(text,url){var a=el('a',text);a.href=url;a.target='_blank';a.rel='noopener';return a;}
   function asset(tag,attr,url){return new Promise(function(resolve,reject){var e=document.createElement(tag);e[attr]=url;e.onload=resolve;e.onerror=reject;if(tag==='link')e.rel='stylesheet';document.head.appendChild(e);});}
@@ -142,12 +150,12 @@
       try{var pr=await fetch(BASE+'permit-points.json');if(pr.ok){var pd=await pr.json();(pd.points||[]).forEach(function(r){var xy=r.representative_point;if(Array.isArray(xy)&&xy.length===2&&xy.every(Number.isFinite)&&Math.abs(xy[0])<=180&&Math.abs(xy[1])<=90)permitPositions.set(r.tik_num,xy);});}}catch(e){/* Missing positions stay explicit; no guessed geocodes. */}
       var states=new Set();data.points.forEach(function(row){var xy=row.representative_point;if(!Array.isArray(xy)||xy.length!==2||!xy.every(Number.isFinite))return;
         var s=row.station_desc||S('mapjs.status_unknown','סטטוס לא ידוע');states.add(s);
-        var icon=L.divIcon({className:'plan-marker',html:'<span style="background:'+color(row)+'"></span>',iconSize:[14,14],iconAnchor:[7,7]});
+        var icon=L.divIcon({className:'plan-marker',html:markerHtml(category(row.station_desc||''),color(row)),iconSize:[14,14],iconAnchor:[7,7]});
         var marker=L.marker([xy[1],xy[0]],{icon:icon,title:S('mapjs.plan_prefix','תכנית ')+row.pl_number+' '+row.pl_name+' - '+s,alt:S('mapjs.plan_prefix','תכנית ')+row.pl_number+' '+row.pl_name});marker.bindPopup(popup(row),{maxWidth:240});marker.on('popupopen',function(){if(!rows().some(function(r){return r.dataset.num===row.pl_number;}))map.closePopup();});items.push({marker:marker,row:row});
       });
       var legend=document.getElementById('map-legend');legend.replaceChildren(el('p',S('mapjs.legend_line','קו: גבול תכנית. נקודה: מיקום מייצג כשהגבול אינו זמין או בתצוגה רחבה. הצבע מסמן סטטוס, כמו בטבלה.')));
       legend.append(el('p',S('mapjs.legend_permits','ריבוע סגול: בקשות היתר באותה חלקה. נקודה פנימית בחלקה, לא כניסה.')));
-      Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');swatch.className='map-swatch';swatch.style.background=colors[category(s)];item.append(swatch,document.createTextNode(s));legend.append(item);});
+      Array.from(states).sort().forEach(function(s){var item=el('div'),swatch=el('span');var sc=shapes[category(s)];swatch.className='map-swatch '+sc;if(sc==='sh-outline'){swatch.style.background='transparent';swatch.style.borderColor=colors[category(s)];}else{swatch.style.background=colors[category(s)];}item.append(swatch,document.createTextNode(s));legend.append(item);});
       pointsDate=data.generated;syncFilter();map.on('zoomend',boundaries);
     }catch(e){status.textContent=S('mapjs.map_unavailable','לא ניתן לטעון את המפה כרגע. טבלת התכניות נשארת זמינה.');loading=false;}
   }

@@ -580,3 +580,55 @@ def test_permit_map_groups_shared_parcels_and_tracks_filters(page):
         "0 עם מיקום בחלקה (0 נקודות), 1 אין מיקום"
         in page.locator("#map-status").inner_text()
     )
+
+
+# Section: Status encoding on the map
+
+
+def test_map_statuses_have_distinct_shapes_and_legend_matches(page):
+    # Status reads by shape as well as color (WCAG 1.4.1, #971): process and
+    # approved share near-identical dark greens, so color alone failed.
+    # Free-text "200-1" leaves exactly rows 200-1 and 200-10..200-19 visible
+    # (same filter the lazy-loading test relies on), so these three plans are
+    # guaranteed drawable as points.
+    points = [
+        {
+            "pl_number": "200-1",
+            "pl_name": "Shape A",
+            "station_desc": "הפקדה להתנגדויות",
+            "representative_point": [35.213, 31.768],
+        },
+        {
+            "pl_number": "200-10",
+            "pl_name": "Shape B",
+            "station_desc": "בדיקה",
+            "representative_point": [35.2131, 31.768],
+        },
+        {
+            "pl_number": "200-11",
+            "pl_name": "Shape C",
+            "station_desc": "אישור",
+            "representative_point": [35.2132, 31.768],
+        },
+    ]
+    page.fill("#fq", "200-1")
+    page.route(
+        "**/plan-points.json",
+        lambda route: route.fulfill(json={"generated": "2026-10-22", "points": points}),
+    )
+    page.route("https://tile.openstreetmap.org/**", lambda route: route.abort())
+    page.route(
+        "https://ags.iplan.gov.il/**",
+        lambda route: route.fulfill(status=503, body="unavailable"),
+    )
+    page.locator("#plan-map-panel summary").click()
+    page.wait_for_function("document.querySelectorAll('.plan-marker').length===3")
+    shapes = page.locator(".plan-marker span").evaluate_all(
+        "els=>els.map(e=>Array.from(e.classList).find(c=>c.startsWith('sh-')))"
+    )
+    assert set(shapes) == {"sh-circle", "sh-diamond", "sh-pentagon"}
+    page.locator("#map-legend-toggle").click()
+    swatches = page.locator("#map-legend .map-swatch").evaluate_all(
+        "els=>els.map(e=>Array.from(e.classList).find(c=>c.startsWith('sh-')))"
+    )
+    assert set(swatches) == {"sh-circle", "sh-diamond", "sh-pentagon"}
