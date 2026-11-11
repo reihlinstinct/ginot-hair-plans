@@ -37,6 +37,7 @@ padding:10px;border:1px solid #dde4f6;border-radius:10px;background:#fff;box-sha
 #freset,#pfreset{padding:6px 12px}
 tr.filtered-out{display:none}
 .pub-missing{color:#8a6d00;font-size:.85em;font-style:italic}
+.pub-official{color:#1f6b3a;font-size:.85em;font-weight:600}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #51b89a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list li{margin:4px 0}

@@ -1862,6 +1862,14 @@
    "am": " የቅሬታ ጊዜ አይታወቅም - በከተማ ህትመት ያረጋግጡ",
    "fr": " Délai d'objection inconnu - vérifier la publication municipale"
   },
+  "permitsjs.official_deadline": {
+   "he": " מועד התנגדות: {date} (פרסום עירוני)",
+   "en": " Objection deadline: {date} (municipal publication)",
+   "ar": " الموعد النهائي للاعتراض: {date} (النشر البلدي)",
+   "ru": " Срок возражений: {date} (муниципальная публикация)",
+   "am": " የተቃውሞ ጊዜ መጨረሻ: {date} (የከተማ ሕትመት)",
+   "fr": " Date limite d'objection : {date} (publication municipale)"
+  },
   "permitsjs.pubcell_suffix": {
    "he": " (פרסום עירוני; קבוצת התצוגה נקבעת לפי הפרסום)",
    "en": " (municipal publication; display group set by the publication)",
