@@ -12,6 +12,7 @@
  "pl_date_advertise": "2023-08-11",
  "pl_date_8_approval": "2024-09-12",
  "objection_deadline_derived_60d_from_publication": "2023-10-10",
+ "objection_deadline_derived_2m_from_publication": "2023-10-11",
  "pl_area_dunam": 2.777,
  "intersection_dunam": 2.8,
  "inside_flag": "inside",

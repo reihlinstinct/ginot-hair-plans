@@ -12,12 +12,13 @@
  "pl_date_advertise": "",
  "pl_date_8_approval": "",
  "objection_deadline_derived_60d_from_publication": "",
+ "objection_deadline_derived_2m_from_publication": "",
  "pl_area_dunam": 13622.0,
  "intersection_dunam": 13.7,
  "inside_flag": "inside",
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005476758/310",
  "mp_id": 1005476758.0,
  "jurstiction_area_name": "ירושלים",
- "last_update_date": "2026-06-29",
+ "last_update_date": "2026-11-08",
  "advisory_urgent": false
 }

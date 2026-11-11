@@ -12,6 +12,7 @@
  "pl_date_advertise": "2015-09-18",
  "pl_date_8_approval": "2016-03-30",
  "objection_deadline_derived_60d_from_publication": "2015-11-17",
+ "objection_deadline_derived_2m_from_publication": "2015-11-18",
  "pl_area_dunam": 0.582,
  "intersection_dunam": 0.6,
  "inside_flag": "inside",
