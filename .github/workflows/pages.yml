@@ -1,11 +1,13 @@
 name: Pages build and deploy
 
-# Deploys the GitHub Pages site with a real build step (#959). The site is
-# re-rendered from committed inputs (scripts/ci/check_docs_fresh.py --write),
-# which also draws the og preview PNGs (src/ginot/preview.py), so image
-# binaries live only in the deployed artifact and stop churning git history.
-# Requires the repo Pages source set to "GitHub Actions"; until that settings
-# flip, branch deploys keep serving the committed docs/ as before.
+# Deploys the GitHub Pages site with a real build step (#959). The build job
+# re-renders the site from committed inputs (check_docs_fresh.py --write
+# --write-images), which draws the og preview PNGs from the committed data,
+# and the deploy job publishes the rendered docs/ with actions/deploy-pages.
+# Both jobs are gated to the main ref and to the PAGES_ACTIONS_DEPLOY repo
+# variable, so nothing deploys (and no red run appears) until the owner
+# flips the Pages source to GitHub Actions and sets that variable - both
+# owner decisions taken at merge time (#959).
 
 on:
   workflow_dispatch:
@@ -21,6 +23,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main' && vars.PAGES_ACTIONS_DEPLOY == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -31,17 +34,17 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements-pages.txt
       - run: pip install --require-hashes -r requirements-pages.txt
       - name: Render the site from committed inputs (writes docs/, incl. og PNGs)
-        run: python3 scripts/ci/check_docs_fresh.py --include-data-json --write
-      - name: Verify the render is fresh
-        run: python3 scripts/ci/check_docs_fresh.py --include-data-json
+        run: python3 scripts/ci/check_docs_fresh.py --include-data-json --write --write-images
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
           path: docs/
   deploy:
     needs: build
+    if: github.ref == 'refs/heads/main' && vars.PAGES_ACTIONS_DEPLOY == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     permissions:
@@ -51,5 +54,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - if: github.ref == 'refs/heads/main' && vars.PAGES_ACTIONS_DEPLOY == 'true'
+        id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

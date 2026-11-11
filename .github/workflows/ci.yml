@@ -251,11 +251,15 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           cache: pip
-          cache-dependency-path: requirements.txt
+          cache-dependency-path: |
+            requirements.txt
+            requirements-pages.txt
       - name: Install the app environment
         run: |
           python3 -m venv /tmp/appenv
           /tmp/appenv/bin/pip install -r requirements.txt ruff=="$RUFF_VERSION" pytest-cov=="$PYTEST_COV_VERSION"
+          # The Pages build's locked deploy deps are in the same trust boundary (#959).
+          /tmp/appenv/bin/pip install --require-hashes -r requirements-pages.txt
       - run: pip install pip-audit==2.10.1
       - name: Audit the installed dependency versions
         # Freeze keeps the auditor's own dependency tree out of scope.

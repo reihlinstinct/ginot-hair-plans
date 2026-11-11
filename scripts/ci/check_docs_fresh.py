@@ -31,6 +31,11 @@ Regenerate the site from the committed inputs (same pinned clock):
 
     python scripts/ci/check_docs_fresh.py --write
 
+--write-images (with --write) also copies the rendered og PNGs (og.png,
+reviews/og_*.png) into docs/ and drops a review og PNG whose review page no
+longer renders. The Pages deploy build uses it (#959); the CI freshness gate
+stays PNG-blind because the images depend on font versions.
+
 Exit codes: 0 fresh, 1 stale (or a rendered file is missing from docs/),
 2 the check itself could not run: a missing or unreadable input, a missing
 or invalid date stamp, or any unexpected error while rendering or comparing.
@@ -75,10 +80,15 @@ class CheckError(Exception):
 
 
 def check(
-    docs: Path, write: bool = False, include_data_json: bool = False
+    docs: Path,
+    write: bool = False,
+    include_data_json: bool = False,
+    write_images: bool = False,
 ) -> list[str]:
     """Return problems (empty when docs/ is fresh). With write=True,
-    copy the regenerated files over docs/ instead."""
+    copy the regenerated files over docs/ instead. write_images=True (only
+    with write) also copies the rendered og PNGs into docs/ and removes a
+    review og PNG whose review page no longer renders."""
     base_date = stamp_date(docs / "index.html")
     if not base_date:
         raise CheckError(f"no generated date stamp in {docs / 'index.html'}")
@@ -124,7 +134,29 @@ def check(
                 problems.append(
                     f"{name}: no longer rendered (orphan; --write removes it)"
                 )
+        if write and write_images:
+            _write_images(docs, renders, rendered)
     return problems
+
+
+def _write_images(docs: Path, renders: dict[str, Path], rendered: set[str]) -> None:
+    """Copy the rendered og PNGs into docs/ and drop review og orphans.
+
+    Only render-produced images are touched: og.png and reviews/og_*.png.
+    docs/ images from other pipelines (favicons, design/) are left alone.
+    A committed og.png is never deleted, only overwritten when rendered -
+    without Pillow or a Hebrew font the render produces no image and the
+    committed one stays.
+    """
+    for tree in renders.values():
+        for png in tree.rglob("*.png"):
+            target = docs / png.relative_to(tree)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(png.read_bytes())
+    for png in docs.glob("reviews/og_*.png"):
+        stem = png.name.removeprefix("og_").removesuffix(".png")
+        if f"reviews/talking_points_{stem}.html" not in rendered:
+            png.unlink()
 
 
 # Section: Date stamps
@@ -283,6 +315,12 @@ def main(argv: list[str] | None = None) -> int:
         help="list docs/ files this check does not compare",
     )
     ap.add_argument(
+        "--write-images",
+        action="store_true",
+        help="with --write, also copy the rendered og PNGs into docs/ "
+        "(the Pages deploy build, #959)",
+    )
+    ap.add_argument(
         "--include-data-json",
         action="store_true",
         help="also regenerate/check weekly data.json after reconciliation",
@@ -295,7 +333,10 @@ def main(argv: list[str] | None = None) -> int:
                 print(name)
             return 0
         problems = check(
-            docs, write=args.write, include_data_json=args.include_data_json
+            docs,
+            write=args.write,
+            include_data_json=args.include_data_json,
+            write_images=args.write_images,
         )
     except CheckError as exc:
         print(f"docs freshness check could not run: {exc}", file=sys.stderr)

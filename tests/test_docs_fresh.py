@@ -105,6 +105,31 @@ def test_png_outputs_are_not_compared(docs):
     assert not any(n.startswith("data.json") for n in listed)
 
 
+def test_write_images_copies_rendered_pngs(docs):
+    """#959: the Pages build's --write --write-images path fills docs/ with
+    the rendered og PNGs even when none are committed."""
+    for png in docs.rglob("*.png"):
+        png.unlink()
+    assert fresh.check(docs, write=True, write_images=True) == []
+    assert (docs / "og.png").is_file()
+    assert list(docs.glob("reviews/og_*.png"))
+
+
+def test_write_images_drops_a_review_png_whose_page_no_longer_renders(docs):
+    """#959: review og PNGs track their review page, never linger as orphans."""
+    assert fresh.check(docs, write=True, write_images=True) == []
+    stale_png = docs / "reviews" / "og_000-0000000.png"
+    stale_png.write_bytes(b"stale")
+    assert fresh.check(docs, write=True, write_images=True) == []
+    assert not stale_png.exists()
+    # An og.png the render did not produce is never deleted.
+    (docs / "og.png").unlink()
+    other = docs / "favicon.png"
+    other.write_bytes(b"other pipeline")
+    assert fresh.check(docs, write=True, write_images=True) == []
+    assert other.read_bytes() == b"other pipeline"
+
+
 def test_stale_data_json_fails(docs):
     """#559: the public data endpoint is covered like every other render."""
     (docs / "data.json").write_text(

@@ -90,22 +90,26 @@ ALLOWLIST = [
         "pages.yml",
         "pages",
         "actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e",
-        None,
+        "github.ref == 'refs/heads/main'",
         "Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds; flip and permissions pending the owner decision at merge time",
     ),
 ]
 
 # Workflow-level permissions that are known and reviewed elsewhere.
+# Keys are (file, permission, scope) so an exception covers exactly one
+# top-level block or one named job, never the whole file.
 PERMISSION_ALLOWLIST = {
-    ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
-    (
-        "pages.yml",
-        "pages",
-    ): "Pages deploy of the reviewed merged main commit (#959); deploy job only; permission set and Pages flip pending the owner decision at merge time",
-    (
-        "pages.yml",
-        "id-token",
-    ): "OIDC auth for the same deploy-pages step (#959); deploy job only; pending the same owner decision",
+    ("permit-feed.yml", "actions", "job permit-feed"): (
+        "needed by the allowlisted gh workflow run steps"
+    ),
+    ("pages.yml", "pages", "job deploy"): (
+        "Pages deploy of the reviewed merged main commit (#959); deploy job "
+        "only; permission set and Pages flip pending the owner decision at merge time"
+    ),
+    ("pages.yml", "id-token", "job deploy"): (
+        "OIDC auth for the same deploy-pages step (#959); deploy job only; "
+        "pending the same owner decision"
+    ),
 }
 
 
@@ -148,7 +152,7 @@ def _permission_violations(file, perms, where):
     for key, value in (perms or {}).items():
         if (
             FORBIDDEN_PERMISSIONS.get(key) == value
-            and (file, key) not in PERMISSION_ALLOWLIST
+            and (file, key, where) not in PERMISSION_ALLOWLIST
         ):
             out.append((file, "permissions", f"{where}: {key}: {value}"))
     return out
@@ -504,3 +508,132 @@ def test_complete_allowlist_command_accepts_shell_separator(separator, entry):
         step_if="${{ " + gate + " }}" if gate else None,
     )
     assert scan_workflow(file, text) == []
+
+
+# Section: Pages deploy invariants (#959)
+
+PAGES_FILE = "pages.yml"
+MAIN_REF = "github.ref == 'refs/heads/main'"
+DEPLOY_SHA = "d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e"
+
+
+def _pages_doc():
+    # YAML 1.1 parses the bare key `on` as True.
+    return yaml.safe_load((WORKFLOWS / PAGES_FILE).read_text())
+
+
+def pages_deploy_violations(doc):
+    """Structural invariants that keep the Pages deploy bound to reviewed
+    main (#959). A workflow that deploys is a publication path, so every
+    loosening must fail here even when the generic scanner cannot see it."""
+    out = []
+    on = doc.get("on", doc.get(True)) or {}
+    if set(on) != {"push", "workflow_dispatch"}:
+        out.append(f"triggers {sorted(on)} != push + workflow_dispatch")
+    if (on.get("push") or {}).get("branches") != ["main"]:
+        out.append("push trigger is not limited to main")
+    if on.get("workflow_dispatch") is not None:
+        out.append("workflow_dispatch must take no inputs")
+    jobs = doc.get("jobs") or {}
+    for name in ("build", "deploy"):
+        job = jobs.get(name) or {}
+        if not _gate_holds(job.get("if"), MAIN_REF):
+            out.append(f"job {name} is not gated to {MAIN_REF}")
+    if (doc.get("permissions") or {}) != {"contents": "read"}:
+        out.append("top-level permissions must be exactly contents: read")
+    build = jobs.get("build") or {}
+    if "permissions" in build:
+        out.append("build job must not carry permissions")
+    deploy = jobs.get("deploy") or {}
+    if (deploy.get("permissions") or {}) != {"pages": "write", "id-token": "write"}:
+        out.append("deploy job permissions must be exactly pages + id-token write")
+    steps = deploy.get("steps") or []
+    deploy_steps = [s for s in steps if "deploy-pages" in s.get("uses", "")]
+    if (
+        len(steps) != 1
+        or len(deploy_steps) != 1
+        or not deploy_steps[0].get("uses", "").endswith("@" + DEPLOY_SHA)
+        or not _gate_holds(deploy_steps[0].get("if"), MAIN_REF)
+    ):
+        out.append(
+            "deploy job must be exactly the pinned deploy-pages step, gated to main"
+        )
+    build_steps = build.get("steps") or []
+    uploads = [s for s in build_steps if "upload-pages-artifact" in s.get("uses", "")]
+    if len(uploads) != 1 or (uploads[0].get("with") or {}).get("path") != "docs/":
+        out.append("the Pages artifact must be exactly docs/")
+    for s in build_steps:
+        if "actions/checkout" in s.get("uses", "") and (s.get("with") or {}).get("ref"):
+            out.append("the build checkout must not take a caller-selected ref")
+    return out
+
+
+def test_pages_deploy_invariants_hold():
+    assert pages_deploy_violations(_pages_doc()) == []
+
+
+def _pages_mutant(mutate):
+    doc = _pages_doc()
+    mutate(doc)
+    return doc
+
+
+PAGES_MUTANTS = [
+    (
+        "push on all branches",
+        lambda d: d["on" if "on" in d else True]["push"].update(branches=["**"]),
+    ),
+    (
+        "added pull_request trigger",
+        lambda d: d["on" if "on" in d else True].update(pull_request=None),
+    ),
+    (
+        "added workflow_run trigger",
+        lambda d: d["on" if "on" in d else True].update(
+            workflow_run={"workflows": ["CI"], "types": ["completed"]}
+        ),
+    ),
+    (
+        "dispatch ref input",
+        lambda d: d["on" if "on" in d else True].update(
+            workflow_dispatch={"inputs": {"ref": {"required": True}}}
+        ),
+    ),
+    (
+        "checkout ref input",
+        lambda d: d["jobs"]["build"]["steps"][0].update(
+            {"with": {"ref": "${{ inputs.ref }}"}}
+        ),
+    ),
+    (
+        "repo code in the deploy job",
+        lambda d: d["jobs"]["deploy"]["steps"].append({"run": "python3 x.py"}),
+    ),
+    (
+        "whole-repo upload",
+        lambda d: next(
+            s
+            for s in d["jobs"]["build"]["steps"]
+            if "upload-pages-artifact" in s.get("uses", "")
+        )["with"].update(path="."),
+    ),
+    (
+        "deploy step loses the main gate",
+        lambda d: d["jobs"]["deploy"]["steps"][0].pop("if"),
+    ),
+    (
+        "deploy job loses the main gate",
+        lambda d: d["jobs"]["deploy"].pop("if"),
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    "name,mutate", PAGES_MUTANTS, ids=[n for n, _ in PAGES_MUTANTS]
+)
+def test_pages_deploy_mutant_is_caught(name, mutate):
+    doc = _pages_mutant(mutate)
+    assert pages_deploy_violations(doc), name
+    # The generic scanner must also still catch the ungated deploy action.
+    if name == "deploy step loses the main gate":
+        assert scan_workflow(PAGES_FILE, yaml.safe_dump(doc, sort_keys=False))
