@@ -315,7 +315,10 @@ jobs:
           # Refresh coverage counts in index.html with the current renderer (#870).
           python3 scripts/ci/check_docs_fresh.py --include-data-json --write
           python3 scripts/ci/check_docs_fresh.py --include-data-json
-          git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html docs/*/permits.html docs/*/permits-default.html docs/permit-ids.json docs/permit-points.json docs/data.json
+          # Language fragments come from the i18n source of truth (#972): a
+          # docs/*/ glob would stage a stray non-language directory's files.
+          FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
+          git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html $FRAGMENTS docs/permit-ids.json docs/permit-points.json docs/data.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           # #874: fail here, not in later PR CI, when a covered docs output
           # changed outside the staged allowlist above. Paths only.

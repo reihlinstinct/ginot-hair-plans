@@ -56,3 +56,11 @@ def test_permit_workflow_regenerates_covered_site_after_reset_before_stage():
     )
     stage = text.index("git add data/ docs/index.json", reset)
     assert reset < render < stage
+
+
+def test_permit_feed_stages_language_fragments_from_the_i18n_source():
+    # #972: a docs/*/permits*.html glob would stage a stray non-language
+    # directory's files. The feed derives fragment paths from i18n instead.
+    text = (ROOT / ".github/workflows/permit-feed.yml").read_text()
+    assert "docs/*/permits" not in text
+    assert "from ginot import i18n" in text and "FRAGMENTS=$(" in text

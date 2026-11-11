@@ -7,7 +7,9 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # scripts/
+import _src_path  # noqa: F401  (shared bootstrap: adds the repo src/ to sys.path)
+
 from ginot.publications import write_projection
 
 FILES = (
