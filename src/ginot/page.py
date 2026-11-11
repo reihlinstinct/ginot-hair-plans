@@ -250,8 +250,9 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 
 
 def _js(lang: str = "he", pre: str = "") -> str:
-    """The index filter/sort script in lang; pre prefixes the shared fetches
-    (rows.html, publications_active.json) from a per-language page."""
+    """The index filter/sort script in lang; pre prefixes the shared fetch
+    (publications_active.json) from a per-language page. rows.html is
+    per-language and sits next to the page, so it stays unprefixed."""
     from .i18n import t as _tt
 
     def J(key: str) -> str:
@@ -286,7 +287,6 @@ def _js(lang: str = "he", pre: str = "") -> str:
     out = out.replace("'סיום פרסום מתוכנן (לא מאומת): '", J("indexjs.permit_planned"))
     out = out.replace("'אחרון להתנגדות (משוער): '", J("index.urgent_deadline"))
     out = out.replace("'<li>אין</li>'", "'<li>'+" + J("index.none") + "+'</li>'")
-    out = out.replace("fetch('rows.html')", f"fetch('{pre}rows.html')")
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
     )
@@ -905,8 +905,10 @@ sortRows();apply();
 
 
 def _permits_js(lang: str, pre: str) -> str:
-    """The permits-section script in lang; pre prefixes the data fetches from
-    a per-language page. Source-status matching strings stay Hebrew (they
+    """The permits-section script in lang; pre prefixes the shared data fetch
+    (publications_active.json) from a per-language page. The permits.html and
+    permits-default.html fragments are per-language and sit next to the page,
+    so they stay unprefixed. Source-status matching strings stay Hebrew (they
     match raw values from the municipal feed)."""
     import json as _json
 
@@ -923,10 +925,6 @@ def _permits_js(lang: str, pre: str) -> str:
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
     )
-    out = out.replace(
-        "fetch('permits-default.html')", f"fetch('{pre}permits-default.html')"
-    )
-    out = out.replace("fetch('permits.html')", f"fetch('{pre}permits.html')")
     out = out.replace(
         "pmore.textContent=expanded?'הצג 20 הראשונות':'הצג את כל '+n+' הבקשות';",
         f"pmore.textContent=expanded?{J('permitsjs.show_first20')}:TF({J('permitsjs.show_all')},{{n:n}});",

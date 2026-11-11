@@ -350,7 +350,7 @@ fetch('../publications_active.json').then(function(r){if(!r.ok)throw new Error('
   });
   window.__permitOfficialDeadlines=deadlines;_renderUrgent();
 }).catch(function(){/* Planned dates remain clearly labelled, never upgraded. */});
-fetch('../rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   var tb=document.querySelector('#plans tbody');if(!tb)return;
   tb.innerHTML=h;
   rows=Array.prototype.slice.call(tb.querySelectorAll('tr'));
@@ -782,7 +782,7 @@ function loadFullPermits(){
   if(fullLoaded)return Promise.resolve(true);
   if(fullPromise)return fullPromise;
   fullFailed=false;window.__permitsFailed=false;
-  fullPromise=fetch('../permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+  fullPromise=fetch('permits.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
     if(!installRows(h))throw new Error('permit table unavailable');
     fullLoaded=true;
     try{runFullPostInstall();renderFailed=false;window.__permitsRenderFailed=false;pfload.textContent='';}
@@ -817,7 +817,7 @@ function checkSubsetAgainstEvidence(){
   if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset()){evidenceNeedsFull=true;loadFullPermits();}
 }
 document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
-fetch('../permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
+fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
   if(fullLoaded)return;
   if(!installRows(h))return;
   // #624: a subset render failure keeps the subset rows and says so; it is

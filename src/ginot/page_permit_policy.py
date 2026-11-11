@@ -287,7 +287,7 @@ def _permit_review_cell(tik_num, lang: str = "he", pre: str = ""):
     source = _community_source_link((tik_num or "").strip(), lang, pre)
     if url:
         return (
-            f"<a href='{_e(url)}' title='{_e(_t(lang, 'permits.review_link_title'))}'>"
+            f"<a href='{pre}{_e(url)}' title='{_e(_t(lang, 'permits.review_link_title'))}'>"
             f"{_e(_t(lang, 'permits.col_review'))}</a>" + source
         )
     return (

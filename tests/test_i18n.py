@@ -115,6 +115,7 @@ def test_email_page_renders_in_every_language(code):
     assert ('class="draft-note"' in html) == i18n.is_draft(code)
     pre = i18n.asset_prefix(code)
     assert f'href="{pre}style.css"' in html
+    assert f'href="{pre}{i18n.page_path(code, "index.html")}"' in html
     assert "{generated}" not in html
 
 
@@ -148,7 +149,7 @@ def test_index_page_renders_in_every_language(code):
 
     permits = [
         {
-            "tik_num": "2026/0001.00",
+            "tik_num": "2026/0439.00",
             "status": "בבדיקה",
             "mahut": "מ",
             "sugbakasha": "היתר",
@@ -167,6 +168,18 @@ def test_index_page_renders_in_every_language(code):
     assert f"data-label='{_e(i18n.t(code, 'permits.col_address'))}'" in html
     # data values (plan names, permit statuses) stay Hebrew in every language
     assert "תכנית 1" in html and "בבדיקה" in html
+    # the table fragments are per-language and load from next to the page,
+    # never from the Hebrew root (#961 review)
+    assert "fetch('rows.html')" in html
+    assert "fetch('permits.html')" in html
+    assert "fetch('permits-default.html')" in html
+    assert "fetch('../rows.html')" not in html
+    assert "fetch('../permits.html')" not in html
+    assert "fetch('../permits-default.html')" not in html
+    # shared data is fetched from the root
+    assert f"fetch('{pre}publications_active.json')" in html
+    # review and source links point at the root reviews tree from every language
+    assert f"href='{pre}reviews/palmach41/review-2026-0439.00.html'" in html
 
 
 # Section: the mail API reads the same document
