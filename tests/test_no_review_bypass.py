@@ -86,11 +86,20 @@ ALLOWLIST = [
         "steps.publish.outputs.merged == 'true'",
         "enrich chain, only after a reviewed merge (#145, #562)",
     ),
+    (
+        "pages.yml",
+        "pages",
+        "actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e",
+        None,
+        "owner-approved Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds",
+    ),
 ]
 
 # Workflow-level permissions that are known and reviewed elsewhere.
 PERMISSION_ALLOWLIST = {
     ("permit-feed.yml", "actions"): "needed by the allowlisted gh workflow run steps",
+    ("pages.yml", "pages"): "owner-approved Pages deploy of the reviewed merged main commit (#959); deploy job only",
+    ("pages.yml", "id-token"): "OIDC auth for the same owner-approved deploy-pages step (#959); deploy job only",
 }
 
 
@@ -148,7 +157,8 @@ def scan_workflow(file, text):
         for step in job.get("steps") or []:
             uses = step.get("uses", "")
             if re.search(RULES[[r[0] for r in RULES].index("pages")][1], uses):
-                found.append((file, "pages", uses))
+                if not _allowed(file, "pages", uses, step.get("if")):
+                    found.append((file, "pages", uses))
             run = step.get("run")
             if not run and "actions/github-script" in uses:
                 run = (step.get("with") or {}).get("script")
@@ -201,7 +211,12 @@ def test_every_allowlist_entry_still_matches_a_real_step():
     for file, rule, needle, gate, _reason in ALLOWLIST:
         doc = yaml.safe_load((WORKFLOWS / file).read_text())
         steps = [s for j in doc["jobs"].values() for s in j.get("steps") or []]
-        hits = [s for s in steps if needle in normalize(s.get("run") or "")]
+        hits = [
+                s
+                for s in steps
+                if needle in normalize(s.get("run") or "")
+                or needle in normalize(s.get("uses") or "")
+            ]
         assert len(hits) == 1, (file, needle)
         if gate:
             assert _gate_holds(hits[0].get("if"), gate), (file, needle)
