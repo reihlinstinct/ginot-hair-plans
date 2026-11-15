@@ -317,7 +317,12 @@ jobs:
           python3 scripts/ci/check_docs_fresh.py --include-data-json
           # Language fragments come from the i18n source of truth (#972): a
           # docs/*/ glob would stage a stray non-language directory's files.
-          FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
+          # Locale index.html pages carry the server-rendered datalist of
+          # plan numbers (#996), so they change with the data like the
+          # default-locale index.html and must be staged here too - the
+          # #874 cleanliness guard failed run 43733250766 on exactly these
+          # five files left unstaged.
+          FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/index.html docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
           git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html $FRAGMENTS docs/permit-ids.json docs/permit-points.json docs/data.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           # #874: fail here, not in later PR CI, when a covered docs output
