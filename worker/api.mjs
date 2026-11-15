@@ -3,7 +3,9 @@
 // Free Cloudflare Worker. Fetches the public data.json from GitHub Pages
 // (edge-cached 5 min), filters per query params, CORS open.
 // Privacy: /stats/event stores ONLY aggregate counters (event type + a
-// dictionary-matched key or "other", per day) in Workers KV. No raw search
+// dictionary-matched key or "other", per day) in Workers KV. Per-source
+// totals (_by_src) use a closed set of caller tags (site/mirror/mcp/about/
+// other), client-asserted or classified from Referer/Origin. No raw search
 // text, no IP, no User-Agent, no user identification of any kind.
 // Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
 import publicFields from "../src/ginot/static/public-api-fields.json" with { type: "json" };
@@ -102,6 +104,9 @@ function json(body, { status = 200, headers = {} } = {}) {
 const EVENT_TYPES = new Set(["search", "permits_search", "filter", "permits_filter"]);
 const KEY_RE = /^[\w\u0590-\u05FF .'"()/:=+-]{1,60}$/u;
 const STATS_PREFIX = "stats:v1:";
+// Closed set of caller tags for "who does what" stats (#991 follow-up):
+// validated server-side like keys; anything else becomes "other".
+const SRC_TYPES = new Set(["site", "mirror", "mcp", "about", "other"]);
 const STATS_DAYS = 30;
 const DICT_TTL_MS = 300_000; // rebuild the key dictionary at most every 5 min
 const SUMMARY_MAX_KEYS = 500; // bound KV reads per summary call
@@ -169,10 +174,62 @@ async function recordStat(env, e, k) {
   } catch { return false; }
 }
 
+// Per-source request counters ("who does what"), classified server-side into
+// a closed set. src is client-asserted (anyone can claim "mirror"), so these
+// are approximate usage stats, not attribution.
+function classifySrc(request, explicit) {
+  if (SRC_TYPES.has(explicit)) return explicit;
+  const ref = request.headers.get("referer") || request.headers.get("origin") || "";
+  // Browsers send origin-only Referer cross-origin, so no path heuristics
+  // here: the about page tags itself with ?src=about instead.
+  try {
+    if (new URL(ref).hostname === "reihlinstinct.github.io") return "site";
+  } catch { /* not a URL */ }
+  return "other";
+}
+
+// In-isolate aggregation: a burst costs at most one flush per interval per
+// isolate (~1 KV write per active source per interval), not one write per
+// request, keeping the free plan's daily write quota safe. Best-effort:
+// a failed flush drops counts but never fails the request.
+const SRC_FLUSH_MS = 900_000; // 15 min: <=96 writes/source/day/isolate
+// Pending counts are scoped per KV binding (prod has one binding per
+// isolate; tests use separate fakes, so a shared Map would leak between
+// them). JS Map keys here: the WeakMap key is the binding object.
+const srcState = new WeakMap(); // STATS binding -> { pending: Map, lastFlush: number }
+function srcStateFor(env) {
+  let st = srcState.get(env.STATS);
+  if (!st) { st = { pending: new Map(), lastFlush: 0 }; srcState.set(env.STATS, st); }
+  return st;
+}
+function bumpSrc(env, src) {
+  if (!env.STATS) return;
+  const st = srcStateFor(env);
+  st.pending.set(src, (st.pending.get(src) || 0) + 1);
+}
+async function flushSrc(env) {
+  if (!env.STATS) return;
+  const st = srcStateFor(env);
+  if (st.pending.size === 0) return;
+  if (Date.now() - st.lastFlush < SRC_FLUSH_MS) return;
+  st.lastFlush = Date.now();
+  const day = dayKey(new Date());
+  const entries = [...st.pending];
+  st.pending.clear();
+  for (const [s, n] of entries) {
+    try {
+      const key = STATS_PREFIX + day + ":_by_src:" + s;
+      const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
+      await env.STATS.put(key, String(cur + n), { expirationTtl: (STATS_DAYS + 7) * 86400 });
+    } catch { /* dropped - approximate counters */ }
+  }
+}
+
 async function statsSummary(env) {
   // Returns { ok, stats }; ok=false when the KV list failed, so the caller
   // must not cache a partial summary.
   const out = {}; // {e: {k: count}}
+  const bySrc = {}; // {src: count} - underscore-prefixed control keys only
   const cutoff = dayKey(new Date(Date.now() - (STATS_DAYS - 1) * 86_400_000));
   let cursor, read = 0, ok = true;
   try {
@@ -190,6 +247,7 @@ async function statsSummary(env) {
         if (sep < 0) continue;
         const e = mid.slice(0, sep), k = mid.slice(sep + 1);
         const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
+        if (e === "_by_src") { bySrc[k] = (bySrc[k] || 0) + v; continue; }
         (out[e] ||= {})[k] = (out[e][k] || 0) + v;
       }
     } while (cursor && read <= SUMMARY_MAX_KEYS);
@@ -198,7 +256,10 @@ async function statsSummary(env) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
   }
-  return { ok, stats: out };
+  if (env.STATS) { // merge this isolate's unflushed counts
+    for (const [s, n] of srcStateFor(env).pending) bySrc[s] = (bySrc[s] || 0) + n;
+  }
+  return { ok, stats: out, by_src: bySrc };
 }
 
 const INDEX = {
@@ -216,7 +277,7 @@ const INDEX = {
   docs: "https://reihlinstinct.github.io/ginot-hair-plans/about.html",
 };
 
-export async function handleRequest(request, fetchImpl = fetch, env = {}) {
+export async function handleRequest(request, fetchImpl = fetch, env = {}, ctx = null) {
   const sec = securityTxtResponse(request);
   if (sec) return sec;
   const url = new URL(request.url);
@@ -226,12 +287,22 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   }
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
   if (rateLimited(ip)) return json({ error: "rate limit, retry shortly" }, { status: 429, headers: { "retry-after": "60" } });
+  // Count every API caller, not only event senders: the mirror and MCP call
+  // the GET endpoints without POSTing events, and the about page fetches
+  // /stats/summary. GETs may pass ?src= (closed set); otherwise classify by
+  // Referer/Origin, else "other". Aggregated in-isolate, flushed ~once/min.
+  if (request.method === "GET") {
+    bumpSrc(env, classifySrc(request, url.searchParams.get("src")));
+    // Off the request path when the runtime gives us ctx (m5); tests await.
+    if (ctx && ctx.waitUntil) ctx.waitUntil(flushSrc(env)); else await flushSrc(env);
+  }
   if (url.pathname === "/stats/event" && request.method === "POST") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, { status: 400 }); }
     const e = String(body && body.e || "");
     let k = String(body && body.k || "");
+    const src = classifySrc(request, body && body.src);
     if (!EVENT_TYPES.has(e)) return json({ error: "unknown event type" }, { status: 400 });
     if (k !== "other" && !KEY_RE.test(k)) return json({ error: "invalid key" }, { status: 400 });
     if (k !== "other") {
@@ -241,6 +312,8 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
       if (!dict.has(k)) k = "other";
     }
     const ok = await recordStat(env, e, k);
+    bumpSrc(env, src);
+    if (ctx && ctx.waitUntil) ctx.waitUntil(flushSrc(env)); else await flushSrc(env);
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
@@ -255,8 +328,8 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
       if (hit) body = JSON.parse(hit);
     } catch { /* corrupt/unreadable cache: recompute below */ }
     if (!body) {
-      const { ok, stats } = await statsSummary(env);
-      body = { days: STATS_DAYS, events: stats };
+      const { ok, stats, by_src } = await statsSummary(env);
+      body = { days: STATS_DAYS, events: stats, by_src };
       if (ok) { // never cache a partial summary from a failed list
         try { await env.STATS.put(SUMMARY_CACHE_KEY, JSON.stringify(body),
                                   { expirationTtl: SUMMARY_CACHE_TTL }); } catch { /* best-effort */ }
@@ -307,4 +380,4 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   return json({ error: "unknown endpoint", endpoints: Object.keys(INDEX.endpoints) }, { status: 404 });
 }
 
-export default { fetch: (request, env) => handleRequest(request, fetch, env) };
+export default { fetch: (request, env, ctx) => handleRequest(request, fetch, env, ctx) };
