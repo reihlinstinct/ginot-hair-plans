@@ -7,6 +7,7 @@ The api/ directory is not a package, so the module is imported by path.
 import importlib.util
 import io
 import json
+import smtplib
 import time
 from pathlib import Path
 
@@ -708,9 +709,8 @@ def test_all_scope_digest_retries_after_send_failure(monkeypatch):
 
     real_send = spe.send
     monkeypatch.setattr(spe, "send", boom)
-    # #997: a failed send no longer 502s the run; it is logged and retried.
-    code, body = _get("/api/send_plan_email?action=notify", auth)
-    assert code == 200 and '"sent": 0' in body and '"failed": 1' in body
+    # A transport-wide error (OSError) still 502s the run; retry next run.
+    assert _get("/api/send_plan_email?action=notify", auth)[0] == 502
     monkeypatch.setattr(spe, "send", real_send)
     before = len(sent)
     code, body = _get("/api/send_plan_email?action=notify", auth)
@@ -767,7 +767,7 @@ def test_one_failing_recipient_does_not_starve_the_next(monkeypatch):
 
     def fail_first(msg, to_addr):
         if to_addr == first_email:
-            raise OSError("smtp down")
+            raise smtplib.SMTPRecipientsRefused({first_email: (550, b"no such user")})
         return real_send(msg, to_addr)
 
     monkeypatch.setattr(spe, "send", fail_first)
@@ -778,3 +778,38 @@ def test_one_failing_recipient_does_not_starve_the_next(monkeypatch):
     # The failed recipient's pending digest is still queued for the next run.
     record = json.loads(spe._kv.d[f"sub:{first_token}"])
     assert record.get("all_pending") == ["101-0111111"]
+
+
+def test_account_wide_smtp_error_stops_after_one_attempt(monkeypatch):
+    # #1003 review P2: an auth/config/connect failure would fail every
+    # send alike - stop the run with a 502 instead of one fresh SMTP
+    # login per remaining recipient (repeated failed logins can lock
+    # the account). Recipient-specific failures stay isolated.
+    _sent, token1 = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token1}")
+    _post(
+        {
+            "email": "all2@example.com",
+            "plan_number": "",
+            "lang": "en",
+            "subscribe": False,
+            "scope": "all",
+        }
+    )
+    token2 = next(iter(spe._kv.pending())).split(":", 1)[1]
+    _post_action(f"/api/send_plan_email?action=confirm&token={token2}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    attempts = []
+
+    def boom(msg, to_addr):
+        attempts.append(to_addr)
+        raise smtplib.SMTPAuthenticationError(535, b"bad credentials")
+
+    monkeypatch.setattr(spe, "send", boom)
+    code, _ = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 502
+    assert len(attempts) == 1  # not one login per due recipient
