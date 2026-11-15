@@ -3,7 +3,9 @@
 // Free Cloudflare Worker. Fetches the public data.json from GitHub Pages
 // (edge-cached 5 min), filters per query params, CORS open.
 // Privacy: /stats/event stores ONLY aggregate counters (event type + a
-// dictionary-matched key or "other", per day) in Workers KV. No raw search
+// dictionary-matched key or "other", per day) in Workers KV. Per-source
+// totals (_by_src) use a closed set of caller tags (site/mirror/mcp/about/
+// other), client-asserted or classified from Referer/Origin. No raw search
 // text, no IP, no User-Agent, no user identification of any kind.
 // Docs: https://reihlinstinct.github.io/ginot-hair-plans/about.html
 import publicFields from "../src/ginot/static/public-api-fields.json" with { type: "json" };
@@ -159,23 +161,65 @@ async function keyDictionary(fetchImpl) {
   return dictCache.keys;
 }
 
-async function recordStat(env, e, k, src) {
+async function recordStat(env, e, k) {
   // Best-effort: a KV failure (quota, outage) must never break the API.
   // The read-modify-write increment is not atomic (KV has no atomic add), so
   // bursts on the same key can lose a few counts - acceptable for approximate
   // usage statistics, and documented as such.
   try {
-    const day = dayKey(new Date());
-    const key = STATS_PREFIX + day + ":" + e + ":" + k;
+    const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
     const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
     await env.STATS.put(key, String(cur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
-    // One extra counter per event: per-caller totals, so the summary can show
-    // who (site/mirror/mcp/about) generates what, without storing identifiers.
-    const skey = STATS_PREFIX + day + ":_by_src:" + src;
-    const scur = parseInt((await env.STATS.get(skey)) || "0", 10) || 0;
-    await env.STATS.put(skey, String(scur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
     return true;
   } catch { return false; }
+}
+
+// Per-source request counters ("who does what"), classified server-side into
+// a closed set. src is client-asserted (anyone can claim "mirror"), so these
+// are approximate usage stats, not attribution.
+function classifySrc(request, explicit) {
+  if (SRC_TYPES.has(explicit)) return explicit;
+  const ref = request.headers.get("referer") || request.headers.get("origin") || "";
+  if (ref.includes("reihlinstinct.github.io")) {
+    return ref.includes("about") ? "about" : "site";
+  }
+  return "other";
+}
+
+// In-isolate aggregation: a burst costs at most one flush per minute per
+// isolate (~1 KV write per active source per minute), not one write per
+// request, keeping the free plan's daily write quota safe. Best-effort:
+// a failed flush drops counts but never fails the request.
+// Pending counts are scoped per KV binding (prod has one binding per
+// isolate; tests use separate fakes, so a shared Map would leak between
+// them). JS Map keys here: the WeakMap key is the binding object.
+const srcState = new WeakMap(); // STATS binding -> { pending: Map, lastFlush: number }
+function srcStateFor(env) {
+  let st = srcState.get(env.STATS);
+  if (!st) { st = { pending: new Map(), lastFlush: 0 }; srcState.set(env.STATS, st); }
+  return st;
+}
+function bumpSrc(env, src) {
+  if (!env.STATS) return;
+  const st = srcStateFor(env);
+  st.pending.set(src, (st.pending.get(src) || 0) + 1);
+}
+async function flushSrc(env) {
+  if (!env.STATS) return;
+  const st = srcStateFor(env);
+  if (st.pending.size === 0) return;
+  if (Date.now() - st.lastFlush < 60_000) return;
+  st.lastFlush = Date.now();
+  const day = dayKey(new Date());
+  const entries = [...st.pending];
+  st.pending.clear();
+  for (const [s, n] of entries) {
+    try {
+      const key = STATS_PREFIX + day + ":_by_src:" + s;
+      const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
+      await env.STATS.put(key, String(cur + n), { expirationTtl: (STATS_DAYS + 7) * 86400 });
+    } catch { /* dropped - approximate counters */ }
+  }
 }
 
 async function statsSummary(env) {
@@ -209,6 +253,9 @@ async function statsSummary(env) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
   }
+  if (env.STATS) { // merge this isolate's unflushed counts
+    for (const [s, n] of srcStateFor(env).pending) bySrc[s] = (bySrc[s] || 0) + n;
+  }
   return { ok, stats: out, by_src: bySrc };
 }
 
@@ -237,13 +284,21 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   }
   const ip = request.headers.get("cf-connecting-ip") || "unknown";
   if (rateLimited(ip)) return json({ error: "rate limit, retry shortly" }, { status: 429, headers: { "retry-after": "60" } });
+  // Count every API caller, not only event senders: the mirror and MCP call
+  // the GET endpoints without POSTing events, and the about page fetches
+  // /stats/summary. GETs may pass ?src= (closed set); otherwise classify by
+  // Referer/Origin, else "other". Aggregated in-isolate, flushed ~once/min.
+  if (request.method === "GET") {
+    bumpSrc(env, classifySrc(request, url.searchParams.get("src")));
+    await flushSrc(env);
+  }
   if (url.pathname === "/stats/event" && request.method === "POST") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, { status: 400 }); }
     const e = String(body && body.e || "");
     let k = String(body && body.k || "");
-    const src = SRC_TYPES.has(body && body.src) ? body.src : (body && body.src ? "other" : "site");
+    const src = classifySrc(request, body && body.src);
     if (!EVENT_TYPES.has(e)) return json({ error: "unknown event type" }, { status: 400 });
     if (k !== "other" && !KEY_RE.test(k)) return json({ error: "invalid key" }, { status: 400 });
     if (k !== "other") {
@@ -252,7 +307,9 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
       const dict = await keyDictionary(fetchImpl);
       if (!dict.has(k)) k = "other";
     }
-    const ok = await recordStat(env, e, k, src);
+    const ok = await recordStat(env, e, k);
+    bumpSrc(env, src);
+    await flushSrc(env);
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {

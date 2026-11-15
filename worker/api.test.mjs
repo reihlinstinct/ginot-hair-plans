@@ -159,12 +159,34 @@ test("/stats/event tags the caller (src) and /stats/summary reports by_src", asy
     { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
   assert.equal((await handleRequest(post({ e: "search", k: "other", src: "site" }), stub, env)).status, 202);
   assert.equal((await handleRequest(post({ e: "search", k: "other", src: "mirror" }), stub, env)).status, 202);
-  // Unknown src is coerced to "other"; missing src defaults to "site" (old clients).
+  // Unknown src is coerced to "other"; a missing src (old clients) is also
+  // "other" - only the explicit tag or a site Referer counts as "site".
   assert.equal((await handleRequest(post({ e: "search", k: "other", src: "evil<script>" }), stub, env)).status, 202);
   assert.equal((await handleRequest(post({ e: "search", k: "other" }), stub, env)).status, 202);
+  // The summary call itself is counted too (no src, no Referer -> "other").
   const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env)).json();
   assert.equal(sum.events.search.other, 4);
-  assert.deepEqual(sum.by_src, { site: 2, mirror: 1, other: 1 });
+  assert.deepEqual(sum.by_src, { site: 1, mirror: 1, other: 3 });
+});
+
+test("GET callers are counted per source: explicit ?src= or Referer classification", async () => {
+  const env = { STATS: fakeKv() };
+  const get = (path, headers = {}) =>
+    handleRequest(new Request("https://x.workers.dev" + path, { headers }), stub, env);
+  // A mirror calling with an explicit tag.
+  assert.equal((await get("/status?src=mirror")).status, 200);
+  // The about page (Referer classification).
+  assert.equal((await get("/status",
+    { referer: "https://reihlinstinct.github.io/ginot-hair-plans/about.html" })).status, 200);
+  // A plain site page.
+  assert.equal((await get("/status",
+    { referer: "https://reihlinstinct.github.io/ginot-hair-plans/" })).status, 200);
+  // No tag, no Referer: "other". An explicit tag beats the Referer.
+  assert.equal((await get("/status")).status, 200);
+  assert.equal((await get("/status?src=mcp",
+    { referer: "https://reihlinstinct.github.io/ginot-hair-plans/" })).status, 200);
+  const sum = await (await get("/stats/summary?src=mirror")).json();
+  assert.deepEqual(sum.by_src, { mirror: 2, about: 1, site: 1, other: 1, mcp: 1 });
 });
 
 test("/stats/summary recomputes when the cached value is corrupt", async () => {
