@@ -116,21 +116,21 @@ def _sources_rows(
             _tt(lang, "sources.r3.src"),
             _tt(lang, "sources.r3.what"),
             _tt(lang, "sources.r3.cad"),
-            f'<a href="https://ykpubdata.jerusalem.muni.il/">{_tt(lang, "sources.viewer_name")}</a>',
+            f'<a href="https://ykpubdata.jerusalem.muni.il/">{_e(_tt(lang, "sources.viewer_name"))}</a>',
         ),
         (
             _tt(lang, "sources.r4.name"),
             _tt(lang, "sources.r4.src"),
             _tt(lang, "sources.r4.what"),
             _tt(lang, "sources.r4.cad"),
-            f'<a href="https://mavat.iplan.gov.il/">{_tt(lang, "sources.mavat_name")}</a>',
+            f'<a href="https://mavat.iplan.gov.il/">{_e(_tt(lang, "sources.mavat_name"))}</a>',
         ),
         (
             _tt(lang, "sources.r5.name"),
             _tt(lang, "sources.r5.src"),
             _tt(lang, "sources.r5.what"),
             _tt(lang, "sources.r5.cad"),
-            f'<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">{_tt(lang, "sources.data_dir")}</a>',
+            f'<a href="https://github.com/reihlinstinct/ginot-hair-plans/tree/main/data">{_e(_tt(lang, "sources.data_dir"))}</a>',
         ),
     ]
 

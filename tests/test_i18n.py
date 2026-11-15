@@ -330,3 +330,24 @@ def test_vercelignore_ships_the_strings_document():
 
         assert not ignored(kept)
         assert all(ignored(x) for x in dropped)
+
+
+def test_escaped_translated_link_text_and_updated_value(monkeypatch):
+    """Issue #965: translated anchor text and the a11y updated stamp must be
+    HTML-escaped on output (hostile values must not pass through raw)."""
+    doc = json.loads(json.dumps(i18n.load()))
+    doc["strings"]["sources.viewer_name"]["he"] = "<b>v</b>"
+    doc["strings"]["sources.mavat_name"]["he"] = 'מאב"<script>'
+    doc["strings"]["sources.data_dir"]["he"] = "d & <dir>"
+    monkeypatch.setattr(i18n, "load", lambda: doc)
+
+    from ginot.page_secondary import render_about, render_accessibility
+
+    about = render_about("2026-11-15", "Council", "he")
+    assert _e("<b>v</b>") in about and "<b>v</b>" not in about
+    assert _e('מאב"<script>') in about and 'מאב"<script>' not in about
+    assert _e("d & <dir>") in about and "d & <dir>" not in about
+
+    hostile = "<i>2026</i>"
+    a11y = render_accessibility(hostile, "Council", "he")
+    assert _e(hostile) in a11y and hostile not in a11y

@@ -374,7 +374,13 @@ def test_about_page_combines_sources_and_datasets(tmp_path):
     about = (tmp_path / "about.html").read_text(encoding="utf-8")
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     redir = (tmp_path / "sources.html").read_text(encoding="utf-8")
-    for source in ("iplan", "land.gov.il", 'מאב"ת', "רישוי", "geojson"):
+    for source in (
+        "iplan",
+        "land.gov.il",
+        "מאב&quot;ת",
+        "רישוי",
+        "geojson",
+    ):  # link text is html-escaped (#965)
         assert source in about, source
     assert "רענון שבועי" in about and "עודכן:" in about
     assert "יוזמה עצמאית" in about and "פרטיות" in about  # about content kept
