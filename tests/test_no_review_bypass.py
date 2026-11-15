@@ -89,7 +89,7 @@ ALLOWLIST = [
     (
         "pages.yml",
         "pages",
-        "actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e",
+        "actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346",
         "github.ref == 'refs/heads/main'",
         "Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds; flip and permissions pending the owner decision at merge time",
     ),
@@ -514,7 +514,7 @@ def test_complete_allowlist_command_accepts_shell_separator(separator, entry):
 
 PAGES_FILE = "pages.yml"
 MAIN_REF = "github.ref == 'refs/heads/main'"
-DEPLOY_SHA = "d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e"
+DEPLOY_SHA = "368f82528645a54fb793d4d04e342629a3f51346"
 
 
 def _pages_doc():
