@@ -200,57 +200,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16491562,
-    "tik_num": "1972/1111.08",
-    "street": "משאת משה",
-    "house_number": "10",
-    "neighborhood": "גבעת מרדכי",
-    "place_description": null,
-    "publication_date": "2026-10-20",
-    "objection_deadline": "2026-11-10",
-    "ed700": "2026-10-06",
-    "connected_rec_id": null,
-    "doc_id": "07978601-4352-4a2c-8b96-1b9cf17f7bcc",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-10T00:00:00",
-        "DocId": "07978601-4352-4a2c-8b96-1b9cf17f",
-        "ED800": "2026-10-20T00:00:00",
-        "ED700": "2026-10-06T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 16523692,
     "tik_num": "1973/0423.02",
     "street": "בית וגן",
@@ -2049,57 +1998,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16454058,
-    "tik_num": "2004/0348.04",
-    "street": "הרב מ.נ. ולנשטיין",
-    "house_number": "51",
-    "neighborhood": "רמות",
-    "place_description": null,
-    "publication_date": "2026-10-13",
-    "objection_deadline": "2026-11-10",
-    "ed700": "2026-10-06",
-    "connected_rec_id": null,
-    "doc_id": "1d78b1c5-6644-42ac-984c-1c14d9de203f",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-10T00:00:00",
-        "DocId": "1d78b1c5-6644-42ac-984c-1c14d9de",
-        "ED800": "2026-10-13T00:00:00",
-        "ED700": "2026-10-06T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 16563778,
     "tik_num": "2005/0397.11",
     "street": "המ\"ג",
@@ -3399,57 +3297,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16326697,
-    "tik_num": "2015/0722.06",
-    "street": "עץ הדר",
-    "house_number": "101",
-    "neighborhood": "שמואל הנביא",
-    "place_description": null,
-    "publication_date": "2026-10-15",
-    "objection_deadline": "2026-11-10",
-    "ed700": "2026-09-14",
-    "connected_rec_id": null,
-    "doc_id": "93823ee5-f2ec-4ebb-80c6-c48472c44bb1",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-10T00:00:00",
-        "DocId": "93823ee5-f2ec-4ebb-80c6-c48472c4",
-        "ED800": "2026-10-15T00:00:00",
-        "ED700": "2026-09-14T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 16506046,
     "tik_num": "2015/0949.02",
     "street": "גנרל פייר קניג",
@@ -3491,57 +3338,6 @@
         "DocId": "6fa873f3-dfe0-441b-b449-993663f9",
         "ED800": "2026-10-21T00:00:00",
         "ED700": "2026-10-18T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
-    "myIndex": 16484804,
-    "tik_num": "2015/0950.01",
-    "street": "גליק נלסון",
-    "house_number": "11",
-    "neighborhood": "רמות",
-    "place_description": null,
-    "publication_date": "2026-10-08",
-    "objection_deadline": "2026-11-10",
-    "ed700": "2026-10-05",
-    "connected_rec_id": null,
-    "doc_id": "2a5937e8-43f2-40d9-9360-87cfd3b6f738",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-10T00:00:00",
-        "DocId": "2a5937e8-43f2-40d9-9360-87cfd3b6",
-        "ED800": "2026-10-08T00:00:00",
-        "ED700": "2026-10-05T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -4249,57 +4045,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16508924,
-    "tik_num": "2020/0263.02",
-    "street": "משה קליינמן",
-    "house_number": "11",
-    "neighborhood": "קרית היובל",
-    "place_description": "רחוב קליינמן 11 ירושלים",
-    "publication_date": "2026-10-15",
-    "objection_deadline": "2026-11-10",
-    "ed700": "2026-10-07",
-    "connected_rec_id": 1252106,
-    "doc_id": "33a94522-17aa-4cd9-a8f3-80b06c7aaa26",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-10T00:00:00",
-        "DocId": "33a94522-17aa-4cd9-a8f3-80b06c7a",
-        "ED800": "2026-10-15T00:00:00",
-        "ED700": "2026-10-07T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 14977110,
     "tik_num": "2021/0129.02",
     "street": "אבא אחימאיר",
@@ -4610,7 +4355,7 @@
     "objection_deadline": "2026-11-17",
     "ed700": "2026-10-20",
     "connected_rec_id": null,
-    "doc_id": "e8203b9d-2294-4d3f-9861-7ac65fdbf41d",
+    "doc_id": "5093a297-e285-4cb0-ab38-0833c5152d32",
     "diagnostics": {
       "fields": {
         "PD900": {
@@ -4639,7 +4384,7 @@
       },
       "raw": {
         "PD900": "2026-11-17T00:00:00",
-        "DocId": "e8203b9d-2294-4d3f-9861-7ac65fdb",
+        "DocId": "5093a297-e285-4cb0-ab38-0833c515",
         "ED800": "2026-10-21T00:00:00",
         "ED700": "2026-10-20T00:00:00"
       },
@@ -4799,6 +4544,56 @@
       "unexpected_keys_total": 1
     },
     "in_polygon": null
+  },
+  {
+    "myIndex": 16584335,
+    "tik_num": "2024/0318.01",
+    "street": "יהושפט",
+    "house_number": "1",
+    "neighborhood": "המושבה היוונית",
+    "place_description": null,
+    "publication_date": "2026-11-15",
+    "objection_deadline": null,
+    "ed700": "2026-11-12",
+    "connected_rec_id": 1268603,
+    "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-15T00:00:00",
+        "ED700": "2026-11-12T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": true
   },
   {
     "myIndex": 16475114,
@@ -5901,57 +5696,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16530017,
-    "tik_num": "2026/0439.00",
-    "street": "הפלמח",
-    "house_number": "41",
-    "neighborhood": "קטמון הישנה",
-    "place_description": null,
-    "publication_date": "2026-10-18",
-    "objection_deadline": "2026-11-13",
-    "ed700": "2026-09-24",
-    "connected_rec_id": null,
-    "doc_id": "c47d28af-0588-4ae4-8aa2-056fac3210b6",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-13T00:00:00",
-        "DocId": "c47d28af-0588-4ae4-8aa2-056fac32",
-        "ED800": "2026-10-18T00:00:00",
-        "ED700": "2026-09-24T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": true
-  },
-  {
     "myIndex": 16576810,
     "tik_num": "2026/0463.00",
     "street": "אבו עוביידה",
@@ -5993,6 +5737,56 @@
         "DocId": null,
         "ED800": "2026-11-10T00:00:00",
         "ED700": "2026-10-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16568775,
+    "tik_num": "2026/0465.00",
+    "street": "חכמי לובלין",
+    "house_number": "10",
+    "neighborhood": "בית ישראל",
+    "place_description": "חכמי לובלין 10",
+    "publication_date": "2026-11-15",
+    "objection_deadline": null,
+    "ed700": "2026-11-12",
+    "connected_rec_id": 1277694,
+    "doc_id": "5b96aecc-49d0-48cf-b4a9-33e5fb971506",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "5b96aecc-49d0-48cf-b4a9-33e5fb97",
+        "ED800": "2026-11-15T00:00:00",
+        "ED700": "2026-11-12T00:00:00"
       },
       "unexpected_keys": [
         "description"
