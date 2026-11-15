@@ -39,9 +39,12 @@ jobs:
       - name: Render the site from committed inputs (writes docs/, incl. og PNGs)
         run: python3 scripts/ci/check_docs_fresh.py --include-data-json --write --write-images
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
-      - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: docs/
+          # v5 (like v4.4+ upload-artifact) excludes hidden files by default;
+          # the site ships docs/.nojekyll and docs/.well-known/security.txt.
+          include-hidden-files: true
   deploy:
     needs: build
     if: github.ref == 'refs/heads/main' && vars.PAGES_ACTIONS_DEPLOY == 'true'
