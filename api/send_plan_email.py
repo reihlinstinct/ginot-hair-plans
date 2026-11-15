@@ -752,24 +752,54 @@ class handler(BaseHTTPRequestHandler):
             if not secret or not hmac.compare_digest(auth, f"Bearer {secret}"):
                 return self._reply(403, {"ok": False})
             sent = 0
+            failed = 0
             try:
                 plans = load_plans()
-                for record, reason in _subscription_notices(plans):
-                    if _over_limit("", per_ip=False):
-                        break
+                notices = _subscription_notices(plans)
+                digests = _all_scope_notices(plans)
+            except Exception:  # noqa: BLE001 - generic 502, never leak internals
+                return self._reply(502, {"ok": False})
+            # #997: each send gets its own try - one permanently failing
+            # recipient must not 502 the run and starve everyone after
+            # them in smembers order. Failed sends keep their state
+            # (un-cleared all_pending / un-saved notice), so the next
+            # cron run retries them; the operator log line names the
+            # stage and exception class only. Only recipient-specific
+            # failures (SMTPRecipientsRefused: a refused RCPT) continue
+            # to the next subscriber. An account- or transport-wide
+            # error (auth, missing config, connect failure) would fail
+            # every send alike, so stop the run with a 502 there instead
+            # of burning one fresh SMTP login per remaining recipient -
+            # repeated failed logins from one IP can lock the account
+            # (#1003 review P2).
+            for record, reason in notices:
+                if _over_limit("", per_ip=False):
+                    break
+                try:
                     send(compose_notify(record, reason), record["email"])
                     save_subscription(record["unsub_token"], record)
                     sent += 1
-                for record, (deposited, other) in _all_scope_notices(plans):
-                    if _over_limit("", per_ip=False):
-                        break
+                except smtplib.SMTPRecipientsRefused as exc:
+                    _log_failure("notify", exc)
+                    failed += 1
+                except Exception as exc:  # noqa: BLE001 - account/transport-wide
+                    _log_failure("notify", exc)
+                    return self._reply(502, {"ok": False})
+            for record, (deposited, other) in digests:
+                if _over_limit("", per_ip=False):
+                    break
+                try:
                     send(compose_all_digest(record, deposited, other), record["email"])
                     record["all_pending"] = []  # delivered: clear only now
                     save_subscription(record["unsub_token"], record)
                     sent += 1
-            except Exception:  # noqa: BLE001 - generic 502, never leak internals
-                return self._reply(502, {"ok": False})
-            return self._reply(200, {"ok": True, "sent": sent})
+                except smtplib.SMTPRecipientsRefused as exc:
+                    _log_failure("all-digest", exc)
+                    failed += 1
+                except Exception as exc:  # noqa: BLE001 - account/transport-wide
+                    _log_failure("all-digest", exc)
+                    return self._reply(502, {"ok": False})
+            return self._reply(200, {"ok": True, "sent": sent, "failed": failed})
         return self._reply(404, {"ok": False})
 
     def _confirm(self, token: str) -> None:
