@@ -101,6 +101,32 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 })();"""
 
 
+def hreflang_links(name: str, base_url: str = "") -> str:
+    """Absolute <link rel="alternate" hreflang="..."> tags for page name.
+
+    One per language in lang_codes() order, then x-default pointing at the
+    default-language (root) URL. hreflang needs absolute URLs, so this is
+    base_url (stripped of trailing slashes) + '/' + page_path(lang, name);
+    x-default uses the default language's path. Attributes are escaped with
+    html.escape, matching the project's _e escaping elsewhere. With an
+    empty base_url, return "" (no tags), mirroring how _social_meta skips
+    og:url without a base_url, so existing callers/tests are unaffected.
+    """
+    if not base_url:
+        return ""
+    base = base_url.rstrip("/")
+    tags = [
+        f'<link rel="alternate" hreflang="{escape(meta(code)["lang"])}" '
+        f'href="{escape(base + "/" + page_path(code, name))}">'
+        for code in lang_codes()
+    ]
+    tags.append(
+        f'<link rel="alternate" hreflang="x-default" '
+        f'href="{escape(base + "/" + page_path(default_lang(), name))}">'
+    )
+    return "\n".join(tags)
+
+
 def switcher(lang: str, name: str) -> str:
     """The language selector for page name: a drop-down whose options come
     from the document. Mouse and touch navigate on selection; keyboard users
