@@ -128,7 +128,7 @@ def render_accessibility(generated: str, council_name: str, lang: str = "he") ->
 {_t("a11y.limits_html")}
 <h2>{_e(_t("a11y.contact_h"))}</h2>
 <p>{_t("a11y.contact_html")}</p>
-<p>{_t("a11y.updated", updated=generated)}</p>
+<p>{_e(_t("a11y.updated", updated=generated))}</p>
 <p><a href="{pre}{_i18n.page_path(lang, "index.html")}">{_e(_t("ui.back_home"))}</a></p>
 <footer dir="{meta["dir"]}"><p class="site-version">{_e(_t("index.version"))} <span dir="ltr">{__version__}</span> · Version {__version__}</p></footer>
 </body></html>"""
