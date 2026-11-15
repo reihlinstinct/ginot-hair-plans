@@ -175,8 +175,9 @@ test("GET callers are counted per source: explicit ?src= or Referer classificati
     handleRequest(new Request("https://x.workers.dev" + path, { headers }), stub, env);
   // A mirror calling with an explicit tag.
   assert.equal((await get("/status?src=mirror")).status, 200);
-  // The about page (Referer classification).
-  assert.equal((await get("/status",
+  // The about page tags itself explicitly (browsers send origin-only
+  // Referer cross-origin, so a path heuristic would never fire).
+  assert.equal((await get("/status?src=about",
     { referer: "https://reihlinstinct.github.io/ginot-hair-plans/about.html" })).status, 200);
   // A plain site page.
   assert.equal((await get("/status",

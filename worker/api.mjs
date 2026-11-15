@@ -180,16 +180,19 @@ async function recordStat(env, e, k) {
 function classifySrc(request, explicit) {
   if (SRC_TYPES.has(explicit)) return explicit;
   const ref = request.headers.get("referer") || request.headers.get("origin") || "";
-  if (ref.includes("reihlinstinct.github.io")) {
-    return ref.includes("about") ? "about" : "site";
-  }
+  // Browsers send origin-only Referer cross-origin, so no path heuristics
+  // here: the about page tags itself with ?src=about instead.
+  try {
+    if (new URL(ref).hostname === "reihlinstinct.github.io") return "site";
+  } catch { /* not a URL */ }
   return "other";
 }
 
-// In-isolate aggregation: a burst costs at most one flush per minute per
-// isolate (~1 KV write per active source per minute), not one write per
+// In-isolate aggregation: a burst costs at most one flush per interval per
+// isolate (~1 KV write per active source per interval), not one write per
 // request, keeping the free plan's daily write quota safe. Best-effort:
 // a failed flush drops counts but never fails the request.
+const SRC_FLUSH_MS = 900_000; // 15 min: <=96 writes/source/day/isolate
 // Pending counts are scoped per KV binding (prod has one binding per
 // isolate; tests use separate fakes, so a shared Map would leak between
 // them). JS Map keys here: the WeakMap key is the binding object.
@@ -208,7 +211,7 @@ async function flushSrc(env) {
   if (!env.STATS) return;
   const st = srcStateFor(env);
   if (st.pending.size === 0) return;
-  if (Date.now() - st.lastFlush < 60_000) return;
+  if (Date.now() - st.lastFlush < SRC_FLUSH_MS) return;
   st.lastFlush = Date.now();
   const day = dayKey(new Date());
   const entries = [...st.pending];
@@ -274,7 +277,7 @@ const INDEX = {
   docs: "https://reihlinstinct.github.io/ginot-hair-plans/about.html",
 };
 
-export async function handleRequest(request, fetchImpl = fetch, env = {}) {
+export async function handleRequest(request, fetchImpl = fetch, env = {}, ctx = null) {
   const sec = securityTxtResponse(request);
   if (sec) return sec;
   const url = new URL(request.url);
@@ -290,7 +293,8 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   // Referer/Origin, else "other". Aggregated in-isolate, flushed ~once/min.
   if (request.method === "GET") {
     bumpSrc(env, classifySrc(request, url.searchParams.get("src")));
-    await flushSrc(env);
+    // Off the request path when the runtime gives us ctx (m5); tests await.
+    if (ctx && ctx.waitUntil) ctx.waitUntil(flushSrc(env)); else await flushSrc(env);
   }
   if (url.pathname === "/stats/event" && request.method === "POST") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
@@ -309,7 +313,7 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
     }
     const ok = await recordStat(env, e, k);
     bumpSrc(env, src);
-    await flushSrc(env);
+    if (ctx && ctx.waitUntil) ctx.waitUntil(flushSrc(env)); else await flushSrc(env);
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
@@ -376,4 +380,4 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   return json({ error: "unknown endpoint", endpoints: Object.keys(INDEX.endpoints) }, { status: 404 });
 }
 
-export default { fetch: (request, env) => handleRequest(request, fetch, env) };
+export default { fetch: (request, env, ctx) => handleRequest(request, fetch, env, ctx) };

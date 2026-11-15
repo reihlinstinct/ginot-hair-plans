@@ -72,7 +72,7 @@ def render_about(
 <script>(function(){{
 var el=document.getElementById('usage-stats');if(!el)return;
 function esc(s){{return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}}
-fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(function(r){{return r.json();}}).then(function(d){{
+fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary?src=about').then(function(r){{return r.json();}}).then(function(d){{
   var NAMES={{search:{J("us.search")},permits_search:{J("us.permits_search")},filter:{J("us.filter")},permits_filter:{J("us.permits_filter")}}};
   var html='',any=false;
   Object.keys(NAMES).forEach(function(e){{

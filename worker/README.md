@@ -25,9 +25,13 @@ classified from Referer/Origin (the site's own pages), else `other`. The tag
 is client-asserted and unauthenticated - anyone can claim `mirror` - so these
 are approximate usage stats, not attribution. To protect the free plan's
 daily KV write quota, per-source counts are aggregated in-isolate and flushed
-at most once a minute (a burst costs ~1 write per active source per minute,
-not one write per request); a failed flush drops counts but never fails the
-request. `/stats/summary` itself is cached in a single KV key with a 900 s
+at most once per 15 minutes (a burst costs ~1 write per active source per
+interval - <=96 writes/source/day per isolate, and Cloudflare may run several
+isolates - not one write per request); a failed flush or an isolate eviction
+drops pending counts but never fails the request. The site tags itself via
+`src` (`?src=about` on the about page's summary fetch, `src:'site'` in event
+posts); `mirror`/`mcp` stay at 0 until those callers pass `?src=` on their
+API calls. `/stats/summary` itself is cached in a single KV key with a 900 s
 TTL, so uncached KV `list` calls stay rare (issue #990).
 
 Rate limiting is best-effort per isolate (120 req/min/IP, fixed window);
