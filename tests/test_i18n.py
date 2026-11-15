@@ -188,10 +188,10 @@ def test_index_page_renders_in_every_language(code):
 
 BASE = "https://example.org/site"
 
+
 def _hreflang_tags(html):
-    return re.findall(
-        r'<link rel="alternate" hreflang="([^"]+)" href="([^"]*)">', html
-    )
+    return re.findall(r'<link rel="alternate" hreflang="([^"]+)" href="([^"]*)">', html)
+
 
 def test_hreflang_links_lists_every_language_then_x_default():
     tags = _hreflang_tags(i18n.hreflang_links("index.html", BASE))
@@ -203,12 +203,17 @@ def test_hreflang_links_lists_every_language_then_x_default():
     langs = [m["lang"] for m in i18n.load()["languages"].values()]
     assert langs == ["he", "en", "ar", "ru", "am", "fr"]
 
+
 def test_hreflang_links_omitted_without_base_url():
     assert i18n.hreflang_links("index.html", "") == ""
     assert i18n.hreflang_links("index.html") == ""
 
+
 def test_hreflang_links_normalises_trailing_slash():
-    assert i18n.hreflang_links("about.html", BASE + "/") == i18n.hreflang_links("about.html", BASE)
+    assert i18n.hreflang_links("about.html", BASE + "/") == i18n.hreflang_links(
+        "about.html", BASE
+    )
+
 
 def test_hreflang_links_escapes_attributes():
     html = i18n.hreflang_links("index.html", 'https://x.org/?a="b"&c=<d>')
@@ -216,13 +221,18 @@ def test_hreflang_links_escapes_attributes():
     assert 'href="https://x.org/?a=&quot;b&quot;&amp;c=&lt;d&gt;/index.html"' in html
     assert "&amp;amp;" not in html
 
+
 def test_hreflang_links_x_default_is_the_hebrew_url():
-    tags = dict((l, h) for l, h in _hreflang_tags(i18n.hreflang_links("email.html", BASE)))
+    tags = dict(
+        (l, h) for l, h in _hreflang_tags(i18n.hreflang_links("email.html", BASE))
+    )
     assert tags["x-default"] == tags["he"] == BASE + "/email.html"
+
 
 def test_no_hreflang_without_base_url_in_renderers():
     from ginot.page import render_index
     from ginot.page_secondary import render_about, render_accessibility
+
     for html in [
         render_index([_index_row()], [], "2026-11-11", "גינות העיר"),
         render_about("2026-11-11", "גינות העיר"),
@@ -231,15 +241,28 @@ def test_no_hreflang_without_base_url_in_renderers():
     ]:
         assert 'rel="alternate" hreflang=' not in html
 
+
 @pytest.mark.parametrize("code", i18n.lang_codes())
 def test_renderers_emit_all_hreflang_langs_for_each_page(code):
     from ginot.page import render_index
     from ginot.page_secondary import render_about, render_accessibility
+
     for name, html in [
-        ("index.html", render_index([_index_row()], [], "2026-11-11", "גינות העיר", lang=code, base_url=BASE)),
+        (
+            "index.html",
+            render_index(
+                [_index_row()], [], "2026-11-11", "גינות העיר", lang=code, base_url=BASE
+            ),
+        ),
         ("about.html", render_about("2026-11-11", "גינות העיר", code, base_url=BASE)),
-        ("accessibility.html", render_accessibility("2026-11-11", "גינות העיר", code, base_url=BASE)),
-        ("email.html", render_email_page(ROWS, "2026-11-09", "Council", code, base_url=BASE)),
+        (
+            "accessibility.html",
+            render_accessibility("2026-11-11", "גינות העיר", code, base_url=BASE),
+        ),
+        (
+            "email.html",
+            render_email_page(ROWS, "2026-11-09", "Council", code, base_url=BASE),
+        ),
     ]:
         tags = _hreflang_tags(html)
         expected = [
@@ -248,10 +271,19 @@ def test_renderers_emit_all_hreflang_langs_for_each_page(code):
         ] + [("x-default", BASE + "/" + name)]
         assert tags == expected, (code, name)
 
-def test_fragments_carry_hreflang_tags_and_stay_byte_identical_without_base_url(tmp_path):
+
+def test_fragments_carry_hreflang_tags_and_stay_byte_identical_without_base_url(
+    tmp_path,
+):
     from ginot.page_permits import _permits_section
+
     permits = [{"tik_num": "2026/0001.00", "status": "נפתח תיק רישוי", "gush": 1}]
-    a, b, c, d = tmp_path / "p.html", tmp_path / "pd.html", tmp_path / "p2.html", tmp_path / "pd2.html"
+    a, b, c, d = (
+        tmp_path / "p.html",
+        tmp_path / "pd.html",
+        tmp_path / "p2.html",
+        tmp_path / "pd2.html",
+    )
     _permits_section(permits, rows_file=str(a), default_rows_file=str(b), base_url=BASE)
     _permits_section(permits, rows_file=str(c), default_rows_file=str(d))
     pa, pb = a.read_text(encoding="utf-8"), b.read_text(encoding="utf-8")
@@ -268,10 +300,19 @@ def test_fragments_carry_hreflang_tags_and_stay_byte_identical_without_base_url(
         assert "\n".join(with_base.split("\n")[n:]) == bare
         assert 'rel="alternate" hreflang=' not in bare
 
+
 def test_rows_fragment_carries_hreflang_tags(tmp_path):
     from ginot.page import render_index
+
     rows = tmp_path / "rows.html"
-    render_index([_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(rows), base_url=BASE)
+    render_index(
+        [_index_row()],
+        [],
+        "2026-11-11",
+        "גינות העיר",
+        rows_file=str(rows),
+        base_url=BASE,
+    )
     body = rows.read_text(encoding="utf-8")
     expected = [
         (i18n.meta(c)["lang"], BASE + "/" + i18n.page_path(c, "rows.html"))
@@ -279,14 +320,19 @@ def test_rows_fragment_carries_hreflang_tags(tmp_path):
     ] + [("x-default", BASE + "/rows.html")]
     assert _hreflang_tags(body) == expected
 
+
 def test_rows_fragment_unchanged_without_base_url(tmp_path):
     from ginot.page import render_index
+
     r1, r2 = tmp_path / "r1.html", tmp_path / "r2.html"
-    render_index([_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(r1), base_url=BASE)
+    render_index(
+        [_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(r1), base_url=BASE
+    )
     render_index([_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(r2))
     with_base, bare = r1.read_text(encoding="utf-8"), r2.read_text(encoding="utf-8")
-    assert "\n".join(with_base.split("\n")[len(i18n.lang_codes())+1:]) == bare
+    assert "\n".join(with_base.split("\n")[len(i18n.lang_codes()) + 1 :]) == bare
     assert 'rel="alternate" hreflang=' not in bare
+
 
 # Section: the mail API reads the same document
 def test_api_languages_come_from_the_document():

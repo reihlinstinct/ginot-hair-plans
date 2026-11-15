@@ -22,7 +22,11 @@ def _js(text: str) -> str:
 
 
 def render_email_page(
-    rows: list[dict], generated: str, council_name: str, lang: str | None = None, base_url: str = ""
+    rows: list[dict],
+    generated: str,
+    council_name: str,
+    lang: str | None = None,
+    base_url: str = "",
 ) -> str:
     """The form page, listing plans whose objection window is still open.
 

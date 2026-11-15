@@ -5,7 +5,9 @@ from . import i18n as _i18n
 from .page_resources import _ANALYTICS_SNIPPET, _datasets_js, _e, _sources_rows
 
 
-def render_about(generated: str, council_name: str, lang: str = "he", base_url: str = "") -> str:
+def render_about(
+    generated: str, council_name: str, lang: str = "he", base_url: str = ""
+) -> str:
     """Combined About + data-sources + datasets page (issue: datasets off the
     main page, owner request 2026-10-21). Generated with the site so the
     update stamp stays current; the datasets list loads from index.json."""
@@ -99,7 +101,9 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
 </body></html>"""
 
 
-def render_accessibility(generated: str, council_name: str, lang: str = "he", base_url: str = "") -> str:
+def render_accessibility(
+    generated: str, council_name: str, lang: str = "he", base_url: str = ""
+) -> str:
     """On-site accessibility statement (SI 5568 regulation 35): standard target,
     measures, known limitations and the feedback channel. Generated with the
     site so the update stamp stays current."""

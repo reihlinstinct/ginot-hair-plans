@@ -150,12 +150,19 @@ def _permits_section(
             _hl = _i18n.hreflang_links("permits-default.html", base_url)
             fh.write(
                 (_hl + "\n" if _hl else "")
-                + _FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(default_rows)
+                + _FRAGMENT_REDIRECT
+                + _fragment_noscript(lang)
+                + "".join(default_rows)
             )
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
             _hl = _i18n.hreflang_links("permits.html", base_url)
-            fh.write((_hl + "\n" if _hl else "") + _FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(rows))
+            fh.write(
+                (_hl + "\n" if _hl else "")
+                + _FRAGMENT_REDIRECT
+                + _fragment_noscript(lang)
+                + "".join(rows)
+            )
     body = "".join(rows[:COLLAPSE_TOP])
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES

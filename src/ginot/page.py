@@ -1481,14 +1481,20 @@ def render_site(
             fh.write(render_about(generated, council_name, code, base_url=base_url))
         a11y_path = f"{out_dir}/{i18n.page_path(code, 'accessibility.html')}"
         with open(a11y_path, "w", encoding="utf-8") as fh:
-            fh.write(render_accessibility(generated, council_name, code, base_url=base_url))
+            fh.write(
+                render_accessibility(generated, council_name, code, base_url=base_url)
+            )
     from .page_email import render_email_page
 
     for code in i18n.lang_codes():  # languages come from i18n/strings.json
         email_path = f"{out_dir}/{i18n.page_path(code, 'email.html')}"
         os.makedirs(os.path.dirname(email_path), exist_ok=True)
         with open(email_path, "w", encoding="utf-8") as fh:
-            fh.write(render_email_page(rows, generated, council_name, code, base_url=base_url))
+            fh.write(
+                render_email_page(
+                    rows, generated, council_name, code, base_url=base_url
+                )
+            )
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
         fh.write(_SOURCES_REDIRECT)
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
