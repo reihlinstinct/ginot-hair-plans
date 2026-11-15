@@ -624,25 +624,38 @@ def _all_scope_notices(plans: dict) -> list[tuple[dict, tuple[list, list]]]:
     appeared in the dataset since the last cron run. The known-plan set is
     global (not per subscriber): the first ever run seeds it silently so
     nobody receives the backlog, and a subscriber who joins later is only
-    told about plans arriving after that."""
+    told about plans arriving after that. Each subscriber's undelivered
+    plans are persisted in the record's all_pending BEFORE the digest is
+    sent (cleared only after a successful send), so a capped or failed
+    cron run never loses a digest."""
     raw = _kv("get", KNOWN_PLANS_KEY)
     if raw is None:  # first run: seed without notifying
         _kv("set", KNOWN_PLANS_KEY, json.dumps(sorted(plans)))
         return []
     known = set(json.loads(raw))
-    new = [plan for number, plan in plans.items() if number not in known]
-    if not new:
-        return []
-    _kv("set", KNOWN_PLANS_KEY, json.dumps(sorted(plans)))
-    deposited = [plan for plan in new if plan.get("_open_obj")]
-    other = [plan for plan in new if not plan.get("_open_obj")]
+    new_numbers = [number for number in plans if number not in known]
+    if new_numbers:
+        # Union, not replace: a partial publish must not resurrect dropped
+        # plans as a later "new" backlog.
+        _kv("set", KNOWN_PLANS_KEY, json.dumps(sorted(known | set(plans))))
     out = []
     for token in _kv("smembers", f"plans:{ALL_SCOPE}") or []:
         sub_raw = _kv("get", f"sub:{token}")
-        if sub_raw:
-            record = json.loads(sub_raw)
-            record["unsub_token"] = token
-            out.append((record, (deposited, other)))
+        if not sub_raw:
+            continue
+        record = json.loads(sub_raw)
+        pending = list(dict.fromkeys(record.get("all_pending", []) + new_numbers))
+        pending = [number for number in pending if number in plans]
+        if pending != record.get("all_pending", []):
+            record["all_pending"] = pending
+            save_subscription(token, record)
+        if not pending:
+            continue
+        record["unsub_token"] = token
+        due = [plans[number] for number in pending]
+        deposited = [plan for plan in due if plan.get("_open_obj")]
+        other = [plan for plan in due if not plan.get("_open_obj")]
+        out.append((record, (deposited, other)))
     return out
 
 
@@ -751,6 +764,8 @@ class handler(BaseHTTPRequestHandler):
                     if _over_limit("", per_ip=False):
                         break
                     send(compose_all_digest(record, deposited, other), record["email"])
+                    record["all_pending"] = []  # delivered: clear only now
+                    save_subscription(record["unsub_token"], record)
                     sent += 1
             except Exception:  # noqa: BLE001 - generic 502, never leak internals
                 return self._reply(502, {"ok": False})
