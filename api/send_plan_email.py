@@ -10,7 +10,10 @@ drafts except Hebrew), signed "reihlinstinct". With subscribe=true the same
 confirmation also creates a subscription: a notification when the plan's
 objection deadline is within 7 days (once per deadline) or its status
 changes (daily Vercel cron calls GET ?action=notify with the CRON_SECRET
-bearer). Unsubscribe is a page with a POST button, plus RFC 8058
+bearer). A scope=all request subscribes to the whole polygon instead: one
+daily digest when new plans appear in the dataset, with plans deposited for
+objections highlighted (stored as plan "*"; the first cron run seeds the
+known-plan set silently so nobody gets the backlog). Unsubscribe is a page with a POST button, plus RFC 8058
 List-Unsubscribe-Post one-click headers on every subscriber email; it deletes
 the record immediately. Minimal data only: address, plan id, language,
 tokens, timestamps. Nothing else is stored, shared or logged.
@@ -56,6 +59,8 @@ PER_RECIPIENT_DAILY_CAP = int(os.environ.get("PER_RECIPIENT_DAILY_CAP", "3"))
 DAILY_SEND_CAP = int(os.environ.get("DAILY_SEND_CAP", "50"))
 PENDING_TTL_SECONDS = 48 * 3600  # double opt-in records expire
 NOTIFY_WINDOW_DAYS = 7
+ALL_SCOPE = "*"  # plan value of a whole-polygon subscription
+KNOWN_PLANS_KEY = "state:known_plans"  # JSON list seeded on first cron run
 
 # In-memory counter fallback, used only when KV answers nothing (storage
 # outage); the normal path counts in KV so every instance shares one count.
@@ -81,6 +86,19 @@ LANGS = _languages()
 # The signature is always the Latin "reihlinstinct" (owner request).
 _STRINGS = {
     "he": {
+        "all_confirm_subject": "אישור הרשמה לעדכונים על תוכניות חדשות בגינות העיר",
+        "all_confirm_intro": "כדי להשלים את ההרשמה לעדכונים על כל תוכנית חדשה "
+        "בפוליגון גינות העיר, יש לאשר בקישור: {url}",
+        "all_welcome_subject": "נרשמת לעדכונים על תוכניות חדשות בגינות העיר",
+        "all_welcome_intro": "ההרשמה אושרה. כשתוכנית חדשה תכנס לפוליגון גינות העיר "
+        "({count} תוכניות במעקב כרגע), יישלח עדכון יומי אחד; תוכניות שהופקדו "
+        "להתנגדויות יודגשו.",
+        "all_digest_subject": "תוכניות חדשות בגינות העיר",
+        "all_digest_intro": "נכנסו {count} תוכניות חדשות לפוליגון גינות העיר:",
+        "all_deposited_header": "מופקדות להתנגדויות:",
+        "all_new_header": "תוכניות חדשות נוספות:",
+        "all_item": "{number} - {name}",
+        "all_item_status": "סטטוס: {status}",
         "subject": "תוכנית {number} - מועד אחרון להגשת התנגדות",
         "intro": "ביקשת עדכון על תוכנית {number} ({name}) באתר גינות העיר.",
         "status": "סטטוס: {status}",
@@ -99,6 +117,19 @@ _STRINGS = {
         "notify_deadline": "המועד האחרון להתנגדות לתוכנית {number} מתקרב: {deadline}",
     },
     "en": {
+        "all_confirm_subject": "Confirm subscription to new-plan updates for Ginot HaIr",
+        "all_confirm_intro": "To confirm updates about every new plan in the "
+        "Ginot HaIr polygon, open: {url}",
+        "all_welcome_subject": "Subscribed to new-plan updates for Ginot HaIr",
+        "all_welcome_intro": "Subscription confirmed. When a new plan enters the "
+        "Ginot HaIr polygon ({count} plans tracked now), you will get one daily "
+        "update; plans deposited for objections are highlighted.",
+        "all_digest_subject": "New plans in Ginot HaIr",
+        "all_digest_intro": "{count} new plans entered the Ginot HaIr polygon:",
+        "all_deposited_header": "Deposited for objections:",
+        "all_new_header": "Other new plans:",
+        "all_item": "{number} - {name}",
+        "all_item_status": "Status: {status}",
         "subject": "Plan {number} - objection deadline",
         "intro": "You asked for an update on plan {number} ({name}) from the Ginot HaIr site.",
         "status": "Status: {status}",
@@ -116,6 +147,19 @@ _STRINGS = {
         "notify_deadline": "The objection deadline for plan {number} is near: {deadline}",
     },
     "ar": {
+        "all_confirm_subject": "تأكيد الاشتراك في تحديثات الخطط الجديدة في غينوت هعير",
+        "all_confirm_intro": "لتأكيد التحديثات حول كل خطة جديدة في مضلع غينوت هعير، "
+        "افتح: {url}",
+        "all_welcome_subject": "تم الاشتراك في تحديثات الخطط الجديدة في غينوت هعير",
+        "all_welcome_intro": "تم تأكيد الاشتراك. عند دخول خطة جديدة إلى مضلع غينوت "
+        "هعير ({count} خطة قيد المتابعة الآن)، ستصلك رسالة يومية واحدة؛ وتُبرز "
+        "الخطط المودعة للاعتراضات.",
+        "all_digest_subject": "خطط جديدة في غينوت هعير",
+        "all_digest_intro": "دخلت {count} خطط جديدة إلى مضلع غينوت هعير:",
+        "all_deposited_header": "مودعة للاعتراضات:",
+        "all_new_header": "خطط جديدة أخرى:",
+        "all_item": "{number} - {name}",
+        "all_item_status": "الحالة: {status}",
         "subject": "الخطة {number} - الموعد الأخير لتقديم اعتراض",
         "intro": "طلبت تحديثًا حول الخطة {number} ({name}) من موقع غينوت هعير.",
         "status": "الحالة: {status}",
@@ -133,6 +177,19 @@ _STRINGS = {
         "notify_deadline": "اقترب الموعد الأخير للاعتراض على الخطة {number}: {deadline}",
     },
     "ru": {
+        "all_confirm_subject": "Подтверждение подписки на новые планы Гинот hа-Ир",
+        "all_confirm_intro": "Чтобы подтвердить обновления о каждом новом плане "
+        "в полигоне Гинот hа-Ир, откройте: {url}",
+        "all_welcome_subject": "Подписка на новые планы Гинот hа-Ир оформлена",
+        "all_welcome_intro": "Подписка подтверждена. Когда новый план появится в "
+        "полигоне Гинот hа-Ир (сейчас отслеживается {count}), вы получите одно "
+        "письмо в день; планы, вынесенные на возражения, выделены.",
+        "all_digest_subject": "Новые планы в Гинот hа-Ир",
+        "all_digest_intro": "В полигон Гинот hа-Ир добавлено новых планов: {count}:",
+        "all_deposited_header": "Вынесены на возражения:",
+        "all_new_header": "Другие новые планы:",
+        "all_item": "{number} - {name}",
+        "all_item_status": "Статус: {status}",
         "subject": "План {number} - крайний срок подачи возражения",
         "intro": "Вы запросили обновление по плану {number} ({name}) с сайта Гинот hа-Ир.",
         "status": "Статус: {status}",
@@ -151,6 +208,19 @@ _STRINGS = {
         "notify_deadline": "Приближается крайний срок возражения по плану {number}: {deadline}",
     },
     "am": {
+        "all_confirm_subject": "በጊኖት ሃዒር ስለ አዳዲስ ዕቅዶች ዝመናዎች ምዝገባ አረጋግጥ",
+        "all_confirm_intro": "በጊኖት ሃዒር ፖሊጎን ውስጥ ስለ እያንዳንዱ አዲስ ዕቅድ ዝመናዎችን "
+        "ለማረጋገጥ ይህን ይክፈቱ: {url}",
+        "all_welcome_subject": "ለጊኖት ሃዒር አዳዲስ ዕቅዶች ዝመናዎች ተመዝግበዋል",
+        "all_welcome_intro": "ምዝገባው ተረጋግጧል። አዲስ ዕቅድ ወደ ጊኖት ሃዒር ፖሊጎን ሲገባ "
+        "(አሁን {count} ዕቅዶች በክትትል ላይ ናቹ) አንድ የዕለት ዝመና ይደርስዎታል፤ ለተቃውሞ "
+        "የተቀረጹ ዕቅዶች ይጎለበታሉ።",
+        "all_digest_subject": "አዳዲስ ዕቅዶች በጊኖት ሃዒር",
+        "all_digest_intro": "{count} አዳዲስ ዕቅዶች ወደ ጊኖት ሃዒር ፖሊጎን ገብተዋል:",
+        "all_deposited_header": "ለተቃውሞ የተቀረጹ:",
+        "all_new_header": "ሌሎች አዳዲስ ዕቅዶች:",
+        "all_item": "{number} - {name}",
+        "all_item_status": "ሁኔታ: {status}",
         "subject": "ዕቅድ {number} - የተቃውሞ ማቅረቢያ የመጨረሻ ቀን",
         "intro": "ስለ ዕቅድ {number} ({name}) ከጊኖት ሃዒር ጣቢያ ዝመና ጠይቀዋል።",
         "status": "ሁኔታ: {status}",
@@ -168,6 +238,21 @@ _STRINGS = {
         "notify_deadline": "የዕቅድ {number} የተቃውሞ ቀን ቀርቧል: {deadline}",
     },
     "fr": {
+        "all_confirm_subject": "Confirmer l'abonnement aux nouveaux plans de Ginot HaIr",
+        "all_confirm_intro": "Pour confirmer les mises à jour sur chaque nouveau "
+        "plan du polygone Ginot HaIr, ouvrez : {url}",
+        "all_welcome_subject": "Abonnement aux nouveaux plans de Ginot HaIr confirmé",
+        "all_welcome_intro": "Abonnement confirmé. Quand un nouveau plan entre dans "
+        "le polygone Ginot HaIr ({count} plans suivis actuellement), vous recevrez "
+        "une mise à jour quotidienne ; les plans déposés pour opposition sont mis "
+        "en évidence.",
+        "all_digest_subject": "Nouveaux plans à Ginot HaIr",
+        "all_digest_intro": "{count} nouveaux plans sont entrés dans le polygone "
+        "Ginot HaIr :",
+        "all_deposited_header": "Déposés pour opposition :",
+        "all_new_header": "Autres nouveaux plans :",
+        "all_item": "{number} - {name}",
+        "all_item_status": "Statut : {status}",
         "subject": "Plan {number} - date limite d'opposition",
         "intro": "Vous avez demandé une mise à jour sur le plan {number} ({name}) "
         "du site Ginot HaIr.",
@@ -363,14 +448,72 @@ def compose_confirm(record: dict, token: str) -> MIMEText:
     """Double opt-in: the confirmation email in the subscriber's language."""
     s = _strings(record.get("lang", "he"))
     url = f"{BASE_URL}/api/send_plan_email?action=confirm&token={token}"
+    if record["plan"] == ALL_SCOPE:
+        subject = s["all_confirm_subject"]
+        intro = s["all_confirm_intro"].format(url=url)
+    else:
+        subject = s["confirm_subject"].format(number=record["plan"])
+        intro = s["confirm_intro"].format(number=record["plan"], url=url)
+    lines = [intro, "", s["confirm_expiry"]]
+    return _message(subject, lines, record["email"])
+
+
+def compose_all_welcome(record: dict, plan_count: int) -> MIMEText:
+    """The all-scope welcome mail (sent at confirm instead of a plan email:
+    the subscription covers every plan in the polygon)."""
+    s = _strings(record.get("lang", "he"))
     lines = [
-        s["confirm_intro"].format(number=record["plan"], url=url),
+        s["all_welcome_intro"].format(count=plan_count),
         "",
-        s["confirm_expiry"],
+        s["disclaimer"],
+        "",
+        s["unsub"].format(url=_unsub_url(record["unsub_token"])),
     ]
-    return _message(
-        s["confirm_subject"].format(number=record["plan"]), lines, record["email"]
-    )
+    msg = _message(s["all_welcome_subject"], lines, record["email"])
+    _one_click(msg, record["unsub_token"])
+    return msg
+
+
+def _plan_lines(plan: dict, s: dict) -> list[str]:
+    """One digest item: number - name, then status/deadline/mavat when known."""
+    lines = [
+        s["all_item"].format(
+            number=plan.get("pl_number", ""), name=plan.get("pl_name") or ""
+        )
+    ]
+    status = plan_status(plan)
+    if status:
+        lines.append(s["all_item_status"].format(status=status))
+    deadline = plan_deadline(plan)
+    if deadline:
+        lines.append(s["deadline"].format(deadline=deadline))
+    mavat = plan.get("mavat_url") or ""
+    if mavat:
+        lines.append(s["mavat"].format(url=mavat))
+    return lines
+
+
+def compose_all_digest(record: dict, deposited: list, other: list) -> MIMEText:
+    """The daily new-plans digest for all-scope subscribers; plans deposited
+    for objections come first, highlighted under their own header."""
+    s = _strings(record.get("lang", "he"))
+    lines = [s["all_digest_intro"].format(count=len(deposited) + len(other)), ""]
+    if deposited:
+        lines.append(s["all_deposited_header"])
+        for plan in deposited:
+            lines += _plan_lines(plan, s) + [""]
+    if other:
+        lines.append(s["all_new_header"])
+        for plan in other:
+            lines += _plan_lines(plan, s) + [""]
+    lines += [
+        s["disclaimer"],
+        "",
+        s["unsub"].format(url=_unsub_url(record["unsub_token"])),
+    ]
+    msg = _message(s["all_digest_subject"], lines, record["email"])
+    _one_click(msg, record["unsub_token"])
+    return msg
 
 
 def compose_notify(record: dict, reason: str) -> MIMEText:
@@ -476,6 +619,33 @@ def _subscription_notices(plans: dict) -> list[tuple[dict, str]]:
     return out
 
 
+def _all_scope_notices(plans: dict) -> list[tuple[dict, tuple[list, list]]]:
+    """(record, (deposited, other)) for all-scope subscribers when new plans
+    appeared in the dataset since the last cron run. The known-plan set is
+    global (not per subscriber): the first ever run seeds it silently so
+    nobody receives the backlog, and a subscriber who joins later is only
+    told about plans arriving after that."""
+    raw = _kv("get", KNOWN_PLANS_KEY)
+    if raw is None:  # first run: seed without notifying
+        _kv("set", KNOWN_PLANS_KEY, json.dumps(sorted(plans)))
+        return []
+    known = set(json.loads(raw))
+    new = [plan for number, plan in plans.items() if number not in known]
+    if not new:
+        return []
+    _kv("set", KNOWN_PLANS_KEY, json.dumps(sorted(plans)))
+    deposited = [plan for plan in new if plan.get("_open_obj")]
+    other = [plan for plan in new if not plan.get("_open_obj")]
+    out = []
+    for token in _kv("smembers", f"plans:{ALL_SCOPE}") or []:
+        sub_raw = _kv("get", f"sub:{token}")
+        if sub_raw:
+            record = json.loads(sub_raw)
+            record["unsub_token"] = token
+            out.append((record, (deposited, other)))
+    return out
+
+
 def _days_until(iso_date: str) -> int:
     """Whole days from today (UTC) to the YYYY-MM-DD date; -1 when unparseable."""
     import datetime
@@ -570,12 +740,17 @@ class handler(BaseHTTPRequestHandler):
                 return self._reply(403, {"ok": False})
             sent = 0
             try:
-                notices = _subscription_notices(load_plans())
-                for record, reason in notices:
+                plans = load_plans()
+                for record, reason in _subscription_notices(plans):
                     if _over_limit("", per_ip=False):
                         break
                     send(compose_notify(record, reason), record["email"])
                     save_subscription(record["unsub_token"], record)
+                    sent += 1
+                for record, (deposited, other) in _all_scope_notices(plans):
+                    if _over_limit("", per_ip=False):
+                        break
+                    send(compose_all_digest(record, deposited, other), record["email"])
                     sent += 1
             except Exception:  # noqa: BLE001 - generic 502, never leak internals
                 return self._reply(502, {"ok": False})
@@ -591,18 +766,24 @@ class handler(BaseHTTPRequestHandler):
         if not record:
             return self._reply_html(400, "Invalid or expired link / הקישור אינו תקף")
         try:
-            plan = load_plans().get(record["plan"])
-            if not plan:
-                raise LookupError
-            send(
-                compose(
-                    plan,
+            if record["plan"] == ALL_SCOPE:
+                send(
+                    compose_all_welcome(record, len(load_plans())),
                     record["email"],
-                    record.get("lang", "he"),
-                    record.get("unsub_token", ""),
-                ),
-                record["email"],
-            )
+                )
+            else:
+                plan = load_plans().get(record["plan"])
+                if not plan:
+                    raise LookupError
+                send(
+                    compose(
+                        plan,
+                        record["email"],
+                        record.get("lang", "he"),
+                        record.get("unsub_token", ""),
+                    ),
+                    record["email"],
+                )
         except Exception:  # noqa: BLE001 - generic 502, never leak internals
             if record.get("unsub_token"):
                 unsubscribe(record["unsub_token"])
@@ -646,6 +827,10 @@ class handler(BaseHTTPRequestHandler):
         if lang not in LANGS:
             lang = "he"
         subscribe = bool(body.get("subscribe"))
+        if str(body.get("scope", "")).strip() == "all":
+            # Whole-polygon subscription: no plan lookup, always subscribed.
+            plan_number = ALL_SCOPE
+            subscribe = True
         if not _valid_email(email) or not plan_number:
             return self._reply(400, {"ok": False})
         if not (KV_URL and KV_TOKEN):  # no storage: never send unconfirmed mail
@@ -654,12 +839,15 @@ class handler(BaseHTTPRequestHandler):
         if _over_limit(self._client_ip(), email):
             return self._reply(429, {"ok": False})
 
-        try:
-            plan = load_plans().get(plan_number)
-        except Exception:  # noqa: BLE001 - generic 502, never leak internals
-            return self._reply(502, {"ok": False})
-        if not plan:
-            return self._reply(400, {"ok": False})
+        if plan_number == ALL_SCOPE:
+            plan = {}
+        else:
+            try:
+                plan = load_plans().get(plan_number)
+            except Exception:  # noqa: BLE001 - generic 502, never leak internals
+                return self._reply(502, {"ok": False})
+            if not plan:
+                return self._reply(400, {"ok": False})
 
         token = secrets.token_urlsafe(24)
         record = {

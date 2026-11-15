@@ -50,6 +50,10 @@ the repo, never in logs.
 Every request is double opt-in (see above). Ticking subscribe makes the same
 confirmation also create a subscriber record. Stored fields, nothing else:
 email address, plan id, page language, tokens, timestamps, last status seen.
+A whole-polygon subscription (the "all new plans" checkbox) is the same
+record with plan id `*`: the daily cron diffs the published dataset against
+a known-plan set and sends one digest when new plans appear, with plans
+deposited for objections highlighted; the first run seeds the set silently.
 Unsubscribe is a page with a POST button (GET never changes state, so mail
 scanners cannot trigger it), plus RFC 8058 `List-Unsubscribe-Post` headers on
 every subscriber email; it deletes the record immediately - no flag, no

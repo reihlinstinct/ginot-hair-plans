@@ -43,6 +43,9 @@ public rows above and exposes no private data.
 - Retention: a pending request is deleted on confirmation or after 48 hours.
   A subscription (only if the subscribe box was ticked) lives until the
   person unsubscribes; unsubscribing deletes the record at once.
+- The whole-polygon subscription (plan id `*`) stores the same fields and
+  adds a shared known-plan list (public plan numbers only, no addresses) so
+  the daily digest can tell which plans are new.
 - Where: Vercel serverless function (Hobby) with Upstash Redis in Frankfurt
   (eu-central-1), free tier. Sending uses the owner's SMTP account (Gmail app
   password) held only in Vercel environment variables.
