@@ -74,6 +74,8 @@ box-sizing:border-box;font-size:16px;min-height:44px}}
  autocomplete="email" dir="ltr"></label></p>
 <p><label><input type="checkbox" id="subscribe" name="subscribe">
 {_e(t("email.subscribe"))}</label></p>
+<p><label><input type="checkbox" id="subscribe_all" name="subscribe_all">
+{_e(t("email.subscribe_all"))}</label></p>
 <input type="hidden" id="lang" name="lang" value="{_e(lang)}">
 <p style="display:none" aria-hidden="true"><label>{_e(t("email.honeypot"))}
 <input type="text" id="website" name="website" tabindex="-1"
@@ -86,11 +88,13 @@ box-sizing:border-box;font-size:16px;min-height:44px}}
 var form=document.getElementById('email-form'),st=document.getElementById('form-status');
 var want=new URLSearchParams(location.search).get('plan');
 if(want){{Array.prototype.forEach.call(form.plan_number.options,function(o){{if(o.value===want){{form.plan_number.value=want;}}}});}}
+form.subscribe_all.addEventListener('change',function(){{form.plan_number.disabled=form.subscribe_all.checked;}});
 form.addEventListener('submit',function(ev){{
 ev.preventDefault();st.textContent={_js(t("email.sending"))};
 fetch('{EMAIL_ENDPOINT}',{{method:'POST',headers:{{'Content-Type':'application/json'}},
 body:JSON.stringify({{email:form.email.value,plan_number:form.plan_number.value,
 lang:form.lang.value,subscribe:form.subscribe.checked,
+scope:form.subscribe_all.checked?'all':'',
 website:form.website.value}})}}).then(function(r){{
 st.textContent=r.ok?{_js(t("email.ok"))}:{_js(t("email.error"))};
 }}).catch(function(){{st.textContent={_js(t("email.error"))};}});

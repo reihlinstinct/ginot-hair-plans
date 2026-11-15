@@ -2029,6 +2029,14 @@
    "ru": "Открыть полную таблицу запросов на разрешения",
    "am": "ሙሉውን የፍቃድ ጥያቄዎች ሰንጠረዥ ይመልከቱ",
    "fr": "Voir le tableau complet des demandes de permis"
+  },
+  "email.subscribe_all": {
+   "he": "עדכון יומי על כל תוכנית חדשה בגינות העיר (תוכניות שהופקדו להתנגדויות יודגשו)",
+   "en": "A daily update on every new plan in Ginot HaIr (plans deposited for objections are highlighted)",
+   "ar": "تحديث يومي عن كل خطة جديدة في غينوت هعير (تُبرز الخطط المودعة للاعتراضات)",
+   "ru": "Ежедневные новости о каждом новом плане в Гинот hа-Ир (планы, вынесенные на возражения, выделены)",
+   "am": "ስለ እያንዳንዱ አዲስ ዕቅድ በጊኖት ሃዒር የዕለት ዝመና (ለተቃውሞ የተቀረጹ ዕቅዶች ይጎለበታሉ)",
+   "fr": "Une mise à jour quotidienne sur chaque nouveau plan de Ginot HaIr (les plans déposés pour opposition sont mis en évidence)"
   }
  }
 }

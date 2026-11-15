@@ -47,6 +47,8 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
  autocomplete="email" dir="ltr"></label></p>
 <p><label><input type="checkbox" id="subscribe" name="subscribe">
 Prévenez-moi par e-mail quand le statut change ou que l&#x27;échéance approche (après confirmation par e-mail ; désabonnement possible à tout moment via le lien de l&#x27;e-mail)</label></p>
+<p><label><input type="checkbox" id="subscribe_all" name="subscribe_all">
+Une mise à jour quotidienne sur chaque nouveau plan de Ginot HaIr (les plans déposés pour opposition sont mis en évidence)</label></p>
 <input type="hidden" id="lang" name="lang" value="fr">
 <p style="display:none" aria-hidden="true"><label>Site web :
 <input type="text" id="website" name="website" tabindex="-1"
@@ -59,11 +61,13 @@ Prévenez-moi par e-mail quand le statut change ou que l&#x27;échéance approch
 var form=document.getElementById('email-form'),st=document.getElementById('form-status');
 var want=new URLSearchParams(location.search).get('plan');
 if(want){Array.prototype.forEach.call(form.plan_number.options,function(o){if(o.value===want){form.plan_number.value=want;}});}
+form.subscribe_all.addEventListener('change',function(){form.plan_number.disabled=form.subscribe_all.checked;});
 form.addEventListener('submit',function(ev){
 ev.preventDefault();st.textContent="Envoi...";
 fetch('https://ginot-hair-plans.vercel.app/api/send_plan_email',{method:'POST',headers:{'Content-Type':'application/json'},
 body:JSON.stringify({email:form.email.value,plan_number:form.plan_number.value,
 lang:form.lang.value,subscribe:form.subscribe.checked,
+scope:form.subscribe_all.checked?'all':'',
 website:form.website.value})}).then(function(r){
 st.textContent=r.ok?"Si l'adresse est valide, un e-mail de confirmation vous est envoyé.":"Envoi impossible pour le moment, réessayez plus tard.";
 }).catch(function(){st.textContent="Envoi impossible pour le moment, réessayez plus tard.";});

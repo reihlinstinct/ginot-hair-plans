@@ -567,3 +567,169 @@ def test_log_failure_names_class_only(capsys):
     out = capsys.readouterr().out
     assert "stage=confirm-send" in out and "RuntimeError" in out
     assert "user@example.com" not in out
+
+
+# Section: whole-polygon (scope=all) subscriptions
+
+
+def _request_all_scope(monkeypatch, lang: str = "he"):
+    """Submit the all-scope form; return (sent mails, confirm token)."""
+    sent = _fake_send(monkeypatch)
+    _plans(monkeypatch)
+    code, _ = _post(
+        {
+            "email": "all@example.com",
+            "plan_number": "",
+            "lang": lang,
+            "subscribe": False,
+            "scope": "all",
+        }
+    )
+    assert code == 200
+    token = next(iter(spe._kv.pending())).split(":", 1)[1]
+    return sent, token
+
+
+def test_all_scope_request_needs_no_plan_and_forces_subscribe(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch)
+    record = json.loads(spe._kv.d[f"pending:{token}"])
+    assert record["plan"] == spe.ALL_SCOPE and record["subscribe"] is True
+    mail = sent[0][0].get_payload(decode=True).decode("utf-8")
+    assert "כל תוכנית חדשה" in mail  # the all-scope confirm text, not a plan
+
+
+def test_all_scope_confirm_creates_subscription_and_sends_welcome(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch, lang="en")
+    assert _post_action(f"/api/send_plan_email?action=confirm&token={token}")[0] == 200
+    subs = [k for k in spe._kv.d if k.startswith("sub:")]
+    assert len(subs) == 1
+    unsub = subs[0].split(":", 1)[1]
+    assert unsub in spe._kv.d.get(f"plans:{spe.ALL_SCOPE}", set())
+    welcome = sent[1][0].get_payload(decode=True).decode("utf-8")
+    assert "Subscription confirmed" in welcome and "List-Unsubscribe" in sent[1][0]
+
+
+def test_all_scope_digest_first_run_seeds_silently(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch)
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 0' in body
+    assert len(sent) == before  # the backlog is seeded, never mailed
+    assert spe.KNOWN_PLANS_KEY in spe._kv.d
+
+
+def test_all_scope_digest_highlights_deposited(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    # Seed with an empty known set so every current plan is "new".
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    deposited = dict(PLAN, pl_number="101-0111111", _open_obj=True)
+    plain = dict(PLAN, pl_number="101-0222222", _open_obj=False)
+    monkeypatch.setattr(
+        spe, "load_plans", lambda: {p["pl_number"]: p for p in (deposited, plain)}
+    )
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    code, body = _get(
+        "/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"}
+    )
+    assert code == 200 and '"sent": 1' in body
+    body_text = sent[-1][0].get_payload(decode=True).decode("utf-8")
+    assert "Deposited for objections:" in body_text
+    assert body_text.index("101-0111111") < body_text.index("101-0222222")
+    # The known set now covers both: a second run sends nothing.
+    code, body = _get(
+        "/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"}
+    )
+    assert '"sent": 0' in body
+
+
+def test_all_scope_does_not_drip_known_plans_to_new_subscriber(monkeypatch):
+    # The known set already holds PLAN before anyone subscribes.
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = json.dumps([PLAN["pl_number"]])
+    sent, token = _request_all_scope(monkeypatch)
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    before = len(sent)
+    code, body = _get(
+        "/api/send_plan_email?action=notify", {"Authorization": "Bearer s3cret"}
+    )
+    assert code == 200 and '"sent": 0' in body and len(sent) == before
+
+
+def test_all_scope_unsubscribe(monkeypatch):
+    _sent, token = _request_all_scope(monkeypatch)
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    unsub = next(k for k in spe._kv.d if k.startswith("sub:")).split(":", 1)[1]
+    path = f"/api/send_plan_email?action=unsubscribe&token={unsub}"
+    assert _post_action(path)[0] == 200
+    assert f"sub:{unsub}" not in spe._kv.d
+    assert unsub not in spe._kv.d.get(f"plans:{spe.ALL_SCOPE}", set())
+
+
+def test_per_plan_notices_skip_all_scope_record(monkeypatch):
+    _sent, token = _request_all_scope(monkeypatch)
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    # The per-plan notice iterator never sees the "*" record as a plan.
+    assert list(spe._subscription_notices({PLAN["pl_number"]: PLAN})) == []
+
+
+def test_all_scope_digest_survives_a_capped_run(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=True)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    monkeypatch.setattr(spe, "DAILY_SEND_CAP", 0)  # capped before any digest
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 0' in body
+    monkeypatch.setattr(spe, "DAILY_SEND_CAP", 50)
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body and len(sent) == before + 1
+    assert "101-0111111" in sent[-1][0].get_payload(decode=True).decode("utf-8")
+
+
+def test_all_scope_digest_retries_after_send_failure(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+
+    def boom(msg, to_addr):
+        raise OSError("smtp down")
+
+    real_send = spe.send
+    monkeypatch.setattr(spe, "send", boom)
+    assert _get("/api/send_plan_email?action=notify", auth)[0] == 502
+    monkeypatch.setattr(spe, "send", real_send)
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body and len(sent) == before + 1
+
+
+def test_all_scope_pending_merges_with_next_diff(monkeypatch):
+    sent, token = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    first = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    second = dict(PLAN, pl_number="101-0222222", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {first["pl_number"]: first})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    monkeypatch.setattr(spe, "DAILY_SEND_CAP", 0)
+    _get("/api/send_plan_email?action=notify", auth)  # first plan stuck pending
+    monkeypatch.setattr(spe, "DAILY_SEND_CAP", 50)
+    both = {p["pl_number"]: p for p in (first, second)}
+    monkeypatch.setattr(spe, "load_plans", lambda: both)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body
+    text = sent[-1][0].get_payload(decode=True).decode("utf-8")
+    assert "101-0111111" in text and "101-0222222" in text
