@@ -813,3 +813,34 @@ def test_account_wide_smtp_error_stops_after_one_attempt(monkeypatch):
     code, _ = _get("/api/send_plan_email?action=notify", auth)
     assert code == 502
     assert len(attempts) == 1  # not one login per due recipient
+
+
+def test_account_wide_smtp_error_stops_the_notice_loop_too(monkeypatch):
+    # Same account-wide stop as the digest loop, for per-plan notices
+    # (#1003 re-review P2): two due subscribers, one SMTP auth failure,
+    # a 502 and no second login attempt.
+    _subscribe_and_confirm(monkeypatch)
+    _post(
+        {
+            "email": "v2@example.com",
+            "plan_number": PLAN["pl_number"],
+            "lang": "en",
+            "subscribe": True,
+        }
+    )
+    token2 = next(iter(spe._kv.pending())).split(":", 1)[1]
+    _post_action(f"/api/send_plan_email?action=confirm&token={token2}")
+    changed = dict(PLAN, land_status="אישור")
+    monkeypatch.setattr(spe, "load_plans", lambda: {PLAN["pl_number"]: changed})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    attempts = []
+
+    def boom(msg, to_addr):
+        attempts.append(to_addr)
+        raise smtplib.SMTPAuthenticationError(535, b"bad credentials")
+
+    monkeypatch.setattr(spe, "send", boom)
+    code, _ = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 502
+    assert len(attempts) == 1
