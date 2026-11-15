@@ -24,9 +24,7 @@ DATA_PATH = (
 # quotes/primes, hyphens/dashes and invisible bidi/zero-width marks;
 # collapse whitespace.
 _FOLD = re.compile("[֑-ׇ׳״´ʹʼ‐-―‘-‟′″−'\"`-]")
-_INVISIBLE = re.compile(
-    "[\u200b-\u200f\u202a-\u202e\u2066-\u2069]"
-)
+_INVISIBLE = re.compile("[\u200b-\u200f\u202a-\u202e\u2066-\u2069]")
 _PREFIXES = "בכלמש"  # inseparable prepositions: בחובבי ציון = חובבי ציון
 
 
