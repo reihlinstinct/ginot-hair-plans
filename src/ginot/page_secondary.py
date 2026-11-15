@@ -5,7 +5,7 @@ from . import i18n as _i18n
 from .page_resources import _ANALYTICS_SNIPPET, _datasets_js, _e, _sources_rows
 
 
-def render_about(generated: str, council_name: str, lang: str = "he") -> str:
+def render_about(generated: str, council_name: str, lang: str = "he", base_url: str = "") -> str:
     """Combined About + data-sources + datasets page (issue: datasets off the
     main page, owner request 2026-10-21). Generated with the site so the
     update stamp stays current; the datasets list loads from index.json."""
@@ -29,6 +29,7 @@ def render_about(generated: str, council_name: str, lang: str = "he") -> str:
 <html dir="{meta["dir"]}" lang="{meta["lang"]}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{_e(_t("about.title", council=council_name))}</title>
+{_i18n.hreflang_links("about.html", base_url)}
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
 <link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
 <link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">
@@ -98,7 +99,7 @@ fetch('https://ginot-hair-api.reihlinstinct.workers.dev/stats/summary').then(fun
 </body></html>"""
 
 
-def render_accessibility(generated: str, council_name: str, lang: str = "he") -> str:
+def render_accessibility(generated: str, council_name: str, lang: str = "he", base_url: str = "") -> str:
     """On-site accessibility statement (SI 5568 regulation 35): standard target,
     measures, known limitations and the feedback channel. Generated with the
     site so the update stamp stays current."""
@@ -112,6 +113,7 @@ def render_accessibility(generated: str, council_name: str, lang: str = "he") ->
 <html dir="{meta["dir"]}" lang="{meta["lang"]}"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{_e(_t("a11y.title", council=council_name))}</title>
+{_i18n.hreflang_links("accessibility.html", base_url)}
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
 <link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
 <link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">

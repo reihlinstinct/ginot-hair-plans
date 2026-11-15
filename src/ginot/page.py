@@ -1122,7 +1122,8 @@ def render_index(
         r["_is_new"] = r["pl_number"] in new_ids
     if rows_file:  # full set loads client-side (#164); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
-            fh.write("\n".join(tr(r) for r in rows))
+            _hl = _i18n.hreflang_links("rows.html", base_url)
+            fh.write((_hl + "\n" if _hl else "") + "\n".join(tr(r) for r in rows))
     body = "\n".join(tr(r) for r in rows[:COLLAPSE_TOP])
     stats_html = stats_section(rows, lang)
     # Urgent = derived objection deadline within [0, URGENT_DAYS] of the
@@ -1179,6 +1180,7 @@ def render_index(
 <title>{_e(_t("index.html_title", council=council_name))}</title>
 <link rel="alternate" type="application/atom+xml" href="{pre}feed.xml">
 {_social_meta(council_name, base_url, preview_image)}
+{_i18n.hreflang_links("index.html", base_url)}
 <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="{pre}favicon.ico?v=20261022">
 <link rel="icon" type="image/svg+xml" sizes="any" href="{pre}favicon.svg?v=20261022">
 <link rel="icon" type="image/png" sizes="32x32" href="{pre}favicon-32.png?v=20261022">
@@ -1218,7 +1220,7 @@ def render_index(
 <tbody>{body}</tbody></table>
 <noscript><p>{_e(_t("index.noscript", top=COLLAPSE_TOP))}</p></noscript>
 <button id="more" type="button">{_e(_t("index.show_all", n=len(rows)))}</button>
-{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre)}
+{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre, base_url=base_url)}
 {mapview.panel(lang, pre)}
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>{_e(_t("index.changes_h"))}</h2><ul id="changes-list">{changes_html}</ul>
@@ -1476,17 +1478,17 @@ def render_site(
         about_path = f"{out_dir}/{i18n.page_path(code, 'about.html')}"
         os.makedirs(os.path.dirname(about_path), exist_ok=True)
         with open(about_path, "w", encoding="utf-8") as fh:
-            fh.write(render_about(generated, council_name, code))
+            fh.write(render_about(generated, council_name, code, base_url=base_url))
         a11y_path = f"{out_dir}/{i18n.page_path(code, 'accessibility.html')}"
         with open(a11y_path, "w", encoding="utf-8") as fh:
-            fh.write(render_accessibility(generated, council_name, code))
+            fh.write(render_accessibility(generated, council_name, code, base_url=base_url))
     from .page_email import render_email_page
 
     for code in i18n.lang_codes():  # languages come from i18n/strings.json
         email_path = f"{out_dir}/{i18n.page_path(code, 'email.html')}"
         os.makedirs(os.path.dirname(email_path), exist_ok=True)
         with open(email_path, "w", encoding="utf-8") as fh:
-            fh.write(render_email_page(rows, generated, council_name, code))
+            fh.write(render_email_page(rows, generated, council_name, code, base_url=base_url))
     with open(f"{out_dir}/sources.html", "w", encoding="utf-8") as fh:
         fh.write(_SOURCES_REDIRECT)
     with open(f"{out_dir}/feed.xml", "w", encoding="utf-8") as fh:
