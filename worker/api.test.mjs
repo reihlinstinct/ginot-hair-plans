@@ -120,6 +120,49 @@ test("/stats/summary tolerates a KV list failure", async () => {
   assert.deepEqual((await r.json()).events, {});
 });
 
+test("/stats/summary is cached in a single KV key with a TTL (issue #990)", async () => {
+  let lists = 0;
+  const puts = [];
+  const kv = fakeKv();
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:x", "5");
+  const env = { STATS: { get: kv.get,
+    async put(k, v, o) { puts.push({ k, o }); return kv.put(k, v, o); },
+    async list(o) { lists++; return kv.list(o); } } };
+  const r1 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.equal(r1.headers.get("cache-control"), "public, max-age=900");
+  assert.equal((await r1.json()).events.search.x, 5);
+  const cachePut = puts.find((p) => p.k === "stats:v1:summary-cache");
+  assert.ok(cachePut, "summary stored in the cache key");
+  assert.equal(cachePut.o.expirationTtl, 900);
+  const r2 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.equal((await r2.json()).events.search.x, 5);
+  assert.equal(lists, 1); // second call served from the KV cache, no KV list
+});
+
+test("/stats/summary does not cache a partial summary after a KV list failure", async () => {
+  const m = new Map();
+  const env = { STATS: {
+    async get(k) { return m.has(k) ? m.get(k) : null; },
+    async put(k, v) { m.set(k, v); },
+    async list() { throw new Error("kv down"); },
+  } };
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.equal(r.status, 200);
+  assert.deepEqual((await r.json()).events, {});
+  assert.ok(!m.has("stats:v1:summary-cache"), "failed list result must not be cached");
+});
+
+test("/stats/summary recomputes when the cached value is corrupt", async () => {
+  const kv = fakeKv();
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:x", "4");
+  await kv.put("stats:v1:summary-cache", "{not json");
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, { STATS: kv });
+  assert.equal(r.status, 200);
+  assert.equal((await r.json()).events.search.x, 4);
+});
+
 test("OPTIONS preflight allows POST with content-type", async () => {
   const r = await handleRequest(new Request("https://x.workers.dev/stats/event", { method: "OPTIONS" }), stub, {});
   assert.equal(r.status, 200);

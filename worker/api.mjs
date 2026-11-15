@@ -105,6 +105,8 @@ const STATS_PREFIX = "stats:v1:";
 const STATS_DAYS = 30;
 const DICT_TTL_MS = 300_000; // rebuild the key dictionary at most every 5 min
 const SUMMARY_MAX_KEYS = 500; // bound KV reads per summary call
+const SUMMARY_CACHE_KEY = STATS_PREFIX + "summary-cache";
+const SUMMARY_CACHE_TTL = 900; // seconds; fresh enough for aggregate counters
 
 function dayKey(d) { return d.toISOString().slice(0, 10); }
 
@@ -168,9 +170,11 @@ async function recordStat(env, e, k) {
 }
 
 async function statsSummary(env) {
+  // Returns { ok, stats }; ok=false when the KV list failed, so the caller
+  // must not cache a partial summary.
   const out = {}; // {e: {k: count}}
   const cutoff = dayKey(new Date(Date.now() - (STATS_DAYS - 1) * 86_400_000));
-  let cursor, read = 0;
+  let cursor, read = 0, ok = true;
   try {
     do {
       const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
@@ -178,6 +182,7 @@ async function statsSummary(env) {
       for (const { name } of page.keys) {
         if (++read > SUMMARY_MAX_KEYS) break;
         const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
+        if (!/^\d{4}-\d{2}-\d{2}:/.test(rest)) continue; // e.g. the summary cache key
         const day = rest.slice(0, 10);
         if (day < cutoff) continue; // KV TTL is STATS_DAYS+7; summary covers STATS_DAYS
         const mid = rest.slice(11);
@@ -188,12 +193,12 @@ async function statsSummary(env) {
         (out[e] ||= {})[k] = (out[e][k] || 0) + v;
       }
     } while (cursor && read <= SUMMARY_MAX_KEYS);
-  } catch { /* KV outage mid-list: return whatever was read so far */ }
+  } catch { ok = false; /* KV outage mid-list: return whatever was read so far */ }
   for (const e of Object.keys(out)) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
   }
-  return out;
+  return { ok, stats: out };
 }
 
 const INDEX = {
@@ -240,8 +245,24 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
-    const stats = await statsSummary(env);
-    return json({ days: STATS_DAYS, events: stats });
+    // Cache the computed summary in a single KV key with a 15-min TTL: an
+    // uncached call lists every stats key in KV, and the free plan's daily
+    // list quota is small (#990). KV (not the Cache API, which is a no-op on
+    // workers.dev-only deployments) so the cache works on every request path.
+    let body = null;
+    try {
+      const hit = await env.STATS.get(SUMMARY_CACHE_KEY);
+      if (hit) body = JSON.parse(hit);
+    } catch { /* corrupt/unreadable cache: recompute below */ }
+    if (!body) {
+      const { ok, stats } = await statsSummary(env);
+      body = { days: STATS_DAYS, events: stats };
+      if (ok) { // never cache a partial summary from a failed list
+        try { await env.STATS.put(SUMMARY_CACHE_KEY, JSON.stringify(body),
+                                  { expirationTtl: SUMMARY_CACHE_TTL }); } catch { /* best-effort */ }
+      }
+    }
+    return json(body, { headers: { "cache-control": "public, max-age=900" } });
   }
   if (request.method !== "GET") return json({ error: "GET only" }, { status: 405 });
   if (url.pathname === "/" || url.pathname === "") return json(INDEX);
