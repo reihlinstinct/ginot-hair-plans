@@ -240,8 +240,20 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
+    // Edge-cache the summary: an uncached call lists every stats key in KV,
+    // and the free plan's daily list quota is small (#990). 15 min is fresh
+    // enough for aggregate counters. typeof guard keeps node tests working.
+    const edge = typeof caches !== "undefined" ? caches.default : null;
+    const ck = new Request(url.origin + "/stats/summary");
+    if (edge) {
+      const hit = await edge.match(ck);
+      if (hit) return hit;
+    }
     const stats = await statsSummary(env);
-    return json({ days: STATS_DAYS, events: stats });
+    const res = json({ days: STATS_DAYS, events: stats },
+                     { headers: { "cache-control": "public, max-age=900" } });
+    if (edge) await edge.put(ck, res.clone());
+    return res;
   }
   if (request.method !== "GET") return json({ error: "GET only" }, { status: 405 });
   if (url.pathname === "/" || url.pathname === "") return json(INDEX);

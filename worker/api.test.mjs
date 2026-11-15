@@ -120,6 +120,41 @@ test("/stats/summary tolerates a KV list failure", async () => {
   assert.deepEqual((await r.json()).events, {});
 });
 
+test("/stats/summary is edge-cached when caches.default exists (issue #990)", async () => {
+  let lists = 0;
+  const kv = fakeKv();
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:x", "5");
+  const env = { STATS: { get: kv.get, put: kv.put,
+    async list(o) { lists++; return kv.list(o); } } };
+  const store = new Map();
+  const prev = globalThis.caches;
+  globalThis.caches = { default: {
+    async match(req) { return store.get(req.url); },
+    async put(req, res) { store.set(req.url, res); },
+  } };
+  try {
+    const r1 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+    assert.equal(r1.headers.get("cache-control"), "public, max-age=900");
+    const b1 = await r1.json();
+    assert.equal(b1.events.search.x, 5);
+    const r2 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+    assert.equal((await r2.json()).events.search.x, 5);
+    assert.equal(lists, 1); // second call served from the edge cache, no KV list
+  } finally {
+    if (prev === undefined) delete globalThis.caches; else globalThis.caches = prev;
+  }
+});
+
+test("/stats/summary works without an edge cache (node/test runtimes)", async () => {
+  const kv = fakeKv();
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:x", "2");
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, { STATS: kv });
+  assert.equal(r.status, 200);
+  assert.equal((await r.json()).events.search.x, 2);
+});
+
 test("OPTIONS preflight allows POST with content-type", async () => {
   const r = await handleRequest(new Request("https://x.workers.dev/stats/event", { method: "OPTIONS" }), stub, {});
   assert.equal(r.status, 200);
