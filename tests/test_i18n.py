@@ -270,38 +270,16 @@ def test_renderers_emit_all_hreflang_langs_for_each_page(code):
         assert tags == expected, (code, name)
 
 
-def test_fragments_carry_hreflang_tags_and_stay_byte_identical_without_base_url(
-    tmp_path,
-):
+def test_fragments_carry_no_hreflang_tags(tmp_path):
+    """Review decision on #966: hreflang belongs in full-document heads only;
+    rows/permits fragments are fetched and injected, so they stay clean even
+    when base_url is set."""
+    from ginot.page import render_index
     from ginot.page_permits import _permits_section
 
     permits = [{"tik_num": "2026/0001.00", "status": "נפתח תיק רישוי", "gush": 1}]
-    a, b, c, d = (
-        tmp_path / "p.html",
-        tmp_path / "pd.html",
-        tmp_path / "p2.html",
-        tmp_path / "pd2.html",
-    )
-    _permits_section(permits, rows_file=str(a), default_rows_file=str(b), base_url=BASE)
-    _permits_section(permits, rows_file=str(c), default_rows_file=str(d))
-    pa, pb = a.read_text(encoding="utf-8"), b.read_text(encoding="utf-8")
-    pc, pd = c.read_text(encoding="utf-8"), d.read_text(encoding="utf-8")
-    for body, name in [(pa, "permits.html"), (pb, "permits-default.html")]:
-        expected = [
-            (i18n.meta(c)["lang"], BASE + "/" + i18n.page_path(c, name))
-            for c in i18n.lang_codes()
-        ] + [("x-default", BASE + "/" + name)]
-        assert _hreflang_tags(body) == expected, name
-        assert body.startswith('<link rel="alternate" hreflang="he"')
-    n = len(i18n.lang_codes()) + 1
-    for with_base, bare in [(pa, pc), (pb, pd)]:
-        assert "\n".join(with_base.split("\n")[n:]) == bare
-        assert 'rel="alternate" hreflang=' not in bare
-
-
-def test_rows_fragment_carries_hreflang_tags(tmp_path):
-    from ginot.page import render_index
-
+    a, b = tmp_path / "p.html", tmp_path / "pd.html"
+    _permits_section(permits, rows_file=str(a), default_rows_file=str(b))
     rows = tmp_path / "rows.html"
     render_index(
         [_index_row()],
@@ -311,25 +289,12 @@ def test_rows_fragment_carries_hreflang_tags(tmp_path):
         rows_file=str(rows),
         base_url=BASE,
     )
-    body = rows.read_text(encoding="utf-8")
-    expected = [
-        (i18n.meta(c)["lang"], BASE + "/" + i18n.page_path(c, "rows.html"))
-        for c in i18n.lang_codes()
-    ] + [("x-default", BASE + "/rows.html")]
-    assert _hreflang_tags(body) == expected
-
-
-def test_rows_fragment_unchanged_without_base_url(tmp_path):
-    from ginot.page import render_index
-
-    r1, r2 = tmp_path / "r1.html", tmp_path / "r2.html"
-    render_index(
-        [_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(r1), base_url=BASE
-    )
-    render_index([_index_row()], [], "2026-11-11", "גינות העיר", rows_file=str(r2))
-    with_base, bare = r1.read_text(encoding="utf-8"), r2.read_text(encoding="utf-8")
-    assert "\n".join(with_base.split("\n")[len(i18n.lang_codes()) + 1 :]) == bare
-    assert 'rel="alternate" hreflang=' not in bare
+    for body in (
+        a.read_text(encoding="utf-8"),
+        b.read_text(encoding="utf-8"),
+        rows.read_text(encoding="utf-8"),
+    ):
+        assert 'rel="alternate" hreflang=' not in body
 
 
 # Section: the mail API reads the same document

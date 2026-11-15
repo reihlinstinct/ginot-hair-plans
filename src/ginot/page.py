@@ -1122,8 +1122,7 @@ def render_index(
         r["_is_new"] = r["pl_number"] in new_ids
     if rows_file:  # full set loads client-side (#164); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
-            _hl = _i18n.hreflang_links("rows.html", base_url)
-            fh.write((_hl + "\n" if _hl else "") + "\n".join(tr(r) for r in rows))
+            fh.write("\n".join(tr(r) for r in rows))
     body = "\n".join(tr(r) for r in rows[:COLLAPSE_TOP])
     stats_html = stats_section(rows, lang)
     # Urgent = derived objection deadline within [0, URGENT_DAYS] of the
@@ -1220,7 +1219,7 @@ def render_index(
 <tbody>{body}</tbody></table>
 <noscript><p>{_e(_t("index.noscript", top=COLLAPSE_TOP))}</p></noscript>
 <button id="more" type="button">{_e(_t("index.show_all", n=len(rows)))}</button>
-{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre, base_url=base_url)}
+{_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre)}
 {mapview.panel(lang, pre)}
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
 <h2>{_e(_t("index.changes_h"))}</h2><ul id="changes-list">{changes_html}</ul>

@@ -47,7 +47,6 @@ def _permits_section(
     evidence_tiks: frozenset = frozenset(),
     lang: str = "he",
     pre: str = "",
-    base_url: str = "",
 ) -> str:
     """Separate DRAFT-labeled permit-requests section (issue: permit feed).
     A permit request is NOT a deposited plan; the section is visually and
@@ -55,7 +54,6 @@ def _permits_section(
     permit issued) are hidden by default - the planner can no longer act
     on them - and revealed by one checkbox. Dates render dd.mm.yy with the
     ISO value kept in data-iso for filtering."""
-    from . import i18n as _i18n
     from .i18n import meta as _meta
     from .i18n import t as _t
 
@@ -147,22 +145,12 @@ def _permits_section(
             default_rows.append(rows[-1])
     if default_rows_file:
         with open(default_rows_file, "w", encoding="utf-8") as fh:
-            _hl = _i18n.hreflang_links("permits-default.html", base_url)
             fh.write(
-                (_hl + "\n" if _hl else "")
-                + _FRAGMENT_REDIRECT
-                + _fragment_noscript(lang)
-                + "".join(default_rows)
+                _FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(default_rows)
             )
     if rows_file:  # full set loads client-side (#169); the page keeps only the top rows
         with open(rows_file, "w", encoding="utf-8") as fh:
-            _hl = _i18n.hreflang_links("permits.html", base_url)
-            fh.write(
-                (_hl + "\n" if _hl else "")
-                + _FRAGMENT_REDIRECT
-                + _fragment_noscript(lang)
-                + "".join(rows)
-            )
+            fh.write(_FRAGMENT_REDIRECT + _fragment_noscript(lang) + "".join(rows))
     body = "".join(rows[:COLLAPSE_TOP])
     n_terminal = sum(
         1 for p in permits if (p.get("status") or "") in _PERMIT_TERMINAL_STATUSES
