@@ -68,6 +68,14 @@ def test_publish_step_stages_locale_index_pages():
     assert "i18n.default_lang()" in expression
     templates = re.findall(r"f'(docs/\{c\}/[^']+)'", expression)
     assert templates, "no docs/<lang>/ f-string templates in FRAGMENTS"
+    # The computed list must actually be staged (#1001 review): pinning the
+    # expression is moot if $FRAGMENTS falls off the git add line.
+    add_line = next(
+        line
+        for line in publish.splitlines()
+        if line.strip().startswith("git add") and "docs/index.json" in line
+    )
+    assert "$FRAGMENTS" in add_line.split()
 
     sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
     from ginot import i18n
