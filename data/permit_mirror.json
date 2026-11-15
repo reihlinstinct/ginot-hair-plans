@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-08",
- "ingest_marker": "sha256:e801f86ac9b20f7e",
+ "generated": "2026-11-10",
+ "ingest_marker": "sha256:fb1421887f0482a4",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
@@ -2120,7 +2120,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -2135,7 +2135,7 @@
    "parcels": [
     118
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -50321,7 +50321,7 @@
    "parcels": [
     139
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -81250,7 +81250,7 @@
    "parcels": [
     30
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -107575,7 +107575,7 @@
    "parcels": [
     77
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -111597,7 +111597,7 @@
    "parcels": [
     27
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -118364,7 +118364,7 @@
    "parcels": [
     65
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-17T21:55:57.703587+00:00",
    "mirror_last_seen": ""
   },
@@ -118484,7 +118484,7 @@
    "parcels": [
     135
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -121777,7 +121777,7 @@
    "parcels": [
     61
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-28",
@@ -124089,7 +124089,7 @@
    "parcels": [
     80
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-10T21:52:35.379286+00:00",
    "mirror_last_seen": ""
   },
@@ -124104,7 +124104,7 @@
    "parcels": [
     32
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -139853,7 +139853,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -143105,7 +143105,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -148702,7 +148702,7 @@
    "parcels": [
     68
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -150630,7 +150630,7 @@
    "parcels": [
     38
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:47.690954+00:00",
    "mirror_last_seen": ""
   },
@@ -155092,7 +155092,7 @@
    "parcels": [
     120
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -170324,7 +170324,7 @@
    "parcels": [
     126
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -177222,7 +177222,7 @@
    "parcels": [
     49
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -178497,7 +178497,7 @@
    "parcels": [
     225
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -184548,7 +184548,7 @@
    "parcels": [
     4
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": "",
    "publication_start": "",
@@ -185107,7 +185107,7 @@
    "parcels": [
     13
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -186202,7 +186202,7 @@
    "parcels": [
     129
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-17T02:53:21.077545+00:00",
    "mirror_last_seen": ""
   },
@@ -187254,7 +187254,7 @@
    "parcels": [
     149
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": "",
    "publication_start": "2023-09-04",
@@ -188769,7 +188769,7 @@
    "parcels": [
     22
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-26T21:32:18.108663+00:00",
    "mirror_last_seen": ""
   },
@@ -188859,7 +188859,7 @@
    "parcels": [
     138
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -198829,7 +198829,7 @@
    "parcels": [
     2
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -201407,7 +201407,7 @@
    "parcels": [
     88
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -202188,7 +202188,7 @@
    "parcels": [
     15
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-16T23:54:38.868663+00:00",
    "mirror_last_seen": ""
   },
@@ -202459,7 +202459,7 @@
    "parcels": [
     34
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -202549,7 +202549,7 @@
    "parcels": [
     125
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -204470,8 +204470,8 @@
   },
   {
    "tik_num": "2018/0428.01",
-   "status": "נוסח פרסום אושר",
-   "status_date": "2026-10-26",
+   "status": "תחילת פרסום הבקשה להקלה",
+   "status_date": "2026-11-09",
    "sugbakasha": "תוספת בניה / הרחבה לבניין קיים, בניית מרפסת",
    "mahut": "ריצוף גינה והוספת מרפסת זיז",
    "address": "המעפילים 17 גבעת הורדים",
@@ -204479,7 +204479,7 @@
    "parcels": [
     181
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:49.305329+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-27",
@@ -205433,7 +205433,7 @@
    "parcels": [
     183
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -205980,7 +205980,7 @@
    "parcels": [
     64
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-29T22:32:12.089016+00:00",
    "mirror_last_seen": ""
   },
@@ -207439,7 +207439,7 @@
    "parcels": [
     23
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -208405,7 +208405,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-26T21:32:18.364357+00:00",
    "mirror_last_seen": ""
   },
@@ -211322,7 +211322,7 @@
    "parcels": [
     57
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-17T21:55:58.022301+00:00",
    "mirror_last_seen": ""
   },
@@ -211463,8 +211463,8 @@
   },
   {
    "tik_num": "2024/0211.03",
-   "status": "תום תקופת פרסום",
-   "status_date": "2026-10-27",
+   "status": "נפתח תיק רישוי",
+   "status_date": "2026-11-09",
    "sugbakasha": "רישוי בניה - שימוש חורג מהיתר, בנית מחסן/מחסנים",
    "mahut": "הפיכת שטח חניה פרטית למחסן סגור בהליך של שימוש חורג מהיתר בניה",
    "address": "יוסי בן יועזר 36 גוננים",
@@ -211472,7 +211472,7 @@
    "parcels": [
     172
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-10T21:52:35.718527+00:00",
    "mirror_last_seen": ""
   },
@@ -211592,7 +211592,7 @@
    "parcels": [
     76
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -211824,7 +211824,7 @@
    "parcels": [
     25
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -211959,7 +211959,7 @@
    "parcels": [
     212
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.168613+00:00",
    "mirror_last_seen": ""
   },
@@ -212093,7 +212093,7 @@
    "parcels": [
     10
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -212138,7 +212138,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -212273,7 +212273,7 @@
    "parcels": [
     8
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-23T23:08:59.191067+00:00",
    "mirror_last_seen": ""
   },
@@ -212672,7 +212672,7 @@
    "parcels": [
     59
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -213317,7 +213317,7 @@
    "parcels": [
     63
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-26T22:02:45.485464+00:00",
    "mirror_last_seen": ""
   },
@@ -213617,7 +213617,7 @@
    "parcels": [
     44
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-10T21:52:35.817605+00:00",
    "mirror_last_seen": ""
   },
@@ -213707,7 +213707,7 @@
    "parcels": [
     52
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-20T03:22:24.625581+00:00",
    "mirror_last_seen": ""
   },
@@ -213737,7 +213737,7 @@
    "parcels": [
     71
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-08-22T20:20:50.732684+00:00",
    "mirror_last_seen": ""
   },
@@ -213797,7 +213797,7 @@
    "parcels": [
     95
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-26T00:57:43.838978+00:00",
    "mirror_last_seen": ""
   },
@@ -214007,7 +214007,7 @@
    "parcels": [
     214
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-09-19T21:06:20.640005+00:00",
    "mirror_last_seen": ""
   },
@@ -214022,7 +214022,7 @@
    "parcels": [
     12
    ],
-   "mirror_sample_date": "2026-11-07",
+   "mirror_sample_date": "2026-11-10",
    "mirror_first_seen": "2026-10-17T21:55:58.122466+00:00",
    "mirror_last_seen": "",
    "publication_start": "2026-10-18",
