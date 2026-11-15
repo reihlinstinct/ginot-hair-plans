@@ -708,7 +708,9 @@ def test_all_scope_digest_retries_after_send_failure(monkeypatch):
 
     real_send = spe.send
     monkeypatch.setattr(spe, "send", boom)
-    assert _get("/api/send_plan_email?action=notify", auth)[0] == 502
+    # #997: a failed send no longer 502s the run; it is logged and retried.
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 0' in body and '"failed": 1' in body
     monkeypatch.setattr(spe, "send", real_send)
     before = len(sent)
     code, body = _get("/api/send_plan_email?action=notify", auth)
@@ -733,3 +735,46 @@ def test_all_scope_pending_merges_with_next_diff(monkeypatch):
     assert code == 200 and '"sent": 1' in body
     text = sent[-1][0].get_payload(decode=True).decode("utf-8")
     assert "101-0111111" in text and "101-0222222" in text
+
+
+def test_one_failing_recipient_does_not_starve_the_next(monkeypatch):
+    # #997: two all-scope subscribers; the first smembers recipient's send
+    # fails hard - the second digest must still go out in the same run.
+    sent, token1 = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token1}")
+    _post(
+        {
+            "email": "all2@example.com",
+            "plan_number": "",
+            "lang": "en",
+            "subscribe": False,
+            "scope": "all",
+        }
+    )
+    token2 = next(iter(spe._kv.pending())).split(":", 1)[1]
+    _post_action(f"/api/send_plan_email?action=confirm&token={token2}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+
+    members = spe._kv("smembers", f"plans:{spe.ALL_SCOPE}")
+    assert len(members) == 2
+    first_token = members[0]
+    first_email = json.loads(spe._kv.d[f"sub:{first_token}"])["email"]
+    real_send = spe.send
+
+    def fail_first(msg, to_addr):
+        if to_addr == first_email:
+            raise OSError("smtp down")
+        return real_send(msg, to_addr)
+
+    monkeypatch.setattr(spe, "send", fail_first)
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body and '"failed": 1' in body
+    assert len(sent) == before + 1  # the healthy recipient was not starved
+    # The failed recipient's pending digest is still queued for the next run.
+    record = json.loads(spe._kv.d[f"sub:{first_token}"])
+    assert record.get("all_pending") == ["101-0111111"]
