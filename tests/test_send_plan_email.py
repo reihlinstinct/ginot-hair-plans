@@ -730,6 +730,6 @@ def test_all_scope_pending_merges_with_next_diff(monkeypatch):
     both = {p["pl_number"]: p for p in (first, second)}
     monkeypatch.setattr(spe, "load_plans", lambda: both)
     code, body = _get("/api/send_plan_email?action=notify", auth)
-    assert '"sent": 1' in body
+    assert code == 200 and '"sent": 1' in body
     text = sent[-1][0].get_payload(decode=True).decode("utf-8")
     assert "101-0111111" in text and "101-0222222" in text
