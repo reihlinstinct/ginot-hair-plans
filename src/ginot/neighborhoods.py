@@ -55,11 +55,17 @@ def _mapping() -> dict:
     return mapping
 
 
-def _first_word_matches(word: str, key_word: str) -> bool:
-    """A word matches a street's first word exactly or with one
-    inseparable preposition prefix (בחובבי ציון = חובבי ציון)."""
+def _first_word_matches(word: str, key_word: str, multi_word: bool) -> bool:
+    """A word matches a street's first word exactly or - multi-word
+    streets only - with one inseparable preposition prefix
+    (בחובבי ציון = חובבי ציון). Single-word streets take the exact
+    match alone: a prefix there false-positives on ordinary words
+    (למכור must not match the street מכור, #998)."""
     return word == key_word or (
-        len(word) == len(key_word) + 1 and word[0] in _PREFIXES and word[1:] == key_word
+        multi_word
+        and len(word) == len(key_word) + 1
+        and word[0] in _PREFIXES
+        and word[1:] == key_word
     )
 
 
@@ -71,7 +77,7 @@ def tags_for(plan_name: str) -> list[str]:
         n = len(key)
         for i in range(len(words) - n + 1):
             if (
-                _first_word_matches(words[i], key[0])
+                _first_word_matches(words[i], key[0], n > 1)
                 and words[i + 1 : i + n] == key[1:]
             ):
                 tags.update(labels)

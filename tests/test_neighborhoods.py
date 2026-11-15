@@ -41,6 +41,14 @@ def test_whole_words_only():
     assert neighborhoods.tags_for("וב מכוור בשכ' גוננים") == []
 
 
+def test_prefix_rule_is_limited_to_multi_word_streets():
+    # #998: למכור ("to sell") must not match the single-word street מכור;
+    # the inseparable-preposition prefix applies to multi-word streets only.
+    assert neighborhoods.tags_for("למכור ברח' הגפן 3") == []
+    assert neighborhoods.tags_for("תוספת קומה במכור 7, י-ם") == []
+    assert "טלביה" in neighborhoods.tags_for("תוספת שטחים בחובבי ציון 5")
+
+
 def test_shared_street_is_excluded():
     # הפלמ"ח is anchored to three neighborhoods; it maps to none.
     assert neighborhoods.tags_for("בניין מגורים ברח' הפלמ\"ח 24") == []
