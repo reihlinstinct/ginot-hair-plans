@@ -223,9 +223,7 @@ def test_hreflang_links_escapes_attributes():
 
 
 def test_hreflang_links_x_default_is_the_hebrew_url():
-    tags = dict(
-        (l, h) for l, h in _hreflang_tags(i18n.hreflang_links("email.html", BASE))
-    )
+    tags = {l: h for l, h in _hreflang_tags(i18n.hreflang_links("email.html", BASE))}
     assert tags["x-default"] == tags["he"] == BASE + "/email.html"
 
 
