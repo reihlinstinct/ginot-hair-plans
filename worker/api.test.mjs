@@ -153,6 +153,20 @@ test("/stats/summary does not cache a partial summary after a KV list failure", 
   assert.ok(!m.has("stats:v1:summary-cache"), "failed list result must not be cached");
 });
 
+test("/stats/event tags the caller (src) and /stats/summary reports by_src", async () => {
+  const env = { STATS: fakeKv() };
+  const post = (b) => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
+  assert.equal((await handleRequest(post({ e: "search", k: "other", src: "site" }), stub, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "search", k: "other", src: "mirror" }), stub, env)).status, 202);
+  // Unknown src is coerced to "other"; missing src defaults to "site" (old clients).
+  assert.equal((await handleRequest(post({ e: "search", k: "other", src: "evil<script>" }), stub, env)).status, 202);
+  assert.equal((await handleRequest(post({ e: "search", k: "other" }), stub, env)).status, 202);
+  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env)).json();
+  assert.equal(sum.events.search.other, 4);
+  assert.deepEqual(sum.by_src, { site: 2, mirror: 1, other: 1 });
+});
+
 test("/stats/summary recomputes when the cached value is corrupt", async () => {
   const kv = fakeKv();
   const today = new Date().toISOString().slice(0, 10);

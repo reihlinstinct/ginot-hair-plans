@@ -102,6 +102,9 @@ function json(body, { status = 200, headers = {} } = {}) {
 const EVENT_TYPES = new Set(["search", "permits_search", "filter", "permits_filter"]);
 const KEY_RE = /^[\w\u0590-\u05FF .'"()/:=+-]{1,60}$/u;
 const STATS_PREFIX = "stats:v1:";
+// Closed set of caller tags for "who does what" stats (#991 follow-up):
+// validated server-side like keys; anything else becomes "other".
+const SRC_TYPES = new Set(["site", "mirror", "mcp", "about", "other"]);
 const STATS_DAYS = 30;
 const DICT_TTL_MS = 300_000; // rebuild the key dictionary at most every 5 min
 const SUMMARY_MAX_KEYS = 500; // bound KV reads per summary call
@@ -156,15 +159,21 @@ async function keyDictionary(fetchImpl) {
   return dictCache.keys;
 }
 
-async function recordStat(env, e, k) {
+async function recordStat(env, e, k, src) {
   // Best-effort: a KV failure (quota, outage) must never break the API.
   // The read-modify-write increment is not atomic (KV has no atomic add), so
   // bursts on the same key can lose a few counts - acceptable for approximate
   // usage statistics, and documented as such.
   try {
-    const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
+    const day = dayKey(new Date());
+    const key = STATS_PREFIX + day + ":" + e + ":" + k;
     const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
     await env.STATS.put(key, String(cur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
+    // One extra counter per event: per-caller totals, so the summary can show
+    // who (site/mirror/mcp/about) generates what, without storing identifiers.
+    const skey = STATS_PREFIX + day + ":_by_src:" + src;
+    const scur = parseInt((await env.STATS.get(skey)) || "0", 10) || 0;
+    await env.STATS.put(skey, String(scur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
     return true;
   } catch { return false; }
 }
@@ -173,6 +182,7 @@ async function statsSummary(env) {
   // Returns { ok, stats }; ok=false when the KV list failed, so the caller
   // must not cache a partial summary.
   const out = {}; // {e: {k: count}}
+  const bySrc = {}; // {src: count} - underscore-prefixed control keys only
   const cutoff = dayKey(new Date(Date.now() - (STATS_DAYS - 1) * 86_400_000));
   let cursor, read = 0, ok = true;
   try {
@@ -190,6 +200,7 @@ async function statsSummary(env) {
         if (sep < 0) continue;
         const e = mid.slice(0, sep), k = mid.slice(sep + 1);
         const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
+        if (e === "_by_src") { bySrc[k] = (bySrc[k] || 0) + v; continue; }
         (out[e] ||= {})[k] = (out[e][k] || 0) + v;
       }
     } while (cursor && read <= SUMMARY_MAX_KEYS);
@@ -198,7 +209,7 @@ async function statsSummary(env) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
   }
-  return { ok, stats: out };
+  return { ok, stats: out, by_src: bySrc };
 }
 
 const INDEX = {
@@ -232,6 +243,7 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
     try { body = await request.json(); } catch { return json({ error: "invalid JSON" }, { status: 400 }); }
     const e = String(body && body.e || "");
     let k = String(body && body.k || "");
+    const src = SRC_TYPES.has(body && body.src) ? body.src : (body && body.src ? "other" : "site");
     if (!EVENT_TYPES.has(e)) return json({ error: "unknown event type" }, { status: 400 });
     if (k !== "other" && !KEY_RE.test(k)) return json({ error: "invalid key" }, { status: 400 });
     if (k !== "other") {
@@ -240,7 +252,7 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
       const dict = await keyDictionary(fetchImpl);
       if (!dict.has(k)) k = "other";
     }
-    const ok = await recordStat(env, e, k);
+    const ok = await recordStat(env, e, k, src);
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
@@ -255,8 +267,8 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}) {
       if (hit) body = JSON.parse(hit);
     } catch { /* corrupt/unreadable cache: recompute below */ }
     if (!body) {
-      const { ok, stats } = await statsSummary(env);
-      body = { days: STATS_DAYS, events: stats };
+      const { ok, stats, by_src } = await statsSummary(env);
+      body = { days: STATS_DAYS, events: stats, by_src };
       if (ok) { // never cache a partial summary from a failed list
         try { await env.STATS.put(SUMMARY_CACHE_KEY, JSON.stringify(body),
                                   { expirationTtl: SUMMARY_CACHE_TTL }); } catch { /* best-effort */ }

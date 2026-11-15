@@ -917,7 +917,7 @@ function sendStat(e,k){
   if(sent[id])return;
   sent[id]=1;
   try{
-    var blob=new Blob([JSON.stringify({e:e,k:k})],{type:'text/plain'});
+    var blob=new Blob([JSON.stringify({e:e,k:k,src:'site'})],{type:'text/plain'});
     if(navigator.sendBeacon&&navigator.sendBeacon(API+'/stats/event',blob))return;
     fetch(API+'/stats/event',{method:'POST',body:blob,keepalive:true}).catch(function(){});
   }catch(err){}
