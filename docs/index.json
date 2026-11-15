@@ -75,6 +75,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_tracked_plans.json"
   },
   {
+   "name": "neighborhoods.json",
+   "path": "data/neighborhoods.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1790,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/neighborhoods.json"
+  },
+  {
    "name": "parcel_audit.json",
    "path": "data/parcel_audit.json",
    "kind": "json",

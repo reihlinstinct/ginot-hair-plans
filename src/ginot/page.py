@@ -3,7 +3,12 @@
 Default row order: derived objection deadline, farthest first (plans
 without a deadline below those with one). Clicking a column header sorts
 by that column's true values (dates sort as dates, not text). Approved (non-active) plans are hidden by
-default (one click to bring back, count stated on the page). The table
+default (one click to bring back, count stated on the page), except that a
+non-empty free-text search also matches them. Plan rows carry their
+neighborhood names (data/neighborhoods.json) in data-search, so the search
+resolves neighborhood names and spelling variants to plans on their
+streets; the search box offers a native datalist of neighborhoods, streets
+and plan numbers. The table
 collapses to the top 20 rows of the visible set with a show-more control;
 client-side filters (status, inside/partial, date range, free text,
 objection-open, show-approved) always operate over all rows.
@@ -15,7 +20,7 @@ import datetime
 import json
 import os
 
-from . import __version__
+from . import __version__, neighborhoods
 from .dates import today_il
 from .page_permit_policy import (  # noqa: F401 - keep the page module API
     _PERMIT_GROUP_CLASS,
@@ -97,7 +102,7 @@ fappr=document.getElementById('fappr'),fcount=document.getElementById('fcount'),
 more=document.getElementById('more');
 var expanded=false;
 {_NORM_SEARCH_JS}function match(r){
-  if(!fappr.checked&&r.getAttribute('data-active')!=='1')return false;
+  if(!fappr.checked&&r.getAttribute('data-active')!=='1'&&!normSearch(fq.value))return false;
   if(!searchMatches(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search'))),fq.value))return false;
   if(fstatus.value&&r.getAttribute('data-status')!==fstatus.value)return false;
   if(fflag.value&&r.getAttribute('data-flag')!==fflag.value)return false;
@@ -1099,7 +1104,12 @@ def render_index(
         ) + source
 
     def tr(r):
-        search = _e((r["pl_number"] + " " + (r.get("pl_name") or "")).lower())
+        extra = neighborhoods.search_extra(r.get("pl_name") or "")
+        search = _e(
+            (r["pl_number"] + " " + (r.get("pl_name") or "") + " " + extra)
+            .strip()
+            .lower()
+        )
         attrs = (
             f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
             f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
@@ -1168,6 +1178,11 @@ def render_index(
     )
     status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
+    suggest_options = "".join(
+        f"<option value='{_e(t)}'></option>"
+        for t in neighborhoods.autocomplete_terms()
+        + sorted(r["pl_number"] for r in rows)
+    )
     legend = (
         f'<div class="legend plan-legend"><b>{_e(_t("index.legend_label"))}</b> '
         + " ".join(legend_chip(s) for s in statuses)
@@ -1197,7 +1212,8 @@ def render_index(
 <p>{_t("index.review_note_html")}</p>
 {legend}
 <div id="filters">
-<input id="fq" type="search" placeholder="{_e(_t("index.search_placeholder"))}" title="{_e(_t("index.search_title"))}">
+<input id="fq" type="search" list="fq-suggest" placeholder="{_e(_t("index.search_placeholder"))}" title="{_e(_t("index.search_title"))}">
+<datalist id="fq-suggest">{suggest_options}</datalist>
 <select id="fstatus" aria-label="{_e(_t("index.fstatus_aria"))}"><option value="">{_e(_t("index.all_statuses"))}</option>{status_opts}</select>
 <select id="fflag" aria-label="{_e(_t("index.fflag_aria"))}"><option value="">{_e(_t("index.flag_all"))}</option><option value="inside">{_e(_t("index.flag_inside"))}</option><option value="partial">{_e(_t("index.flag_partial"))}</option></select>
 <label><input type="checkbox" id="fobj"> {_e(_t("index.open_obj_label"))}</label>
