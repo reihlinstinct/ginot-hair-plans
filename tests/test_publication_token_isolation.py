@@ -1,7 +1,7 @@
 """Regression (#567): third-party renderer/dependency code in permit-feed must
 never see a publication token.
 
-The renderer job installs wheels from requirements.txt, and every python3
+The renderer job installs wheels from requirements-lock.txt, and every python3
 start runs their .pth startup code. Publication secrets therefore live only
 in a separate job that runs no Python at all, and that job accepts the
 renderer's commit only through a fail-closed bundle check
@@ -72,7 +72,7 @@ def violations(doc):
                 found.append(f"{name}: installs requirements in a token job")
     for name, job in doc["jobs"].items():
         runs = "\n".join(s.get("run", "") for s in job.get("steps", []))
-        if "-r requirements.txt" in runs and name in secret_jobs(doc):
+        if "-r requirements-lock.txt" in runs and name in secret_jobs(doc):
             found.append(
                 f"{name}: renderer dependencies share a job with a publication secret"
             )
@@ -105,7 +105,7 @@ def test_refresh_token_only_in_the_isolated_publish_job():
     assert holders == [("publish", "Publish changes as a PR for review")]
     renderer = doc["jobs"]["permit-feed"]
     assert "REFRESH_DISPATCH_TOKEN" not in str(renderer)
-    assert "-r requirements.txt" in "\n".join(
+    assert "-r requirements-lock.txt" in "\n".join(
         s.get("run", "") for s in renderer["steps"]
     )
 

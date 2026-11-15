@@ -107,7 +107,7 @@ jobs:
         env:
           PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
         run: |
-          sudo pip install playwright
+          sudo pip install --require-hashes -r requirements-playwright.txt
           sudo -E python3 -m playwright install --with-deps chromium
 
       - name: Check tracked Mavat plan pages (deadline + fingerprint)

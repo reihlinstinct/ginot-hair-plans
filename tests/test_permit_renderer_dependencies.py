@@ -7,7 +7,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_feed_installs_geometry_and_smoke_checks_renderer_before_tunnel():
     workflow = (ROOT / ".github/workflows/permit-feed.yml").read_text()
-    install = workflow.index("pip install --only-binary=:all: -r requirements.txt")
+    install = workflow.index(
+        "pip install --only-binary=:all: --require-hashes -r requirements-lock.txt"
+    )
     smoke = workflow.index(
         "python3 scripts/render_permits_page.py --check-dependencies"
     )
@@ -86,7 +88,9 @@ def test_git_auth_is_only_enabled_after_dependency_preflight():
 
 def test_publication_watch_prepares_renderer_before_any_network_work():
     workflow = (ROOT / ".github/workflows/rishui-publish-watch.yml").read_text()
-    install = workflow.index("pip install --only-binary=:all: -r requirements.txt")
+    install = workflow.index(
+        "pip install --only-binary=:all: --require-hashes -r requirements-lock.txt"
+    )
     smoke = workflow.index(
         "python3 scripts/render_permits_page.py --check-dependencies"
     )
@@ -107,6 +111,7 @@ def test_publication_dependency_command_uses_yaml_block_scalar():
         1
     ].split("- name:", 1)[0]
     assert (
-        "run: |\n          pip install --only-binary=:all: -r requirements.txt"
+        "run: |\n          "
+        "pip install --only-binary=:all: --require-hashes -r requirements-lock.txt"
         in install
     )

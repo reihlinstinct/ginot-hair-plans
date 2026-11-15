@@ -27,7 +27,7 @@ jobs:
 
       - name: Install headless Chromium (Playwright)
         run: |
-          pip install --quiet playwright
+          pip install --quiet --require-hashes -r requirements-playwright.txt
           playwright install --with-deps chromium > /dev/null 2>&1
 
       - name: Bring up owner-operated L2TP/IPsec tunnel

@@ -267,7 +267,7 @@ def skip_explanation(name, detail):
     if (
         any(name.startswith(module) for module in browser_modules)
         and "No module named 'playwright'" in detail
-        and "pip install -r requirements.txt playwright" in config
+        and "-r requirements-playwright.txt" in config
         and _browser_module_selected(name, config)
     ):
         return (

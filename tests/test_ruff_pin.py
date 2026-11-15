@@ -1,15 +1,19 @@
-"""Ruff is pinned in every workflow that lints (issue #510).
+"""Ruff is pinned in every workflow that lints (issue #510, hash-locked in #770).
 
 ruff.toml selects no rules, so the active rule set is ruff's default for the
 installed version. An unpinned install let a runner-side ruff upgrade start
-flagging DTZ011 on main. Lint changes must arrive through a deliberate bump,
-and every workflow that actually installs Ruff must run the same version.
+flagging DTZ011 on main. Lint changes must arrive through a deliberate bump:
+ci.yml installs Ruff from the hash-locked requirements-ci-tools.txt, the lock
+pin must match the workflow's RUFF_VERSION env, and no workflow may install
+Ruff directly (a second install path could drift).
 """
 
 import pathlib
 import re
 
-WORKFLOWS = pathlib.Path(__file__).resolve().parent.parent / ".github" / "workflows"
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+WORKFLOWS = ROOT / ".github" / "workflows"
+LOCK = ROOT / "requirements-ci-tools.txt"
 
 
 def _ruff_installs(text):
@@ -22,31 +26,24 @@ def _ruff_installs(text):
     ]
 
 
-def _resolved_versions(name, text):
-    versions = set()
-    for tok in _ruff_installs(text):
-        m = re.fullmatch(r"ruff==(\d+\.\d+\.\d+)", tok)
-        if m:
-            versions.add(m.group(1))
-            continue
-        m = re.fullmatch(r'ruff=="?\$(\w+)"?', tok)
-        assert m, f"{name}: ruff is not pinned exactly ({tok!r})"
-        var = m.group(1)
-        # The pin variable must be defined at workflow level (two-space
-        # indent); a job- or step-level definition could drift per job.
-        env = re.search(
-            rf"^  {re.escape(var)}: [\"']?(\d+\.\d+\.\d+)[\"']?\s*$", text, re.MULTILINE
-        )
-        assert env, (
-            f"{name}: ruff pinned via ${var} but no workflow-level env defines it"
-        )
-        versions.add(env.group(1))
-    return versions
+def test_ci_installs_ruff_from_the_locked_tools_file():
+    ci = (WORKFLOWS / "ci.yml").read_text()
+    assert "requirements-ci-tools.txt" in ci, "CI must install Ruff"
+    assert not _ruff_installs(ci), "ci.yml must not install ruff directly"
+    env = re.search(
+        r'^  RUFF_VERSION: ["\']?(\d+\.\d+\.\d+)["\']?\s*$', ci, re.MULTILINE
+    )
+    assert env, "ci.yml must define workflow-level RUFF_VERSION"
+    lock = LOCK.read_text()
+    pin = re.search(r"^ruff==(\d+\.\d+\.\d+)", lock, re.MULTILINE)
+    assert pin, "requirements-ci-tools.txt must pin ruff==X.Y.Z"
+    assert pin.group(1) == env.group(1), (
+        f"ruff lock pin {pin.group(1)} != RUFF_VERSION {env.group(1)}"
+    )
 
 
-def test_ruff_pinned_to_one_version_in_linting_workflows():
-    versions = set()
-    assert _ruff_installs((WORKFLOWS / "ci.yml").read_text()), "CI must install Ruff"
+def test_no_workflow_installs_ruff_directly():
     for path in sorted([*WORKFLOWS.glob("*.yml"), *WORKFLOWS.glob("*.yaml")]):
-        versions |= _resolved_versions(path.name, path.read_text(encoding="utf-8"))
-    assert len(versions) == 1, f"ruff versions differ across workflows: {versions}"
+        assert not _ruff_installs(path.read_text(encoding="utf-8")), (
+            f"{path.name}: install ruff via requirements-ci-tools.txt only"
+        )

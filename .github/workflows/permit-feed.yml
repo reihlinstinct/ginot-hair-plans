@@ -144,7 +144,7 @@ jobs:
 
       - name: Install and check permit renderer dependencies
         run: |
-          python3 -m pip install --only-binary=:all: -r requirements.txt
+          python3 -m pip install --only-binary=:all: --require-hashes -r requirements-lock.txt
           python3 scripts/render_permits_page.py --check-dependencies
 
       - name: Install VPN transport packages
