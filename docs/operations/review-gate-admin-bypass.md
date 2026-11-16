@@ -29,6 +29,14 @@ Changing any of them needs the owner's explicit decision.
   `.github/workflows/`, 2026-11-03). The residual risk is the protection gap
   itself plus any admin-capable token used outside the reviewed workflows.
 
+Re-verified 2026-11-16 (read-only): repository rulesets still none; the
+automation PAT still authenticates as a repo admin, so the merge-override path
+stays open while `enforce_admins` is false; workflows still contain no merge
+calls (grep over `.github/workflows/`). The automation PAT can no longer read
+the branch-protection settings themselves (`GET .../branches/main/protection`
+returns 403 for a fine-grained token without Administration read), so the
+2026-11-03 protection read above is the latest direct inspection.
+
 ## Proposal
 
 1. **Enable "Include administrators" (`enforce_admins: true`) on `main`.**
@@ -53,4 +61,8 @@ Changing any of them needs the owner's explicit decision.
    approving reviewer identity on GitHub; the independent review is currently
    out-of-band (relayed), and a sole owner cannot approve their own PR, so
    enabling either would block all merges until a reviewer identity exists.
-   Revisit if a reviewer account is added.
+   Revisit if a reviewer account is added. Note (2026-11-16): collaborator
+   `reihl` (write) now relays the out-of-band independent review as a formal
+   COMMENTED review on the exact head; switching that lane to APPROVED so
+   GitHub could enforce it remains an owner decision, since it changes merge
+   mechanics for every PR.
