@@ -85,7 +85,7 @@ test("/stats/event validates keys server-side against the data dictionary", asyn
   assert.ok(!sum.events.search["משה לוי 0501234567"]);
 });
 
-test("/stats/event returns 500 when the KV write fails", async () => {
+test("/stats/event buffers writes in-isolate, so KV outages still return 202", async () => {
   const env = { STATS: {
     async get() { throw new Error("kv down"); },
     async put() { throw new Error("kv down"); },
@@ -94,8 +94,21 @@ test("/stats/event returns 500 when the KV write fails", async () => {
   const r = await handleRequest(new Request("https://x.workers.dev/stats/event",
     { method: "POST", headers: { "content-type": "application/json" },
       body: JSON.stringify({ e: "search", k: "other" }) }), stub, env);
-  assert.equal(r.status, 500);
-  assert.deepEqual(await r.json(), { recorded: false });
+  assert.equal(r.status, 202);
+  assert.deepEqual(await r.json(), { recorded: true });
+});
+
+test("/stats/event flushes buffered counts into KV on the first request", async () => {
+  const kv = fakeKv();
+  const env = { STATS: kv };
+  const post = (b) => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
+  await handleRequest(post({ e: "search", k: "other" }), stub, env);
+  await handleRequest(post({ e: "search", k: "other" }), stub, env);
+  const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env)).json();
+  // Flushed into KV on the first post, buffered on the second; the summary
+  // merges this isolate's pending counts, so both posts are visible.
+  assert.equal(sum.events.search.other, 2);
 });
 
 test("/stats/summary covers only the last 30 days, not the 37-day TTL", async () => {
@@ -134,7 +147,7 @@ test("/stats/summary is cached in a single KV key with a TTL (issue #990)", asyn
   assert.equal((await r1.json()).events.search.x, 5);
   const cachePut = puts.find((p) => p.k === "stats:v1:summary-cache");
   assert.ok(cachePut, "summary stored in the cache key");
-  assert.equal(cachePut.o.expirationTtl, 900);
+  assert.equal(cachePut.o.expirationTtl, 3600);
   const r2 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
   assert.equal((await r2.json()).events.search.x, 5);
   assert.equal(lists, 1); // second call served from the KV cache, no KV list
