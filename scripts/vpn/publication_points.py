@@ -66,7 +66,12 @@ def load_points(path: Path) -> list[dict]:
 def resolve_official_points(
     rows: list[dict], records: list[dict], council_path: Path, neighborhoods: set
 ) -> None:
-    """Resolve unknown joins only; never overrule a known parcel result."""
+    """Resolve unknown joins only; never overrule a known parcel result.
+
+    A row resolved here is marked ``in_polygon_source =
+    "publication_point_evidence"`` so downstream consumers (baseline, alert
+    payload, watch log) can tell a municipal point match from a parcel join.
+    """
     if not records:
         return
     geojson = json.loads(council_path.read_text(encoding="utf-8"))
@@ -119,3 +124,4 @@ def resolve_official_points(
         ):
             continue
         row["in_polygon"] = geometry.contains(point)
+        row["in_polygon_source"] = "publication_point_evidence"

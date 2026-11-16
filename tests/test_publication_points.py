@@ -123,6 +123,45 @@ def test_edge_point_stays_unknown(tmp_path):
     assert rows[0]["in_polygon"] is None
 
 
+# Section: Downstream provenance marker
+
+
+def test_fallback_row_is_marked_with_its_source(tmp_path):
+    rows = [publication()]
+    resolve(rows, [evidence()], polygon(tmp_path))
+    assert rows[0]["in_polygon_source"] == "publication_point_evidence"
+
+
+@pytest.mark.parametrize("known", [None, False, True])
+def test_untouched_rows_carry_no_source_marker(tmp_path, known):
+    rows = [publication(in_polygon=known)]
+    resolve(rows, [], polygon(tmp_path))
+    assert "in_polygon_source" not in rows[0]
+
+
+def test_feature_collection_council_input(tmp_path):
+    bare = json.loads(polygon(tmp_path).read_text())
+    path = tmp_path / "council_fc.json"
+    path.write_text(
+        json.dumps(
+            {
+                "type": "FeatureCollection",
+                "features": [{"type": "Feature", "properties": {}, "geometry": bare}],
+            }
+        )
+    )
+    rows = [publication()]
+    resolve(rows, [evidence()], path)
+    assert rows[0]["in_polygon"] is True
+
+
+def test_non_string_house_number_stays_unknown(tmp_path):
+    rows = [publication(house_number=1)]
+    resolve(rows, [evidence()], polygon(tmp_path))
+    assert rows[0]["in_polygon"] is None
+    assert "in_polygon_source" not in rows[0]
+
+
 # Section: Registry provenance and fail-closed loading
 
 
@@ -189,3 +228,21 @@ def test_zero_area_spike_can_be_removed_without_changing_scope(tmp_path):
     rows = [publication()]
     resolve(rows, [evidence()], path)
     assert rows[0]["in_polygon"] is True
+
+
+def test_point_on_discarded_linework_stays_unknown(tmp_path):
+    path = polygon(tmp_path)
+    data = json.loads(path.read_text())
+    ring = data["coordinates"][0]
+    lon, lat = Transformer.from_crs(2039, 4326, always_xy=True).transform(
+        220378, 631339
+    )
+    corner = ring[0]
+    # Zero-area spike from a corner to the evidence point: repair discards it
+    # as linework, and a point on discarded linework must stay unknown.
+    ring[1:1] = [[lon, lat], corner]
+    path.write_text(json.dumps(data))
+    rows = [publication()]
+    resolve(rows, [evidence()], path)
+    assert rows[0]["in_polygon"] is None
+    assert "in_polygon_source" not in rows[0]

@@ -81,7 +81,11 @@ def main(argv: list[str] | None = None) -> int:
         default="data/publication_point_evidence.json",
         help="curated municipal-address point evidence for unresolved joins",
     )
-    parser.add_argument("--council", default="data/council_ginot_hair.geojson")
+    parser.add_argument(
+        "--council",
+        default="data/council_ginot_hair.geojson",
+        help="council boundary GeoJSON (repo-root relative default)",
+    )
     parser.add_argument("--out-active", required=True, help="baseline to write")
     parser.add_argument("--out-new", required=True, help="alert payload to write")
     args = parser.parse_args(argv)
@@ -111,6 +115,8 @@ def main(argv: list[str] | None = None) -> int:
         for row in payload["new_in_polygon"] + payload["unresolved_new"]:
             deadline = row["objection_deadline"] or "-"
             marker = "" if row["in_polygon"] else " [UNRESOLVED]"
+            if row.get("in_polygon_source") == "publication_point_evidence":
+                marker += " [POINT-EVIDENCE]"
             print(
                 f"  NEW {row['tik_num']} | {row['street']} {row['house_number']} | "
                 f"{row['neighborhood']} | published {row['publication_date']} | deadline {deadline}{marker}"

@@ -60,6 +60,19 @@ def test_unresolved_row_not_reflagged_daily():
     assert payload2 == {"new_in_polygon": [], "unresolved_new": []}
 
 
+def test_fallback_marker_survives_into_payload_and_baseline():
+    new_row = dict(
+        UNRESOLVED_ROW,
+        in_polygon=True,
+        in_polygon_source="publication_point_evidence",
+    )
+    baseline, payload, seeded = watch.update([dict(UNRESOLVED_ROW)], [new_row])
+    assert not seeded
+    assert payload["new_in_polygon"] == [new_row]
+    assert payload["unresolved_new"] == []
+    assert baseline == [new_row]
+
+
 def test_main_roundtrip(tmp_path):
     new = tmp_path / "new.json"
     new.write_text(json.dumps([IN_ROW, OUT_ROW], ensure_ascii=False), encoding="utf-8")
