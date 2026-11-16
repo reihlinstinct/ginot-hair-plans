@@ -267,6 +267,10 @@ def write(rel, text="{}\n"):
         "docs/permit-ids.json",
         "docs/permit-points.json",
         "docs/data.json",
+        # #999 follow-up (run 43846768869): locale pages the feed stages.
+        "docs/am/index.html",
+        "docs/fr/permits.html",
+        "docs/ru/permits-default.html",
     ],
 )
 def test_generated_data_commit_is_accepted(repos, rel):
@@ -295,6 +299,12 @@ def executable(repo):
             "outside the publication allowlist",
         ),
         (write("docs/arbitrary.html", "<p>\n"), "outside the publication allowlist"),
+        # Not a real i18n language code, and a non-language subtree (#972).
+        (write("docs/es/index.html", "<p>\n"), "outside the publication allowlist"),
+        (
+            write("docs/reviews/index.html", "<p>\n"),
+            "outside the publication allowlist",
+        ),
         (write("docs/badge/x/parcel-1.json"), "outside the publication allowlist"),
         (symlink, "disallowed file mode 120000"),
         (executable, "disallowed file mode 100755"),
