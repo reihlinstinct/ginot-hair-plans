@@ -45,7 +45,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--metadata",
         type=Path,
-        default=Path("reference/scope/council_map_2021_candidate.geojson"),
+        default=Path("docs/design/council-map-2021-candidate.json"),
     )
     args = parser.parse_args(argv)
     if args.out.exists():

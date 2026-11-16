@@ -46,7 +46,7 @@ several northern edges. It is not simply a strict subset of the old export.
 ## Reproduction and safety
 
 The candidate is stored only in
-`reference/scope/council_map_2021_candidate.geojson`, outside production data
+`docs/design/council-map-2021-candidate.json`, outside production data
 paths. It records the source URL, source SHA-256, date, extraction method and
 accuracy caveat. The source PDF is not added to the repository.
 

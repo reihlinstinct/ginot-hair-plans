@@ -70,7 +70,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--candidate",
         type=Path,
-        default=Path("reference/scope/council_map_2021_candidate.geojson"),
+        default=Path("docs/design/council-map-2021-candidate.json"),
     )
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args(argv)

@@ -80,7 +80,7 @@ def test_cli_refuses_to_overwrite_any_input(tmp_path):
 
 def test_candidate_is_explicitly_old_official_map_and_valid_geometry():
     candidate = json.loads(
-        (ROOT / "reference/scope/council_map_2021_candidate.geojson").read_text()
+        (ROOT / "docs/design/council-map-2021-candidate.json").read_text()
     )
     assert candidate["properties"]["pdf_creation_date"] == "2021-10-13"
     assert "NOT production" in candidate["properties"]["name"]
