@@ -1,0 +1,64 @@
+name: Promote Cloudflare mirror
+
+# Fast-forwards the `mirror` branch - the Cloudflare Pages production branch
+# behind ginot-hair-plans.pages.dev - to a main commit whose CI run finished
+# green, so the mirror stops lagging reviewed main commits. Lightweight by
+# design: no checkout and no build, a single gh api call that PATCHes the
+# mirror ref fast-forward only, so a diverged mirror fails the job loudly
+# instead of rewriting the deployment branch. The mirror serves committed
+# docs/ without a build, and every main commit is already reviewed, so the
+# CI gate is a data-quality guard, not a publication review.
+#
+# Threat model (both checks live in the promote job's `if` and in the
+# verify step, because trigger filters alone are not identity checks):
+# - A fork PR whose head branch is named `main` satisfies the workflow_run
+#   branch filter, and its commit is fetchable through this repo's object
+#   database, so an unverified run could promote an unreviewed fork commit.
+#   The job therefore requires the run to be a `push` event on `main` from
+#   this repository, and the verify step requires the promoted sha to be
+#   reachable from `main` (compare status identical/ahead).
+# - A manual workflow_dispatch targeted at a feature branch would set
+#   github.sha to that branch's tip; the job runs dispatches only when the
+#   selected ref is `main`.
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch: # manual catch-up after a missed or red run; main only
+
+permissions: {}
+
+concurrency:
+  group: mirror
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: >-
+      (github.event_name == 'workflow_dispatch' && github.ref_name == 'main') ||
+      (github.event_name == 'workflow_run' &&
+       github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    permissions:
+      contents: write
+    steps:
+      - name: Fast-forward mirror to the reviewed main commit
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SHA: ${{ github.event_name == 'workflow_dispatch' && github.sha || github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          # Refuse anything not reachable from main (fork commits, branch tips).
+          status=$(gh api "repos/${{ github.repository }}/compare/$SHA...main" --jq .status)
+          if [ "$status" != "identical" ] && [ "$status" != "ahead" ]; then
+            echo "refusing to promote $SHA: compare status vs main is $status"
+            exit 1
+          fi
+          gh api repos/${{ github.repository }}/git/refs/heads/mirror \
+            --method PATCH -f sha="$SHA" -F force=false
