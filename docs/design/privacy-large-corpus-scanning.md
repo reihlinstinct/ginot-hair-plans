@@ -10,8 +10,8 @@ real consumer, then any rollout.
 - 1,169 tracked files, 634,278,763 bytes total.
 - 918 UTF-8 non-NUL text files, 134,095,973 bytes; 10 files over 2 MiB, of
   which 7 are over 8 MiB: six localized `docs/**/permits.html` pages
-  (14.6-16.0 MB, growing with every feed batch) and
-  `data/ginot_hair_parcels.geojson` (8.9 MB).
+  (14.6-16.0 MiB, growing with every feed batch) and
+  `data/ginot_hair_parcels.geojson` (8.9 MiB).
 - 251 binary or unparsed files (PDF, image, DWG and similar official-source
   documents) - unreviewed by any text triage.
 - The reviewed shared scanner (`reihlinstinct/repo-checks`,
@@ -51,13 +51,20 @@ silent relaxation of the default profile. The default profile
   the single-line `KEY_HEADER`). The multi-line `KEY_BLOCK` in
   `secret_output.py` is a redaction pattern, not a detection pattern; this
   counts-only mode detects via `KEY_HEADER` and needs no multi-line state.
+- Right-edge rule: the patterns also depend on what follows a candidate
+  (greedy classes, the `(?!\w)` / `(?[\w\-]|\.\d)` lookaheads, the
+  reserved-domain email check), so a candidate cut at the end of a window
+  would be classified wrongly and produce spurious findings that move with
+  chunk alignment as files change, breaking normalized parity. A match is
+  accepted and its candidate evaluated only when it ends at least `overlap`
+  bytes before the end of the window, or at end of file; anything later is
+  deferred to the next window. Together with the lookbehind-sized overlap
+  this replaces any separate double-counting rule: every byte range is
+  evaluated under the same context as a whole-file scan, so per-file
+  category sets match exactly.
 - Overlong candidates fail closed: a single unbroken candidate of any
   pattern's class longer than the overlap budget is an error for that file,
   never a silent skip.
-- Counting invariant: the scanner counts files per category (a set per
-  file), so a match seen twice through the overlap is harmless. The required
-  invariant is only that a match lying fully inside the carried overlap must
-  not be the only evidence that gets dropped.
 - Hard caps, sized from the measured tree with headroom and fixed in scanner
   source: per-file bytes-read 32 MiB (twice the largest tracked text file,
   bounding total bytes read per file across all chunks), aggregate
@@ -89,10 +96,16 @@ as clean.
 - Classification rule: read a bounded 8 KiB prefix (those bytes count toward
   the aggregate budget). A NUL in the prefix or an undecodable UTF-8 prefix
   means `unscanned_binary`. Otherwise the file streams as text under the
-  incremental decoder. If invalid UTF-8 is found mid-file (four tracked
-  PDFs have a NUL-free, decodable first 8 KiB today), the file is
+  incremental decoder. If invalid UTF-8 is found mid-file, the file is
   reclassified to `unscanned_binary` and its partial text results are
-  discarded: it is never reported as scanned. A text file with a NUL inside
+  discarded as scan coverage, but any finding counts already collected from
+  the decoded prefix are kept (counts only): the file would be off-list in
+  any case, and dropping collected evidence would weaken the gate. A NUL
+  found anywhere in the stream, not only in the prefix, reclassifies the
+  same way: NUL bytes are valid UTF-8, and the default profile calls any
+  NUL-carrying file binary. A multibyte character cut by the 8 KiB prefix
+  boundary is not 'undecodable': the prefix is decoded incrementally with
+  the truncated tail held over. A text file with a NUL inside
   its first 8 KiB is `unscanned_binary` and skips text scanning. No
   extension-only classification, no whole-directory bypass, no
   auto-baseline.
@@ -101,11 +114,15 @@ as clean.
   to the tracked file count, or the run errors.
 - Gate semantics for the unscanned bucket: the run exits 0 only when the
   error bucket is empty, every finding count is zero, AND the
-  `unscanned_binary` path set equals the reviewed owner-held list (section
-  3). Findings exit 1. Budget overruns, inventory changes, and any
-  unscanned path missing from or added to the reviewed list exit 2 once the
-  mode is required (reported as counts only, e.g. how many paths are
-  off-list, never which).
+  `unscanned_binary` set equals the reviewed owner-held list (section 3),
+  keyed by path + Git blob id from `git ls-files -s`, so a changed binary
+  under a listed path is drift, not a pass; no content leaves the runner.
+  Findings exit 1. Budget overruns, inventory changes, and any unscanned
+  entry missing from or added to the reviewed list exit 2, reported as
+  counts only (how many entries are off-list, never which). These exit
+  codes are the scanner's contract in every run; in shadow mode the
+  workflow layer treats a non-zero exit as informational until the mode
+  becomes a required check (section 4).
 
 ### 3. Public-document review lane for binary content
 
@@ -119,9 +136,10 @@ review lane, outside the text scanner's scope.
 - Ownership of source redaction and data regeneration is determined with the
   owner before any data file is edited. This design assigns no such edits.
 - The lane holds the reviewed, owner-approved list of expected
-  `unscanned_binary` paths. Adding a new binary file is a normal review
-  event: the list changes in the same PR as the file, and any drift between
-  the tree and the list fails the gate in section 2.
+  `unscanned_binary` entries, keyed by path + blob id (section 2). Adding a
+  new binary file, or replacing the content of a listed one, is a normal
+  review event: the list entry changes in the same PR as the file, and any
+  drift between the tree and the list fails the gate in section 2.
 
 ### 4. Rollout: keep old guards until parity
 
@@ -142,16 +160,21 @@ review lane, outside the text scanner's scope.
   file-count ceiling - each exercised at, above and below the limit.
 - Chunk-split matches: email, phone, ID and secret shapes placed across the
   chunk boundary and inside the overlap; a multibyte character split across
-  the boundary decodes correctly; no finding is lost to the overlap.
+  the boundary decodes correctly; the right-edge rule holds at every chunk
+  alignment, tested by sweeping the boundary across each pattern so no
+  finding appears, disappears or changes with alignment.
 - Malformed and overlong candidates: fail closed, counted as errors.
 - Symlinks, non-regular files, submodules, unresolved entries: fail closed.
 - Giant binaries: bounded-prefix classification without full reads; a file
-  that turns non-UTF-8 mid-stream is reclassified, not reported as scanned.
+  that turns non-UTF-8 or carries a NUL mid-stream is reclassified with its
+  collected finding counts kept, not reported as scanned (no tracked file
+  exercises this today, so a synthetic fixture is required).
 - Changed inventory between listing and scan: fail closed.
 - Output: counts-only on stdout and stderr in every exit path; no matched
   values, paths or digests.
 - Complete accounting: bucket counts sum to the tracked inventory, and a
-  binary path added without a list entry fails the gate.
+  binary entry whose path or blob id is not on the reviewed list fails the
+  gate.
 - Targeted mutants of the above must die. Independent exact-head review and
   green CI on every PR.
 
