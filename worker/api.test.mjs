@@ -103,12 +103,43 @@ test("/stats/event flushes buffered counts into KV on the first request", async 
   const env = { STATS: kv };
   const post = (b) => new Request("https://x.workers.dev/stats/event",
     { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(b) });
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "stats:v1:" + today + ":search:other";
   await handleRequest(post({ e: "search", k: "other" }), stub, env);
+  assert.equal(await kv.get(key), "1"); // first request in an isolate flushes
   await handleRequest(post({ e: "search", k: "other" }), stub, env);
+  assert.equal(await kv.get(key), "1"); // second post stays buffered in-isolate
   const sum = await (await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env)).json();
-  // Flushed into KV on the first post, buffered on the second; the summary
-  // merges this isolate's pending counts, so both posts are visible.
+  // The summary merges this isolate's pending count, so both posts show.
   assert.equal(sum.events.search.other, 2);
+});
+
+test("/stats/summary counts events whose flush is still in flight", async () => {
+  const m = new Map();
+  const slow = () => new Promise((r) => setTimeout(r, 20));
+  const kv = {
+    async get(k) { await slow(); return m.has(k) ? m.get(k) : null; },
+    async put(k, v) { await slow(); m.set(k, v); },
+    async list({ prefix }) {
+      await slow();
+      return { list_complete: true,
+               keys: [...m.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) };
+    },
+  };
+  const env = { STATS: kv };
+  const post = () => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ e: "search", k: "other" }) });
+  await handleRequest(post(), stub, env); // first request: immediate flush
+  const waits = [];
+  const ctx = { waitUntil(p) { waits.push(p); } };
+  // Enough buffered posts to force a flush; with ctx it is NOT awaited, so
+  // its slow KV puts are still in flight when the summary GET arrives.
+  for (let i = 0; i < 25; i++) await handleRequest(post(), stub, env, ctx);
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env, ctx);
+  const sum = await r.json();
+  // KV holds only the first flush; the rest sit in the in-flight merge.
+  assert.equal(sum.events.search.other, 26);
+  await Promise.all(waits);
 });
 
 test("/stats/summary covers only the last 30 days, not the 37-day TTL", async () => {
