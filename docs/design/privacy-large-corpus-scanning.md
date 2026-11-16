@@ -42,28 +42,34 @@ silent relaxation of the default profile. The default profile
 
 - Chunked streaming reads: fixed-size chunks (proposal: 256 KiB) decoded with
   an incremental UTF-8 decoder, so a multibyte character split across a chunk
-  boundary is held over and completed, never read as invalid. Each chunk is
-  scanned with a carried overlap (proposal: 4 KiB) sized from the largest
-  candidate span of the scanner's real patterns plus their lookbehind
-  context: `EMAIL_CANDIDATE` (`[\w._%+@\-]+`, capped at 320 chars), `PHONE`
-  and `ID` (one-character lookbehinds `(?<![\w+])`, `(?<![\w.\-])` plus
-  separator runs), `UUID_TOKEN` (36 chars), `SECRET` (`TOKEN` prefixes and
-  the single-line `KEY_HEADER`). The multi-line `KEY_BLOCK` in
-  `secret_output.py` is a redaction pattern, not a detection pattern; this
-  counts-only mode detects via `KEY_HEADER` and needs no multi-line state.
+  boundary is held over and completed, never read as invalid. Each window is
+  scanned with a carried context (proposal: 8 KiB) of preceding bytes, and
+  the right-edge deferral margin is 4 KiB (see the next rule). The sizing
+  invariant is: carried context >= deferral margin + longest candidate span
+  + lookbehind context, so a match deferred at the right edge is
+  re-evaluated in the next window with its full leading bytes and its
+  lookbehind character, never left-truncated. Candidate spans come from the
+  scanner's real patterns: `EMAIL_CANDIDATE` (`[\w._%+@\-]+`, capped at
+  320 chars), `PHONE` and `ID` (one-character lookbehinds `(?<![\w+])`,
+  `(?<![\w.\-])` plus separator runs), `UUID_TOKEN` (36 chars), `SECRET`
+  (`TOKEN` prefixes and the single-line `KEY_HEADER`). The multi-line
+  `KEY_BLOCK` in `secret_output.py` is a redaction pattern, not a detection
+  pattern; this counts-only mode detects via `KEY_HEADER` and needs no
+  multi-line state.
 - Right-edge rule: the patterns also depend on what follows a candidate
-  (greedy classes, the `(?!\w)` / `(?[\w\-]|\.\d)` lookaheads, the
+  (greedy classes, the `(?!\w)` / `(?![\w\-]|\.\d)` lookaheads, the
   reserved-domain email check), so a candidate cut at the end of a window
   would be classified wrongly and produce spurious findings that move with
   chunk alignment as files change, breaking normalized parity. A match is
-  accepted and its candidate evaluated only when it ends at least `overlap`
-  bytes before the end of the window, or at end of file; anything later is
-  deferred to the next window. Together with the lookbehind-sized overlap
-  this replaces any separate double-counting rule: every byte range is
-  evaluated under the same context as a whole-file scan, so per-file
-  category sets match exactly.
+  accepted and its candidate evaluated only when it ends at least the
+  deferral margin (4 KiB) before the end of the window, or at end of file;
+  anything later is deferred to the next window, where the carried context
+  (8 KiB, per the sizing invariant above) supplies its full span and
+  lookbehind. Together these replace any separate double-counting rule:
+  every byte range is evaluated under the same context as a whole-file
+  scan, so per-file category sets match exactly.
 - Overlong candidates fail closed: a single unbroken candidate of any
-  pattern's class longer than the overlap budget is an error for that file,
+  pattern's class longer than the carried context is an error for that file,
   never a silent skip.
 - Hard caps, sized from the measured tree with headroom and fixed in scanner
   source: per-file bytes-read 32 MiB (twice the largest tracked text file,
@@ -89,7 +95,7 @@ as clean.
 - This mode changes one reviewed invariant on purpose: `PRIVACY_SCAN.md`
   says today "oversized binary files error; no prefix classification
   bypasses the limits." That rule is right for the default profile, but this
-  corpus legitimately carries 9-16 MB UTF-8 text and 250+ official binaries
+  corpus legitimately carries 9-16 MiB UTF-8 text and 250+ official binaries
   that no text scan will ever cover, so the large-corpus mode replaces
   "oversized means error" with a defined `unscanned_binary` bucket that is
   accounted, compared against a reviewed list, and never counted as clean.
@@ -159,10 +165,12 @@ review lane, outside the text scanner's scope.
 - Size and time boundaries: per-file cap, aggregate budget, wall deadline,
   file-count ceiling - each exercised at, above and below the limit.
 - Chunk-split matches: email, phone, ID and secret shapes placed across the
-  chunk boundary and inside the overlap; a multibyte character split across
-  the boundary decodes correctly; the right-edge rule holds at every chunk
-  alignment, tested by sweeping the boundary across each pattern so no
-  finding appears, disappears or changes with alignment.
+  chunk boundary and inside the carried context; a multibyte character split
+  across the boundary decodes correctly; no finding appears, disappears or
+  changes with chunk alignment, tested by sweeping the boundary across each
+  pattern - including candidates that straddle the start of the deferral
+  zone, which the next window must re-evaluate untruncated (the
+  left-truncation case the sizing invariant prevents).
 - Malformed and overlong candidates: fail closed, counted as errors.
 - Symlinks, non-regular files, submodules, unresolved entries: fail closed.
 - Giant binaries: bounded-prefix classification without full reads; a file
