@@ -246,3 +246,25 @@ def test_point_on_discarded_linework_stays_unknown(tmp_path):
     resolve(rows, [evidence()], path)
     assert rows[0]["in_polygon"] is None
     assert "in_polygon_source" not in rows[0]
+
+
+# Section: Fail-closed loading with clear errors and deferred council reads
+
+
+@pytest.mark.parametrize("missing", ["verified_at", "source_url"])
+def test_missing_provenance_fields_fail_with_clear_error(tmp_path, missing):
+    record = evidence()
+    del record[missing]
+    path = tmp_path / "registry.json"
+    path.write_text(json.dumps([record]))
+    with pytest.raises(ValueError, match="verified_at and source_url"):
+        points.load_points(path)
+
+
+def test_council_is_not_loaded_when_no_row_matches(tmp_path):
+    broken = tmp_path / "broken_council.json"
+    broken.write_text("{ not json")
+    rows = [publication(in_polygon=True), publication(tik_num="other")]
+    resolve(rows, [evidence()], broken)
+    assert rows[0]["in_polygon"] is True
+    assert rows[1]["in_polygon"] is None

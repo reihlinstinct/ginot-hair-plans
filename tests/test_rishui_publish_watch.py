@@ -4,6 +4,8 @@ import importlib.util
 import json
 from pathlib import Path
 
+from pyproj import Transformer
+
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "rishui_publish_watch_u", ROOT / "scripts/vpn/rishui_publish_watch.py"
@@ -155,3 +157,126 @@ def test_watch_workflow_contract():
     assert "rishui_publish_watch.py" in workflow
     assert "scripts/ci/publish_publications.py" in workflow
     assert "scripts/vpn/l2tp.py down" in workflow
+
+
+# Section: main() wiring of the official-point fallback (#857)
+
+FALLBACK_ROW = {
+    "myIndex": 7,
+    "tik_num": "2026/0001.00",
+    "street": 'רמב"ן',
+    "house_number": "24",
+    "neighborhood": "קטמון הישנה",
+    "publication_date": "2026-11-10",
+    "objection_deadline": None,
+    "in_polygon": None,
+}
+
+
+def _point_fixtures(tmp_path):
+    evidence = {
+        "tik_num": "2026/0001.00",
+        "street": 'רמב"ן',
+        "house_number": "24",
+        "neighborhood": "קטמון הישנה",
+        "crs": "EPSG:2039",
+        "x": 220378,
+        "y": 631339,
+        "verified_at": "2026-11-16",
+        "source_url": (
+            "https://ykpubdata.jerusalem.muni.il/#/Details"
+            "?TikNum=2026/0001.00&SystemCode=26400046&Page=LocationInfo"
+        ),
+    }
+    evidence_path = tmp_path / "evidence.json"
+    evidence_path.write_text(
+        json.dumps([evidence], ensure_ascii=False), encoding="utf-8"
+    )
+    lon, lat = Transformer.from_crs(2039, 4326, always_xy=True).transform(
+        220378, 631339
+    )
+    ring = [
+        [lon - 0.001, lat - 0.001],
+        [lon + 0.001, lat - 0.001],
+        [lon + 0.001, lat + 0.001],
+        [lon - 0.001, lat + 0.001],
+        [lon - 0.001, lat - 0.001],
+    ]
+    council_path = tmp_path / "council.json"
+    council_path.write_text(json.dumps({"type": "Polygon", "coordinates": [ring]}))
+    return evidence_path, council_path
+
+
+def _run_main(tmp_path, old_rows, new_rows, extra=None):
+    old = tmp_path / "old.json"
+    old.write_text(json.dumps(old_rows, ensure_ascii=False), encoding="utf-8")
+    new = tmp_path / "new.json"
+    new.write_text(json.dumps(new_rows, ensure_ascii=False), encoding="utf-8")
+    permits = tmp_path / "permits.json"
+    permits.write_text("[]", encoding="utf-8")
+    parcels = tmp_path / "parcels.json"
+    parcels.write_text(
+        json.dumps({"type": "FeatureCollection", "features": []}), encoding="utf-8"
+    )
+    out_active = tmp_path / "active.json"
+    out_new = tmp_path / "alert.json"
+    argv = [
+        "--old",
+        str(old),
+        "--new",
+        str(new),
+        "--permits",
+        str(permits),
+        "--parcels",
+        str(parcels),
+        "--out-active",
+        str(out_active),
+        "--out-new",
+        str(out_new),
+    ] + list(extra or [])
+    return argv, out_active, out_new
+
+
+def test_main_wires_official_point_fallback(tmp_path, capsys):
+    evidence_path, council_path = _point_fixtures(tmp_path)
+    argv, out_active, out_new = _run_main(
+        tmp_path,
+        [dict(FALLBACK_ROW)],
+        [dict(FALLBACK_ROW)],
+        ["--point-evidence", str(evidence_path), "--council", str(council_path)],
+    )
+    rc = watch.main(argv)
+    assert rc == 0
+    active = json.loads(out_active.read_text(encoding="utf-8"))
+    assert len(active) == 1
+    assert active[0]["in_polygon"] is True
+    assert active[0]["in_polygon_source"] == "publication_point_evidence"
+    payload = json.loads(out_new.read_text(encoding="utf-8"))
+    assert [r["tik_num"] for r in payload["new_in_polygon"]] == ["2026/0001.00"]
+    assert payload["new_in_polygon"][0]["in_polygon_source"] == (
+        "publication_point_evidence"
+    )
+    assert "[POINT-EVIDENCE]" in capsys.readouterr().out
+
+
+def test_main_logs_regressed_point_rows(tmp_path, capsys):
+    resolved = dict(
+        FALLBACK_ROW,
+        in_polygon=True,
+        in_polygon_source="publication_point_evidence",
+    )
+    absent = tmp_path / "absent.json"  # evidence removed: no fallback
+    argv, out_active, out_new = _run_main(
+        tmp_path,
+        [resolved],
+        [dict(FALLBACK_ROW)],
+        ["--point-evidence", str(absent), "--council", str(tmp_path / "none.json")],
+    )
+    rc = watch.main(argv)
+    assert rc == 0
+    active = json.loads(out_active.read_text(encoding="utf-8"))
+    assert len(active) == 1 and active[0]["in_polygon"] is None
+    payload = json.loads(out_new.read_text(encoding="utf-8"))
+    assert payload == {"new_in_polygon": [], "unresolved_new": []}
+    out = capsys.readouterr().out
+    assert "REGRESSED" in out and "2026/0001.00" in out

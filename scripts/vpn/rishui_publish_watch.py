@@ -103,6 +103,20 @@ def main(argv: list[str] | None = None) -> int:
     baseline, payload, seeded = update(old_rows, new_rows)
     write_json(Path(args.out_active), baseline)
     write_json(Path(args.out_new), payload)
+    if not seeded:
+        old_flags = {r.get("myIndex"): r.get("in_polygon") for r in old_rows or []}
+        for row in baseline:
+            if (
+                old_flags.get(row.get("myIndex")) is True
+                and row["in_polygon"] is not True
+            ):
+                # A once-resolved row falling back to unknown (e.g. its
+                # evidence record was removed) is not fresh and not
+                # "resolved", so update() stays silent; surface it here.
+                print(
+                    f"  REGRESSED {row['tik_num']} | {row.get('street')} "
+                    f"{row.get('house_number')} | was in-polygon, now unresolved"
+                )
     if seeded:
         print(
             f"seeded baseline with {len(baseline)} in-scope publications; no alert entries"

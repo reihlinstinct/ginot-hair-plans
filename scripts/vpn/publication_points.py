@@ -34,6 +34,11 @@ def load_points(path: Path) -> list[dict]:
         for key in ("tik_num", "street", "house_number", "neighborhood"):
             if not isinstance(record.get(key), str) or not record[key].strip():
                 raise ValueError("official point evidence requires an exact address")
+        for key in ("verified_at", "source_url"):
+            if not isinstance(record.get(key), str) or not record[key].strip():
+                raise ValueError(
+                    "official point evidence requires verified_at and source_url"
+                )
         date.fromisoformat(record["verified_at"])
         if record.get("crs") != "EPSG:2039":
             raise ValueError("official point evidence must use EPSG:2039")
@@ -74,6 +79,25 @@ def resolve_official_points(
     """
     if not records:
         return
+    # Select candidate rows first: the council file is loaded and repaired
+    # only when at least one unknown row has a unique, exact address match,
+    # so a broken boundary cannot abort a run that needs no fallback.
+    candidates = []
+    address_keys = ("street", "house_number", "neighborhood")
+    for row in rows:
+        if row.get("in_polygon") is not None:
+            continue
+        matches = [r for r in records if r["tik_num"] == row.get("tik_num")]
+        if len(matches) != 1:
+            continue
+        evidence = matches[0]
+        if any(row.get(k) != evidence[k] for k in address_keys):
+            continue
+        if row.get("neighborhood") not in neighborhoods:
+            continue
+        candidates.append((row, evidence))
+    if not candidates:
+        return
     geojson = json.loads(council_path.read_text(encoding="utf-8"))
     if geojson.get("type") == "FeatureCollection":
         geometry = unary_union([shape(f["geometry"]) for f in geojson["features"]])
@@ -103,18 +127,7 @@ def resolve_official_points(
     if geometry.is_empty or geometry.geom_type not in {"Polygon", "MultiPolygon"}:
         raise ValueError("invalid council polygon for official point evidence")
     transform = Transformer.from_crs(2039, 4326, always_xy=True)
-    for row in rows:
-        if row.get("in_polygon") is not None:
-            continue
-        matches = [r for r in records if r["tik_num"] == row.get("tik_num")]
-        if len(matches) != 1:
-            continue
-        evidence = matches[0]
-        address_keys = ("street", "house_number", "neighborhood")
-        if any(row.get(k) != evidence[k] for k in address_keys):
-            continue
-        if row.get("neighborhood") not in neighborhoods:
-            continue
+    for row, evidence in candidates:
         lon, lat = transform.transform(evidence["x"], evidence["y"])
         if not (math.isfinite(lon) and math.isfinite(lat)):
             continue
