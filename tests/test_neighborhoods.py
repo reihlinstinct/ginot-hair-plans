@@ -7,6 +7,8 @@ variants) to the plans on its streets, without a new filter field.
 import json
 from pathlib import Path
 
+import pytest
+
 from ginot import neighborhoods, page
 
 ROOT = Path(__file__).parent.parent
@@ -47,6 +49,53 @@ def test_prefix_rule_is_limited_to_multi_word_streets():
     assert neighborhoods.tags_for("למכור ברח' הגפן 3") == []
     assert neighborhoods.tags_for("תוספת קומה במכור 7, י-ם") == []
     assert "טלביה" in neighborhoods.tags_for("תוספת שטחים בחובבי ציון 5")
+
+
+# Section: full street-prefix regression matrix (#1011, follows #998)
+
+_MULTI = "חובבי ציון"  # known multi-word street (טלביה)
+_SINGLE = "מכור"  # known one-word street; must stay exact-match only
+
+
+@pytest.mark.parametrize("prefix", list(neighborhoods._PREFIXES))
+def test_every_prefix_matches_a_multi_word_street(prefix):
+    assert "טלביה" in neighborhoods.tags_for(f"תוספת שטחים {prefix}{_MULTI} 5")
+
+
+def test_unprefixed_multi_word_street_matches():
+    assert "טלביה" in neighborhoods.tags_for(f"תוספת שטחים {_MULTI} 5")
+
+
+@pytest.mark.parametrize("prefix", list(neighborhoods._PREFIXES))
+def test_prefix_never_matches_a_single_word_street(prefix):
+    assert neighborhoods.tags_for(f"תוספת קומה {prefix}{_SINGLE} 7") == []
+
+
+def test_unprefixed_single_word_street_still_matches():
+    assert neighborhoods.tags_for(f"תוספת קומה {_SINGLE} 7") != []
+
+
+@pytest.mark.parametrize("prefix", ["וב", "בכ", "מש", "לב", "שה"])
+def test_double_prefix_does_not_match(prefix):
+    assert neighborhoods.tags_for(f"תוספת שטחים {prefix}{_MULTI} 5") == []
+
+
+@pytest.mark.parametrize(
+    "text",
+    [
+        "תוספת שטחים חובבי ציונים 5",  # suffix lookalike
+        "תוספת שטחים בחובבי ציוןx 5",
+        "תוספת שטחים חובבי איציון 5",  # embedded-word lookalike
+        "תוספת שטחים בחובבי חובבי ציון5",
+    ],
+)
+def test_suffix_and_embedded_lookalikes_do_not_match(text):
+    assert neighborhoods.tags_for(text) == []
+
+
+@pytest.mark.parametrize("letter", ["א", "ג", "ר", "נ", "ה", "ו"])
+def test_unrelated_first_letter_is_rejected(letter):
+    assert neighborhoods.tags_for(f"תוספת שטחים {letter}{_MULTI} 5") == []
 
 
 def test_shared_street_is_excluded():
