@@ -1,0 +1,13 @@
+[
+  {
+    "tik_num": "1983/0461.03",
+    "street": "רמבן",
+    "house_number": "24",
+    "neighborhood": "רחביה",
+    "crs": "EPSG:2039",
+    "x": 220378,
+    "y": 631339,
+    "verified_at": "2026-11-16",
+    "source_url": "https://ykpubdata.jerusalem.muni.il/#/Details?TikNum=1983/0461.03&SystemCode=26400046&Page=LocationInfo"
+  }
+]
