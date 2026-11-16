@@ -37,9 +37,20 @@ the branch-protection settings themselves (`GET .../branches/main/protection`
 returns 403 for a fine-grained token without Administration read), so the
 2026-11-03 protection read above is the latest direct inspection.
 
+## Status update (2026-11-16)
+
+The owner approved the hardening and `enforce_admins` (**"Do not allow
+bypassing the above settings"**) is now **enabled** on `main` (verified in
+the branch-protection rule UI: the rule is otherwise unchanged - required
+checks remain `test (3.11)`, `test (3.12)`, `test (3.13)`, approvals count
+0, dismiss-stale on, strict off; force pushes and deletions stay disabled).
+Admin merge-override and direct-to-main pushes by admin tokens are now
+blocked by GitHub, not only by process. The residual owner-settings path
+from point 1 below remains inherent to ownership.
+
 ## Proposal
 
-1. **Enable "Include administrators" (`enforce_admins: true`) on `main`.**
+1. **Enable "Include administrators" (`enforce_admins: true`) on `main` (done 2026-11-16).**
    Protection then applies to admins as well: the required status checks must
    pass for everyone, and admin merge-override / direct-to-main pushes stop
    working. The eligible owner review path is preserved: with the approving
