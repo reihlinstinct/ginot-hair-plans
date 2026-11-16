@@ -56,21 +56,28 @@ silent relaxation of the default profile. The default profile
   `KEY_BLOCK` in `secret_output.py` is a redaction pattern, not a detection
   pattern; this counts-only mode detects via `KEY_HEADER` and needs no
   multi-line state.
-- Right-edge rule: the patterns also depend on what follows a candidate
-  (greedy classes, the `(?!\w)` / `(?![\w\-]|\.\d)` lookaheads, the
-  reserved-domain email check), so a candidate cut at the end of a window
-  would be classified wrongly and produce spurious findings that move with
-  chunk alignment as files change, breaking normalized parity. A match is
-  accepted and its candidate evaluated only when it ends at least the
-  deferral margin (4 KiB) before the end of the window, or at end of file;
-  anything later is deferred to the next window, where the carried context
-  (8 KiB, per the sizing invariant above) supplies its full span and
-  lookbehind. Together these replace any separate double-counting rule:
-  every byte range is evaluated under the same context as a whole-file
-  scan, so per-file category sets match exactly.
-- Overlong candidates fail closed: a single unbroken candidate of any
-  pattern's class longer than the carried context is an error for that file,
-  never a silent skip.
+- Two-sided acceptance rule: the patterns also depend on what follows a
+  candidate (greedy classes, the `(?!\w)` / `(?![\w\-]|\.\d)` lookaheads,
+  the reserved-domain email check), and on the lookbehind before it, so a
+  candidate cut at either edge of a window would be classified wrongly and
+  produce spurious findings that move with chunk alignment as files change,
+  breaking normalized parity. Each match is therefore evaluated in exactly
+  one window: the first window whose acceptance range
+  `[prevEnd - margin, windowEnd - margin)` contains the match's end (the
+  last window's range runs to end of file). Matches ending before
+  `prevEnd - margin` were already accepted by the previous window and are
+  not re-evaluated; matches ending in the deferral zone
+  `[windowEnd - margin, windowEnd)` are deferred to the next window, where
+  the carried context (8 KiB, per the sizing invariant above) supplies
+  their full span and lookbehind. This two-sided ownership, not the
+  context size, is what removes double counting and left-edge truncation:
+  every byte range is evaluated exactly once, under the same context as a
+  whole-file scan, so per-file category sets match exactly.
+- Overlong candidates fail closed: the sizing invariant means a candidate
+  is safe only while span <= context - margin - lookbehind (about 4 KiB
+  with the proposed numbers). A single unbroken candidate of any pattern's
+  class longer than that threshold is an error for that file, never a
+  silent skip; the implementation PR tests at, above and below it.
 - Hard caps, sized from the measured tree with headroom and fixed in scanner
   source: per-file bytes-read 32 MiB (twice the largest tracked text file,
   bounding total bytes read per file across all chunks), aggregate
@@ -166,11 +173,14 @@ review lane, outside the text scanner's scope.
   file-count ceiling - each exercised at, above and below the limit.
 - Chunk-split matches: email, phone, ID and secret shapes placed across the
   chunk boundary and inside the carried context; a multibyte character split
-  across the boundary decodes correctly; no finding appears, disappears or
-  changes with chunk alignment, tested by sweeping the boundary across each
-  pattern - including candidates that straddle the start of the deferral
-  zone, which the next window must re-evaluate untruncated (the
-  left-truncation case the sizing invariant prevents).
+  across the boundary decodes correctly; every byte range is evaluated
+  exactly once, tested by sweeping the chunk boundary across each pattern so
+  no finding appears, disappears or changes with alignment - including
+  candidates that straddle the start of the deferral zone (re-evaluated
+  untruncated in the next window), candidates that end inside the previous
+  window's accepted region (counted once, not re-evaluated), and digit runs
+  that straddle the next window's first byte (no spurious ID from a
+  truncated trailing fragment).
 - Malformed and overlong candidates: fail closed, counted as errors.
 - Symlinks, non-regular files, submodules, unresolved entries: fail closed.
 - Giant binaries: bounded-prefix classification without full reads; a file
