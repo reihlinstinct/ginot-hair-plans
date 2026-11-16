@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-09",
+ "generated": "2026-11-16",
  "source": "Jerusalem municipality public permit viewer API (ykpubdata)",
  "batch": {
   "offset": 4600,
@@ -422,7 +422,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1910/0911.09",
@@ -1435,7 +1435,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1947/0820.01",
@@ -1448,7 +1448,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1947/0905.00",
@@ -1667,7 +1667,7 @@
    "publication_start": "2026-06-07",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1949/0126.02",
@@ -1680,7 +1680,7 @@
    "publication_start": "2026-06-04",
    "publication_end_planned": "",
    "address": "אפודי 4 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1949/0456.00",
@@ -1719,7 +1719,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1949/0826.00",
@@ -1836,7 +1836,7 @@
    "mispBait": "",
    "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1949/1577.00",
@@ -2018,7 +2018,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1950/0031.03",
@@ -2031,7 +2031,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1950/0031.04",
@@ -2385,7 +2385,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1950/1028.01",
@@ -2398,7 +2398,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1950/1049.00",
@@ -3627,7 +3627,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 15 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1952/0750.01",
@@ -3640,7 +3640,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 15 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1952/1007.00",
@@ -4643,7 +4643,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1953/0692.00",
@@ -5062,7 +5062,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1954/0433.00",
@@ -5206,7 +5206,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1954/0584.01",
@@ -5219,7 +5219,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1954/0598.00",
@@ -5568,7 +5568,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1955/0057.01",
@@ -5581,7 +5581,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1955/0057.02",
@@ -5594,7 +5594,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1955/0061.00",
@@ -5711,7 +5711,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1955/0171.01",
@@ -5724,7 +5724,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1955/0242.00",
@@ -6135,7 +6135,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מלכי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0311.01",
@@ -6148,7 +6148,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מלכי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0314.00",
@@ -6252,7 +6252,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0432.00",
@@ -6561,7 +6561,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 12 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0530.00",
@@ -6574,7 +6574,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0530.01",
@@ -6587,7 +6587,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0530.02",
@@ -6600,7 +6600,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0534.00",
@@ -6626,7 +6626,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0541.01",
@@ -6639,7 +6639,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0558.00",
@@ -6884,7 +6884,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1956/0643.00",
@@ -7297,7 +7297,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 11 טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1957/0005.01",
@@ -7310,7 +7310,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 11 טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1957/0012.00",
@@ -8758,7 +8758,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 10 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1957/0941.00",
@@ -9008,7 +9008,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1958/0133.00",
@@ -9852,7 +9852,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1958/0486.00",
@@ -11657,7 +11657,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1960/0063.00",
@@ -11852,7 +11852,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1960/0146.01",
@@ -11865,7 +11865,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1960/0146.02",
@@ -11878,7 +11878,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1960/0146.03",
@@ -11891,7 +11891,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1960/0206.00",
@@ -13878,7 +13878,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1961/0660.00",
@@ -14111,11 +14111,11 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30025,
-   "helka": 1,
+   "helka": 99,
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1962/0143.00",
@@ -14500,7 +14500,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 33 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1962/0405.01",
@@ -14721,7 +14721,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1962/0535.01",
@@ -14734,7 +14734,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1962/0535.02",
@@ -14747,7 +14747,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1962/0550.00",
@@ -15328,7 +15328,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1963/0103.00",
@@ -15443,7 +15443,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1963/0198.01",
@@ -15456,7 +15456,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1963/0198.02",
@@ -15469,7 +15469,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1963/0212.00",
@@ -20334,7 +20334,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1966/0904.00",
@@ -21044,7 +21044,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1967/0421.02",
@@ -21057,7 +21057,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1967/0430.00",
@@ -21096,7 +21096,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 4 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1967/0481.00",
@@ -21483,7 +21483,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 80 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1968/0086.00",
@@ -30742,7 +30742,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 38 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1972/0298.00",
@@ -33047,7 +33047,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1973/0107.01",
@@ -33060,7 +33060,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1973/0110.00",
@@ -34555,7 +34555,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1973/0751.01",
@@ -34568,7 +34568,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1973/0761.00",
@@ -36493,7 +36493,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רוממה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1974/0619.00",
@@ -40113,7 +40113,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1976/0540.01",
@@ -40126,7 +40126,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1976/0547.00",
@@ -40308,7 +40308,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1976/0616.01",
@@ -40321,7 +40321,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1976/0616.02",
@@ -40334,7 +40334,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1976/0619.00",
@@ -42608,7 +42608,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 20 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1977/0533.00",
@@ -48479,7 +48479,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1979/0538.01",
@@ -48492,7 +48492,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1979/0539.00",
@@ -49386,7 +49386,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1979/0748.01",
@@ -49399,7 +49399,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1979/0757.05",
@@ -51684,7 +51684,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1980/0604.01",
@@ -51697,7 +51697,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1980/0616.00",
@@ -51940,7 +51940,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1980/0705.00",
@@ -54751,7 +54751,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0463.01",
@@ -54764,7 +54764,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0463.02",
@@ -54777,7 +54777,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0463.03",
@@ -54790,7 +54790,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0472.03",
@@ -55846,7 +55846,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0727.01",
@@ -55859,7 +55859,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-06-13",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0727.02",
@@ -55872,7 +55872,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-07-12",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0727.03",
@@ -55885,7 +55885,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0727.04",
@@ -55898,7 +55898,7 @@
    "publication_start": "2024-12-18",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/0728.00",
@@ -56588,7 +56588,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/1055.01",
@@ -56601,7 +56601,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1981/1061.00",
@@ -60731,7 +60731,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0654.01",
@@ -60744,7 +60744,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0654.02",
@@ -60757,7 +60757,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0657.00",
@@ -61598,7 +61598,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0935.01",
@@ -61611,7 +61611,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0935.02",
@@ -61624,7 +61624,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 16 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1983/0963.00",
@@ -63347,7 +63347,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0256.01",
@@ -63360,7 +63360,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0258.00",
@@ -63654,7 +63654,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0369.00",
@@ -63914,7 +63914,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0406.01",
@@ -63927,7 +63927,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0418.00",
@@ -65753,7 +65753,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0864.01",
@@ -65766,7 +65766,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0864.02",
@@ -65779,7 +65779,7 @@
    "publication_start": "",
    "publication_end_planned": "2010-08-17",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0864.03",
@@ -65792,7 +65792,7 @@
    "publication_start": "2021-02-01",
    "publication_end_planned": "2021-02-23",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1984/0884.00",
@@ -68444,7 +68444,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1985/0733.01",
@@ -68457,7 +68457,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1985/0733.02",
@@ -68470,7 +68470,7 @@
    "publication_start": "2026-05-14",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 20 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1985/0760.00",
@@ -69591,7 +69591,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 13 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0329.00",
@@ -70835,7 +70835,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0727.01",
@@ -70848,7 +70848,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0727.02",
@@ -70861,7 +70861,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-11-16",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0727.03",
@@ -70874,7 +70874,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0727.04",
@@ -70887,7 +70887,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0757.00",
@@ -70952,7 +70952,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0762.01",
@@ -70965,7 +70965,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1986/0764.00",
@@ -72420,7 +72420,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1987/0258.01",
@@ -72433,7 +72433,7 @@
    "publication_start": "",
    "publication_end_planned": "1991-07-19",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1987/0258.02",
@@ -72446,7 +72446,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-10-13",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1987/0258.03",
@@ -72459,7 +72459,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1987/0276.00",
@@ -75273,7 +75273,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1987/0859.00",
@@ -76389,7 +76389,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0065.01",
@@ -76402,7 +76402,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0065.02",
@@ -76415,7 +76415,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0073.00",
@@ -76949,7 +76949,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0208.01",
@@ -76962,7 +76962,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0208.02",
@@ -76975,7 +76975,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0208.03",
@@ -76988,7 +76988,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-12-24",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0208.04",
@@ -77001,7 +77001,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0208.05",
@@ -77014,7 +77014,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0209.00",
@@ -80127,7 +80127,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0932.01",
@@ -80140,7 +80140,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0932.02",
@@ -80153,7 +80153,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-09-12",
    "address": "הרב מימון 7 קרית משה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0932.03",
@@ -80166,7 +80166,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0932.04",
@@ -80179,7 +80179,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1988/0951.00",
@@ -82078,7 +82078,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0364.00",
@@ -84711,7 +84711,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0769.01",
@@ -84724,7 +84724,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0769.02",
@@ -84737,7 +84737,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0769.03",
@@ -84750,7 +84750,7 @@
    "publication_start": "2026-10-18",
    "publication_end_planned": "2026-11-24",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0784.00",
@@ -84966,7 +84966,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0814.06",
@@ -85031,7 +85031,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גאולה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0819.03",
@@ -85044,7 +85044,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0819.04",
@@ -85057,7 +85057,7 @@
    "publication_start": "",
    "publication_end_planned": "2012-12-02",
    "address": "רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0823.00",
@@ -85593,7 +85593,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0917.00",
@@ -85732,7 +85732,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0928.01",
@@ -85745,7 +85745,7 @@
    "publication_start": "",
    "publication_end_planned": "1992-10-05",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0928.02",
@@ -85758,7 +85758,7 @@
    "publication_start": "",
    "publication_end_planned": "2002-06-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0928.03",
@@ -85771,7 +85771,7 @@
    "publication_start": "2017-03-19",
    "publication_end_planned": "2017-04-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0928.04",
@@ -85784,7 +85784,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/0931.00",
@@ -86237,7 +86237,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1989/1046.00",
@@ -89941,7 +89941,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ככר דניאל  אוסטר רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0640.00",
@@ -91015,7 +91015,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.01",
@@ -91028,7 +91028,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.02",
@@ -91041,7 +91041,7 @@
    "publication_start": "",
    "publication_end_planned": "1994-05-24",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.03",
@@ -91054,7 +91054,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-02-02",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.04",
@@ -91067,7 +91067,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.05",
@@ -91080,7 +91080,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0795.06",
@@ -91093,7 +91093,7 @@
    "publication_start": "2022-05-15",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0799.00",
@@ -91824,7 +91824,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0977.01",
@@ -91837,7 +91837,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0977.02",
@@ -91850,7 +91850,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0977.03",
@@ -91863,7 +91863,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0977.04",
@@ -91876,7 +91876,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ע. רינגלבלום 0 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1990/0980.00",
@@ -102393,7 +102393,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-12-03",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0664.01",
@@ -102406,7 +102406,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0664.02",
@@ -102419,20 +102419,20 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0664.03",
    "mahut": "הריסת מבנה המיועד למגורים בעל חזיתות לשימור והקמתו מחדש לפי הוראות סעיף 13 לתמ״א 38 ברחוב אלפסי 9",
    "sugbakasha": "",
-   "status": "תחילת פרסום הבקשה להקלה",
+   "status": "נפתח תיק רישוי",
    "status_date": "",
    "gush": 30025,
    "helka": 126,
    "publication_start": "2026-10-04",
-   "publication_end_planned": "2026-11-10",
+   "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0698.00",
@@ -102569,7 +102569,7 @@
    "publication_start": "",
    "publication_end_planned": "1993-12-26",
    "address": "רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0727.01",
@@ -102582,7 +102582,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1993/0791.00",
@@ -105619,7 +105619,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1995/0331.01",
@@ -105632,7 +105632,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1995/0331.02",
@@ -105645,7 +105645,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1995/0336.00",
@@ -108838,7 +108838,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.01",
@@ -108851,7 +108851,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.02",
@@ -108864,7 +108864,7 @@
    "publication_start": "",
    "publication_end_planned": "1997-02-25",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.03",
@@ -108877,7 +108877,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-03-07",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.04",
@@ -108890,7 +108890,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.05",
@@ -108903,7 +108903,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.06",
@@ -108916,7 +108916,7 @@
    "publication_start": "",
    "publication_end_planned": "2000-05-17",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0174.07",
@@ -108929,7 +108929,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-08-20",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0195.00",
@@ -110870,7 +110870,7 @@
    "publication_start": "2026-01-20",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1996/0877.00",
@@ -111693,7 +111693,7 @@
    "publication_start": "",
    "publication_end_planned": "1998-02-28",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.01",
@@ -111706,7 +111706,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.02",
@@ -111719,7 +111719,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.03",
@@ -111732,7 +111732,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.04",
@@ -111745,7 +111745,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.05",
@@ -111758,7 +111758,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-06-23",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.06",
@@ -111771,7 +111771,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.07",
@@ -111784,7 +111784,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-11-29",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0061.08",
@@ -111797,7 +111797,7 @@
    "publication_start": "2025-08-24",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1997/0062.00",
@@ -114394,7 +114394,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0136.01",
@@ -114407,7 +114407,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0136.02",
@@ -114420,7 +114420,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-11-10",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0146.00",
@@ -114751,7 +114751,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0339.01",
@@ -114764,7 +114764,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0339.02",
@@ -114777,7 +114777,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0339.03",
@@ -114790,7 +114790,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0339.04",
@@ -114803,7 +114803,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-07-15",
    "address": "י. אלפסי 25 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1998/0348.00",
@@ -115689,7 +115689,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1999/0009.01",
@@ -115702,7 +115702,7 @@
    "publication_start": "",
    "publication_end_planned": "2001-03-27",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1999/0009.02",
@@ -115715,7 +115715,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1999/0017.00",
@@ -116466,7 +116466,7 @@
    "publication_start": "",
    "publication_end_planned": "1999-06-09",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "1999/0294.00",
@@ -118786,7 +118786,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.01",
@@ -118799,7 +118799,7 @@
    "publication_start": "",
    "publication_end_planned": "2004-03-18",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.02",
@@ -118812,7 +118812,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.03",
@@ -118825,7 +118825,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.04",
@@ -118838,7 +118838,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.05",
@@ -118851,7 +118851,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0763.06",
@@ -118864,7 +118864,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2000/0769.00",
@@ -123253,7 +123253,7 @@
    "publication_start": "",
    "publication_end_planned": "2003-07-10",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2002/0559.01",
@@ -123266,7 +123266,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-05-15",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2002/0559.02",
@@ -123279,7 +123279,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-05-15",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2002/0559.03",
@@ -123292,7 +123292,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2002/0565.00",
@@ -124164,7 +124164,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2003/0309.01",
@@ -124177,7 +124177,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2003/0319.00",
@@ -124203,7 +124203,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 58 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2003/0350.00",
@@ -125835,7 +125835,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2004/0247.01",
@@ -125848,7 +125848,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2004/0249.00",
@@ -126884,7 +126884,7 @@
    "publication_start": "",
    "publication_end_planned": "2005-01-13",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2004/0668.01",
@@ -126897,7 +126897,7 @@
    "publication_start": "",
    "publication_end_planned": "2013-12-16",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2004/0689.00",
@@ -128563,7 +128563,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2005/0458.00",
@@ -129524,7 +129524,7 @@
    "publication_start": "",
    "publication_end_planned": "2007-11-26",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2005/0757.04",
@@ -129537,7 +129537,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2005/0757.05",
@@ -129550,7 +129550,7 @@
    "publication_start": "2019-02-17",
    "publication_end_planned": "2019-02-26",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2005/0757.06",
@@ -129563,7 +129563,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2005/0771.00",
@@ -130267,7 +130267,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0067.01",
@@ -130280,7 +130280,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-02-06",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0067.02",
@@ -130293,7 +130293,7 @@
    "publication_start": "2016-03-24",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0067.03",
@@ -130306,7 +130306,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0067.04",
@@ -130319,7 +130319,7 @@
    "publication_start": "2023-07-30",
    "publication_end_planned": "2023-08-08",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0067.05",
@@ -130332,7 +130332,7 @@
    "publication_start": "2025-11-20",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0079.00",
@@ -131013,7 +131013,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 15 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0384.00",
@@ -131443,7 +131443,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0591.01",
@@ -131456,7 +131456,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2006/0594.00",
@@ -132408,7 +132408,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 12 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2007/0125.00",
@@ -134350,7 +134350,7 @@
    "publication_start": "",
    "publication_end_planned": "2008-09-22",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.01",
@@ -134363,7 +134363,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.02",
@@ -134376,7 +134376,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.03",
@@ -134389,7 +134389,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.04",
@@ -134402,7 +134402,7 @@
    "publication_start": "",
    "publication_end_planned": "2014-08-31",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.05",
@@ -134415,7 +134415,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0357.06",
@@ -134428,7 +134428,7 @@
    "publication_start": "2018-01-03",
    "publication_end_planned": "2018-01-16",
    "address": "י. אלפסי 31 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0387.00",
@@ -135282,7 +135282,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0671.02",
@@ -135295,7 +135295,7 @@
    "publication_start": "2018-12-11",
    "publication_end_planned": "2018-12-25",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2008/0683.00",
@@ -140851,7 +140851,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2011/0472.00",
@@ -149074,7 +149074,7 @@
    "publication_start": "",
    "publication_end_planned": "2015-03-02",
    "address": "דרך עזה 54 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2015/0073.00",
@@ -150457,7 +150457,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2015/0701.01",
@@ -150470,7 +150470,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2015/0718.00",
@@ -152578,7 +152578,7 @@
    "publication_start": "2016-09-27",
    "publication_end_planned": "2016-11-08",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2016/0785.00",
@@ -156656,7 +156656,7 @@
    "publication_start": "2018-10-04",
    "publication_end_planned": "2018-10-16",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2018/0544.00",
@@ -157083,7 +157083,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 8 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2018/0807.00",
@@ -158567,7 +158567,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2020/0333.00",
@@ -159019,7 +159019,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2020/0639.01",
@@ -159032,7 +159032,7 @@
    "publication_start": "2023-06-26",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2020/0653.00",
@@ -160121,7 +160121,7 @@
    "publication_start": "2021-12-20",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2021/0507.01",
@@ -160134,7 +160134,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2021/0507.02",
@@ -160147,7 +160147,7 @@
    "publication_start": "2026-06-30",
    "publication_end_planned": "",
    "address": "י. אלפסי 37 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2021/0535.00",
@@ -160160,7 +160160,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2021/0536.00",
@@ -160291,7 +160291,7 @@
    "publication_start": "2022-03-07",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2022/0070.00",
@@ -162023,7 +162023,7 @@
    "publication_start": "2024-07-07",
    "publication_end_planned": "",
    "address": "דרך עזה 56 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2023/0555.00",
@@ -162635,7 +162635,7 @@
    "publication_start": "2025-02-03",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2024/0234.00",
@@ -162784,7 +162784,7 @@
    "publication_start": "2024-12-11",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2024/0333.00",
@@ -163003,7 +163003,7 @@
    "publication_start": "2026-02-01",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 16 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2024/0435.00",
@@ -163489,7 +163489,7 @@
    "publication_start": "2025-06-18",
    "publication_end_planned": "",
    "address": "התיבונים 22 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2025/0115.00",
@@ -164499,7 +164499,7 @@
    "publication_start": "2026-08-09",
    "publication_end_planned": "",
    "address": "הרב הרצוג 6 רחביה",
-   "details_checked_on": "2026-10-25"
+   "details_checked_on": "2026-11-16"
   },
   {
    "tik_num": "2026/0202.00",
