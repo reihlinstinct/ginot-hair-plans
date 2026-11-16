@@ -1,0 +1,172 @@
+name: Mavat watch (VPN)
+
+# Weekly Mavat document-set check for the tracked deposit-stage plans
+# (data/mavat_tracked_plans.json, issue #32), through the owner-operated
+# L2TP/IPsec tunnel (same pattern as mavat-dry-run.yml).
+#
+# Mode "discover" probes which public Mavat endpoints serve plan document
+# metadata through the tunnel; mode "check" (added after discovery proves a
+# usable endpoint) fingerprints document sets, downloads changed/new public
+# documents, and opens a PR.
+#
+# Weekly schedule ENABLED 2026-10-19 (owner approval, green instrumented
+# manual run 39310111704). Fires Tuesdays 04:43 UTC, after the weekly land
+# refresh (04:07 UTC) to avoid runner contention; Tuesday was chosen so the
+# first scheduled fire can be verified the morning after enabling.
+# Scheduled runs execute check mode (see MODE resolution below).
+#
+# Hard rules enforced here and in the scripts: public documents only, no
+# login, no CAPTCHA/challenge bypass (any hard challenge or throttling stops
+# the run with a visible failure), polite pacing, and no secrets, IPs or
+# response bodies in the log (fixed classification fields only).
+
+on:
+  schedule:
+    - cron: "43 4 * * *"   # daily 04:43 UTC (off-peak); tightened from weekly on owner request 2026-10-21 (immediate flagging of new docs/decisions for plan 101-1377753)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Run mode"
+        required: true
+        default: "discover"
+        type: choice
+        options:
+          - discover
+          - check
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mavat-watch
+  cancel-in-progress: false
+
+jobs:
+  pending:
+    # #564: never stack a second data PR while one awaits review. Lists open
+    # same-repo PRs with the mavat-check/ head prefix (paginated, forks ignored).
+    # Pending -> green run with a skip notice; guard error -> red (fail closed).
+    if: ${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pending: ${{ steps.guard.outputs.pending }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Check for a mavat-check/ data PR still awaiting review
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix mavat-check/
+
+      - name: Skip notice while a data PR awaits review
+        if: ${{ steps.guard.outputs.pending == 'true' }}
+        env:
+          PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
+        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+
+  mavat-watch:
+    permissions:
+      contents: write
+    # Kill switch: set repo variable MAVAT_WATCH_ENABLED=false to disable.
+    needs: pending
+    if: ${{ !cancelled() && vars.MAVAT_WATCH_ENABLED != 'false' && (inputs.mode == 'discover' || (needs.pending.result == 'success' && needs.pending.outputs.pending == 'false')) }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Resolve run mode (schedule -> check)
+        run: echo "MODE=${{ inputs.mode || 'check' }}" >> "$GITHUB_ENV"
+
+      - name: Discover reachable public Mavat endpoints
+        if: ${{ env.MODE == 'discover' }}
+        run: sudo python3 scripts/vpn/mavat_discover.py
+
+      - name: Install Playwright and Chromium (check mode)
+        if: ${{ env.MODE == 'check' }}
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
+        run: |
+          sudo pip install --require-hashes -r requirements-playwright.txt
+          sudo -E python3 -m playwright install --with-deps chromium
+
+      - name: Check tracked Mavat plan pages (deadline + fingerprint)
+        if: ${{ env.MODE == 'check' }}
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
+          PYTHONUNBUFFERED: "1"
+        run: python3 scripts/vpn/mavat_check.py
+
+      - name: Stage check results as a PR for review
+        if: ${{ env.MODE == 'check' && success() }}
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain -- data/mavat_plan_status.json)" ]; then
+            echo "no changes to Mavat status data"
+            exit 0
+          fi
+          BRANCH="mavat-check/$(date +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m feed-output -- data/mavat_plan_status.json
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
+          git checkout -b "$BRANCH"
+          git add data/mavat_plan_status.json
+          git commit -m "Mavat check $(date +%Y-%m-%d) (refs #32)"
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Mavat check $(date +%Y-%m-%d)" \
+            --body "Automated Mavat check-mode results (refs #32): per-plan deadline text + page fingerprint. Requires independent and exact-head Claude reviews, green CI and normal manual merge." \
+            --base main --head "$BRANCH")
+          echo "awaiting independent and exact-head Claude reviews: $PR"
+          # PR creation is not publication. Do not dispatch a successor until
+          # a reviewed normal merge is confirmed (operations docs, #564/#565).
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [pending, mavat-watch]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

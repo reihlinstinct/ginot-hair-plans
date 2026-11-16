@@ -1,0 +1,69 @@
+name: Ingest Go parcel analysis
+run-name: Ingest parcel analysis
+on:
+  workflow_dispatch:
+    inputs:
+      report:
+        description: Bounded source-verified audit result
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: parcel-audit-result
+  cancel-in-progress: false
+jobs:
+  ingest:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - name: Validate exact source snapshot and report
+        env:
+          REPORT: ${{ inputs.report }}
+        run: |
+          printf '%s' "$REPORT" > /tmp/audit-report.json
+          python3 scripts/audit/ingest.py --report /tmp/audit-report.json
+          python3 scripts/build_site_index.py
+      - name: Stage validated result as a PR for review
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/parcel_audit.json docs/parcel-audit.json docs/index.json && [ -z "$(git ls-files --others --exclude-standard data/parcel_audit.json docs/parcel-audit.json)" ]; then exit 0; fi
+          BRANCH="parcel-audit/${GITHUB_RUN_ID}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -b "$BRANCH"
+          git add data/parcel_audit.json docs/parcel-audit.json docs/index.json docs/badge/parcel-*.json
+          git commit -m 'data: verified Go parcel audit result'
+          git push origin "$BRANCH"
+          PR=$(gh pr create --title 'Verified Go parcel audit result' --body 'Source/digest/cursor verified; callback does not start a scan. Requires independent and exact-head Claude reviews, green CI and normal manual merge.' --base main --head "$BRANCH")
+          echo "awaiting independent and exact-head Claude reviews: $PR"
+          # Staged data is not publication. Normal reviewed merge only.
+      - name: Result summary
+        if: always()
+        run: |
+          echo '## Go parcel analysis callback' >> "$GITHUB_STEP_SUMMARY"
+          echo 'A callback only validates/publishes audit JSON. It never dispatches a scan.' >> "$GITHUB_STEP_SUMMARY"
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [ingest]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

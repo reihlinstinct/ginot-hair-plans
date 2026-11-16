@@ -1,0 +1,106 @@
+{
+  "new_in_polygon": [
+    {
+      "myIndex": 16584335,
+      "tik_num": "2024/0318.01",
+      "street": "יהושפט",
+      "house_number": "1",
+      "neighborhood": "המושבה היוונית",
+      "place_description": null,
+      "publication_date": "2026-11-15",
+      "objection_deadline": null,
+      "ed700": "2026-11-12",
+      "connected_rec_id": 1268603,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-15T00:00:00",
+          "ED700": "2026-11-12T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": true
+    }
+  ],
+  "unresolved_new": [
+    {
+      "myIndex": 16568775,
+      "tik_num": "2026/0465.00",
+      "street": "חכמי לובלין",
+      "house_number": "10",
+      "neighborhood": "בית ישראל",
+      "place_description": "חכמי לובלין 10",
+      "publication_date": "2026-11-15",
+      "objection_deadline": null,
+      "ed700": "2026-11-12",
+      "connected_rec_id": 1277694,
+      "doc_id": "5b96aecc-49d0-48cf-b4a9-33e5fb971506",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "5b96aecc-49d0-48cf-b4a9-33e5fb97",
+          "ED800": "2026-11-15T00:00:00",
+          "ED700": "2026-11-12T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    }
+  ]
+}

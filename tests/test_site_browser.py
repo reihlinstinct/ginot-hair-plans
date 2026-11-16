@@ -1,0 +1,524 @@
+"""Headless-browser tests of the built site (issue #106).
+
+The site is built by the real pipeline (ginot.refresh) from a fixed synthetic
+dataset, then opened in Chromium via Playwright and driven like a user:
+filters, legend chips, sorting, the active-only default, dd.mm.yy dates,
+permit deep links, footer/About links and expected row counts.
+
+Skipped when Playwright or its browser is not installed (the CI
+"site-browser" job installs both).
+"""
+
+import datetime
+import functools
+import http.server
+import json
+import pathlib
+import re
+import shutil
+import socketserver
+import sys
+import threading
+
+import pytest
+
+sync_api = pytest.importorskip("playwright.sync_api")
+
+import evidence  # issue #422: per-test E2E evidence capture
+
+ROOT = pathlib.Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT))
+from ginot import refresh
+from ginot.dates import today_il
+
+# The page's "today" is Asia/Jerusalem (_todayIL); fixtures use the same clock.
+TODAY = today_il()
+MS_DAY = 86400 * 1000
+
+
+# Section: Synthetic site fixtures
+
+
+def ms(d):
+    return int(
+        datetime.datetime(
+            d.year, d.month, d.day, tzinfo=datetime.timezone.utc
+        ).timestamp()
+        * 1000
+    )
+
+
+def feat(num, status, advertise=None, name=None):
+    a = {
+        "pl_number": num,
+        "pl_name": name or f"תכנית {num}",
+        "station_desc": status,
+        "receiving_date": ms(datetime.date(2026, 1, 15)),
+        "pl_area_dunam": 2.5,
+        "pl_url": f"https://mavat.iplan.gov.il/{num}",
+    }
+    if advertise:
+        a["pl_date_advertise"] = ms(advertise)
+    return {"attributes": a, "geometry": None}
+
+
+# 22 deposit plans (open objection windows, deadlines spread over the next
+# 22 days), 4 under review, 3 approved (hidden by default) = 29 plans,
+# 26 of them active.
+DEPOSIT = [
+    feat(f"200-{i}", "הפקדה להתנגדויות", TODAY + datetime.timedelta(days=i - 50))
+    for i in range(1, 23)
+]
+REVIEW = [feat(f"300-{i}", "בדיקה תכנונית") for i in range(1, 5)]
+APPROVED = [feat(f"400-{i}", "אישור") for i in range(1, 4)]
+FEATURES = DEPOSIT + REVIEW + APPROVED
+
+
+def _permit(tik, status, address, pub=None, end=None):
+    p = {
+        "tik_num": tik,
+        "status": status,
+        "mahut": "תוספת בניה",
+        "sugbakasha": "היתר",
+        "gush": 30000,
+        "helka": 12,
+        "address": address,
+        "status_date": "2026-09-01",
+        "publication_start": pub if pub is not None else "",
+        "publication_end_planned": end if end is not None else "",
+    }
+    return p
+
+
+def _d(days):
+    return (TODAY + datetime.timedelta(days=days)).isoformat()
+
+
+# Recency-filter fixture (design permit-recency-filter): every category of
+# the publication-date world is represented, dates relative to TODAY so the
+# rolling six-month default never ages out of the test.
+PERMITS = [
+    # regression: the permit that started the objection work stays visible
+    _permit("2026/0439.00", "בבדיקה", 'הפלמ"ח 41', pub=_d(-7)),
+    # category 1: published inside the six-month window -> visible
+    _permit("2020/0001.01", "בבדיקה", "אלפסי 9", pub=_d(-30), end=_d(-16)),
+    # category 4: no publication evidence -> visible, marked date-unknown
+    _permit("2020/0002.01", "בבדיקה", "בן יהודה 1"),
+    # terminal, undated -> hidden by the existing closed rule
+    _permit("2020/0003.01", "הבקשה נסגרה", "הרצל 5"),
+    # category 2: published before the window -> hidden by default, recoverable
+    _permit("2020/0004.01", "בבדיקה", "יפו 12", pub=_d(-200), end=_d(-186)),
+    # category 1 edge: future publication start (real case 2026-10-28) -> visible
+    _permit("2020/0005.01", "בבדיקה", "קינג ג'ורג' 3", pub=_d(3)),
+    # category 3: publication evidenced by status, date unknown -> visible, marked
+    _permit("2020/0006.01", "תום תקופת פרסום", "אמציה 2"),
+    # category 3 via planned publication end only -> visible, marked
+    _permit("2020/0007.01", "בבדיקה", "בצלאל 4", end=_d(10)),
+    # category 4: draft-permit stage (where undated rows concentrate) -> visible
+    _permit("2020/0008.01", "טיוטת היתר הוכנה", "נרקיסים 6"),
+    # malformed scraper date -> degrades to date-unknown, never a bogus date
+    _permit("2020/0009.01", "בבדיקה", "שמאי 8", pub="2026-13-45"),
+]
+
+
+@pytest.fixture(scope="module")
+def site(tmp_path_factory):
+    tmp = tmp_path_factory.mktemp("site")
+    cwd = pathlib.Path.cwd()
+    (tmp / "data").mkdir()
+    shutil.copy(
+        ROOT / "data" / "council_ginot_hair.geojson", tmp / "data" / "council.geojson"
+    )
+    (tmp / "data" / "permit_requests.json").write_text(
+        json.dumps({"requests": PERMITS}, ensure_ascii=False), encoding="utf-8"
+    )
+    shutil.copytree(ROOT / "docs", tmp / "docs", ignore=shutil.ignore_patterns("badge"))
+    mp = pytest.MonkeyPatch()
+    mp.chdir(tmp)
+    mp.setattr(
+        refresh.iplan,
+        "query_plans",
+        lambda council, service="x", **kw: (
+            FEATURES if service == "xplan_without_77_78" else []
+        ),
+    )
+    mp.setattr(
+        sys,
+        "argv",
+        [
+            "ginot.refresh",
+            "--council",
+            "data/council.geojson",
+            "--out",
+            "out",
+            "--site",
+            "docs",
+            "--snapshots",
+            "snapshots",
+            "--status",
+            "data/plan_status.json",
+        ],
+    )
+    refresh.main()
+    mp.undo()
+    assert pathlib.Path.cwd() == cwd
+    return tmp / "docs"
+
+
+# Section: Browser and HTTP fixtures
+
+
+@pytest.fixture(scope="module")
+def browser():
+    engine = evidence.browser_engine()  # SITE_BROWSER: chromium (default) or webkit
+    with sync_api.sync_playwright() as p:
+        try:
+            b = getattr(p, engine).launch()
+        except sync_api.Error as exc:  # browser binary missing
+            pytest.skip(f"{engine} not installed: {exc}")
+        # The analytics beacon (cloudflareinsights.com) is intentionally
+        # unreachable in tests: no external network, and WebKit blocks the
+        # cross-origin RUM ping from a local origin. Serve an empty script
+        # instead (an aborted request still logs "Failed to load resource" as
+        # a page error), so the zero-JS-errors assertions keep covering real
+        # page errors (#821).
+        orig_new_context = b.new_context
+
+        def new_context_no_analytics(**kw):
+            ctx = orig_new_context(**kw)
+            ctx.route(
+                re.compile(r"cloudflareinsights\.com"),
+                lambda route: route.fulfill(
+                    status=200, content_type="application/javascript", body=""
+                ),
+            )
+            return ctx
+
+        b.new_context = new_context_no_analytics
+        yield b
+        b.close()
+
+
+class _Quiet(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *args):
+        pass
+
+
+class _ThreadingServer(socketserver.ThreadingTCPServer):
+    # The test server must not serialize connections: browsers open
+    # speculative/parallel connections and the page issues an unconditional
+    # 8.1 MB permits.html fetch. A single-threaded TCPServer can sit blocked
+    # on an idle pre-connected socket (or a slow stream) while the about.html
+    # navigation request queues unserved -> 60s wait_for_url timeouts on
+    # WebKit (issue #438, run 40165507922). Real hosts (GitHub Pages) are
+    # concurrent, so the test double must be too.
+    daemon_threads = True
+    allow_reuse_address = True
+
+
+@pytest.fixture(scope="module")
+def served(site):
+    # served over http (not file://) so the client-side rows.html fetch works (#164)
+    handler = functools.partial(_Quiet, directory=str(site))
+    with _ThreadingServer(("127.0.0.1", 0), handler) as srv:
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        yield f"http://127.0.0.1:{srv.server_address[1]}"
+
+
+import contextlib
+
+# Section: Evidence recording and page fixtures
+
+
+@contextlib.contextmanager
+def recorded_page(browser, request):
+    """New page inside an evidence-recording context (issue #422).
+
+    Every test keeps its final screenshot (success evidence). Video and
+    Playwright trace are heavier: kept on failure, or on success for tests
+    marked @pytest.mark.evidence (representative user-repro flows).
+    """
+    engine = evidence.browser_engine()
+    out = evidence.evidence_dir(evidence.artifact_root(), engine, request.node.nodeid)
+    out.mkdir(parents=True, exist_ok=True)
+    ctx = browser.new_context(record_video_dir=str(out / "video"))
+    ctx.tracing.start(screenshots=True, snapshots=True)
+    pg = ctx.new_page()
+    errors = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    try:
+        yield pg, errors
+    finally:
+        passed = bool(getattr(request.node, "_e2e_passed", False)) and errors == []
+        marked = request.node.get_closest_marker("evidence") is not None
+        pg.screenshot(path=str(out / "screenshot.png"), full_page=True)
+        keep = evidence.keep_heavy_evidence(passed, marked)
+        video = pg.video
+        if keep:
+            ctx.tracing.stop(path=str(out / "trace.zip"))
+        else:
+            ctx.tracing.stop()
+        ctx.close()  # finalizes the video file
+        if keep and video:
+            shutil.copy(str(video.path()), str(out / "video.webm"))
+        shutil.rmtree(str(out / "video"), ignore_errors=True)
+
+
+@pytest.fixture
+def page(browser, served, request):
+    with recorded_page(browser, request) as (pg, errors):
+        pg.goto(served + "/index.html")
+        pg.wait_for_function(
+            "window.__rowsLoaded === true || window.__rowsFailed === true"
+        )
+        # #441: the full list loads on demand; these tests need all rows.
+        pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
+        pg.wait_for_function(
+            "window.__permitsLoaded === true || window.__permitsFailed === true"
+        )
+        assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
+        assert pg.evaluate("window.__permitsLoaded") is True, (
+            "permits.html failed to load"
+        )
+        yield pg
+        assert errors == [], f"JavaScript errors on the page: {errors}"
+
+
+@contextlib.contextmanager
+def recorded_mobile_page(browser, request):
+    """recorded_page at a phone viewport with touch (issue #428).
+
+    390x844 iPhone-class viewport, is_mobile and has_touch so taps go through
+    the touch path. Evidence lands in the same per-test artifact dir, so the
+    retained videos of evidence-marked tests are phone-sized.
+    """
+    engine = evidence.browser_engine()
+    out = evidence.evidence_dir(evidence.artifact_root(), engine, request.node.nodeid)
+    out.mkdir(parents=True, exist_ok=True)
+    ctx = browser.new_context(
+        viewport={"width": 390, "height": 844},
+        is_mobile=True,
+        has_touch=True,
+        record_video_dir=str(out / "video"),
+    )
+    ctx.tracing.start(screenshots=True, snapshots=True)
+    pg = ctx.new_page()
+    errors = []
+    pg.on("pageerror", lambda e: errors.append(str(e)))
+    try:
+        yield pg, errors
+    finally:
+        passed = bool(getattr(request.node, "_e2e_passed", False)) and errors == []
+        marked = request.node.get_closest_marker("evidence") is not None
+        pg.screenshot(path=str(out / "screenshot.png"), full_page=True)
+        keep = evidence.keep_heavy_evidence(passed, marked)
+        video = pg.video
+        if keep:
+            ctx.tracing.stop(path=str(out / "trace.zip"))
+        else:
+            ctx.tracing.stop()
+        ctx.close()  # finalizes the video file
+        if keep and video:
+            shutil.copy(str(video.path()), str(out / "video.webm"))
+        shutil.rmtree(str(out / "video"), ignore_errors=True)
+
+
+@pytest.fixture
+def mobile_page(browser, served, request):
+    with recorded_mobile_page(browser, request) as (pg, errors):
+        pg.goto(served + "/index.html")
+        pg.wait_for_function(
+            "window.__rowsLoaded === true || window.__rowsFailed === true"
+        )
+        # #441: the full list loads on demand; these tests need all rows.
+        pg.evaluate("window.__loadFullPermits && window.__loadFullPermits()")
+        pg.wait_for_function(
+            "window.__permitsLoaded === true || window.__permitsFailed === true"
+        )
+        assert pg.evaluate("window.__rowsLoaded") is True, "rows.html failed to load"
+        assert pg.evaluate("window.__permitsLoaded") is True, (
+            "permits.html failed to load"
+        )
+        yield pg
+        assert errors == [], f"JavaScript errors on the page: {errors}"
+
+
+def visible_plans(pg):
+    return pg.locator("#plans tbody tr:not(.filtered-out)").count()
+
+
+def plan_ids(pg):
+    return pg.locator(
+        "#plans tbody tr:not(.filtered-out) td:first-child"
+    ).all_inner_texts()
+
+
+# Section: Plan navigation and page shell
+
+
+def test_default_view_is_active_only_and_capped_at_20(page):
+    assert page.locator("#plans tbody tr").count() == 29
+    assert visible_plans(page) == 20
+    assert (
+        page.locator("#fcount").inner_text() == "מציג 20 מתוך 26"
+    )  # 3 approved hidden
+    assert not page.locator("#fappr").is_checked()
+    assert not any(i.startswith("400-") for i in plan_ids(page))
+
+
+def test_show_all_button_expands_and_collapses(page):
+    page.click("#more")
+    assert visible_plans(page) == 26
+    page.click("#more")
+    assert visible_plans(page) == 20
+
+
+def test_show_approved_checkbox_reveals_approved(page):
+    page.check("#fappr")
+    page.click("#more")
+    assert visible_plans(page) == 29
+    assert any(i.startswith("400-") for i in plan_ids(page))
+
+
+def test_default_sort_is_farthest_deadline_first(page):
+    first = plan_ids(page)[0]
+    assert first == "200-22"  # latest objection deadline on top
+
+
+def test_free_text_search(page):
+    page.fill("#fq", "300-2")
+    assert plan_ids(page) == ["300-2"]
+    page.fill("#fq", "zzz-no-such-plan")
+    assert visible_plans(page) == 0
+    assert page.locator("#fcount").inner_text() == "מציג 0 מתוך 0"
+
+
+def test_status_dropdown_filters(page):
+    page.select_option("#fstatus", label="בדיקה תכנונית")
+    assert visible_plans(page) == 4
+    assert all(i.startswith("300-") for i in plan_ids(page))
+
+
+def test_legend_chip_toggles_status_filter(page):
+    chip = page.locator(".legend .chip", has_text="בדיקה תכנונית").first
+    chip.click()
+    assert page.locator("#fstatus").input_value() == "בדיקה תכנונית"
+    assert visible_plans(page) == 4
+    assert "sel" in chip.get_attribute("class")
+    chip.click()  # second click clears
+    assert page.locator("#fstatus").input_value() == ""
+    assert visible_plans(page) == 20
+
+
+def test_open_objection_checkbox(page):
+    page.check("#fobj")
+    page.click("#more")
+    assert visible_plans(page) == 22
+    assert all(i.startswith("200-") for i in plan_ids(page))
+
+
+def test_reset_button_restores_defaults(page):
+    page.fill("#fq", "300")
+    page.check("#fobj")
+    page.click("#freset")
+    assert page.locator("#fq").input_value() == ""
+    assert not page.locator("#fobj").is_checked()
+    assert visible_plans(page) == 20
+
+
+def test_column_sort_toggles_direction(page):
+    btn = page.locator("th button[data-sort='num']")
+    btn.click()
+    asc = plan_ids(page)
+    assert asc == sorted(asc) and "sorted-asc" in btn.get_attribute("class")
+    btn.click()
+    desc = plan_ids(page)
+    assert desc == sorted(desc, reverse=True) and "sorted-desc" in btn.get_attribute(
+        "class"
+    )
+
+
+def test_dates_render_dd_mm_yy(page):
+    cells = page.locator("#plans tbody tr:not(.filtered-out) td span[data-iso]")
+    assert cells.count() > 0
+    for i in range(cells.count()):
+        iso = cells.nth(i).get_attribute("data-iso")
+        txt = cells.nth(i).inner_text()
+        assert txt == f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}"
+    assert (
+        page.locator("#plans tbody tr", has_text="200-1")
+        .first.locator("td")
+        .nth(3)
+        .inner_text()
+        == "15.01.26"
+    )
+
+
+def test_plan_numbers_link_to_mavat(page):
+    href = page.locator(
+        "#plans tbody tr:not(.filtered-out) td:first-child a"
+    ).first.get_attribute("href")
+    assert href.startswith("https://mavat.iplan.gov.il/")
+
+
+def test_footer_links(page, site):
+    hrefs = page.locator("footer a").evaluate_all(
+        "els => els.map(e => e.getAttribute('href'))"
+    )
+    assert "about.html" in hrefs
+    assert "https://github.com/reihlinstinct/ginot-hair-plans" in hrefs
+    assert any(h.endswith("CONTRIBUTING.md") for h in hrefs)
+    # Keyboard activation: a real user path that still exercises the anchor's
+    # navigation. WebKit never reached an actionable pointer-click point on the
+    # very long permits page (60s timeout even after scroll-into-view).
+    link = page.locator("footer a[href='about.html']")
+    link.scroll_into_view_if_needed()
+    link.focus()
+    # Register the navigation waiter BEFORE the keypress: pressing Enter and
+    # only then calling wait_for_url races the actual navigation commit and
+    # intermittently hangs 60s on WebKit (seen on CI run 40164675351 after
+    # three green same-content runs).
+    with page.expect_navigation(url="**/about.html", timeout=60000):
+        page.keyboard.press("Enter")
+    assert page.url.endswith("/about.html")
+    assert page.locator("body").inner_text().strip() != ""
+
+
+def test_page_has_draft_notice_and_feed_link(page):
+    assert page.locator("#permits h2").inner_text() == "בקשות היתר"
+    assert (
+        page.locator(
+            "link[rel='alternate'][type='application/atom+xml']"
+        ).get_attribute("href")
+        == "feed.xml"
+    )
+
+
+def test_footer_with_about_is_at_the_bottom_of_the_page(page):
+    footer = page.locator("footer")
+    assert footer.locator("a[href='about.html']").count() == 1
+    # footer is the last content element before the script, below every section
+    last = page.evaluate("document.body.lastElementChild.tagName")
+    assert last == "SCRIPT"
+    assert (
+        page.evaluate("document.querySelector('footer').nextElementSibling.tagName")
+        == "SCRIPT"
+    )
+    fy = footer.bounding_box()["y"]
+    for sel in ("#plans", "#permits", "#stats"):
+        box = page.locator(sel).bounding_box()
+        assert box["y"] < fy, sel
+    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+    assert footer.is_visible()
+
+
+def test_statistics_collapsed_by_default_and_expandable(page):
+    d = page.locator("details#stats")
+    assert d.get_attribute("open") is None
+    assert not d.locator(".stats").is_visible()
+    d.locator("summary").click()
+    assert d.locator(".stats").is_visible()
+    assert d.locator("h3").count() == 4
+    d.locator("summary").click()
+    assert not d.locator(".stats").is_visible()

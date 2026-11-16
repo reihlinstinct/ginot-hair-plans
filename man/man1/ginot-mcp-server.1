@@ -1,0 +1,18 @@
+.TH "GINOT-MCP-SERVER" "1" "" "Ginot HaIr" "User Commands"
+.SH NAME
+\&ginot\-mcp\-server \- Serve read\-only public planning data over MCP stdio.
+.SH SYNOPSIS
+\&PYTHONPATH=src python3 \-m ginot.mcp_server [OPTIONS]
+.SH DESCRIPTION
+\&Reads the public dataset and exchanges JSON\-RPC messages over stdin/stdout. No network requests, writes or private planner files. Objection dates are derived, not verified official deadlines. Run from the repository root.
+.SH OPTIONS
+.TP
+\&\-h, \-\-help
+\&Show command help and exit without performing work.
+.TP
+\&\-\-data VALUE
+\&Public dataset to serve. Default: docs/data.json.
+.SH EXIT STATUS
+\&0 on success or \-\-help. Invalid arguments return 2. Runtime failures return nonzero.
+.SH NOTES
+\&These manuals document existing Python entrypoints, not installed executable aliases. Internal CI, maintenance and developer scripts are not part of this manual package.

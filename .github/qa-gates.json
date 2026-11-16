@@ -1,0 +1,5 @@
+{
+  "note": "QA gates (issue #105). Set enforce to true to make the coverage floor fail CI. Planned switch-on: November 2026. Raise the floor, never lower it.",
+  "enforce": false,
+  "coverage_floor": 80
+}

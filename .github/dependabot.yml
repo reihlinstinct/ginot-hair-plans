@@ -1,0 +1,20 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: sunday
+    groups:
+      codeql-action:
+        # init/analyze/upload-sarif must move together: mixed versions fail
+        # CodeQL runs ("Loaded a configuration file for version X, but
+        # running version Y").
+        patterns:
+          - "github/codeql-action*"
+

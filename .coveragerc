@@ -1,0 +1,10 @@
+[run]
+branch = True
+source =
+    src
+    scripts
+omit =
+    */__init__.py
+
+[report]
+skip_empty = True

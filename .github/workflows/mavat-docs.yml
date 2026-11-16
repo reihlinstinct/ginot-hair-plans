@@ -1,0 +1,103 @@
+name: Mavat plan document fetch (VPN)
+
+# One-shot fetch of the full public document set of a deposit-stage plan
+# page (default: 101-1377753), including background-appendix categories
+# and the admin-comments tab, through the owner-operated L2TP/IPsec
+# tunnel. Same transport and anti-bot rules as mavat-watch.yml: public
+# pages only, no login, any hard challenge stops the run red (exit 2)
+# with no workaround. Documents land in a run artifact (they are large
+# working copies; nothing is committed to the repo). Manual dispatch only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mp_id:
+        description: "Mavat SV4 plan-page id"
+        required: true
+        default: "1005407450"
+      plan_number:
+        description: "Plan number"
+        required: true
+        default: "101-1377753"
+      fetch_mode:
+        description: "auto (click-through), zip (relay), direct (doc-list eids) or clickdocs (page-issued category downloads)"
+        required: true
+        default: "zip"
+      doc_list:
+        description: "Optional doc-list JSON path override (defaults to data/mavat_doclist_<plan>.json)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mavat-docs-fetch
+  cancel-in-progress: false
+
+jobs:
+  mavat-docs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Install Playwright and Chromium
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
+        run: |
+          sudo pip install --require-hashes -r requirements-playwright.txt
+          sudo -E python3 -m playwright install --with-deps chromium
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Fetch the plan's public documents
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: /opt/ms-playwright
+          PYTHONUNBUFFERED: "1"
+          MAVAT_MP_ID: ${{ inputs.mp_id }}
+          MAVAT_PLAN_NUMBER: ${{ inputs.plan_number }}
+          MAVAT_FETCH_MODE: ${{ inputs.fetch_mode }}
+          MAVAT_DOC_LIST: ${{ inputs.doc_list != '' && inputs.doc_list || format('data/mavat_doclist_{0}.json', inputs.plan_number) }}
+        run: python3 scripts/vpn/mavat_docs.py
+
+      - name: Upload documents artifact
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mavat-docs-${{ inputs.plan_number }}
+          path: /tmp/mavat_docs/
+          if-no-files-found: ignore
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [mavat-docs]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

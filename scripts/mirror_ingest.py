@@ -1,0 +1,398 @@
+#!/usr/bin/env python3
+"""Bulk permit-request ingest from the over.org.il mirror (issue #74).
+
+Pulls the Jerusalem licensing case files (ykpubdata) from the over.org.il
+(גרסאות לעם) public mirror - a third-party scraper with a free, keyless
+API - instead of scanning the municipality API parcel by parcel. The
+mirror carries per-tik status, request type, address and gush/parcel
+range with first_seen/last_seen sample tracking, which doubles as
+change detection: a nightly diff of this file shows new/changed tiks
+with zero load on the municipality.
+
+The mirror does NOT carry s.149 publication dates (process steps) -
+those still come from the direct scanner (scripts/vpn/permit_feed.py),
+fetched only for tiks the mirror shows as new or changed.
+
+Privacy: the mirror's בעלי עניין column (personal names) is dropped on
+ingest and never written out. Output is DRAFT-labelled third-party
+data; verify at the source before reliance.
+
+Usage: python3 scripts/mirror_ingest.py [--validate-against data/permit_requests.json]
+"""
+
+import argparse
+import datetime
+import json
+import subprocess
+import sys
+import time
+import urllib.parse
+from pathlib import Path
+from zoneinfo import ZoneInfo
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from ginot.mirror_records import (  # noqa: F401 - retain the script helper API
+    ENRICHED_FIELDS,
+    TERMINAL_STATUSES,
+    _iso_max,
+    _iso_min,
+    content_marker,
+    diff_records,
+    enrichment_queue,
+    preserve_enriched_fields,
+    preserve_sample_bounds,
+)
+
+DATASET = "76f0e069-f269-46fc-bcc8-f704ebbf17ff"
+ROWS_URL = f"https://www.over.org.il/api/append/{DATASET}/datastore_search"
+TABLE = "append_ykpubdata_all_665e9000_76f0e069"
+PAGE = 500
+PACE_SECONDS = 1.0
+# columns we never read out of the mirror (personal data)
+PERSONAL_COLUMNS = {"בעלי עניין"}
+
+
+# Section: Parcel projection
+
+
+def load_parcels(path):
+    with open(path, encoding="utf-8") as fh:
+        gj = json.load(fh)
+    by_gush = {}
+    for f in gj.get("features", []):
+        p = f.get("properties", {})
+        g, h = p.get("gush"), p.get("helka")
+        if g and h:
+            by_gush.setdefault(int(g), set()).add(int(h))
+    return by_gush
+
+
+def parcel_interval(row):
+    """Parcel range מחלקה..עד חלקה as (points, interval).
+
+    Ranges can legitimately span thousands of sub-parcels (a
+    common-property registration covers a parent parcel and all its
+    בית משותף sub-parcels, seen as 22 -> 5032), so membership is tested
+    as an interval, never materialized. Garbage ranges (start > end,
+    seen as 216 -> 2) degrade to the two endpoints as points.
+    """
+
+    def num(v):
+        try:
+            return int(float(str(v).strip()))
+        except (TypeError, ValueError):
+            return None
+
+    start, end = num(row.get("מחלקה")), num(row.get("עד חלקה"))
+    if start is None:
+        return set(), None
+    if end is None:
+        end = start
+    if start > end:
+        return {start, end}, None
+    return set(), (start, end)
+
+
+def matching_parcels(row, parcels_by_gush):
+    try:
+        gush = int(float(str(row.get("גוש", "")).strip()))
+    except (TypeError, ValueError):
+        return 0, []
+    council = parcels_by_gush.get(gush, set())
+    points, interval = parcel_interval(row)
+    if interval:
+        hits = sorted(p for p in council if interval[0] <= p <= interval[1])
+    else:
+        hits = sorted(points & council)
+    return gush, hits
+
+
+def date_only(raw):
+    return (raw or "").strip()[:10]
+
+
+def map_record(row, gush, hits):
+    """Mirror row -> output record. Personal columns are never read."""
+    street = " ".join(
+        x
+        for x in ((row.get("רחוב") or "").strip(), (row.get("מספר בית") or "").strip())
+        if x and x != "0"
+    )
+    neighborhood = (row.get("שכונה") or "").strip()
+    return {
+        "tik_num": (row.get("מספר תיק") or "").strip(),
+        "status": (row.get("סטטוס") or "").strip(),
+        "status_date": date_only(row.get("תאריך סטטוס")),
+        "sugbakasha": (row.get("סוג בקשה") or "").strip(),
+        "mahut": (row.get("מהות הבקשה") or "").strip(),
+        "address": " ".join(x for x in (street, neighborhood) if x),
+        "gush": gush,
+        "parcels": hits,
+        "mirror_sample_date": date_only(row.get("תאריך דגימה")),
+        "mirror_first_seen": row.get("first_seen") or "",
+        "mirror_last_seen": row.get("last_seen") or "",
+    }
+
+
+# Section: Paginated mirror transport
+
+
+def fetch_rows(gushim):
+    """Fetch a stable ordered latest view, failing closed on incomplete pages.
+
+    The API sorts by the real permit key, not an absent CKAN-style _id.
+    Unique keys, monotonic order and a fixed total detect offset overlap,
+    ignored sort parameters and many mid-fetch changes. This is not a server
+    snapshot: same-count source edits during collection can still occur.
+    """
+    filters = json.dumps({"גוש": [str(g) for g in gushim]}, ensure_ascii=False)
+    rows, seen, offset, expected_total = [], set(), 0, None
+    previous = None
+    while True:
+        params = urllib.parse.urlencode(
+            {
+                "latest": "true",
+                "limit": PAGE,
+                "offset": offset,
+                "include_total": "true",
+                "filters": filters,
+                "sort": "מספר תיק asc",
+            }
+        )
+        url = f"{ROWS_URL}?{params}"
+        response = subprocess.run(
+            ["curl", "-fsS", "-m", "60", url],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if response.returncode:
+            raise RuntimeError(
+                f"mirror transport failed at offset {offset} (exit {response.returncode})"
+            )
+        try:
+            data = json.loads(response.stdout)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"mirror response not JSON at offset {offset}") from exc
+        if not isinstance(data, dict) or not data.get("success"):
+            # Never echo upstream bodies, which may contain personal columns.
+            raise RuntimeError(f"mirror API error at offset {offset}")
+        result = data.get("result")
+        if type(result) is not dict:
+            raise RuntimeError(f"invalid mirror result at offset {offset}")
+        total = result.get("total")
+        if type(total) is not int or total < 0:
+            raise RuntimeError(f"invalid mirror total at offset {offset}")
+        if expected_total is None:
+            expected_total = total
+        elif total != expected_total:
+            raise RuntimeError(
+                f"mirror total changed at offset {offset}: {expected_total} -> {total}"
+            )
+        batch = result.get("records")
+        if not isinstance(batch, list) or len(batch) > PAGE:
+            raise RuntimeError(f"invalid mirror page at offset {offset}")
+        if not batch and len(rows) < expected_total:
+            raise RuntimeError(f"premature empty mirror page at offset {offset}")
+        for row in batch:
+            key = row.get("מספר תיק") if isinstance(row, dict) else None
+            if not isinstance(key, str) or not key.strip():
+                raise RuntimeError(f"missing mirror permit key at offset {offset}")
+            # map_record strips this key later; normalize before the duplicate
+            # and ordering checks so "A" and "A " cannot collapse downstream.
+            key = key.strip()
+            if key in seen:
+                raise RuntimeError(f"duplicate mirror permit key at offset {offset}")
+            if previous is not None and key <= previous:
+                raise RuntimeError(f"mirror sort not respected at offset {offset}")
+            seen.add(key)
+            previous = key
+        rows.extend(batch)
+        print(
+            f"fetched {len(rows)}/{expected_total} unique mirror rows (offset {offset})"
+        )
+        if len(rows) > expected_total:
+            raise RuntimeError(f"mirror count exceeds total at offset {offset}")
+        if len(rows) == expected_total:
+            return rows
+        # Follow actual rows received, even if the service caps a page below PAGE.
+        offset += len(batch)
+        time.sleep(PACE_SECONDS)
+
+
+# Section: Durable state and validation
+
+
+def load_selection(path, keys):
+    """Read durable selection state; malformed state must not erase work."""
+    try:
+        with open(path, encoding="utf-8") as fh:
+            state = json.load(fh)
+    except FileNotFoundError:
+        return set()
+    if not isinstance(state, dict):
+        raise ValueError(f"invalid selection state: {path}")  # noqa: TRY004 - persisted data validation
+    selected = set()
+    for key in keys:
+        values = state.get(key)
+        if not isinstance(values, list) or any(
+            not isinstance(tik, str) or not tik.strip() for tik in values
+        ):
+            raise ValueError(f"invalid selection list {key}: {path}")
+        selected.update(values)
+    return selected
+
+
+def validate(records, path):
+    """Compare mirror records against the direct-scanner output."""
+    with open(path, encoding="utf-8") as fh:
+        direct = json.load(fh).get("requests", [])
+    direct_tiks = {r["tik_num"] for r in direct}
+    mirror_tiks = set(records)
+    common = direct_tiks & mirror_tiks
+    print(f"validation vs {path}:")
+    print(f"  direct-scan tiks: {len(direct_tiks)}")
+    print(f"  mirror tiks (council parcels): {len(mirror_tiks)}")
+    print(f"  in both: {len(common)}")
+    print(f"  direct-only: {sorted(direct_tiks - mirror_tiks)[:20]}")
+    return {
+        "direct": len(direct_tiks),
+        "mirror": len(mirror_tiks),
+        "common": len(common),
+        "direct_only": sorted(direct_tiks - mirror_tiks),
+    }
+
+
+# Section: Ingest orchestration
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
+    ap.add_argument("--out", default="data/permit_mirror.json")
+    ap.add_argument("--diff-out", default="data/permit_mirror_diff.json")
+    ap.add_argument("--validate-against", default="")
+    ap.add_argument(
+        "--pending",
+        default=None,
+        help="durable enrichment queue (default: beside --out, permit_enrich_pending.json)",
+    )
+    ap.add_argument(
+        "--allow-empty",
+        action="store_true",
+        help="permit an ingest with zero council records over existing data",
+    )
+    args = ap.parse_args()
+
+    parcels_by_gush = load_parcels(args.parcels)
+    gushim = sorted(parcels_by_gush)
+    print(
+        f"{sum(len(v) for v in parcels_by_gush.values())} council parcels "
+        f"in {len(gushim)} gushim"
+    )
+
+    old_records = []
+    old_payload = {}
+    try:
+        with open(args.out, encoding="utf-8") as fh:
+            old_payload = json.load(fh)
+        old_records = old_payload.get("requests", [])
+    except (FileNotFoundError, json.JSONDecodeError):
+        pass
+
+    pending_path = (
+        Path(args.pending)
+        if args.pending
+        else Path(args.out).with_name("permit_enrich_pending.json")
+    )
+    pending = load_selection(pending_path, ("pending",))
+    previous_diff = load_selection(args.diff_out, ("new_tiks", "changed_tiks"))
+
+    records = {}
+    for row in fetch_rows(gushim):
+        if PERSONAL_COLUMNS & row.keys():
+            row = {k: v for k, v in row.items() if k not in PERSONAL_COLUMNS}
+        gush, hits = matching_parcels(row, parcels_by_gush)
+        if not hits:
+            continue  # tik touches no council parcel
+        rec = map_record(row, gush, hits)
+        if rec["tik_num"]:
+            records[rec["tik_num"]] = rec
+
+    # Fail closed on an empty-success response (total 0, no records): with
+    # existing data that shape is an upstream outage or filter break, and
+    # writing it would wipe the mirror layer and mark every tik gone (#790).
+    if not records and old_records and not args.allow_empty:
+        raise RuntimeError(
+            "mirror ingest returned zero council records over existing data; "
+            "refusing to overwrite (use --allow-empty to override)"
+        )
+
+    preserve_sample_bounds(records, old_records)
+    preserve_enriched_fields(records, old_records)
+
+    # Shared by the queue and the mirror so the enrichment consumer can
+    # tell "same committed ingest" from "queue written, mirror not" (#799).
+    # Content-derived (issue #807): identical records keep the old marker and
+    # the old "generated" date, so an unchanged ingest leaves both files
+    # byte-identical and the workflow's git-diff short-circuit skips the PR.
+    new_requests = sorted(records.values(), key=lambda r: r["tik_num"])
+    marker = content_marker(new_requests)
+    generated = (
+        old_payload.get("generated")
+        if old_payload.get("ingest_marker") == marker
+        else datetime.datetime.now(ZoneInfo("Asia/Jerusalem"))
+        .date()
+        .isoformat()  # issue #331: IL not runner UTC
+    )
+    payload = {
+        "generated": generated,
+        "ingest_marker": marker,
+        "source": (
+            "over.org.il (גרסאות לעם) mirror of the Jerusalem "
+            "municipality ykpubdata licensing viewer"
+        ),
+        "mirror_table": TABLE,
+        "label": (
+            "DRAFT - third-party mirror data; completeness not "
+            "guaranteed, verify at the source before reliance"
+        ),
+        "requests": new_requests,
+    }
+    diff = diff_records(old_records, payload["requests"])
+    queued = enrichment_queue(records, pending, previous_diff, diff)
+    # Write the queue FIRST: interruption can cause a harmless retry, never
+    # erase the only record of unfinished work when the diff is replaced.
+    # Atomic replacement also leaves the previous queue intact on write error.
+    pending_tmp = pending_path.with_suffix(pending_path.suffix + ".tmp")
+    try:
+        with pending_tmp.open("w", encoding="utf-8") as fh:
+            json.dump(
+                {"pending": queued, "ingest_marker": marker},
+                fh,
+                ensure_ascii=False,
+                indent=1,
+            )
+        pending_tmp.replace(pending_path)
+    finally:
+        pending_tmp.unlink(missing_ok=True)
+    print(f"durable enrichment queue: {len(queued)} requests")
+    with open(args.out, "w", encoding="utf-8") as fh:
+        json.dump(payload, fh, ensure_ascii=False, indent=1)
+    print(f"wrote {args.out}: {len(records)} requests on council parcels")
+
+    diff.update({"generated": payload["generated"]})
+    with open(args.diff_out, "w", encoding="utf-8") as fh:
+        json.dump(diff, fh, ensure_ascii=False, indent=1)
+    print(
+        f"diff vs previous ingest: {len(diff['new_tiks'])} new, "
+        f"{len(diff['changed_tiks'])} changed, {len(diff['gone_tiks'])} gone"
+    )
+
+    if args.validate_against:
+        validate(records, args.validate_against)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

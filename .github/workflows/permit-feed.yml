@@ -1,0 +1,466 @@
+name: Jerusalem permit feed pilot (VPN)
+
+# Public municipality API, owner-operated tunnel. Three-second request
+# spacing, serial execution, stop on challenge. No increased concurrency.
+# Backfill:280 parcels every6h (03/09/15/21 UTC), until cursor reaches
+# all4739 parcels. Resolve cursor at execution time; checkpoints survive
+# runner loss. A larger batch previously exceeded the355-minute timeout.
+# Oct22 approval: four daily windows, unchanged request spacing.
+# address-backfill mode (issue #452): one-off manual dispatch for the raw
+# permit address fields - same tunnel, spacing and stop-on-challenge
+# contract; a challenge (exit 2) fails the job and is never retried on a
+# schedule, only by a fresh manual dispatch after review.
+
+on:
+  # Backfill request by code (issue #102): editing data/backfill_request.json
+  # on main starts one run with the inputs stored in that file. No file
+  # change, no run. The file is not cleared; a new request is a new edit.
+  push:
+    branches: [main]
+    paths:
+      - data/backfill_request.json
+  schedule:
+    # Four daily batches, every 6 hours, anchored in UTC on purpose (issue #420).
+    # Israel local time shifts by an hour at the DST transitions; both offsets
+    # stay deep off-peak for the source site, so no local time is stated here.
+    - cron: "0 3 * * *"
+    - cron: "0 9 * * *"
+    - cron: "0 15 * * *"
+    - cron: "0 21 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "scan = parcel batch scan; enrich = publication dates for mirror-diff tiks; recheck = re-scan active (or rotation) parcels only; address-backfill = one-off raw address fields (#452)"
+        required: true
+        default: "scan"
+      include_unenriched:
+        description: "enrich mode: also fetch never-enriched active tiks (one-time backfill)"
+        required: false
+        default: "false"
+      include_late_stages:
+        description: "enrich backfill: also fetch late-stage statuses (draft permit, pink file, deposit paid, city engineer approved, shelved); default false"
+        required: false
+        default: "false"
+      limit:
+        description: "Parcels/tiks per run; empty = mode default (scan/enrich/recheck 60, address-backfill 800)"
+        required: false
+        default: ""
+      recheck_tier:
+        description: "recheck mode: active = parcels with changeable requests; rotation = oldest-checked other parcels (limit = cap)"
+        required: false
+        default: "active"
+      offset:
+        description: "Parcel list offset"
+        required: true
+        default: "0"
+
+concurrency:
+  # One permit-feed run at a time: a scheduled fire while a long
+  # backfill batch is still scanning waits in the queue instead of
+  # duplicating the same cursor range and racing the publish step.
+  # Offset is resolved at run start, so a queued run picks up the
+  # cursor advanced by the run it waited for.
+  group: permit-feed
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  pending:
+    # #564: never stack a second data PR while one awaits review. Lists open
+    # same-repo PRs with the permit-feed/ head prefix (paginated, forks ignored).
+    # Pending -> green run with a skip notice; guard error -> red (fail closed).
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      pending: ${{ steps.guard.outputs.pending }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Check for a permit-feed/ data PR still awaiting review
+        id: guard
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix permit-feed/
+
+      - name: Skip notice while a data PR awaits review
+        if: ${{ steps.guard.outputs.pending == 'true' }}
+        env:
+          PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
+        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+
+  permit-feed:
+    permissions:
+      contents: write
+      pull-requests: read
+      actions: write
+    needs: pending
+    if: ${{ vars.PERMIT_FEED_ENABLED != 'false' && (needs.pending.outputs.pending == 'false') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 355
+    outputs:
+      changed: ${{ steps.publish.outputs.changed }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      - name: Resolve run inputs (dispatch inputs, or data/backfill_request.json on push)
+        run: |
+          python3 - <<'PY' >> "$GITHUB_ENV"
+          import json, os
+          ev = os.environ["GITHUB_EVENT_NAME"]
+          if ev == "push":
+              d = json.load(open("data/backfill_request.json"))
+              src = {k: str(d.get(k, "")).lower() if isinstance(d.get(k), bool) else str(d.get(k, ""))
+                     for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
+          elif ev == "workflow_dispatch":
+              ins = json.loads(os.environ["INPUTS_JSON"])
+              src = {k: str(ins.get(k) or "") for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
+              if not src["limit"]:
+                  # One input cannot carry per-mode defaults: resolve them
+                  # here. 800 backfill tiks ~= 50 min at 3s pacing; 60 keeps
+                  # the prior scan/enrich/recheck default.
+                  src["limit"] = "800" if src.get("mode") == "address-backfill" else "60"
+          else:
+              src = {k: "" for k in ("mode", "include_unenriched", "include_late_stages", "limit", "offset", "recheck_tier")}
+          for k, v in src.items():
+              assert "\n" not in v and len(v) < 20, k
+              print(f"REQ_{k.upper()}={v}")
+          PY
+        env:
+          INPUTS_JSON: ${{ toJSON(inputs) }}
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          cache: pip
+          cache-dependency-path: requirements-lock.txt
+          python-version: "3.12"
+
+      - name: Install and check permit renderer dependencies
+        run: |
+          python3 -m pip install --only-binary=:all: --require-hashes -r requirements-lock.txt
+          python3 scripts/render_permits_page.py --check-dependencies
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Resolve batch parameters (schedule -> next offset)
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' }}
+        run: |
+          if [ -n "${{ env.REQ_LIMIT }}" ]; then
+            echo "LIMIT=${{ env.REQ_LIMIT }}" >> "$GITHUB_ENV"
+            echo "OFFSET=${{ env.REQ_OFFSET }}" >> "$GITHUB_ENV"
+          else
+            read O _ < <(python3 -c "import json;b=json.load(open('data/permit_requests.json'))['batch'];print(b['offset']+b['limit'],b['limit'])")
+            L=280   # approved backfill batch size for scheduled runs (280 fits the 355-min job timeout at the measured ~60-90 parcels/hour; 500 did not)
+            TOTAL=$(python3 -c "import json;print(len({(int(f['properties']['gush']),int(f['properties']['helka'])) for f in json.load(open('data/ginot_hair_parcels.geojson'))['features'] if f.get('properties',{}).get('gush') and f.get('properties',{}).get('helka')}))")
+            if [ "$O" -ge "$TOTAL" ]; then
+              echo "backfill complete: $O >= $TOTAL parcels; no-op until weekly re-scan is enabled"
+              echo "BACKFILL_COMPLETE=true" >> "$GITHUB_ENV"
+            fi
+            echo "LIMIT=$L" >> "$GITHUB_ENV"
+            echo "OFFSET=$O" >> "$GITHUB_ENV"
+            echo "batch: offset=$O limit=$L of $TOTAL parcels"
+          fi
+
+      - name: Scan parcel batch for permit requests
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' && env.BACKFILL_COMPLETE != 'true' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          # --checkpoint pushes partial results to the scan-checkpoint branch
+          # every 15 parcels and --resume continues from it (issue #155), so a
+          # lost runner no longer wipes hours of scanning. GH_TOKEN is needed
+          # by the checkpoint push; sudo -E preserves it.
+          sudo -E python3 scripts/vpn/permit_feed.py --limit "${{ env.LIMIT }}" --offset "${{ env.OFFSET }}" --checkpoint --resume
+
+      - name: Re-check active (or rotation) parcels only (tiered re-check, issue #346)
+        if: ${{ env.REQ_MODE == 'recheck' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          TIER="${{ env.REQ_RECHECK_TIER }}"
+          case "$TIER" in active|rotation) ;; *) TIER=active ;; esac
+          CAP="${{ env.REQ_LIMIT }}"; CAP="${CAP:-150}"
+          python3 scripts/vpn/recheck_select.py --tier "$TIER" --cap "$CAP" > /tmp/recheck_parcels.json
+          python3 -c "import json;print(len(json.load(open('/tmp/recheck_parcels.json'))),'parcels in tier')"
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          # list mode never reads or writes the scan-checkpoint branch
+          sudo -E python3 scripts/vpn/permit_feed.py --parcel-list /tmp/recheck_parcels.json
+
+      - name: Daily re-check of active parcels (tiered re-check, issue #348)
+        # Runs after the batch scan and before publish, at most once per UTC day
+        # (the selector returns only active requests not checked today). It can
+        # never lose the batch: continue-on-error, capped, and list mode writes
+        # the feed only at the end. Never touches the scan-checkpoint branch.
+        if: ${{ env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' }}
+        continue-on-error: true
+        timeout-minutes: 60
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          python3 scripts/vpn/recheck_select.py --tier active --cap 50 --stale-before "$(date -u +%F)" > /tmp/recheck_parcels.json
+          N=$(python3 -c "import json;print(len(json.load(open('/tmp/recheck_parcels.json'))))")
+          echo "$N active parcels not yet re-checked today"
+          [ "$N" = "0" ] && exit 0
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          sudo -E python3 scripts/vpn/permit_feed.py --parcel-list /tmp/recheck_parcels.json
+
+      - name: Enrich mirror tiks with s.149 publication dates
+        if: ${{ env.REQ_MODE == 'enrich' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          ARGS="--limit ${{ env.REQ_LIMIT }} --offset ${{ env.REQ_OFFSET }}"
+          if [ "${{ env.REQ_INCLUDE_UNENRICHED }}" = "true" ]; then ARGS="$ARGS --include-unenriched"; fi
+          if [ "${{ env.REQ_INCLUDE_LATE_STAGES }}" = "true" ]; then ARGS="$ARGS --include-late-stages"; fi
+          sudo -E python3 scripts/vpn/permit_enrich.py $ARGS
+
+      - name: Backfill raw permit address fields (one-off, issue #452)
+        if: ${{ github.event_name == 'workflow_dispatch' && env.REQ_MODE == 'address-backfill' }}
+        env:
+          PYTHONUNBUFFERED: "1"
+        run: |
+          # Redacted VPN health watcher (issue #83): masked, timestamped
+          # tunnel/IKE/rekey/DPD state to the run log every 30s, so a
+          # server-side kill is visible even when the run is cancelled.
+          sudo python3 scripts/vpn/vpn_watch.py &
+          WATCH=$!
+          trap 'sudo kill $WATCH 2>/dev/null || true' EXIT
+          # Default chunk 800 (~50 min at the approved 3s spacing, well
+          # inside the 355-min timeout); --limit 0 dispatches the full set.
+          # Rows already enriched are skipped by the script itself, and the
+          # committed checkpoint (data/.address-backfill-checkpoint.json)
+          # carries --resume progress between dispatches.
+          LIMIT="${REQ_LIMIT:-800}"
+          set +e
+          sudo -E python3 scripts/vpn/permit_address_backfill.py --limit "$LIMIT" --resume
+          RC=$?
+          set -e
+          # Exit 2 = anti-bot challenge / access denied: fail the job so
+          # nothing publishes and nobody mistakes the stop for completion;
+          # a retry is a fresh manual dispatch after review, never a
+          # schedule. Exit 0/1 publish what was enriched - failed tiks lack
+          # the raw fields, so the next dispatch retries them naturally.
+          if [ "$RC" = "2" ]; then exit 2; fi
+          echo "address backfill finished rc=$RC (0=clean, 1=some failures - retried next dispatch)"
+
+      - name: Prepare publication commit (no credentials)
+        # #567: this job ran third-party renderer code (wheels and their .pth
+        # startup hooks), so no publication secret ever enters it. The fetch
+        # below is anonymous (public repository; checkout persisted no
+        # credentials). The result is one local commit handed to the
+        # isolated publish job as a git bundle; that job runs no Python.
+        id: publish
+        if: ${{ success() }}  # no-op when data is unchanged (git diff check inside)
+        run: |
+          set -euo pipefail
+          if git diff --quiet data/; then
+            echo "no changes to permit data; no publication confirmed"
+            # Fail closed: an unchanged local scan does not prove a prior
+            # data PR was reviewed and merged. Do not advance audit/chaining.
+            echo "merged=false" >> "$GITHUB_OUTPUT"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git stash push --include-untracked -m feed-output -- data/
+          git fetch origin main
+          git reset --hard origin/main
+          if ! git stash pop; then
+            git checkout --theirs .
+            git add -A
+            git stash drop
+          fi
+          python3 scripts/build_site_index.py || echo "site index rebuild failed (non-fatal)"
+          # #405: the feed's data update must rebuild the permits fragment in
+          # the same run - a newly published permit goes live immediately,
+          # and a render failure fails the run (set -e) instead of shipping
+          # stale rows silently.
+          python3 scripts/render_permits_page.py
+          # Refresh coverage counts in index.html with the current renderer (#870).
+          python3 scripts/ci/check_docs_fresh.py --include-data-json --write
+          python3 scripts/ci/check_docs_fresh.py --include-data-json
+          # Language fragments come from the i18n source of truth (#972): a
+          # docs/*/ glob would stage a stray non-language directory's files.
+          # Locale index.html pages carry the server-rendered datalist of
+          # plan numbers (#996), so they change with the data like the
+          # default-locale index.html and must be staged here too - the
+          # #874 cleanliness guard failed run 43733250766 on exactly these
+          # five files left unstaged.
+          FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/index.html docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
+          git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html $FRAGMENTS docs/permit-ids.json docs/permit-points.json docs/data.json
+          git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
+          # #874: fail here, not in later PR CI, when a covered docs output
+          # changed outside the staged allowlist above. Paths only.
+          python3 scripts/ci/check_publication_clean.py
+          mkdir -p "$RUNNER_TEMP/publication"
+          git bundle create "$RUNNER_TEMP/publication/publication.bundle" origin/main..HEAD
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          # PR creation is not publication. Keep checkpoint and stop dependent
+          # audit/enrichment work until a reviewed merge is confirmed.
+          echo "merged=false" >> "$GITHUB_OUTPUT"
+
+      - name: Hand the publication commit to the isolated publish job
+        if: ${{ success() && steps.publish.outputs.changed == 'true' }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: permit-feed-publication
+          path: ${{ runner.temp }}/publication/publication.bundle
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Dispatch read-only Go auditor after scan publication
+        if: ${{ success() && steps.publish.outputs.merged == 'true' && env.REQ_MODE != 'enrich' && env.REQ_MODE != 'recheck' && env.REQ_MODE != 'address-backfill' && env.BACKFILL_COMPLETE != 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.PARCEL_AUDIT_DISPATCH_TOKEN }}
+        run: |
+          set -euo pipefail
+          SHA=$(git ls-remote origin refs/heads/main | cut -f1)
+          gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit --ref main -f source_sha="$SHA" -f source_run="$GITHUB_RUN_ID"
+
+      - name: Self-dispatch next enrichment run while unenriched tiks remain
+        # Issue #145: an enrich backfill run (mode=enrich,
+        # include_unenriched=true) that ends green starts its own successor
+        # via workflow_dispatch - exempt from the GITHUB_TOKEN no-recursion
+        # rule - until no unenriched early-stage tiks remain. Hard stops:
+        # any failed step (this step is skipped), anti-bot marker (enrich
+        # exits 2 -> run red), VPN failure (run red), or the daily run cap
+        # (10 permit-feed runs per UTC day) -> stop and file an issue for a
+        # human instead of dispatching.
+        if: ${{ success() && steps.publish.outputs.merged == 'true' && env.REQ_MODE == 'enrich' && env.REQ_INCLUDE_UNENRICHED == 'true' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          ARGS=""
+          if [ "${{ env.REQ_INCLUDE_LATE_STAGES }}" = "true" ]; then ARGS="--include-late-stages"; fi
+          REMAINING=$(python3 scripts/vpn/permit_enrich.py --count-only --include-unenriched $ARGS | tail -1)
+          echo "unenriched tiks remaining: $REMAINING"
+          if [ "$REMAINING" -eq 0 ]; then
+            echo "enrichment backfill complete - chain ends"
+            gh issue comment 99 --body "Self-chained enrichment backfill complete ($(date -u +%F)): 0 unenriched early-stage tiks remain (refs #145)." || true
+            exit 0
+          fi
+          TODAY=$(date -u +%F)
+          RUNS=$(gh api "repos/${{ github.repository }}/actions/workflows/permit-feed.yml/runs?created=%3E%3D${TODAY}&per_page=100" --jq '.total_count')
+          echo "permit-feed runs today: $RUNS (cap 10)"
+          if [ "$RUNS" -ge 10 ]; then
+            echo "daily chain cap reached - stopping for a human"
+            if ! gh issue list --search "enrichment chain paused" --state open --json number --jq '.[0].number' | grep -q .; then
+              gh issue create --title "Enrichment chain paused: daily run cap reached"                 --body "Self-chaining enrichment stopped after 10 permit-feed runs in one UTC day (guard, refs #145). $REMAINING unenriched tiks remain. Restart: dispatch permit-feed.yml with mode=enrich, include_unenriched=true."                 --label needs-triage
+            fi
+            exit 0
+          fi
+          gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true             -f include_late_stages="${{ env.REQ_INCLUDE_LATE_STAGES }}"             -f limit="${{ env.REQ_LIMIT }}" -f offset=0
+          echo "dispatched next enrichment run ($REMAINING tiks remaining)"
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
+
+  publish:
+    # #567: the only job that sees REFRESH_DISPATCH_TOKEN. Fresh runner, no
+    # setup-python, no pip and no python/pytest/node invocation: dependency
+    # or renderer code from the permit-feed job cannot reach the token, and
+    # cannot plant $GITHUB_ENV/$GITHUB_PATH entries, git hooks or config here.
+    # The bundle is verified by trusted main code before the token step.
+    needs: permit-feed
+    if: ${{ needs.permit-feed.result == 'success' && needs.permit-feed.outputs.changed == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Download publication bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          gh run download "$GITHUB_RUN_ID" --repo "$GITHUB_REPOSITORY" -n permit-feed-publication -D "$RUNNER_TEMP/publication"
+
+      - name: Verify publication bundle (fail closed, no token)
+        id: verify
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=200 origin main
+          TIP=$(bash scripts/ci/verify_publication_bundle.sh "$RUNNER_TEMP/publication/publication.bundle" origin/main)
+          echo "tip=$TIP" >> "$GITHUB_OUTPUT"
+
+      - name: Publish changes as a PR for review
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+          TIP: ${{ steps.verify.outputs.tip }}
+        run: |
+          set -euo pipefail
+          BRANCH="permit-feed/$(date +%Y%m%d-%H%M)"
+          git branch "$BRANCH" "$TIP"
+          gh auth setup-git
+          git push -u origin "$BRANCH"
+          PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
+            --body "Automated public permit-feed batch (refs #57). Requires independent review, exact-head Claude review and green CI before manual merge." \
+            --base main --head "$BRANCH")
+          echo "opened $PR"
+          gh workflow run ci.yml --ref "$BRANCH"
+          echo "awaiting independent and exact-head Claude reviews: $PR"
+          # PR creation is not publication; nothing here reports a merge.
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [pending, permit-feed, publish]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

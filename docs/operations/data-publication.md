@@ -1,0 +1,76 @@
+# Reviewed data publication
+
+## Weekly refresh (#564)
+
+The weekly-refresh workflow fetches public data, renders the site and opens a
+PR. It stops there. A successful fetch or green CI is not approval to publish.
+Existing generated files stay in that PR until reviewed. Do not rerun the fetch
+just to complete a review or deploy an already-reviewed result.
+
+Before merging, inspect the complete current diff, resolve every finding from
+both the independent reviewer and the exact-head Claude line-by-line review,
+and verify required CI on that same head. Obtain the repository's actual eligible
+approving review. Use a normal merge, never an admin override. If the head moves,
+repeat the affected reviews and checks.
+
+After the reviewed merge is confirmed, verify the deployed site's data and dates.
+Once the owner flips the Pages source to GitHub Actions and sets the
+PAGES_ACTIONS_DEPLOY repo variable (both owner decisions, #959), the
+pages.yml workflow deploys on every merge to main: it re-renders the site
+from the committed inputs and draws the og preview PNGs at deploy time
+(check_docs_fresh.py --write --write-images). Until then, branch deploys keep
+serving the committed docs/ as before, and a maintainer may request a build
+after verifying the merged commit on main. The committed og PNGs stay in git
+until a follow-up removes them, which first needs an answer for the
+Cloudflare mirror and Vercel (they serve committed docs/ without a build).
+The fetch workflow no longer requests builds or advances the Cloudflare mirror.
+Do not force-push the mirror from a still-running fetch job. Any manual mirror
+continuation must use the confirmed reviewed main commit and check current mirror
+state first; deploy and verify it separately. Until that continuation is performed,
+the mirror may lag main. No callback or PR body text authorizes a scan, deployment,
+or successor workflow.
+
+### Cloudflare production branch: keep `mirror`
+
+The existing Cloudflare Pages project `ginot-hair-plans` serves
+`https://ginot-hair-plans.pages.dev/` from **`mirror`**, not `main`, using
+`docs/` as the asset output directory and no build command. Preview deployments
+are disabled. A reviewed merge to `main` alone does not update this mirror.
+
+**Never delete `mirror` during branch cleanup**, even when its tip is fully
+merged into `main` and it has no open PR. It is a deployment target, not a
+finished feature branch. GitHub Pages environment pins do not list this external
+Cloudflare dependency. See the [branch-cleanup checklist](branch-cleanup.md).
+
+Before an authorized mirror continuation, verify the current production branch
+in Cloudflare and the current Git ref, then use the confirmed reviewed main
+commit. If `mirror` is missing or the deployment configuration differs, stop
+and report it before recreating a ref or changing settings. After deployment,
+verify the production URL, source commit, data date and counts separately from
+the primary site.
+
+Audit-result, mavat-watch and mirror-ingest now stage reviewed PRs only.
+Permit-feed successor routing remains fail-closed pending #565.
+
+## One pending data PR at a time (#564)
+
+weekly-refresh, mavat-watch (check mode), mirror-ingest and permit-feed start with a
+read-only `pending` job. It runs `scripts/ci/pending_data_pr.py` with the
+branch prefix that the workflow pushes (`weekly-refresh/`, `mavat-check/`,
+`mirror-ingest/`, `permit-feed/`). The data job runs only after a `pending=false` verdict, so no
+fetch, VPN or tunnel starts and no second PR is stacked while one still waits
+for review.
+
+- **A PR is still open:** the run ends green with a `::notice::` that gives
+  only its PR numbers. Review and merge, or close, that PR. Do not cancel it
+  just to let a new fetch run.
+- **The guard can't decide:** the run is red and fetches nothing (fail
+  closed). This covers any API error, a malformed page, or more than 5,000
+  open PRs.
+- **Which PRs count:** all pages are read. Only same-repository heads count.
+  Fork PRs and PRs from deleted forks are ignored.
+
+Mavat discover mode never stages a PR, so it is exempt.
+`tests/test_no_review_bypass.py` scans every workflow and CI script for merge,
+approval, dispatch, re-run, Pages and default-branch or mirror push forms. Its
+allowlist names each remaining exception with a reason.

@@ -1,0 +1,639 @@
+"""#564: repo-wide guard that no workflow can bypass review of data PRs.
+
+The per-workflow tests (#582, #584, #590) each keep their own forbidden-string
+list. This is the catch-all: it scans every ``.github/workflows/*.yml`` / ``*.yaml`` run
+step and every ``scripts/ci/*`` file the workflows call, after normalizing
+whitespace, quoting and line continuations, for merge, approval, dispatch,
+re-run, Pages and default-branch/mirror push forms, including the alternate
+spellings the per-PR lists miss.
+
+Known exceptions live in ALLOWLIST, each with a reason and, where it is
+reachable only after a reviewed merge, the gate its step must keep.
+"""
+
+import re
+from pathlib import Path
+
+import pytest
+import yaml
+
+ROOT = Path(__file__).resolve().parents[1]
+WORKFLOWS = ROOT / ".github/workflows"
+CI_SCRIPTS = ROOT / "scripts/ci"
+
+# (rule id, regex over normalized text). Normalized text: quotes removed,
+# backslash-newline joined, full-line shell comments dropped, whitespace
+# runs collapsed to one space.
+RULES = [
+    ("gh-pr-merge", r"\bgh pr merge\b"),
+    ("gh-pr-review", r"\bgh pr review\b"),
+    ("admin-flag", r"(?<![\w-])--admin\b"),
+    ("update-branch", r"\bgh pr update-branch\b|/update-branch\b"),
+    ("graphql-merge", r"\bmergePullRequest\b|\benablePullRequestAutoMerge\b"),
+    ("rest-merge", r"/pulls/\S*/merge\b|/merges\b"),
+    ("rest-approve-review", r"\bevent ?[=:] ?APPROVE\b|/approve\b"),
+    # Octokit calls in actions/github-script bodies (normalized, quotes removed).
+    (
+        "js-api",
+        (
+            r"\b(?:pulls\.(?:merge|updateBranch)"
+            r"|repos\.(?:merge|createDispatchEvent|requestPagesBuild|createPagesDeployment)"
+            r"|actions\.(?:createWorkflowDispatch|reRunWorkflow\w*|reRunJobForWorkflowRun"
+            r"|approveWorkflowRun))\b"
+        ),
+    ),
+    ("dispatch", r"/dispatches\b"),
+    ("gh-workflow-run", r"\bgh workflow run\b"),
+    ("gh-run-rerun", r"\bgh run rerun\b|/rerun(-failed-jobs)?\b"),
+    ("pages", r"/pages/builds\b|/pages/deployments?\b|actions/deploy-pages\b"),
+    (
+        "push-default-or-mirror",
+        r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:[\s:+](?:refs/heads/)?(?:main|mirror)\b)",
+    ),
+    (
+        "push-force",
+        r"\bgit (?:-C \S+ )?push\b[^\n;&|]*?(?:\s--force(?:-with-lease)?\b|\s-f\b|\s\+\S)",
+    ),
+]
+
+FORBIDDEN_PERMISSIONS = {"actions": "write", "pages": "write", "id-token": "write"}
+
+# (file, rule id, substring of the normalized command, required exact conjunct of
+# the step's ``if`` or None, reason).
+ALLOWLIST = [
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        "gh workflow run ci.yml --ref $BRANCH",
+        None,
+        "runs CI on the PR branch just pushed; starts checks, merges nothing",
+    ),
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit --ref main -f source_sha=$SHA -f source_run=$GITHUB_RUN_ID",
+        "steps.publish.outputs.merged == 'true'",
+        "read-only auditor, only after a reviewed merge (#562)",
+    ),
+    (
+        "permit-feed.yml",
+        "gh-workflow-run",
+        (
+            "gh workflow run permit-feed.yml -f mode=enrich -f include_unenriched=true "
+            "-f include_late_stages=${{ env.REQ_INCLUDE_LATE_STAGES }} "
+            "-f limit=${{ env.REQ_LIMIT }} -f offset=0"
+        ),
+        "steps.publish.outputs.merged == 'true'",
+        "enrich chain, only after a reviewed merge (#145, #562)",
+    ),
+    (
+        "pages.yml",
+        "pages",
+        "actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346",
+        "github.ref == 'refs/heads/main'",
+        "Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds; flip and permissions pending the owner decision at merge time",
+    ),
+]
+
+# Workflow-level permissions that are known and reviewed elsewhere.
+# Keys are (file, permission, scope) so an exception covers exactly one
+# top-level block or one named job, never the whole file.
+PERMISSION_ALLOWLIST = {
+    ("permit-feed.yml", "actions", "job permit-feed"): (
+        "needed by the allowlisted gh workflow run steps"
+    ),
+    ("pages.yml", "pages", "job deploy"): (
+        "Pages deploy of the reviewed merged main commit (#959); deploy job "
+        "only; permission set and Pages flip pending the owner decision at merge time"
+    ),
+    ("pages.yml", "id-token", "job deploy"): (
+        "OIDC auth for the same deploy-pages step (#959); deploy job only; "
+        "pending the same owner decision"
+    ),
+}
+
+
+# Section: Command normalization and gate checks
+
+
+def normalize(text):
+    text = text.replace("\\\n", " ")
+    lines = [ln for ln in text.splitlines() if not ln.lstrip().startswith("#")]
+    text = "\n".join(lines).replace('"', "").replace("'", "")
+    return re.sub(r"[ \t]+", " ", text)
+
+
+def _gate_holds(step_if, gate):
+    """True only if ``gate`` is an exact top-level ``&&`` conjunct of ``step_if``.
+
+    A substring check would also accept ``!(gate)``, ``merged != 'true'`` or
+    ``gate || always()``. Any ``||`` makes the gate optional, so it is rejected.
+    """
+    expr = re.sub(r"\s+", " ", (step_if or "").strip())
+    expr = re.sub(r"^\$\{\{(.*)\}\}$", r"\1", expr).strip().replace('"', "'")
+    if not expr or "||" in expr:
+        return False
+    return gate in (c.strip() for c in expr.split("&&"))
+
+
+def _allowed(file, rule, command, step_if):
+    for a_file, a_rule, needle, gate, _reason in ALLOWLIST:
+        if (a_file, a_rule) == (file, rule) and command == needle:
+            return gate is None or _gate_holds(step_if, gate)
+    return False
+
+
+def _permission_violations(file, perms, where):
+    out = []
+    if isinstance(perms, str):
+        if perms == "write-all":
+            out.append((file, "permissions", f"{where}: write-all"))
+        return out
+    for key, value in (perms or {}).items():
+        if (
+            FORBIDDEN_PERMISSIONS.get(key) == value
+            and (file, key, where) not in PERMISSION_ALLOWLIST
+        ):
+            out.append((file, "permissions", f"{where}: {key}: {value}"))
+    return out
+
+
+def scan_workflow(file, text):
+    """Return [(file, rule, detail)] for one workflow's YAML text."""
+    doc = yaml.safe_load(text) or {}
+    found = _permission_violations(file, doc.get("permissions"), "top-level")
+    for job_id, job in (doc.get("jobs") or {}).items():
+        found += _permission_violations(file, job.get("permissions"), f"job {job_id}")
+        for step in job.get("steps") or []:
+            uses = step.get("uses", "")
+            if re.search(
+                RULES[[r[0] for r in RULES].index("pages")][1], uses
+            ) and not _allowed(file, "pages", uses, step.get("if")):
+                found.append((file, "pages", uses))
+            run = step.get("run")
+            if not run and "actions/github-script" in uses:
+                run = (step.get("with") or {}).get("script")
+            if not run:
+                continue
+            command = normalize(run)
+            for rule, pattern in RULES:
+                for m in re.finditer(pattern, command):
+                    line = command[command.rfind("\n", 0, m.start()) + 1 :].split(
+                        "\n", 1
+                    )[0]
+                    # Start at THIS match, never at an earlier allowlisted command.
+                    matched_command = re.split(
+                        r"[;|&\n]", command[m.start() :], maxsplit=1
+                    )[0].strip()
+                    if not _allowed(file, rule, matched_command, step.get("if")):
+                        found.append((file, rule, line.strip()))
+    return found
+
+
+def scan_script(file, text):
+    command = normalize(text)
+    found = []
+    for rule, pattern in RULES:
+        for m in re.finditer(pattern, command):
+            line = command[command.rfind("\n", 0, m.start()) + 1 :].split("\n", 1)[0]
+            found.append((file, rule, line.strip()))
+    return found
+
+
+# Section: Checked-in workflow audit
+
+
+def test_no_workflow_or_ci_script_can_bypass_review():
+    found = []
+    for path in sorted(p for p in WORKFLOWS.iterdir() if p.suffix in {".yml", ".yaml"}):
+        found += scan_workflow(path.name, path.read_text())
+    for path in sorted(CI_SCRIPTS.iterdir()):
+        if (
+            path.is_file()
+            and path.suffix in {".py", ".sh"}
+            and path.name != "pending_data_pr.py"
+        ):
+            found += scan_script(path.name, path.read_text())
+    assert found == []
+
+
+def test_every_allowlist_entry_still_matches_a_real_step():
+    """A stale entry would silently widen the allowlist for future edits."""
+    for file, rule, needle, gate, _reason in ALLOWLIST:
+        doc = yaml.safe_load((WORKFLOWS / file).read_text())
+        steps = [s for j in doc["jobs"].values() for s in j.get("steps") or []]
+        hits = [
+            s
+            for s in steps
+            if needle in normalize(s.get("run") or "")
+            or needle in normalize(s.get("uses") or "")
+        ]
+        assert len(hits) == 1, (file, needle)
+        if gate:
+            assert _gate_holds(hits[0].get("if"), gate), (file, needle)
+
+
+CLEAN = """
+name: clean
+on: workflow_dispatch
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: |
+          # comments may mention gh pr merge without running it
+          BRANCH="weekly-refresh/$(date +%Y%m%d)"
+          git push -u origin "$BRANCH"
+          gh pr create --base main --head "$BRANCH"
+          git push origin HEAD:badge-data
+"""
+
+
+# Section: Synthetic bypass regressions
+
+
+def planted(
+    run=None,
+    permissions=None,
+    job_permissions=None,
+    uses=None,
+    file="planted.yml",
+    step_if=None,
+    script=None,
+):
+    doc = yaml.safe_load(CLEAN)
+    if script is not None:
+        uses = "actions/github-script@v8"
+    if permissions is not None:
+        doc["permissions"] = permissions
+    job = doc["jobs"]["data"]
+    if job_permissions is not None:
+        job["permissions"] = job_permissions
+    step = {}
+    if run is not None:
+        step["run"] = run
+    if uses is not None:
+        step["uses"] = uses
+    if step_if is not None:
+        step["if"] = step_if
+    if script is not None:
+        step["with"] = {"script": script}
+    if step:
+        job["steps"].append(step)
+    return file, yaml.safe_dump(doc, sort_keys=False)
+
+
+def test_clean_fixture_passes():
+    assert scan_workflow("clean.yml", CLEAN) == []
+
+
+PLANTED = [
+    ("gh-pr-merge", {"run": 'gh pr merge "$PR" --squash'}),
+    ("gh-pr-merge", {"run": 'gh  pr   merge "$PR"'}),  # double spaces
+    ("gh-pr-merge", {"run": 'gh pr \\\n  merge "$PR"'}),  # line continuation
+    ("gh-pr-merge", {"run": 'gh pr merge --auto --squash "$PR"'}),
+    ("admin-flag", {"run": "gh pr create --admin"}),
+    ("gh-pr-review", {"run": 'gh pr review "$PR" --approve'}),
+    ("update-branch", {"run": 'gh pr update-branch "$PR"'}),
+    ("update-branch", {"run": "gh api -X PUT repos/o/r/pulls/1/update-branch"}),
+    (
+        "graphql-merge",
+        {
+            "run": "gh api graphql -f query='mutation { mergePullRequest(input: {}) { clientMutationId } }'"
+        },
+    ),
+    (
+        "graphql-merge",
+        {
+            "run": "gh api graphql -f query='mutation { enablePullRequestAutoMerge(input: {}) { clientMutationId } }'"
+        },
+    ),
+    ("rest-merge", {"run": 'gh api -X PUT "repos/$GITHUB_REPOSITORY/pulls/$N/merge"'}),
+    (
+        "rest-merge",
+        {"run": 'gh api -X POST repos/o/r/merges -f base=main -f head="$BRANCH"'},
+    ),
+    (
+        "rest-approve-review",
+        {"run": "gh api repos/o/r/pulls/1/reviews -f event=APPROVE"},
+    ),
+    ("rest-approve-review", {"run": "gh api -X POST repos/o/r/actions/runs/1/approve"}),
+    (
+        "dispatch",
+        {"run": "gh api repos/o/r/actions/workflows/x.yml/dispatches -f ref=main"},
+    ),
+    ("dispatch", {"run": "gh api repos/o/r/dispatches -f event_type=go"}),
+    ("gh-workflow-run", {"run": "gh workflow run ci.yml"}),
+    ("gh-run-rerun", {"run": 'gh run rerun "$RUN"'}),
+    (
+        "gh-run-rerun",
+        {"run": "gh api -X POST repos/o/r/actions/runs/1/rerun-failed-jobs"},
+    ),
+    ("pages", {"run": "gh api -X POST repos/o/r/pages/builds"}),
+    ("pages", {"uses": "actions/deploy-pages@v4"}),
+    ("push-default-or-mirror", {"run": "git push origin main"}),
+    ("push-default-or-mirror", {"run": "git push origin HEAD:main"}),
+    ("push-default-or-mirror", {"run": "git push origin HEAD:refs/heads/main"}),
+    ("push-default-or-mirror", {"run": 'git push origin "$BRANCH":main'}),
+    ("push-default-or-mirror", {"run": "git push origin origin/main:mirror"}),
+    ("push-default-or-mirror", {"run": 'git -C "$WORK" push origin HEAD:mirror'}),
+    ("push-force", {"run": 'git push --force origin "$BRANCH"'}),
+    ("push-force", {"run": 'git push -f origin "$BRANCH"'}),
+    ("push-force", {"run": 'git push origin +"$BRANCH"'}),
+    ("permissions", {"permissions": {"contents": "write", "actions": "write"}}),
+    ("permissions", {"job_permissions": {"actions": "write"}}),
+    ("permissions", {"job_permissions": {"pages": "write"}}),
+    ("permissions", {"permissions": "write-all"}),
+    # Allowlisted command outside its file, or without its merge gate.
+    ("gh-workflow-run", {"run": "gh workflow run permit-feed.yml -f mode=enrich"}),
+    (
+        "gh-workflow-run",
+        {
+            "run": "gh workflow run permit-feed.yml -f mode=enrich",
+            "file": "permit-feed.yml",
+            "step_if": "${{ success() }}",
+        },
+    ),
+    # The gate must be an exact positive top-level conjunct (CodeRabbit, #599).
+    *[
+        (
+            "gh-workflow-run",
+            {
+                "run": "gh workflow run permit-feed.yml -f mode=enrich",
+                "file": "permit-feed.yml",
+                "step_if": step_if,
+            },
+        )
+        for step_if in (
+            "${{ steps.publish.outputs.merged == 'true' || always() }}",
+            "${{ always() || steps.publish.outputs.merged == 'true' }}",
+            "${{ !(steps.publish.outputs.merged == 'true') }}",
+            "${{ success() && !(steps.publish.outputs.merged == 'true') }}",
+            "${{ steps.publish.outputs.merged == 'true-ish' }}",
+            "${{ format('{0}', steps.publish.outputs.merged == 'true') }}",
+        )
+    ],
+    # actions/github-script bodies (CodeRabbit, #599).
+    ("js-api", {"script": "await github.rest.pulls.merge({owner, repo, pull_number})"}),
+    ("js-api", {"script": "await github.rest.pulls.updateBranch({pull_number: n})"}),
+    (
+        "js-api",
+        {"script": "await github.rest.actions.createWorkflowDispatch({ref: 'main'})"},
+    ),
+    ("js-api", {"script": "await github.rest.repos.createDispatchEvent({event_type})"}),
+    (
+        "js-api",
+        {"script": "await github.rest.actions.reRunWorkflowFailedJobs({run_id})"},
+    ),
+    ("js-api", {"script": "await github.rest.actions.approveWorkflowRun({run_id})"}),
+    ("js-api", {"script": "await github.rest.repos.requestPagesBuild({owner, repo})"}),
+    (
+        "rest-approve-review",
+        {
+            "script": "await github.rest.pulls.createReview({pull_number, event: 'APPROVE'})"
+        },
+    ),
+    (
+        "graphql-merge",
+        {
+            "script": "await github.graphql(`mutation { mergePullRequest(input: $i) { x } }`)"
+        },
+    ),
+    ("rest-merge", {"script": "await github.request('PUT /repos/o/r/pulls/1/merge')"}),
+]
+
+
+@pytest.mark.parametrize(
+    "rule,kwargs", PLANTED, ids=[f"{r}-{i}" for i, (r, _) in enumerate(PLANTED)]
+)
+def test_planted_violation_is_caught(rule, kwargs):
+    file, text = planted(**kwargs)
+    assert rule in {r for _, r, _ in scan_workflow(file, text)}
+
+
+def test_gated_allowlist_entry_passes_only_in_its_file():
+    file, text = planted(
+        run=ALLOWLIST[2][2],
+        file="permit-feed.yml",
+        step_if="${{ success() && steps.publish.outputs.merged == 'true' }}",
+    )
+    assert scan_workflow(file, text) == []
+
+
+@pytest.mark.parametrize(
+    "step_if",
+    [
+        "steps.publish.outputs.merged == 'true'",
+        "${{ success() &&  steps.publish.outputs.merged == \"true\" && env.X != 'y' }}",
+        "${{ success()\n  && steps.publish.outputs.merged == 'true' }}",
+    ],
+)
+def test_gate_accepts_exact_positive_conjunct(step_if):
+    file, text = planted(
+        run=ALLOWLIST[2][2],
+        file="permit-feed.yml",
+        step_if=step_if,
+    )
+    assert scan_workflow(file, text) == []
+
+
+def test_harmless_github_script_passes():
+    file, text = planted(
+        script="await github.rest.issues.createComment({issue_number, body})\n"
+        "await github.rest.pulls.list({state: 'open'})"
+    )
+    assert scan_workflow(file, text) == []
+
+
+def test_script_scanner_catches_planted_form(tmp_path):
+    assert {
+        r for _, r, _ in scan_script("x.sh", 'git -C "$W" push origin HEAD:main\n')
+    } == {"push-default-or-mirror"}
+    assert scan_script("x.sh", 'git -C "$W" push origin HEAD:badge-data\n') == []
+
+
+@pytest.mark.parametrize("separator", ["; ", " && ", " | ", " "])
+@pytest.mark.parametrize(
+    "successor",
+    [
+        "gh workflow run audit.yml --repo reihlinstinct/parcel-coverage-audit",
+        "gh workflow run permit-feed.yml -f mode=enrich",
+    ],
+)
+def test_ci_exception_never_covers_a_second_ungated_command(separator, successor):
+    text = CLEAN.replace(
+        'gh pr create --base main --head "$BRANCH"',
+        'gh workflow run ci.yml --ref "$BRANCH"' + separator + successor,
+    )
+    found = scan_workflow("permit-feed.yml", text)
+    assert any(rule == "gh-workflow-run" for _, rule, _ in found)
+
+
+def test_yaml_extension_cannot_hide_a_review_bypass(tmp_path, monkeypatch):
+    (tmp_path / "auto.yaml").write_text(
+        CLEAN.replace(
+            'gh pr create --base main --head "$BRANCH"', "gh pr merge 17 --admin"
+        )
+    )
+    monkeypatch.setitem(
+        test_no_workflow_or_ci_script_can_bypass_review.__globals__,
+        "WORKFLOWS",
+        tmp_path,
+    )
+    with pytest.raises(AssertionError):
+        test_no_workflow_or_ci_script_can_bypass_review()
+
+
+@pytest.mark.parametrize("extra", [" --ref main", " -R other/repo", " --ref=$OTHER"])
+@pytest.mark.parametrize("entry", ALLOWLIST)
+def test_allowlist_rejects_unreviewed_extra_dispatch_arguments(extra, entry):
+    file, _rule, needle, gate, _reason = entry
+    file, text = planted(
+        run=needle + extra, file=file, step_if="${{ " + gate + " }}" if gate else None
+    )
+    assert scan_workflow(file, text)
+
+
+@pytest.mark.parametrize("separator", ["; ", " && ", " | "])
+@pytest.mark.parametrize("entry", ALLOWLIST)
+def test_complete_allowlist_command_accepts_shell_separator(separator, entry):
+    file, _rule, needle, gate, _reason = entry
+    file, text = planted(
+        run=needle + separator + "echo done",
+        file=file,
+        step_if="${{ " + gate + " }}" if gate else None,
+    )
+    assert scan_workflow(file, text) == []
+
+
+# Section: Pages deploy invariants (#959)
+
+PAGES_FILE = "pages.yml"
+MAIN_REF = "github.ref == 'refs/heads/main'"
+DEPLOY_SHA = "368f82528645a54fb793d4d04e342629a3f51346"
+
+
+def _pages_doc():
+    # YAML 1.1 parses the bare key `on` as True.
+    return yaml.safe_load((WORKFLOWS / PAGES_FILE).read_text())
+
+
+def pages_deploy_violations(doc):
+    """Structural invariants that keep the Pages deploy bound to reviewed
+    main (#959). A workflow that deploys is a publication path, so every
+    loosening must fail here even when the generic scanner cannot see it."""
+    out = []
+    on = doc.get("on", doc.get(True)) or {}
+    if set(on) != {"push", "workflow_dispatch"}:
+        out.append(f"triggers {sorted(on)} != push + workflow_dispatch")
+    if (on.get("push") or {}).get("branches") != ["main"]:
+        out.append("push trigger is not limited to main")
+    if on.get("workflow_dispatch") is not None:
+        out.append("workflow_dispatch must take no inputs")
+    jobs = doc.get("jobs") or {}
+    for name in ("build", "deploy"):
+        job = jobs.get(name) or {}
+        if not _gate_holds(job.get("if"), MAIN_REF):
+            out.append(f"job {name} is not gated to {MAIN_REF}")
+    if (doc.get("permissions") or {}) != {"contents": "read"}:
+        out.append("top-level permissions must be exactly contents: read")
+    build = jobs.get("build") or {}
+    if "permissions" in build:
+        out.append("build job must not carry permissions")
+    deploy = jobs.get("deploy") or {}
+    if (deploy.get("permissions") or {}) != {"pages": "write", "id-token": "write"}:
+        out.append("deploy job permissions must be exactly pages + id-token write")
+    steps = deploy.get("steps") or []
+    deploy_steps = [s for s in steps if "deploy-pages" in s.get("uses", "")]
+    if (
+        len(steps) != 1
+        or len(deploy_steps) != 1
+        or not deploy_steps[0].get("uses", "").endswith("@" + DEPLOY_SHA)
+        or not _gate_holds(deploy_steps[0].get("if"), MAIN_REF)
+    ):
+        out.append(
+            "deploy job must be exactly the pinned deploy-pages step, gated to main"
+        )
+    build_steps = build.get("steps") or []
+    uploads = [s for s in build_steps if "upload-pages-artifact" in s.get("uses", "")]
+    if len(uploads) != 1 or (uploads[0].get("with") or {}).get("path") != "docs/":
+        out.append("the Pages artifact must be exactly docs/")
+    for s in build_steps:
+        if "actions/checkout" in s.get("uses", "") and (s.get("with") or {}).get("ref"):
+            out.append("the build checkout must not take a caller-selected ref")
+    return out
+
+
+def test_pages_deploy_invariants_hold():
+    assert pages_deploy_violations(_pages_doc()) == []
+
+
+def _pages_mutant(mutate):
+    doc = _pages_doc()
+    mutate(doc)
+    return doc
+
+
+PAGES_MUTANTS = [
+    (
+        "push on all branches",
+        lambda d: d["on" if "on" in d else True]["push"].update(branches=["**"]),
+    ),
+    (
+        "added pull_request trigger",
+        lambda d: d["on" if "on" in d else True].update(pull_request=None),
+    ),
+    (
+        "added workflow_run trigger",
+        lambda d: d["on" if "on" in d else True].update(
+            workflow_run={"workflows": ["CI"], "types": ["completed"]}
+        ),
+    ),
+    (
+        "dispatch ref input",
+        lambda d: d["on" if "on" in d else True].update(
+            workflow_dispatch={"inputs": {"ref": {"required": True}}}
+        ),
+    ),
+    (
+        "checkout ref input",
+        lambda d: d["jobs"]["build"]["steps"][0].update(
+            {"with": {"ref": "${{ inputs.ref }}"}}
+        ),
+    ),
+    (
+        "repo code in the deploy job",
+        lambda d: d["jobs"]["deploy"]["steps"].append({"run": "python3 x.py"}),
+    ),
+    (
+        "whole-repo upload",
+        lambda d: next(
+            s
+            for s in d["jobs"]["build"]["steps"]
+            if "upload-pages-artifact" in s.get("uses", "")
+        )["with"].update(path="."),
+    ),
+    (
+        "deploy step loses the main gate",
+        lambda d: d["jobs"]["deploy"]["steps"][0].pop("if"),
+    ),
+    (
+        "deploy job loses the main gate",
+        lambda d: d["jobs"]["deploy"].pop("if"),
+    ),
+]
+
+
+@pytest.mark.parametrize(
+    "name,mutate", PAGES_MUTANTS, ids=[n for n, _ in PAGES_MUTANTS]
+)
+def test_pages_deploy_mutant_is_caught(name, mutate):
+    doc = _pages_mutant(mutate)
+    assert pages_deploy_violations(doc), name
+    # The generic scanner must also still catch the ungated deploy action.
+    if name == "deploy step loses the main gate":
+        assert scan_workflow(PAGES_FILE, yaml.safe_dump(doc, sort_keys=False))

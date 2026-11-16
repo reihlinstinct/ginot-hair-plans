@@ -1,0 +1,352 @@
+name: CI
+
+env:
+  # Single source for the ruff and pytest-cov pins so the test jobs
+  # and the pip-audit appenv install the exact same versions (#772).
+  RUFF_VERSION: "0.16.9"
+  PYTEST_COV_VERSION: "7.1.0"
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Weekly full suite: Sundays 04:00 UTC. The repo test
+    # test_no_workflow_comment_states_a_local_clock_time bans local times in
+    # workflow comments, so this comment states UTC only.
+    - cron: '0 4 * * 0'
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+jobs:
+  layout:
+    # Always checks all tracked directories and file types, including docs-only PRs.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+      - run: python scripts/ci/check_repo_layout.py
+  test:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - run: pip install --require-hashes -r requirements-lock.txt -r requirements-ci-tools.txt
+      - name: Enforce repository folder structure
+        run: python scripts/ci/check_repo_layout.py
+      - run: ruff check src tests scripts
+      - run: ruff format --check src tests scripts
+      - name: External reviews append-only guard
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --depth=1 origin "$BASE_REF"
+          python scripts/ci/check_external_reviews.py --base FETCH_HEAD
+        env:
+          BASE_REF: ${{ github.base_ref }}
+      - name: Commit identity guard (issue #473)
+        if: github.event_name == 'pull_request'
+        run: |
+          # The guard walks base..head, so depth-1 is not enough (empirically
+          # verified: depth-1 checkout + depth-1 base fetch shows the guard
+          # only 1 commit, passing vacuously). Fetch full history of both
+          # ends; the script fails closed if a shallow boundary remains.
+          # GitHub context arrives via env (template-injection hardening).
+          git fetch --unshallow origin "$BASE_REF:base-ref" "+refs/pull/$PR_NUMBER/head:pr-head" \
+            || git fetch --depth=500 origin "$BASE_REF:base-ref" "+refs/pull/$PR_NUMBER/head:pr-head"
+          FORK_ARG=""
+          if [ "$HEAD_REPO_FORK" = "true" ]; then
+            FORK_ARG="--fork-author $PR_AUTHOR"
+          fi
+          python scripts/ci/check_commit_identities.py --base base-ref --head pr-head $FORK_ARG
+        env:
+          BASE_REF: ${{ github.base_ref }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_REPO_FORK: ${{ github.event.pull_request.head.repo.fork }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+      - run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python ${{ matrix.python-version }}"
+      - name: Publish measured main-only test badges
+        if: ${{ success() && github.ref == 'refs/heads/main' && matrix.python-version == '3.12' }}
+        run: |
+          python3 scripts/ci/publish_badges.py python test-results.xml coverage.json /tmp/badges
+          bash scripts/ci/push_badges.sh /tmp/badges
+      # Coverage gate (issue #105). Report-only until .github/qa-gates.json
+      # has "enforce": true - flipping that one value is the whole
+      # November switch-on. The floor can only be raised.
+      - name: Coverage gate
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          gates = json.load(open(".github/qa-gates.json"))
+          pct = json.load(open("coverage.json"))["totals"]["percent_covered"]
+          floor = gates["coverage_floor"]
+          print(f"coverage {pct:.1f}% (floor {floor}%, enforce={gates['enforce']})")
+          if pct < floor:
+              msg = f"coverage {pct:.1f}% is below the floor {floor}%"
+              if gates["enforce"]:
+                  sys.exit(msg)
+              print("::warning::" + msg + " (report-only, gate not enforced yet)")
+          PY
+  docs-fresh:
+    # Committed docs/ vs. a re-render from the committed inputs (issue #539):
+    # catches a src/ginot change merged without its regenerated site (#531).
+    # Hermetic: no network, clock pinned to the committed generated stamps.
+    # Blocking: any nonzero exit fails the job (1 = stale, 2 = could not run).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install --require-hashes -r requirements-lock.txt
+      - name: Docs freshness
+        run: python scripts/ci/check_docs_fresh.py
+  worker:
+    # Node tests for the Cloudflare API worker (worker/). Ubuntu ships Node.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: node --test --test-reporter=junit --test-reporter-destination=worker-results.xml worker/*.test.mjs
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python3 scripts/ci/test_summary.py --junit worker-results.xml --title "Worker tests"
+
+  changes:
+    name: Classify the diff
+    # #774: docs-only PRs (root *.md, docs/design/**) skip the heavy
+    # site-browser jobs; docs/ is the deployed site and plans/*/*.md
+    # render into pages, so every other path runs the full suite. The
+    # summary gate still requires this job, and a skipped site-browser
+    # counts as a deliberate skip there. Push events always run heavy.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      heavy: ${{ steps.filter.outputs.heavy }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - id: filter
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ "$GITHUB_EVENT_NAME" != "pull_request" ]; then
+            echo "heavy=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # --no-renames: a file moved into docs/ must still count as heavy
+          # (with rename detection the old path would vanish from the list).
+          git diff --name-only --no-renames -z "$BASE_SHA...HEAD" > /tmp/changed
+          python3 - <<'PY'
+          import os
+
+          # Byte-exact classification of the NUL-delimited diff: "docs-only"
+          # means root *.md and docs/design/** ONLY. docs/ is the deployed
+          # site and plans/*/talking_points_*.md render into site pages, so
+          # anything else - or anything unparseable - runs the full suite.
+          data = open("/tmp/changed", "rb").read()
+          raw = [p for p in data.split(b"\0") if p]
+          try:
+              paths = [p.decode("utf-8") for p in raw]
+          except UnicodeDecodeError:
+              # An unparseable name must fail heavy, never light.
+              paths = ["<invalid>"]
+
+          def light(path):
+              if "/" not in path and path.endswith(".md"):
+                  return True
+              return path.startswith("docs/design/")
+
+          heavy = any(not light(path) for path in paths)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
+              fh.write("heavy=" + ("true" if heavy else "false") + "\n")
+          PY
+
+  site-browser:
+    # Headless browser tests of the built site (issues #106, #422). Separate job
+    # so the 4-version test matrix does not each download a browser. Runs on
+    # Chromium and WebKit; per-test evidence (screenshot always, video+trace on
+    # failure or @pytest.mark.evidence) uploads as an artifact.
+    # Skipped on docs-only PRs (#774); a skip reads as deliberate in the gate.
+    needs: changes
+    if: needs.changes.outputs.heavy == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, webkit]
+    env:
+      SITE_BROWSER: ${{ matrix.browser }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install --require-hashes -r requirements-lock.txt -r requirements-playwright.txt
+      - run: python -m playwright install --with-deps ${{ matrix.browser }}
+      - run: python -m pytest -q tests/test_site_browser*.py tests/test_map_browser*.py --junitxml=browser-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit browser-results.xml --title "Browser tests (${{ matrix.browser }})"
+      - name: Upload E2E evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-e2e-evidence-${{ matrix.browser }}
+          path: tests/.artifacts/
+          if-no-files-found: error
+          include-hidden-files: true  # tests/.artifacts is a dot-dir (issue #426)
+          retention-days: 30
+
+  pip-audit:
+    # Full-tree dependency vulnerability audit (#125): audits exactly the
+    # dependency versions CI installed (frozen from the app environment),
+    # per tested Python - the requirements carry interpreter markers
+    # (pyproj differs below 3.12), so a single-version audit can miss a
+    # vulnerable resolution. Scope (#768): app deps AND the test extras the
+    # test job installs (ruff, pytest-cov) - the test job holds a
+    # contents:write token for badges, so its tooling is in the trust
+    # boundary. Complements the dependency-review workflow,
+    # which gates the PR diff side. Gating through the Run summary needs
+    # list: a newly published CVE in an installed version fails visibly
+    # until bumped or explicitly ignored with justification.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-pages.txt
+      - name: Install the app environment
+        run: |
+          python3 -m venv /tmp/appenv
+          /tmp/appenv/bin/pip install --require-hashes -r requirements-lock.txt -r requirements-ci-tools.txt
+          # The Pages build's locked deploy deps are in the same trust boundary (#959).
+          /tmp/appenv/bin/pip install --require-hashes -r requirements-pages.txt
+      - run: pip install --require-hashes -r requirements-pip-audit.txt
+      - name: Audit the installed dependency versions
+        # Freeze keeps the auditor's own dependency tree out of scope.
+        run: |
+          /tmp/appenv/bin/pip freeze > /tmp/frozen-requirements.txt
+          pip-audit --strict --requirement /tmp/frozen-requirements.txt
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [changes, test, docs-fresh, worker, site-browser, pip-audit, layout]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        if: always()
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py
+      - name: Fail on failed or cancelled dependencies
+        if: always()
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+        run: |
+          # Deliberate docs-only skips are allowed; a failed or cancelled
+          # dependency must fail this gate.
+          python3 - <<'PY'
+          import json, os, sys
+          needs = json.loads(os.environ["NEEDS_JSON"])
+          # #769/#771: a job dropped from this gate's needs list would leave
+          # the gate green without it, and no repo-side test can observe its
+          # own exclusion - pin the expected set here, at runtime.
+          expected = {"changes", "test", "docs-fresh", "worker", "site-browser", "pip-audit", "layout"}
+          missing = expected - set(needs)
+          if missing:
+              print("Gate lost jobs from its needs list:", missing)
+              sys.exit(1)
+          bad = {k: v["result"] for k, v in needs.items() if v["result"] not in ("success", "skipped")}
+          if bad:
+              print("Dependencies failed or cancelled:", bad)
+              sys.exit(1)
+          print("All dependencies succeeded or were deliberately skipped.")
+          PY
+
+  mypy:
+    name: mypy (informational)
+    # Phase 1 of #110: non-strict, report-only type checking of
+    # src/ginot. continue-on-error, never a gate - deliberately absent
+    # from summary's needs (see tests/test_ci_summary_needs.py).
+    continue-on-error: true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install --require-hashes -r requirements-lock.txt -r requirements-mypy.txt
+      - run: mypy
+  py315:
+    name: Python 3.15 (informational)
+    # Informational Python 3.15 check (#734): continue-on-error, never a
+    # gate. Runtime stays 3.12/3.13. Deliberately absent from summary's
+    # needs, so its result can never block a merge.
+    continue-on-error: true
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.15'
+          cache: pip
+      - run: pip install --require-hashes -r requirements-lock.txt -r requirements-ci-tools.txt
+      - name: Enforce repository folder structure
+        run: python scripts/ci/check_repo_layout.py
+      - run: ruff check src tests scripts
+      - name: Tests (informational)
+        run: python -m pytest -q --cov --cov-config=.coveragerc --cov-report=term --cov-report=json:coverage.json --junitxml=test-results.xml
+      - name: Test run summary
+        if: ${{ always() }}
+        run: python scripts/ci/test_summary.py --junit test-results.xml --coverage coverage.json --title "Python 3.15"

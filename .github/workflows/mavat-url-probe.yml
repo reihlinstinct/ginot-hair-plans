@@ -1,0 +1,89 @@
+name: Mavat attachment-URL probe (VPN)
+
+# Read-only probe of public Jerusalem municipality pages (building-file
+# archive / permit-file tracking) through the owner-operated L2TP/IPsec
+# tunnel. Same anti-bot rules as mavat-watch: public pages only, no
+# login, any hard challenge stops the run. Manual dispatch only.
+
+on:
+  workflow_dispatch:
+    inputs:
+      urls:
+        description: "Comma-separated public URLs to GET"
+        required: true
+        default: "https://tor.jerusalem.muni.il/Service.aspx?channel=3554&Id=1324"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mavat-url-probe
+  cancel-in-progress: false
+
+jobs:
+  muni-probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Install VPN transport packages
+        run: |
+          sudo apt-get update -qq > /dev/null 2>&1
+          sudo apt-get install -y strongswan xl2tpd ppp curl python3-requests > /dev/null 2>&1
+
+      - name: Bring up owner-operated L2TP/IPsec tunnel
+        env:
+          VPN_L2TP_SERVER: ${{ secrets.VPN_L2TP_SERVER }}
+          VPN_L2TP_PSK: ${{ secrets.VPN_L2TP_PSK }}
+          VPN_L2TP_USERNAME: ${{ secrets.VPN_L2TP_USERNAME }}
+          VPN_L2TP_PASSWORD: ${{ secrets.VPN_L2TP_PASSWORD }}
+        run: sudo --preserve-env=VPN_L2TP_SERVER,VPN_L2TP_PSK,VPN_L2TP_USERNAME,VPN_L2TP_PASSWORD python3 scripts/vpn/l2tp.py up
+
+      - name: Probe public pages (requests)
+        if: inputs.mode == 'requests'
+        env:
+          PYTHONUNBUFFERED: "1"
+          PROBE_URLS: ${{ inputs.urls }}
+        run: python3 scripts/vpn/mavat_url_probe.py
+
+      - name: Probe public pages (browser)
+        env:
+          PYTHONUNBUFFERED: "1"
+          PROBE_URLS: ${{ inputs.urls }}
+        run: |
+          pip install --require-hashes -r requirements-playwright.txt > /dev/null 2>&1
+          python3 -m playwright install --with-deps chromium > /dev/null 2>&1
+          python3 scripts/vpn/muni_browser_probe.py
+
+      - name: Upload probe artifact
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: mavat-url-probe
+          path: |
+            /tmp/mavat_url_probe/
+            /tmp/muni_browser_probe/
+          if-no-files-found: ignore
+
+      - name: Tear down tunnel and remove generated secret material
+        if: always()
+        run: sudo python3 scripts/vpn/l2tp.py down
+
+  summary:
+    name: Run summary
+    if: always()
+    permissions:
+      contents: read
+    needs: [muni-probe]
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Write run summary
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/ci/run_summary.py

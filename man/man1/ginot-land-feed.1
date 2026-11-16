@@ -1,0 +1,24 @@
+.TH "GINOT-LAND-FEED" "1" "" "Ginot HaIr" "User Commands"
+.SH NAME
+\&ginot\-land\-feed \- Fetch public Israel Land Authority plan statuses.
+.SH SYNOPSIS
+\&python3 scripts/land_feed.py [OPTIONS]
+.SH DESCRIPTION
+\&Reads plan numbers from the public dataset and tracked plans, queries the public TabaSearch API and writes status JSON. Requests are paced and repeated failures abort the run. Run from the repository root; curl must be installed.
+.SH OPTIONS
+.TP
+\&\-h, \-\-help
+\&Show command help and exit without performing work.
+.TP
+\&\-\-data\-json VALUE
+\&Public dataset containing plan rows. Default: docs/data.json.
+.TP
+\&\-\-tracked VALUE
+\&Additional tracked plan numbers. Default: data/mavat_tracked_plans.json.
+.TP
+\&\-\-out VALUE
+\&Output status JSON file. Default: data/land_plan_status.json.
+.SH EXIT STATUS
+\&0 on success or \-\-help. Invalid arguments return 2. Runtime failures return nonzero.
+.SH NOTES
+\&These manuals document existing Python entrypoints, not installed executable aliases. Internal CI, maintenance and developer scripts are not part of this manual package.

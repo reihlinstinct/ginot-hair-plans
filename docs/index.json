@@ -1,0 +1,134 @@
+{
+ "generated": "2026-11-15",
+ "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
+ "datasets": [
+  {
+   "name": "backfill_request.json",
+   "path": "data/backfill_request.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 400,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/backfill_request.json"
+  },
+  {
+   "name": "council_ginot_hair.geojson",
+   "path": "data/council_ginot_hair.geojson",
+   "kind": "geojson",
+   "records": null,
+   "bytes": 39415,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/council_ginot_hair.geojson"
+  },
+  {
+   "name": "external_reviews.json",
+   "path": "data/external_reviews.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 16,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/external_reviews.json"
+  },
+  {
+   "name": "ginot_hair_parcels.geojson",
+   "path": "data/ginot_hair_parcels.geojson",
+   "kind": "geojson",
+   "records": 4739,
+   "bytes": 9325989,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/ginot_hair_parcels.geojson"
+  },
+  {
+   "name": "land_plan_status.json",
+   "path": "data/land_plan_status.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 61406,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/land_plan_status.json"
+  },
+  {
+   "name": "mavat_bglist_101-1377753.json",
+   "path": "data/mavat_bglist_101-1377753.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1712,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_bglist_101-1377753.json"
+  },
+  {
+   "name": "mavat_declist_101-1377753.json",
+   "path": "data/mavat_declist_101-1377753.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 876,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_declist_101-1377753.json"
+  },
+  {
+   "name": "mavat_doclist_101-1377753.json",
+   "path": "data/mavat_doclist_101-1377753.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1305,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_doclist_101-1377753.json"
+  },
+  {
+   "name": "mavat_tracked_plans.json",
+   "path": "data/mavat_tracked_plans.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1493,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/mavat_tracked_plans.json"
+  },
+  {
+   "name": "neighborhoods.json",
+   "path": "data/neighborhoods.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1790,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/neighborhoods.json"
+  },
+  {
+   "name": "parcel_audit.json",
+   "path": "data/parcel_audit.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 439,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/parcel_audit.json"
+  },
+  {
+   "name": "permit_enrich_pending.json",
+   "path": "data/permit_enrich_pending.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1450,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_enrich_pending.json"
+  },
+  {
+   "name": "permit_enrich_spotcheck.json",
+   "path": "data/permit_enrich_spotcheck.json",
+   "kind": "json",
+   "records": 5,
+   "bytes": 11964,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_enrich_spotcheck.json"
+  },
+  {
+   "name": "permit_requests.json",
+   "path": "data/permit_requests.json",
+   "kind": "json",
+   "records": 12556,
+   "bytes": 5211044,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
+  },
+  {
+   "name": "publications_active.json",
+   "path": "data/publications_active.json",
+   "kind": "json",
+   "records": 116,
+   "bytes": 138022,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_active.json"
+  },
+  {
+   "name": "publications_new_latest.json",
+   "path": "data/publications_new_latest.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 2643,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_new_latest.json"
+  }
+ ]
+}

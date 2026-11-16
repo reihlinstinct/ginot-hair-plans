@@ -1,0 +1,509 @@
+from ginot import page
+
+# Section: Site fixtures
+
+
+def _row(n, status, recv="", dep="", deadline="", flag="inside"):
+    return {
+        "pl_number": str(n),
+        "pl_name": f"תכנית {n}",
+        "station_desc": status,
+        "receiving_date": recv,
+        "pl_last_deposit_date": dep,
+        "depositing_date": "",
+        "objection_deadline_derived_2m_from_publication": deadline,
+        "pl_area_dunam": 1.0,
+        "inside_flag": flag,
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+
+
+def _permits(tmp_path, custom=None):
+    import json
+
+    reqs = (
+        {"requests": custom}
+        if custom is not None
+        else {
+            "requests": [
+                {
+                    "tik_num": "2026/0001.01",
+                    "address": "רחוב א 1",
+                    "mahut": "תוספת קומה",
+                    "sugbakasha": "היתר בניה",
+                    "status": "נפתח תיק רישוי",
+                    "status_date": "2026-09-01",
+                    "publication_start": "2026-10-01",
+                    "publication_end_planned": "2026-11-01",
+                    "gush": 30001,
+                    "helka": 5,
+                },
+                {
+                    "tik_num": "2024/0002.02",
+                    "address": "רחוב ב 2",
+                    "mahut": "שימוש חורג",
+                    "sugbakasha": "רישוי עסקים - שימוש חורג מתוכנית",
+                    "status": "הבקשה נסגרה",
+                    "status_date": "",
+                    "publication_start": "",
+                    "publication_end_planned": "",
+                    "gush": 30002,
+                    "helka": 6,
+                },
+            ]
+        }
+    )
+    pp = tmp_path / "permits.json"
+    pp.write_text(json.dumps(reqs, ensure_ascii=False), encoding="utf-8")
+    return str(pp)
+
+
+# Section: Site behavior
+
+
+def test_render_site(tmp_path):
+    rows = [
+        {
+            "pl_number": "1",
+            "pl_name": "תכנית א",
+            "station_desc": "הפקדה להתנגדויות/השגות",
+            "receiving_date": "2026-10-01",
+            "pl_last_deposit_date": "2026-10-10",
+            "depositing_date": "",
+            "objection_deadline_derived_2m_from_publication": "2026-12-09",
+            "pl_area_dunam": 3.2,
+            "inside_flag": "inside",
+            "mavat_url": "https://mavat.iplan.gov.il/x",
+        }
+    ]
+    changes = [
+        {
+            "kind": "new",
+            "pl_number": "1",
+            "pl_name": "תכנית א",
+            "station_desc": "הפקדה",
+            "mavat_url": "https://mavat.iplan.gov.il/x",
+        }
+    ]
+    rows[0]["advisory_urgent"] = True
+    page.render_site(rows, changes, str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "אחרון להתנגדות" in html and "דחוף להתנגדות" in html
+    assert "מעקב" not in html  # planner tracking column must not be public
+    assert "class='new'" in html
+    feed = (tmp_path / "feed.xml").read_text(encoding="utf-8")
+    assert "<feed" in feed and "urn:ginot:1" in feed
+
+
+def test_date_format_and_controls(tmp_path):
+    rows = [
+        _row(
+            "1",
+            "הפקדה להתנגדויות",
+            recv="2026-10-01",
+            dep="2026-10-10",
+            deadline="2026-12-09",
+        ),
+        _row("2", "אישור", recv="2019-05-02"),
+    ]
+    page.render_site(rows, [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # DD.MM.YYYY display with ISO preserved for sorting/filtering
+    assert (
+        "01.10.26" in html and "data-iso='2026-10-01'" in html and "dir='ltr'" in html
+    )
+    # approved hidden by default, count stated, one-click control present
+    assert "data-active='0'" in html and "הצג תכניות מאושרות (1)" in html
+    assert "מוסתרות כברירת מחדל" in html
+    # all filter controls + show-more present
+    for cid in (
+        "fq",
+        "fstatus",
+        "fflag",
+        "fobj",
+        "fappr",
+        "ffrom",
+        "fto",
+        "freset",
+        "more",
+    ):
+        assert f'id="{cid}"' in html
+    # table comes before statistics
+    assert html.find("<table") < html.find("סטטיסטיקה")
+
+
+def test_status_chips_and_legend(tmp_path):
+    rows = [
+        _row("1", "הפקדה להתנגדויות"),
+        _row("2", "אישור"),
+        _row("3", "בבדיקה תכנונית"),
+    ]
+    page.render_site(rows, [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert 'class="chip c-deposit"' in html and 'class="chip c-approved"' in html
+    assert 'class="chip c-review"' in html
+    assert "מקרא סטטוסים" in html and html.find("legend") < html.find("<table")
+
+
+def test_footer_links(tmp_path):
+    from ginot import page
+
+    page.render_site([_row("1", "אישור", recv="2019-05-02")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "github.com/reihlinstinct/ginot-hair-plans" in html
+    assert 'href="about.html"' in html and "CONTRIBUTING.md" in html
+    assert "<footer" in html
+
+
+def test_status_legends_clickable(tmp_path):
+    from ginot import page
+
+    rows = [
+        _row(
+            "1",
+            "הפקדה להתנגדויות",
+            recv="2026-10-01",
+            dep="2026-10-10",
+            deadline="2026-12-09",
+        ),
+        _row("2", "אישור", recv="2019-05-02"),
+    ]
+    page.render_site(rows, [], str(tmp_path), permits_path=_permits(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # plans legend: raw-status chips; permits legend (#521): status-group
+    # chips, objection groups selected by default, rest behind a disclosure
+    assert "מקרא סטטוסים" in html
+    assert "<b>קבוצות תצוגה:</b>" in html
+    assert 'class="chip c-deposit" data-status="הפקדה להתנגדויות"' in html
+    assert 'class="chip c-deposit sel" data-group="obj"' in html
+    assert 'class="chip c-review sel" data-group="pre"' in html
+    assert "סטטוסים נוספים" in html and "more-statuses" in html
+    assert 'data-group="review"' in html and 'data-group="closed"' in html
+    # permits group chips carry counts (fixture: נפתח תיק רישוי -> review)
+    assert "בטיפול/דיונים (1)" in html and "סגור/אחר (1)" in html
+    # raw status still filterable via the select and visible per row
+    assert "data-status='נפתח תיק רישוי'" in html
+    assert "data-status='הבקשה נסגרה'" in html
+    assert "<option value='נפתח תיק רישוי'>" in html
+    # click bindings for both tables
+    assert ".plan-legend .chip" in html and "fstatus.value=(fstatus.value===st)" in html
+    assert 'id="pfgroups"' in html and "selectedGroups" in html
+    # #414: legend/options/counts derive from the loaded fragment client-side
+    assert "rebuildDerived" in html and "statusClass" in html
+
+
+def test_social_meta_tags_with_absolute_image(tmp_path):
+    from ginot import page, preview
+
+    rows = [
+        {
+            "pl_number": "1",
+            "pl_name": "תכנית א",
+            "station_desc": "הפקדה",
+            "receiving_date": "2026-10-01",
+            "pl_last_deposit_date": "2026-10-10",
+            "depositing_date": "",
+            "objection_deadline_derived_2m_from_publication": "2026-12-09",
+            "pl_area_dunam": 3.2,
+            "inside_flag": "inside",
+            "mavat_url": "https://mavat.iplan.gov.il/x",
+        }
+    ]
+    base = "https://example.org/site/"
+    page.render_site(
+        rows,
+        [],
+        str(tmp_path),
+        base_url=base,
+        council_geojson="data/council_ginot_hair.geojson",
+    )
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert '<meta property="og:title"' in html
+    assert '<meta property="og:locale" content="he_IL">' in html
+    assert '<meta name="description"' in html
+    if (tmp_path / "og.png").exists():
+        assert f'<meta property="og:image" content="{base}og.png">' in html
+        assert '<meta name="twitter:card" content="summary_large_image">' in html
+        from PIL import Image
+
+        assert Image.open(tmp_path / "og.png").size == (1200, 630)
+    else:  # no Pillow/font: no image tags (never point at a missing file)
+        assert "og:image" not in html and preview._font(10) is None
+
+
+def test_social_meta_has_no_image_tags_without_base_url(tmp_path):
+    from ginot import page
+
+    page.render_site([], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "og:image" not in html
+    assert '<meta property="og:title"' in html
+
+
+def test_preview_counts_open_objection_windows(tmp_path, monkeypatch):
+    """Regression: the og card once showed 0 because rows were annotated only
+    after the preview was drawn."""
+    from ginot import page, preview
+
+    seen = {}
+    monkeypatch.setattr(
+        preview,
+        "render_preview",
+        lambda rows, *a, **k: (
+            seen.update(n=sum(1 for r in rows if r.get("_open_obj"))) or False
+        ),
+    )
+    row = {
+        "pl_number": "1",
+        "pl_name": "תכנית א",
+        "station_desc": "הפקדה להתנגדויות/השגות",
+        "receiving_date": "2026-10-01",
+        "pl_last_deposit_date": "2026-10-10",
+        "depositing_date": "",
+        "objection_deadline_derived_2m_from_publication": "2999-12-09",
+        "pl_area_dunam": 3.2,
+        "inside_flag": "inside",
+        "mavat_url": "https://mavat.iplan.gov.il/x",
+    }
+    page.render_site([row], [], str(tmp_path))
+    assert seen["n"] == 1
+
+
+def test_css_is_external_file(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html_out = (tmp_path / "index.html").read_text(encoding="utf-8")
+    assert "<style>" not in html_out
+    assert '<link rel="stylesheet" href="style.css">' in html_out
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    assert "body{" in css and len(css) > 500
+
+
+def test_inside_column_hidden_but_filterable(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # no visible inside/partial column (#162)
+    assert 'data-sort="flag"' not in html and "בתוך/חלקי" not in html
+    # ...but the filter select and the row attribute remain
+    assert '<select id="fflag" aria-label=' in html
+    assert "data-flag='inside'" in html
+
+
+def test_ai_review_column(tmp_path):
+    r = _row(1, "הפקדה")
+    r["pl_number"] = "101-1377753"
+    reviews = {
+        "101-1377753": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/plans/101-1377753/analysis/talking_points_101-1377753.md"
+    }
+    html = page.render_index(
+        [r, _row(2, "הפקדה")], [], "2026-01-01", "גינות העיר", reviews=reviews
+    )
+    assert ">סקירת AI</th>" in html
+    assert "talking_points_101-1377753.md" in html
+    assert html.count("class='ai-review'") == 1  # only the plan that has a review
+    # clearly labelled as AI-generated, not an official document
+    assert "באמצעות AI" in html and "אינו מסמך רשמי" in html
+
+
+def test_ai_review_links_discovered_from_plans_tree(tmp_path):
+    pdir = tmp_path / "plans" / "101-1377753" / "analysis"
+    pdir.mkdir(parents=True)
+    (pdir / "talking_points_101-1377753.md").write_text(
+        "# נקודות לדיון\n\n- שימור", encoding="utf-8"
+    )
+    r = _row(1, "הפקדה")
+    r["pl_number"] = "101-1377753"
+    out = tmp_path / "out"
+    page.render_site([r], [], str(out), plans_dir=str(tmp_path / "plans"))
+    html = (out / "index.html").read_text(encoding="utf-8")
+    # owner decision 2026-10-21 (#177): link the rendered site page, not raw .md
+    assert "reviews/talking_points_101-1377753.html" in html
+    review = (out / "reviews" / "talking_points_101-1377753.html").read_text(
+        encoding="utf-8"
+    )
+    assert 'dir="rtl"' in review and "<h1>" in review  # markdown rendered, RTL
+    assert "סקירת AI" in review and "אינו מסמך רשמי" in review  # AI label
+    assert "../index.html" in review  # back link
+    assert "../style.css" in review  # site styling
+
+
+def test_mobile_label_for_ai_review_column(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # mobile row labels come from data-label attributes (i18n-aware), not CSS content
+    assert "content:attr(data-label)" in css
+    assert "data-label='סקירת AI'" in html
+    assert "בתוך/חלקי" not in css
+
+
+def test_stylesheet_uses_approved_ginothair_palette(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    # approved 2026-10-21 (#154): ginothair.org.il-inspired palette;
+    # mint darkened to #387e6a for AA contrast (a11y standard, 2026-11-11)
+    assert "#101f5b" in css and "#387e6a" in css and "#f3f6ff" in css
+    assert "#c8a4de" in css and "#007996" in css and "#4c7f24" in css
+    # mobile sort-header chips stay readable (white bg, mint border, navy text)
+    assert "#plans thead th{display:block;background:#fff" in css
+
+
+def test_index_is_slim_and_full_rows_ship_as_rows_html(tmp_path):
+    rows = [_row(i, "הפקדה") for i in range(1, 26)]
+    page.render_site(rows, [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    rows_html = (tmp_path / "rows.html").read_text(encoding="utf-8")
+    assert html.count("<tr class=''") == 20  # only the top rows are embedded (#164)
+    assert rows_html.count("<tr class=''") == 25  # full set ships as a static asset
+    assert "fetch('rows.html')" in html
+    assert "<noscript>" in html and "20 התכניות המובילות" in html
+
+
+def test_footer_github_link_text(tmp_path):
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    # owner request 2026-10-21: link text is just "GitHub", target unchanged
+    assert (
+        '<a href="https://github.com/reihlinstinct/ginot-hair-plans">GitHub</a>' in html
+    )
+    assert ">github.com/reihlinstinct<" not in html
+
+
+def test_about_page_combines_sources_and_datasets(tmp_path):
+    # owner request 2026-10-21: datasets move off index into the About page
+    page.render_site([_row(1, "הפקדה")], [], str(tmp_path))
+    about = (tmp_path / "about.html").read_text(encoding="utf-8")
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    redir = (tmp_path / "sources.html").read_text(encoding="utf-8")
+    for source in (
+        "iplan",
+        "land.gov.il",
+        "מאב&quot;ת",
+        "רישוי",
+        "geojson",
+    ):  # link text is html-escaped (#965)
+        assert source in about, source
+    assert "רענון שבועי" in about and "עודכן:" in about
+    assert "יוזמה עצמאית" in about and "פרטיות" in about  # about content kept
+    assert 'id="datasets-list"' in about and "fetch('index.json')" in about
+    assert "מערכי נתונים" in about
+    # index no longer carries the datasets section
+    assert 'id="datasets-list"' not in html and "fetch('index.json')" not in html
+    # footer links the combined page
+    assert '<a href="about.html">אודות ומקורות נתונים</a>' in html
+    # the short-lived sources.html URL stays valid as a redirect
+    assert "url=about.html" in redir
+
+
+def test_changes_section_renders_as_card(tmp_path):
+    page.render_site(
+        [_row(1, "הפקדה")],
+        [
+            {
+                "kind": "new",
+                "pl_number": "1",
+                "pl_name": "x",
+                "mavat_url": "https://mavat.iplan.gov.il/x",
+            }
+        ],
+        str(tmp_path),
+    )
+    html = (tmp_path / "index.html").read_text(encoding="utf-8")
+    css = (tmp_path / "style.css").read_text(encoding="utf-8")
+    # owner request 2026-10-21: changes list sits in a card like the urgent row
+    assert '<ul id="changes-list">' in html
+    assert "#changes-list{background:#fff;border:1px solid #dde4f6" in css
+    assert "border-radius:10px" in css
+
+
+def test_open_json_and_api_section(tmp_path):
+    import json
+
+    rows = [
+        _row(
+            "1",
+            "הפקדה להתנגדויות",
+            recv="2026-10-01",
+            dep="2026-10-10",
+            deadline="2026-12-09",
+        ),
+        _row("2", "אישור", recv="2019-05-02"),
+    ]
+    page.render_site(rows, [], str(tmp_path))
+    d = json.loads((tmp_path / "open.json").read_text(encoding="utf-8"))
+    assert d["count"] == 1 and [p["pl_number"] for p in d["plans"]] == ["1"]
+    assert "definition" in d and "generated" in d
+    assert all("in_objection_period" in p for p in d["plans"])
+    about = (tmp_path / "about.html").read_text(encoding="utf-8")
+    assert "גישה לנתונים (API)" in about and "open.json" in about
+
+
+def test_favicon_subpath_links_on_root_and_review():
+    from ginot import page
+
+    root = page.render_index([], [], "2026-10-22", "test")
+    review = page.render_review("101-1", "# test", "2026-10-22", "test")
+    for html, prefix in [(root, ""), (review, "../")]:
+        assert f'href="{prefix}favicon.ico?v=20261022"' in html
+        assert f'href="{prefix}favicon.svg?v=20261022"' in html
+        assert f'href="{prefix}favicon-32.png?v=20261022"' in html
+        assert f'href="{prefix}apple-touch-icon.png?v=20261022"' in html
+        assert 'sizes="any"' in html
+
+
+def test_favicon_committed_fallback_files_decode_at_expected_sizes():
+    from pathlib import Path
+
+    from PIL import Image
+
+    root = Path(__file__).parent.parent / "docs"
+    icon = Image.open(root / "favicon.ico")
+    assert icon.format == "ICO"
+    assert icon.info["sizes"] == {(16, 16), (32, 32), (48, 48)}
+    for filename, size in [
+        ("favicon-32.png", (32, 32)),
+        ("apple-touch-icon.png", (180, 180)),
+    ]:
+        image = Image.open(root / filename)
+        assert image.format == "PNG" and image.size == size
+        image.verify()
+    assert "<svg" in (root / "favicon.svg").read_text()
+
+
+def test_iso_rejects_malformed_dates():
+    from ginot import page
+
+    assert page._iso("2026-10-18") == "2026-10-18"
+    assert page._iso("2026-13-45") == ""  # impossible month/day
+    assert page._iso("2026-00-10") == ""
+    assert page._iso("18.10.2026") == ""
+    assert page._iso(None) == ""
+
+
+def test_render_site_removes_stale_official_projection(tmp_path):
+    from ginot.page import render_site
+
+    source = tmp_path / "input"
+    source.mkdir()
+    permits_path = source / "permit_requests.json"
+    permits_path.write_text('{"requests": []}')
+    publications_path = source / "publications_active.json"
+    publications_path.write_text(
+        '[{"tik_num": "2026/0439.00", "in_polygon": true, '
+        '"objection_deadline": "2026-11-13", "private_note": "omit"}]'
+    )
+    out = tmp_path / "site"
+    render_site([], [], str(out), permits_path=str(permits_path))
+    projection = out / "publications_active.json"
+    import json
+
+    assert json.loads(projection.read_text()) == [
+        {
+            "tik_num": "2026/0439.00",
+            "in_polygon": True,
+            "objection_deadline": "2026-11-13",
+            "publication_date": None,
+        }
+    ]
+    publications_path.unlink()
+    render_site([], [], str(out), permits_path=str(permits_path))
+    assert not projection.exists()

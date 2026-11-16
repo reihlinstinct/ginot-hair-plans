@@ -1,0 +1,8 @@
+{
+  "note": "Actions minute caps (issue #680). Counts private-repo minutes only: public repos are free. Crossing a cap means stop and ask the owner. Raise a cap only with the owner's word.",
+  "monthly_private_minutes_included": 2000,
+  "warn_at_percent": 50,
+  "stop_at_percent": 80,
+  "per_task_minutes": 60,
+  "minute_multipliers": {"Linux": 1, "Windows": 2, "macOS": 10}
+}

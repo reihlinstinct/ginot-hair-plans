@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "findings": [
+    {
+      "path": ".github/workflows/scorecard.yml",
+      "rule": "job-write",
+      "scope": "analysis",
+      "evidence": "security-events: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Approved job-scoped SARIF upload to GitHub code scanning; no code or secrets write."
+    },
+    {
+      "path": ".github/workflows/audit-result.yml",
+      "rule": "job-write",
+      "scope": "ingest",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "rule": "job-write",
+      "scope": "test",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "CI test job pushes updated CI badges to the repo; job-scoped; reviewed."
+    },
+    {
+      "path": ".github/workflows/codeql.yml",
+      "rule": "job-write",
+      "scope": "analyze",
+      "evidence": "security-events: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Standard CodeQL SARIF upload to code scanning; job-scoped; reviewed."
+    },
+    {
+      "path": ".github/workflows/mavat-watch.yml",
+      "rule": "job-write",
+      "scope": "mavat-watch",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/mirror-ingest.yml",
+      "rule": "job-write",
+      "scope": "mirror-ingest",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/permit-feed-router.yml",
+      "rule": "privileged-pr-checkout",
+      "scope": "workflow",
+      "evidence": "pull_request_target combined with actions/checkout",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Deliberate safe pattern: pull_request_target[closed] with checkout pinned to pull_request.base.sha; workflow documents the never-checkout-PR-head rule; reviewed under PR #703."
+    },
+    {
+      "path": ".github/workflows/permit-feed.yml",
+      "rule": "job-write",
+      "scope": "permit-feed",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/permit-feed.yml",
+      "rule": "job-write",
+      "scope": "permit-feed",
+      "evidence": "actions: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/weekly-refresh.yml",
+      "rule": "job-write",
+      "scope": "refresh",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/770",
+      "reason": "Existing effective permission narrowed to this existing publisher/checkpoint job only; no added capability. Owner approval required before merge; tracked in issue #717."
+    },
+    {
+      "path": ".github/workflows/gemini-review.yml",
+      "rule": "job-write",
+      "scope": "gemini-review",
+      "evidence": "pull-requests: write",
+      "issue": "https://github.com/reihlinstinct/gemini-pr-review/issues/1",
+      "reason": "Owner-approved event-driven Gemini PR review; COMMENT-only advisory reviews, idempotent per head SHA. Tracked in reihlinstinct/gemini-pr-review#1."
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "rule": "job-write",
+      "scope": "deploy",
+      "evidence": "pages: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/959",
+      "reason": "Pages deploy from an Actions build (#959); deploy-pages requires pages: write on the deploy job only. Project approved 2026-11-11; the permission set and the Pages source flip still need the owner's decision at merge time."
+    },
+    {
+      "path": ".github/workflows/pages.yml",
+      "rule": "job-write",
+      "scope": "deploy",
+      "evidence": "id-token: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/959",
+      "reason": "Pages deploy from an Actions build (#959); deploy-pages authenticates via OIDC id-token on the deploy job only. Project approved 2026-11-11; the permission set and the Pages source flip still need the owner's decision at merge time."
+    }
+  ]
+}
