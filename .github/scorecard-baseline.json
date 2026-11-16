@@ -104,6 +104,14 @@
       "evidence": "id-token: write",
       "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/959",
       "reason": "Pages deploy from an Actions build (#959); deploy-pages authenticates via OIDC id-token on the deploy job only. Project approved 2026-11-11; the permission set and the Pages source flip still need the owner's decision at merge time."
+    },
+    {
+      "path": ".github/workflows/mirror-promote.yml",
+      "rule": "job-write",
+      "scope": "promote",
+      "evidence": "contents: write",
+      "issue": "https://github.com/reihlinstinct/ginot-hair-plans/issues/1020",
+      "reason": "Approved job-scoped ref update: fast-forwards the Cloudflare Pages production branch mirror to a green-reviewed main commit; force=false, no code or secrets write."
     }
   ]
 }

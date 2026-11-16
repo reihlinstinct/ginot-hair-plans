@@ -24,10 +24,12 @@ after verifying the merged commit on main. The committed og PNGs stay in git
 until a follow-up removes them, which first needs an answer for the
 Cloudflare mirror and Vercel (they serve committed docs/ without a build).
 The fetch workflow no longer requests builds or advances the Cloudflare mirror.
-Do not force-push the mirror from a still-running fetch job. Any manual mirror
-continuation must use the confirmed reviewed main commit and check current mirror
-state first; deploy and verify it separately. Until that continuation is performed,
-the mirror may lag main. No callback or PR body text authorizes a scan, deployment,
+Do not force-push the mirror, from a still-running fetch job or anywhere else.
+The `Promote Cloudflare mirror` workflow advances the mirror automatically once CI
+finishes green on a main commit, fast-forward only. A manual continuation (the
+workflow's `workflow_dispatch`) must use the confirmed reviewed main commit and
+check current mirror state first; deploy and verify it separately. While CI is red
+or the promotion has not run, the mirror may lag main. No callback or PR body text authorizes a scan, deployment,
 or successor workflow.
 
 ### Cloudflare production branch: keep `mirror`
@@ -35,14 +37,15 @@ or successor workflow.
 The existing Cloudflare Pages project `ginot-hair-plans` serves
 `https://ginot-hair-plans.pages.dev/` from **`mirror`**, not `main`, using
 `docs/` as the asset output directory and no build command. Preview deployments
-are disabled. A reviewed merge to `main` alone does not update this mirror.
+are disabled. A reviewed merge to `main` updates this mirror once the
+`Promote Cloudflare mirror` workflow fast-forwards the branch after green CI.
 
 **Never delete `mirror` during branch cleanup**, even when its tip is fully
 merged into `main` and it has no open PR. It is a deployment target, not a
 finished feature branch. GitHub Pages environment pins do not list this external
 Cloudflare dependency. See the [branch-cleanup checklist](branch-cleanup.md).
 
-Before an authorized mirror continuation, verify the current production branch
+Before a manual mirror continuation, verify the current production branch
 in Cloudflare and the current Git ref, then use the confirmed reviewed main
 commit. If `mirror` is missing or the deployment configuration differs, stop
 and report it before recreating a ref or changing settings. After deployment,

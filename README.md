@@ -88,9 +88,10 @@ The site is published twice: **GitHub Pages** (primary,
 mirror (`ginot-hair-plans.pages.dev`). To stay inside the free build quota,
 the mirror's production branch is `mirror`, not `main`: Cloudflare builds
 only when the `mirror` branch advances. The weekly refresh no longer pushes
-that branch, requests a Pages build, or merges its data PR. Ordinary `main`
-pushes do not advance the Cloudflare mirror, so it may lag until a maintainer
-verifies the reviewed main commit and performs a separate continuation.
+that branch, requests a Pages build, or merges its data PR. Instead, the
+`Promote Cloudflare mirror` workflow fast-forwards `mirror` automatically
+after a green CI run on `main` (fast-forward only, so a diverged mirror
+fails loudly; a manual `workflow_dispatch` catches the mirror up).
 See [reviewed publication](docs/operations/data-publication.md) for the procedure.
 PR preview deployments are disabled in the Cloudflare project.
 
