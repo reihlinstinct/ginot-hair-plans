@@ -115,6 +115,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
   },
   {
+   "name": "publication_point_evidence.json",
+   "path": "data/publication_point_evidence.json",
+   "kind": "json",
+   "records": 1,
+   "bytes": 344,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publication_point_evidence.json"
+  },
+  {
    "name": "publications_active.json",
    "path": "data/publications_active.json",
    "kind": "json",
