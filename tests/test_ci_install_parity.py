@@ -1,9 +1,11 @@
-"""The CI install lines must pin the tool extras identically (#772 follow-up).
+"""The CI install lines must install the tool extras identically (#772
+follow-up; #770 moved the pins into hash-locked requirement files).
 
-The test jobs and the pip-audit appenv install ruff and pytest-cov; if
-one line drifts (different version or a dropped pin), the audit no
-longer covers what the tests run. The pins live in workflow-level env
-vars so parity is structural - this test guards that property.
+The test jobs and the pip-audit appenv install ruff and pytest-cov from
+requirements-ci-tools.txt; if one line drifts (a different lock file or
+a dropped -r), the audit no longer covers what the tests run. The
+versions live in workflow-level env vars and the lock is checked
+against them, so parity is structural - this test guards that property.
 """
 
 import re
@@ -14,27 +16,31 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_tool_extras_pinned_identically_on_every_install_line():
+def test_tool_extras_installed_from_the_same_lock_on_every_line():
     doc = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
     env = doc["env"]
     assert env["RUFF_VERSION"] and env["PYTEST_COV_VERSION"]
-    # Covers standalone installs too (no requirements.txt on the line).
     lines = [
         line
         for job in doc["jobs"].values()
         for step in job.get("steps", [])
         for line in (step.get("run") or "").splitlines()
         if ("pip install" in line or "pip3 install" in line)
-        and ("ruff" in line or "pytest-cov" in line)
+        and ("ci-tools" in line or "ruff" in line or "pytest-cov" in line)
     ]
     assert len(lines) >= 3, "expected both test jobs and the appenv install"
     for line in lines:
-        assert 'ruff=="$RUFF_VERSION"' in line, line
-        assert 'pytest-cov=="$PYTEST_COV_VERSION"' in line, line
-        assert not re.search(r"ruff(?![=a-z-])", line.replace("ruff==", "")), line
-        assert not re.search(
-            r"pytest-cov(?![=a-z-])", line.replace("pytest-cov==", "")
-        ), line
+        assert "-r requirements-ci-tools.txt" in line, line
+        # No inline pins next to the lock (#770: hashes live in the file).
+        assert "ruff==" not in line and "pytest-cov==" not in line, line
+
+
+def test_ci_tools_lock_matches_the_env_pins():
+    doc = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
+    env = doc["env"]
+    lock = (ROOT / "requirements-ci-tools.txt").read_text()
+    assert f"ruff=={env['RUFF_VERSION']}" in lock
+    assert f"pytest-cov=={env['PYTEST_COV_VERSION']}" in lock
 
 
 PIP_CMD = re.compile(
@@ -72,14 +78,14 @@ def test_appenv_install_uses_the_appenv_pip():
             # or standalone packages - and every freeze must use the
             # appenv pip.
             if "install" in what and re.fullmatch(
-                r"(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+install\s+pip-audit==\S+",
+                r"(?:\S*/)?(?:pip3?|python3?\s+-m\s+pip)\s+install\s+(--require-hashes\s+)?-r\s+requirements-pip-audit\.txt",
                 cmd,
             ):
                 continue
             assert cmd.startswith("/tmp/appenv/bin/pip "), cmd
             if what.startswith("freeze"):
                 freezes.append(cmd)
-            elif "requirements.txt" in cmd:
+            elif "requirements-lock.txt" in cmd:
                 installs.append(cmd)
     assert installs, "pip-audit must install requirements into the appenv"
     assert freezes, "pip-audit must freeze the appenv for the audit"

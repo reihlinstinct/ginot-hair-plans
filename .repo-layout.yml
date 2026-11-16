@@ -33,7 +33,12 @@
       "mypy.ini",
       "pyproject.toml",
       "pytest.ini",
+      "requirements-ci-tools.txt",
+      "requirements-lock.txt",
+      "requirements-mypy.txt",
       "requirements-pages.txt",
+      "requirements-pip-audit.txt",
+      "requirements-playwright.txt",
       "requirements.txt",
       "ruff.toml",
       "vercel.json"

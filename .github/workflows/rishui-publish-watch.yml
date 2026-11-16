@@ -65,7 +65,7 @@ jobs:
       - name: Install publication renderer dependencies
         if: ${{ steps.pending.outputs.pending != 'true' }}
         run: |
-          pip install --only-binary=:all: -r requirements.txt
+          pip install --only-binary=:all: --require-hashes -r requirements-lock.txt
 
       - name: Check publication renderer dependencies before network work
         if: ${{ steps.pending.outputs.pending != 'true' }}
