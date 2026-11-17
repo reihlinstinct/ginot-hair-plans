@@ -204,8 +204,10 @@ function bumpSrc(env, src) {
 // read-modify-write per counter key per flush window, and a forced flush
 // at FLUSH_PENDING_FORCE buffered EVENT counts bounds the burst loss:
 // counts are lost only if the isolate is evicted before the next flush,
-// at most FLUSH_PENDING_FORCE - 1 event counts per eviction (more on
-// bursty, low-traffic days where isolates are short-lived).
+// at most FLUSH_PENDING_FORCE - 1 event counts per eviction - a bound
+// that holds while no flush or summary is in progress; a long summary
+// slot (one chain slot per list+get pass) lets the buffer grow past it
+// until that slot ends.
 const FLUSH_PENDING_FORCE = 25;
 function bumpEvent(env, e, k) {
   if (!env.STATS) return false;

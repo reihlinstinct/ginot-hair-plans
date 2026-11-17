@@ -188,8 +188,11 @@ test("a summary cannot interleave with a forced flush's read-modify-write", asyn
   const sumP = handleRequest(new Request("https://x.workers.dev/stats/summary",
     { headers: { "cf-connecting-ip": "10.20.0.2" } }), stub, env, ctx);
   // The summary is either mid-reads (old code) or queued behind the flush
-  // (chain). Landing the put now is the racy interleaving for the old code.
-  setTimeout(() => { if (releasePut) releasePut(); }, 10);
+  // (chain). Wait for the flush's put to actually park (a slow runner may
+  // reach it late), then land it mid-summary - the racy interleaving.
+  for (let i = 0; i < 200 && !releasePut; i++) await new Promise((r) => setTimeout(r, 5));
+  await new Promise((r) => setTimeout(r, 10));
+  if (releasePut) releasePut();
   const sum = await (await sumP).json();
   assert.equal(sum.events.search.other, 26);
   assert.equal(sum.events.search.other2, 3);
