@@ -64,12 +64,17 @@ silent relaxation of the default profile. The default profile
   breaking normalized parity. Each match is therefore evaluated in exactly
   one window: the first window whose acceptance range
   `[prevEnd - margin, windowEnd - margin)` contains the match's end (the
-  last window's range runs to end of file). Matches ending before
+  first window's range starts at offset 0; the last window's range runs to
+  end of file). Matches ending before
   `prevEnd - margin` were already accepted by the previous window and are
   not re-evaluated; matches ending in the deferral zone
   `[windowEnd - margin, windowEnd)` are deferred to the next window, where
   the carried context (8 KiB, per the sizing invariant above) supplies
-  their full span and lookbehind. This two-sided ownership, not the
+  their full span and lookbehind. The acceptance filter is applied to the
+  window's match list, never by advancing the scan position: a discarded
+  truncated fragment has still been matched, so filtering by position
+  would let a greedy pattern resume mid-token and split the next window
+  differently from a whole-file scan. This two-sided ownership, not the
   context size, is what removes double counting and left-edge truncation:
   every byte range is evaluated exactly once, under the same context as a
   whole-file scan, so per-file category sets match exactly.
@@ -180,7 +185,9 @@ review lane, outside the text scanner's scope.
   untruncated in the next window), candidates that end inside the previous
   window's accepted region (counted once, not re-evaluated), and digit runs
   that straddle the next window's first byte (no spurious ID from a
-  truncated trailing fragment).
+  truncated trailing fragment). The boundary sweep runs for every pattern,
+  not only `ID`: greedy patterns whose start can shift (emails, key
+  headers) are exactly the ones a discarded fragment can misalign.
 - Malformed and overlong candidates: fail closed, counted as errors.
 - Symlinks, non-regular files, submodules, unresolved entries: fail closed.
 - Giant binaries: bounded-prefix classification without full reads; a file
