@@ -7,7 +7,9 @@ municipal DWG (EPSG:2039, user export, not committed)
 53 unnamed council polygons
    |  landmark-driven union selection      [src/ginot/select.py]
    v
-Ginot HaIr polygon -> data/council_ginot_hair.geojson (committed, WGS84)
+Ginot HaIr polygon -> data/council_ginot_hair.geojson (committed, WGS84;
+   since 2026-11-17 the council's own 2021 service-map boundary, issue #529 -
+   the municipal-layer derivation above is kept for reference, superseded)
    |  ArcGIS spatial intersect (curl)      [src/ginot/iplan.py]
    v
 plan features (iplan public API, EPSG:2039)

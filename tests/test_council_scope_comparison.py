@@ -83,9 +83,31 @@ def test_candidate_is_explicitly_old_official_map_and_valid_geometry():
         (ROOT / "docs/design/council-map-2021-candidate.json").read_text()
     )
     assert candidate["properties"]["pdf_creation_date"] == "2021-10-13"
-    assert "NOT production" in candidate["properties"]["name"]
+    assert "adopted 2026-11-17" in candidate["properties"]["name"]
     assert candidate["properties"]["source_area_m2"] == pytest.approx(3147067, abs=1)
     assert comparison.shape(candidate["geometry"]).is_valid
+
+
+def test_production_boundary_carries_the_2021_geometry_and_provenance():
+    candidate = json.loads(
+        (ROOT / "docs/design/council-map-2021-candidate.json").read_text()
+    )
+    prod = json.loads((ROOT / "data/council_ginot_hair.geojson").read_text())
+    # The production polygon is the candidate's exterior ring: its single
+    # 13 m2 seam-artifact interior ring was removed on adoption (the
+    # candidate keeps the verbatim extraction).
+    assert comparison.shape(prod["geometry"]).exterior.equals(
+        comparison.shape(candidate["geometry"]).exterior
+    )
+    assert len(comparison.shape(prod["geometry"]).interiors) == 0
+    props = prod["properties"]
+    assert props["pdf_creation_date"] == "2021-10-13"
+    assert props["source_url"] == candidate["properties"]["source_url"]
+    assert props["source_sha256"] == candidate["properties"]["source_sha256"]
+    assert props["method"] == candidate["properties"]["method"]
+    assert props["maximum_grid_fit_residual_m"] == pytest.approx(0.0001434)
+    assert props["area_km2"] == pytest.approx(3.147, abs=0.001)
+    assert "issue #529" in props["source"]
 
 
 # Section: Source extraction controls
