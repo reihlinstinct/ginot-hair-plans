@@ -47,8 +47,13 @@ several northern edges. It is not simply a strict subset of the old export.
 
 The owner decided to adopt the 2021 boundary as the production council
 polygon (issue #529). `data/council_ginot_hair.geojson` now carries this
-candidate's geometry with its full provenance (source URL, PDF creation
-date, SHA-256, extraction method, accuracy caveat); the previous
+candidate's geometry with one adjustment: the candidate's single interior
+ring - a 13 m2, 3-vertex seam triangle where two source paths fail to meet
+- was removed after verification against the source PDF (the printed map
+shows continuous boundary lines at that junction, no enclave); the
+candidate file keeps the verbatim extraction. Full provenance (source URL,
+PDF creation date, SHA-256, extraction method, grid-fit residual, accuracy
+caveat) is carried in the production geojson properties; the previous
 municipal-layer union (#37+#39+#46, 6.097 km2) is superseded. This file
 remains the extraction artifact and comparison record.
 

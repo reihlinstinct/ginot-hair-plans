@@ -10,7 +10,10 @@
   "source_sha256": "10dfabe81f8bec0c128bb133e2dd7a4ce7dba7b9e52a6ae8c1d829f25a371112",
   "accuracy_note": "Fit residual measures reproduction of printed grid only, not source map accuracy or boundary currency. PDF is an old service map, not a current authoritative cadastral boundary.",
   "crs_note": "coordinates WGS84 (EPSG:4326); authoritative CRS of source is EPSG:2039",
-  "area_km2": 3.147
+  "area_km2": 3.147,
+  "method": "Union of five closed blue vector paths; affine fit to printed ITM grid labels; EPSG:2039 to EPSG:4326. Not digitized from screenshot.",
+  "maximum_grid_fit_residual_m": 0.0001434,
+  "geometry_note": "One 13 m2 seam-artifact interior ring from the vector union removed (3-vertex triangle at ITM ~220651,631268 where two source paths fail to meet; verified against the source PDF - the printed map shows continuous boundary lines at that junction and no enclave). The verbatim extraction, with the ring, is preserved in docs/design/council-map-2021-candidate.json."
  },
  "geometry": {
   "type": "Polygon",
@@ -3171,24 +3174,6 @@
     [
      35.22378699981693,
      31.768225020737795
-    ]
-   ],
-   [
-    [
-     35.21709224454229,
-     31.774086354952136
-    ],
-    [
-     35.21709616018631,
-     31.774119760349247
-    ],
-    [
-     35.21701374676718,
-     31.77405998061346
-    ],
-    [
-     35.21709224454229,
-     31.774086354952136
     ]
    ]
   ]

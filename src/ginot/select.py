@@ -8,6 +8,9 @@ municipal GIS screenshot of the גינות העיר outline, Oct 2026).
 Result with the Oct-2026 export: polygons #37 + #39 + #46
 (Rehavia/Talbiya/Komemiyut/German+Greek Colony + Old Katamon + Gonenim/Givat
 Hordim), ~6.10 km2. Baka, Shaare Hesed and Lev HaIr stay outside.
+Superseded as the production boundary 2026-11-17 (issue #529): the
+production polygon is now the council's own 2021 service-map boundary; this
+module is kept for reference.
 """
 
 from pyproj import Transformer
