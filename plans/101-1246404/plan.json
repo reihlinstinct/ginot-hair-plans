@@ -10,7 +10,7 @@
  "depositing_date": "2024-09-29",
  "pl_last_deposit_date": "2025-04-22",
  "pl_date_advertise": "2025-02-21",
- "pl_date_8_approval": "",
+ "pl_date_8_approval": "2026-11-09",
  "objection_deadline_derived_60d_from_publication": "2025-04-22",
  "objection_deadline_derived_2m_from_publication": "2025-04-21",
  "pl_area_dunam": 0.844,
@@ -19,9 +19,9 @@
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1005324064/310",
  "mp_id": 1005324064.0,
  "jurstiction_area_name": "ירושלים",
- "last_update_date": "2026-10-29",
- "land_status": "פרסום לתוקף בעיתונים",
- "land_status_date": "2026-11-05",
+ "last_update_date": "2026-11-12",
+ "land_status": "פרסום לתוקף ברשומות",
+ "land_status_date": "2026-11-09",
  "land_plan_id": 1056132,
  "advisory_urgent": false
 }
