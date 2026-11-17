@@ -1,11 +1,9 @@
 """Daily active-publications diff for the Rishui149 watch (issue #527).
 
-Scope: Ginot HaIr council polygon ONLY. A publication is in scope iff its tik
-resolves (via the tracker's permit rows) to a parcel inside the council
-polygon parcel set; neighborhood-name matching is not used. Rewrites the
-committed baseline (in-polygon + unresolved rows only), and writes new
-in-polygon publications (with PD900 objection deadlines) plus unresolved new
-rows for agent follow-up. First run seeds the baseline without an alert storm.
+Scope: the seven council neighborhoods AND a parcel inside the council
+polygon, or explicit official-address point evidence for unknown parcel joins.
+Rewrites the baseline (inside + unresolved rows) and reports new or newly
+resolved rows. First run seeds the baseline without an alert storm.
 """
 
 from __future__ import annotations
@@ -16,7 +14,9 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from publication_points import load_points, resolve_official_points
 from rishui_publish import (
+    SCOPE_SCHN,
     detect_new,
     load_parcel_keys,
     load_tik_parcels,
@@ -76,6 +76,16 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--parcels", required=True, help="data/ginot_hair_parcels.geojson"
     )
+    parser.add_argument(
+        "--point-evidence",
+        default="data/publication_point_evidence.json",
+        help="curated municipal-address point evidence for unresolved joins",
+    )
+    parser.add_argument(
+        "--council",
+        default="data/council_ginot_hair.geojson",
+        help="council boundary GeoJSON (repo-root relative default)",
+    )
     parser.add_argument("--out-active", required=True, help="baseline to write")
     parser.add_argument("--out-new", required=True, help="alert payload to write")
     args = parser.parse_args(argv)
@@ -87,9 +97,26 @@ def main(argv: list[str] | None = None) -> int:
         load_tik_parcels(Path(args.permits)),
         load_parcel_keys(Path(args.parcels)),
     )
+    resolve_official_points(
+        new_rows, load_points(Path(args.point_evidence)), Path(args.council), SCOPE_SCHN
+    )
     baseline, payload, seeded = update(old_rows, new_rows)
     write_json(Path(args.out_active), baseline)
     write_json(Path(args.out_new), payload)
+    if not seeded:
+        old_flags = {r.get("myIndex"): r.get("in_polygon") for r in old_rows or []}
+        for row in baseline:
+            if (
+                old_flags.get(row.get("myIndex")) is True
+                and row["in_polygon"] is not True
+            ):
+                # A once-resolved row falling back to unknown (e.g. its
+                # evidence record was removed) is not fresh and not
+                # "resolved", so update() stays silent; surface it here.
+                print(
+                    f"  REGRESSED {row['tik_num']} | {row.get('street')} "
+                    f"{row.get('house_number')} | was in-polygon, now unresolved"
+                )
     if seeded:
         print(
             f"seeded baseline with {len(baseline)} in-scope publications; no alert entries"
@@ -102,6 +129,8 @@ def main(argv: list[str] | None = None) -> int:
         for row in payload["new_in_polygon"] + payload["unresolved_new"]:
             deadline = row["objection_deadline"] or "-"
             marker = "" if row["in_polygon"] else " [UNRESOLVED]"
+            if row.get("in_polygon_source") == "publication_point_evidence":
+                marker += " [POINT-EVIDENCE]"
             print(
                 f"  NEW {row['tik_num']} | {row['street']} {row['house_number']} | "
                 f"{row['neighborhood']} | published {row['publication_date']} | deadline {deadline}{marker}"
