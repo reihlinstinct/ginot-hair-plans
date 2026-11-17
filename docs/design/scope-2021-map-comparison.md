@@ -43,12 +43,22 @@ The overlay was inspected visually against the source map: the candidate
 omits much of the broad export's southern extension and also differs at
 several northern edges. It is not simply a strict subset of the old export.
 
+## Adoption, 17 November 2026
+
+The owner decided to adopt the 2021 boundary as the production council
+polygon (issue #529). `data/council_ginot_hair.geojson` now carries this
+candidate's geometry with its full provenance (source URL, PDF creation
+date, SHA-256, extraction method, accuracy caveat); the previous
+municipal-layer union (#37+#39+#46, 6.097 km2) is superseded. This file
+remains the extraction artifact and comparison record.
+
 ## Reproduction and safety
 
-The candidate is stored only in
-`docs/design/council-map-2021-candidate.json`, outside production data
-paths. It records the source URL, source SHA-256, date, extraction method and
-accuracy caveat. The source PDF is not added to the repository.
+The candidate is stored in
+`docs/design/council-map-2021-candidate.json` and, since 2026-11-17, as
+the production boundary in `data/council_ginot_hair.geojson`. Both record
+the source URL, source SHA-256, date, extraction method and accuracy
+caveat. The source PDF is not added to the repository.
 
 With PyMuPDF installed as an optional local research dependency, download the
 exact source PDF, then:

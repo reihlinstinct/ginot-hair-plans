@@ -49,7 +49,12 @@ human reviewer.
 2. `src/ginot/select.py` - the municipal layer ships 53 *unnamed* polygons;
    Ginot HaIr is identified geometrically (landmark-driven greedy union,
    verified against the municipal GIS outline, Oct 2026): polygons #37+#39+#46,
-   ~6.10 km2. Committed derived result: `data/council_ginot_hair.geojson`.
+   ~6.10 km2. SUPERSEDED 2026-11-17 (issue #529, owner decision): the
+   production boundary in `data/council_ginot_hair.geojson` is now the
+   council's own 2021 service-map boundary (~3.15 km2; extraction and
+   provenance: `docs/design/council-map-2021-candidate.json`,
+   `docs/design/scope-2021-map-comparison.md`, `scripts/extract_council_scope_2021.py`).
+   The municipal-layer derivation is kept for reference.
 3. `src/ginot/iplan.py` - spatial-intersect query against
    `https://ags.iplan.gov.il/arcgisiplan/rest/services/PlanningPublic/<service>/MapServer/1/query`
    (`xplan_without_77_78` for active plans; `Xplan_77_78` for the 77/78 track).
