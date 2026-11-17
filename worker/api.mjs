@@ -111,7 +111,7 @@ const STATS_DAYS = 30;
 const DICT_TTL_MS = 300_000; // rebuild the key dictionary at most every 5 min
 const SUMMARY_MAX_KEYS = 500; // bound KV reads per summary call
 const SUMMARY_CACHE_KEY = STATS_PREFIX + "summary-cache";
-const SUMMARY_CACHE_TTL = 900; // seconds; fresh enough for aggregate counters
+const SUMMARY_CACHE_TTL = 3600; // seconds; one KV list per hour per colo keeps the free list quota safe
 
 function dayKey(d) { return d.toISOString().slice(0, 10); }
 
@@ -161,18 +161,8 @@ async function keyDictionary(fetchImpl) {
   return dictCache.keys;
 }
 
-async function recordStat(env, e, k) {
-  // Best-effort: a KV failure (quota, outage) must never break the API.
-  // The read-modify-write increment is not atomic (KV has no atomic add), so
-  // bursts on the same key can lose a few counts - acceptable for approximate
-  // usage statistics, and documented as such.
-  try {
-    const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
-    const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
-    await env.STATS.put(key, String(cur + 1), { expirationTtl: (STATS_DAYS + 7) * 86400 });
-    return true;
-  } catch { return false; }
-}
+// recordStat is gone: events are buffered by bumpEvent and written in the
+// 15-min flush (see above), so a POST never touches KV synchronously.
 
 // Per-source request counters ("who does what"), classified server-side into
 // a closed set. src is client-asserted (anyone can claim "mirror"), so these
@@ -196,10 +186,10 @@ const SRC_FLUSH_MS = 900_000; // 15 min: <=96 writes/source/day/isolate
 // Pending counts are scoped per KV binding (prod has one binding per
 // isolate; tests use separate fakes, so a shared Map would leak between
 // them). JS Map keys here: the WeakMap key is the binding object.
-const srcState = new WeakMap(); // STATS binding -> { pending: Map, lastFlush: number }
+const srcState = new WeakMap(); // STATS binding -> { pending, pendingEvents, lastFlush }
 function srcStateFor(env) {
   let st = srcState.get(env.STATS);
-  if (!st) { st = { pending: new Map(), lastFlush: 0 }; srcState.set(env.STATS, st); }
+  if (!st) { st = { pending: new Map(), pendingEvents: new Map(), chain: null, lastFlush: 0 }; srcState.set(env.STATS, st); }
   return st;
 }
 function bumpSrc(env, src) {
@@ -207,57 +197,117 @@ function bumpSrc(env, src) {
   const st = srcStateFor(env);
   st.pending.set(src, (st.pending.get(src) || 0) + 1);
 }
-async function flushSrc(env) {
+// Event counters are buffered in-isolate and written by the same 15-min
+// flush as by_src: a per-event read-modify-write costs one KV read + one
+// KV write per POST, and the free plan's daily write quota nearly breached
+// on the first busy day. Buffering turns N posts into at most one
+// read-modify-write per counter key per flush window, and a forced flush
+// at FLUSH_PENDING_FORCE buffered EVENT counts bounds the burst loss:
+// counts are lost only if the isolate is evicted before the next flush,
+// at most FLUSH_PENDING_FORCE - 1 event counts per eviction - a bound
+// that holds while no flush or summary is in progress; a long summary
+// slot (one chain slot per list+get pass) lets the buffer grow past it
+// until that slot ends.
+const FLUSH_PENDING_FORCE = 25;
+function bumpEvent(env, e, k) {
+  if (!env.STATS) return false;
+  const st = srcStateFor(env);
+  const key = STATS_PREFIX + dayKey(new Date()) + ":" + e + ":" + k;
+  st.pendingEvents.set(key, (st.pendingEvents.get(key) || 0) + 1);
+  return true;
+}
+function pendingEventsTotal(st) {
+  let n = 0;
+  for (const c of st.pendingEvents.values()) n += c;
+  return n;
+}
+// Flushes and summary reads run through one per-isolate promise chain, so
+// a flush's read-modify-write can never overlap another flush, and a
+// summary's KV reads + pending merge are one chain slot that no flush can
+// interleave with. Without the chain, a forced flush can overlap a slower
+// one (both read the same cur, the later put wins) and a summary can cache
+// an undercount for the whole cache TTL.
+function enqueueState(st, fn) {
+  const run = (st.chain || Promise.resolve()).then(fn, fn);
+  st.chain = run.catch(() => {});
+  return run;
+}
+async function writeCount(env, key, n) {
+  try {
+    const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
+    await env.STATS.put(key, String(cur + n), { expirationTtl: (STATS_DAYS + 7) * 86400 });
+  } catch { /* dropped on a KV failure - approximate counters, as before */ }
+}
+async function flushSrc(env, force = false) {
   if (!env.STATS) return;
   const st = srcStateFor(env);
-  if (st.pending.size === 0) return;
-  if (Date.now() - st.lastFlush < SRC_FLUSH_MS) return;
+  if (st.pending.size === 0 && st.pendingEvents.size === 0) return;
+  if (!force && Date.now() - st.lastFlush < SRC_FLUSH_MS) return;
   st.lastFlush = Date.now();
-  const day = dayKey(new Date());
-  const entries = [...st.pending];
-  st.pending.clear();
-  for (const [s, n] of entries) {
-    try {
-      const key = STATS_PREFIX + day + ":_by_src:" + s;
-      const cur = parseInt((await env.STATS.get(key)) || "0", 10) || 0;
-      await env.STATS.put(key, String(cur + n), { expirationTtl: (STATS_DAYS + 7) * 86400 });
-    } catch { /* dropped - approximate counters */ }
-  }
+  await enqueueState(st, async () => {
+    const day = dayKey(new Date());
+    const entries = [...st.pending];
+    st.pending.clear();
+    const eventEntries = [...st.pendingEvents];
+    st.pendingEvents.clear();
+    const writes = [];
+    for (const [key, n] of eventEntries) writes.push(writeCount(env, key, n));
+    for (const [s, n] of entries) {
+      writes.push(writeCount(env, STATS_PREFIX + day + ":_by_src:" + s, n));
+    }
+    await Promise.all(writes);
+  });
 }
 
 async function statsSummary(env) {
   // Returns { ok, stats }; ok=false when the KV list failed, so the caller
-  // must not cache a partial summary.
+  // must not cache a partial summary. KV reads AND the merge of this
+  // isolate's pending counts run as one slot on the per-isolate chain, so
+  // no flush can interleave between them: every count is either in the KV
+  // values read here or still in pending, never in both or neither.
   const out = {}; // {e: {k: count}}
   const bySrc = {}; // {src: count} - underscore-prefixed control keys only
   const cutoff = dayKey(new Date(Date.now() - (STATS_DAYS - 1) * 86_400_000));
-  let cursor, read = 0, ok = true;
-  try {
-    do {
-      const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
-      cursor = page.list_complete ? undefined : page.cursor;
-      for (const { name } of page.keys) {
-        if (++read > SUMMARY_MAX_KEYS) break;
-        const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
-        if (!/^\d{4}-\d{2}-\d{2}:/.test(rest)) continue; // e.g. the summary cache key
-        const day = rest.slice(0, 10);
-        if (day < cutoff) continue; // KV TTL is STATS_DAYS+7; summary covers STATS_DAYS
-        const mid = rest.slice(11);
-        const sep = mid.indexOf(":");
-        if (sep < 0) continue;
-        const e = mid.slice(0, sep), k = mid.slice(sep + 1);
-        const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
-        if (e === "_by_src") { bySrc[k] = (bySrc[k] || 0) + v; continue; }
-        (out[e] ||= {})[k] = (out[e][k] || 0) + v;
-      }
-    } while (cursor && read <= SUMMARY_MAX_KEYS);
-  } catch { ok = false; /* KV outage mid-list: return whatever was read so far */ }
+  let ok = true;
+  await enqueueState(srcStateFor(env), async () => {
+    let cursor, read = 0;
+    try {
+      do {
+        const page = await env.STATS.list({ prefix: STATS_PREFIX, cursor });
+        cursor = page.list_complete ? undefined : page.cursor;
+        for (const { name } of page.keys) {
+          if (++read > SUMMARY_MAX_KEYS) break;
+          const rest = name.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
+          if (!/^\d{4}-\d{2}-\d{2}:/.test(rest)) continue; // e.g. the summary cache key
+          const day = rest.slice(0, 10);
+          if (day < cutoff) continue; // KV TTL is STATS_DAYS+7; summary covers STATS_DAYS
+          const mid = rest.slice(11);
+          const sep = mid.indexOf(":");
+          if (sep < 0) continue;
+          const e = mid.slice(0, sep), k = mid.slice(sep + 1);
+          const v = parseInt((await env.STATS.get(name)) || "0", 10) || 0;
+          if (e === "_by_src") { bySrc[k] = (bySrc[k] || 0) + v; continue; }
+          (out[e] ||= {})[k] = (out[e][k] || 0) + v;
+        }
+      } while (cursor && read <= SUMMARY_MAX_KEYS);
+    } catch { ok = false; /* KV outage mid-list: return whatever was read so far */ }
+    const st = srcStateFor(env); // merge this isolate's unflushed counts
+    for (const [s, n] of st.pending) bySrc[s] = (bySrc[s] || 0) + n;
+    for (const [key, n] of st.pendingEvents) {
+      const rest = key.slice(STATS_PREFIX.length); // "<day>:<e>:<k>"
+      const day = rest.slice(0, 10);
+      if (day < cutoff) continue;
+      const mid = rest.slice(11);
+      const sep = mid.indexOf(":");
+      if (sep < 0) continue;
+      const e = mid.slice(0, sep), k = mid.slice(sep + 1);
+      if (e === "_by_src") continue;
+      (out[e] ||= {})[k] = (out[e][k] || 0) + n;
+    }
+  });
   for (const e of Object.keys(out)) {
     out[e] = Object.fromEntries(
       Object.entries(out[e]).sort((a, b) => b[1] - a[1]).slice(0, 50));
-  }
-  if (env.STATS) { // merge this isolate's unflushed counts
-    for (const [s, n] of srcStateFor(env).pending) bySrc[s] = (bySrc[s] || 0) + n;
   }
   return { ok, stats: out, by_src: bySrc };
 }
@@ -270,7 +320,7 @@ const INDEX = {
     "/permits": "בקשות היתר. פרמטרים: street, status, type, q, limit",
     "/open": "תכניות פתוחות (כמו open.json הסטטי)",
     "/status": "תאריך עדכון ומונים",
-    "/stats/event": "POST אירוע שימוש אנונימי {e, k} - מונים מצטברים בלבד, בלי טקסט חופשי ובלי IP",
+    "/stats/event": "POST אירוע שימוש אנונימי {e, k} - מונים מצטברים בלבד, בלי טקסט חופשי ובלי IP; recorded:true = התקבל ונשמר בזיכרון המקומי עד הכתיבה המרוכזת (עד ~15 דק')",
     "/stats/summary": "מוני השימוש המצטברים (30 יום), ציבורי",
   },
   source: "https://github.com/reihlinstinct/ginot-hair-plans",
@@ -311,14 +361,17 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}, ctx = 
       const dict = await keyDictionary(fetchImpl);
       if (!dict.has(k)) k = "other";
     }
-    const ok = await recordStat(env, e, k);
+    const ok = bumpEvent(env, e, k);
     bumpSrc(env, src);
-    if (ctx && ctx.waitUntil) ctx.waitUntil(flushSrc(env)); else await flushSrc(env);
+    // Bound the burst loss: force a flush when the isolate already holds
+    // FLUSH_PENDING_FORCE unwritten event counts, so eviction loses fewer.
+    const flush = flushSrc(env, pendingEventsTotal(srcStateFor(env)) >= FLUSH_PENDING_FORCE);
+    if (ctx && ctx.waitUntil) ctx.waitUntil(flush); else await flush;
     return json({ recorded: ok }, { status: ok ? 202 : 500 });
   }
   if (url.pathname === "/stats/summary" && request.method === "GET") {
     if (!env.STATS) return json({ error: "stats not configured" }, { status: 503 });
-    // Cache the computed summary in a single KV key with a 15-min TTL: an
+    // Cache the computed summary in a single KV key with a 1-hour TTL: an
     // uncached call lists every stats key in KV, and the free plan's daily
     // list quota is small (#990). KV (not the Cache API, which is a no-op on
     // workers.dev-only deployments) so the cache works on every request path.
