@@ -114,7 +114,11 @@ test("/stats/event flushes buffered counts into KV on the first request", async 
   assert.equal(sum.events.search.other, 2);
 });
 
-test("/stats/summary counts events whose flush is still in flight", async () => {
+test("/stats/summary waits for a forced flush: reads and merge are one serialized slot", async () => {
+  // Regression: the summary used to read KV first and merge in-flight counts
+  // afterwards, so a flush put landing between the two made a count vanish
+  // from the summary for the whole cache TTL. Now the flush and the
+  // summary's reads+merge run as serialized slots on one per-isolate chain.
   const m = new Map();
   const slow = () => new Promise((r) => setTimeout(r, 20));
   const kv = {
@@ -128,18 +132,116 @@ test("/stats/summary counts events whose flush is still in flight", async () => 
   };
   const env = { STATS: kv };
   const post = () => new Request("https://x.workers.dev/stats/event",
-    { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ e: "search", k: "other" }) });
+    { method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": "10.20.0.1" },
+      body: JSON.stringify({ e: "search", k: "other" }) });
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "stats:v1:" + today + ":search:other";
   await handleRequest(post(), stub, env); // first request: immediate flush
   const waits = [];
   const ctx = { waitUntil(p) { waits.push(p); } };
   // Enough buffered posts to force a flush; with ctx it is NOT awaited, so
   // its slow KV puts are still in flight when the summary GET arrives.
   for (let i = 0; i < 25; i++) await handleRequest(post(), stub, env, ctx);
-  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env, ctx);
+  const r = await handleRequest(new Request("https://x.workers.dev/stats/summary",
+    { headers: { "cf-connecting-ip": "10.20.0.1" } }), stub, env, ctx);
   const sum = await r.json();
-  // KV holds only the first flush; the rest sit in the in-flight merge.
-  assert.equal(sum.events.search.other, 26);
+  assert.equal(sum.events.search.other, 26); // first flush + forced flush
   await Promise.all(waits);
+  assert.equal(await kv.get(key), "26"); // nothing lost, nothing double-counted
+});
+
+test("a summary cannot interleave with a forced flush's read-modify-write", async () => {
+  // The flush's put is parked while the summary reads the old value, then
+  // lands before the merge: without the chain the count is in neither KV
+  // (as read) nor the in-flight map (already cleared) - summary undercounts.
+  const m = new Map();
+  let releasePut = null;
+  const kv = {
+    async get(k) {
+      if (k.endsWith(":search:other2")) await new Promise((r) => setTimeout(r, 30));
+      return m.has(k) ? m.get(k) : null;
+    },
+    async put(k, v) {
+      // Park the forced flush's put of the target key: the first flush
+      // wrote "1", so a re-put while the stored value is still "1" is it.
+      if (k.endsWith(":search:other") && m.get(k) === "1") {
+        await new Promise((r) => { releasePut = r; });
+      }
+      m.set(k, v);
+    },
+    async list({ prefix }) {
+      return { list_complete: true,
+               keys: [...m.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) };
+    },
+  };
+  const env = { STATS: kv };
+  const post = (k) => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": "10.20.0.2" },
+      body: JSON.stringify({ e: "search", k }) });
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "stats:v1:" + today + ":search:other";
+  await handleRequest(post("other"), stub, env); // immediate flush: put 1
+  m.set("stats:v1:" + today + ":search:other2", "3"); // a later key, read slowly
+  const waits = [];
+  const ctx = { waitUntil(p) { waits.push(p); } };
+  for (let i = 0; i < 25; i++) await handleRequest(post("other"), stub, env, ctx); // forced flush, put parked
+  const sumP = handleRequest(new Request("https://x.workers.dev/stats/summary",
+    { headers: { "cf-connecting-ip": "10.20.0.2" } }), stub, env, ctx);
+  // The summary is either mid-reads (old code) or queued behind the flush
+  // (chain). Landing the put now is the racy interleaving for the old code.
+  setTimeout(() => { if (releasePut) releasePut(); }, 10);
+  const sum = await (await sumP).json();
+  assert.equal(sum.events.search.other, 26);
+  assert.equal(sum.events.search.other2, 3);
+  await Promise.all(waits);
+  assert.equal(await kv.get(key), "26");
+});
+
+test("overlapping forced flushes cannot lose counts (serialized via the chain)", async () => {
+  // 50 buffered posts trigger two forced flushes; with slow KV both used to
+  // read the same cur and the later put won, losing 25 counts.
+  const m = new Map();
+  const slow = () => new Promise((r) => setTimeout(r, 20));
+  const kv = {
+    async get(k) { await slow(); return m.has(k) ? m.get(k) : null; },
+    async put(k, v) { await slow(); m.set(k, v); },
+    async list({ prefix }) {
+      return { list_complete: true,
+               keys: [...m.keys()].filter((k) => k.startsWith(prefix)).map((name) => ({ name })) };
+    },
+  };
+  const env = { STATS: kv };
+  const post = () => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": "10.20.0.3" },
+      body: JSON.stringify({ e: "search", k: "other" }) });
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "stats:v1:" + today + ":search:other";
+  await handleRequest(post(), stub, env); // first request: immediate flush
+  const waits = [];
+  const ctx = { waitUntil(p) { waits.push(p); } };
+  for (let i = 0; i < 50; i++) await handleRequest(post(), stub, env, ctx); // two forced flushes
+  await Promise.all(waits);
+  assert.equal(await kv.get(key), "51"); // 1 + 25 + 25, no lost updates
+});
+
+test("the forced flush fires at 25 buffered event counts, not at ~13", async () => {
+  // by_src counts one per post too; if the threshold sums both buffers it
+  // fires after ~13 posts. Only event counts count toward the threshold.
+  const kv = fakeKv();
+  const env = { STATS: kv };
+  const post = () => new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json", "cf-connecting-ip": "10.20.0.4" },
+      body: JSON.stringify({ e: "search", k: "other" }) });
+  const today = new Date().toISOString().slice(0, 10);
+  const key = "stats:v1:" + today + ":search:other";
+  await handleRequest(post(), stub, env); // immediate flush
+  const waits = [];
+  const ctx = { waitUntil(p) { waits.push(p); } };
+  for (let i = 0; i < 24; i++) await handleRequest(post(), stub, env, ctx);
+  assert.equal(await kv.get(key), "1"); // 24 buffered event counts: no flush yet
+  await handleRequest(post(), stub, env, ctx); // the 25th forces a flush
+  await Promise.all(waits);
+  assert.equal(await kv.get(key), "26");
 });
 
 test("/stats/summary covers only the last 30 days, not the 37-day TTL", async () => {
