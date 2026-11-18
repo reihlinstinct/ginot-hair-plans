@@ -33,6 +33,11 @@ def test_sub_area_carries_the_parent_neighborhood():
     assert "קטמון הישנה" in tags and "קטמון" in tags
 
 
+def test_lincoln_street_is_talbiya():
+    # Lincoln 13's plan name has no neighborhood word (user report 18.11.2026).
+    assert "טלביה" in neighborhoods.tags_for("התחדשות עירונית - לינקולן 13")
+
+
 def test_variants_are_searchable():
     tags = neighborhoods.tags_for("תוספת שטחים בחובבי ציון 5")
     assert "טלביא" in tags  # the spelling variant is appended, not required
