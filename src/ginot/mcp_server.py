@@ -93,53 +93,71 @@ def public(row):
     return {k: row[k] for k in PUBLIC_FIELDS if k in row}
 
 
+def _search_plans(rows, args):
+    q = str(args.get("query", "")).strip().lower()
+    limit = min(max(int(args.get("limit", 20)), 1), 50)
+    hits = [
+        r
+        for r in rows
+        if not q
+        or q
+        in " ".join(
+            str(r.get(k, ""))
+            for k in ("pl_number", "pl_name", "station_desc", "entity_subtype_desc")
+        ).lower()
+    ]
+    return {"total_matches": len(hits), "plans": [public(r) for r in hits[:limit]]}
+
+
+def _get_plan(rows, args):
+    number = str(args.get("pl_number", "")).strip()
+    for r in rows:
+        if r.get("pl_number") == number:
+            return public(r)
+    raise ToolError("plan not found")
+
+
+def _window_row(row, start, days):
+    """One plan's derived-window entry, or None when outside the window."""
+    raw = row.get("objection_deadline_derived_2m_from_publication")
+    try:
+        end = datetime.date.fromisoformat(raw)
+    except (TypeError, ValueError):
+        return None
+    left = (end - start).days
+    if 0 <= left <= days and "הפקדה" in str(row.get("station_desc", "")):
+        return {**public(row), "days_left_derived": left}
+    return None
+
+
+def _upcoming_objection_windows(rows, args):
+    days = min(max(int(args.get("days", 30)), 0), 365)
+    try:
+        start = (
+            datetime.date.fromisoformat(args["as_of"])
+            if args.get("as_of")
+            else today_il()
+        )
+    except ValueError:
+        raise ToolError("as_of must be YYYY-MM-DD")
+    out = [w for r in rows if (w := _window_row(r, start, days)) is not None]
+    out.sort(key=lambda r: (r["days_left_derived"], r["pl_number"]))
+    return {"as_of": start.isoformat(), "note": DERIVED_NOTE, "plans": out}
+
+
 def call_tool(data, name, args):
     rows = data["rows"]
-    if name == "search_plans":
-        q = str(args.get("query", "")).strip().lower()
-        limit = min(max(int(args.get("limit", 20)), 1), 50)
-        hits = [
-            r
-            for r in rows
-            if not q
-            or q
-            in " ".join(
-                str(r.get(k, ""))
-                for k in ("pl_number", "pl_name", "station_desc", "entity_subtype_desc")
-            ).lower()
-        ]
-        return {"total_matches": len(hits), "plans": [public(r) for r in hits[:limit]]}
-    if name == "get_plan":
-        number = str(args.get("pl_number", "")).strip()
-        for r in rows:
-            if r.get("pl_number") == number:
-                return public(r)
-        raise ToolError("plan not found")
-    if name == "upcoming_objection_windows":
-        days = min(max(int(args.get("days", 30)), 0), 365)
-        try:
-            start = (
-                datetime.date.fromisoformat(args["as_of"])
-                if args.get("as_of")
-                else today_il()
-            )
-        except ValueError:
-            raise ToolError("as_of must be YYYY-MM-DD")
-        out = []
-        for r in rows:
-            raw = r.get("objection_deadline_derived_2m_from_publication")
-            try:
-                end = datetime.date.fromisoformat(raw)
-            except (TypeError, ValueError):
-                continue
-            left = (end - start).days
-            if 0 <= left <= days and "הפקדה" in str(r.get("station_desc", "")):
-                out.append({**public(r), "days_left_derived": left})
-        out.sort(key=lambda r: (r["days_left_derived"], r["pl_number"]))
-        return {"as_of": start.isoformat(), "note": DERIVED_NOTE, "plans": out}
+    handlers = {
+        "search_plans": _search_plans,
+        "get_plan": _get_plan,
+        "upcoming_objection_windows": _upcoming_objection_windows,
+    }
     if name == "data_status":
         return {"generated": data.get("generated"), "plans": len(rows)}
-    raise ToolError("unknown tool")
+    handler = handlers.get(name)
+    if handler is None:
+        raise ToolError("unknown tool")
+    return handler(rows, args)
 
 
 def handle(data, msg):
