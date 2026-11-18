@@ -120,3 +120,26 @@ def test_schema_files_exist_and_parse():
         "changes.schema.json",
         "meta.schema.json",
     }
+
+
+# Section: human docs + OpenAPI description (#122)
+
+
+def test_openapi_description_matches_the_emitted_endpoints():
+    spec = json.loads((SCHEMA_DIR.parent / "openapi.json").read_text())
+    assert spec["openapi"] == "3.1.0"
+    assert set(spec["paths"]) == {
+        "/api/v1/plans.json",
+        "/api/v1/permits.json",
+        "/api/v1/changes.json",
+        "/api/v1/meta.json",
+    }
+    for path in spec["paths"].values():
+        assert set(path) == {"get"}
+
+
+def test_api_md_documents_the_contract_and_the_disclaimer():
+    doc = (SCHEMA_DIR.parents[2] / "API.md").read_text(encoding="utf-8")
+    assert "api/v1/plans.json" in doc and "api_version" in doc
+    assert "DRAFT" in doc  # advisory disclaimer, never a legal determination
+    assert "data.json" in doc  # deprecated alias for one release
