@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reihlinstinct.github.io/ginot-hair-plans/api/v1/schema/changes.schema.json",
+  "title": "changes",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "kind",
+      "pl_number"
+    ],
+    "properties": {
+      "kind": {
+        "type": "string"
+      },
+      "pl_number": {
+        "type": "string"
+      },
+      "pl_name": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "from": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "to": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "mavat_url": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "additionalProperties": true
+  }
+}

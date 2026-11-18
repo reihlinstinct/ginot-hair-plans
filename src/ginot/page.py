@@ -1553,3 +1553,8 @@ def render_site(
             fh,
             ensure_ascii=False,
         )
+    # Versioned read-only contract (#121): api/v1/*.json + schema files
+    # (static/api/v1/schema/, copied by the static copytree above).
+    from .public_api import write_v1
+
+    write_v1(out_dir, rows, changes, permits, generated)

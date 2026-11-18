@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reihlinstinct.github.io/ginot-hair-plans/api/v1/schema/permits.schema.json",
+  "title": "permits",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "tik_num"
+    ],
+    "properties": {
+      "tik_num": {
+        "type": "string"
+      },
+      "status": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "status_date": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "address": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "gush": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "helka": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "publication_start": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "publication_end_planned": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "additionalProperties": true
+  }
+}
