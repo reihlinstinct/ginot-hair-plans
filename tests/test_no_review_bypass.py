@@ -93,6 +93,13 @@ ALLOWLIST = [
         "github.ref == 'refs/heads/main'",
         "Pages build: deploys the reviewed merged main commit only (#959); merges nothing, requests no builds; flip and permissions pending the owner decision at merge time",
     ),
+    (
+        "data-automerge.yml",
+        "rest-merge",
+        "/pulls/$MERGE_PR/merge -f merge_method=squash -f sha=$MERGE_SHA -f commit_title=$MERGE_TITLE -f commit_message=Auto-merged by data-automerge.yml (issue 1037).",
+        "vars.DATA_AUTOMERGE_ENABLED == 'true'",
+        "guarded data-only auto-merge (#1037): runs from the default branch after data_pr_automerge.py validates the PR; sha binding pins the exact validated head; kill-switch variable ships off",
+    ),
 ]
 
 # Workflow-level permissions that are known and reviewed elsewhere.
