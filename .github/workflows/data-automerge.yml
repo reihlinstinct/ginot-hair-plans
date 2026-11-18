@@ -1,0 +1,56 @@
+name: Data PR auto-merge
+
+# Issue #1037: guarded auto-merge for the four automated data producers
+# (permit-feed/, weekly-refresh/, mirror-ingest/, publications/ branches).
+# Data-only path allowlist, JSON sanity, secrets/PII scan, green CI at the
+# exact head, exact-head squash merge - all enforced by
+# scripts/ci/data_pr_automerge.py, which runs from the default branch so a
+# data PR can never change its own guard.
+# KILL SWITCH: inert until the repo variable DATA_AUTOMERGE_ENABLED is set
+# to 'true' (owner go-ahead). Ships disabled.
+
+on:
+  schedule:
+    - cron: "7,27,47 * * * *"   # every 20 min, offset from the producers
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data-automerge
+  cancel-in-progress: false
+
+jobs:
+  automerge:
+    if: ${{ vars.DATA_AUTOMERGE_ENABLED == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      # All writes (comment + squash merge) go through the refresh PAT;
+      # GITHUB_TOKEN stays read-only (scorecard guard, #1037).
+      contents: read
+    outputs:
+      merge_pr: ${{ steps.guard.outputs.merge_pr }}
+      merge_sha: ${{ steps.guard.outputs.merge_sha }}
+      merge_title: ${{ steps.guard.outputs.merge_title }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d4684a0eae5e # v6
+        with:
+          python-version: "3.13"
+      - name: Guarded sweep (validate only, one candidate per run)
+        id: guard
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+        run: python3 scripts/ci/data_pr_automerge.py --repo "$GITHUB_REPOSITORY" --max-merges 1
+      - name: Squash-merge the validated PR (exact-head sha binding)
+        if: vars.DATA_AUTOMERGE_ENABLED == 'true' && steps.guard.outputs.merge_pr != ''
+        env:
+          GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
+          MERGE_PR: ${{ steps.guard.outputs.merge_pr }}
+          MERGE_SHA: ${{ steps.guard.outputs.merge_sha }}
+          MERGE_TITLE: ${{ steps.guard.outputs.merge_title }}
+        run: gh api -X PUT "repos/$GITHUB_REPOSITORY/pulls/$MERGE_PR/merge" -f merge_method=squash -f sha="$MERGE_SHA" -f commit_title="$MERGE_TITLE" -f commit_message="Auto-merged by data-automerge.yml (issue 1037)."
