@@ -53,7 +53,11 @@ curl -s https://reihlinstinct.github.io/ginot-hair-plans/api/v1/plans.json \
 
 ```python
 import json, urllib.request
-meta = json.load(urllib.request.urlopen(
-    "https://reihlinstinct.github.io/ginot-hair-plans/api/v1/meta.json"))
+
+meta = json.load(
+    urllib.request.urlopen(
+        "https://reihlinstinct.github.io/ginot-hair-plans/api/v1/meta.json"
+    )
+)
 print(meta["api_version"], meta["generated"])
 ```
