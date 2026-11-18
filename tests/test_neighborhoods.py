@@ -252,3 +252,10 @@ def test_nonempty_search_overrides_approved_hiding(tmp_path):
     page.render_site([_plan_row("1", "תכנית", status="אישור")], [], str(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "data-active')!=='1'&&!normSearch(fq.value)" in html
+
+
+def test_kiryat_shmuel_unique_streets():
+    # הרב חן (23/23) and חיים ברודי (19/19): every geolocated permit
+    # parcel on these streets sits in קריית שמואל (#1006, JTMT join).
+    assert "קרית שמואל" in neighborhoods.tags_for("תוספת יח\"ד ברח' הרב חן 4")
+    assert "קרית שמואל" in neighborhoods.tags_for("שינוי הוראות בחיים ברודי 7")
