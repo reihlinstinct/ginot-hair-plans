@@ -360,6 +360,32 @@ def load_parcel_list(path, known):
     return sorted(out & known)
 
 
+def _record_sighting(requests, r, gush, helka):
+    """Record a tik sighted on a parcel. The FIRST scanned parcel keeps
+    the gush/helka identity fields (never silently rewritten by a later
+    sighting); every sighting is appended to parcels_observed in scan
+    order, so a multi-parcel tik documents all its observed parcels and
+    scan-order movement is visible instead of silent (#880)."""
+    tik = r.get("tik_num")
+    rec = requests.get(tik)
+    if rec is None:
+        requests[tik] = {
+            "tik_num": tik,
+            "mahut": (r.get("mahut_bakasha") or "").strip(),
+            "sugbakasha": (r.get("teurSugbakasha") or "").strip(),
+            "status": (r.get("teurStatus") or "").strip(),
+            "status_date": ddmmyyyy(r.get("taarih_status")),
+            "gush": gush,
+            "helka": helka,
+            "parcels_observed": [[gush, helka]],
+        }
+        return
+    pair = [gush, helka]
+    rec.setdefault("parcels_observed", [])
+    if pair not in rec["parcels_observed"]:
+        rec["parcels_observed"].append(pair)
+
+
 def prior_batch_cursor(path, default):
     """The feed's existing backfill cursor, so a re-check never moves it."""
     try:
@@ -522,17 +548,9 @@ def main():
         failures = 0
         for r in rows if isinstance(rows, list) else []:
             tik = r.get("tik_num")
-            if not tik or tik in requests:
+            if not tik:
                 continue
-            requests[tik] = {
-                "tik_num": tik,
-                "mahut": (r.get("mahut_bakasha") or "").strip(),
-                "sugbakasha": (r.get("teurSugbakasha") or "").strip(),
-                "status": (r.get("teurStatus") or "").strip(),
-                "status_date": ddmmyyyy(r.get("taarih_status")),
-                "gush": gush,
-                "helka": helka,
-            }
+            _record_sighting(requests, r, gush, helka)
         if (i + 1) % 10 == 0:
             print(f"[{i + 1}/{len(batch)}] {len(requests)} requests so far")
         if ckpt_on and (i + 1) % args.checkpoint_every == 0:
@@ -545,6 +563,11 @@ def main():
     for j, tik in enumerate(sorted(requests)):
         row = requests[tik]
         prior = previous.get(tik, {})
+        # Sightings from earlier runs stay visible across re-scans (#880).
+        observed = row.setdefault("parcels_observed", [])
+        for pair in prior.get("parcels_observed") or []:
+            if pair not in observed:
+                observed.append(pair)
         metadata = ("mahut", "sugbakasha", "status", "status_date")
         details = (
             "publication_start",
