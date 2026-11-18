@@ -1,2 +1,49 @@
 extend-exclude = ["scripts/security/scorecard_guard.py", "tests/security/test_scorecard_guard.py"]
 target-version = "py310"
+
+[lint]
+extend-select = [
+    # #111: complexity/length ratchet on top of ruff's default ruleset. New
+    # or touched code must stay under these limits; existing violators are
+    # grandfathered in per-file-ignores below and burn down over time (see
+    # issue #111).
+    "C901",
+    "PLR0915",
+]
+
+[lint.mccabe]
+max-complexity = 10
+
+[lint.pylint]
+max-statements = 50
+
+[lint.per-file-ignores]
+# Grandfathered pre-#111 violations - burn down as each file is touched.
+"scripts/ci/actions_budget.py" = ["C901", "PLR0915"]
+"scripts/ci/check_docs_fresh.py" = ["C901", "PLR0915"]
+"scripts/ci/check_repo_layout.py" = ["C901", "PLR0915"]
+"scripts/ci/data_pr_automerge.py" = ["C901", "PLR0915"]
+"scripts/ci/pending_data_pr.py" = ["C901", "PLR0915"]
+"scripts/ci/permit_router.py" = ["C901", "PLR0915"]
+"scripts/ci/run_summary.py" = ["C901", "PLR0915"]
+"scripts/extract_council_scope_2021.py" = ["C901", "PLR0915"]
+"scripts/land_feed.py" = ["C901", "PLR0915"]
+"scripts/mirror_ingest.py" = ["C901", "PLR0915"]
+"scripts/vpn/l2tp.py" = ["C901", "PLR0915"]
+"scripts/vpn/mavat_check.py" = ["C901", "PLR0915"]
+"scripts/vpn/mavat_docs.py" = ["C901", "PLR0915"]
+"scripts/vpn/permit_address_backfill.py" = ["C901", "PLR0915"]
+"scripts/vpn/permit_archive_fetch.py" = ["C901", "PLR0915"]
+"scripts/vpn/permit_enrich.py" = ["C901", "PLR0915"]
+"scripts/vpn/publication_points.py" = ["C901", "PLR0915"]
+"src/ginot/mapdata.py" = ["C901", "PLR0915"]
+"src/ginot/mcp_server.py" = ["C901", "PLR0915"]
+"src/ginot/page.py" = ["C901", "PLR0915"]
+"src/ginot/page_permits.py" = ["C901", "PLR0915"]
+"src/ginot/preview.py" = ["C901", "PLR0915"]
+"src/ginot/refresh.py" = ["C901", "PLR0915"]
+"tests/test_checkpoint_lifecycle.py" = ["C901", "PLR0915"]
+"tests/test_no_review_bypass.py" = ["C901", "PLR0915"]
+"tests/test_public_api_v1.py" = ["C901", "PLR0915"]
+"tests/test_publications_publish.py" = ["C901", "PLR0915"]
+"tests/test_workflow_template_injection.py" = ["C901", "PLR0915"]
