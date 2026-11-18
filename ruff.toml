@@ -72,7 +72,6 @@ max-statements = 50
 "scripts/vpn/vpn_watch.py" = ["S603"]
 "src/ginot/dwg.py" = ["S603"]
 "src/ginot/iplan.py" = ["S603"]
-"src/ginot/mapdata.py" = ["C901"]
 "src/ginot/page.py" = ["C901", "PLR0915", "S608"]
 "src/ginot/page_permits.py" = ["C901", "PLR0915"]
 "src/ginot/preview.py" = ["C901"]

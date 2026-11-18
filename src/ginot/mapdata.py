@@ -83,12 +83,8 @@ def permit_points(permits, parcels):
         text = str(value).strip()
         return str(int(text)) if text.isascii() and text.isdigit() else None
 
-    geometries = {}
-    for feature in parcels.get("features", []):
-        props = feature.get("properties") or {}
-        key = (identifier(props.get("gush")), identifier(props.get("helka")))
-        if None in key:
-            continue
+    def valid_geometry(feature):
+        """The parcel polygon, or None when it cannot anchor a public point."""
         try:
             geometry = shape(feature.get("geometry"))
             if (
@@ -96,17 +92,36 @@ def permit_points(permits, parcels):
                 or not geometry.is_valid
                 or geometry.geom_type not in ("Polygon", "MultiPolygon")
             ):
-                continue
+                return None
             west, south, east, north = geometry.bounds
             if not (-180 <= west <= east <= 180 and -90 <= south <= north <= 90):
-                continue
+                return None
+            return geometry
         except (TypeError, ValueError, AttributeError):
+            return None
+
+    geometries = {}
+    for feature in parcels.get("features", []):
+        props = feature.get("properties") or {}
+        key = (identifier(props.get("gush")), identifier(props.get("helka")))
+        if None in key:
+            continue
+        geometry = valid_geometry(feature)
+        if geometry is None:
             continue
         geometries.setdefault(key, []).append(geometry)
-    positions = {}
-    for key, parts in geometries.items():
-        point = unary_union(parts).representative_point()
-        positions[key] = [point.x, point.y]
+    positions = {
+        key: _interior_point(unary_union(parts)) for key, parts in geometries.items()
+    }
+    return _join_permits(permits, positions, identifier)
+
+
+def _interior_point(geometry):
+    point = geometry.representative_point()
+    return [point.x, point.y]
+
+
+def _join_permits(permits, positions, identifier):
     points, missing = [], []
     for permit in permits:
         tik = permit.get("tik_num")
