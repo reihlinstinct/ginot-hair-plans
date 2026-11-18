@@ -21,6 +21,49 @@ from shapely.ops import unary_union
 # Section: Evidence validation
 
 
+def _validate_address(record: dict) -> None:
+    for key in ("tik_num", "street", "house_number", "neighborhood"):
+        if not isinstance(record.get(key), str) or not record[key].strip():
+            raise ValueError("official point evidence requires an exact address")
+    for key in ("verified_at", "source_url"):
+        if not isinstance(record.get(key), str) or not record[key].strip():
+            raise ValueError(
+                "official point evidence requires verified_at and source_url"
+            )
+    date.fromisoformat(record["verified_at"])
+
+
+def _validate_source_url(record: dict) -> None:
+    url = urlsplit(record["source_url"])
+    query = parse_qs(url.fragment.partition("?")[2])
+    if (
+        url.scheme != "https"
+        or url.netloc != "ykpubdata.jerusalem.muni.il"
+        or url.path != "/"
+        or url.fragment.partition("?")[0] != "/Details"
+        or query.get("TikNum") != [record["tik_num"]]
+        or query.get("Page") != ["LocationInfo"]
+        or query.get("SystemCode") != ["26400046"]
+    ):
+        raise ValueError("official point source must be the matching municipal case")
+
+
+def _validate_record(record: dict) -> None:
+    """Fail closed on any malformed curated evidence record."""
+    if not isinstance(record, dict):
+        raise TypeError("invalid official point evidence record")
+    _validate_address(record)
+    if record.get("crs") != "EPSG:2039":
+        raise ValueError("official point evidence must use EPSG:2039")
+    for key in ("x", "y"):
+        value = record.get(key)
+        if isinstance(value, bool) or not isinstance(value, (int, float)):
+            raise TypeError("invalid official point coordinate")
+        if not math.isfinite(value):
+            raise ValueError("non-finite official point coordinate")
+    _validate_source_url(record)
+
+
 def load_points(path: Path) -> list[dict]:
     """Load only the curated public evidence registry; missing means no fallback."""
     if not path.exists():
@@ -29,43 +72,30 @@ def load_points(path: Path) -> list[dict]:
     if not isinstance(records, list):
         raise TypeError("official point evidence must be a list")
     for record in records:
-        if not isinstance(record, dict):
-            raise TypeError("invalid official point evidence record")
-        for key in ("tik_num", "street", "house_number", "neighborhood"):
-            if not isinstance(record.get(key), str) or not record[key].strip():
-                raise ValueError("official point evidence requires an exact address")
-        for key in ("verified_at", "source_url"):
-            if not isinstance(record.get(key), str) or not record[key].strip():
-                raise ValueError(
-                    "official point evidence requires verified_at and source_url"
-                )
-        date.fromisoformat(record["verified_at"])
-        if record.get("crs") != "EPSG:2039":
-            raise ValueError("official point evidence must use EPSG:2039")
-        for key in ("x", "y"):
-            value = record.get(key)
-            if isinstance(value, bool) or not isinstance(value, (int, float)):
-                raise TypeError("invalid official point coordinate")
-            if not math.isfinite(value):
-                raise ValueError("non-finite official point coordinate")
-        url = urlsplit(record["source_url"])
-        query = parse_qs(url.fragment.partition("?")[2])
-        if (
-            url.scheme != "https"
-            or url.netloc != "ykpubdata.jerusalem.muni.il"
-            or url.path != "/"
-            or url.fragment.partition("?")[0] != "/Details"
-            or query.get("TikNum") != [record["tik_num"]]
-            or query.get("Page") != ["LocationInfo"]
-            or query.get("SystemCode") != ["26400046"]
-        ):
-            raise ValueError(
-                "official point source must be the matching municipal case"
-            )
+        _validate_record(record)
     return records
 
 
 # Section: Conservative point fallback
+
+
+def _candidate_rows(rows, records, neighborhoods):
+    """Unknown-join rows with one unique exact-address evidence match."""
+    candidates = []
+    address_keys = ("street", "house_number", "neighborhood")
+    for row in rows:
+        if row.get("in_polygon") is not None:
+            continue
+        matches = [r for r in records if r["tik_num"] == row.get("tik_num")]
+        if len(matches) != 1:
+            continue
+        evidence = matches[0]
+        if any(row.get(k) != evidence[k] for k in address_keys):
+            continue
+        if row.get("neighborhood") not in neighborhoods:
+            continue
+        candidates.append((row, evidence))
+    return candidates
 
 
 def resolve_official_points(
@@ -82,20 +112,7 @@ def resolve_official_points(
     # Select candidate rows first: the council file is loaded and repaired
     # only when at least one unknown row has a unique, exact address match,
     # so a broken boundary cannot abort a run that needs no fallback.
-    candidates = []
-    address_keys = ("street", "house_number", "neighborhood")
-    for row in rows:
-        if row.get("in_polygon") is not None:
-            continue
-        matches = [r for r in records if r["tik_num"] == row.get("tik_num")]
-        if len(matches) != 1:
-            continue
-        evidence = matches[0]
-        if any(row.get(k) != evidence[k] for k in address_keys):
-            continue
-        if row.get("neighborhood") not in neighborhoods:
-            continue
-        candidates.append((row, evidence))
+    candidates = _candidate_rows(rows, records, neighborhoods)
     if not candidates:
         return
     geojson = json.loads(council_path.read_text(encoding="utf-8"))

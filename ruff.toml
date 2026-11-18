@@ -68,7 +68,6 @@ max-statements = 50
 "scripts/vpn/permit_probe.py" = ["S108", "S603"]
 "scripts/vpn/permit_publication_probe.py" = ["S101", "S108", "S603"]
 "scripts/vpn/permit_xhr_capture.py" = ["S108"]
-"scripts/vpn/publication_points.py" = ["C901"]
 "scripts/vpn/rishui_publish.py" = ["S310"]
 "scripts/vpn/vpn_watch.py" = ["S603"]
 "src/ginot/dwg.py" = ["S603"]
