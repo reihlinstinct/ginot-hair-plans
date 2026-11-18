@@ -6,7 +6,11 @@ log carries no body content and that nothing but an encrypted archive is
 uploaded.
 """
 
+import base64
+import datetime
+import hashlib
 import importlib.util
+import struct
 from pathlib import Path
 
 import pytest
@@ -98,8 +102,129 @@ def test_discovered_procs_are_listed_not_called():
 
 
 # Section: the committed recipient key matches the pinned fingerprint
+PINNED_KEY_FPR = "03849178BB0FB05C2FA910074B3E57844FE3F041"
+
+
+def _dearmor(text: str) -> bytes:
+    b64: list[str] = []
+    in_body = False
+    for line in text.splitlines():
+        if line.startswith("-----BEGIN"):
+            in_body = True
+            continue
+        if line.startswith(("-----END", "=")):
+            break
+        if not in_body or not line.strip() or (":" in line and not b64):
+            continue
+        b64.append(line.strip())
+    return base64.b64decode("".join(b64))
+
+
+def _packets(data: bytes):
+    i = 0
+    while i < len(data):
+        first = data[i]
+        i += 1
+        assert first & 0x80, "not an OpenPGP packet"
+        if first & 0x40:  # new format
+            tag = first & 0x3F
+            o = data[i]
+            i += 1
+            if o < 192:
+                ln = o
+            elif o < 224:
+                ln = ((o - 192) << 8) + data[i] + 192
+                i += 1
+            else:
+                assert o == 255, "partial body length not expected in a key file"
+                ln = struct.unpack(">I", data[i : i + 4])[0]
+                i += 4
+        else:  # old format
+            tag = (first >> 2) & 0x0F
+            lt = first & 0x03
+            assert lt != 3, "indeterminate length not expected in a key file"
+            width = (1, 2, 4)[lt]
+            fmt = (">B", ">H", ">I")[lt]
+            ln = struct.unpack(fmt, data[i : i + width])[0]
+            i += width
+        body = data[i : i + ln]
+        i += ln
+        yield tag, body
+
+
+def _v4_fingerprint(body: bytes) -> str:
+    blob = b"\x99" + struct.pack(">H", len(body)) + body
+    return hashlib.sha1(blob).hexdigest().upper()
+
+
+def _self_sig_expiry(sig_body: bytes, creation: int):
+    """Key-expiration-time subpacket (type 9) of a v4 self-signature."""
+    if not sig_body or sig_body[0] != 4:
+        return None
+    hlen = struct.unpack(">H", sig_body[4:6])[0]
+    subs = sig_body[6 : 6 + hlen]
+    j = 0
+    while j < len(subs):
+        o = subs[j]
+        j += 1
+        if o < 192:
+            ln = o
+        elif o < 255:
+            ln = ((o - 192) << 8) + subs[j] + 192
+            j += 1
+        else:
+            ln = struct.unpack(">I", subs[j : j + 4])[0]
+            j += 4
+        stype = subs[j]
+        j += 1
+        data = subs[j : j + ln - 1]
+        j += ln - 1
+        if stype == 9:
+            return creation + struct.unpack(">I", data)[0]
+    return None
+
+
+def _recipient_key_packets():
+    key = (ROOT / "scripts/vpn/archive-recipient.pub.asc").read_text(encoding="utf-8")
+    return list(_packets(_dearmor(key)))
+
+
 def test_recipient_key_file_is_public_and_present():
     key = (ROOT / "scripts/vpn/archive-recipient.pub.asc").read_text(encoding="utf-8")
     assert key.startswith("-----BEGIN PGP PUBLIC KEY BLOCK-----")
     assert "PRIVATE" not in key
     assert "scripts/vpn/archive-recipient.pub.asc" in WORKFLOW
+
+
+def test_recipient_key_fingerprint_matches_pinned():
+    """#956: compute the v4 fingerprint (SHA-1 over 0x99||len||key packet)
+    and pin it, so a silent key swap fails the suite."""
+    packets = _recipient_key_packets()
+    assert packets and packets[0][0] == 6, "first packet must be a public key"
+    assert _v4_fingerprint(packets[0][1]) == PINNED_KEY_FPR
+
+
+def test_recipient_key_has_no_secret_packets():
+    """#956: no secret-key (5) or secret-subkey (7) packets in the file."""
+    tags = [t for t, _ in _recipient_key_packets()]
+    assert 5 not in tags and 7 not in tags, "secret key material committed"
+
+
+def test_recipient_key_expiry_warned_ahead():
+    """#956: expiry-warning - when the key carries an expiration it must be
+    more than 90 days out, so rotation happens before the archive breaks."""
+    packets = _recipient_key_packets()
+    creation = struct.unpack(">I", packets[0][1][1:5])[0]
+    expiry = None
+    for tag, body in packets[1:]:
+        if tag == 2:
+            expiry = _self_sig_expiry(body, creation)
+            if expiry:
+                break
+    if expiry is None:
+        return  # no expiry set on the current key; nothing to warn about
+    now = int(datetime.datetime.now(datetime.timezone.utc).timestamp())
+    days = (expiry - now) // 86400
+    assert days > 90, (
+        f"recipient key expires in {days} days - rotate and re-pin the fingerprint"
+    )
