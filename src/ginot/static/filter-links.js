@@ -6,7 +6,14 @@ function S(key, fallback) {
 (function () {
   'use strict';
   var params = new URLSearchParams(location.search), adapters = {}, recognized = {};
-  var active = params.get('filters') === '1';
+  // Bare deep links (e.g. ?permit.pfq=2024%2F0215.00#permits) carry no
+  // filters=1 marker: activate on any recognized state key then. An
+  // explicit filters value of an unknown version stays inert (#469).
+  function stateActive() {
+    var v = params.get('filters');
+    if (v !== null) return v === '1';
+    return Array.from(params.keys()).some(function (k) { return recognized[k] === true; });
+  }
   function dateOK(v) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
     var d = new Date(v + 'T00:00:00Z');
@@ -21,7 +28,7 @@ function S(key, fallback) {
       defaults[id] = e.type === 'checkbox' ? e.checked : e.value;
     });
     function restore() {
-      if (!active) return;
+      if (!stateActive()) return;
       keys.forEach(function (id) {
         var e = document.getElementById(id), v = params.get(name + '.' + id);
         if (v === null || v.length > 500) return;
@@ -40,7 +47,7 @@ function S(key, fallback) {
       });
       extra.write(url.searchParams, name);
     };
-    var hasState = active && Array.from(params.keys()).some(function (k) { return stateKeys.some(function(id){return k===name+'.'+id;}); });
+    var hasState = stateActive() && Array.from(params.keys()).some(function (k) { return stateKeys.some(function(id){return k===name+'.'+id;}); });
     return {restore: restore, hasState: hasState};
   }
   function build() {
