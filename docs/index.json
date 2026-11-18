@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17",
+ "generated": "2026-11-18",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -79,7 +79,7 @@
    "path": "data/neighborhoods.json",
    "kind": "json",
    "records": null,
-   "bytes": 1790,
+   "bytes": 1822,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/neighborhoods.json"
   },
   {
