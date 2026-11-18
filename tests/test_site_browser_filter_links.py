@@ -8,6 +8,23 @@ pytest_plugins = ["test_site_browser"]
 # Section: Filter links
 
 
+def test_permit_deep_link_without_filters_param_reveals_closed_permit(page):
+    """#1039: a bare ?permit.pfq=... deep link (no filters=1 marker) must still
+    apply, and must reveal the permit even when it is closed - the default
+    view hides terminal rows."""
+    url = page.url.split("?")[0]
+    page.goto(url + "?permit.pfq=2020%2F0003.01#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.input_value("#pfq") == "2020/0003.01"
+    assert page.is_checked("#pfclosed")
+    row = page.locator("#permits-table tr[data-tik='2020/0003.01']")
+    assert row.count() == 1
+    assert "filtered-out" not in (row.get_attribute("class") or "")
+
+
 def test_filter_link_hebrew_and_permit_state_roundtrip(page):
     page.fill("#fq", "תכנית")
     page.check("#fappr")
