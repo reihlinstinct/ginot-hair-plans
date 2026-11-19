@@ -324,3 +324,76 @@ def test_workflow_run_trigger_re_evaluates_on_check_completion():
         "mavat-check/",
     ):
         assert f"{prefix}**" in branches
+
+
+# Section: sweep robustness
+
+
+def _two_producer_prs():
+    return [
+        {
+            "number": 1,
+            "title": "Weekly refresh",
+            "head": {
+                "repo": {"full_name": "o/r"},
+                "ref": "weekly-refresh/1",
+                "sha": "a" * 40,
+            },
+            "user": {"login": "o"},
+        },
+        {
+            "number": 2,
+            "title": "Mirror ingest",
+            "head": {
+                "repo": {"full_name": "o/r"},
+                "ref": "mirror-ingest/2",
+                "sha": "b" * 40,
+            },
+            "user": {"login": "o"},
+        },
+    ]
+
+
+def _patch_sweep(monkeypatch, check):
+    monkeypatch.setattr(
+        data_pr_automerge, "gh_api_paginated", lambda path: _two_producer_prs()
+    )
+    monkeypatch.setattr(
+        data_pr_automerge,
+        "gh_api",
+        lambda path, method="GET", payload=None: {"tree": []},
+    )
+    monkeypatch.setattr(data_pr_automerge, "check_pr", check)
+    monkeypatch.setenv("GH_TOKEN", "test")
+    monkeypatch.delenv("GITHUB_OUTPUT", raising=False)
+    monkeypatch.setattr(
+        sys, "argv", ["data_pr_automerge.py", "--repo", "o/r", "--dry-run"]
+    )
+
+
+def test_malformed_blob_decode_skips_one_pr_not_the_sweep(monkeypatch, capsys):
+    """base64/UTF-8 decode failures are ValueErrors: one malformed file
+    skips its PR instead of aborting the whole sweep (review follow-up, #1061)."""
+
+    def check(repo, pr, base_files):
+        if pr["number"] == 1:
+            raise ValueError("malformed blob")
+        return []
+
+    _patch_sweep(monkeypatch, check)
+    assert data_pr_automerge.main() == 0
+    out = capsys.readouterr().out
+    assert "PR #1: SKIP - guard error: malformed blob" in out
+    assert "PR #2: eligible (dry run, not merged)" in out
+
+
+def test_unexpected_error_aborts_the_sweep_fail_closed(monkeypatch):
+    """TimeoutExpired/TypeError are not data-decode errors: the sweep aborts
+    rather than guessing (fail closed)."""
+
+    def check(repo, pr, base_files):
+        raise TypeError("unexpected")
+
+    _patch_sweep(monkeypatch, check)
+    with pytest.raises(TypeError):
+        data_pr_automerge.main()

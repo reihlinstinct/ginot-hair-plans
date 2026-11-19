@@ -329,7 +329,10 @@ def main() -> int:
         number, head_sha = pr["number"], pr["head"]["sha"]
         try:
             reasons = check_pr(args.repo, pr, base_files)
-        except (RuntimeError, KeyError) as error:
+        # ValueError covers base64/UTF-8 decode failures from the blob
+        # fallback: one malformed file must skip its PR, never abort the
+        # whole sweep (review follow-up, #1061).
+        except (RuntimeError, KeyError, ValueError) as error:
             reasons = [f"guard error: {error}"]
         if reasons:
             print(f"PR #{number}: SKIP - " + "; ".join(reasons))
