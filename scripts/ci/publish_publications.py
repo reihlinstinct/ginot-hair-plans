@@ -146,7 +146,7 @@ def main():
             "title": "Daily publications refresh",
             "head": branch,
             "base": "main",
-            "body": "Automated public publication baseline and alert payload (refs #527). Text-only data update. Merges automatically via the guarded data automerge once checks are green at the exact head (owner policy 19.11.2026: no review for scanner data refreshes).",
+            "body": "Automated public publication baseline and alert payload (refs #527). Text-only data update. Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes).",
         },
     )
     print(pr["html_url"], flush=True)

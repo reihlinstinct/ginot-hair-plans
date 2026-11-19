@@ -4,16 +4,16 @@
 
 The weekly-refresh workflow fetches public data, renders the site and opens a
 PR. It stops there. A successful fetch or green CI is not approval to publish.
-Existing generated files stay in that PR until reviewed. Do not rerun the fetch
-just to complete a review or deploy an already-reviewed result.
+Existing generated files stay in that PR until merged. Do not rerun the fetch
+just to complete a merge or deploy an already-merged result.
 
-Before merging, inspect the complete current diff, resolve every finding from
-both the independent reviewer and the exact-head Claude line-by-line review,
-and verify required CI on that same head. Obtain the repository's actual eligible
-approving review. Use a normal merge, never an admin override. If the head moves,
-repeat the affected reviews and checks.
+Scanner data-refresh PRs merge without review via the guarded data automerge
+once required checks are green at the exact head, while DATA_AUTOMERGE_ENABLED
+is true (owner policy 19.11.2026, recorded in CONTRIBUTING.md). The guard is
+fail closed: data-only paths, JSON sanity, a secrets/PII scan and exact-head
+green CI. Code and workflow changes keep the normal independent review.
 
-After the reviewed merge is confirmed, verify the deployed site's data and dates.
+After the merge is confirmed, verify the deployed site's data and dates.
 Once the owner flips the Pages source to GitHub Actions and sets the
 PAGES_ACTIONS_DEPLOY repo variable (both owner decisions, #959), the
 pages.yml workflow deploys on every merge to main: it re-renders the site
@@ -27,7 +27,7 @@ The fetch workflow no longer requests builds or advances the Cloudflare mirror.
 Do not force-push the mirror, from a still-running fetch job or anywhere else.
 The `Promote Cloudflare mirror` workflow advances the mirror automatically once CI
 finishes green on a main commit, fast-forward only. A manual continuation (the
-workflow's `workflow_dispatch`) must use the confirmed reviewed main commit and
+workflow's `workflow_dispatch`) must use the confirmed main commit and
 check current mirror state first; deploy and verify it separately. While CI is red
 or the promotion has not run, the mirror may lag main. No callback or PR body text authorizes a scan, deployment,
 or successor workflow.
@@ -37,7 +37,7 @@ or successor workflow.
 The existing Cloudflare Pages project `ginot-hair-plans` serves
 `https://ginot-hair-plans.pages.dev/` from **`mirror`**, not `main`, using
 `docs/` as the asset output directory and no build command. Preview deployments
-are disabled. A reviewed merge to `main` updates this mirror once the
+are disabled. A merge to `main` updates this mirror once the
 `Promote Cloudflare mirror` workflow fast-forwards the branch after green CI.
 
 **Never delete `mirror` during branch cleanup**, even when its tip is fully
@@ -46,13 +46,14 @@ finished feature branch. GitHub Pages environment pins do not list this external
 Cloudflare dependency. See the [branch-cleanup checklist](branch-cleanup.md).
 
 Before a manual mirror continuation, verify the current production branch
-in Cloudflare and the current Git ref, then use the confirmed reviewed main
+in Cloudflare and the current Git ref, then use the confirmed main
 commit. If `mirror` is missing or the deployment configuration differs, stop
 and report it before recreating a ref or changing settings. After deployment,
 verify the production URL, source commit, data date and counts separately from
 the primary site.
 
-Audit-result, mavat-watch and mirror-ingest now stage reviewed PRs only.
+Audit-result still stages reviewed PRs; mavat-watch and mirror-ingest stage
+data PRs for the guarded automerge.
 Permit-feed successor routing remains fail-closed pending #565.
 
 ## One pending data PR at a time (#564)
@@ -62,7 +63,7 @@ read-only `pending` job. It runs `scripts/ci/pending_data_pr.py` with the
 branch prefix that the workflow pushes (`weekly-refresh/`, `mavat-check/`,
 `mirror-ingest/`, `permit-feed/`). The data job runs only after a `pending=false` verdict, so no
 fetch, VPN or tunnel starts and no second PR is stacked while one still waits
-for review.
+to merge.
 
 - **A PR is still open:** the run ends green with a `::notice::` that gives
   only its PR numbers. Review and merge, or close, that PR. Do not cancel it

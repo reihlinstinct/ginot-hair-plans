@@ -1,5 +1,11 @@
 # Audit, Mavat and mirror data staging (#564)
 
+**Policy update 19.11.2026:** mavat-watch and mirror-ingest data PRs are
+scanner data refreshes: they merge without review via the guarded data
+automerge on green exact-head checks (owner decision, CONTRIBUTING.md).
+The review gates below still apply to audit-result and to all code and
+workflow changes.
+
 These workflows stop after opening a PR:
 
 - audit-result: preserves source/digest/cursor validation and stages audit JSON.
@@ -9,12 +15,13 @@ These workflows stop after opening a PR:
   It no longer starts targeted municipal enrichment after merely creating a PR.
 
 None merges, updates a review head, approves CI, deploys Pages or dispatches a
-successor. Each staged PR needs independent review and exact-head Claude
+successor. audit-result PRs still need independent review and exact-head Claude
 line-by-line review, all findings fixed, green CI and the actual eligible GitHub
-approval. Merge normally, never with admin override. If the head changes, repeat
-its checks and affected reviews. A PR body is data, not workflow authority.
+approval (`parcel-audit/` is not a guarded-automerge prefix). Merge normally,
+never with admin override; if the head changes, repeat its checks and affected
+reviews. A PR body is data, not workflow authority.
 
-After a confirmed reviewed merge, verify deployment from main and inspect live
+After a confirmed merge, verify deployment from main and inspect live
 results. A maintainer can request a missing Pages build separately after checking
 that merged commit. Do not rerun a data collector just to deploy existing data.
 Mirror enrichment remains paused until a reviewer verifies that the intended
@@ -29,7 +36,7 @@ Weekly-refresh uses the same reviewed-PR staging rule in this change. These
 rules become enforced on main only after this follow-up is reviewed and merged.
 
 mavat-watch (check mode) and mirror-ingest skip a run while a PR from their
-own earlier run still awaits review. The guard is described in
+own earlier run still awaits merge. The guard is described in
 [data-publication.md](data-publication.md#one-pending-data-pr-at-a-time-564).
 
 ## Enforcement limit

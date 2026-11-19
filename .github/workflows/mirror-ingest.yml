@@ -99,7 +99,7 @@ jobs:
           dropped on ingest. Third-party data - verify at source."
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit mirror ingest $(date +%Y-%m-%d)" \
-            --body "Automated mirror ingest (refs #74). DRAFT third-party mirror data; personal-names column dropped. Merges automatically via the guarded data automerge once checks are green at the exact head (owner policy 19.11.2026: no review for scanner data refreshes)." \
+            --body "Automated mirror ingest (refs #74). DRAFT third-party mirror data; personal-names column dropped. Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes)." \
             --base main --head "$BRANCH")
           echo "opened $PR"
           echo "awaiting the guarded data automerge: $PR"

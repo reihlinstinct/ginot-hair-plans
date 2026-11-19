@@ -440,7 +440,7 @@ jobs:
           gh auth setup-git
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
-            --body "Automated public permit-feed batch (refs #57). Merges automatically via the guarded data automerge once checks are green at the exact head (owner policy 19.11.2026: no review for scanner data refreshes)." \
+            --body "Automated public permit-feed batch (refs #57). Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes)." \
             --base main --head "$BRANCH")
           echo "opened $PR"
           gh workflow run ci.yml --ref "$BRANCH"
