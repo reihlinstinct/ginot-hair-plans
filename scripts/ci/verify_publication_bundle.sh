@@ -43,7 +43,7 @@ git merge-base --is-ancestor "$parent" "$base" || fail "parent is not on $base"
 # pages for every non-default i18n language. Keep in sync with
 # i18n.lang_codes(); test_publication_allowlist_sync derives the same
 # list from strings.json and fails on drift.
-allowed='^(data/.+|docs/data\.json|docs/index\.json|docs/index\.html|docs/badge/parcel-[^/]+\.json|docs/permits\.html|docs/permits-default\.html|docs/en/index\.html|docs/en/permits\.html|docs/en/permits-default\.html|docs/ar/index\.html|docs/ar/permits\.html|docs/ar/permits-default\.html|docs/ru/index\.html|docs/ru/permits\.html|docs/ru/permits-default\.html|docs/am/index\.html|docs/am/permits\.html|docs/am/permits-default\.html|docs/fr/index\.html|docs/fr/permits\.html|docs/fr/permits-default\.html|docs/permit-ids\.json|docs/permit-points\.json)$'
+allowed='^(data/.+|docs/data\.json|docs/index\.json|docs/index\.html|docs/badge/parcel-[^/]+\.json|docs/permits\.html|docs/permits-default\.html|docs/en/index\.html|docs/en/permits\.html|docs/en/permits-default\.html|docs/ar/index\.html|docs/ar/permits\.html|docs/ar/permits-default\.html|docs/ru/index\.html|docs/ru/permits\.html|docs/ru/permits-default\.html|docs/am/index\.html|docs/am/permits\.html|docs/am/permits-default\.html|docs/fr/index\.html|docs/fr/permits\.html|docs/fr/permits-default\.html|docs/permit-ids\.json|docs/permit-points\.json|docs/api/v1/plans\.json|docs/api/v1/permits\.json|docs/api/v1/changes\.json|docs/api/v1/meta\.json)$'
 count=0
 while IFS= read -r -d '' meta && IFS= read -r -d '' path; do
   count=$((count + 1))

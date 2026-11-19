@@ -325,7 +325,10 @@ jobs:
           # #874 cleanliness guard failed run 43733250766 on exactly these
           # five files left unstaged.
           FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/index.html docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
-          git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html $FRAGMENTS docs/permit-ids.json docs/permit-points.json docs/data.json
+          # #121: the versioned API outputs regenerate with the permit data and
+          # must land in the same commit (runs 44582522110/44629550288 failed
+          # the #874 guard on docs/api/v1/permits.json left unstaged).
+          git add data/ docs/index.json docs/index.html docs/badge/parcel-*.json docs/permits.html docs/permits-default.html $FRAGMENTS docs/permit-ids.json docs/permit-points.json docs/data.json docs/api/v1/plans.json docs/api/v1/permits.json docs/api/v1/changes.json docs/api/v1/meta.json
           git commit -m "Permit feed batch $(date +%Y-%m-%d) (refs #57)"
           # #874: fail here, not in later PR CI, when a covered docs output
           # changed outside the staged allowlist above. Paths only.

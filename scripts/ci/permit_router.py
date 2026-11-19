@@ -55,6 +55,12 @@ DATA_FILES = {
     "docs/permits-default.html",
     "docs/permit-ids.json",
     "docs/permit-points.json",
+    # #121 versioned API outputs regenerated from the permit data; they must
+    # ride the same publication commit or the #874 guard fails the run.
+    "docs/api/v1/plans.json",
+    "docs/api/v1/permits.json",
+    "docs/api/v1/changes.json",
+    "docs/api/v1/meta.json",
 }
 DATA_GLOB = "docs/badge/parcel-*.json"
 
