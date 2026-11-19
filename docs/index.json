@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-18",
+ "generated": "2026-11-19",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -95,7 +95,7 @@
    "path": "data/permit_enrich_pending.json",
    "kind": "json",
    "records": null,
-   "bytes": 1630,
+   "bytes": 1648,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_enrich_pending.json"
   },
   {
