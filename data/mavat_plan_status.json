@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-17",
+ "generated": "2026-11-19",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
@@ -9,93 +9,12 @@
    ]
   },
   {
-   "plan": "101-1095330",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1214279",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1386671",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1348069",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1215656",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1377753",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1293554",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
    "plan": "101-1350594",
    "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1409366",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1451699",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1488261",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1158146",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1336049",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-1315423",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
-  {
-   "plan": "101-0617134",
-   "reasons": [
-    "טקסט העמוד השתנה"
+    "טקסט העמוד השתנה",
+    "מסמכים: +23/-23",
+    "סטטוסי פרסום: +1/-0",
+    "כמויות: +5/-5"
    ]
   }
  ],
@@ -103,8 +22,8 @@
   "101-0775940": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "6039ae822b0297ca",
-   "page_chars": 1094,
+   "fingerprint": "ad7c5d60476cfad1",
+   "page_chars": 1340,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000488667615|קבצי התכנית (SHP)|27/02/2020|",
@@ -875,7 +794,7 @@
   "101-1350594": {
    "deadline_text": "",
    "station_text": "אישור",
-   "fingerprint": "b24a4104ec0c11b5",
+   "fingerprint": "5aa21a3357f7de08",
    "page_chars": 1331,
    "api": {
     "docs": [
@@ -886,15 +805,15 @@
      "rsPlanDocsAdd|77000004024142|חוות דעת לפי סע' 96א|16/01/2025|חוות דעת - מהנדס העיר - הפקדה",
      "rsPlanDocsAdd|77000004293960|תשריט מצב מוצע חתום|02/07/2025|תשריט בחתימת מודד להפקדה",
      "rsPlanDocsAdd|77000004293962|מסמך נדרש ע\"י יו\"ר הועדה/הועדה|02/07/2025|נספח מצב מאושר בחתימת מודד להפקדה",
-     "rsPlanDocsAdd|77000005102190|זכויות והוראות בניה XLS|19/10/2026|זכויות והוראות בניה XLS",
-     "rsPlanDocsAdd|77001136363409|קו כחול|22/09/2024|",
-     "rsPlanDocsAdd|77001136363413|בינוי|05/07/2026|נספח בינוי",
-     "rsPlanDocsAdd|77001136363415|תאי שטח|09/04/2025|",
-     "rsPlanDocsAdd|77001136363417|ישויות פוליגונליות, קוויות ונקודתיות|30/04/2025|",
-     "rsPlanDocsAdd|77001136363419|מצב מאושר|29/04/2025|תשריט מצב מאושר",
-     "rsPlanDocsAdd|77001136363647|קבצי התכנית (SHP)|06/08/2026|",
-     "rsPlanDocsAdd|77001136363651|דוח תאי שטח לתכנית (XLS)|06/08/2026|",
-     "rsPlanDocsAdd|77001136363657|גבול התכנית(KML)\n לצפיה ב google earth|06/08/2026|",
+     "rsPlanDocsAdd|77000005156380|זכויות והוראות בניה XLS|18/11/2026|זכויות והוראות בניה XLS",
+     "rsPlanDocsAdd|77001136948789|בינוי|05/07/2026|נספח בינוי",
+     "rsPlanDocsAdd|77001136948791|קו כחול|22/09/2024|",
+     "rsPlanDocsAdd|77001136948793|מצב מאושר|29/04/2025|תשריט מצב מאושר",
+     "rsPlanDocsAdd|77001136948797|תאי שטח|09/04/2025|",
+     "rsPlanDocsAdd|77001136948799|ישויות פוליגונליות, קוויות ונקודתיות|30/04/2025|",
+     "rsPlanDocsAdd|77001136948875|קבצי התכנית (SHP)|20/10/2026|",
+     "rsPlanDocsAdd|77001136948879|דוח תאי שטח לתכנית (XLS)|20/10/2026|",
+     "rsPlanDocsAdd|77001136948885|גבול התכנית(KML)\n לצפיה ב google earth|20/10/2026|",
      "rsPlanDocsGen|4001136948785|נוסח פרסום|20/10/2026|נוסח פרסום בדבר אישור תכנית",
      "rsPlanDocsGen|5001136363379|נוסח פרסום|06/08/2026|נוסח הפקדה לסעיף 106/ב",
      "rsPlanDocsGen|6001121238311|נוסח פרסום|24/07/2025|נוסח פרסום בדבר הפקדת תכנית",
@@ -911,20 +830,20 @@
      "rsPlanDocsGen|77000004987380|נוסח פרסום עברית -word|06/08/2026|נוסח הפקדה לסעיף 106/ב",
      "rsPlanDocsGen|77000005102174|נוסח פרסום חתום - pdf|19/10/2026|נוסח אישור חתום",
      "rsPlanDocsGen|77000005102186|נוסח פרסום עברית -word|19/10/2026|נוסח פרסום בדבר אישור תכנית",
-     "rsPlanDocsGen|77000005102190|זכויות והוראות בניה XLS|19/10/2026|זכויות והוראות בניה XLS",
-     "rsPlanDocsGen|77001136363409|קו כחול|22/09/2024|",
-     "rsPlanDocsGen|77001136363413|בינוי|05/07/2026|נספח בינוי",
-     "rsPlanDocsGen|77001136363415|תאי שטח|09/04/2025|",
-     "rsPlanDocsGen|77001136363417|ישויות פוליגונליות, קוויות ונקודתיות|30/04/2025|",
-     "rsPlanDocsGen|77001136363419|מצב מאושר|29/04/2025|תשריט מצב מאושר",
-     "rsPlanDocsGen|77001136363647|קבצי התכנית (SHP)|06/08/2026|",
-     "rsPlanDocsGen|77001136363651|דוח תאי שטח לתכנית (XLS)|06/08/2026|",
-     "rsPlanDocsGen|77001136363655|תוצאות חיתוך מול תמ\"א (DXF)|06/08/2026|",
-     "rsPlanDocsGen|77001136363657|גבול התכנית(KML)\n לצפיה ב google earth|06/08/2026|",
-     "rsPlanDocsGen|77001136366253|תשריט מצב מוצע|06/08/2026|תשריט מצב מוצע",
-     "rsPlanDocsGen|77001136366259|הוראות התכנית|06/08/2026|",
-     "rsPlanDocs|77001136366253|תשריט מצב מוצע|06/08/2026|תשריט מצב מוצע",
-     "rsPlanDocs|77001136366259|הוראות התכנית|06/08/2026|",
+     "rsPlanDocsGen|77000005156380|זכויות והוראות בניה XLS|18/11/2026|זכויות והוראות בניה XLS",
+     "rsPlanDocsGen|77001136948789|בינוי|05/07/2026|נספח בינוי",
+     "rsPlanDocsGen|77001136948791|קו כחול|22/09/2024|",
+     "rsPlanDocsGen|77001136948793|מצב מאושר|29/04/2025|תשריט מצב מאושר",
+     "rsPlanDocsGen|77001136948797|תאי שטח|09/04/2025|",
+     "rsPlanDocsGen|77001136948799|ישויות פוליגונליות, קוויות ונקודתיות|30/04/2025|",
+     "rsPlanDocsGen|77001136948875|קבצי התכנית (SHP)|20/10/2026|",
+     "rsPlanDocsGen|77001136948879|דוח תאי שטח לתכנית (XLS)|20/10/2026|",
+     "rsPlanDocsGen|77001136948883|תוצאות חיתוך מול תמ\"א (DXF)|20/10/2026|",
+     "rsPlanDocsGen|77001136948885|גבול התכנית(KML)\n לצפיה ב google earth|20/10/2026|",
+     "rsPlanDocsGen|77001136949271|תשריט מצב מוצע|20/10/2026|תשריט מצב מוצע",
+     "rsPlanDocsGen|77001136949277|הוראות התכנית|20/10/2026|",
+     "rsPlanDocs|77001136949271|תשריט מצב מוצע|20/10/2026|תשריט מצב מוצע",
+     "rsPlanDocs|77001136949277|הוראות התכנית|20/10/2026|",
      "rsPubDocs||נוסח הודעה מתוקנת על הפקדת תכנית|20260806|",
      "rsPubDocs||נוסח הודעה על אישור תכנית / בקשה|20261020|",
      "rsPubDocs||נוסח הודעה על הפקדת תכנית / בקשה|20250724|",
@@ -939,19 +858,20 @@
     "internet": [
      "בדיקת תנאי סף-קיום תנאי סף|12/11/2024|",
      "פרסום הודעה בדבר אישור תכנית באתר אינטרנט|20/10/2026|",
+     "פרסום לאישור ברשומות|18/11/2026|תאריך פרסום: 28/10/2026. מס' ילקוט פרסומים: 15070. עמוד: 1407. שנה עברית: תשפז . ",
      "פרסום להפקדה ברשומות|30/07/2025|תאריך פרסום: 27/07/2025. מס' ילקוט פרסומים: 13682. עמוד: 8639. שנה עברית: תשפה . ",
      "פרסום נוסח הודעה בדבר הפקדת תכנית באתר אינטרנט|06/08/2026|",
      "פרסום נוסח הודעה בדבר הפקדת תכנית באתר אינטרנט|24/07/2025|"
     ],
     "quantities": [
-     "AUTHORISED_QUANTITY=+1,025|AUTHORISED_QUANTITY_ADD=|DETAILED_PLAN=|ID=1001928753|IMPLEMENTATION=1,025|LAST_UPDATE=20/10/2026 02:40|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=75|QUANTITY_DESC=מסחר (מ\"ר)|REMARK=|ROW_NUM=5|UNIT_DESC=מ\"ר",
-     "AUTHORISED_QUANTITY=+4,000|AUTHORISED_QUANTITY_ADD=|DETAILED_PLAN=|ID=1001928755|IMPLEMENTATION=4,000|LAST_UPDATE=20/10/2026 02:40|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=80|QUANTITY_DESC=מבני ציבור (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר",
-     "AUTHORISED_QUANTITY=+40,920|AUTHORISED_QUANTITY_ADD=+1,824|DETAILED_PLAN=|ID=1001928759|IMPLEMENTATION=42,744|LAST_UPDATE=20/10/2026 02:40|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=שטחי הבנייה הנוספים, מעבר לשטח המאושר לבנייה למגורים, מוצעים בתכנית זו כ\"זכויות מותנות\"|ROW_NUM=4|UNIT_DESC=מ\"ר",
-     "AUTHORISED_QUANTITY=+440|AUTHORISED_QUANTITY_ADD=+34|DETAILED_PLAN=|ID=1001928757|IMPLEMENTATION=474|LAST_UPDATE=20/10/2026 02:40|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=מתוכן 22 יח\"ד המוצעות בתכנית זו כ\"מגורים מותנה\"|ROW_NUM=3|UNIT_DESC=יח\"ד",
-     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+118|DETAILED_PLAN=|ID=1001928761|IMPLEMENTATION=118|LAST_UPDATE=20/10/2026 02:40|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=151|QUANTITY_DESC=דיורית (יח\"ד)|REMARK=עד 118 דיוריות מוצעות בתכנית זו|ROW_NUM=1|UNIT_DESC=יח\"ד"
+     "AUTHORISED_QUANTITY=+1,025|AUTHORISED_QUANTITY_ADD=|DETAILED_PLAN=|ID=1001969615|IMPLEMENTATION=1,025|LAST_UPDATE=18/11/2026 09:57|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=75|QUANTITY_DESC=מסחר (מ\"ר)|REMARK=|ROW_NUM=5|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=+4,000|AUTHORISED_QUANTITY_ADD=|DETAILED_PLAN=|ID=1001969617|IMPLEMENTATION=4,000|LAST_UPDATE=18/11/2026 09:57|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=80|QUANTITY_DESC=מבני ציבור (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=+40,920|AUTHORISED_QUANTITY_ADD=+1,824|DETAILED_PLAN=|ID=1001969621|IMPLEMENTATION=42,744|LAST_UPDATE=18/11/2026 09:57|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=שטחי הבנייה הנוספים, מעבר לשטח המאושר לבנייה למגורים, מוצעים בתכנית זו כ\"זכויות מותנות\"|ROW_NUM=4|UNIT_DESC=מ\"ר",
+     "AUTHORISED_QUANTITY=+440|AUTHORISED_QUANTITY_ADD=+34|DETAILED_PLAN=|ID=1001969619|IMPLEMENTATION=474|LAST_UPDATE=18/11/2026 09:57|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=מתוכן 22 יח\"ד המוצעות בתכנית זו כ\"מגורים מותנה\"|ROW_NUM=3|UNIT_DESC=יח\"ד",
+     "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+118|DETAILED_PLAN=|ID=1001969623|IMPLEMENTATION=118|LAST_UPDATE=18/11/2026 09:57|LAST_UPDATER=MAVATASKS|QUANTITY_CODE=151|QUANTITY_DESC=דיורית (יח\"ד)|REMARK=עד 118 דיוריות מוצעות בתכנית זו|ROW_NUM=1|UNIT_DESC=יח\"ד"
     ],
     "oppositions_count": 0,
-    "fingerprint": "08cd8d9f711604c1"
+    "fingerprint": "ebf3b8f8b6192752"
    },
    "mp_id": "1005389744"
   },
