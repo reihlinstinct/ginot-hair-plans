@@ -258,6 +258,11 @@ COMMUNITY_SOURCE_RECORDS = (
         "reviews/forum-2026-11-04-source/summary-redacted.pdf",
         "04.11.26",
     ),
+    (
+        frozenset({"101-1386671", "101-1348069"}),
+        "reviews/forum-2026-11-18-source/summary-redacted.pdf",
+        "18.11.26",
+    ),
 )
 
 
