@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "comment": "sha256 (first 16 hex chars) of lowercase tokens and adjacent-token phrases that must not appear in tracked content or PR bodies. Plaintext names are never stored. See scripts/ci/private_names_guard.py docstring for rotation. Issue #1053.",
+  "hashes": [
+    "0f914abcca1e46f3",
+    "1417f87025edd26f",
+    "262e7d5a0463866f",
+    "35b038a529327aec",
+    "383ff42f7053cf06",
+    "47aff2baafa90296",
+    "50cdda7868f91161",
+    "5753479db6b0da35",
+    "8a90db33c299cd48",
+    "a8a135faa6de3fa9",
+    "ccbc4b1ba972ee39",
+    "db3f54531aef2fa8",
+    "eb9d8d0627ca5f90",
+    "f56abf07a14c84d3"
+  ]
+}
