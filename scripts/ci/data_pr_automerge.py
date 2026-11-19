@@ -61,6 +61,7 @@ PRODUCER_PREFIXES = (
     "weekly-refresh/",
     "mirror-ingest/",
     "publications/",
+    "mavat-check/",
 )
 OPT_OUT_LABEL = "no-automerge"
 
@@ -123,6 +124,31 @@ def gh_api(path: str, method: str = "GET", payload: dict | None = None) -> objec
         return json.loads(result.stdout)
     except json.JSONDecodeError as error:
         raise RuntimeError(f"gh api {path} returned non-JSON") from error
+
+
+def file_text_at_ref(repo: str, filename: str, ref: str) -> str:
+    """Decoded file text at a ref.
+
+    The contents API omits `content` for files over 1MB (e.g.
+    data/permit_mirror.json); fall back to the git blob API, which serves
+    the same bytes for blobs up to 100MB. Fail closed when neither path
+    yields text.
+    """
+    import base64
+
+    root = f"repos/{repo}/contents/{urllib.parse.quote(filename)}"
+    payload = gh_api(f"{root}?ref={urllib.parse.quote(ref)}")
+    content = payload.get("content") if isinstance(payload, dict) else None
+    if content:
+        return base64.b64decode(content).decode("utf-8")
+    sha = payload.get("sha") if isinstance(payload, dict) else None
+    if not sha:
+        raise RuntimeError(f"no content or blob sha for {filename}@{ref}")
+    blob = gh_api(f"repos/{repo}/git/blobs/{sha}")
+    blob_content = blob.get("content") if isinstance(blob, dict) else None
+    if not blob_content:
+        raise RuntimeError(f"empty blob for {filename}@{ref}")
+    return base64.b64decode(blob_content).decode("utf-8")
 
 
 def gh_api_paginated(path: str) -> list:
@@ -246,13 +272,8 @@ def check_pr(repo: str, pr: dict, base_files: set[str]) -> list[str]:
                 if hit:
                     reasons.append(f"{filename}: {hit}")
         if filename.endswith(".json"):
-            root = f"repos/{repo}/contents/{urllib.parse.quote(filename)}"
-            base_blob = gh_api(f"{root}?ref={urllib.parse.quote(pr['base']['ref'])}")
-            head_blob = gh_api(f"{root}?ref={head_sha}")
-            import base64
-
-            base_text = base64.b64decode(base_blob["content"]).decode("utf-8")
-            head_text = base64.b64decode(head_blob["content"]).decode("utf-8")
+            base_text = file_text_at_ref(repo, filename, pr["base"]["ref"])
+            head_text = file_text_at_ref(repo, filename, head_sha)
             sane = json_sane(filename, base_text, head_text)
             if sane:
                 reasons.append(sane)
