@@ -249,7 +249,7 @@ def test_file_text_falls_back_to_blob_api_over_1mb(monkeypatch):
     def fake_gh_api(path):
         calls.append(path)
         if "contents" in path:
-            return {"sha": "deadbeef", "encoding": "none"}
+            return {"content": "", "sha": "deadbeef", "encoding": "none"}
         return {"content": _b64('{"big": true}')}
 
     monkeypatch.setattr(data_pr_automerge, "gh_api", fake_gh_api)
@@ -261,3 +261,66 @@ def test_file_text_fails_closed_without_content_or_sha(monkeypatch):
     monkeypatch.setattr(data_pr_automerge, "gh_api", lambda path: {})
     with pytest.raises(RuntimeError):
         file_text_at_ref("o/r", "data/x.json", "main")
+
+
+def test_file_text_fails_closed_on_empty_blob(monkeypatch):
+    def fake_gh_api(path):
+        if "contents" in path:
+            return {"content": "", "sha": "deadbeef", "encoding": "none"}
+        return {"content": ""}
+
+    monkeypatch.setattr(data_pr_automerge, "gh_api", fake_gh_api)
+    with pytest.raises(RuntimeError):
+        file_text_at_ref("o/r", "data/x.json", "main")
+
+
+# Section: immediate trigger on check completion
+
+
+def _pr_triggered_workflow_names():
+    import yaml
+
+    names = set()
+    for wf in WORKFLOW.parent.glob("*.yml"):
+        if wf.name == WORKFLOW.name:
+            continue
+        loaded = yaml.safe_load(wf.read_text())
+        on = loaded.get("on", loaded.get(True))  # YAML 1.1 "on" -> True
+        if isinstance(on, str):
+            on = {on: None}
+        if isinstance(on, list):
+            on = {k: None for k in on}
+        if on and "pull_request" in on:
+            names.add(loaded.get("name", wf.stem))
+    return names
+
+
+def test_workflow_run_trigger_re_evaluates_on_check_completion():
+    """Owner request 19.11.2026 (phonemsg-01M7T38FF8K2G7RF6YERYCK5EG):
+    producers trigger the automerge right after their PR opens. The
+    mechanism is workflow_run on check workflows completing on producer
+    branches - it runs this workflow from the default branch, so the
+    guard a PR cannot change is always the one evaluating it. No
+    pull_request_target: that trigger would hand PR-controlled context
+    to a secrets-bearing workflow."""
+    import yaml
+
+    loaded = yaml.safe_load(WORKFLOW.read_text())
+    on = loaded.get("on", loaded.get(True))  # YAML 1.1 parses the key "on" as bool
+    assert "pull_request_target" not in on
+    assert "pull_request" not in on
+    trigger = on["workflow_run"]
+    assert trigger["types"] == ["completed"]
+    # Every pull_request-triggered workflow must be in the list so a
+    # rename cannot silently drop the immediate path.
+    missing = _pr_triggered_workflow_names() - set(trigger["workflows"])
+    assert not missing, f"pull_request workflows missing from workflow_run: {missing}"
+    branches = trigger["branches"]
+    for prefix in (
+        "permit-feed/",
+        "weekly-refresh/",
+        "mirror-ingest/",
+        "publications/",
+        "mavat-check/",
+    ):
+        assert f"{prefix}**" in branches
