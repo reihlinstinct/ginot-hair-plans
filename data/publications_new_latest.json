@@ -1,67 +1,16 @@
 {
-  "new_in_polygon": [],
-  "unresolved_new": [
+  "new_in_polygon": [
     {
-      "myIndex": 16584828,
-      "tik_num": "1989/0049.04",
-      "street": "משה שור",
-      "house_number": "3",
-      "neighborhood": "רמות",
-      "place_description": null,
-      "publication_date": "2026-11-16",
+      "myIndex": 16552193,
+      "tik_num": "1983/0461.03",
+      "street": "רמבן",
+      "house_number": "24",
+      "neighborhood": "רחביה",
+      "place_description": "תוספת בניה לבנין הקיים",
+      "publication_date": "2026-11-04",
       "objection_deadline": null,
-      "ed700": "2026-11-12",
-      "connected_rec_id": 1265427,
-      "doc_id": "3a772cfb-c1fb-46f9-be26-99b605c6f622",
-      "diagnostics": {
-        "fields": {
-          "PD900": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "DocId": {
-            "present": true,
-            "null": false,
-            "type": "str"
-          },
-          "ED800": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          },
-          "ED700": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          }
-        },
-        "raw": {
-          "PD900": null,
-          "DocId": "3a772cfb-c1fb-46f9-be26-99b605c6",
-          "ED800": "2026-11-16T00:00:00",
-          "ED700": "2026-11-12T00:00:00"
-        },
-        "unexpected_keys": [
-          "description"
-        ],
-        "unexpected_keys_total": 1
-      },
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16587452,
-      "tik_num": "1993/0577.02",
-      "street": "הצוף",
-      "house_number": "1",
-      "neighborhood": "גילה",
-      "place_description": null,
-      "publication_date": "2026-11-16",
-      "objection_deadline": null,
-      "ed700": "2026-11-15",
-      "connected_rec_id": 1265998,
+      "ed700": "2026-10-28",
+      "connected_rec_id": 1253022,
       "doc_id": null,
       "diagnostics": {
         "fields": {
@@ -91,28 +40,31 @@
         "raw": {
           "PD900": null,
           "DocId": null,
-          "ED800": "2026-11-16T00:00:00",
-          "ED700": "2026-11-15T00:00:00"
+          "ED800": "2026-11-04T00:00:00",
+          "ED700": "2026-10-28T00:00:00"
         },
         "unexpected_keys": [
           "description"
         ],
         "unexpected_keys_total": 1
       },
-      "in_polygon": null
-    },
+      "in_polygon": true,
+      "in_polygon_source": "publication_point_evidence"
+    }
+  ],
+  "unresolved_new": [
     {
-      "myIndex": 15129757,
-      "tik_num": "2024/0310.00",
-      "street": "אאל אל בית סמטה 4",
-      "house_number": null,
-      "neighborhood": "אום טובא",
-      "place_description": ".",
-      "publication_date": "2026-11-16",
+      "myIndex": 16578018,
+      "tik_num": "1998/0833.02",
+      "street": "הרב מ.ל. רובין",
+      "house_number": "43",
+      "neighborhood": "רמות",
+      "place_description": null,
+      "publication_date": "2026-11-17",
       "objection_deadline": null,
       "ed700": "2026-11-12",
-      "connected_rec_id": 1284409,
-      "doc_id": "084097f7-0b61-4b01-aa8c-0f3a0059636f",
+      "connected_rec_id": 1269529,
+      "doc_id": "e7b3cb04-09e3-4d12-a38d-ad13f003abfa",
       "diagnostics": {
         "fields": {
           "PD900": {
@@ -140,9 +92,59 @@
         },
         "raw": {
           "PD900": null,
-          "DocId": "084097f7-0b61-4b01-aa8c-0f3a0059",
-          "ED800": "2026-11-16T00:00:00",
+          "DocId": "e7b3cb04-09e3-4d12-a38d-ad13f003",
+          "ED800": "2026-11-17T00:00:00",
           "ED700": "2026-11-12T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16591621,
+      "tik_num": "2026/0355.00",
+      "street": "דרך חברון",
+      "house_number": "54",
+      "neighborhood": "גאולים - בקעה",
+      "place_description": "מדובר בבניין משנות ה70 בין 4 קומות כולל קומה מפולשת וכולל מקלט ציבורי, הבניין מיועד להריסה ובניה במסגרת תמ\"א 38-2, במיקום על ציר רק\"ל ובתחום השפעת המתחם הדיפלומטי.",
+      "publication_date": "2026-11-17",
+      "objection_deadline": null,
+      "ed700": "2026-07-14",
+      "connected_rec_id": null,
+      "doc_id": null,
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": null,
+          "ED800": "2026-11-17T00:00:00",
+          "ED700": "2026-07-14T00:00:00"
         },
         "unexpected_keys": [
           "description"
