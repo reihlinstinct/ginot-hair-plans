@@ -43,7 +43,7 @@ concurrency:
 
 jobs:
   pending:
-    # #564: never stack a second data PR while one awaits review. Lists open
+    # #564: never stack a second data PR while one awaits merge. Lists open
     # same-repo PRs with the mavat-check/ head prefix (paginated, forks ignored).
     # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.MAVAT_WATCH_ENABLED != 'false' && inputs.mode != 'discover' }}
@@ -59,17 +59,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check for a mavat-check/ data PR still awaiting review
+      - name: Check for a mavat-check/ data PR still awaiting merge
         id: guard
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix mavat-check/
 
-      - name: Skip notice while a data PR awaits review
+      - name: Skip notice while a data PR awaits merge
         if: ${{ steps.guard.outputs.pending == 'true' }}
         env:
           PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
-        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+        run: echo "::notice::data PR(s) $PENDING_PRS still await merge; skipping this run (#564)"
 
   mavat-watch:
     permissions:
@@ -117,7 +117,7 @@ jobs:
           PYTHONUNBUFFERED: "1"
         run: python3 scripts/vpn/mavat_check.py
 
-      - name: Stage check results as a PR for review
+      - name: Stage check results as a PR
         if: ${{ env.MODE == 'check' && success() }}
         env:
           GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
@@ -143,11 +143,11 @@ jobs:
           git commit -m "Mavat check $(date +%Y-%m-%d) (refs #32)"
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Mavat check $(date +%Y-%m-%d)" \
-            --body "Automated Mavat check-mode results (refs #32): per-plan deadline text + page fingerprint. Requires independent and exact-head Claude reviews, green CI and normal manual merge." \
+            --body "Automated Mavat check-mode results (refs #32): per-plan deadline text + page fingerprint. Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes)." \
             --base main --head "$BRANCH")
-          echo "awaiting independent and exact-head Claude reviews: $PR"
+          echo "awaiting the guarded data automerge: $PR"
           # PR creation is not publication. Do not dispatch a successor until
-          # a reviewed normal merge is confirmed (operations docs, #564/#565).
+          # a confirmed merge is observed (operations docs, #564/#565).
 
       - name: Tear down tunnel and remove generated secret material
         if: always()

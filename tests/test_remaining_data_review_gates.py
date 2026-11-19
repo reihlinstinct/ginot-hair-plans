@@ -7,13 +7,20 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@pytest.mark.parametrize(
-    "name", ["audit-result.yml", "mavat-watch.yml", "mirror-ingest.yml"]
-)
-def test_data_workflow_stops_at_reviewed_pr(name):
+AUTOMERGE_PRODUCERS = ["mavat-watch.yml", "mirror-ingest.yml"]
+
+
+@pytest.mark.parametrize("name", ["audit-result.yml", *AUTOMERGE_PRODUCERS])
+def test_data_workflow_stops_at_a_gated_pr(name):
     workflow = (ROOT / ".github/workflows" / name).read_text()
     assert "gh pr create" in workflow
-    assert "awaiting independent and exact-head Claude reviews" in workflow
+    if name in AUTOMERGE_PRODUCERS:
+        # Owner policy 19.11.2026: scanner data refreshes merge via the guarded
+        # data automerge on green checks, no review (audit-result.yml is not an
+        # automerge producer and still requires reviews).
+        assert "awaiting the guarded data automerge" in workflow
+    else:
+        assert "awaiting independent and exact-head Claude reviews" in workflow
     for forbidden in (
         "gh pr merge",
         "--admin",

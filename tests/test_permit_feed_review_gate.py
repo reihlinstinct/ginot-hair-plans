@@ -11,7 +11,7 @@ def test_permit_publication_never_merges_or_bypasses_review():
     assert "gh pr create" in publish
     assert "gh pr merge" not in publish
     assert "--admin" not in publish
-    assert "awaiting independent and exact-head Claude reviews" in publish
+    assert "awaiting the guarded data automerge" in publish
     # Audit and enrichment successor must not treat PR creation as publication.
     assert workflow.count("steps.publish.outputs.merged == 'true'") == 2
 

@@ -25,10 +25,10 @@ def test_publish_wait_executes_clean_conflict_timeout_paths(tmp_path, name, stat
     """#170/#187/#277: real shell must wait clean, reject conflicts/timeouts."""
     text = workflow(name)
     if "gh pr merge" not in text:
-        assert "awaiting independent and exact-head Claude reviews" in text
+        assert "awaiting the guarded data automerge" in text
         assert "gh pr update-branch" not in text
         assert "--admin" not in text
-        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
+        return  # #564 supersedes auto-merge polling with a merge-gated PR.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -57,10 +57,10 @@ def test_publish_blocked_by_review_rule_proceeds_only_when_checks_green(tmp_path
     """Runs 39755426256/39804643780/39897078238: BLOCKED by the required review, checks green -> admin merge."""
     text = workflow(name)
     if "gh pr merge" not in text:
-        assert "awaiting independent and exact-head Claude reviews" in text
+        assert "awaiting the guarded data automerge" in text
         assert "gh pr update-branch" not in text
         assert "--admin" not in text
-        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
+        return  # #564 supersedes auto-merge polling with a merge-gated PR.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -92,10 +92,10 @@ def test_publish_poll_survives_ci_restart_near_miss(tmp_path, name):
     pending past the old 45-poll budget then green must still merge."""
     text = workflow(name)
     if "gh pr merge" not in text:
-        assert "awaiting independent and exact-head Claude reviews" in text
+        assert "awaiting the guarded data automerge" in text
         assert "gh pr update-branch" not in text
         assert "--admin" not in text
-        return  # #564 supersedes auto-merge polling with a reviewed PR gate.
+        return  # #564 supersedes auto-merge polling with a merge-gated PR.
     begin = text.index('          gh pr update-branch "$PR"')
     end = text.index('gh pr merge "$PR" --squash', begin)
     script = "\n".join(line[10:] for line in text[begin:end].splitlines())
@@ -117,7 +117,7 @@ def test_refresh_mirror_fetches_lease_ref_before_force_push():
     """#227: force-with-lease must use a fresh tracking ref."""
     text = workflow("weekly-refresh.yml")
     if "git push origin origin/main:refs/heads/mirror" not in text:
-        assert "awaiting independent and exact-head Claude reviews" in text
+        assert "awaiting the guarded data automerge" in text
         assert "refs/heads/mirror" not in text
         return  # #564 removes deployment from the fetch job entirely.
     fetch = text.index("git fetch origin mirror")
@@ -135,7 +135,7 @@ def test_refresh_inline_tests_precede_merge_without_approval_gated_dispatch():
         assert text.index("python -m pytest -q") < text.index("gh pr merge")
         assert text.index("ruff check") < text.index("gh pr merge")
     else:
-        assert "awaiting independent and exact-head Claude reviews" in text
+        assert "awaiting the guarded data automerge" in text
         assert "gh pr update-branch" not in text
         assert "--admin" not in text
     assert "gh workflow run ci.yml" not in text
@@ -143,7 +143,7 @@ def test_refresh_inline_tests_precede_merge_without_approval_gated_dispatch():
     # Permit feed no longer merges or waits around the review gate (#562).
     # Its no-change and PR-created paths are executed in test_permit_feed_review_gate.
     assert "gh pr merge" not in permit
-    assert "awaiting independent and exact-head Claude reviews" in permit
+    assert "awaiting the guarded data automerge" in permit
 
 
 def test_refresh_timeout_and_bounded_scan_size():

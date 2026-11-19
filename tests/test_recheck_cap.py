@@ -14,12 +14,12 @@ def test_daily_recheck_cap_fits_step_timeout():
     assert cap * 40 <= 60 * 60, f"cap {cap} x 40s exceeds the 60 minute step limit"
 
 
-def test_publish_leaves_green_pr_for_required_reviews():
-    # #562 supersedes the historical admin bypass: even green checks do not
-    # authorize publication before independent and exact-head Claude review.
+def test_publish_leaves_green_pr_for_the_guarded_automerge():
+    # #562 supersedes the historical admin bypass: the workflow never merges;
+    # green checks route the data PR to the guarded data automerge.
     assert "gh pr merge" not in WF
     assert "--admin" not in WF
-    assert "awaiting independent and exact-head Claude reviews" in WF
+    assert "awaiting the guarded data automerge" in WF
 
 
 def test_audit_result_stages_green_pr_for_independent_reviews():

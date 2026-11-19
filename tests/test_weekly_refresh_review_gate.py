@@ -1,4 +1,4 @@
-"""#564: fetched weekly data must wait for review, never self-publish."""
+"""#564: fetched weekly data stages a PR, never self-publishes."""
 
 from pathlib import Path
 
@@ -8,10 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 def test_weekly_refresh_stages_data_without_self_merge_or_deployment():
     workflow = (ROOT / ".github/workflows/weekly-refresh.yml").read_text()
     assert "gh pr create" in workflow
-    assert (
-        "Requires independent review, exact-head Claude review and green CI" in workflow
-    )
-    assert "awaiting independent and exact-head Claude reviews" in workflow
+    assert "guarded data automerge" in workflow
+    assert "awaiting the guarded data automerge" in workflow
     for forbidden in (
         "gh pr merge",
         "--admin",

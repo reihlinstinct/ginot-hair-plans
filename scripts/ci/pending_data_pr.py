@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Report whether a same-repo data PR with a given branch prefix awaits review.
+"""Report whether a same-repo data PR with a given branch prefix awaits merge.
 
 Usage: pending_data_pr.py --repo OWNER/NAME --prefix weekly-refresh/ [--base BRANCH]
 
 Scheduled data workflows call this before any network fetch, VPN or tunnel so a
-run never stacks a second data PR while one is still waiting for independent
-review (refs #564).
+run never stacks a second data PR while one is still waiting to
+merge (refs #564).
 
 Rules:
 - Lists open PRs page by page (``per_page=100&page=N``) until a short page.
   Draft PRs are open PRs, so they count as pending too.
 - By default PRs targeting ANY base branch count: a data PR opened against a
-  non-default branch is still unreviewed data. ``--base`` narrows the check to
+  non-default branch is still unmerged data. ``--base`` narrows the check to
   one base branch only when a caller explicitly wants that.
 - Counts only PRs whose head is in this same repository and whose head ref
   starts with the prefix. The repository comparison ignores case, as GitHub

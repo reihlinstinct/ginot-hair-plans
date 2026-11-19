@@ -102,7 +102,7 @@ def test_refresh_token_only_in_the_isolated_publish_job():
         for step in body.get("steps", [])
         if "REFRESH_DISPATCH_TOKEN" in str(step)
     ]
-    assert holders == [("publish", "Publish changes as a PR for review")]
+    assert holders == [("publish", "Publish changes as a PR")]
     renderer = doc["jobs"]["permit-feed"]
     assert "REFRESH_DISPATCH_TOKEN" not in str(renderer)
     assert "-r requirements-lock.txt" in "\n".join(
@@ -122,7 +122,7 @@ def test_publish_job_is_fresh_least_privilege_and_verifies_before_the_token():
     assert checkout["with"]["persist-credentials"] is False
     names = [s.get("name", s.get("uses")) for s in steps]
     verify = names.index("Verify publication bundle (fail closed, no token)")
-    publish = names.index("Publish changes as a PR for review")
+    publish = names.index("Publish changes as a PR")
     assert verify < publish == len(steps) - 1
     assert "verify_publication_bundle.sh" in steps[verify]["run"]
     assert "env" not in steps[verify]  # no token while untrusted input is checked

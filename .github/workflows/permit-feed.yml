@@ -68,7 +68,7 @@ permissions:
 
 jobs:
   pending:
-    # #564: never stack a second data PR while one awaits review. Lists open
+    # #564: never stack a second data PR while one awaits merge. Lists open
     # same-repo PRs with the permit-feed/ head prefix (paginated, forks ignored).
     # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.PERMIT_FEED_ENABLED != 'false' }}
@@ -84,17 +84,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check for a permit-feed/ data PR still awaiting review
+      - name: Check for a permit-feed/ data PR still awaiting merge
         id: guard
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix permit-feed/
 
-      - name: Skip notice while a data PR awaits review
+      - name: Skip notice while a data PR awaits merge
         if: ${{ steps.guard.outputs.pending == 'true' }}
         env:
           PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
-        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+        run: echo "::notice::data PR(s) $PENDING_PRS still await merge; skipping this run (#564)"
 
   permit-feed:
     permissions:
@@ -293,7 +293,7 @@ jobs:
           if git diff --quiet data/; then
             echo "no changes to permit data; no publication confirmed"
             # Fail closed: an unchanged local scan does not prove a prior
-            # data PR was reviewed and merged. Do not advance audit/chaining.
+            # data PR was merged. Do not advance audit/chaining.
             echo "merged=false" >> "$GITHUB_OUTPUT"
             echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
@@ -334,7 +334,7 @@ jobs:
           git bundle create "$RUNNER_TEMP/publication/publication.bundle" origin/main..HEAD
           echo "changed=true" >> "$GITHUB_OUTPUT"
           # PR creation is not publication. Keep checkpoint and stop dependent
-          # audit/enrichment work until a reviewed merge is confirmed.
+          # audit/enrichment work until a merge is confirmed.
           echo "merged=false" >> "$GITHUB_OUTPUT"
 
       - name: Hand the publication commit to the isolated publish job
@@ -429,7 +429,7 @@ jobs:
           TIP=$(bash scripts/ci/verify_publication_bundle.sh "$RUNNER_TEMP/publication/publication.bundle" origin/main)
           echo "tip=$TIP" >> "$GITHUB_OUTPUT"
 
-      - name: Publish changes as a PR for review
+      - name: Publish changes as a PR
         env:
           GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}
           TIP: ${{ steps.verify.outputs.tip }}
@@ -440,11 +440,11 @@ jobs:
           gh auth setup-git
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Permit feed batch $(date +%Y-%m-%d)" \
-            --body "Automated public permit-feed batch (refs #57). Requires independent review, exact-head Claude review and green CI before manual merge." \
+            --body "Automated public permit-feed batch (refs #57). Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes)." \
             --base main --head "$BRANCH")
           echo "opened $PR"
           gh workflow run ci.yml --ref "$BRANCH"
-          echo "awaiting independent and exact-head Claude reviews: $PR"
+          echo "awaiting the guarded data automerge: $PR"
           # PR creation is not publication; nothing here reports a merge.
 
   summary:

@@ -12,7 +12,7 @@ def test_watch_uses_checked_text_only_pr_and_preserves_outputs():
     assert "/tmp/publish-new.json" in workflow.split("path: |")[1]
     assert "reuse_probe_run_id" in workflow
     assert "git/trees" in script
-    assert "awaiting independent and exact-head Claude reviews" in script
+    assert "awaiting the guarded data automerge" in script
     assert "staged PR is not publication" in script
     assert "gh('pr', 'merge'" not in script
     assert "time.sleep" not in script
@@ -182,7 +182,7 @@ def test_main_pending_and_no_change_never_write(tmp_path, monkeypatch, capsys):
         module.main()
         assert len(calls) == (1 if pending else 4)
         assert (
-            "awaiting review" if pending else "no publication changes"
+            "awaiting merge" if pending else "no publication changes"
         ) in capsys.readouterr().out
     assert all(
         call[0][0]

@@ -1,4 +1,4 @@
-"""Stage scoped public watch data for independent review; never self-merge."""
+"""Stage scoped public watch data as a PR; never self-merge."""
 
 import json
 import os
@@ -99,7 +99,7 @@ def main():
     repo = os.environ["GITHUB_REPOSITORY"]
     pending = pending_publication_prs(repo)
     if pending:
-        print(f"publication PR(s) awaiting review: {pending}; no new PR or head update")
+        print(f"publication PR(s) awaiting merge: {pending}; no new PR or head update")
         return
     root = f"repos/{repo}"
     base = gh("api", f"{root}/git/ref/heads/main")["object"]["sha"]
@@ -146,13 +146,12 @@ def main():
             "title": "Daily publications refresh",
             "head": branch,
             "base": "main",
-            "body": "Automated public publication baseline and alert payload (refs #527). Text-only data update. Requires independent and exact-head Claude reviews, green CI and eligible approval before normal manual merge.",
+            "body": "Automated public publication baseline and alert payload (refs #527). Text-only data update. Eligible for the guarded data automerge: merges once checks are green at the exact head while DATA_AUTOMERGE_ENABLED is true (owner policy 19.11.2026: no review for scanner data refreshes).",
         },
     )
     print(pr["html_url"], flush=True)
     print(
-        "awaiting independent and exact-head Claude reviews, green CI and eligible approval; "
-        "staged PR is not publication",
+        "awaiting the guarded data automerge; staged PR is not publication",
         flush=True,
     )
 
