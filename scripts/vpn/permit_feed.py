@@ -360,6 +360,32 @@ def load_parcel_list(path, known):
     return sorted(out & known)
 
 
+def _record_sighting(requests, r, gush, helka):
+    """Record a tik sighted on a parcel. The FIRST scanned parcel keeps
+    the gush/helka identity fields (never silently rewritten by a later
+    sighting); every sighting is appended to parcels_observed in scan
+    order, so a multi-parcel tik documents all its observed parcels and
+    scan-order movement is visible instead of silent (#880)."""
+    tik = r.get("tik_num")
+    rec = requests.get(tik)
+    if rec is None:
+        requests[tik] = {
+            "tik_num": tik,
+            "mahut": (r.get("mahut_bakasha") or "").strip(),
+            "sugbakasha": (r.get("teurSugbakasha") or "").strip(),
+            "status": (r.get("teurStatus") or "").strip(),
+            "status_date": ddmmyyyy(r.get("taarih_status")),
+            "gush": gush,
+            "helka": helka,
+            "parcels_observed": [[gush, helka]],
+        }
+        return
+    pair = [gush, helka]
+    rec.setdefault("parcels_observed", [])
+    if pair not in rec["parcels_observed"]:
+        rec["parcels_observed"].append(pair)
+
+
 def prior_batch_cursor(path, default):
     """The feed's existing backfill cursor, so a re-check never moves it."""
     try:
@@ -369,9 +395,7 @@ def prior_batch_cursor(path, default):
         return default
 
 
-def main():
-    _STATS["unparseable_responses"] = 0
-    _STATS["detail_fetch_failures"] = 0
+def _parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--parcels", default="data/ginot_hair_parcels.geojson")
     ap.add_argument("--out", default="data/permit_requests.json")
@@ -401,10 +425,11 @@ def main():
         "(tiered re-check, issue #344). No checkpoint/resume, address "
         "kept from the prior row, feed batch cursor left untouched.",
     )
-    args = ap.parse_args()
-    list_mode = bool(args.parcel_list)
+    return ap.parse_args()
 
-    with open(args.parcels, encoding="utf-8") as fh:
+
+def _load_council_parcels(path):
+    with open(path, encoding="utf-8") as fh:
         gj = json.load(fh)
     parcels = set()
     for f in gj.get("features", []):
@@ -412,84 +437,87 @@ def main():
         g, h = p.get("gush"), p.get("helka")
         if g and h:
             parcels.add((int(g), int(h)))
-    parcels = sorted(parcels)
+    return sorted(parcels)
+
+
+def _resolve_batch(args, parcels, list_mode):
     if list_mode:
-        batch = load_parcel_list(args.parcel_list, set(parcels))
-    else:
-        batch = parcels[args.offset : args.offset + args.limit]
-        # keep the known active parcel (Alfasi 9) in every pilot batch
-        if (30025, 126) in parcels and (30025, 126) not in batch:
-            batch.insert(0, (30025, 126))
-    print(f"{len(parcels)} unique parcels, scanning batch of {len(batch)}")
+        return load_parcel_list(args.parcel_list, set(parcels))
+    batch = parcels[args.offset : args.offset + args.limit]
+    # keep the known active parcel (Alfasi 9) in every pilot batch
+    if (30025, 126) in parcels and (30025, 126) not in batch:
+        batch.insert(0, (30025, 126))
+    return batch
 
-    slug = os.environ.get("GITHUB_REPOSITORY", "")
-    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
-    # List mode never touches the scan-checkpoint branch: it belongs to the
-    # offset backfill and a re-check must not overwrite or resume from it.
-    ckpt_on = bool(args.checkpoint and token and slug and not list_mode)
-    if args.checkpoint and not ckpt_on:
-        print("checkpoint requested but GH_TOKEN/GITHUB_REPOSITORY missing - off")
 
-    # Reuse only complete details checked today for unchanged search metadata.
-    # Active publication steps can change even without a status change, so old
-    # days and legacy rows without a check timestamp must always refresh.
-    today = _today().isoformat()
+def _load_previous(out_path):
+    """Complete details from the existing feed file, keyed by tik."""
     try:
-        with open(args.out) as f:
-            previous = {
+        with open(out_path) as f:
+            return {
                 r["tik_num"]: r
                 for r in json.load(f).get("requests", [])
                 if r.get("tik_num")
             }
     except (FileNotFoundError, json.JSONDecodeError):
-        previous = {}
-    requests, failures = {}, 0
-    start = 0
-    cp = None
-    _LAST_CHECKPOINT["commit"] = None
-    if (args.resume or ckpt_on) and token and slug and not list_mode:
-        # #566: before any municipal request, refuse to resume or overwrite a
-        # checkpoint whose data PR was closed unmerged. Nothing is deleted or
-        # restarted here; recovery is the manual #562 path (README).
-        try:
-            verdict, numbers, cp = lifecycle_gate(
-                token, slug, prior_batch_cursor(args.out, None)
-            )
-        except (
-            checkpoint_lifecycle.LifecycleError,
-            subprocess.SubprocessError,  # gh_api's curl timeout
-            OSError,  # curl missing or not executable
-        ) as exc:
-            print(
-                f"checkpoint lifecycle check failed ({exc}); stopping before "
-                "any municipal request (fail closed, #566)"
-            )
-            return LIFECYCLE_STOP
-        prs = ", ".join(f"#{n}" for n in numbers) or "none"
-        print(f"checkpoint lifecycle: {verdict} (bound PRs: {prs})")
-        if verdict not in checkpoint_lifecycle.PROCEED:
-            print(
-                f"scan-checkpoint is {verdict}; stopping before any municipal "
-                "request. A human must inspect/archive the scan-checkpoint "
-                "branch and decide a fresh restart (README, #562/#566)."
-            )
-            return LIFECYCLE_STOP
-    if args.resume and token and slug and not list_mode:
-        start = resume_start(cp, args.offset, args.limit, len(batch))
-        if start:
-            requests = {
-                r["tik_num"]: r for r in cp.get("requests", []) if r.get("tik_num")
-            }
-            print(
-                f"resuming from checkpoint: {start}/{len(batch)} parcels already scanned, "
-                f"{len(requests)} requests carried"
-            )
-    for i in range(start, len(batch)):
-        gush, helka = batch[i]
-        if i:
-            time.sleep(PACE_SECONDS)
-        try:
-            rows = call(
+        return {}
+
+
+def _checkpoint_gate(args, ckpt_on, token, slug, list_mode):
+    """Fail-closed lifecycle check (#566). Returns (rc, cp): rc None to
+    proceed, else main()'s return code."""
+    if not ((args.resume or ckpt_on) and token and slug and not list_mode):
+        return None, None
+    # #566: before any municipal request, refuse to resume or overwrite a
+    # checkpoint whose data PR was closed unmerged. Nothing is deleted or
+    # restarted here; recovery is the manual #562 path (README).
+    try:
+        verdict, numbers, cp = lifecycle_gate(
+            token, slug, prior_batch_cursor(args.out, None)
+        )
+    except (
+        checkpoint_lifecycle.LifecycleError,
+        subprocess.SubprocessError,  # gh_api's curl timeout
+        OSError,  # curl missing or not executable
+    ) as exc:
+        print(
+            f"checkpoint lifecycle check failed ({exc}); stopping before "
+            "any municipal request (fail closed, #566)"
+        )
+        return LIFECYCLE_STOP, None
+    prs = ", ".join(f"#{n}" for n in numbers) or "none"
+    print(f"checkpoint lifecycle: {verdict} (bound PRs: {prs})")
+    if verdict not in checkpoint_lifecycle.PROCEED:
+        print(
+            f"scan-checkpoint is {verdict}; stopping before any municipal "
+            "request. A human must inspect/archive the scan-checkpoint "
+            "branch and decide a fresh restart (README, #562/#566)."
+        )
+        return LIFECYCLE_STOP, None
+    return None, cp
+
+
+def _resume(args, token, slug, list_mode, batch, cp):
+    """Resume offset and carried requests from the checkpoint."""
+    if not (args.resume and token and slug and not list_mode):
+        return 0, {}
+    start = resume_start(cp, args.offset, args.limit, len(batch))
+    if not start:
+        return 0, {}
+    requests = {r["tik_num"]: r for r in cp.get("requests", []) if r.get("tik_num")}
+    print(
+        f"resuming from checkpoint: {start}/{len(batch)} parcels already scanned, "
+        f"{len(requests)} requests carried"
+    )
+    return start, requests
+
+
+def _parcel_rows(gush, helka):
+    """One parcel's search rows. Returns (rows, rc): rc set only on a
+    hard stop (anti-bot challenge); rows None on a request failure."""
+    try:
+        return (
+            call(
                 242700437,
                 {
                     "misparTik": None,
@@ -501,18 +529,41 @@ def main():
                     "migrash": None,
                     "systemId": SYS,
                 },
-            )
-        except RuntimeError:
-            print("anti-bot challenge - stopping (no workaround)")
-            return 2
-        except (subprocess.SubprocessError, OSError) as exc:
-            # #399: call()'s own JSON parsing no longer escapes (narrowed and
-            # caught internally above), so the only exceptions that reach
-            # here are subprocess/OS failures - narrowed to match. Already
-            # counted via `failures` below and the run aborts after
-            # MAX_CONSECUTIVE_FAILURES - compliant.
-            rows = None
-            print(f"parcel {gush}/{helka}: {exc}")
+            ),
+            None,
+        )
+    except RuntimeError:
+        print("anti-bot challenge - stopping (no workaround)")
+        return None, 2
+    except (subprocess.SubprocessError, OSError) as exc:
+        # #399: call()'s own JSON parsing no longer escapes (narrowed and
+        # caught internally above), so the only exceptions that reach
+        # here are subprocess/OS failures - narrowed to match. Already
+        # counted via `failures` in the caller and the run aborts after
+        # MAX_CONSECUTIVE_FAILURES - compliant.
+        print(f"parcel {gush}/{helka}: {exc}")
+        return None, None
+
+
+def _scan_parcel(rows, requests, gush, helka):
+    for r in rows if isinstance(rows, list) else []:
+        tik = r.get("tik_num")
+        if not tik:
+            continue
+        _record_sighting(requests, r, gush, helka)
+
+
+def _scan_batch(batch, requests, start, args, ckpt_on, token, slug):
+    """Walk the parcel batch, recording every tik sighting (#880).
+    Returns None on success, else main()'s return code."""
+    failures = 0
+    for i in range(start, len(batch)):
+        gush, helka = batch[i]
+        if i:
+            time.sleep(PACE_SECONDS)
+        rows, rc = _parcel_rows(gush, helka)
+        if rc is not None:
+            return rc
         if rows is None:
             failures += 1
             if failures >= MAX_CONSECUTIVE_FAILURES:
@@ -520,31 +571,62 @@ def main():
                 return 1
             continue
         failures = 0
-        for r in rows if isinstance(rows, list) else []:
-            tik = r.get("tik_num")
-            if not tik or tik in requests:
-                continue
-            requests[tik] = {
-                "tik_num": tik,
-                "mahut": (r.get("mahut_bakasha") or "").strip(),
-                "sugbakasha": (r.get("teurSugbakasha") or "").strip(),
-                "status": (r.get("teurStatus") or "").strip(),
-                "status_date": ddmmyyyy(r.get("taarih_status")),
-                "gush": gush,
-                "helka": helka,
-            }
+        _scan_parcel(rows, requests, gush, helka)
         if (i + 1) % 10 == 0:
             print(f"[{i + 1}/{len(batch)}] {len(requests)} requests so far")
         if ckpt_on and (i + 1) % args.checkpoint_every == 0:
             push_checkpoint(requests, args.offset, args.limit, i + 1, token, slug)
-
     if ckpt_on:
         push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
-    print(f"found {len(requests)} unique requests; fetching process + address data")
+    return None
+
+
+def _fetch_one_detail(requests, tik, prior, list_mode, today):
+    """Publication + address details for one tik; None or exit code 2."""
+    try:
+        pub_start, pub_end = publication_dates(tik)
+        requests[tik]["publication_start"] = pub_start
+        requests[tik]["publication_end_planned"] = pub_end
+        if list_mode and prior.get("address"):
+            requests[tik]["address"] = prior["address"]  # address does not change
+            for f in ("rehovName", "mispBait", "schunaName"):
+                if prior.get(f):
+                    requests[tik][f] = prior[f]
+        else:
+            time.sleep(PACE_SECONDS)
+            fields = address_of(tik)
+            requests[tik].update(fields)
+            requests[tik]["address"] = street_address(fields)
+        requests[tik]["details_checked_on"] = today
+    except RuntimeError:
+        print("anti-bot challenge during detail fetch - stopping (no workaround)")
+        return 2
+    except Exception as exc:  # noqa: BLE001 - reason below (#399, tested resilience)
+        # #399: left broad on purpose - test_feed_detail_failure_is_not_fatal
+        # asserts the batch must survive ANY failure fetching a single
+        # tik's publication/address details (the test injects a plain
+        # ValueError), so this cannot be narrowed to specific types
+        # without breaking that tested resilience. Now explicitly counted
+        # (in addition to the existing per-tik print) and surfaced in
+        # main()'s run summary below.
+        _STATS["detail_fetch_failures"] += 1
+        print(f"{tik}: detail fetch failed: {exc}")
+    return None
+
+
+def _fetch_details(
+    requests, previous, batch, args, ckpt_on, token, slug, list_mode, today
+):
+    """Per-tik publication + address details. Returns None or exit code."""
     detailed_since_checkpoint = 0
     for j, tik in enumerate(sorted(requests)):
         row = requests[tik]
         prior = previous.get(tik, {})
+        # Sightings from earlier runs stay visible across re-scans (#880).
+        observed = row.setdefault("parcels_observed", [])
+        for pair in prior.get("parcels_observed") or []:
+            if pair not in observed:
+                observed.append(pair)
         metadata = ("mahut", "sugbakasha", "status", "status_date")
         details = (
             "publication_start",
@@ -564,49 +646,26 @@ def main():
             continue  # today's complete read, from prior output or durable checkpoint
         if j:
             time.sleep(PACE_SECONDS)
-        try:
-            start, end = publication_dates(tik)
-            requests[tik]["publication_start"] = start
-            requests[tik]["publication_end_planned"] = end
-            if list_mode and prior.get("address"):
-                requests[tik]["address"] = prior["address"]  # address does not change
-                for f in ("rehovName", "mispBait", "schunaName"):
-                    if prior.get(f):
-                        requests[tik][f] = prior[f]
-            else:
-                time.sleep(PACE_SECONDS)
-                fields = address_of(tik)
-                requests[tik].update(fields)
-                requests[tik]["address"] = street_address(fields)
-            requests[tik]["details_checked_on"] = today
-        except RuntimeError:
-            print("anti-bot challenge during detail fetch - stopping (no workaround)")
-            return 2
-        except Exception as exc:  # noqa: BLE001 - reason below (#399, tested resilience)
-            # #399: left broad on purpose - test_feed_detail_failure_is_not_fatal
-            # asserts the batch must survive ANY failure fetching a single
-            # tik's publication/address details (the test injects a plain
-            # ValueError), so this cannot be narrowed to specific types
-            # without breaking that tested resilience. Now explicitly counted
-            # (in addition to the existing per-tik print) and surfaced in
-            # main()'s run summary below.
-            _STATS["detail_fetch_failures"] += 1
-            print(f"{tik}: detail fetch failed: {exc}")
+        rc = _fetch_one_detail(requests, tik, prior, list_mode, today)
+        if rc is not None:
+            return rc
         detailed_since_checkpoint += 1
         if ckpt_on and detailed_since_checkpoint >= args.checkpoint_every:
             push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
             detailed_since_checkpoint = 0
-
     if ckpt_on:
         push_checkpoint(requests, args.offset, args.limit, len(batch), token, slug)
+    return None
 
-    # Union with the existing feed file (main's version, from checkout):
-    # each batch scans only its parcel slice, and without this merge every
-    # batch PR would DELETE the previous batches' rows. Freshly scanned
-    # rows win per tik_num; unscanned rows carry over unchanged.
+
+def _merge_previous(requests, out_path):
+    """Union with the existing feed file (main's version, from checkout):
+    each batch scans only its parcel slice, and without this merge every
+    batch PR would DELETE the previous batches' rows. Freshly scanned
+    rows win per tik_num; unscanned rows carry over unchanged."""
     carried = 0
     try:
-        with open(args.out, encoding="utf-8") as fh:
+        with open(out_path, encoding="utf-8") as fh:
             prev = json.load(fh).get("requests", [])
         for r in prev:
             if r.get("tik_num") and r["tik_num"] not in requests:
@@ -614,9 +673,10 @@ def main():
                 carried += 1
     except (FileNotFoundError, json.JSONDecodeError):
         pass
-    if carried:
-        print(f"carried over {carried} requests from previous batches")
+    return carried
 
+
+def _write_feed(requests, args, list_mode, ckpt_on):
     batch_cursor = {"offset": args.offset, "limit": args.limit}
     if list_mode:
         batch_cursor = prior_batch_cursor(args.out, batch_cursor)
@@ -672,6 +732,48 @@ def main():
             f"{_STATS['detail_fetch_failures']} tik(s) missing publication/address "
             "details this run (see above)"
         )
+
+
+def main():
+    _STATS["unparseable_responses"] = 0
+    _STATS["detail_fetch_failures"] = 0
+    _LAST_CHECKPOINT["commit"] = None
+    args = _parse_args()
+    list_mode = bool(args.parcel_list)
+    parcels = _load_council_parcels(args.parcels)
+    batch = _resolve_batch(args, parcels, list_mode)
+    print(f"{len(parcels)} unique parcels, scanning batch of {len(batch)}")
+
+    slug = os.environ.get("GITHUB_REPOSITORY", "")
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN") or ""
+    # List mode never touches the scan-checkpoint branch: it belongs to the
+    # offset backfill and a re-check must not overwrite or resume from it.
+    ckpt_on = bool(args.checkpoint and token and slug and not list_mode)
+    if args.checkpoint and not ckpt_on:
+        print("checkpoint requested but GH_TOKEN/GITHUB_REPOSITORY missing - off")
+
+    # Reuse only complete details checked today for unchanged search metadata.
+    # Active publication steps can change even without a status change, so old
+    # days and legacy rows without a check timestamp must always refresh.
+    today = _today().isoformat()
+    previous = _load_previous(args.out)
+    rc, cp = _checkpoint_gate(args, ckpt_on, token, slug, list_mode)
+    if rc is not None:
+        return rc
+    start, requests = _resume(args, token, slug, list_mode, batch, cp)
+    rc = _scan_batch(batch, requests, start, args, ckpt_on, token, slug)
+    if rc is not None:
+        return rc
+    print(f"found {len(requests)} unique requests; fetching process + address data")
+    rc = _fetch_details(
+        requests, previous, batch, args, ckpt_on, token, slug, list_mode, today
+    )
+    if rc is not None:
+        return rc
+    carried = _merge_previous(requests, args.out)
+    if carried:
+        print(f"carried over {carried} requests from previous batches")
+    _write_feed(requests, args, list_mode, ckpt_on)
     return 0
 
 

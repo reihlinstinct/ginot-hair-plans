@@ -103,9 +103,56 @@ def test_unrelated_first_letter_is_rejected(letter):
     assert neighborhoods.tags_for(f"תוספת שטחים {letter}{_MULTI} 5") == []
 
 
-def test_shared_street_is_excluded():
-    # הפלמ"ח is anchored to three neighborhoods; it maps to none.
-    assert neighborhoods.tags_for("בניין מגורים ברח' הפלמ\"ח 24") == []
+def test_shared_street_without_a_number_is_excluded():
+    # הפלמ"ח spans several neighborhoods; without a house number the
+    # plan's neighborhood is unknown (#998).
+    assert neighborhoods.tags_for("שינוי הוראות ברח' הפלמ\"ח, ירושלים") == []
+
+
+# Section: house-number ranges on a shared street (#998)
+
+
+def test_palmach_even_low_numbers_are_kiryat_shmuel():
+    # Parcel-level join against the JTMT neighborhood layer: even
+    # 12-26 sit inside קריית שמואל.
+    tags = neighborhoods.tags_for("בניין מגורים ברח' הפלמ\"ח 24, ירושלים")
+    assert tags == ["קריית שמואל", "קרית שמואל"]
+
+
+def test_palmach_odd_low_numbers_are_old_katamon():
+    tags = neighborhoods.tags_for('הרחבת יח"ד ברח\' הפלמ"ח 25')
+    assert "קטמון הישנה" in tags and "קטמון" in tags  # parent rides along
+    assert "קרית שמואל" not in tags
+
+
+def test_palmach_27_follows_the_municipality_plan_name():
+    # The municipality's own plan name calls הפלמ"ח 27 קרית שמואל, so a
+    # 27-27 range sits inside קטמון הישנה's wider odd range and the
+    # narrowest range wins.
+    tags = neighborhoods.tags_for('הרחבת יח"ד ברח\' הפלמ"ח 27, קרית שמואל, ירושלים.')
+    assert tags == ["קריית שמואל", "קרית שמואל"]
+
+
+def test_palmach_without_the_hay_prefix_still_matches():
+    assert "קרית שמואל" in neighborhoods.tags_for('בניין מגורים ברחוב פלמ"ח 18')
+
+
+def test_palmach_high_numbers_are_not_tagged():
+    # 59+ is גבעת הורדים-רסקו per the GIS layer but קטמון per the
+    # municipality's plan names: the sources disagree, so no tag yet.
+    assert neighborhoods.tags_for("הריסה ובנייה ברח' הפלמ\"ח 66") == []
+    assert neighborhoods.tags_for('בניין מגורים ברחוב פלמ"ח 48 ירושלים') == []
+
+
+def test_palmach_multiple_numbers_tag_once():
+    tags = neighborhoods.tags_for('התחדשות עירונית הפלמ"ח 49, 51 והשיירות 2')
+    assert "קטמון הישנה" in tags
+
+
+def test_palmach_number_outside_every_range_tags_nothing():
+    # 2 is even: inside no anchored range (odd side is 1-51, even side
+    # starts at 12), so nothing tags.
+    assert neighborhoods.tags_for("תוספת קומה ברח' הפלמ\"ח 2א") == []
 
 
 def test_spelling_folding_matches_the_site():
@@ -133,9 +180,34 @@ def test_no_street_is_mapped_to_two_neighborhoods():
     data = json.loads((ROOT / "data/neighborhoods.json").read_text(encoding="utf-8"))
     seen = {}
     for name, entry in data["neighborhoods"].items():
-        for street in entry.get("streets", {}):
-            assert street not in seen, f"{street} in both {seen.get(street)} and {name}"
-            seen[street] = name
+        for street, spec in entry.get("streets", {}).items():
+            if street in seen:
+                # A shared street is allowed only with house-number
+                # ranges on every entry (#998), never as a plain anchor.
+                assert isinstance(spec, dict) and spec.get("ranges"), street
+                other = seen[street]
+                assert isinstance(other[1], dict) and other[1].get("ranges"), street
+                for a in other[1]["ranges"]:
+                    for b in spec["ranges"]:
+                        same_parity = {
+                            a.get("parity", "any"),
+                            b.get("parity", "any"),
+                        } != {
+                            "odd",
+                            "even",
+                        }
+                        overlap = a["from"] <= b["to"] and b["from"] <= a["to"]
+                        if same_parity and overlap:
+                            # Allowed only as an explicit exception island
+                            # (narrowest range wins): one range strictly
+                            # inside the other, never identical spans.
+                            nested = (
+                                a["from"] >= b["from"] and a["to"] <= b["to"]
+                            ) or (b["from"] >= a["from"] and b["to"] <= a["to"])
+                            identical = a["from"] == b["from"] and a["to"] == b["to"]
+                            assert nested and not identical, street
+            else:
+                seen[street] = (name, spec)
 
 
 # Section: page integration
@@ -180,3 +252,10 @@ def test_nonempty_search_overrides_approved_hiding(tmp_path):
     page.render_site([_plan_row("1", "תכנית", status="אישור")], [], str(tmp_path))
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     assert "data-active')!=='1'&&!normSearch(fq.value)" in html
+
+
+def test_kiryat_shmuel_unique_streets():
+    # הרב חן (23/23) and חיים ברודי (19/19): every geolocated permit
+    # parcel on these streets sits in קריית שמואל (#1006, JTMT join).
+    assert "קרית שמואל" in neighborhoods.tags_for("תוספת יח\"ד ברח' הרב חן 4")
+    assert "קרית שמואל" in neighborhoods.tags_for("שינוי הוראות בחיים ברודי 7")

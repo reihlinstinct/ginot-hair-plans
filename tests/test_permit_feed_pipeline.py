@@ -338,3 +338,86 @@ def test_inverted_publication_dates_counted():
         {"publication_start": ["2026-11-24"], "publication_end_planned": None},
     ]
     assert feed.count_inverted_publication_dates(rows) == 1
+
+
+# Section: Multi-parcel tik sightings (#880)
+
+
+def test_multi_parcel_tik_records_all_observed_parcels(monkeypatch, tmp_path):
+    # A tik returned by two parcels keeps the FIRST scanned parcel as
+    # its gush/helka identity and records every observed parcel, so
+    # scan-order movement is documented instead of silent (#880).
+    parcels = parcels_file(tmp_path, [(100, 1), (100, 2)])
+    out = tmp_path / "out.json"
+    out.write_text(json.dumps({"requests": []}))
+
+    def call(proc, params):
+        if proc == 242700437:
+            return [search_row("T/9")]
+        return []
+
+    args = ["--parcels", str(parcels), "--out", str(out), "--limit", "2"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    row = next(
+        r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
+    )
+    assert (row["gush"], row["helka"]) == (100, 1)
+    assert row["parcels_observed"] == [[100, 1], [100, 2]]
+
+
+def test_multi_parcel_tik_identity_moves_stay_visible(monkeypatch, tmp_path):
+    # Parcels scan sorted within a run, so movement happens across
+    # runs/batches: the freshly scanned row still wins the identity
+    # fields (no silent cadastral change either way), and every run's
+    # sightings stay recorded in parcels_observed (#880).
+    p1 = parcels_file(tmp_path, [(100, 2)])
+    out = tmp_path / "out.json"
+    out.write_text(json.dumps({"requests": []}))
+
+    def call(proc, params):
+        if proc == 242700437:
+            return [search_row("T/9")]
+        return []
+
+    args = ["--parcels", str(p1), "--out", str(out), "--limit", "1"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    p2 = tmp_path / "p2.geojson"
+    p2.write_text(p1.read_text().replace('"helka": 2', '"helka": 1'))
+    args = ["--parcels", str(p2), "--out", str(out), "--limit", "1"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    row = next(
+        r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
+    )
+    assert (row["gush"], row["helka"]) == (100, 1)
+    assert row["parcels_observed"] == [[100, 1], [100, 2]]
+
+
+def test_prior_parcels_observed_survive_a_fresh_scan(monkeypatch, tmp_path):
+    # A re-scan keeps sightings recorded by earlier runs (#880).
+    parcels = parcels_file(tmp_path, [(100, 1)])
+    out = tmp_path / "out.json"
+    out.write_text(
+        json.dumps(
+            {
+                "requests": [
+                    {
+                        "tik_num": "T/9",
+                        "status": "old",
+                        "parcels_observed": [[100, 2]],
+                    }
+                ]
+            }
+        )
+    )
+
+    def call(proc, params):
+        if proc == 242700437:
+            return [search_row("T/9")]
+        return []
+
+    args = ["--parcels", str(parcels), "--out", str(out), "--limit", "1"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    row = next(
+        r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
+    )
+    assert row["parcels_observed"] == [[100, 1], [100, 2]]

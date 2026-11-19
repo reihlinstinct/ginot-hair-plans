@@ -162,6 +162,34 @@ def test_non_string_house_number_stays_unknown(tmp_path):
     assert "in_polygon_source" not in rows[0]
 
 
+# Section: Jerusalem envelope
+
+
+def test_committed_registry_points_are_inside_the_jerusalem_envelope():
+    records = points.load_points(ROOT / "data/publication_point_evidence.json")
+    assert records, "registry must not be empty for the envelope check"
+    transform = Transformer.from_crs(2039, 4326, always_xy=True)
+    for record in records:
+        lon, lat = transform.transform(record["x"], record["y"])
+        assert 31.65 <= lat <= 31.95, record
+        assert 35.05 <= lon <= 35.35, record
+
+
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"x": 178000, "y": 658000},  # Tel Aviv area: north and west of the city
+        {"x": 220378, "y": 700000},  # far north of Jerusalem
+        {"x": 220378, "y": 600000},  # far south of Jerusalem
+    ],
+)
+def test_out_of_envelope_registry_is_rejected(tmp_path, changes):
+    path = tmp_path / "evidence.json"
+    path.write_text(json.dumps([evidence(**changes)]))
+    with pytest.raises(ValueError, match="Jerusalem envelope"):
+        points.load_points(path)
+
+
 # Section: Registry provenance and fail-closed loading
 
 

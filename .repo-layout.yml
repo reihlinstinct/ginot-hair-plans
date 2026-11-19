@@ -19,6 +19,7 @@
       ".coveragerc",
       ".gitattributes",
       ".gitignore",
+      ".pre-commit-config.yaml",
       ".repo-layout.yml",
       ".vercelignore",
       "ACCESSIBILITY.md",
@@ -62,6 +63,8 @@
       "allow": [
         "*.css",
         "*.js",
+        "*.json",
+        "*.md",
         "*.py",
         "LICENSE",
         "public-api-fields.json",

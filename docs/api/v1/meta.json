@@ -1,0 +1,9 @@
+{
+ "api_version": 1,
+ "generated": "2026-11-10",
+ "endpoints": [
+  "plans.json",
+  "permits.json",
+  "changes.json"
+ ]
+}
