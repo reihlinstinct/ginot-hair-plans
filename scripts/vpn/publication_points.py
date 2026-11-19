@@ -33,6 +33,24 @@ def _validate_address(record: dict) -> None:
     date.fromisoformat(record["verified_at"])
 
 
+# Jerusalem municipal envelope in EPSG:4326 (lat, lon bounds). Official point
+# evidence is only meaningful inside the city; anything outside it is a data
+# error and must fail closed at load time.
+JERUSALEM_LAT_RANGE = (31.65, 31.95)
+JERUSALEM_LON_RANGE = (35.05, 35.35)
+
+
+def _validate_envelope(record: dict) -> None:
+    lon, lat = Transformer.from_crs(2039, 4326, always_xy=True).transform(
+        record["x"], record["y"]
+    )
+    if not (
+        JERUSALEM_LAT_RANGE[0] <= lat <= JERUSALEM_LAT_RANGE[1]
+        and JERUSALEM_LON_RANGE[0] <= lon <= JERUSALEM_LON_RANGE[1]
+    ):
+        raise ValueError("official point evidence outside the Jerusalem envelope")
+
+
 def _validate_source_url(record: dict) -> None:
     url = urlsplit(record["source_url"])
     query = parse_qs(url.fragment.partition("?")[2])
@@ -61,6 +79,7 @@ def _validate_record(record: dict) -> None:
             raise TypeError("invalid official point coordinate")
         if not math.isfinite(value):
             raise ValueError("non-finite official point coordinate")
+    _validate_envelope(record)
     _validate_source_url(record)
 
 
