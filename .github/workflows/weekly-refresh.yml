@@ -7,7 +7,7 @@ name: Weekly data refresh (iplan + land.gov.il)
 #   2. ginot.refresh - the iplan ArcGIS refresh; merges the land feed into
 #      each row (deadline = latest publication + 2 calendar months, Planning and
 #      Building Law s.102), rebuilds CSV/XLSX/snapshots and the Pages site.
-# Changes are staged as a PR for independent review, exact-head Claude review
+# Changes are staged as a PR and merged by the guarded data automerge on green checks
 # and green CI. This fetch job never merges, updates branches, publishes Pages
 # or advances the Cloudflare mirror. Reviewed manual post-merge continuation
 # is documented in docs/operations/data-publication.md (issue #564).
@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   pending:
-    # #564: never stack a second data PR while one awaits review. Lists open
+    # #564: never stack a second data PR while one awaits merge. Lists open
     # same-repo PRs with the weekly-refresh/ head prefix (paginated, forks ignored).
     # Pending -> green run with a skip notice; guard error -> red (fail closed).
     if: ${{ vars.WEEKLY_REFRESH_ENABLED != 'false' }}
@@ -42,17 +42,17 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Check for a weekly-refresh/ data PR still awaiting review
+      - name: Check for a weekly-refresh/ data PR still awaiting merge
         id: guard
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 scripts/ci/pending_data_pr.py --repo "$GITHUB_REPOSITORY" --prefix weekly-refresh/
 
-      - name: Skip notice while a data PR awaits review
+      - name: Skip notice while a data PR awaits merge
         if: ${{ steps.guard.outputs.pending == 'true' }}
         env:
           PENDING_PRS: ${{ steps.guard.outputs.pending_prs }}
-        run: echo "::notice::data PR(s) $PENDING_PRS still await review; skipping this run (#564)"
+        run: echo "::notice::data PR(s) $PENDING_PRS still await merge; skipping this run (#564)"
 
   refresh:
     permissions:
@@ -78,7 +78,7 @@ jobs:
       - name: Run iplan refresh and render the site
         run: PYTHONPATH=src python3 -u -m ginot.refresh
 
-      - name: Stage changes as a PR for review
+      - name: Stage changes as a PR
         env:
           # Repo-scoped PAT: a GITHUB_TOKEN-opened
           # PR never triggers ci.yml, so the required checks never ran and the
@@ -116,12 +116,12 @@ jobs:
           latest publication + 2 calendar months (s.102), sources kept per row."
           git push -u origin "$BRANCH"
           PR=$(gh pr create --title "Weekly data refresh $(date +%Y-%m-%d)" \
-            --body "Automated weekly refresh (refs #55): land.gov.il publication-status feed + iplan refresh. Requires independent review, exact-head Claude review and green CI before manual merge." \
+            --body "Automated weekly refresh (refs #55): land.gov.il publication-status feed + iplan refresh. Merges automatically via the guarded data automerge once checks are green at the exact head (owner policy 19.11.2026: no review for scanner data refreshes)." \
             --base main --head "$BRANCH")
           echo "opened $PR"
-          echo "awaiting independent and exact-head Claude reviews: $PR"
+          echo "awaiting the guarded data automerge: $PR"
           # PR creation is not publication. Preserve this branch and data;
-          # reviewers merge normally, then request deployment separately.
+          # the guarded data automerge merges on green; deployment is requested separately.
 
   summary:
     name: Run summary

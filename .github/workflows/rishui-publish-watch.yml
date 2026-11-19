@@ -5,7 +5,7 @@ name: Rishui149 active-publications watch (VPN)
 # challenge (exit 2, no retry, no workaround). Rewrites the committed baseline
 # data/publications_active.json and writes new publications in the tracked
 # council neighborhoods (with PD900 objection deadlines) to
-# data/publications_new_latest.json for the alert path. Data staged as a reviewed PR via
+# data/publications_new_latest.json for the alert path. Data staged as a PR via
 # a repo-scoped token. Objection windows are short (~26 days), so a weekly cadence
 # can lose most of the window.
 
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     steps:
-      - name: Stop while a publication data PR awaits review
+      - name: Stop while a publication data PR awaits merge
         id: pending
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,9 +45,9 @@ jobs:
           PENDING=$(gh api --paginate "repos/$GITHUB_REPOSITORY/pulls?state=open&base=main&per_page=100" \
             | jq -r --arg repo "$GITHUB_REPOSITORY" '.[] | select(.head.repo.full_name == $repo) | select(.head.ref | startswith("publications/")) | .number')
           if [ -n "$PENDING" ]; then
-            echo "publication data PR(s) awaiting review: $PENDING; stopping before fetch"
+            echo "publication data PR(s) awaiting merge: $PENDING; stopping before fetch"
             echo "pending=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Waiting for review; collection paused until existing PR merges"
+            echo "::notice::Waiting for merge; collection paused until existing PR merges"
             exit 0
           fi
           echo "pending=false" >> "$GITHUB_OUTPUT"
@@ -118,7 +118,7 @@ jobs:
             --out-active data/publications_active.json \
             --out-new data/publications_new_latest.json | tee -a watch-output.txt
 
-      - name: Stage publication data PR for review
+      - name: Stage publication data PR
         if: ${{ steps.pending.outputs.pending != 'true' }}
         env:
           GH_TOKEN: ${{ secrets.REFRESH_DISPATCH_TOKEN }}

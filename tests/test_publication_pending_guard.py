@@ -67,7 +67,7 @@ def test_pending_publication_guard_stops_before_network_and_fails_closed(tmp_pat
         Path(__file__).resolve().parents[1]
         / ".github/workflows/rishui-publish-watch.yml"
     ).read_text()
-    step = workflow.split("- name: Stop while a publication data PR awaits review", 1)[
+    step = workflow.split("- name: Stop while a publication data PR awaits merge", 1)[
         1
     ].split("      - uses:", 1)[0]
     shell = "\n".join(line[10:] for line in step.split("run: |\n", 1)[1].splitlines())

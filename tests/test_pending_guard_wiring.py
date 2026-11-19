@@ -1,4 +1,4 @@
-"""#564: data workflows must not stack a second data PR while one awaits review.
+"""#564: data workflows must not stack a second data PR while one awaits merge.
 
 Each scheduled data workflow runs the shared fail-closed guard
 (scripts/ci/pending_data_pr.py) in a read-only ``pending`` job before any
