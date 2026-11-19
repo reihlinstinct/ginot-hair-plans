@@ -1,53 +1,113 @@
 {
- "comment": "Neighborhood search index for the plan table. Streets marked 'plan-names' are anchored by the municipality's own plan names in the dataset (the neighborhood appears next to the street in a published plan name); 'manual' entries are hand-checked. Streets shared by several neighborhoods are excluded on purpose - הפלמ\"ח is anchored to קטמון, קטמון הישנה and קרית שמואל with unknown number ranges, so it maps to none. קרית שמואל has no uniquely anchored street yet; its plans are still found by the free-text name match.",
- "neighborhoods": {
-  "רחביה": {
-   "variants": [],
-   "streets": {
-    "רשב\"א": "plan-names",
-    "האר\"י": "plan-names",
-    "קק\"ל": "plan-names",
-    "אבן עזרא": "plan-names",
-    "ז'בוטינסקי": "plan-names",
-    "מאפו": "manual",
-    "אוסישקין": "manual",
-    "אוסשקין": "manual",
-    "פינסקר": "manual",
-    "רמב\"ן": "manual"
-   }
-  },
-  "טלביה": {
-   "variants": ["טלביא"],
-   "streets": {
-    "חובבי ציון": "plan-names",
-    "דוד מרכוס": "plan-names",
-    "לינקולן": "manual"
-   }
-  },
-  "קטמון": {
-   "variants": ["קטמונים", "הקטמונים"],
-   "streets": {
-    "מכור": "plan-names",
-    "יצחק שדה": "plan-names",
-    "סן מרטין": "plan-names",
-    "סן-מרטין": "plan-names",
-    "בר יוחאי": "plan-names",
-    "דב יוסף": "plan-names",
-    "כובשי קטמון": "plan-names"
-   }
-  },
-  "קטמון הישנה": {
-   "parent": "קטמון",
-   "variants": [],
-   "streets": {
-    "בן גמלא": "plan-names",
-    "בילו": "plan-names",
-    "חזקיהו המלך": "plan-names"
-   }
-  },
-  "קרית שמואל": {
-   "variants": ["קריית שמואל"],
-   "streets": {}
+  "comment": "Neighborhood search index for the plan table. Streets marked 'plan-names' are anchored by the municipality's own plan names in the dataset (the neighborhood appears next to the street in a published plan name); 'manual' entries are hand-checked. A street shared by several neighborhoods carries house-number ranges instead of a plain anchor: הפלמ\"ח is split odd 1-51 = קטמון הישנה, even 12-26 (and 27, per the municipality's own plan name) = קרית שמואל, from a parcel-level join of the permit mirror against the JTMT neighborhood polygon layer plus the plan-name anchors (source 'manual+gis', #998). הפלמ\"ח 59 and up stays unanchored: the GIS layer puts it in גבעת הורדים-רסקו, which the site does not model, while the municipality's plan names call it קטמון - the sources disagree, so no tag.",
+  "neighborhoods": {
+    "רחביה": {
+      "variants": [],
+      "streets": {
+        "רשב\"א": "plan-names",
+        "האר\"י": "plan-names",
+        "קק\"ל": "plan-names",
+        "אבן עזרא": "plan-names",
+        "ז'בוטינסקי": "plan-names",
+        "מאפו": "manual",
+        "אוסישקין": "manual",
+        "אוסשקין": "manual",
+        "פינסקר": "manual",
+        "רמב\"ן": "manual"
+      }
+    },
+    "טלביה": {
+      "variants": [
+        "טלביא"
+      ],
+      "streets": {
+        "חובבי ציון": "plan-names",
+        "דוד מרכוס": "plan-names",
+        "לינקולן": "manual"
+      }
+    },
+    "קטמון": {
+      "variants": [
+        "קטמונים",
+        "הקטמונים"
+      ],
+      "streets": {
+        "מכור": "plan-names",
+        "יצחק שדה": "plan-names",
+        "סן מרטין": "plan-names",
+        "סן-מרטין": "plan-names",
+        "בר יוחאי": "plan-names",
+        "דב יוסף": "plan-names",
+        "כובשי קטמון": "plan-names"
+      }
+    },
+    "קטמון הישנה": {
+      "parent": "קטמון",
+      "variants": [],
+      "streets": {
+        "בן גמלא": "plan-names",
+        "בילו": "plan-names",
+        "חזקיהו המלך": "plan-names",
+        "הפלמ\"ח": {
+          "source": "manual+gis",
+          "ranges": [
+            {
+              "from": 1,
+              "to": 51,
+              "parity": "odd"
+            }
+          ]
+        },
+        "פלמ\"ח": {
+          "source": "manual+gis",
+          "ranges": [
+            {
+              "from": 1,
+              "to": 51,
+              "parity": "odd"
+            }
+          ]
+        }
+      }
+    },
+    "קרית שמואל": {
+      "variants": [
+        "קריית שמואל"
+      ],
+      "streets": {
+        "הפלמ\"ח": {
+          "source": "manual+gis",
+          "ranges": [
+            {
+              "from": 12,
+              "to": 26,
+              "parity": "even"
+            },
+            {
+              "from": 27,
+              "to": 27,
+              "parity": "odd"
+            }
+          ]
+        },
+        "פלמ\"ח": {
+          "source": "manual+gis",
+          "ranges": [
+            {
+              "from": 12,
+              "to": 26,
+              "parity": "even"
+            },
+            {
+              "from": 27,
+              "to": 27,
+              "parity": "odd"
+            }
+          ]
+        },
+        "הרב חן": "manual+gis",
+        "חיים ברודי": "manual+gis"
+      }
+    }
   }
- }
 }

@@ -1,9 +1,10 @@
 """Every CI pip install is hash-locked (#770, approved by the owner).
 
 The OpenSSF Scorecard baseline carried the unhashed installs as accepted
-debt tracked by the closed #709; the fix is structural: workflow install
-lines only reference requirements-*.txt lock files with --require-hashes,
-and every locked entry pins an exact version with at least one sha256.
+debt first tracked by #709 (now closed); the live tracker is #770. The
+fix is structural: workflow install lines only reference requirements-*.txt
+lock files with --require-hashes, and every locked entry pins an exact
+version with at least one sha256.
 """
 
 import re

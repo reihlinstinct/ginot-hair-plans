@@ -1,0 +1,78 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Ginot HaIr plans - read-only JSON API",
+    "version": "1.0.0",
+    "description": "Static, read-only JSON contract for the published planning data (api_version 1). All endpoints are GET-only files on the Pages CDN; changes within v1 are additive only. The data is a DRAFT/advisory mirror of official sources, never a legal determination; derived objection deadlines are estimates (publication + 60 days / 2 months)."
+  },
+  "paths": {
+    "/api/v1/plans.json": {
+      "get": {
+        "summary": "All tracked plan rows (public fields only)",
+        "responses": {
+          "200": {
+            "description": "Array of plan rows",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "schema/plans.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/permits.json": {
+      "get": {
+        "summary": "Tracked permit requests (public fields only)",
+        "responses": {
+          "200": {
+            "description": "Array of permit rows",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "schema/permits.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/changes.json": {
+      "get": {
+        "summary": "Recent plan status changes",
+        "responses": {
+          "200": {
+            "description": "Array of change rows",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "schema/changes.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/meta.json": {
+      "get": {
+        "summary": "API version and generation date",
+        "responses": {
+          "200": {
+            "description": "Contract metadata",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "schema/meta.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

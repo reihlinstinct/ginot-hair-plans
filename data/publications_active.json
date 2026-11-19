@@ -107,7 +107,7 @@
     "neighborhood": "בית וגן",
     "place_description": null,
     "publication_date": "2026-08-30",
-    "objection_deadline": null,
+    "objection_deadline": "2026-09-29",
     "ed700": "2026-08-27",
     "connected_rec_id": 1240323,
     "doc_id": null,
@@ -115,8 +115,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -137,7 +138,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-09-29T00:00:00",
         "DocId": null,
         "ED800": "2026-08-30T00:00:00",
         "ED700": "2026-08-27T00:00:00"
@@ -547,7 +548,8 @@
       ],
       "unexpected_keys_total": 1
     },
-    "in_polygon": null
+    "in_polygon": true,
+    "in_polygon_source": "publication_point_evidence"
   },
   {
     "myIndex": 16474550,
@@ -557,7 +559,7 @@
     "neighborhood": "ארנונה",
     "place_description": "רחוב לייב יפה 16",
     "publication_date": "2026-10-19",
-    "objection_deadline": null,
+    "objection_deadline": "2026-12-06",
     "ed700": "2026-09-09",
     "connected_rec_id": 1260835,
     "doc_id": "8cbebf74-4f1a-47d3-8c3a-8df950ee8f8e",
@@ -565,8 +567,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -587,7 +590,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-12-06T00:00:00",
         "DocId": "8cbebf74-4f1a-47d3-8c3a-8df950ee",
         "ED800": "2026-10-19T00:00:00",
         "ED700": "2026-09-09T00:00:00"
@@ -1457,7 +1460,7 @@
     "neighborhood": "פסגת זאב",
     "place_description": null,
     "publication_date": "2026-10-18",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-06",
     "connected_rec_id": null,
     "doc_id": "7c7d52d5-e8bd-4c38-95ba-3932db69476e",
@@ -1465,8 +1468,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -1487,7 +1491,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": "7c7d52d5-e8bd-4c38-95ba-3932db69",
         "ED800": "2026-10-18T00:00:00",
         "ED700": "2026-10-06T00:00:00"
@@ -1641,6 +1645,56 @@
         "DocId": "62d57b11-ac1a-4e9b-b541-7afeb5ef",
         "ED800": "2026-10-26T00:00:00",
         "ED700": "2026-10-18T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16578018,
+    "tik_num": "1998/0833.02",
+    "street": "הרב מ.ל. רובין",
+    "house_number": "43",
+    "neighborhood": "רמות",
+    "place_description": null,
+    "publication_date": "2026-11-17",
+    "objection_deadline": null,
+    "ed700": "2026-11-12",
+    "connected_rec_id": 1269529,
+    "doc_id": "e7b3cb04-09e3-4d12-a38d-ad13f003abfa",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "e7b3cb04-09e3-4d12-a38d-ad13f003",
+        "ED800": "2026-11-17T00:00:00",
+        "ED700": "2026-11-12T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -2056,7 +2110,7 @@
     "neighborhood": "רמות",
     "place_description": null,
     "publication_date": "2026-10-21",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "085a7f8e-80ff-4b08-b108-38a7a39db923",
@@ -2064,8 +2118,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -2086,7 +2141,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": "085a7f8e-80ff-4b08-b108-38a7a39d",
         "ED800": "2026-10-21T00:00:00",
         "ED700": "2026-10-18T00:00:00"
@@ -2406,7 +2461,7 @@
     "neighborhood": "זכרון משה",
     "place_description": null,
     "publication_date": "2026-10-20",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-15",
     "connected_rec_id": 1242040,
     "doc_id": null,
@@ -2414,8 +2469,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -2436,7 +2492,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": null,
         "ED800": "2026-10-20T00:00:00",
         "ED700": "2026-10-15T00:00:00"
@@ -2556,7 +2612,7 @@
     "neighborhood": "קרית היובל",
     "place_description": null,
     "publication_date": "2026-10-12",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-10",
     "ed700": "2026-10-05",
     "connected_rec_id": null,
     "doc_id": "f3d27524-8e30-4675-acbd-9528b9ff184c",
@@ -2564,8 +2620,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -2586,7 +2643,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-10T00:00:00",
         "DocId": "f3d27524-8e30-4675-acbd-9528b9ff",
         "ED800": "2026-10-12T00:00:00",
         "ED700": "2026-10-05T00:00:00"
@@ -3006,7 +3063,7 @@
     "neighborhood": "קרית היובל",
     "place_description": null,
     "publication_date": "2026-10-15",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-07",
     "connected_rec_id": 1237312,
     "doc_id": "42cab7c3-59d2-49a2-b298-1593643156fb",
@@ -3014,8 +3071,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -3036,7 +3094,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": "42cab7c3-59d2-49a2-b298-15936431",
         "ED800": "2026-10-15T00:00:00",
         "ED700": "2026-10-07T00:00:00"
@@ -3206,7 +3264,7 @@
     "neighborhood": "גאולים - בקעה",
     "place_description": "תלפיות",
     "publication_date": "2026-10-21",
-    "objection_deadline": null,
+    "objection_deadline": "2026-12-06",
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "6fa873f3-dfe0-441b-b449-993663f992bd",
@@ -3214,8 +3272,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -3236,7 +3295,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-12-06T00:00:00",
         "DocId": "6fa873f3-dfe0-441b-b449-993663f9",
         "ED800": "2026-10-21T00:00:00",
         "ED700": "2026-10-18T00:00:00"
@@ -3455,7 +3514,7 @@
     "neighborhood": "רמות",
     "place_description": null,
     "publication_date": "2026-10-20",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-18",
     "connected_rec_id": 1272169,
     "doc_id": null,
@@ -3463,8 +3522,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -3485,7 +3545,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": null,
         "ED800": "2026-10-20T00:00:00",
         "ED700": "2026-10-18T00:00:00"
@@ -3754,7 +3814,7 @@
     "neighborhood": "מקור ברוך",
     "place_description": "רח'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''",
     "publication_date": "2026-10-20",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-09-02",
     "connected_rec_id": 1103738,
     "doc_id": null,
@@ -3762,8 +3822,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -3784,7 +3845,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": null,
         "ED800": "2026-10-20T00:00:00",
         "ED700": "2026-09-02T00:00:00"
@@ -4455,7 +4516,7 @@
     "neighborhood": "רוממה",
     "place_description": null,
     "publication_date": "2026-10-21",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-18",
     "connected_rec_id": null,
     "doc_id": "3f1e8382-2d74-42cb-b953-2845fae79e8b",
@@ -4463,8 +4524,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -4485,7 +4547,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": "3f1e8382-2d74-42cb-b953-2845fae7",
         "ED800": "2026-10-21T00:00:00",
         "ED700": "2026-10-18T00:00:00"
@@ -4655,7 +4717,7 @@
     "neighborhood": "רמות",
     "place_description": null,
     "publication_date": "2026-10-20",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-03-17",
     "connected_rec_id": null,
     "doc_id": "954f9e7c-33ce-4263-868d-53f42a47423d",
@@ -4663,8 +4725,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -4685,7 +4748,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": "954f9e7c-33ce-4263-868d-53f42a47",
         "ED800": "2026-10-20T00:00:00",
         "ED700": "2026-03-17T00:00:00"
@@ -5339,6 +5402,56 @@
         "DocId": null,
         "ED800": "2026-09-22T00:00:00",
         "ED700": "2026-09-16T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16591621,
+    "tik_num": "2026/0355.00",
+    "street": "דרך חברון",
+    "house_number": "54",
+    "neighborhood": "גאולים - בקעה",
+    "place_description": "מדובר בבניין משנות ה70 בין 4 קומות כולל קומה מפולשת וכולל מקלט ציבורי, הבניין מיועד להריסה ובניה במסגרת תמ\"א 38-2, במיקום על ציר רק\"ל ובתחום השפעת המתחם הדיפלומטי.",
+    "publication_date": "2026-11-17",
+    "objection_deadline": null,
+    "ed700": "2026-07-14",
+    "connected_rec_id": null,
+    "doc_id": null,
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-17T00:00:00",
+        "ED700": "2026-07-14T00:00:00"
       },
       "unexpected_keys": [
         "description"

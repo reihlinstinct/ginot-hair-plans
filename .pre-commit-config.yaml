@@ -1,0 +1,17 @@
+# Local pre-commit hooks (#112). CI stays the source of truth: the ruff
+# hooks below pin the same version as ci.yml RUFF_VERSION.
+# Run once: pre-commit install. Check everything: pre-commit run --all-files.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: detect-private-key
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.16.9
+    hooks:
+      - id: ruff
+      - id: ruff-format

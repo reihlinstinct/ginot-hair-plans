@@ -15,7 +15,7 @@
  "objection_deadline_derived_2m_from_publication": "2022-05-04",
  "pl_area_dunam": 0.634,
  "intersection_dunam": 0.6,
- "inside_flag": "inside",
+ "inside_flag": "partial",
  "mavat_url": "https://mavat.iplan.gov.il/SV4/1/1001006561/310",
  "mp_id": 1001006561.0,
  "jurstiction_area_name": "ירושלים",
