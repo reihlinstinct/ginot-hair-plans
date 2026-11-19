@@ -38,6 +38,7 @@ max-statements = 50
 "scripts/ci/data_pr_automerge.py" = ["C901", "PLR0915", "S603"]
 "scripts/ci/pending_data_pr.py" = ["C901", "S603", "S607"]
 "scripts/ci/permit_router.py" = ["C901", "S603", "S607"]
+"scripts/ci/private_names_guard.py" = ["S607"]
 "scripts/ci/publish_badges.py" = ["S314"]
 "scripts/ci/publish_publications.py" = ["S603", "S607"]
 "scripts/ci/run_summary.py" = ["C901", "PLR0915", "S101"]
