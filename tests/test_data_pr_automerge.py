@@ -15,8 +15,11 @@ import pytest
 sys.path.insert(0, str(Path(__file__).parent.parent / "scripts" / "ci"))
 sys.path.insert(0, str(Path(__file__).parent.parent / "src"))
 
+import data_pr_automerge
 from data_pr_automerge import (
+    PRODUCER_PREFIXES,
     added_line_clean,
+    file_text_at_ref,
     il_id_valid,
     json_sane,
     path_allowed,
@@ -198,3 +201,63 @@ def test_guard_runs_from_default_branch_checkout():
     default branch is the one a data PR cannot modify."""
     text = WORKFLOW.read_text()
     assert "ref:" not in text.split("steps:", 1)[1].split("run:", 1)[0]
+
+
+# Section: producer prefixes
+
+
+def test_producer_prefixes_cover_all_scanner_producers():
+    """Owner policy 19.11.2026: scanner data-refresh PRs auto-merge on green
+    checks without review. The mavat-check producer must be included."""
+    for prefix in (
+        "permit-feed/",
+        "weekly-refresh/",
+        "mirror-ingest/",
+        "publications/",
+        "mavat-check/",
+    ):
+        assert prefix in PRODUCER_PREFIXES
+
+
+# Section: large-file blob fallback
+
+
+def _b64(text: str) -> str:
+    import base64
+
+    return base64.b64encode(text.encode("utf-8")).decode("ascii")
+
+
+def test_file_text_uses_contents_payload_when_present(monkeypatch):
+    calls = []
+
+    def fake_gh_api(path):
+        calls.append(path)
+        return {"content": _b64('{"a": 1}')}
+
+    monkeypatch.setattr(data_pr_automerge, "gh_api", fake_gh_api)
+    assert file_text_at_ref("o/r", "data/x.json", "main") == '{"a": 1}'
+    assert len(calls) == 1 and "contents" in calls[0]
+
+
+def test_file_text_falls_back_to_blob_api_over_1mb(monkeypatch):
+    """The contents API omits content for files over 1MB; the guard must
+    fetch the same bytes through the git blob API instead of failing the
+    JSON sanity check (permit_mirror.json regression, PR #1058)."""
+    calls = []
+
+    def fake_gh_api(path):
+        calls.append(path)
+        if "contents" in path:
+            return {"sha": "deadbeef", "encoding": "none"}
+        return {"content": _b64('{"big": true}')}
+
+    monkeypatch.setattr(data_pr_automerge, "gh_api", fake_gh_api)
+    assert file_text_at_ref("o/r", "data/x.json", "main") == '{"big": true}'
+    assert any("git/blobs/deadbeef" in c for c in calls)
+
+
+def test_file_text_fails_closed_without_content_or_sha(monkeypatch):
+    monkeypatch.setattr(data_pr_automerge, "gh_api", lambda path: {})
+    with pytest.raises(RuntimeError):
+        file_text_at_ref("o/r", "data/x.json", "main")

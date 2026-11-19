@@ -6,8 +6,9 @@ name: Data PR auto-merge
 # exact head, exact-head squash merge - all enforced by
 # scripts/ci/data_pr_automerge.py, which runs from the default branch so a
 # data PR can never change its own guard.
-# KILL SWITCH: inert until the repo variable DATA_AUTOMERGE_ENABLED is set
-# to 'true' (owner go-ahead). Ships disabled.
+# KILL SWITCH: active only while the repo variable DATA_AUTOMERGE_ENABLED
+# is 'true'. Enabled by the owner 19.11.2026 (scanner data refreshes merge
+# without review; code changes keep normal review).
 
 on:
   schedule:

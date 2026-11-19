@@ -133,6 +133,8 @@ frequent, without delaying deployment. Never include personal data in notes.
 
 Fork the repo, work on a branch in your fork, and open a pull request. Nothing is merged into `main` without the owner's approval and green checks. Do not commit secrets or personal data (public repo).
 
+Exception (owner policy 19.11.2026): automated data-refresh PRs from the repo's own scanner producers (`permit-feed/`, `weekly-refresh/`, `mirror-ingest/`, `publications/`, `mavat-check/` branches) merge automatically without review once checks are green at the exact head, through the guarded workflow in `.github/workflows/data-automerge.yml` (data-only path allowlist, JSON sanity, secrets/PII scan, one merge per run). These PRs only refresh published site data. Code changes always keep the normal review rules.
+
 ## Issues: labels, milestones and order
 
 The same scheme is used in every public repo. Do not add parallel label schemes.
