@@ -1568,10 +1568,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1947/2767.00",
@@ -2830,10 +2836,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1950/2473.00",
@@ -2972,10 +2984,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30006,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1950/2761.00",
@@ -3804,10 +3822,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1952/1077.00",
@@ -7008,10 +7032,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1956/0669.00",
@@ -7166,11 +7196,21 @@
    "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30005,
-   "helka": 59,
+   "helka": 58,
+   "parcels_observed": [
+    [
+     30005,
+     58
+    ],
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1956/0710.00",
@@ -7557,10 +7597,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0061.01",
@@ -7570,10 +7616,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0061.02",
@@ -7583,10 +7635,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0084.00",
@@ -7643,11 +7701,21 @@
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30005,
-   "helka": 59,
+   "helka": 58,
+   "parcels_observed": [
+    [
+     30005,
+     58
+    ],
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0089.00",
@@ -8379,10 +8447,20 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ],
+    [
+     30005,
+     48
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0340.00",
@@ -8392,10 +8470,24 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ],
+    [
+     30005,
+     18
+    ],
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0341.00",
@@ -8729,10 +8821,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 107,
+   "parcels_observed": [
+    [
+     30006,
+     107
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המושבה היוונית",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1957/0874.00",
@@ -16180,10 +16278,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1963/0418.01",
@@ -16193,10 +16297,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1963/0432.00",
@@ -17795,10 +17905,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30005,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1964/0504.00",
@@ -19657,10 +19773,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1965/1115.01",
@@ -19670,10 +19792,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1965/1115.02",
@@ -19683,10 +19811,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1965/1116.00",
@@ -20740,10 +20874,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30006,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1966/1021.00",
@@ -21087,10 +21227,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1967/0309.01",
@@ -21100,10 +21246,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1967/0309.02",
@@ -21113,10 +21265,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-12-02",
    "address": "רבן יוחנן בן זכאי 24 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1967/0309.03",
@@ -21126,10 +21284,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 24 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1967/0393.00",
@@ -21785,10 +21949,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/0196.00",
@@ -22291,10 +22461,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 22 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/0497.01",
@@ -22304,10 +22480,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 22 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/0535.00",
@@ -22628,10 +22810,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 26 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/0659.01",
@@ -22641,10 +22829,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 26 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/0666.00",
@@ -23107,10 +23301,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 30 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/1108.01",
@@ -23120,10 +23320,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 30 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1968/1109.00",
@@ -25165,10 +25371,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 28 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1969/0745.01",
@@ -25178,10 +25390,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "2019-03-28",
    "publication_end_planned": "2019-04-09",
    "address": "רבי מאיר 13 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1969/0768.00",
@@ -26033,10 +26251,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 148,
+   "parcels_observed": [
+    [
+     30005,
+     148
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1969/1262.01",
@@ -26046,10 +26270,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 148,
+   "parcels_observed": [
+    [
+     30005,
+     148
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 3 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1969/1287.00",
@@ -27655,10 +27885,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0733.04",
@@ -27668,10 +27904,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0733.05",
@@ -27681,10 +27923,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0733.06",
@@ -27694,10 +27942,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0748.00",
@@ -27944,10 +28198,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30006,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0876.01",
@@ -27957,10 +28217,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30006,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0876.03",
@@ -27970,10 +28236,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30006,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/0923.00",
@@ -28458,10 +28730,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30006,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1970/1142.00",
@@ -29870,10 +30148,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30006,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1971/0751.01",
@@ -29883,10 +30167,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30006,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1971/0765.00",
@@ -30193,10 +30483,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30006,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1971/1065.01",
@@ -30206,10 +30502,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30006,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1971/1095.00",
@@ -30903,10 +31205,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1972/0238.01",
@@ -30916,10 +31224,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1972/0240.00",
@@ -32756,10 +33070,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1972/1141.00",
@@ -33332,10 +33652,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1973/0097.01",
@@ -33345,10 +33671,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1973/0105.00",
@@ -33816,10 +34148,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1973/0247.00",
@@ -36440,10 +36778,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.01",
@@ -36453,10 +36797,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.02",
@@ -36466,10 +36816,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.03",
@@ -36479,10 +36835,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.04",
@@ -36492,10 +36854,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.05",
@@ -36505,10 +36873,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.06",
@@ -36518,10 +36892,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.07",
@@ -36531,10 +36911,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2007-04-16",
    "address": "נקדימון 10 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0436.08",
@@ -36544,10 +36930,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30005,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 10 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0446.00",
@@ -37210,10 +37602,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 22 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1974/0762.00",
@@ -40860,10 +41258,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מרדכי כספי קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1976/0704.00",
@@ -41280,10 +41684,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1976/0829.00",
@@ -42253,10 +42663,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד ש\"י עגנון 13",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0306.00",
@@ -43068,10 +43484,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0533.01",
@@ -43081,10 +43503,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0533.02",
@@ -43094,10 +43522,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0533.03",
@@ -43107,10 +43541,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0533.04",
@@ -43120,10 +43560,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-05-05",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0533.05",
@@ -43133,10 +43579,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "2025-07-31",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0534.00",
@@ -43146,10 +43598,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0534.01",
@@ -43159,10 +43617,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1977/0537.00",
@@ -44691,10 +45155,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.01",
@@ -44704,10 +45174,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.02",
@@ -44717,10 +45193,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.03",
@@ -44730,10 +45212,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-06-07",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.04",
@@ -44743,10 +45231,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-05-24",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.05",
@@ -44756,10 +45250,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.06",
@@ -44769,10 +45269,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.07",
@@ -44782,23 +45288,35 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0129.08",
    "mahut": "מבוקש תוספות בניה על פי שטחי תב\"ע לדירות 6,2 ו-7 ,תוספת מחסן, עמודת ממד וגגות",
    "sugbakasha": "",
-   "status": "חידוש טיפול בבקשה",
+   "status": "השלמת הודעות לפני תקנה 36",
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "2023-01-26",
    "publication_end_planned": "2025-06-04",
    "address": "רבי מאיר 15 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0133.00",
@@ -45020,10 +45538,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30005,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0259.01",
@@ -45033,10 +45557,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30005,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0287.00",
@@ -45860,10 +46390,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טבי 4 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0518.00",
@@ -46303,10 +46839,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.01",
@@ -46316,10 +46858,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.02",
@@ -46329,10 +46877,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.03",
@@ -46342,10 +46896,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.04",
@@ -46355,10 +46915,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.05",
@@ -46368,10 +46934,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-10-05",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.06",
@@ -46381,10 +46953,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "2017-02-26",
    "publication_end_planned": "2017-03-14",
    "address": "נקדימון 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0612.07",
@@ -46394,10 +46972,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0618.00",
@@ -46407,10 +46991,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0618.01",
@@ -46420,10 +47010,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0622.00",
@@ -46433,10 +47029,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0622.01",
@@ -46446,10 +47048,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "2024-09-05",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0630.00",
@@ -46537,10 +47145,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0709.00",
@@ -46719,10 +47333,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0729.01",
@@ -46732,10 +47352,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0729.02",
@@ -46745,10 +47371,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2001-06-19",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0729.03",
@@ -46758,10 +47390,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-08-28",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0729.04",
@@ -46771,10 +47409,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2004-05-18",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0729.05",
@@ -46784,10 +47428,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1978/0737.00",
@@ -47455,10 +48105,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0006.01",
@@ -47468,10 +48124,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 26 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0009.00",
@@ -47823,10 +48485,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.01",
@@ -47836,10 +48504,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.02",
@@ -47849,10 +48523,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.03",
@@ -47862,10 +48542,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.04",
@@ -47875,10 +48561,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.05",
@@ -47888,10 +48580,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.06",
@@ -47901,10 +48599,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.07",
@@ -47914,10 +48618,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.08",
@@ -47927,10 +48637,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0193.09",
@@ -47940,10 +48656,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0204.00",
@@ -48923,10 +49645,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0511.01",
@@ -48936,10 +49664,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1979/0513.00",
@@ -50769,10 +51503,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/0097.01",
@@ -50782,10 +51522,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/0097.02",
@@ -50795,10 +51541,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/0097.03",
@@ -50808,10 +51560,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/0097.04",
@@ -50821,10 +51579,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30005,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/0101.00",
@@ -53729,10 +54493,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30004,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בית צפפה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1980/1026.00",
@@ -55558,10 +56328,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.01",
@@ -55571,10 +56347,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-07-31",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.02",
@@ -55584,10 +56366,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.03",
@@ -55597,10 +56385,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-07-10",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.04",
@@ -55610,10 +56404,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.05",
@@ -55623,10 +56423,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-03-08",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.06",
@@ -55636,10 +56442,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-02-11",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.07",
@@ -55649,10 +56461,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.08",
@@ -55662,10 +56480,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-01-03",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0487.09",
@@ -55675,10 +56499,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-12-21",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1981/0501.00",
@@ -58030,10 +58860,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30006,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הגדנע 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0183.01",
@@ -58043,10 +58879,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30006,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הגדנע 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0183.02",
@@ -58056,10 +58898,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30006,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הגדנע 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0183.03",
@@ -58069,10 +58917,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30006,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-01-27",
    "address": "הגדנע 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0188.00",
@@ -59299,10 +60153,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0786.00",
@@ -59723,10 +60583,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 109,
+   "parcels_observed": [
+    [
+     30005,
+     109
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1982/0910.00",
@@ -60523,10 +61389,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 48,
+   "parcels_observed": [
+    [
+     30005,
+     48
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 7 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0374.01",
@@ -60536,10 +61408,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 48,
+   "parcels_observed": [
+    [
+     30005,
+     48
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 7 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0380.00",
@@ -60857,10 +61735,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.01",
@@ -60870,10 +61754,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.02",
@@ -60883,10 +61773,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.03",
@@ -60896,10 +61792,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.04",
@@ -60909,10 +61811,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.05",
@@ -60922,10 +61830,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.06",
@@ -60935,10 +61849,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "2021-08-18",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0515.07",
@@ -60948,10 +61868,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0519.00",
@@ -61597,10 +62523,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המעפילים 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0740.01",
@@ -61610,10 +62542,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המעפילים סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0741.00",
@@ -61623,10 +62561,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המעפילים 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0741.01",
@@ -61636,10 +62580,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד ש\"י עגנון סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0741.02",
@@ -61661,10 +62611,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המעפילים 20 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0741.04",
@@ -61674,10 +62630,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-11-27",
    "address": "המעפילים 11 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/0751.00",
@@ -62470,10 +63432,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/1006.01",
@@ -62483,10 +63451,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/1006.02",
@@ -62496,10 +63470,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30005,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-02-26",
    "address": "נקדימון 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1983/1008.00",
@@ -63289,10 +64269,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30006,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0121.00",
@@ -63471,10 +64457,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 123,
+   "parcels_observed": [
+    [
+     30005,
+     123
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מרגולין 12 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0155.00",
@@ -63601,10 +64593,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30005,
+     188
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוסתאי 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0172.04",
@@ -63614,10 +64612,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30005,
+     188
+    ]
+   ],
    "publication_start": "2019-08-12",
    "publication_end_planned": "",
    "address": "דוסתאי 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0177.00",
@@ -64516,10 +65520,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.01",
@@ -64529,10 +65539,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.02",
@@ -64542,10 +65558,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.03",
@@ -64555,10 +65577,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.04",
@@ -64568,10 +65596,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.05",
@@ -64581,10 +65615,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0384.06",
@@ -64594,10 +65634,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0389.00",
@@ -64607,10 +65653,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0389.01",
@@ -64620,10 +65672,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0389.02",
@@ -64633,10 +65691,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0389.03",
@@ -64646,10 +65710,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0389.04",
@@ -64659,10 +65729,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30005,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 47 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0406.00",
@@ -65437,10 +66513,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1984/0625.09",
@@ -66576,10 +67658,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 67,
+   "parcels_observed": [
+    [
+     30006,
+     67
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0026.00",
@@ -68416,10 +69504,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0528.01",
@@ -68429,10 +69523,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0528.02",
@@ -68442,10 +69542,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-01-25",
    "address": "אבא חלקיה 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0528.03",
@@ -68455,10 +69561,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30005,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אבא חלקיה 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0548.00",
@@ -69009,10 +70121,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 בית וגן",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0645.00",
@@ -69074,10 +70192,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1985/0664.00",
@@ -70219,10 +71343,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1986/0220.01",
@@ -70232,10 +71362,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1986/0236.00",
@@ -70336,10 +71472,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1986/0282.01",
@@ -70349,10 +71491,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1986/0286.00",
@@ -74592,10 +75740,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1987/0428.00",
@@ -76516,10 +77670,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1987/0914.01",
@@ -76529,10 +77689,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30005,
+     77
+    ]
+   ],
    "publication_start": "2026-09-06",
    "publication_end_planned": "",
    "address": "רבי מאיר 2 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1987/0926.00",
@@ -78756,10 +79922,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0405.01",
@@ -78769,10 +79941,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0405.02",
@@ -78782,10 +79960,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0405.03",
@@ -78795,10 +79979,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0405.04",
@@ -78808,10 +79998,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "2019-06-17",
    "publication_end_planned": "2019-07-09",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0413.00",
@@ -81082,10 +82278,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1988/0878.00",
@@ -85095,10 +86297,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.01",
@@ -85108,10 +86316,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.02",
@@ -85121,10 +86335,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.03",
@@ -85134,10 +86354,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-08-23",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.04",
@@ -85147,10 +86373,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.05",
@@ -85160,10 +86392,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-08-10",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.06",
@@ -85173,10 +86411,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2007-11-05",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.07",
@@ -85186,10 +86430,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.08",
@@ -85199,10 +86449,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0640.09",
@@ -85212,10 +86468,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0641.00",
@@ -85277,10 +86539,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0663.00",
@@ -86716,10 +87984,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0856.01",
@@ -86729,10 +88003,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0858.00",
@@ -86924,10 +88204,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נקדימון 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0882.00",
@@ -87058,10 +88344,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30004,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 10 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/0920.03",
@@ -87559,10 +88851,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1989/1034.00",
@@ -88281,10 +89579,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0127.00",
@@ -89645,10 +90949,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30005,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0345.00",
@@ -91480,10 +92790,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30006,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0687.01",
@@ -91493,10 +92809,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30006,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0687.02",
@@ -91506,10 +92828,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30006,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0689.00",
@@ -92077,10 +93405,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.01",
@@ -92090,10 +93424,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.02",
@@ -92103,10 +93443,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.03",
@@ -92116,10 +93462,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.04",
@@ -92129,10 +93481,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.05",
@@ -92142,10 +93500,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0734.06",
@@ -92155,10 +93519,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 87,
+   "parcels_observed": [
+    [
+     30005,
+     87
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/0748.00",
@@ -93699,10 +95069,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1030.01",
@@ -93712,10 +95088,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1030.02",
@@ -93725,10 +95107,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-10-26",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1030.03",
@@ -93750,10 +95138,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1030.05",
@@ -93763,10 +95157,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיל נשים 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1034.00",
@@ -94090,10 +95490,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30006,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 22 גבעת הפורצים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1113.01",
@@ -94103,10 +95509,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30006,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-05-07",
    "address": "מחלקי המים 22 גבעת הפורצים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1113.02",
@@ -94116,10 +95528,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30006,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גבעת הפורצים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1990/1121.00",
@@ -95685,10 +97103,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 26 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0357.01",
@@ -95698,10 +97122,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 26 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0361.00",
@@ -95711,10 +97141,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 18 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0361.01",
@@ -95724,10 +97160,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0361.02",
@@ -95737,10 +97179,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0361.03",
@@ -95750,10 +97198,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0361.04",
@@ -95763,10 +97217,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "2017-10-02",
    "publication_end_planned": "2017-10-31",
    "address": "רבי מאיר 3 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0373.00",
@@ -96527,10 +97987,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.01",
@@ -96540,10 +98006,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.02",
@@ -96553,10 +98025,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.03",
@@ -96566,10 +98044,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.04",
@@ -96579,10 +98063,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.05",
@@ -96592,10 +98082,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.06",
@@ -96605,10 +98101,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.07",
@@ -96618,10 +98120,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-09-07",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.08",
@@ -96631,10 +98139,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.09",
@@ -96644,10 +98158,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "2021-10-25",
    "publication_end_planned": "2021-11-10",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.10",
@@ -96657,10 +98177,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.11",
@@ -96670,10 +98196,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "2023-08-29",
    "publication_end_planned": "2023-09-05",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0515.12",
@@ -96683,10 +98215,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "2023-09-10",
    "publication_end_planned": "",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0519.00",
@@ -96978,10 +98516,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0557.01",
@@ -96991,10 +98535,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0557.02",
@@ -97004,10 +98554,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0557.03",
@@ -97017,10 +98573,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0557.04",
@@ -97030,10 +98592,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 11 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0557.05",
@@ -97043,10 +98611,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-10-02",
    "address": "רבי מאיר 11 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.02",
@@ -97056,10 +98630,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "2016-04-10",
    "publication_end_planned": "2016-05-10",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.03",
@@ -97069,10 +98649,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-12-15",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.04",
@@ -97082,10 +98668,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-12-10",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.05",
@@ -97095,10 +98687,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "2017-08-02",
    "publication_end_planned": "2017-08-29",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.06",
@@ -97108,10 +98706,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "2018-09-17",
    "publication_end_planned": "2018-10-16",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0558.07",
@@ -97121,10 +98725,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0564.00",
@@ -97788,10 +99398,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד ש\"י עגנון גבעת אורן",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0625.01",
@@ -97801,10 +99417,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30006,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-10-25",
    "address": "שד ש\"י עגנון 13 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0625.02",
@@ -98413,10 +100035,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0795.01",
@@ -98426,10 +100054,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0797.00",
@@ -98516,10 +100150,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 148,
+   "parcels_observed": [
+    [
+     30005,
+     148
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 59 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1991/0854.05",
@@ -100737,10 +102377,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 214,
+   "parcels_observed": [
+    [
+     30005,
+     214
+    ]
+   ],
    "publication_start": "2025-11-19",
    "publication_end_planned": "",
    "address": "דוסתאי 7 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1992/0224.00",
@@ -108153,10 +109799,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30005,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-08-31",
    "address": "ברוריה 22 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1995/0547.01",
@@ -108166,10 +109818,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30005,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 22 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1995/0547.02",
@@ -108179,10 +109837,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30005,
+     58
+    ]
+   ],
    "publication_start": "2024-09-12",
    "publication_end_planned": "",
    "address": "ברוריה 22 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1995/0556.00",
@@ -108866,10 +110530,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30005,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 5 גונן ד",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1995/0751.00",
@@ -110369,10 +112039,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 214,
+   "parcels_observed": [
+    [
+     30005,
+     214
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוסתאי 10 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0167.00",
@@ -110981,10 +112657,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.01",
@@ -110994,10 +112676,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.02",
@@ -111007,10 +112695,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-09-16",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.03",
@@ -111020,10 +112714,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.04",
@@ -111033,10 +112733,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.05",
@@ -111046,10 +112752,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-09-16",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.06",
@@ -111059,10 +112771,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.07",
@@ -111072,10 +112790,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2004-07-04",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.08",
@@ -111085,10 +112809,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.09",
@@ -111098,10 +112828,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 סן סימון",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.10",
@@ -111111,10 +112847,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.11",
@@ -111124,10 +112866,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.12",
@@ -111137,10 +112885,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-06-06",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.13",
@@ -111150,10 +112904,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-03-02",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.14",
@@ -111163,10 +112923,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-07-27",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.15",
@@ -111176,10 +112942,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-01-05",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0316.16",
@@ -111189,10 +112961,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30005,
+     68
+    ]
+   ],
    "publication_start": "2022-01-26",
    "publication_end_planned": "",
    "address": "ברוריה 5 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0367.00",
@@ -111778,10 +113556,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.01",
@@ -111791,10 +113575,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.02",
@@ -111804,10 +113594,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.03",
@@ -111817,10 +113613,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.04",
@@ -111830,10 +113632,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.05",
@@ -111843,10 +113651,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "2017-07-19",
    "publication_end_planned": "2012-12-30",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.06",
@@ -111856,10 +113670,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "2017-08-07",
    "publication_end_planned": "2017-08-29",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.07",
@@ -111869,10 +113689,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.08",
@@ -111882,10 +113708,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.12",
@@ -111895,10 +113727,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0595.13",
@@ -111908,10 +113746,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "2023-07-09",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0597.00",
@@ -112225,10 +114069,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0754.01",
@@ -112238,10 +114088,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1996/0757.00",
@@ -114931,10 +116787,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 67,
+   "parcels_observed": [
+    [
+     30006,
+     67
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-03-01",
    "address": "בילו 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1997/0679.00",
@@ -115597,10 +117459,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 123,
+   "parcels_observed": [
+    [
+     30005,
+     123
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי זעירא 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1998/0027.04",
@@ -115610,10 +117478,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 123,
+   "parcels_observed": [
+    [
+     30005,
+     123
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי זעירא 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1998/0049.00",
@@ -116036,10 +117910,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30005,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1998/0088.00",
@@ -116101,10 +117981,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30006,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1998/0106.01",
@@ -116114,10 +118000,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30006,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1998/0131.00",
@@ -117712,10 +119604,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.01",
@@ -117725,10 +119623,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.02",
@@ -117738,10 +119642,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-07-31",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.03",
@@ -117751,10 +119661,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.04",
@@ -117764,10 +119680,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.05",
@@ -117777,10 +119699,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2006-02-13",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.06",
@@ -117790,10 +119718,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2007-01-16",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.07",
@@ -117803,10 +119737,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.08",
@@ -117816,10 +119756,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.09",
@@ -117829,10 +119775,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-10-27",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.10",
@@ -117842,10 +119794,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0050.11",
@@ -117855,10 +119813,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30005,
+     18
+    ]
+   ],
    "publication_start": "2024-11-03",
    "publication_end_planned": "",
    "address": "רבי חלפתא 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "1999/0062.00",
@@ -120082,10 +122046,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-05-30",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.01",
@@ -120095,10 +122065,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-07-17",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.02",
@@ -120108,10 +122084,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.03",
@@ -120121,10 +122103,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.04",
@@ -120134,10 +122122,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.05",
@@ -120147,10 +122141,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.06",
@@ -120160,10 +122160,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 13 גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.07",
@@ -120173,10 +122179,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "2020-02-19",
    "publication_end_planned": "2017-11-14",
    "address": "רבי מאיר 13 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.08",
@@ -120186,10 +122198,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "2017-12-04",
    "publication_end_planned": "2017-12-19",
    "address": "רבי מאיר 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0423.09",
@@ -120199,10 +122217,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 89,
+   "parcels_observed": [
+    [
+     30005,
+     89
+    ]
+   ],
    "publication_start": "2019-08-25",
    "publication_end_planned": "2019-09-17",
    "address": "רבי מאיר 13 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2000/0441.01",
@@ -128957,10 +130981,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2004/0661.01",
@@ -128970,10 +131000,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2004/0661.02",
@@ -128983,10 +131019,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2004/0662.00",
@@ -130938,10 +132980,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30006,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הגדנע 6 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2005/0496.00",
@@ -136147,10 +138195,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 20,
+   "parcels_observed": [
+    [
+     30006,
+     20
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2008-06-25",
    "address": "החי\"ש 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2007/0812.01",
@@ -136160,10 +138214,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 20,
+   "parcels_observed": [
+    [
+     30006,
+     20
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"ש 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2007/0812.02",
@@ -136173,10 +138233,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 20,
+   "parcels_observed": [
+    [
+     30006,
+     20
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-12-26",
    "address": "החי\"ש 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2008/0029.00",
@@ -138121,10 +140187,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30004,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 12 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2009/0061.01",
@@ -138134,10 +140206,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30004,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהושע בן גמלא 12 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2009/0061.02",
@@ -138147,10 +140225,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30004,
+     171
+    ]
+   ],
    "publication_start": "2025-08-13",
    "publication_end_planned": "2025-07-23",
    "address": "יהושע בן גמלא 12 המושבה היוונית",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2009/0099.00",
@@ -140109,10 +142193,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 204,
+   "parcels_observed": [
+    [
+     30005,
+     204
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0193.01",
@@ -140122,10 +142212,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 204,
+   "parcels_observed": [
+    [
+     30005,
+     204
+    ]
+   ],
    "publication_start": "2019-05-30",
    "publication_end_planned": "2019-06-18",
    "address": "רבי חלפתא 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0193.02",
@@ -140135,10 +142231,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 204,
+   "parcels_observed": [
+    [
+     30005,
+     204
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0193.03",
@@ -140148,10 +142250,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 204,
+   "parcels_observed": [
+    [
+     30005,
+     204
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0193.04",
@@ -140161,10 +142269,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 204,
+   "parcels_observed": [
+    [
+     30005,
+     204
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0196.01",
@@ -140423,10 +142537,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 111",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0399.00",
@@ -141335,10 +143455,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-03-17",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2010/0928.00",
@@ -143367,10 +145493,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 67,
+   "parcels_observed": [
+    [
+     30006,
+     67
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-08-15",
    "address": "בילו 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/0455.00",
@@ -143827,10 +145959,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 34 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/0684.01",
@@ -143840,23 +145978,35 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בילו 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/0684.02",
    "mahut": "הכשרת בינוי קיים בהתאם לתכנית",
    "sugbakasha": "",
-   "status": "הבקשה נסגרה",
+   "status": "חידוש טיפול בבקשה",
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 34 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/0684.03",
@@ -143866,10 +146016,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 68,
+   "parcels_observed": [
+    [
+     30006,
+     68
+    ]
+   ],
    "publication_start": "2025-09-10",
    "publication_end_planned": "",
    "address": "בילו 1 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/0709.00",
@@ -145022,10 +147178,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/1005.01",
@@ -145035,10 +147197,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-03-25",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/1005.02",
@@ -145048,10 +147216,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-05-22",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/1005.03",
@@ -145061,10 +147235,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "2018-03-26",
    "publication_end_planned": "2018-04-17",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2011/1034.00",
@@ -146161,10 +148341,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2012/0433.01",
@@ -146174,10 +148360,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2012/0433.02",
@@ -146187,10 +148379,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2012/0433.03",
@@ -146200,10 +148398,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 59,
+   "parcels_observed": [
+    [
+     30005,
+     59
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חזקיהו המלך 27 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2012/0449.00",
@@ -147820,10 +150024,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30006,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מחלקי המים 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2013/0297.00",
@@ -148615,10 +150825,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-02-03",
    "address": "גונן ו",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2013/0636.00",
@@ -150146,10 +152362,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 90,
+   "parcels_observed": [
+    [
+     30005,
+     90
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-05-01",
    "address": "רבי מאיר 15 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2014/0251.00",
@@ -152335,10 +154557,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-05-10",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2015/0213.01",
@@ -152348,10 +154576,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30005,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2015/0216.00",
@@ -154051,10 +156285,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 214,
+   "parcels_observed": [
+    [
+     30005,
+     214
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוסתאי 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2016/0016.01",
@@ -154064,10 +156304,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 214,
+   "parcels_observed": [
+    [
+     30005,
+     214
+    ]
+   ],
    "publication_start": "2017-11-21",
    "publication_end_planned": "2017-12-05",
    "address": "דוסתאי 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2016/0023.00",
@@ -154155,10 +156401,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30005,
+     88
+    ]
+   ],
    "publication_start": "2017-06-11",
    "publication_end_planned": "2017-07-04",
    "address": "רבי מאיר 11 גוננים",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2016/0092.00",
@@ -155534,10 +157786,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "2016-08-04",
    "publication_end_planned": "2016-08-16",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2016/0785.01",
@@ -155547,10 +157805,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30005,
+     16
+    ]
+   ],
    "publication_start": "2025-05-22",
    "publication_end_planned": "",
    "address": "רבי חלפתא 15 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2016/0786.00",
@@ -156860,10 +159124,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 81,
+   "parcels_observed": [
+    [
+     30005,
+     81
+    ]
+   ],
    "publication_start": "2017-01-26",
    "publication_end_planned": "2017-02-14",
    "address": "רבי מאיר 18 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0017.00",
@@ -157892,10 +160162,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0468.01",
@@ -157905,10 +160181,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 70,
+   "parcels_observed": [
+    [
+     30005,
+     70
+    ]
+   ],
    "publication_start": "2023-08-20",
    "publication_end_planned": "2023-08-29",
    "address": "ברוריה 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0469.00",
@@ -157970,10 +160252,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 109,
+   "parcels_observed": [
+    [
+     30005,
+     109
+    ]
+   ],
    "publication_start": "2017-08-15",
    "publication_end_planned": "2017-09-05",
    "address": "ברוריה 13 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0530.00",
@@ -158279,10 +160567,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0683.00",
@@ -158572,10 +160866,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0840.02",
@@ -158598,10 +160898,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30006,
+     45
+    ]
+   ],
    "publication_start": "2018-11-14",
    "publication_end_planned": "2017-01-26",
    "address": "החי\"ש 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0851.01",
@@ -158611,10 +160917,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30006,
+     45
+    ]
+   ],
    "publication_start": "2026-01-06",
    "publication_end_planned": "",
    "address": "החי\"ש 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2017/0874.00",
@@ -159723,10 +162035,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "2018-08-20",
    "publication_end_planned": "2018-09-04",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2018/0544.01",
@@ -159736,10 +162054,16 @@
    "status_date": "",
    "gush": 30006,
    "helka": 104,
+   "parcels_observed": [
+    [
+     30006,
+     104
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החי\"מ 9 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2018/0554.00",
@@ -161998,10 +164322,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 86,
+   "parcels_observed": [
+    [
+     30005,
+     86
+    ]
+   ],
    "publication_start": "2020-10-15",
    "publication_end_planned": "",
    "address": "רבי מאיר 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2020/0529.00",
@@ -162048,10 +164378,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 214,
+   "parcels_observed": [
+    [
+     30005,
+     214
+    ]
+   ],
    "publication_start": "2020-11-09",
    "publication_end_planned": "",
    "address": "דוסתאי 7 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2020/0569.00",
@@ -162363,10 +164699,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30005,
+     2
+    ]
+   ],
    "publication_start": "2021-02-18",
    "publication_end_planned": "",
    "address": "רבי חלפתא 12 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2020/0739.01",
@@ -162376,10 +164718,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30005,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי חלפתא 12 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2020/0748.00",
@@ -164054,10 +166402,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30005,
+     74
+    ]
+   ],
    "publication_start": "2022-09-06",
    "publication_end_planned": "",
    "address": "רבי מאיר 8 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2022/0424.00",
@@ -164647,14 +167001,20 @@
    "tik_num": "2023/0177.00",
    "mahut": "חיזוק מבנה ותוספת קומות במסגרת תמ\"א 38",
    "sugbakasha": "",
-   "status": "נדונה בוועדת המשנה",
+   "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30006,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30006,
+     42
+    ]
+   ],
    "publication_start": "2023-06-18",
    "publication_end_planned": "2023-06-28",
    "address": "חיל נשים 6 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2023/0179.00",
@@ -165772,14 +168132,20 @@
    "tik_num": "2024/0164.00",
    "mahut": "הקמת תחנת טרנספורמציה תת קרקעית",
    "sugbakasha": "",
-   "status": "הוכנה טיוטת היתר בניה",
+   "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30005,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30005,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 38 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2024/0165.00",
@@ -166147,10 +168513,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 178,
+   "parcels_observed": [
+    [
+     30005,
+     178
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוסתאי 14 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2024/0323.00",
@@ -167150,10 +169522,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2025/0161.01",
@@ -167163,10 +169541,16 @@
    "status_date": "",
    "gush": 30005,
    "helka": 207,
+   "parcels_observed": [
+    [
+     30005,
+     207
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ברוריה 3 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2025/0162.00",
@@ -167279,9 +169663,41 @@
    "sugbakasha": "",
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
-   "gush": 30004,
-   "helka": 143,
+   "gush": 30005,
+   "helka": 34,
    "parcels_observed": [
+    [
+     30005,
+     34
+    ],
+    [
+     30005,
+     50
+    ],
+    [
+     30005,
+     84
+    ],
+    [
+     30005,
+     86
+    ],
+    [
+     30005,
+     87
+    ],
+    [
+     30005,
+     88
+    ],
+    [
+     30005,
+     89
+    ],
+    [
+     30005,
+     90
+    ],
     [
      30004,
      143
@@ -167990,12 +170406,22 @@
    "sugbakasha": "",
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
-   "gush": 30006,
-   "helka": 107,
+   "gush": 30005,
+   "helka": 2,
+   "parcels_observed": [
+    [
+     30005,
+     2
+    ],
+    [
+     30006,
+     107
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מעלה זאב 0 קטמון הישנה",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2026/0150.00",
@@ -168018,10 +170444,16 @@
    "status_date": "",
    "gush": 30004,
    "helka": 179,
+   "parcels_observed": [
+    [
+     30004,
+     179
+    ]
+   ],
    "publication_start": "2026-05-27",
    "publication_end_planned": "",
    "address": "עמק רפאים 76 המושבה היוונית",
-   "details_checked_on": "2026-10-26"
+   "details_checked_on": "2026-11-20"
   },
   {
    "tik_num": "2026/0179.00",
