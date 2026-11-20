@@ -421,3 +421,57 @@ def test_prior_parcels_observed_survive_a_fresh_scan(monkeypatch, tmp_path):
         r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
     )
     assert row["parcels_observed"] == [[100, 1], [100, 2]]
+
+
+def test_legacy_prior_without_parcels_observed_seeds_its_old_pair(
+    monkeypatch, tmp_path
+):
+    # Rows recorded before #880 carry gush/helka but no parcels_observed.
+    # When a fresh scan moves the tik to a new parcel, the old identity
+    # must be seeded into parcels_observed, not silently lost (the #1066
+    # review P2: 11 legacy rows changed gush/helka with the old pair
+    # recorded nowhere).
+    parcels = parcels_file(tmp_path, [(100, 1)])
+    out = tmp_path / "out.json"
+    out.write_text(
+        json.dumps(
+            {"requests": [{"tik_num": "T/9", "status": "old", "gush": 200, "helka": 5}]}
+        )
+    )
+
+    def call(proc, params):
+        if proc == 242700437:
+            return [search_row("T/9")]
+        return []
+
+    args = ["--parcels", str(parcels), "--out", str(out), "--limit", "1"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    row = next(
+        r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
+    )
+    assert (row["gush"], row["helka"]) == (100, 1)
+    assert row["parcels_observed"] == [[100, 1], [200, 5]]
+
+
+def test_legacy_prior_without_move_keeps_single_observed_pair(monkeypatch, tmp_path):
+    # Seeding must not duplicate when the legacy identity matches the
+    # fresh sighting: the pair is already in parcels_observed.
+    parcels = parcels_file(tmp_path, [(100, 1)])
+    out = tmp_path / "out.json"
+    out.write_text(
+        json.dumps(
+            {"requests": [{"tik_num": "T/9", "status": "old", "gush": 100, "helka": 1}]}
+        )
+    )
+
+    def call(proc, params):
+        if proc == 242700437:
+            return [search_row("T/9")]
+        return []
+
+    args = ["--parcels", str(parcels), "--out", str(out), "--limit", "1"]
+    assert run_feed(monkeypatch, tmp_path, args, call) == 0
+    row = next(
+        r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
+    )
+    assert row["parcels_observed"] == [[100, 1]]
