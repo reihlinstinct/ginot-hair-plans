@@ -19,6 +19,8 @@ import data_pr_automerge
 from data_pr_automerge import (
     PRODUCER_PREFIXES,
     added_line_clean,
+    added_lines,
+    check_pr,
     file_text_at_ref,
     il_id_valid,
     json_sane,
@@ -50,6 +52,10 @@ BASE_FILES = {
         "docs/permit-ids.json",
         "docs/permit-points.json",
         "docs/publications_active.json",
+        "docs/api/v1/plans.json",
+        "docs/api/v1/permits.json",
+        "docs/api/v1/changes.json",
+        "docs/api/v1/meta.json",
         "docs/en/index.html",
         "docs/ar/permits.html",
         "docs/ru/permits-default.html",
@@ -397,3 +403,73 @@ def test_unexpected_error_aborts_the_sweep_fail_closed(monkeypatch):
     _patch_sweep(monkeypatch, check)
     with pytest.raises(TypeError):
         data_pr_automerge.main()
+
+
+# Section: oversized diff entries (no patch from GitHub)
+
+
+def test_added_lines_computes_diff_from_two_blobs():
+    assert added_lines("a\nb\n", "a\nx\nb\n") == ["x"]
+    assert added_lines("a\nb\n", "b\n") == []
+    assert added_lines("a\n", "a\n") == []
+
+
+def _pr_stub():
+    return {
+        "number": 5,
+        "head": {
+            "repo": {"full_name": "o/r"},
+            "ref": "permit-feed/2026",
+            "sha": "h" * 40,
+        },
+        "base": {"ref": "main"},
+        "user": {"login": "o"},
+        "draft": False,
+        "labels": [],
+    }
+
+
+def _patch_check_pr(monkeypatch, files_entry, head_text):
+    def fake_gh_api(path, method="GET", payload=None):
+        if path.endswith("/pulls/5"):
+            return {"mergeable": True}
+        return {
+            "check_runs": [
+                {"name": "ci", "status": "completed", "conclusion": "success"}
+            ]
+        }
+
+    monkeypatch.setattr(data_pr_automerge, "gh_api", fake_gh_api)
+    monkeypatch.setattr(
+        data_pr_automerge,
+        "gh_api_paginated",
+        lambda path: [files_entry] if path.endswith("/files") else [],
+    )
+    monkeypatch.setattr(
+        data_pr_automerge,
+        "file_text_at_ref",
+        lambda repo, filename, ref: head_text if ref == "h" * 40 else '[{"a": 1}]',
+    )
+
+
+def test_oversized_json_is_scanned_not_skipped(monkeypatch):
+    """A file too big for a diff patch must still face the secrets/PII scan
+    via the blob fallback (the 2026-11-20 02:48 UTC automerge run skipped
+    data PR #1066 on exactly this, so the batch never merged)."""
+    entry = {
+        "filename": "data/permit_requests.json",
+        "status": "modified",
+        "patch": None,
+    }
+    head = '[{"a": 1, "mail": "x@example.com"}]'
+    _patch_check_pr(monkeypatch, entry, head)
+    reasons = check_pr("o/r", _pr_stub(), BASE_FILES)
+    assert any("data/permit_requests.json: " in r for r in reasons)
+    assert not any("no text patch" in r for r in reasons)
+
+
+def test_oversized_clean_html_passes_the_scan_gate(monkeypatch):
+    entry = {"filename": "docs/permits.html", "status": "modified", "patch": None}
+    _patch_check_pr(monkeypatch, entry, "<html>clean</html>")
+    reasons = check_pr("o/r", _pr_stub(), BASE_FILES)
+    assert not any("permits.html" in r for r in reasons)

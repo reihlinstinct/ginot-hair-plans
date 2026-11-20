@@ -42,6 +42,7 @@ exit 1 only on internal/API failure.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import os
 import re
@@ -81,6 +82,12 @@ ALLOWED_DOCS_EXACT = frozenset(
         "docs/permits.html",
         "docs/permits-default.html",
         "docs/publications_active.json",
+        # #121 versioned API outputs, staged by permit-feed publication
+        # commits (#1065); same generated-data class as the pages above.
+        "docs/api/v1/plans.json",
+        "docs/api/v1/permits.json",
+        "docs/api/v1/changes.json",
+        "docs/api/v1/meta.json",
     }
     | set(_LOCALE_PAGES)
 )
@@ -212,6 +219,18 @@ def il_id_valid(digits: str) -> bool:
     return total % 10 == 0
 
 
+def added_lines(base_text: str, head_text: str) -> list[str]:
+    """Lines added between two file versions: the secrets/PII scan input for
+    oversized diff entries, whose patch GitHub omits."""
+    return [
+        line[1:]
+        for line in difflib.unified_diff(
+            base_text.splitlines(), head_text.splitlines(), lineterm="", n=0
+        )
+        if line.startswith("+") and not line.startswith("+++")
+    ]
+
+
 def added_line_clean(line: str) -> str | None:
     """None when an added diff line is free of secrets/PII, else a reason."""
     for pattern in SECRET_RES:
@@ -262,18 +281,30 @@ def check_pr(repo: str, pr: dict, base_files: set[str]) -> list[str]:
         if reason:
             reasons.append(reason)
             continue
+        # Oversized diff entries carry no patch: fetch both blobs once and
+        # compute the added lines locally, so the secrets/PII scan still
+        # runs (skipping the scan for big data files would silence it
+        # exactly where it matters). Fetch/decode failures raise and the
+        # per-PR catch skips this PR (fail closed).
+        base_text = head_text = None
         patch = entry.get("patch")
-        if patch is None:
-            reasons.append(f"{filename} has no text patch (oversized or binary)")
-            continue
-        for line in patch.splitlines():
-            if line.startswith("+") and not line.startswith("+++"):
-                hit = added_line_clean(line[1:])
-                if hit:
-                    reasons.append(f"{filename}: {hit}")
-        if filename.endswith(".json"):
+        if patch is None or filename.endswith(".json"):
             base_text = file_text_at_ref(repo, filename, pr["base"]["ref"])
             head_text = file_text_at_ref(repo, filename, head_sha)
+        added = (
+            added_lines(base_text, head_text)
+            if patch is None
+            else [
+                line[1:]
+                for line in patch.splitlines()
+                if line.startswith("+") and not line.startswith("+++")
+            ]
+        )
+        for line in added:
+            hit = added_line_clean(line)
+            if hit:
+                reasons.append(f"{filename}: {hit}")
+        if filename.endswith(".json"):
             sane = json_sane(filename, base_text, head_text)
             if sane:
                 reasons.append(sane)
