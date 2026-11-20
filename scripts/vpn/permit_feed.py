@@ -614,6 +614,22 @@ def _fetch_one_detail(requests, tik, prior, list_mode, today):
     return None
 
 
+def _merge_prior_observed(row, prior):
+    """Carry earlier sightings into the fresh row (#880). A legacy row from
+    before #880 has gush/helka but no parcels_observed: seed that identity
+    pair first, otherwise a cadastral move in this scan would silently
+    erase the old parcel (the #1066 review P2)."""
+    observed = row.setdefault("parcels_observed", [])
+    prior_pairs = prior.get("parcels_observed") or []
+    if not prior_pairs:
+        legacy = [prior.get("gush"), prior.get("helka")]
+        if all(value is not None for value in legacy):
+            prior_pairs = [legacy]
+    for pair in prior_pairs:
+        if pair not in observed:
+            observed.append(pair)
+
+
 def _fetch_details(
     requests, previous, batch, args, ckpt_on, token, slug, list_mode, today
 ):
@@ -623,10 +639,7 @@ def _fetch_details(
         row = requests[tik]
         prior = previous.get(tik, {})
         # Sightings from earlier runs stay visible across re-scans (#880).
-        observed = row.setdefault("parcels_observed", [])
-        for pair in prior.get("parcels_observed") or []:
-            if pair not in observed:
-                observed.append(pair)
+        _merge_prior_observed(row, prior)
         metadata = ("mahut", "sugbakasha", "status", "status_date")
         details = (
             "publication_start",
