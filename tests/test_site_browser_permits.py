@@ -217,7 +217,7 @@ def real_served(real_site):
         yield f"http://127.0.0.1:{srv.server_address[1]}"
 
 
-def test_real_dataset_0439_in_default_visible_20(browser, real_served):
+def test_real_dataset_newest_dated_in_default_visible_20(browser, real_served):
     # No evidence capture here: the real dataset renders ~11k rows and a
     # full-page screenshot would be enormous; the assertion is in-page JS.
     ctx = browser.new_context()
@@ -239,15 +239,14 @@ def test_real_dataset_0439_in_default_visible_20(browser, real_served):
             "(function(){"
             "var vis=[].slice.call(document.querySelectorAll("
             "'#permits-table tbody tr:not(.filtered-out)'));"
-            "var inFirst=vis.slice(0,20).some(function(r){"
-            "return (r.getAttribute('data-search')||'').indexOf('2026/0439.00')!==-1;});"
+            "var firstIsDated=vis.length>0&&!!vis[0].getAttribute('data-pub');"
             "var dated=vis.filter(function(r){return r.getAttribute('data-pub');});"
             "var desc=dated.every(function(r,i){"
             "return !i||dated[i-1].getAttribute('data-pub')>=r.getAttribute('data-pub');});"
             "var firstUndated=vis.findIndex(function(r){return !r.getAttribute('data-pub');});"
             "var lastDated=-1;vis.forEach(function(r,i){"
             "if(r.getAttribute('data-pub'))lastDated=i;});"
-            "return {total:vis.length,dated:dated.length,inFirst:inFirst,"
+            "return {total:vis.length,dated:dated.length,firstIsDated:firstIsDated,"
             "desc:desc,firstUndated:firstUndated,lastDated:lastDated};})()"
         )
         # The default view is capped at 20 visible rows; since #521 the default
@@ -257,9 +256,17 @@ def test_real_dataset_0439_in_default_visible_20(browser, real_served):
 
         m = _re.search(r"מציג 20 מתוך ([0-9]+)", pg.locator("#pfcount").inner_text())
         assert m and int(m.group(1)) >= 20, pg.locator("#pfcount").inner_text()
-        assert res["inFirst"], (
-            "2026/0439.00 is not inside the default-visible 20 on the real"
-            f" dataset: {res}"
+        # #451 regression, generalized: the anchor tik 2026/0439.00 pinned a
+        # known recent permit inside the default-visible 20, but its real-world
+        # status advanced into a default-off group in the 2026-11-21 batch
+        # (#1077). Any hard-coded tik drifts the same way, so the invariant is
+        # generic instead: dated rows sort newest-first and sit before undated
+        # rows, so the newest dated matching row is the FIRST visible row and
+        # recent permits can never be buried behind the 20-row cap again.
+        assert res["dated"] > 0, f"no dated rows in the default-visible set: {res}"
+        assert res["firstIsDated"], (
+            "the newest dated row is not first in the default-visible 20 on the"
+            f" real dataset: {res}"
         )
         assert res["desc"], f"dated rows are not newest-first: {res}"
         assert res["firstUndated"] == -1 or res["lastDated"] < res["firstUndated"], res
