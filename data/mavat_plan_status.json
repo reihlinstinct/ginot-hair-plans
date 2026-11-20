@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19",
+ "generated": "2026-11-20",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
@@ -9,12 +9,17 @@
    ]
   },
   {
-   "plan": "101-1350594",
+   "plan": "101-1215656",
    "reasons": [
     "טקסט העמוד השתנה",
-    "מסמכים: +23/-23",
-    "סטטוסי פרסום: +1/-0",
-    "כמויות: +5/-5"
+    "התנגדויות: 9 -> 34"
+   ]
+  },
+  {
+   "plan": "101-1377753",
+   "reasons": [
+    "טקסט העמוד השתנה",
+    "התנגדויות: 2 -> 24"
    ]
   }
  ],
@@ -22,8 +27,8 @@
   "101-0775940": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "ad7c5d60476cfad1",
-   "page_chars": 1340,
+   "fingerprint": "6039ae822b0297ca",
+   "page_chars": 1094,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000488667615|קבצי התכנית (SHP)|27/02/2020|",
@@ -547,8 +552,8 @@
   "101-1215656": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "5e7d39795d94e2f0",
-   "page_chars": 1320,
+   "fingerprint": "c61eb8f68b9f1c48",
+   "page_chars": 1321,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136453667|גבול התכנית תלת מימד (KML)|05/03/2024|",
@@ -632,15 +637,15 @@
      "AUTHORISED_QUANTITY=+30|AUTHORISED_QUANTITY_ADD=+64|DETAILED_PLAN=|ID=1001902403|IMPLEMENTATION=94|LAST_UPDATE=19/08/2026 12:52|LAST_UPDATER=alonsi|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=שטחים כוללים מירביים מעל לקרקע.|ROW_NUM=3|UNIT_DESC=יח\"ד",
      "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+240|DETAILED_PLAN=|ID=1001902399|IMPLEMENTATION=240|LAST_UPDATE=19/08/2026 12:50|LAST_UPDATER=alonsi|QUANTITY_CODE=80|QUANTITY_DESC=מבני ציבור (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר"
     ],
-    "oppositions_count": 9,
-    "fingerprint": "050bc2b14b50de12"
+    "oppositions_count": 34,
+    "fingerprint": "29aeae4feaf29159"
    },
    "mp_id": "1005304728"
   },
   "101-1377753": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "51752040b853fbc3",
+   "fingerprint": "c5f168b97cd1b5ba",
    "page_chars": 1370,
    "api": {
     "docs": [
@@ -730,8 +735,8 @@
      "AUTHORISED_QUANTITY=+3,083|AUTHORISED_QUANTITY_ADD=+7,297|DETAILED_PLAN=|ID=1001913897|IMPLEMENTATION=10,380|LAST_UPDATE=10/09/2026 09:25|LAST_UPDATER=jgshiraam|QUANTITY_CODE=125|QUANTITY_DESC=מגורים (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר",
      "AUTHORISED_QUANTITY=+45|AUTHORISED_QUANTITY_ADD=+57|DETAILED_PLAN=|ID=1001913895|IMPLEMENTATION=102|LAST_UPDATE=10/09/2026 09:25|LAST_UPDATER=jgshiraam|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=|ROW_NUM=1|UNIT_DESC=יח\"ד"
     ],
-    "oppositions_count": 2,
-    "fingerprint": "98ef7be306b62b28"
+    "oppositions_count": 24,
+    "fingerprint": "3fedb385363b83c5"
    },
    "mp_id": "1005407450"
   },
