@@ -973,11 +973,10 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
-  "schunaName": "",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1910/2091.04",
@@ -1067,11 +1066,10 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
-  "schunaName": "",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1911/0017.04",
@@ -1138,11 +1136,10 @@
   "helka": 58,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אל משיה 999",
   "rehovName": "אל משיה",
   "mispBait": "999",
-  "schunaName": "",
-  "address": "אל משיה 999",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1945/1743.00",
@@ -29033,7 +29030,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1971/0332.00",
@@ -30297,11 +30294,10 @@
   "helka": 14,
   "publication_start": "",
   "publication_end_planned": "",
-  "rehovName": "מרגולין",
-  "mispBait": "",
-  "schunaName": "גונן ח",
   "address": "מרגולין",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "מרגולין",
+  "schunaName": "גונן ח",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1972/0061.00",
@@ -33837,7 +33833,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1973/0414.00",
@@ -33853,7 +33849,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1973/0415.00",
@@ -33869,7 +33865,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1973/0416.00",
@@ -33885,7 +33881,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1973/0417.00",
@@ -33901,7 +33897,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1973/0427.00",
@@ -35517,7 +35513,7 @@
   "mispBait": "",
   "schunaName": "בית צפפה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1974/0298.00",
@@ -39628,7 +39624,7 @@
   "mispBait": "",
   "schunaName": "פת",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1976/0403.01",
@@ -39640,11 +39636,11 @@
   "helka": 83,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פישר מוריס 20",
   "rehovName": "פישר מוריס",
   "mispBait": "20",
   "schunaName": "גילה",
-  "address": "פישר מוריס 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1976/0420.00",
@@ -42331,11 +42327,11 @@
   "helka": 124,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דוד המלך 3",
   "rehovName": "דוד המלך",
   "mispBait": "3",
   "schunaName": "טלביה/המוגרבים",
-  "address": "דוד המלך 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0463.01",
@@ -42364,7 +42360,7 @@
   "mispBait": "",
   "schunaName": "טלביה/המוגרבים",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0463.11",
@@ -42376,11 +42372,11 @@
   "helka": 124,
   "publication_start": "",
   "publication_end_planned": "2014-02-05",
+  "address": "זאב ז'בוטינסקי 3",
   "rehovName": "זאב ז'בוטינסקי",
   "mispBait": "3",
   "schunaName": "טלביה/המוגרבים",
-  "address": "זאב ז'בוטינסקי 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0463.12",
@@ -42392,11 +42388,11 @@
   "helka": 124,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "זאב ז'בוטינסקי 3",
   "rehovName": "זאב ז'בוטינסקי",
   "mispBait": "3",
   "schunaName": "טלביה/המוגרבים",
-  "address": "זאב ז'בוטינסקי 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0463.13",
@@ -42408,11 +42404,11 @@
   "helka": 124,
   "publication_start": "2023-03-22",
   "publication_end_planned": "",
+  "address": "זאב ז'בוטינסקי 3",
   "rehovName": "זאב ז'בוטינסקי",
   "mispBait": "3",
   "schunaName": "טלביה/המוגרבים",
-  "address": "זאב ז'בוטינסקי 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0463.14",
@@ -42424,11 +42420,11 @@
   "helka": 124,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "זאב ז'בוטינסקי 3",
   "rehovName": "זאב ז'בוטינסקי",
   "mispBait": "3",
   "schunaName": "טלביה/המוגרבים",
-  "address": "זאב ז'בוטינסקי 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1977/0486.00",
@@ -43616,7 +43612,7 @@
   "sugbakasha": "תוספת בניה / הרחבה לבניין קיים",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30002,
+  "gush": 30198,
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
@@ -43624,7 +43620,7 @@
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "details_checked_on": "2026-10-26"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1978/0060.02",
@@ -43632,7 +43628,7 @@
   "sugbakasha": "הכשרת שטח לחניה",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30002,
+  "gush": 30198,
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "1998-06-20",
@@ -43640,7 +43636,7 @@
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "details_checked_on": "2026-10-26"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1978/0060.03",
@@ -44614,11 +44610,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "המעפילים 19",
   "rehovName": "המעפילים",
   "mispBait": "19",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1978/0356.04",
@@ -44630,11 +44626,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "המעפילים 19",
   "rehovName": "המעפילים",
   "mispBait": "19",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1978/0356.05",
@@ -44646,11 +44642,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "המעפילים 19",
   "rehovName": "המעפילים",
   "mispBait": "19",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1978/0379.00",
@@ -53163,11 +53159,11 @@
   "helka": 90,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "צבי גרץ 14",
   "rehovName": "צבי גרץ",
   "mispBait": "14",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1980/1047.01",
@@ -53179,11 +53175,11 @@
   "helka": 90,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "צבי גרץ 14",
   "rehovName": "צבי גרץ",
   "mispBait": "14",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1980/1047.02",
@@ -53195,11 +53191,11 @@
   "helka": 90,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "צבי גרץ 14",
   "rehovName": "צבי גרץ",
   "mispBait": "14",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1980/1057.00",
@@ -56060,11 +56056,11 @@
   "helka": 98,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "צבי גרץ 8",
   "rehovName": "צבי גרץ",
   "mispBait": "8",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1981/0848.01",
@@ -56076,11 +56072,11 @@
   "helka": 98,
   "publication_start": "",
   "publication_end_planned": "1992-07-12",
+  "address": "צבי גרץ 8",
   "rehovName": "צבי גרץ",
   "mispBait": "8",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1981/0880.00",
@@ -57910,11 +57906,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1982/0441.00",
@@ -66254,11 +66250,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 12",
   "rehovName": "אריה בעהם",
   "mispBait": "12",
   "schunaName": "פת",
-  "address": "אריה בעהם 12",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1985/0087.00",
@@ -73115,11 +73111,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.01",
@@ -73131,11 +73127,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.02",
@@ -73147,11 +73143,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.03",
@@ -73163,11 +73159,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.04",
@@ -73179,11 +73175,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "1993-08-04",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.05",
@@ -73195,11 +73191,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.06",
@@ -73211,11 +73207,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.07",
@@ -73227,11 +73223,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.08",
@@ -73247,7 +73243,7 @@
   "mispBait": "",
   "schunaName": "תלפיות תעשיה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.09",
@@ -73259,11 +73255,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0362.10",
@@ -73275,11 +73271,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0372.06",
@@ -73834,11 +73830,10 @@
   "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
-  "rehovName": "יד חרוצים",
-  "mispBait": "",
-  "schunaName": "תלפיות",
   "address": "יד חרוצים",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "יד חרוצים",
+  "schunaName": "תלפיות",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1987/0536.00",
@@ -76902,11 +76897,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 4",
   "rehovName": "אריה בעהם",
   "mispBait": "4",
   "schunaName": "פת",
-  "address": "אריה בעהם 4",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0189.01",
@@ -76918,11 +76913,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 3",
   "rehovName": "אברהם ארסט",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אברהם ארסט 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0208.00",
@@ -77103,11 +77098,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0250.00",
@@ -77349,11 +77344,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0337.00",
@@ -77927,11 +77922,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פת יעקב 9",
   "rehovName": "פת יעקב",
   "mispBait": "9",
   "schunaName": "פת",
-  "address": "פת יעקב 9",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0500.03",
@@ -77943,11 +77938,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פת יעקב 9",
   "rehovName": "פת יעקב",
   "mispBait": "9",
   "schunaName": "פת",
-  "address": "פת יעקב 9",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0510.00",
@@ -79128,11 +79123,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1988/0695.00",
@@ -80750,11 +80745,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1989/0060.00",
@@ -84825,11 +84820,11 @@
   "helka": 28,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פישר מוריס 20",
   "rehovName": "פישר מוריס",
   "mispBait": "20",
   "schunaName": "פת",
-  "address": "פישר מוריס 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1989/0789.01",
@@ -84841,11 +84836,11 @@
   "helka": 28,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פישר מוריס 22",
   "rehovName": "פישר מוריס",
   "mispBait": "22",
   "schunaName": "פת",
-  "address": "פישר מוריס 22",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1989/0796.00",
@@ -87104,11 +87099,10 @@
   "helka": 122,
   "publication_start": "",
   "publication_end_planned": "",
-  "rehovName": "זאב ז'בוטינסקי",
-  "mispBait": "",
-  "schunaName": "טלביה",
   "address": "זאב ז'בוטינסקי",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "זאב ז'בוטינסקי",
+  "schunaName": "טלביה",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1990/0171.00",
@@ -89909,11 +89903,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1990/0636.00",
@@ -91258,11 +91252,11 @@
   "helka": 18,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "חוסה דה סן מרטין 9",
   "rehovName": "חוסה דה סן מרטין",
   "mispBait": "9",
   "schunaName": "גונן ט",
-  "address": "חוסה דה סן מרטין 9",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1990/0873.01",
@@ -91274,11 +91268,11 @@
   "helka": 18,
   "publication_start": "",
   "publication_end_planned": "1991-09-13",
+  "address": "חוסה דה סן מרטין 9",
   "rehovName": "חוסה דה סן מרטין",
   "mispBait": "9",
   "schunaName": "גונן ט",
-  "address": "חוסה דה סן מרטין 9",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1990/0875.00",
@@ -95802,11 +95796,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.01",
@@ -95818,11 +95812,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.03",
@@ -95834,11 +95828,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "1993-03-22",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.04",
@@ -95850,11 +95844,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "1994-07-04",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.05",
@@ -95866,11 +95860,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.06",
@@ -95882,11 +95876,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "1997-07-13",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.07",
@@ -95898,11 +95892,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.08",
@@ -95914,11 +95908,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.09",
@@ -95930,11 +95924,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0567.10",
@@ -95946,11 +95940,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0581.00",
@@ -96784,11 +96778,11 @@
   "helka": 6,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 143",
   "rehovName": "אברהם אלמליח",
   "mispBait": "143",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 143",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0748.00",
@@ -96816,11 +96810,11 @@
   "helka": 14,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מרגולין 1",
   "rehovName": "מרגולין",
   "mispBait": "1",
   "schunaName": "גונן ט",
-  "address": "מרגולין 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1991/0748.02",
@@ -103043,11 +103037,11 @@
   "helka": 9,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 14",
   "rehovName": "בר יוחאי",
   "mispBait": "14",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1994/0017.00",
@@ -106907,11 +106901,11 @@
   "helka": 9,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 147",
   "rehovName": "בר יוחאי",
   "mispBait": "147",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 147",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1995/0703.01",
@@ -106923,11 +106917,11 @@
   "helka": 9,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 147",
   "rehovName": "בר יוחאי",
   "mispBait": "147",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 147",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1995/0703.02",
@@ -113320,11 +113314,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "התעשיה 1",
   "rehovName": "התעשיה",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "התעשיה 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1997/0739.00",
@@ -113388,11 +113382,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 2",
   "rehovName": "אריה בעהם",
   "mispBait": "2",
   "schunaName": "פת",
-  "address": "אריה בעהם 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1997/0781.01",
@@ -113404,11 +113398,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 2",
   "rehovName": "אריה בעהם",
   "mispBait": "2",
   "schunaName": "פת",
-  "address": "אריה בעהם 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1997/0795.00",
@@ -114033,11 +114027,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.01",
@@ -114049,11 +114043,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.02",
@@ -114065,11 +114059,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.03",
@@ -114081,11 +114075,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.04",
@@ -114097,11 +114091,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.05",
@@ -114113,11 +114107,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "1998-11-18",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.06",
@@ -114161,11 +114155,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פישר מוריס 17",
   "rehovName": "פישר מוריס",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "פישר מוריס 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.09",
@@ -114181,7 +114175,7 @@
   "mispBait": "",
   "schunaName": "פת",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.10",
@@ -114193,11 +114187,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "2012-10-25",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.11",
@@ -114209,11 +114203,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "2013-12-02",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.12",
@@ -114225,11 +114219,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "2015-04-23",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0057.13",
@@ -114241,11 +114235,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0063.00",
@@ -114699,11 +114693,11 @@
   "helka": 21,
   "publication_start": "",
   "publication_end_planned": "1998-07-16",
+  "address": "רבי צדוק 13",
   "rehovName": "רבי צדוק",
   "mispBait": "13",
   "schunaName": "גונן ט",
-  "address": "רבי צדוק 13",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0325.01",
@@ -114715,11 +114709,11 @@
   "helka": 21,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "רבי צדוק 13",
   "rehovName": "רבי צדוק",
   "mispBait": "13",
   "schunaName": "גונן ט",
-  "address": "רבי צדוק 13",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0339.00",
@@ -115228,11 +115222,11 @@
   "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 1",
   "rehovName": "אריה בעהם",
   "mispBait": "1",
   "schunaName": "פת",
-  "address": "אריה בעהם 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0794.01",
@@ -115244,11 +115238,11 @@
   "helka": 1,
   "publication_start": "2018-05-09",
   "publication_end_planned": "2018-05-22",
+  "address": "אריה בעהם 1",
   "rehovName": "אריה בעהם",
   "mispBait": "1",
   "schunaName": "פת",
-  "address": "אריה בעהם 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0794.02",
@@ -115260,11 +115254,11 @@
   "helka": 1,
   "publication_start": "2022-05-24",
   "publication_end_planned": "",
+  "address": "אריה בעהם 1",
   "rehovName": "אריה בעהם",
   "mispBait": "1",
   "schunaName": "פת",
-  "address": "אריה בעהם 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1998/0795.00",
@@ -116417,11 +116411,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יצחק רובינשטיין 10",
   "rehovName": "יצחק רובינשטיין",
   "mispBait": "10",
   "schunaName": "פת",
-  "address": "יצחק רובינשטיין 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0270.00",
@@ -117566,11 +117560,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 145",
   "rehovName": "אברהם אלמליח",
   "mispBait": "145",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 145",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0822.01",
@@ -117582,11 +117576,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 145",
   "rehovName": "אברהם אלמליח",
   "mispBait": "145",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 145",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0822.02",
@@ -117598,11 +117592,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 145",
   "rehovName": "אברהם אלמליח",
   "mispBait": "145",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 145",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0822.03",
@@ -117614,11 +117608,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "2007-01-16",
+  "address": "אברהם אלמליח 145",
   "rehovName": "אברהם אלמליח",
   "mispBait": "145",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 145",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0822.04",
@@ -117630,11 +117624,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "2014-08-21",
+  "address": "אברהם אלמליח 145",
   "rehovName": "אברהם אלמליח",
   "mispBait": "145",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 145",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "1999/0858.00",
@@ -119351,11 +119345,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.01",
@@ -119367,11 +119361,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.02",
@@ -119383,11 +119377,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.03",
@@ -119399,11 +119393,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.04",
@@ -119415,11 +119409,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "2006-06-15",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.06",
@@ -119431,11 +119425,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "2007-04-15",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.08",
@@ -119447,11 +119441,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.09",
@@ -119463,11 +119457,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 8",
   "rehovName": "בר יוחאי",
   "mispBait": "8",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 8",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0861.10",
@@ -119479,11 +119473,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 18",
   "rehovName": "בר יוחאי",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2000/0904.00",
@@ -120748,11 +120742,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 10",
   "rehovName": "ברל לוקר",
   "mispBait": "10",
   "schunaName": "פת",
-  "address": "ברל לוקר 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2001/0280.01",
@@ -120764,11 +120758,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "2002-07-01",
+  "address": "ברל לוקר 10",
   "rehovName": "ברל לוקר",
   "mispBait": "10",
   "schunaName": "פת",
-  "address": "ברל לוקר 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2001/0280.02",
@@ -120780,11 +120774,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 10",
   "rehovName": "ברל לוקר",
   "mispBait": "10",
   "schunaName": "פת",
-  "address": "ברל לוקר 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2001/0280.03",
@@ -120796,11 +120790,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דב רוזנשטיין 7",
   "rehovName": "דב רוזנשטיין",
   "mispBait": "7",
   "schunaName": "פת",
-  "address": "דב רוזנשטיין 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2001/0290.00",
@@ -121545,11 +121539,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "2001-12-18",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2001/0529.00",
@@ -122219,11 +122213,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "2002-06-27",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0084.01",
@@ -122235,11 +122229,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "2004-04-16",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0084.02",
@@ -122251,11 +122245,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0087.00",
@@ -122566,11 +122560,11 @@
   "helka": 5,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0165.01",
@@ -122582,11 +122576,11 @@
   "helka": 5,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0165.02",
@@ -122598,11 +122592,11 @@
   "helka": 5,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2002/0171.00",
@@ -123953,11 +123947,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 106",
   "rehovName": "בר יוחאי",
   "mispBait": "106",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 106",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2003/0213.01",
@@ -123969,11 +123963,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 106",
   "rehovName": "בר יוחאי",
   "mispBait": "106",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 106",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2003/0213.02",
@@ -123985,11 +123979,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 106",
   "rehovName": "בר יוחאי",
   "mispBait": "106",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 106",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2003/0233.00",
@@ -124975,11 +124969,11 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2004/0057.02",
@@ -124991,11 +124985,11 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2004/0061.00",
@@ -125689,11 +125683,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2004/0199.01",
@@ -125705,11 +125699,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2004/0199.02",
@@ -125721,11 +125715,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2004/0209.00",
@@ -127594,11 +127588,11 @@
   "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך בית לחם 7",
   "rehovName": "דרך בית לחם",
   "mispBait": "7",
   "schunaName": "טלביה/המוגרבים",
-  "address": "דרך בית לחם 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0032.04",
@@ -127610,11 +127604,11 @@
   "helka": 68,
   "publication_start": "",
   "publication_end_planned": "2007-12-28",
+  "address": "דרך בית לחם 7",
   "rehovName": "דרך בית לחם",
   "mispBait": "7",
   "schunaName": "טלביה/המוגרבים",
-  "address": "דרך בית לחם 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0032.06",
@@ -127626,11 +127620,11 @@
   "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך בית לחם 7",
   "rehovName": "דרך בית לחם",
   "mispBait": "7",
   "schunaName": "טלביה/המוגרבים",
-  "address": "דרך בית לחם 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0043.00",
@@ -128042,11 +128036,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0352.01",
@@ -128058,11 +128052,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "2005-08-31",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0352.02",
@@ -128074,11 +128068,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0352.03",
@@ -128090,11 +128084,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0378.00",
@@ -129254,11 +129248,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 5",
   "rehovName": "אברהם ארסט",
   "mispBait": "5",
   "schunaName": "פת",
-  "address": "אברהם ארסט 5",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2005/0715.00",
@@ -130046,11 +130040,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "2006-08-06",
+  "address": "מעשה חושב 5",
   "rehovName": "מעשה חושב",
   "mispBait": "5",
   "schunaName": "תלפיות",
-  "address": "מעשה חושב 5",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2006/0007.00",
@@ -130790,11 +130784,10 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
-  "schunaName": "",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2006/0233.00",
@@ -130806,11 +130799,10 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
-  "schunaName": "",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2006/0254.00",
@@ -133102,11 +133094,11 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "2007-11-19",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2007/0339.01",
@@ -133118,11 +133110,11 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "2008-03-18",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "מקור חיים",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2007/0339.02",
@@ -133134,11 +133126,11 @@
   "helka": 49,
   "publication_start": "2019-01-09",
   "publication_end_planned": "2019-01-22",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות תעשיה",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2007/0339.03",
@@ -133150,11 +133142,11 @@
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2007/0339.04",
@@ -133166,11 +133158,11 @@
   "helka": 49,
   "publication_start": "2026-03-08",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "תלפיות",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2007/0340.00",
@@ -134249,11 +134241,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 52",
   "rehovName": "בר יוחאי",
   "mispBait": "52",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 52",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2008/0288.00",
@@ -134447,11 +134439,11 @@
   "helka": 18,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 26",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "26",
   "schunaName": "מושבה גרמנית",
-  "address": "גנרל פייר קניג 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2008/0387.03",
@@ -136146,11 +136138,11 @@
   "helka": 18,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "גנרל פייר קניג 20",
   "rehovName": "גנרל פייר קניג",
   "mispBait": "20",
   "schunaName": "מושבה גרמנית",
-  "address": "גנרל פייר קניג 20",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0338.00",
@@ -136783,11 +136775,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "2010-06-07",
+  "address": "בר יוחאי 13",
   "rehovName": "בר יוחאי",
   "mispBait": "13",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 13",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0648.01",
@@ -136799,11 +136791,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 10",
   "rehovName": "בר יוחאי",
   "mispBait": "10",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0648.02",
@@ -136815,11 +136807,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 14",
   "rehovName": "בר יוחאי",
   "mispBait": "14",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0648.03",
@@ -136831,11 +136823,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 10",
   "rehovName": "בר יוחאי",
   "mispBait": "10",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0672.00",
@@ -136886,11 +136878,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 19",
   "rehovName": "יד חרוצים",
   "mispBait": "19",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2009/0767.00",
@@ -137429,11 +137421,10 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "2010-05-04",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
-  "schunaName": "",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0068.01",
@@ -137445,11 +137436,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "2013-11-12",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0068.02",
@@ -137461,11 +137452,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0070.00",
@@ -137843,11 +137834,10 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
-  "schunaName": "",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0306.01",
@@ -137859,11 +137849,10 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
-  "schunaName": "",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0334.00",
@@ -138084,11 +138073,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 33",
   "rehovName": "אברהם אלמליח",
   "mispBait": "33",
   "schunaName": "גונן ט",
-  "address": "אברהם אלמליח 33",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2010/0593.00",
@@ -139822,7 +139811,7 @@
   "mispBait": "1",
   "schunaName": "",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0111.00",
@@ -140210,11 +140199,11 @@
   "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך בית לחם 999",
   "rehovName": "דרך בית לחם",
   "mispBait": "999",
   "schunaName": "טלביה/המוגרבים",
-  "address": "דרך בית לחם 999",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0246.00",
@@ -140326,11 +140315,11 @@
   "helka": 5,
   "publication_start": "",
   "publication_end_planned": "2011-05-22",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0282.01",
@@ -140342,11 +140331,11 @@
   "helka": 5,
   "publication_start": "",
   "publication_end_planned": "2013-01-17",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0282.02",
@@ -140358,11 +140347,11 @@
   "helka": 5,
   "publication_start": "2026-02-19",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 11",
   "rehovName": "אברהם ארסט",
   "mispBait": "11",
   "schunaName": "פת",
-  "address": "אברהם ארסט 11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0311.00",
@@ -140374,11 +140363,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0311.01",
@@ -140390,11 +140379,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0311.02",
@@ -140406,11 +140395,11 @@
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "2014-08-21",
+  "address": "אריה בעהם 3",
   "rehovName": "אריה בעהם",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אריה בעהם 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0316.01",
@@ -140716,7 +140705,7 @@
   "mispBait": "",
   "schunaName": "גונן ט",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0420.00",
@@ -141179,11 +141168,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 3",
   "rehovName": "אברהם ארסט",
   "mispBait": "3",
   "schunaName": "פת",
-  "address": "אברהם ארסט 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0684.00",
@@ -141638,11 +141627,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 3",
   "rehovName": "בר יוחאי",
   "mispBait": "3",
   "schunaName": "גונן ט",
-  "address": "בר יוחאי 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2011/0792.00",
@@ -142880,11 +142869,11 @@
   "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "יד חרוצים 9",
   "rehovName": "יד חרוצים",
   "mispBait": "9",
   "schunaName": "תלפיות תעשיה",
-  "address": "יד חרוצים 9",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2012/0200.00",
@@ -143200,11 +143189,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2012/0355.00",
@@ -143918,11 +143907,11 @@
   "helka": 90,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "צבי גרץ 14",
   "rehovName": "צבי גרץ",
   "mispBait": "14",
   "schunaName": "מושבה גרמנית",
-  "address": "צבי גרץ 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2012/0706.00",
@@ -144127,11 +144116,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מבוא העולה 2",
   "rehovName": "מבוא העולה",
   "mispBait": "2",
   "schunaName": "גבעת הורדים",
-  "address": "מבוא העולה 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2012/0809.00",
@@ -145029,11 +145018,11 @@
   "helka": 3,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דב רוזנשטיין 7",
   "rehovName": "דב רוזנשטיין",
   "mispBait": "7",
   "schunaName": "פת",
-  "address": "דב רוזנשטיין 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2013/0278.01",
@@ -145045,11 +145034,11 @@
   "helka": 3,
   "publication_start": "2016-10-10",
   "publication_end_planned": "2016-11-15",
+  "address": "דב רוזנשטיין 7",
   "rehovName": "דב רוזנשטיין",
   "mispBait": "7",
   "schunaName": "פת",
-  "address": "דב רוזנשטיין 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2013/0282.00",
@@ -145363,7 +145352,7 @@
   "mispBait": "",
   "schunaName": "פת",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2013/0410.00",
@@ -145747,7 +145736,7 @@
   "mispBait": "",
   "schunaName": "קטמון הישנה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2013/0569.00",
@@ -145817,11 +145806,11 @@
   "helka": 2,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2013/0616.00",
@@ -147449,11 +147438,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "2014-05-21",
+  "address": "בר יוחאי 18",
   "rehovName": "בר יוחאי",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2014/0260.00",
@@ -148657,7 +148646,7 @@
   "mispBait": "",
   "schunaName": "גבעת המטוס",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2014/0847.00",
@@ -148747,11 +148736,11 @@
   "helka": 28,
   "publication_start": "",
   "publication_end_planned": "2015-06-02",
+  "address": "פישר מוריס 24",
   "rehovName": "פישר מוריס",
   "mispBait": "24",
   "schunaName": "פת",
-  "address": "פישר מוריס 24",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2014/0890.01",
@@ -148763,11 +148752,11 @@
   "helka": 28,
   "publication_start": "2016-05-11",
   "publication_end_planned": "",
+  "address": "פישר מוריס 24",
   "rehovName": "פישר מוריס",
   "mispBait": "24",
   "schunaName": "פת",
-  "address": "פישר מוריס 24",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2014/0890.02",
@@ -148779,11 +148768,11 @@
   "helka": 28,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "פישר מוריס 24",
   "rehovName": "פישר מוריס",
   "mispBait": "24",
   "schunaName": "פת",
-  "address": "פישר מוריס 24",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2014/0899.00",
@@ -149599,11 +149588,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "2015-05-28",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2015/0263.01",
@@ -149615,11 +149604,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2015/0263.02",
@@ -149631,11 +149620,11 @@
   "helka": 24,
   "publication_start": "2023-02-14",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2015/0292.00",
@@ -149673,11 +149662,11 @@
   "helka": 42,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 1",
   "rehovName": "הסדנא",
   "mispBait": "1",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2015/0305.00",
@@ -150315,11 +150304,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 15",
   "rehovName": "בר יוחאי",
   "mispBait": "15",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 15",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2015/0626.00",
@@ -151369,7 +151358,7 @@
   "mispBait": "",
   "schunaName": "גבעת הורדים",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0121.01",
@@ -151385,7 +151374,7 @@
   "mispBait": "",
   "schunaName": "גבעת הורדים",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0133.00",
@@ -151500,11 +151489,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מבוא העולה 2",
   "rehovName": "מבוא העולה",
   "mispBait": "2",
   "schunaName": "גבעת הורדים",
-  "address": "מבוא העולה 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0212.00",
@@ -151542,11 +151531,11 @@
   "helka": 1,
   "publication_start": "2016-02-28",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "תלפיות תעשיה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0226.01",
@@ -151558,11 +151547,11 @@
   "helka": 1,
   "publication_start": "2024-07-17",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0226.02",
@@ -151574,11 +151563,11 @@
   "helka": 212,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 26",
   "rehovName": "דרך משה ברעם",
   "mispBait": "26",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 26",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0230.00",
@@ -151590,11 +151579,11 @@
   "helka": 24,
   "publication_start": "2018-01-24",
   "publication_end_planned": "2018-02-06",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0230.01",
@@ -151606,11 +151595,11 @@
   "helka": 24,
   "publication_start": "2020-09-09",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0237.00",
@@ -151739,11 +151728,11 @@
   "helka": 12,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 2",
   "rehovName": "אריה בעהם",
   "mispBait": "2",
   "schunaName": "פת",
-  "address": "אריה בעהם 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0301.00",
@@ -152480,7 +152469,7 @@
   "mispBait": "",
   "schunaName": "גבעת הורדים",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0704.00",
@@ -152830,7 +152819,7 @@
   "mispBait": "",
   "schunaName": "קטמון הישנה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/0908.00",
@@ -153154,11 +153143,11 @@
   "helka": 58,
   "publication_start": "2017-02-06",
   "publication_end_planned": "",
+  "address": "דרך משה ברעם 29",
   "rehovName": "דרך משה ברעם",
   "mispBait": "29",
   "schunaName": "בית צפפה",
-  "address": "דרך משה ברעם 29",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2016/1083.00",
@@ -154059,11 +154048,11 @@
   "helka": 181,
   "publication_start": "2017-05-16",
   "publication_end_planned": "2017-06-06",
+  "address": "המעפילים 19",
   "rehovName": "המעפילים",
   "mispBait": "19",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/0158.00",
@@ -154380,11 +154369,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מבוא העולה 10",
   "rehovName": "מבוא העולה",
   "mispBait": "10",
   "schunaName": "גבעת הורדים",
-  "address": "מבוא העולה 10",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/0277.00",
@@ -155212,11 +155201,11 @@
   "helka": 13,
   "publication_start": "2017-12-11",
   "publication_end_planned": "2017-12-26",
+  "address": "בר יוחאי 7",
   "rehovName": "בר יוחאי",
   "mispBait": "7",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/0669.00",
@@ -155881,12 +155870,12 @@
   "sugbakasha": "עבודות בדרכים",
   "status": "הבקשה נסגרה",
   "status_date": "",
-  "gush": 30092,
-  "helka": 26,
+  "gush": 30285,
+  "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "אשר וינר",
-  "details_checked_on": "2026-10-29"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/0976.01",
@@ -155894,12 +155883,12 @@
   "sugbakasha": "",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30092,
-  "helka": 26,
+  "gush": 30285,
+  "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "אשר וינר 0",
-  "details_checked_on": "2026-10-29"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/0978.00",
@@ -155962,11 +155951,11 @@
   "helka": 1,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אריה בעהם 1",
   "rehovName": "אריה בעהם",
   "mispBait": "1",
   "schunaName": "פת",
-  "address": "אריה בעהם 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2017/1028.00",
@@ -156563,27 +156552,27 @@
   "helka": 181,
   "publication_start": "2018-08-08",
   "publication_end_planned": "2018-08-28",
+  "address": "המעפילים 17",
   "rehovName": "המעפילים",
   "mispBait": "17",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2018/0428.01",
   "mahut": "ריצוף גינה והוספת מרפסת זיז",
   "sugbakasha": "",
-  "status": "נוסח פרסום אושר",
+  "status": "תחילת פרסום הבקשה להקלה",
   "status_date": "",
   "gush": 30185,
   "helka": 181,
-  "publication_start": "2026-10-27",
-  "publication_end_planned": "2026-10-25",
+  "publication_start": "2026-11-09",
+  "publication_end_planned": "2026-12-16",
+  "address": "המעפילים 17",
   "rehovName": "המעפילים",
   "mispBait": "17",
   "schunaName": "גבעת הורדים",
-  "address": "המעפילים 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2018/0463.00",
@@ -156967,11 +156956,11 @@
   "helka": 181,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מבוא העולה 2",
   "rehovName": "מבוא העולה",
   "mispBait": "2",
   "schunaName": "גבעת הורדים",
-  "address": "מבוא העולה 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2018/0752.00",
@@ -157312,11 +157301,11 @@
   "helka": 64,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דוד אילון 0",
   "rehovName": "דוד אילון",
   "mispBait": "0",
   "schunaName": "מנחת",
-  "address": "דוד אילון 0",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2019/0129.00",
@@ -157367,11 +157356,11 @@
   "helka": 64,
   "publication_start": "2019-06-16",
   "publication_end_planned": "2019-06-21",
+  "address": "דוד אילון 0",
   "rehovName": "דוד אילון",
   "mispBait": "0",
   "schunaName": "מנחת",
-  "address": "דוד אילון 0",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2019/0164.00",
@@ -157564,11 +157553,11 @@
   "helka": 163,
   "publication_start": "2021-03-04",
   "publication_end_planned": "",
+  "address": "הפלמח 58",
   "rehovName": "הפלמח",
   "mispBait": "58",
   "schunaName": "גבעת הורדים",
-  "address": "הפלמח 58",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2019/0438.01",
@@ -157580,11 +157569,11 @@
   "helka": 163,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הפלמח 58",
   "rehovName": "הפלמח",
   "mispBait": "58",
   "schunaName": "קטמון הישנה",
-  "address": "הפלמח 58",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2019/0438.02",
@@ -157596,11 +157585,11 @@
   "helka": 163,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הפלמח 58",
   "rehovName": "הפלמח",
   "mispBait": "58",
   "schunaName": "גבעת הורדים",
-  "address": "הפלמח 58",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2019/0451.00",
@@ -158500,11 +158489,11 @@
   "helka": 64,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דוד אילון 0",
   "rehovName": "דוד אילון",
   "mispBait": "0",
   "schunaName": "מנחת",
-  "address": "דוד אילון 0",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2020/0322.00",
@@ -158840,11 +158829,11 @@
   "helka": 9,
   "publication_start": "2020-12-06",
   "publication_end_planned": "",
+  "address": "בר יוחאי 19",
   "rehovName": "בר יוחאי",
   "mispBait": "19",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2020/0521.00",
@@ -159646,11 +159635,10 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
-  "rehovName": "התנופה",
-  "mispBait": "",
-  "schunaName": "תלפיות",
   "address": "התנופה",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "התנופה",
+  "schunaName": "תלפיות",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2021/0209.00",
@@ -159744,7 +159732,7 @@
   "publication_start": "",
   "publication_end_planned": "",
   "address": "פת יעקב 0 תלפיות",
-  "details_checked_on": "2026-10-29"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2021/0285.00",
@@ -160489,12 +160477,12 @@
   "sugbakasha": "",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30180,
-  "helka": 92,
+  "gush": 30336,
+  "helka": 132,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "קרית משה 0 קרית משה",
-  "details_checked_on": "2026-11-17"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0157.00",
@@ -160571,11 +160559,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 15",
   "rehovName": "בר יוחאי",
   "mispBait": "15",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 15",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0246.01",
@@ -160587,11 +160575,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 15",
   "rehovName": "בר יוחאי",
   "mispBait": "15",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 15",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0246.02",
@@ -160603,11 +160591,11 @@
   "helka": 40,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 15",
   "rehovName": "בר יוחאי",
   "mispBait": "15",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 15",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0287.00",
@@ -160845,11 +160833,11 @@
   "helka": 4,
   "publication_start": "2022-08-30",
   "publication_end_planned": "",
+  "address": "אברהם ארסט 1",
   "rehovName": "אברהם ארסט",
   "mispBait": "1",
   "schunaName": "פת",
-  "address": "אברהם ארסט 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0452.00",
@@ -160978,7 +160966,7 @@
   "publication_start": "",
   "publication_end_planned": "",
   "address": "דרך בית לחם 0",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0520.01",
@@ -160991,7 +160979,7 @@
   "publication_start": "",
   "publication_end_planned": "",
   "address": "דרך בית לחם 0",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0524.00",
@@ -161105,7 +161093,7 @@
   "sugbakasha": "",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30002,
+  "gush": 30198,
   "helka": 49,
   "publication_start": "",
   "publication_end_planned": "",
@@ -161113,7 +161101,7 @@
   "rehovName": "גנרל פייר קניג",
   "mispBait": "1",
   "schunaName": "תלפיות",
-  "details_checked_on": "2026-10-26"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2022/0606.00",
@@ -161175,11 +161163,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "מעשה חושב 7",
   "rehovName": "מעשה חושב",
   "mispBait": "7",
   "schunaName": "תלפיות",
-  "address": "מעשה חושב 7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0051.00",
@@ -161433,12 +161421,12 @@
   "sugbakasha": "",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30012,
-  "helka": 34,
+  "gush": 30197,
+  "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "עמק רפאים 0 מושבה גרמנית",
-  "details_checked_on": "2026-11-09"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0267.00",
@@ -161489,11 +161477,11 @@
   "helka": 111,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "דרך חברון 187",
   "rehovName": "דרך חברון",
   "mispBait": "187",
   "schunaName": "תלפיות תעשיה",
-  "address": "דרך חברון 187",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0316.00",
@@ -161557,11 +161545,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 13-11",
   "rehovName": "בר יוחאי",
   "mispBait": "13-11",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 13-11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0326.01",
@@ -161573,11 +161561,11 @@
   "helka": 10,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 13,11",
   "rehovName": "בר יוחאי",
   "mispBait": "13,11",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 13,11",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0329.00",
@@ -161647,11 +161635,14 @@
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
   "gush": 30197,
-  "helka": 116,
+  "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
+  "rehovName": "",
+  "mispBait": "",
+  "schunaName": "גאולים - בקעה",
   "address": "",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0369.00",
@@ -161737,12 +161728,12 @@
   "sugbakasha": "",
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30027,
-  "helka": 1,
+  "gush": 30197,
+  "helka": 122,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "קרן היסוד 0",
-  "details_checked_on": "2026-10-26"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0415.01",
@@ -161985,11 +161976,11 @@
   "helka": 83,
   "publication_start": "2024-01-04",
   "publication_end_planned": "",
+  "address": "פישר מוריס 2",
   "rehovName": "פישר מוריס",
   "mispBait": "2",
   "schunaName": "פת",
-  "address": "פישר מוריס 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2023/0553.00",
@@ -162225,14 +162216,14 @@
   "tik_num": "2024/0060.00",
   "mahut": "בניית הכנות תשתית עבור מערך רכבות קלות שיכלול תחנה, קווי רק\"ל, פיתוח המרחב הציבורי",
   "sugbakasha": "",
-  "status": "הוכנה טיוטת היתר בניה",
+  "status": "הופק-הוצא היתר בניה",
   "status_date": "",
-  "gush": 30004,
-  "helka": 94,
+  "gush": 30198,
+  "helka": 18,
   "publication_start": "2024-09-18",
   "publication_end_planned": "",
   "address": "רבן יוחנן בן זכאי 2-4 גאולים - בקעה",
-  "details_checked_on": "2026-10-26"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0060.01",
@@ -162245,7 +162236,7 @@
   "publication_start": "",
   "publication_end_planned": "",
   "address": "רבן יוחנן בן זכאי 2 גוננים",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0062.00",
@@ -162668,11 +162659,10 @@
   "helka": 14,
   "publication_start": "2026-05-12",
   "publication_end_planned": "",
-  "rehovName": "רבי צדוק",
-  "mispBait": "",
-  "schunaName": "גוננים",
   "address": "רבי צדוק",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "רבי צדוק",
+  "schunaName": "גוננים",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0273.00",
@@ -162819,7 +162809,7 @@
  },
  {
   "tik_num": "2024/0349.00",
-  "mahut": "הקמת שני מבני מגורים חדשים מעל קומות מסחריות ומבנה ציבור וחניונים במסגרת פינוי בינוי",
+  "mahut": "הקמת שני מבני מגורים חדשים מעל קומות מסחריות ומבנה ציבור וחניונים במסגרת פינוי בינוי - סה\"כ 242 יחידות דיור",
   "sugbakasha": "",
   "status": "נדונה בוועדת המשנה",
   "status_date": "",
@@ -162827,11 +162817,11 @@
   "helka": 6,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "חוסה דה סן מרטין 28",
   "rehovName": "חוסה דה סן מרטין",
   "mispBait": "28",
   "schunaName": "גוננים",
-  "address": "חוסה דה סן מרטין 28",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0352.00",
@@ -163091,27 +163081,27 @@
   "helka": 21,
   "publication_start": "2024-12-18",
   "publication_end_planned": "",
+  "address": "בר יוחאי 7-5",
   "rehovName": "בר יוחאי",
   "mispBait": "7-5",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 7-5",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0527.01",
   "mahut": "היתר הריסה, חפירה ודיפון עבור פינוי בינוי עבור 430 יח\"ד",
   "sugbakasha": "",
-  "status": "תחילת הודעות לפני תקנה 36",
+  "status": "תום תקופת פרסום",
   "status_date": "",
   "gush": 30200,
   "helka": 13,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 5-7",
   "rehovName": "בר יוחאי",
   "mispBait": "5-7",
   "schunaName": "קטמון הישנה",
-  "address": "בר יוחאי 5-7",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2024/0528.00",
@@ -163331,11 +163321,11 @@
   "helka": 210,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ש. טשרניחובסקי 51",
   "rehovName": "ש. טשרניחובסקי",
   "mispBait": "51",
   "schunaName": "גבעת הורדים",
-  "address": "ש. טשרניחובסקי 51",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0037.00",
@@ -163443,7 +163433,7 @@
  },
  {
   "tik_num": "2025/0104.00",
-  "mahut": "הריסת מבנה מגורים קיים ובניית מבנה מגורים חדש הכולל הפרשה מבונה למבנה ציבור - בן 8 קומות לכל חזית, לפי סעיף 13 לתמ\"א 38. סה\"כ 35 יח\"ד.",
+  "mahut": "הריסת מבנה מגורים קיים והקמת בניין מגורים בן 8 קומות לכל חזית, לפי סעיף 13 לתמ\"א 38, והפרשה מבונה למבנה ציבור, סה\"כ 35 יח\"ד.",
   "sugbakasha": "",
   "status": "נדונה בוועדת המשנה",
   "status_date": "",
@@ -163451,11 +163441,11 @@
   "helka": 213,
   "publication_start": "2025-11-16",
   "publication_end_planned": "",
+  "address": "דוד שמעוני 37",
   "rehovName": "דוד שמעוני",
   "mispBait": "37",
   "schunaName": "גבעת הורדים",
-  "address": "דוד שמעוני 37",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0111.00",
@@ -163480,11 +163470,11 @@
   "helka": 6,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 143",
   "rehovName": "אברהם אלמליח",
   "mispBait": "143",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 143",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0115.01",
@@ -163496,11 +163486,11 @@
   "helka": 6,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 143",
   "rehovName": "אברהם אלמליח",
   "mispBait": "143",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 143",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0126.00",
@@ -163600,11 +163590,11 @@
   "status": "הופק-הוצא היתר בניה",
   "status_date": "",
   "gush": 30197,
-  "helka": 163,
+  "helka": 68,
   "publication_start": "",
   "publication_end_planned": "",
   "address": "דוד המלך 1",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0159.00",
@@ -163671,11 +163661,10 @@
   "helka": 56,
   "publication_start": "2025-07-28",
   "publication_end_planned": "",
-  "rehovName": "דוד בנבנישתי",
-  "mispBait": "",
-  "schunaName": "גוננים",
   "address": "דוד בנבנישתי",
-  "details_checked_on": "2026-10-25"
+  "rehovName": "דוד בנבנישתי",
+  "schunaName": "גוננים",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0200.01",
@@ -163768,11 +163757,11 @@
   "helka": 17,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 1, 3",
   "rehovName": "בר יוחאי",
   "mispBait": "1, 3",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 1, 3",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0274.00",
@@ -163784,11 +163773,11 @@
   "helka": 4,
   "publication_start": "2026-01-25",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 19",
   "rehovName": "אברהם אלמליח",
   "mispBait": "19",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 19",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0275.00",
@@ -163833,17 +163822,17 @@
   "tik_num": "2025/0299.00",
   "mahut": "תוספת יח\"ד כולל תוספת שטח",
   "sugbakasha": "",
-  "status": "נפתח תיק רישוי",
+  "status": "נדונה בוועדת המשנה",
   "status_date": "",
   "gush": 30199,
   "helka": 4,
   "publication_start": "2025-10-27",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 14",
   "rehovName": "אברהם אלמליח",
   "mispBait": "14",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 14",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0333.00",
@@ -163920,11 +163909,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 18",
   "rehovName": "אברהם אלמליח",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0370.01",
@@ -163936,11 +163925,11 @@
   "helka": 4,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "אברהם אלמליח 18",
   "rehovName": "אברהם אלמליח",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "אברהם אלמליח 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0378.00",
@@ -164032,6 +164021,22 @@
   "publication_end_planned": "",
   "address": "דרך עזה 51 רחביה",
   "details_checked_on": "2026-10-28"
+ },
+ {
+  "tik_num": "2025/0474.00",
+  "mahut": "תוספת ממ\"ד ע\"פ תמ\"א 40/א/1/1",
+  "sugbakasha": "",
+  "status": "חידוש טיפול בבקשה",
+  "status_date": "",
+  "gush": 30501,
+  "helka": 28,
+  "publication_start": "",
+  "publication_end_planned": "",
+  "rehovName": "פישר מוריס",
+  "mispBait": "22",
+  "schunaName": "פת",
+  "address": "פישר מוריס 22",
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0511.00",
@@ -164134,11 +164139,11 @@
   "helka": 24,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "ברל לוקר 17",
   "rehovName": "ברל לוקר",
   "mispBait": "17",
   "schunaName": "פת",
-  "address": "ברל לוקר 17",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2025/0560.00",
@@ -164222,17 +164227,17 @@
   "tik_num": "2026/0060.00",
   "mahut": "הריסת מבנה מסחרי קיים וחפירה ודיפון עבור 75 יח\"ד",
   "sugbakasha": "",
-  "status": "נפתח תיק רישוי",
+  "status": "נדונה בוועדת המשנה",
   "status_date": "",
   "gush": 30187,
   "helka": 23,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 2",
   "rehovName": "הסדנא",
   "mispBait": "2",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2026/0060.01",
@@ -164244,11 +164249,11 @@
   "helka": 23,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "הסדנא 2",
   "rehovName": "הסדנא",
   "mispBait": "2",
   "schunaName": "תלפיות תעשיה",
-  "address": "הסדנא 2",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2026/0069.00",
@@ -164717,11 +164722,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 18",
   "rehovName": "בר יוחאי",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2026/0314.01",
@@ -164733,11 +164738,11 @@
   "helka": 32,
   "publication_start": "",
   "publication_end_planned": "",
+  "address": "בר יוחאי 18",
   "rehovName": "בר יוחאי",
   "mispBait": "18",
   "schunaName": "גוננים",
-  "address": "בר יוחאי 18",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2026/0315.00",
@@ -164948,7 +164953,7 @@
   "publication_start": "",
   "publication_end_planned": "",
   "address": "יהודה בורלא  0 גבעת רם",
-  "details_checked_on": "2026-10-25"
+  "details_checked_on": "2026-11-20"
  },
  {
   "tik_num": "2026/0450.00",

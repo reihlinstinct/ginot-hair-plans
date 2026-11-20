@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-19",
+ "generated": "2026-11-20",
  "note": "auto-generated from repo folder state (issue #152) - do not edit by hand",
  "datasets": [
   {
@@ -110,8 +110,8 @@
    "name": "permit_requests.json",
    "path": "data/permit_requests.json",
    "kind": "json",
-   "records": 12556,
-   "bytes": 5210783,
+   "records": 12557,
+   "bytes": 5227594,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/permit_requests.json"
   },
   {
