@@ -928,12 +928,17 @@ permitLink=window.GinotFilterLinks.register('permit',
     }else if(pfclosed.checked){
       chips.forEach(function(c){var g=c.getAttribute('data-group');if(g==='closed'||g==='issued')c.classList.add('sel');});
     }
-    // A bare permit deep link (?permit.pfq=...) targets one permit: reveal
-    // terminal rows so it is visible even though the default view hides
-    // closed/issued items. Explicit visibility state in the URL wins.
-    if(p.get(n+'.pfq')&&p.get(n+'.pfclosed')===null&&raw===null&&!p.get(n+'.pfstatus')){
+    // A bare permit deep link (?permit.pfq=..., no filters=1 marker)
+    // targets one permit: widen every default visibility gate so the target
+    // is always revealed - terminal rows, elapsed objection windows,
+    // non-default status groups (e.g. review/draft), and out-of-area rows.
+    // A copied filters=1 link carries the sender's saved state, so it is
+    // never widened; explicit gate params also skip this branch.
+    if(p.get('filters')===null&&p.get(n+'.pfq')&&p.get(n+'.pfclosed')===null&&p.get(n+'.pfopenonly')===null&&p.get(n+'.pfscope')===null&&raw===null&&!p.get(n+'.pfstatus')){
       pfclosed.checked=true;
-      chips.forEach(function(c){var g=c.getAttribute('data-group');if(g==='closed'||g==='issued'){c.classList.add('sel');c.setAttribute('aria-pressed','true');}});
+      if(pfopenonly)pfopenonly.checked=false;
+      if(pfscope)pfscope.checked=true;
+      chips.forEach(function(c){c.classList.add('sel');c.setAttribute('aria-pressed','true');});
     }
   },
   write:function(p,n){

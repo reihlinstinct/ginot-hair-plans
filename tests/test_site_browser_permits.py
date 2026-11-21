@@ -22,10 +22,13 @@ pytest_plugins = ["test_site_browser"]
 
 
 def test_permits_default_hides_closed_and_counts(page):
-    assert page.locator("#permits-table tbody tr").count() == 10
+    assert page.locator("#permits-table tbody tr").count() == 13
     # 8 visible (#521 default: objection-relevant groups selected, no recency
-    # cutoff): hidden are the terminal row (closed group, also data-active=0)
-    # and the post-publication row (group behind "סטטוסים נוספים").
+    # cutoff): hidden are the terminal row (closed group, also data-active=0),
+    # the post-publication row (group behind "סטטוסים נוספים"), the
+    # elapsed-window objection row (#1074 open-only default), the
+    # review-group row (non-default chip), and the out-of-area row (#1074
+    # scope gate).
     assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 8
     assert page.locator("#pfcount").inner_text() == "מציג 8 מתוך 8"
     # "הצג בקשות שהסתיימו" selects the closed+issued group chips and reveals
@@ -111,7 +114,7 @@ def test_permits_default_sort_dated_desc_undated_last(page):
 
 def test_permit_deep_links_point_to_municipality_file(page):
     links = page.locator("#permits-table tbody tr td:first-child a")
-    assert links.count() == 10
+    assert links.count() == 13
     # Order-independent since #451 (default sort is dated-desc): pick the
     # 0439 row explicitly instead of assuming it is first.
     link = page.locator(

@@ -25,6 +25,119 @@ def test_permit_deep_link_without_filters_param_reveals_closed_permit(page):
     assert "filtered-out" not in (row.get_attribute("class") or "")
 
 
+def test_permit_deep_link_reveals_elapsed_window_permit(page):
+    """#1074: a bare ?permit.pfq=... deep link to an objection-group permit
+    whose window already closed must reveal it - the "open window only"
+    default (pfopenonly) hides it from a manual search (live repro showed
+    "מציג 0 מתוך 0")."""
+    url = page.url.split("?")[0]
+    # Default view, manual search: the elapsed-window row stays hidden.
+    page.fill("#pfq", "2020/0010.01")
+    row = page.locator("#permits-table tr[data-tik='2020/0010.01']")
+    assert row.count() == 1
+    assert "filtered-out" in (row.get_attribute("class") or "")
+    # The bare deep link to the same permit reveals exactly that row.
+    page.goto(url + "?permit.pfq=2020%2F0010.01#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.input_value("#pfq") == "2020/0010.01"
+    assert page.is_checked("#pfclosed")
+    assert not page.is_checked("#pfopenonly")
+    row = page.locator("#permits-table tr[data-tik='2020/0010.01']")
+    assert row.count() == 1
+    assert "filtered-out" not in (row.get_attribute("class") or "")
+
+
+def test_permit_deep_link_reveals_nondefault_group_permit(page):
+    """#1074: the live repro's shape - the target's status sits in a
+    non-default group chip (review), so a bare deep link must also widen
+    the group selection, not just the open-only/closed gates."""
+    url = page.url.split("?")[0]
+    # Default view, manual search: hidden by the non-default review chip.
+    page.fill("#pfq", "2020/0011.01")
+    row = page.locator("#permits-table tr[data-tik='2020/0011.01']")
+    assert row.count() == 1
+    assert "filtered-out" in (row.get_attribute("class") or "")
+    # The bare deep link reveals it and selects every group chip.
+    page.goto(url + "?permit.pfq=2020%2F0011.01#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    row = page.locator("#permits-table tr[data-tik='2020/0011.01']")
+    assert "filtered-out" not in (row.get_attribute("class") or "")
+    assert page.locator("#pfgroups .chip[data-group='review'].sel").count() == 1
+
+
+def test_permit_deep_link_bare_widens_out_of_area(page):
+    """#1074: a bare deep link to an out-of-area permit reveals it - the
+    scope gate is widened too (the link targets that one permit)."""
+    url = page.url.split("?")[0]
+    # Default view, manual search: hidden by the scope gate.
+    page.fill("#pfq", "2020/0012.01")
+    row = page.locator("#permits-table tr[data-tik='2020/0012.01']")
+    assert row.count() == 1
+    assert "filtered-out" in (row.get_attribute("class") or "")
+    page.goto(url + "?permit.pfq=2020%2F0012.01#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.is_checked("#pfscope")
+    row = page.locator("#permits-table tr[data-tik='2020/0012.01']")
+    assert "filtered-out" not in (row.get_attribute("class") or "")
+
+
+def test_permit_deep_link_explicit_scope_wins(page):
+    """#1074: explicit permit.pfscope=0 in the URL beats the bare-link
+    widening - the out-of-area target stays hidden."""
+    url = page.url.split("?")[0]
+    page.goto(url + "?permit.pfq=2020%2F0012.01&permit.pfscope=0#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert not page.is_checked("#pfscope")
+    row = page.locator("#permits-table tr[data-tik='2020/0012.01']")
+    assert "filtered-out" in (row.get_attribute("class") or "")
+
+
+def test_filters1_permit_link_keeps_sender_state(page):
+    """#1074: a copied ?filters=1&permit.pfq=... link carries the sender's
+    saved state, so the recipient's view is NOT widened: a sender in the
+    default view saw the review-group row hidden, and so does the
+    recipient (24 sender rows must not become thousands)."""
+    url = page.url.split("?")[0]
+    page.goto(url + "?filters=1&permit.pfq=2020%2F0011.01#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.input_value("#pfq") == "2020/0011.01"
+    assert not page.is_checked("#pfclosed")
+    assert page.is_checked("#pfopenonly")
+    assert not page.is_checked("#pfscope")
+    assert page.locator("#pfgroups .chip[data-group='review'].sel").count() == 0
+    row = page.locator("#permits-table tr[data-tik='2020/0011.01']")
+    assert "filtered-out" in (row.get_attribute("class") or "")
+
+
+def test_permit_deep_link_explicit_openonly_wins(page):
+    """#1074: explicit visibility state in the URL beats the bare-link
+    widening - ?permit.pfq=...&permit.pfopenonly=1 keeps open-only on."""
+    url = page.url.split("?")[0]
+    page.goto(url + "?permit.pfq=2020%2F0010.01&permit.pfopenonly=1#permits")
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.is_checked("#pfopenonly")
+    row = page.locator("#permits-table tr[data-tik='2020/0010.01']")
+    assert "filtered-out" in (row.get_attribute("class") or "")
+
+
 def test_filter_link_hebrew_and_permit_state_roundtrip(page):
     page.fill("#fq", "תכנית")
     page.check("#fappr")
