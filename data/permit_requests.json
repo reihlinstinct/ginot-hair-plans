@@ -311,10 +311,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 8",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/0824.07",
@@ -637,10 +643,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 150",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/1438.03",
@@ -663,10 +675,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 150",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/1448.01",
@@ -730,10 +748,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 2",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/1670.04",
@@ -756,10 +780,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 18",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/1714.00",
@@ -1065,10 +1095,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/2097.08",
@@ -1078,10 +1114,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 18",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1910/2101.07",
@@ -1218,10 +1260,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1920/2228.02",
@@ -10548,10 +10596,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1958/0522.02",
@@ -10561,10 +10615,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1958/0549.00",
@@ -12150,10 +12210,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1959/0849.01",
@@ -12163,10 +12229,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-06-26",
    "address": "ש. טשרניחובסקי 72 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1959/0855.00",
@@ -15769,10 +15841,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בית צפפה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1962/0617.01",
@@ -15782,10 +15860,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בית צפפה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1962/0634.00",
@@ -17706,10 +17790,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קרית משה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1963/0791.00",
@@ -20785,10 +20875,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1965/1196.00",
@@ -21170,10 +21266,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1966/0354.00",
@@ -22505,10 +22607,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1967/0471.00",
@@ -22883,10 +22991,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1967/0795.00",
@@ -22987,10 +23101,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 גונן ד",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1968/0129.01",
@@ -23518,10 +23638,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1968/0477.00",
@@ -32644,10 +32770,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1972/0264.00",
@@ -34945,10 +35077,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1973/0055.01",
@@ -34958,10 +35096,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1973/0055.02",
@@ -34971,10 +35115,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1973/0064.00",
@@ -39636,10 +39786,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 20 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1975/0224.00",
@@ -39649,10 +39805,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30122,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 24 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1975/0224.01",
@@ -39662,10 +39824,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30122,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1975/0225.00",
@@ -43479,10 +43647,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 18 קטמון הישנה",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.01",
@@ -43492,10 +43666,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 18 קטמון הישנה",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.02",
@@ -43505,10 +43685,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.03",
@@ -43518,10 +43704,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.04",
@@ -43531,10 +43723,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קטמון הישנה",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.05",
@@ -43544,10 +43742,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 18 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0094.06",
@@ -43557,10 +43761,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 113,
+   "parcels_observed": [
+    [
+     30122,
+     113
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 18 גוננים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0105.00",
@@ -45442,10 +45652,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 21,
+   "parcels_observed": [
+    [
+     30123,
+     21
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יחיל חיים 6 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1977/0577.05",
@@ -47889,10 +48105,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 26 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0475.01",
@@ -47902,10 +48124,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 26 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0475.02",
@@ -47915,10 +48143,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 26 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0495.00",
@@ -48769,10 +49003,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0656.01",
@@ -48782,10 +49022,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0656.02",
@@ -48795,10 +49041,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 30 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0659.00",
@@ -48866,10 +49118,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.04",
@@ -48879,10 +49137,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.05",
@@ -48892,10 +49156,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.06",
@@ -48905,10 +49175,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.07",
@@ -48918,10 +49194,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16א גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.08",
@@ -48931,10 +49213,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "2018-06-18",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.09",
@@ -48944,10 +49232,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "2018-12-30",
    "publication_end_planned": "2019-01-08",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.10",
@@ -48957,10 +49251,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "2025-01-14",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.11",
@@ -48970,10 +49270,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "2024-06-19",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0717.12",
@@ -48983,10 +49289,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30122,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 16 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0723.00",
@@ -49186,10 +49498,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0762.00",
@@ -49199,10 +49517,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1978/0775.00",
@@ -52668,10 +52992,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1979/0901.01",
@@ -52681,10 +53011,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1979/0926.00",
@@ -53129,10 +53465,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 16 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0077.00",
@@ -53977,10 +54319,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0331.01",
@@ -53990,10 +54338,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0331.02",
@@ -54003,10 +54357,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0331.03",
@@ -54029,10 +54389,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0331.05",
@@ -54042,10 +54408,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0333.00",
@@ -54932,10 +55304,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0628.01",
@@ -54945,10 +55323,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0628.02",
@@ -54958,10 +55342,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0633.00",
@@ -55585,10 +55975,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1980/0766.00",
@@ -67962,10 +68358,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 20 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0418.01",
@@ -67975,10 +68377,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0418.02",
@@ -67988,10 +68396,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0418.03",
@@ -68001,10 +68415,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 20 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0418.04",
@@ -68014,10 +68434,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0418.05",
@@ -68027,10 +68453,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 114,
+   "parcels_observed": [
+    [
+     30122,
+     114
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0421.00",
@@ -68415,10 +68847,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30129,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0542.00",
@@ -68428,10 +68866,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30129,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0554.00",
@@ -69143,10 +69587,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0726.01",
@@ -69156,10 +69606,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0726.02",
@@ -69169,10 +69625,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0726.03",
@@ -69182,10 +69644,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30133,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0734.00",
@@ -69641,10 +70109,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יוסי בן יועזר 12 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1984/0796.00",
@@ -73905,10 +74379,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0282.00",
@@ -73956,10 +74436,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 106,
+   "parcels_observed": [
+    [
+     30123,
+     106
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0311.00",
@@ -74157,10 +74643,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרכב תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0410.00",
@@ -74980,10 +75472,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.01",
@@ -74993,10 +75491,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.02",
@@ -75006,10 +75510,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.03",
@@ -75019,10 +75529,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.04",
@@ -75045,10 +75561,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 150 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.06",
@@ -75058,10 +75580,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-09-24",
    "address": "דרך בית לחם 150 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0641.07",
@@ -75097,10 +75625,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-12-07",
    "address": "דרך בית לחם 150 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1986/0648.04",
@@ -76333,10 +76867,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0138.00",
@@ -78381,10 +78921,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 25 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0466.00",
@@ -79703,10 +80249,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.01",
@@ -79716,10 +80272,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.02",
@@ -79729,10 +80295,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.03",
@@ -79742,10 +80318,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.04",
@@ -79755,10 +80341,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.05",
@@ -79767,11 +80363,21 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30131,
-   "helka": 6,
+   "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ],
+    [
+     30131,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.07",
@@ -79780,11 +80386,21 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30131,
-   "helka": 6,
+   "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ],
+    [
+     30131,
+     6
+    ]
+   ],
    "publication_start": "",
-   "publication_end_planned": "2005-08-11",
+   "publication_end_planned": "",
    "address": "האומן 30 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0752.08",
@@ -79794,10 +80410,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0777.00",
@@ -80350,10 +80976,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.01",
@@ -80363,10 +80995,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.02",
@@ -80376,10 +81014,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-07-12",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.03",
@@ -80389,10 +81033,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-01-30",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.04",
@@ -80402,10 +81052,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.05",
@@ -80415,10 +81071,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.06",
@@ -80428,10 +81090,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.07",
@@ -80441,10 +81109,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "2021-12-23",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0936.08",
@@ -80454,10 +81128,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "2022-04-13",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1987/0939.00",
@@ -83915,10 +84595,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.01",
@@ -83928,10 +84614,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.02",
@@ -83941,10 +84633,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.03",
@@ -83954,10 +84652,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.04",
@@ -83967,10 +84671,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-04-15",
    "address": "אנטיגנוס 22 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.06",
@@ -83980,10 +84690,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-04-04",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.07",
@@ -83993,10 +84709,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "2016-05-29",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.08",
@@ -84006,10 +84728,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "2017-04-04",
    "publication_end_planned": "2017-05-02",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.09",
@@ -84019,10 +84747,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "2024-03-07",
    "publication_end_planned": "",
    "address": "אנטיגנוס 2 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.10",
@@ -84032,10 +84766,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "2024-09-11",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0658.11",
@@ -84045,10 +84785,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 27,
+   "parcels_observed": [
+    [
+     30133,
+     27
+    ]
+   ],
    "publication_start": "2026-04-16",
    "publication_end_planned": "",
    "address": "אנטיגנוס 22 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/0660.00",
@@ -85600,10 +86346,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30133,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 31 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1988/1015.00",
@@ -87053,10 +87805,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0312.01",
@@ -87066,10 +87824,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0312.02",
@@ -87079,10 +87843,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0312.03",
@@ -87092,10 +87862,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0312.04",
@@ -87105,10 +87881,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 36 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0317.00",
@@ -90540,10 +91322,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.02",
@@ -90553,10 +91341,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.03",
@@ -90566,10 +91360,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "2017-03-19",
    "publication_end_planned": "2017-04-04",
    "address": "אנטיגנוס 29 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.04",
@@ -90579,10 +91379,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.05",
@@ -90592,10 +91398,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.06",
@@ -90605,23 +91417,35 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "2024-01-22",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0847.07",
    "mahut": "תכנית שינויים, בניית מרפסת ותוספת בנייה על הגג",
    "sugbakasha": "",
-   "status": "הוכנה טיוטת היתר בניה",
+   "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30133,
    "helka": 54,
+   "parcels_observed": [
+    [
+     30133,
+     54
+    ]
+   ],
    "publication_start": "2024-03-10",
    "publication_end_planned": "",
    "address": "אנטיגנוס 29 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0852.00",
@@ -91233,10 +92057,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30133,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 31 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/0940.00",
@@ -91543,10 +92373,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30122,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התקופה 24 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1989/1012.00",
@@ -93094,10 +93930,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30123,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי טרפון קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0228.00",
@@ -94163,10 +95005,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.01",
@@ -94176,10 +95024,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.02",
@@ -94189,10 +95043,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.03",
@@ -94202,10 +95062,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.04",
@@ -94215,10 +95081,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.05",
@@ -94228,10 +95100,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.06",
@@ -94241,10 +95119,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.07",
@@ -94254,10 +95138,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.08",
@@ -94267,10 +95157,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "2018-05-02",
    "publication_end_planned": "2018-05-15",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0506.09",
@@ -94280,10 +95176,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1990/0509.02",
@@ -101230,10 +102132,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרכב 1 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1991/0552.00",
@@ -104184,10 +105092,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 14 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1991/1057.01",
@@ -104197,10 +105111,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 14 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1991/1057.02",
@@ -104210,10 +105130,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 14 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1991/1059.00",
@@ -105106,10 +106032,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 8 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0137.00",
@@ -105145,10 +106077,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 22 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0149.00",
@@ -105197,10 +106135,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-11-26",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.01",
@@ -105210,10 +106154,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.02",
@@ -105223,10 +106173,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.03",
@@ -105236,10 +106192,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-12-01",
    "address": "רבן יוחנן בן זכאי 29 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.04",
@@ -105249,10 +106211,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.05",
@@ -105262,10 +106230,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-08-26",
    "address": "רבן יוחנן בן זכאי 29 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.06",
@@ -105275,10 +106249,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0154.07",
@@ -105288,10 +106268,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 11,
+   "parcels_observed": [
+    [
+     30133,
+     11
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 29 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0166.00",
@@ -106579,10 +107565,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30131,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שדרות מנחם בגין תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1992/0636.00",
@@ -109863,10 +110855,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.01",
@@ -109876,10 +110874,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.02",
@@ -109889,10 +110893,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.03",
@@ -109902,10 +110912,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "2019-09-09",
    "publication_end_planned": "2018-08-28",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.04",
@@ -109915,10 +110931,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "2018-10-25",
    "publication_end_planned": "2018-11-13",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.05",
@@ -109928,10 +110950,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "2020-10-15",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0322.06",
@@ -109941,10 +110969,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "2025-08-24",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1994/0416.00",
@@ -111371,10 +112405,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30133,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 27 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1995/0014.00",
@@ -114748,10 +115788,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 25 גונן ו",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1995/0990.00",
@@ -116678,10 +117724,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1996-06-11",
    "address": "קרית המוסכים 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1996/0482.00",
@@ -116836,10 +117888,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 23 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1996/0560.00",
@@ -117679,10 +118737,52 @@
    "status_date": "",
    "gush": 30133,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30133,
+     7
+    ],
+    [
+     30133,
+     11
+    ],
+    [
+     30133,
+     12
+    ],
+    [
+     30133,
+     27
+    ],
+    [
+     30133,
+     28
+    ],
+    [
+     30133,
+     30
+    ],
+    [
+     30133,
+     37
+    ],
+    [
+     30133,
+     54
+    ],
+    [
+     30133,
+     56
+    ],
+    [
+     30133,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אנטיגנוס 15 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1996/0840.00",
@@ -118774,10 +119874,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 8 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0062.03",
@@ -118787,10 +119893,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0066.00",
@@ -119521,10 +120633,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-07-10",
    "address": "קרית המוסכים 13 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0414.01",
@@ -119534,10 +120652,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קרית המוסכים 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0415.00",
@@ -119547,10 +120671,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-07-09",
    "address": "קרית המוסכים 7 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0425.00",
@@ -120302,10 +121432,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רב אשי 4 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0679.01",
@@ -120315,10 +121451,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רב אשי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0679.02",
@@ -120328,10 +121470,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רב אשי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0679.03",
@@ -120341,10 +121489,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-03-04",
    "address": "רב אשי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1997/0713.03",
@@ -120571,8 +121725,48 @@
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30122,
-   "helka": 38,
+   "helka": 122,
    "parcels_observed": [
+    [
+     30122,
+     122
+    ],
+    [
+     30122,
+     141
+    ],
+    [
+     30123,
+     8
+    ],
+    [
+     30123,
+     15
+    ],
+    [
+     30123,
+     16
+    ],
+    [
+     30123,
+     18
+    ],
+    [
+     30123,
+     21
+    ],
+    [
+     30123,
+     22
+    ],
+    [
+     30123,
+     74
+    ],
+    [
+     30123,
+     106
+    ],
     [
      30122,
      38
@@ -122345,10 +123539,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 21 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1998/0706.09",
@@ -122358,10 +123558,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 21 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1998/0716.00",
@@ -124670,10 +125876,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 62 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1999/0646.01",
@@ -124683,10 +125895,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן טבאי 1 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1999/0646.02",
@@ -124696,10 +125914,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2016-08-09",
    "publication_end_planned": "2016-08-23",
    "address": "רבן יוחנן בן זכאי 62 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1999/0713.00",
@@ -124982,10 +126206,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 106,
+   "parcels_observed": [
+    [
+     30123,
+     106
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניקנור 26 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "1999/0811.01",
@@ -125665,10 +126895,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 12 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/0416.01",
@@ -125678,10 +126914,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 12 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/0416.02",
@@ -125691,10 +126933,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 12 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/0416.03",
@@ -125704,10 +126952,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 8,
+   "parcels_observed": [
+    [
+     30123,
+     8
+    ]
+   ],
    "publication_start": "2021-04-06",
    "publication_end_planned": "",
    "address": "הורקניה 12 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/0418.00",
@@ -127457,10 +128711,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ניקנור 39 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/1019.01",
@@ -127470,10 +128730,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2006-01-29",
    "address": "ניקנור 39 גונן ה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/1019.02",
@@ -127483,10 +128749,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "2022-09-18",
    "publication_end_planned": "",
    "address": "ניקנור 39 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2000/1019.03",
@@ -127496,10 +128768,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "2023-01-08",
    "publication_end_planned": "",
    "address": "ניקנור 39 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0001.00",
@@ -129534,10 +130812,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2001-11-15",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.01",
@@ -129547,10 +130831,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.02",
@@ -129560,10 +130850,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.03",
@@ -129573,10 +130869,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.04",
@@ -129586,10 +130888,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.05",
@@ -129599,10 +130907,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-12-19",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.06",
@@ -129612,10 +130926,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-03-12",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.07",
@@ -129625,10 +130945,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.08",
@@ -129638,10 +130964,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.09",
@@ -129651,23 +130983,35 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0529.10",
    "mahut": "שימוש חורג למשרדים",
    "sugbakasha": "",
-   "status": "שולמה מקדמה",
+   "status": "נוסח פרסום אושר",
    "status_date": "",
    "gush": 30131,
    "helka": 83,
-   "publication_start": "",
-   "publication_end_planned": "",
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
+   "publication_start": "2026-11-29",
+   "publication_end_planned": "2026-11-25",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0533.00",
@@ -129876,10 +131220,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-03-10",
    "address": "בני בתירא 15 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0607.01",
@@ -129889,10 +131239,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בני בתירא 15 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0607.02",
@@ -129902,10 +131258,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בני בתירא 15 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0607.03",
@@ -129915,10 +131277,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בני בתירא 15 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0607.05",
@@ -129928,10 +131296,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בני בתירא 15 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0607.06",
@@ -129941,10 +131315,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בני בתירא 15 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2001/0608.00",
@@ -133953,10 +135333,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2004/0196.00",
@@ -134220,10 +135606,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרכב תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2004/0283.00",
@@ -134725,10 +136117,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 1,
+   "parcels_observed": [
+    [
+     30129,
+     1
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 122 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2004/0430.02",
@@ -136316,10 +137714,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא 1 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0224.01",
@@ -136329,10 +137733,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא 1 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0224.02",
@@ -136342,10 +137752,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא 1 סן סימון",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0235.00",
@@ -136576,10 +137992,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0386.00",
@@ -136695,10 +138117,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30129,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-11-20",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0415.02",
@@ -137403,10 +138831,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2005/0603.00",
@@ -140930,10 +142364,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0082.00",
@@ -141101,10 +142541,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0133.01",
@@ -141114,10 +142560,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 3 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0133.02",
@@ -141127,10 +142579,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-04-30",
    "address": "הפרסה 3 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0136.00",
@@ -141323,10 +142781,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0168.02",
@@ -141336,10 +142800,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "2016-02-02",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2007/0187.00",
@@ -142706,10 +144176,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 19 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0126.00",
@@ -144008,10 +145484,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 213,
+   "parcels_observed": [
+    [
+     30130,
+     213
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 36 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0632.06",
@@ -144021,10 +145503,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 213,
+   "parcels_observed": [
+    [
+     30130,
+     213
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 36 מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0632.07",
@@ -144034,10 +145522,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 213,
+   "parcels_observed": [
+    [
+     30130,
+     213
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 36 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0632.08",
@@ -144060,10 +145554,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 213,
+   "parcels_observed": [
+    [
+     30130,
+     213
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 36 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0645.00",
@@ -144124,10 +145624,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30131,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 26",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2008/0654.01",
@@ -144814,10 +146320,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא 3 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2009/0198.02",
@@ -144827,10 +146339,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-02-14",
    "address": "רבן יוחנן בן זכאי 54 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2009/0198.03",
@@ -144840,10 +146358,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-10-27",
    "address": "בן בבא 3 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2009/0203.00",
@@ -146617,10 +148141,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוד שמעוני 62 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0070.01",
@@ -146630,10 +148160,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-04-28",
    "address": "דוד שמעוני 62 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0070.02",
@@ -146643,10 +148179,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-08-20",
    "address": "דוד שמעוני 62 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0070.03",
@@ -146656,10 +148198,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוד שמעוני 62 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0070.04",
@@ -146669,10 +148217,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דוד שמעוני 62 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0164.00",
@@ -147125,10 +148679,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-05-12",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2010/0431.00",
@@ -149092,10 +150652,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30123,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי טרפון גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2011/0115.01",
@@ -149105,10 +150671,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30123,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבי טרפון גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2011/0138.00",
@@ -150667,10 +152239,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2011-11-15",
    "address": "בן טבאי 7 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2011/0717.01",
@@ -150680,10 +152258,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2021-01-05",
    "publication_end_planned": "2021-02-10",
    "address": "בן טבאי 7 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2011/0721.01",
@@ -151900,12 +153484,22 @@
    "sugbakasha": "מערכת פוטוולטאית",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30130,
-   "helka": 103,
+   "gush": 30131,
+   "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ],
+    [
+     30130,
+     103
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 16 מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2011/1106.00",
@@ -152131,10 +153725,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "החיד\"א 17 בית וגן",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0066.00",
@@ -152144,10 +153744,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 141,
+   "parcels_observed": [
+    [
+     30122,
+     141
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הורקניה 33 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0082.00",
@@ -152417,10 +154023,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30123,
+     37
+    ]
+   ],
    "publication_start": "2016-05-31",
    "publication_end_planned": "2016-06-14",
    "address": "בן טבאי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0258.00",
@@ -152875,12 +154487,30 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30142,
-   "helka": 47,
+   "gush": 30131,
+   "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ],
+    [
+     30131,
+     5
+    ],
+    [
+     30131,
+     62
+    ],
+    [
+     30142,
+     47
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפרסה 1 מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0416.00",
@@ -153976,10 +155606,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-05-01",
    "address": "יחיל חיים 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0918.01",
@@ -153989,10 +155625,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-09-09",
    "address": "יחיל חיים 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0918.02",
@@ -154002,10 +155644,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "2017-11-23",
    "publication_end_planned": "2017-12-05",
    "address": "יחיל חיים 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0918.03",
@@ -154015,10 +155663,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "2021-12-29",
    "publication_end_planned": "2022-01-13",
    "address": "יחיל חיים 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2012/0918.04",
@@ -154028,10 +155682,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30123,
+     74
+    ]
+   ],
    "publication_start": "2025-09-25",
    "publication_end_planned": "",
    "address": "יחיל חיים 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0002.00",
@@ -154548,10 +156208,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-06-28",
    "address": "בני בתירא 2 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0232.00",
@@ -154838,10 +156504,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-05-13",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0314.01",
@@ -154851,10 +156523,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0314.02",
@@ -154864,10 +156542,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ]
+   ],
    "publication_start": "2017-04-09",
    "publication_end_planned": "",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0329.01",
@@ -155561,10 +157245,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-09-20",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0577.00",
@@ -155590,10 +157280,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "2019-02-07",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0607.00",
@@ -155859,10 +157555,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-12-17",
    "address": "הורקניה 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0752.00",
@@ -156002,10 +157704,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 21,
+   "parcels_observed": [
+    [
+     30123,
+     21
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יחיל חיים 6 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0823.00",
@@ -156242,10 +157950,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-01-16",
    "address": "בן טבאי 5 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0915.01",
@@ -156255,10 +157969,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2019-11-13",
    "publication_end_planned": "",
    "address": "בן טבאי 5 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0915.02",
@@ -156268,10 +157988,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2021-02-14",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 66 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0915.03",
@@ -156281,10 +158007,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 70 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0915.04",
@@ -156294,10 +158026,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2022-06-14",
    "publication_end_planned": "2022-06-21",
    "address": "רבן יוחנן בן זכאי 70 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2013/0924.00",
@@ -157200,10 +158938,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 68 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0253.01",
@@ -157213,10 +158957,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-07-12",
    "address": "רבן יוחנן בן זכאי 68 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0253.02",
@@ -157226,10 +158976,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2022-04-12",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 68 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0253.03",
@@ -157239,10 +158995,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2024-07-21",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 68 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0255.00",
@@ -158103,10 +159865,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-09-04",
    "address": "ש. טשרניחובסקי 72 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0609.01",
@@ -158116,10 +159884,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 72 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0609.02",
@@ -158129,10 +159903,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 72 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0609.03",
@@ -158142,10 +159922,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30122,
+     71
+    ]
+   ],
    "publication_start": "2022-06-21",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 72 גבעת הורדים",
-   "details_checked_on": "2026-10-28"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0621.00",
@@ -158308,10 +160094,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30133,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 10 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2014/0671.00",
@@ -160482,10 +162274,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 131,
+   "parcels_observed": [
+    [
+     30122,
+     131
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2015/0751.00",
@@ -160819,10 +162617,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "2015-12-29",
    "publication_end_planned": "",
    "address": "ניקנור 39 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2015/0866.00",
@@ -162877,10 +164681,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2016/0850.00",
@@ -163343,10 +165153,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 324,
+   "parcels_observed": [
+    [
+     30130,
+     324
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צרת 1 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2016/1060.00",
@@ -163693,10 +165509,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30123,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2016/1166.01",
@@ -163706,10 +165528,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30123,
+     18
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2016/1166.02",
@@ -163719,10 +165547,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 18,
+   "parcels_observed": [
+    [
+     30123,
+     18
+    ]
+   ],
    "publication_start": "2018-07-30",
    "publication_end_planned": "2018-08-21",
    "address": "גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2016/1184.00",
@@ -165102,10 +166936,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30129,
+     34
+    ]
+   ],
    "publication_start": "2017-06-22",
    "publication_end_planned": "2017-07-11",
    "address": "האומן 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2017/0408.01",
@@ -165115,10 +166955,16 @@
    "status_date": "",
    "gush": 30129,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30129,
+     34
+    ]
+   ],
    "publication_start": "2024-08-22",
    "publication_end_planned": "",
    "address": "התעשיה 5 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2017/0415.00",
@@ -166253,9 +168099,21 @@
    "sugbakasha": "עבודות בדרכים",
    "status": "הבקשה נסגרה",
    "status_date": "",
-   "gush": 30092,
-   "helka": 26,
+   "gush": 30128,
+   "helka": 17,
    "parcels_observed": [
+    [
+     30128,
+     17
+    ],
+    [
+     30129,
+     1
+    ],
+    [
+     30129,
+     11
+    ],
     [
      30092,
      26
@@ -166280,9 +168138,21 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30092,
-   "helka": 26,
+   "gush": 30128,
+   "helka": 17,
    "parcels_observed": [
+    [
+     30128,
+     17
+    ],
+    [
+     30129,
+     1
+    ],
+    [
+     30129,
+     11
+    ],
     [
      30092,
      26
@@ -167365,12 +169235,22 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30142,
-   "helka": 43,
+   "gush": 30129,
+   "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ],
+    [
+     30142,
+     43
+    ]
+   ],
    "publication_start": "2019-07-23",
    "publication_end_planned": "",
    "address": "תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2018/0713.01",
@@ -167378,12 +169258,22 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30142,
-   "helka": 42,
+   "gush": 30129,
+   "helka": 31,
+   "parcels_observed": [
+    [
+     30129,
+     31
+    ],
+    [
+     30142,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גנרל פייר קניג 1 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2018/0713.02",
@@ -167479,10 +169369,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "2019-01-03",
    "publication_end_planned": "2019-01-22",
    "address": "בן טבאי 1 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2018/0755.00",
@@ -167807,10 +169703,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30123,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מכור 11 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2019/0124.00",
@@ -168007,10 +169909,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30123,
+     16
+    ]
+   ],
    "publication_start": "2019-07-21",
    "publication_end_planned": "2019-07-30",
    "address": "מכור 11 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2019/0350.00",
@@ -168751,10 +170659,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 62,
+   "parcels_observed": [
+    [
+     30131,
+     62
+    ]
+   ],
    "publication_start": "2022-08-15",
    "publication_end_planned": "",
    "address": "האומן 22 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0182.00",
@@ -169253,10 +171167,24 @@
    "status_date": "",
    "gush": 30123,
    "helka": 109,
+   "parcels_observed": [
+    [
+     30123,
+     109
+    ],
+    [
+     30123,
+     110
+    ],
+    [
+     30123,
+     111
+    ]
+   ],
    "publication_start": "2020-09-16",
    "publication_end_planned": "",
    "address": "בן בבא 0 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0355.01",
@@ -169266,10 +171194,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30123,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 50 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0355.02",
@@ -169279,10 +171213,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 109,
+   "parcels_observed": [
+    [
+     30123,
+     109
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0355.03",
@@ -169292,10 +171232,20 @@
    "status_date": "",
    "gush": 30123,
    "helka": 110,
+   "parcels_observed": [
+    [
+     30123,
+     110
+    ],
+    [
+     30123,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן בבא גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0359.01",
@@ -169344,16 +171294,22 @@
   },
   {
    "tik_num": "2020/0383.01",
-   "mahut": "בניית 2 בנייני מגורים בני 9 ו 10 קומות כ\"א, סה\"כ 131 יח\"ד על קומת מסחר ו- 3 וחצי קומות חניון תת קרקעיים בתא שטח 2",
+   "mahut": "בניית 2 בנייני מגורים בני 9 ו 10 קומות כ\"א, סה\"כ 131 יח\"ד ,על קומת מסחר ו- 3 וחצי קומות חניון תת קרקעיים בתא שטח 2",
    "sugbakasha": "",
-   "status": "נדונה ברשות הרישוי",
+   "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30123,
    "helka": 110,
+   "parcels_observed": [
+    [
+     30123,
+     110
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0384.00",
@@ -169363,23 +171319,35 @@
    "status_date": "",
    "gush": 30123,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30123,
+     111
+    ]
+   ],
    "publication_start": "2020-11-03",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 0 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0384.01",
    "mahut": "בניית 2 בנייני מגורים בני 9 קומות וסה\"כ 126 יח\"ד בעלי קומת מסד משותפת המשמשת למסחר ו-5.2 קומות חניון תת קרקעי בתא שטח 3",
    "sugbakasha": "",
-   "status": "נדונה ברשות הרישוי",
+   "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
    "gush": 30123,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30123,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0402.00",
@@ -169775,10 +171743,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30133,
+     37
+    ]
+   ],
    "publication_start": "2021-05-23",
    "publication_end_planned": "2021-06-03",
    "address": "אנטיגנוס 4 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2020/0697.00",
@@ -169988,10 +171962,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30128,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 143 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0034.02",
@@ -170001,10 +171981,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30128,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 143 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0034.03",
@@ -170014,10 +172000,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 58,
+   "parcels_observed": [
+    [
+     30128,
+     58
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 143 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0040.00",
@@ -170043,10 +172035,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30123,
+     37
+    ]
+   ],
    "publication_start": "2021-05-27",
    "publication_end_planned": "",
    "address": "בן טבאי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0049.01",
@@ -170056,10 +172054,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30123,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן טבאי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0053.00",
@@ -170301,10 +172305,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "2021-07-12",
    "publication_end_planned": "",
    "address": "דרך חברון 0 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0190.01",
@@ -170314,23 +172324,35 @@
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 999 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0190.02",
    "mahut": "תכנית שינויים ופיצול היתר עבור חדרי שנאים, ללא שינוי בחישובי השטחים",
    "sugbakasha": "",
-   "status": "נפתח תיק רישוי",
+   "status": "הופק-הוצא היתר בניה",
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 0 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0205.00",
@@ -170440,9 +172462,17 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30501,
-   "helka": 56,
+   "gush": 30131,
+   "helka": 3,
    "parcels_observed": [
+    [
+     30131,
+     3
+    ],
+    [
+     30131,
+     5
+    ],
     [
      30501,
      56
@@ -170451,7 +172481,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "פת יעקב 0 תלפיות",
-   "details_checked_on": "2026-11-20"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0285.00",
@@ -170868,10 +172898,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 68 קטמון הישנה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2021/0573.00",
@@ -171194,12 +173230,22 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30144,
-   "helka": 170,
+   "gush": 30131,
+   "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ],
+    [
+     30144,
+     170
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן דוסא תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2022/0134.00",
@@ -171515,15 +173561,24 @@
    "sugbakasha": "",
    "status": "הופק-הוצא היתר בניה",
    "status_date": "",
-   "gush": 30289,
-   "helka": 100,
+   "gush": 30128,
+   "helka": 17,
+   "parcels_observed": [
+    [
+     30128,
+     17
+    ],
+    [
+     30289,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון",
    "rehovName": "דרך חברון",
    "schunaName": "תלפיות",
-   "details_checked_on": "2026-10-29",
-   "mispBait": ""
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2022/0337.00",
@@ -171549,10 +173604,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "2022-07-18",
    "publication_end_planned": "",
    "address": "דרך חברון תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2022/0402.00",
@@ -171691,10 +173752,20 @@
    "status_date": "",
    "gush": 30131,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30131,
+     10
+    ],
+    [
+     30131,
+     62
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 0 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2022/0457.00",
@@ -172046,10 +174117,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30123,
+     22
+    ]
+   ],
    "publication_start": "2023-06-08",
    "publication_end_planned": "2023-06-20",
    "address": "רב אשי 4 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0068.00",
@@ -172149,23 +174226,35 @@
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "2023-04-23",
    "publication_end_planned": "2023-05-02",
    "address": "דרך חברון 000 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0129.01",
    "mahut": "תוספת קומות, שטחים ושימושים בבנין C",
    "sugbakasha": "",
-   "status": "הגשה מקוונת הושלמה",
+   "status": "נפתח תיק רישוי",
    "status_date": "",
    "gush": 30128,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30128,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם 144 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0153.00",
@@ -172207,10 +174296,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30131,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 0 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0173.00",
@@ -172627,10 +174722,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 56,
+   "parcels_observed": [
+    [
+     30133,
+     56
+    ]
+   ],
    "publication_start": "2024-02-06",
    "publication_end_planned": "",
    "address": "אנטיגנוס 27 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0414.00",
@@ -173007,10 +175108,16 @@
    "status_date": "",
    "gush": 30122,
    "helka": 124,
+   "parcels_observed": [
+    [
+     30122,
+     124
+    ]
+   ],
    "publication_start": "2024-01-23",
    "publication_end_planned": "",
    "address": "ניקנור 43 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2023/0569.00",
@@ -173396,10 +175503,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ]
+   ],
    "publication_start": "2024-07-08",
    "publication_end_planned": "",
    "address": "מקור חיים 0 מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2024/0159.00",
@@ -174791,10 +176904,16 @@
    "status_date": "",
    "gush": 30123,
    "helka": 15,
+   "parcels_observed": [
+    [
+     30123,
+     15
+    ]
+   ],
    "publication_start": "2025-11-25",
    "publication_end_planned": "",
    "address": "הורקניה 8 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0147.00",
@@ -174972,23 +177091,35 @@
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "2025-06-11",
    "publication_end_planned": "",
    "address": "ניקנור 39 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0201.01",
    "mahut": "שימוש במעטפת מאושרת של ממ\"ד והגדלת מחסן קיים",
    "sugbakasha": "",
-   "status": "נפתח תיק רישוי",
+   "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30122,
    "helka": 122,
+   "parcels_observed": [
+    [
+     30122,
+     122
+    ]
+   ],
    "publication_start": "2026-04-29",
    "publication_end_planned": "",
    "address": "ניקנור 39 גבעת הורדים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0216.00",
@@ -175015,9 +177146,33 @@
    "sugbakasha": "",
    "status": "הוכנה טיוטת היתר בניה",
    "status_date": "",
-   "gush": 30005,
-   "helka": 34,
+   "gush": 30123,
+   "helka": 41,
    "parcels_observed": [
+    [
+     30123,
+     41
+    ],
+    [
+     30123,
+     110
+    ],
+    [
+     30123,
+     111
+    ],
+    [
+     30133,
+     7
+    ],
+    [
+     30133,
+     11
+    ],
+    [
+     30133,
+     37
+    ],
     [
      30005,
      34
@@ -175062,7 +177217,7 @@
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רבן יוחנן בן זכאי 33 גוננים",
-   "details_checked_on": "2026-11-20"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0258.01",
@@ -175202,10 +177357,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30128,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 6 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0333.01",
@@ -175215,10 +177376,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30128,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך חברון 160 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0347.00",
@@ -175228,23 +177395,35 @@
    "status_date": "",
    "gush": 30131,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30131,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 40 תלפיות",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0351.00",
    "mahut": "תוספת מתקן לאגירת אנרגיה",
    "sugbakasha": "",
-   "status": "נדונה ברשות הרישוי",
+   "status": "הבקשה נסגרה",
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0351.01",
@@ -175254,10 +177433,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 83,
+   "parcels_observed": [
+    [
+     30131,
+     83
+    ]
+   ],
    "publication_start": "2026-02-26",
    "publication_end_planned": "",
    "address": "האומן 17 תלפיות תעשיה",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0370.00",
@@ -175380,12 +177565,22 @@
    "sugbakasha": "",
    "status": "נדונה בוועדת המשנה",
    "status_date": "",
-   "gush": 30171,
-   "helka": 91,
+   "gush": 30123,
+   "helka": 41,
+   "parcels_observed": [
+    [
+     30123,
+     41
+    ],
+    [
+     30171,
+     91
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יהודה הנשיא 1 גוננים",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2025/0473.00",
@@ -175505,9 +177700,13 @@
    "sugbakasha": "",
    "status": "שולמה מקדמה",
    "status_date": "",
-   "gush": 30092,
-   "helka": 26,
+   "gush": 30128,
+   "helka": 17,
    "parcels_observed": [
+    [
+     30128,
+     17
+    ],
     [
      30092,
      26
@@ -175606,10 +177805,16 @@
    "status_date": "",
    "gush": 30131,
    "helka": 3,
+   "parcels_observed": [
+    [
+     30131,
+     3
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בן דוסא 0 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2026/0050.00",
@@ -175619,10 +177824,16 @@
    "status_date": "",
    "gush": 30130,
    "helka": 304,
+   "parcels_observed": [
+    [
+     30130,
+     304
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המוסכים 7 מקור חיים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2026/0057.00",
@@ -175689,10 +177900,16 @@
    "status_date": "",
    "gush": 30133,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30133,
+     30
+    ]
+   ],
    "publication_start": "2026-02-25",
    "publication_end_planned": "",
    "address": "אנטיגנוס 20 גוננים",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2026/0084.00",
@@ -176518,10 +178735,16 @@
    "status_date": "",
    "gush": 30128,
    "helka": 3,
+   "parcels_observed": [
+    [
+     30128,
+     3
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "משעול זהב מרדכי 4 גבעת המטוס",
-   "details_checked_on": "2026-10-29"
+   "details_checked_on": "2026-11-21"
   },
   {
    "tik_num": "2026/0453.00",
