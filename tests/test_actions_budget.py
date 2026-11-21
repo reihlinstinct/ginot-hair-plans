@@ -179,3 +179,27 @@ def test_live_requires_token(monkeypatch):
     monkeypatch.delenv("GITHUB_TOKEN", raising=False)
     with pytest.raises(SystemExit):
         ab.main(["--live", "--year", "2026", "--month", "10"])
+
+
+def test_stop_exit_code_wins_over_missing_timeouts(tmp_path, capsys, monkeypatch):
+    """#1051: when usage is past the stop threshold AND jobs lack
+    timeout-minutes, main() must exit 2 (the halt signal callers branch on);
+    the missing-timeout lines stay visible in the output."""
+    usage = {"usageItems": [item("a/b", 1700)]}
+    uf = tmp_path / "usage.json"
+    uf.write_text(json.dumps(usage), encoding="utf-8")
+    monkeypatch.setattr(ab, "load_config", lambda: CFG)
+    monkeypatch.setattr(ab, "check_timeouts", lambda _wf: {"wf.yml": ["job1"]})
+    code = ab.main(
+        [
+            "--usage-file",
+            str(uf),
+            "--private-repo",
+            "a/b",
+            "--check-timeouts",
+        ]
+    )
+    out = capsys.readouterr().out
+    assert code == 2
+    assert "STOP" in out
+    assert "no timeout-minutes: wf.yml: job1" in out
