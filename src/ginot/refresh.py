@@ -8,6 +8,7 @@ The refresh is designed to run from any free scheduler (see README): it is a
 plain script with no GitHub Actions dependency.
 """
 
+import datetime
 import json
 import os
 import sys
@@ -28,6 +29,37 @@ def load_council(path):
 
     t = Transformer.from_crs("EPSG:4326", "EPSG:2039", always_xy=True)
     return shapely.transform(shape(gj["geometry"]), t.transform, interleaved=False)
+
+
+def _apply_deadline_override(r, info, ov):
+    """Re-evaluate one row's verified-deadline override from scratch.
+
+    Always resets both fields first: staleness is re-evaluated on every
+    merge, so a stale override must not survive on an already-enriched
+    (e.g. snapshot) row. The override verifies the window computed from ONE
+    specific publication (its publication_date): a missing/invalid anchor
+    rejects it, and a later source publication recomputes the derived dates
+    and makes it stale, so it stops winning instead of pinning a superseded
+    deadline. Empty strings keep the outputs row schema intact.
+    """
+    r["objection_deadline_verified"] = ""
+    r["objection_deadline_verified_source"] = ""
+    if not (ov and ov.get("deadline")):
+        return
+    anchor = ov.get("publication_date")
+    try:
+        datetime.date.fromisoformat(anchor)
+    except (TypeError, ValueError):
+        return
+    pubs = [
+        d
+        for d in (r.get("pl_date_advertise"), (info or {}).get("land_status_date"))
+        if d
+    ]
+    if pubs and max(pubs) > anchor:
+        return
+    r["objection_deadline_verified"] = ov["deadline"]
+    r["objection_deadline_verified_source"] = ov.get("source", "")
 
 
 def merge_land_status(
@@ -63,24 +95,7 @@ def merge_land_status(
         land = {}
     for r in rows:
         info = land.get(r.get("pl_number") or "")
-        ov = overrides.get(r.get("pl_number") or "")
-        if ov and ov.get("deadline"):
-            # The override verifies the window computed from ONE specific
-            # publication (its publication_date). A later publication
-            # recomputes the derived dates and makes the override stale,
-            # so it stops winning instead of pinning a superseded date.
-            pubs = [
-                d
-                for d in (
-                    r.get("pl_date_advertise"),
-                    (info or {}).get("land_status_date"),
-                )
-                if d
-            ]
-            anchor = ov.get("publication_date")
-            if not pubs or not anchor or max(pubs) <= anchor:
-                r["objection_deadline_verified"] = ov["deadline"]
-                r["objection_deadline_verified_source"] = ov.get("source", "")
+        _apply_deadline_override(r, info, overrides.get(r.get("pl_number") or ""))
         if not info:
             continue
         r["land_status"] = info.get("land_status")

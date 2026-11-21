@@ -163,7 +163,15 @@ def test_merge_land_status_applies_verified_override(tmp_path):
     overrides = tmp_path / "overrides.json"
     overrides.write_text(
         json.dumps(
-            {"plans": {"P1": {"deadline": "2026-12-29", "source": "notice 60d"}}}
+            {
+                "plans": {
+                    "P1": {
+                        "deadline": "2026-12-29",
+                        "publication_date": "2026-10-30",
+                        "source": "notice 60d",
+                    }
+                }
+            }
         ),
         encoding="utf-8",
     )
@@ -176,15 +184,97 @@ def test_merge_land_status_applies_verified_override(tmp_path):
 
 
 def test_merge_land_status_override_without_land_info(tmp_path):
-    """The override applies even when the land feed has no row for the plan."""
+    """A bound override applies even when the land feed has no row for the
+    plan (no known publication can supersede its anchor)."""
     overrides = tmp_path / "overrides.json"
     overrides.write_text(
-        json.dumps({"plans": {"PX": {"deadline": "2027-01-15", "source": "x"}}}),
+        json.dumps(
+            {
+                "plans": {
+                    "PX": {
+                        "deadline": "2027-01-15",
+                        "publication_date": "2026-11-16",
+                        "source": "x",
+                    }
+                }
+            }
+        ),
         encoding="utf-8",
     )
     rows = [{"pl_number": "PX"}]
     out = refresh.merge_land_status(rows, str(tmp_path / "none.json"), str(overrides))
     assert out[0]["objection_deadline_verified"] == "2027-01-15"
+
+
+def test_merge_land_status_clears_prepopulated_verified_when_stale(tmp_path):
+    """A row already enriched (e.g. from a previous snapshot merge) must lose
+    its verified fields once a later publication makes the override stale."""
+    land = tmp_path / "land.json"
+    land.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "land_status": "הפקדה",
+                        "land_status_date": "2026-11-15",
+                        "land_plan_id": 7,
+                        "is_deposit_publication": True,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "deadline": "2026-12-29",
+                        "publication_date": "2026-10-30",
+                        "source": "notice 60d",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    rows = [
+        {
+            "pl_number": "P1",
+            "pl_date_advertise": "2026-10-28",
+            "objection_deadline_verified": "2026-12-29",
+            "objection_deadline_verified_source": "notice 60d",
+        }
+    ]
+    out = refresh.merge_land_status(rows, str(land), str(overrides))
+    assert not out[0]["objection_deadline_verified"]
+    assert not out[0]["objection_deadline_verified_source"]
+    assert out[0]["objection_deadline_derived_2m_from_publication"] == "2027-01-15"
+
+
+def test_merge_land_status_rejects_unbound_override(tmp_path):
+    """An override without a valid publication_date anchor never applies:
+    nothing binds it to the publication it verified."""
+    for entry in (
+        {"deadline": "2027-01-15", "source": "x"},
+        {"deadline": "2027-01-15", "publication_date": "not-a-date", "source": "x"},
+    ):
+        overrides = tmp_path / "overrides.json"
+        overrides.write_text(json.dumps({"plans": {"PX": entry}}), encoding="utf-8")
+        rows = [
+            {
+                "pl_number": "PX",
+                "objection_deadline_verified": "2027-01-15",
+                "objection_deadline_verified_source": "x",
+            }
+        ]
+        out = refresh.merge_land_status(
+            rows, str(tmp_path / "none.json"), str(overrides)
+        )
+        assert not out[0]["objection_deadline_verified"]
+        assert not out[0]["objection_deadline_verified_source"]
 
 
 def test_page_prefers_verified_deadline():
@@ -259,8 +349,8 @@ def test_merge_land_status_stale_override_rejected_on_later_publication(tmp_path
     )
     rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
     out = refresh.merge_land_status(rows, str(land), str(overrides))
-    assert "objection_deadline_verified" not in out[0]
-    assert "objection_deadline_verified_source" not in out[0]
+    assert not out[0]["objection_deadline_verified"]
+    assert not out[0]["objection_deadline_verified_source"]
     # Derived fields recomputed from the LATER publication.
     assert out[0]["objection_deadline_derived_2m_from_publication"] == "2027-01-15"
 
