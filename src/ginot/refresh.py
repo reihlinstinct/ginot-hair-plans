@@ -51,11 +51,14 @@ def _apply_deadline_override(r, info, ov):
         datetime.date.fromisoformat(anchor)
     except (TypeError, ValueError):
         return
-    pubs = [
-        d
-        for d in (r.get("pl_date_advertise"), (info or {}).get("land_status_date"))
-        if d
-    ]
+    # Only PUBLICATIONS can supersede the verified window: the iplan
+    # advertise date always counts, but the land status date counts only
+    # when it is a deposit publication - a later non-deposit land status
+    # (committee decision, approval, ...) does not restart the clock.
+    pubs = [r.get("pl_date_advertise")]
+    if (info or {}).get("is_deposit_publication"):
+        pubs.append((info or {}).get("land_status_date"))
+    pubs = [d for d in pubs if d]
     if pubs and max(pubs) > anchor:
         return
     r["objection_deadline_verified"] = ov["deadline"]
@@ -79,7 +82,9 @@ def merge_land_status(
     from the plan's actual signed deposit notice when the generic
     derivation does not match it (e.g. 101-1487560's notice sets 60 days,
     not 2 months). A verified deadline is exposed separately and wins over
-    both derived fields wherever a deadline is displayed or compared.
+    both derived fields wherever a deadline is displayed or compared. It
+    goes stale only when a later deposit PUBLICATION appears; a later
+    non-deposit land status does not supersede it.
     """
     import datetime as _dt
 
@@ -150,8 +155,10 @@ def main():
         )
     rows = outputs.rows_from_features(features, council)
     states = tracking.load(args.status)
-    rows, changed_defaults = tracking.merge(rows, states)
+    # Land/override merge first so the tracking advisory sees verified
+    # deadlines, not only the derived 2m estimate.
     rows = merge_land_status(rows)
+    rows, changed_defaults = tracking.merge(rows, states)
     if changed_defaults:
         tracking.save(states, args.status)
     # planner tracking data stays local - public artifacts carry only the

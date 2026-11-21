@@ -15,8 +15,10 @@ from .dates import today_il
 
 PROTOCOL = "2024-11-05"
 DERIVED_NOTE = (
-    "Derived from publication dates (two calendar months); not a verified official "
-    "deadline. Check the plan's source page before relying on it."
+    "Deadlines are derived from publication dates (two calendar months) and are not "
+    "verified official deadlines, except rows carrying objection_deadline_verified: "
+    "those show the verified deadline from the plan's signed deposit notice. Check "
+    "the plan's source page before relying on either."
 )
 PUBLIC_FIELDS = (
     "pl_number",

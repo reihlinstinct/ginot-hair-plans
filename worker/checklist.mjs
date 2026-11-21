@@ -15,7 +15,7 @@ export const CHECKLIST = {
   learned_pattern_rules: PATTERN_RULES,
   purpose: "What to check before calling a plan review finished. The connector holds metadata (name, status, dates, area, a map point) plus published reviews, not the plan documents.",
   tagging_rule: "Tag every factual claim [verified: <where>] or [unverified: <what is missing>]. Use [read from: <field or tool>] for connector data. Put opinions on lines starting with 'judgment:'. Never fill a gap with a guess or a general-knowledge figure.",
-  derived_deadline_rule: "objection_deadline_derived_2m_from_publication is computed, not official. Say so next to every deadline. The official date is in the signed deposit notice on the plan's Mavat page. depositing_date is the committee's deposit decision date and is not the publication date.",
+  derived_deadline_rule: "objection_deadline_derived_2m_from_publication is computed, not official, unless the row also carries objection_deadline_verified (verified against the signed deposit notice), which wins. Say so next to every deadline. The official date is in the signed deposit notice on the plan's Mavat page. depositing_date is the committee's deposit decision date and is not the publication date.",
   items: [
     { id: "docs-complete", area: "document completeness", check: "Which deposit documents exist (provisions, binding drawing, appendices) and which are missing or unreadable (scans, bad OCR)?", verifiable: DOCS, requirement_source: NONE },
     { id: "notice-publication", area: "objection window and notices", check: "Publication date in the press and the signed notice text. Is the stated final date the notice's own, or derived?", verifiable: EXT, requirement_source: "two calendar months from publication (s.102): " + SRC_GOV },

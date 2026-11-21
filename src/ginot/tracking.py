@@ -56,7 +56,9 @@ def merge(
             states[num] = st
             changed = True
         days = _days_to(
-            r.get("objection_deadline_derived_2m_from_publication", ""), today
+            r.get("objection_deadline_verified")
+            or r.get("objection_deadline_derived_2m_from_publication", ""),
+            today,
         )
         advisory_urgent = (
             st["state"] in UNDECIDED

@@ -462,6 +462,14 @@
    "am": "የመቃወሚያ መጨረሻ ቀን (ግምት):",
    "fr": "Dernier jour d'objection (estimé) :"
   },
+  "index.urgent_deadline_verified": {
+   "he": "אחרון להתנגדות (מאומת):",
+   "en": "Last day to object (verified):",
+   "ar": "آخر يوم للاعتراض (مؤكد):",
+   "ru": "Последний день возражений (подтверждено):",
+   "am": "የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ):",
+   "fr": "Dernier jour d'objection (vérifié) :"
+  },
   "index.none": {
    "he": "אין",
    "en": "None",

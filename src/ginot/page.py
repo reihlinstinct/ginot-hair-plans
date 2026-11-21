@@ -205,11 +205,12 @@ function _renderUrgent(){
   var t=_todayIL(),tms=Date.parse(t+'T00:00:00Z'),items=[];
   rows.forEach(function(r){
     var d=r.getAttribute('data-obj');if(!d)return;
+    var verf=r.getAttribute('data-verf')==='1';
     var dd=Math.round((Date.parse(d+'T00:00:00Z')-tms)/86400000);
     if(dd<0||dd>URGENT_DAYS)return;
     var a=r.querySelector('td a');
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:r.getAttribute('data-num')||'',
-      name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.')});
+      name:(r.cells[1]?r.cells[1].textContent:''),d:d.split('-').reverse().join('.'),verf:verf});
   });
   document.querySelectorAll('#permits-table tbody tr').forEach(function(r){
     var group=r.getAttribute('data-group');
@@ -235,7 +236,7 @@ function _renderUrgent(){
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - '+(it.permit?(it.verify?'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ':it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):'אחרון להתנגדות (משוער): ')+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
+           ' - '+(it.permit?(it.verify?'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ':it.official?'מועד התנגדות (פרסום עירוני): ':'סיום פרסום מתוכנן (לא מאומת): '):(it.verf?'אחרון להתנגדות (מאומת): ':'אחרון להתנגדות (משוער): '))+it.d+'</li>';}).join(''):'<li>\u05d0\u05d9\u05df</li>';
 }
 window.__renderUrgent=_renderUrgent;
 _renderUrgent();
@@ -293,6 +294,7 @@ def _js(lang: str = "he", pre: str = "") -> str:
     )
     out = out.replace("'מועד התנגדות (פרסום עירוני): '", J("indexjs.permit_official"))
     out = out.replace("'סיום פרסום מתוכנן (לא מאומת): '", J("indexjs.permit_planned"))
+    out = out.replace("'אחרון להתנגדות (מאומת): '", J("index.urgent_deadline_verified"))
     out = out.replace("'אחרון להתנגדות (משוער): '", J("index.urgent_deadline"))
     out = out.replace("'<li>אין</li>'", "'<li>'+" + J("index.none") + "+'</li>'")
     out = out.replace(
@@ -1138,7 +1140,7 @@ def render_index(
         attrs = (
             f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
             f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
-            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_objection_deadline_iso(r))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
+            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_objection_deadline_iso(r))}' data-verf='{1 if r.get('objection_deadline_verified') else 0}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
             f"data-active='{1 if r['_open_obj'] or _is_active(r) else 0}' data-search='{search}'"
         )
         cls = "new" if r.get("_is_new") else ""
@@ -1183,7 +1185,7 @@ def render_index(
     urgent_html = (
         "".join(
             f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
-            f"{_e(_t('index.urgent_deadline'))} {_e(_objection_deadline_fmt(r))}</li>"
+            f"{_e(_t('index.urgent_deadline_verified' if r.get('objection_deadline_verified') else 'index.urgent_deadline'))} {_e(_objection_deadline_fmt(r))}</li>"
             for r in urgent
         )
         or f"<li>{_e(_t('index.none'))}</li>"
