@@ -4298,7 +4298,9 @@
   "land_status_date": "2026-10-30",
   "land_plan_id": 1057252,
   "deadline_source_note": "max(iplan, land.gov.il) publication + 60d / +2 months",
-  "advisory_urgent": false
+  "advisory_urgent": false,
+  "objection_deadline_verified": "2026-12-29",
+  "objection_deadline_verified_source": "Signed deposit notice (mavat, 22/10/2026): objection within 60 days of newspaper publication (30/10/2026 per land.gov.il)"
  },
  {
   "pl_number": "101-1590439",

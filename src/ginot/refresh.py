@@ -62,11 +62,25 @@ def merge_land_status(
     except (FileNotFoundError, json.JSONDecodeError):
         land = {}
     for r in rows:
+        info = land.get(r.get("pl_number") or "")
         ov = overrides.get(r.get("pl_number") or "")
         if ov and ov.get("deadline"):
-            r["objection_deadline_verified"] = ov["deadline"]
-            r["objection_deadline_verified_source"] = ov.get("source", "")
-        info = land.get(r.get("pl_number") or "")
+            # The override verifies the window computed from ONE specific
+            # publication (its publication_date). A later publication
+            # recomputes the derived dates and makes the override stale,
+            # so it stops winning instead of pinning a superseded date.
+            pubs = [
+                d
+                for d in (
+                    r.get("pl_date_advertise"),
+                    (info or {}).get("land_status_date"),
+                )
+                if d
+            ]
+            anchor = ov.get("publication_date")
+            if not pubs or not anchor or max(pubs) <= anchor:
+                r["objection_deadline_verified"] = ov["deadline"]
+                r["objection_deadline_verified_source"] = ov.get("source", "")
         if not info:
             continue
         r["land_status"] = info.get("land_status")

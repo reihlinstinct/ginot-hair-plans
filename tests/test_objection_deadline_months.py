@@ -220,3 +220,85 @@ def test_page_verified_cell_marks_tooltip():
         {"objection_deadline_derived_2m_from_publication": "2026-12-30"}
     )
     assert "30.12.26" in plain and "title=" not in plain
+
+
+def test_merge_land_status_stale_override_rejected_on_later_publication(tmp_path):
+    """A later source publication recomputes the derived dates and makes the
+    override stale: it must stop winning instead of pinning a superseded
+    deadline (#1081 review P2)."""
+    land = tmp_path / "land.json"
+    land.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "land_status": "הפקדה",
+                        "land_status_date": "2026-11-15",
+                        "land_plan_id": 7,
+                        "is_deposit_publication": True,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "deadline": "2026-12-29",
+                        "publication_date": "2026-10-30",
+                        "source": "notice 60d",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
+    out = refresh.merge_land_status(rows, str(land), str(overrides))
+    assert "objection_deadline_verified" not in out[0]
+    assert "objection_deadline_verified_source" not in out[0]
+    # Derived fields recomputed from the LATER publication.
+    assert out[0]["objection_deadline_derived_2m_from_publication"] == "2027-01-15"
+
+
+def test_merge_land_status_override_applies_at_same_publication(tmp_path):
+    """The override still wins when the latest publication is exactly the one
+    it verified."""
+    land = tmp_path / "land.json"
+    land.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "land_status": "הפקדה",
+                        "land_status_date": "2026-10-30",
+                        "land_plan_id": 7,
+                        "is_deposit_publication": True,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "deadline": "2026-12-29",
+                        "publication_date": "2026-10-30",
+                        "source": "notice 60d",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
+    out = refresh.merge_land_status(rows, str(land), str(overrides))
+    assert out[0]["objection_deadline_verified"] == "2026-12-29"

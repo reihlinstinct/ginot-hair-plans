@@ -130,6 +130,18 @@ test("limit clamped", () => {
   assert.equal(callTool({ rows }, "search_plans", { limit: 9999 }).plans.length, 50);
 });
 
+test("windows: verified deadline wins over derived 2m", () => {
+  const v = { rows: [
+    { pl_number: "V-1", pl_name: "Verified", station_desc: "הפקדה להתנגדויות",
+      objection_deadline_verified: "2026-12-29", objection_deadline_verified_source: "notice 60d",
+      objection_deadline_derived_2m_from_publication: "2026-12-30" },
+  ] };
+  const r = callTool(v, "upcoming_objection_windows", { days: 60, as_of: "2026-11-21" });
+  assert.deepEqual(r.plans.map((p) => p.pl_number), ["V-1"]);
+  assert.equal(r.plans[0].days_left_derived, 38); // 29.12, not 39 (30.12)
+  assert.equal(r.plans[0].objection_deadline_verified, "2026-12-29");
+});
+
 test("windows: deposit stage only, derived label, bad date rejected", () => {
   const r = callTool(data, "upcoming_objection_windows", { days: 30, as_of: "2026-10-22" });
   assert.deepEqual(r.plans.map((p) => p.pl_number), ["A-1"]);
