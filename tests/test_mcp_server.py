@@ -56,7 +56,7 @@ def test_windows_only_deposit_stage_in_range_and_labelled_derived():
     assert [p["pl_number"] for p in r["plans"]] == ["A-1"] and r["plans"][0][
         "days_left_derived"
     ] == 14
-    assert "not a verified official" in r["note"]
+    assert "are not verified official deadlines" in r["note"]
     assert (
         m.call_tool(
             DATA, "upcoming_objection_windows", {"days": 5, "as_of": "2026-10-22"}

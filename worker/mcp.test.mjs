@@ -146,7 +146,7 @@ test("windows: deposit stage only, derived label, bad date rejected", () => {
   const r = callTool(data, "upcoming_objection_windows", { days: 30, as_of: "2026-10-22" });
   assert.deepEqual(r.plans.map((p) => p.pl_number), ["A-1"]);
   assert.equal(r.plans[0].days_left_derived, 14);
-  assert.match(r.note, /not a verified official/);
+  assert.match(r.note, /are not verified official deadlines/);
   assert.throws(() => callTool(data, "upcoming_objection_windows", { as_of: "22/10/2026" }), /YYYY-MM-DD/);
 });
 

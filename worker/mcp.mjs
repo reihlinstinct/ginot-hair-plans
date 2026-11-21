@@ -10,7 +10,7 @@ const REVIEW_BASE = "https://reihlinstinct.github.io/ginot-hair-plans/reviews/ta
 const PL_RE = /^\d{3}-\d{7}$/;
 const MAX_REVIEW = 30000;
 const PROTOCOL = "2024-11-05";
-const NOTE = "Derived from publication dates (two calendar months, s.102); not a verified official deadline. Check the plan's source page.";
+const NOTE = "Deadlines are derived from publication dates (two calendar months, s.102) and are not verified official deadlines, except rows carrying objection_deadline_verified (verified against the signed deposit notice). Check the plan's source page.";
 const FIELDS = ["pl_number", "pl_name", "station_desc", "internet_short_status", "entity_subtype_desc",
   "receiving_date", "open_date", "depositing_date", "pl_last_deposit_date",
   "objection_deadline_derived_2m_from_publication", "objection_deadline_derived_60d_from_publication", "objection_deadline_verified", "objection_deadline_verified_source", "pl_area_dunam", "mavat_url",

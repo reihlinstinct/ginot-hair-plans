@@ -392,3 +392,44 @@ def test_merge_land_status_override_applies_at_same_publication(tmp_path):
     rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
     out = refresh.merge_land_status(rows, str(land), str(overrides))
     assert out[0]["objection_deadline_verified"] == "2026-12-29"
+
+
+def test_merge_land_status_later_non_deposit_status_keeps_override(tmp_path):
+    """A later NON-deposit land status (committee decision, approval, ...)
+    does not supersede the verified deadline: only a later publication
+    restarts the objection clock (#1081 post-merge review P2)."""
+    land = tmp_path / "land.json"
+    land.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "land_status": "החלטת ועדה",
+                        "land_status_date": "2026-11-20",
+                        "land_plan_id": 7,
+                        "is_deposit_publication": False,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "deadline": "2026-12-29",
+                        "publication_date": "2026-10-30",
+                        "source": "notice 60d",
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
+    out = refresh.merge_land_status(rows, str(land), str(overrides))
+    assert out[0]["objection_deadline_verified"] == "2026-12-29"
+    assert out[0]["land_status"] == "החלטת ועדה"
