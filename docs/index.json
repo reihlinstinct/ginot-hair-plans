@@ -19,6 +19,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/council_ginot_hair.geojson"
   },
   {
+   "name": "deadline_overrides.json",
+   "path": "data/deadline_overrides.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 1289,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/deadline_overrides.json"
+  },
+  {
    "name": "external_reviews.json",
    "path": "data/external_reviews.json",
    "kind": "json",

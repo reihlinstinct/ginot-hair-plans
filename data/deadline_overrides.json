@@ -1,0 +1,15 @@
+{
+ "plans": {
+  "101-1487560": {
+   "deadline": "2026-12-29",
+   "publication_date": "2026-10-30",
+   "source": "Signed deposit notice (mavat, 22/10/2026): objection within 60 days of newspaper publication (30/10/2026 per land.gov.il)",
+   "sources": [
+    "https://mavat.iplan.gov.il/SV4/1/1005473546/310 (plan page > נוסחי פרסום > 'נוסח פרסום חתום - pdf'; the notice states: התנגדות תוך 60 ימים ממועד פרסומה של הודעה זו, בעיתונים)",
+    "https://mavat.iplan.gov.il/rest/api/Attacments/?eid=77000005109438&edn=temp-default&pn=101-1487560&fn=101-1487560_%D7%A0%D7%95%D7%A1%D7%97%20%D7%A4%D7%A8%D7%A1%D7%95%D7%9D%20%D7%97%D7%AA%D7%95%D7%9D%20-%20pdf_%D7%A0%D7%95%D7%A1%D7%97%20%D7%94%D7%A4%D7%A7%D7%93%D7%94%20%D7%97%D7%AA%D7%95%D7%9D.pdf (direct file endpoint; downloads through the site's own token flow)",
+    "http://www.nevo.co.il/Law_word/law10/yalkut-15071.pdf (official gazette ילקוט הפרסומים 15071, 28/10/2026, p.1414 - the same notice as published ברשומות, per the mavat rsInternet record)",
+    "https://apps.land.gov.il/TabaSearch/ (land.gov.il plan search, planId 1057252: פרסום להפקדה בעיתונים 30/10/2026; mirrored in this repo's data/land_plan_status.json)"
+   ]
+  }
+ }
+}

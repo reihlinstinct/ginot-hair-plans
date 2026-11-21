@@ -30,6 +30,8 @@ PUBLIC_FIELDS = (
     "pl_last_deposit_date",
     "objection_deadline_derived_60d_from_publication",
     "objection_deadline_derived_2m_from_publication",
+    "objection_deadline_verified",
+    "objection_deadline_verified_source",
     "pl_area_dunam",
     "mavat_url",
     "last_update_date",
@@ -119,7 +121,9 @@ def _get_plan(rows, args):
 
 def _window_row(row, start, days):
     """One plan's derived-window entry, or None when outside the window."""
-    raw = row.get("objection_deadline_derived_2m_from_publication")
+    raw = row.get("objection_deadline_verified") or row.get(
+        "objection_deadline_derived_2m_from_publication"
+    )
     try:
         end = datetime.date.fromisoformat(raw)
     except (TypeError, ValueError):

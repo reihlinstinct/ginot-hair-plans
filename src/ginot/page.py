@@ -308,9 +308,35 @@ def _deposit_date(r) -> str:
     return r.get("pl_last_deposit_date") or r.get("depositing_date") or ""
 
 
+def _objection_deadline_iso(r) -> str:
+    """The deadline the site shows and sorts by: the VERIFIED deadline from
+    the plan's signed deposit notice when present
+    (data/deadline_overrides.json), otherwise the derived 2-month estimate."""
+    return _iso(r.get("objection_deadline_verified")) or _iso(
+        r.get("objection_deadline_derived_2m_from_publication")
+    )
+
+
+def _objection_deadline_fmt(r) -> str:
+    iso = _objection_deadline_iso(r)
+    return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
+
+
+def _objection_cell(r) -> str:
+    """Deadline cell; a verified deadline carries a tooltip saying so."""
+    cell = _date_cell(_objection_deadline_iso(r))
+    if r.get("objection_deadline_verified"):
+        return cell.replace(
+            "<span dir='ltr'",
+            "<span title='מאומת מול נוסח הודעת ההפקדה החתום' dir='ltr'",
+            1,
+        )
+    return cell
+
+
 def _is_open_objection(r, today: str) -> bool:
     st = r.get("station_desc") or ""
-    deadline = _iso(r.get("objection_deadline_derived_2m_from_publication"))
+    deadline = _objection_deadline_iso(r)
     return bool(DEPOSIT_MARK in st and deadline and deadline >= today)
 
 
@@ -331,20 +357,12 @@ def sort_rows(rows: list[dict], today: str | None = None) -> list[dict]:
     for r in rows:
         r["_open_obj"] = _is_open_objection(r, today)
     with_dl = sorted(
-        (
-            r
-            for r in rows
-            if _iso(r.get("objection_deadline_derived_2m_from_publication"))
-        ),
-        key=lambda r: _iso(r.get("objection_deadline_derived_2m_from_publication")),
+        (r for r in rows if _objection_deadline_iso(r)),
+        key=lambda r: _objection_deadline_iso(r),
         reverse=True,
     )
     without_dl = sorted(
-        (
-            r
-            for r in rows
-            if not _iso(r.get("objection_deadline_derived_2m_from_publication"))
-        ),
+        (r for r in rows if not _objection_deadline_iso(r)),
         key=lambda r: _iso(r.get("receiving_date")),
         reverse=True,
     )
@@ -1120,7 +1138,7 @@ def render_index(
         attrs = (
             f"data-status='{_e(r.get('station_desc'))}' data-flag='{_e(r.get('inside_flag'))}' "
             f"data-recv='{_e(_iso(r.get('receiving_date')))}' data-dep='{_e(_iso(_deposit_date(r)))}' "
-            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_iso(r.get('objection_deadline_derived_2m_from_publication')))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
+            f"data-open='{1 if r['_open_obj'] else 0}' data-obj='{_e(_objection_deadline_iso(r))}' data-num='{_e(r['pl_number'])}' data-name='{_e((r.get('pl_name') or '').lower())}' data-area='{_e(r['pl_area_dunam'])}' "
             f"data-active='{1 if r['_open_obj'] or _is_active(r) else 0}' data-search='{search}'"
         )
         cls = "new" if r.get("_is_new") else ""
@@ -1130,7 +1148,7 @@ def render_index(
             f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
             f"<td data-label='{_e(_t('index.col_recv'))}'>{_date_cell(r['receiving_date'])}</td>"
             f"<td data-label='{_e(_t('index.col_dep'))}'>{_date_cell(_deposit_date(r))}</td>"
-            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_date_cell(r.get('objection_deadline_derived_2m_from_publication'))}</td>"
+            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_objection_cell(r)}</td>"
             f"<td data-label='{_e(_t('index.col_area'))}'>{_e(r['pl_area_dunam'])}</td><td data-label='{_e(_t('index.col_review'))}'>{review_cell(r)}</td></tr>"
         )
 
@@ -1149,7 +1167,7 @@ def render_index(
     gen_d = datetime.date.fromisoformat(generated)
 
     def _urgent_window(r):
-        iso = _iso(r.get("objection_deadline_derived_2m_from_publication"))
+        iso = _objection_deadline_iso(r)
         if not iso:
             return False
         try:
@@ -1160,12 +1178,12 @@ def render_index(
 
     urgent = sorted(
         (r for r in rows if _urgent_window(r)),
-        key=lambda r: _iso(r.get("objection_deadline_derived_2m_from_publication")),
+        key=lambda r: _objection_deadline_iso(r),
     )
     urgent_html = (
         "".join(
             f"<li><a href='{_e(r['mavat_url'])}'>{_e(r['pl_number'])}</a> {_e(r['pl_name'])} - "
-            f"{_e(_t('index.urgent_deadline'))} {_e(_fmt(r.get('objection_deadline_derived_2m_from_publication')))}</li>"
+            f"{_e(_t('index.urgent_deadline'))} {_e(_objection_deadline_fmt(r))}</li>"
             for r in urgent
         )
         or f"<li>{_e(_t('index.none'))}</li>"

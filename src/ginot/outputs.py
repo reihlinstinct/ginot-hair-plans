@@ -14,6 +14,9 @@ Objection deadlines (both DERIVED from the publication of the deposit notice):
   day can then only be later than this derived date, which stays on the safe
   (earlier) side for filers. Flagged as derived in the column name; only
   meaningful for plans in הפקדה status.
+- objection_deadline_verified (+_source): read from the plan's actual signed
+  deposit notice when it does not match the generic derivations (see
+  data/deadline_overrides.json); wins over both derived fields on display.
 """
 
 import calendar
@@ -75,6 +78,8 @@ COLUMNS = [
     "pl_date_8_approval",
     "objection_deadline_derived_60d_from_publication",
     "objection_deadline_derived_2m_from_publication",
+    "objection_deadline_verified",
+    "objection_deadline_verified_source",
     "pl_area_dunam",
     "intersection_dunam",
     "inside_flag",
@@ -118,6 +123,9 @@ def row_from_feature(attrs: dict, geom: dict | None, council: Polygon | None) ->
         "objection_deadline_derived_2m_from_publication": plus_months(
             _iso(pub), OBJECTION_WINDOW_MONTHS
         ),
+        # Filled by refresh.merge_land_status from data/deadline_overrides.json
+        "objection_deadline_verified": "",
+        "objection_deadline_verified_source": "",
         "pl_area_dunam": attrs.get("pl_area_dunam"),
         "intersection_dunam": inter_dunam,
         "inside_flag": inside,
