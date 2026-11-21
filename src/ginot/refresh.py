@@ -30,7 +30,11 @@ def load_council(path):
     return shapely.transform(shape(gj["geometry"]), t.transform, interleaved=False)
 
 
-def merge_land_status(rows, land_path="data/land_plan_status.json"):
+def merge_land_status(
+    rows,
+    land_path="data/land_plan_status.json",
+    overrides_path="data/deadline_overrides.json",
+):
     """Merge land.gov.il (TabaSearch) deposit-publication status into rows.
 
     The statutory objection clock runs from the LATEST deposit-notice
@@ -38,15 +42,30 @@ def merge_land_status(rows, land_path="data/land_plan_status.json"):
     reports a deposit-publication status with a status date, the derived
     deadlines are recomputed from max(iplan publication, land status date):
     +60d (legacy display) and +2 calendar months (statutory s.102 window).
+
+    data/deadline_overrides.json holds per-plan VERIFIED deadlines, read
+    from the plan's actual signed deposit notice when the generic
+    derivation does not match it (e.g. 101-1487560's notice sets 60 days,
+    not 2 months). A verified deadline is exposed separately and wins over
+    both derived fields wherever a deadline is displayed or compared.
     """
     import datetime as _dt
 
     try:
+        with open(overrides_path, encoding="utf-8") as fh:
+            overrides = json.load(fh).get("plans", {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        overrides = {}
+    try:
         with open(land_path, encoding="utf-8") as fh:
             land = json.load(fh).get("plans", {})
     except (FileNotFoundError, json.JSONDecodeError):
-        return rows
+        land = {}
     for r in rows:
+        ov = overrides.get(r.get("pl_number") or "")
+        if ov and ov.get("deadline"):
+            r["objection_deadline_verified"] = ov["deadline"]
+            r["objection_deadline_verified_source"] = ov.get("source", "")
         info = land.get(r.get("pl_number") or "")
         if not info:
             continue

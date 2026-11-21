@@ -136,3 +136,87 @@ def test_merge_land_status_sets_2m_from_latest_publication(tmp_path):
     assert out[0]["objection_deadline_derived_60d_from_publication"] == "2027-01-09"
     assert out[0]["objection_deadline_derived_2m_from_publication"] == "2027-01-10"
     assert "publication" in out[0]["deadline_source_note"]
+
+
+# Section: verified deadline overrides (data/deadline_overrides.json)
+
+
+def test_merge_land_status_applies_verified_override(tmp_path):
+    """A verified deadline from the plan's signed deposit notice is attached
+    next to the derived fields and survives the land-feed recomputation."""
+    land = tmp_path / "land.json"
+    land.write_text(
+        json.dumps(
+            {
+                "plans": {
+                    "P1": {
+                        "land_status": "הפקדה",
+                        "land_status_date": "2026-10-30",
+                        "land_plan_id": 7,
+                        "is_deposit_publication": True,
+                    }
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps(
+            {"plans": {"P1": {"deadline": "2026-12-29", "source": "notice 60d"}}}
+        ),
+        encoding="utf-8",
+    )
+    rows = [{"pl_number": "P1", "pl_date_advertise": "2026-10-28"}]
+    out = refresh.merge_land_status(rows, str(land), str(overrides))
+    assert out[0]["objection_deadline_verified"] == "2026-12-29"
+    assert out[0]["objection_deadline_verified_source"] == "notice 60d"
+    # Derived fields still recomputed (2m disagrees with the notice here).
+    assert out[0]["objection_deadline_derived_2m_from_publication"] == "2026-12-30"
+
+
+def test_merge_land_status_override_without_land_info(tmp_path):
+    """The override applies even when the land feed has no row for the plan."""
+    overrides = tmp_path / "overrides.json"
+    overrides.write_text(
+        json.dumps({"plans": {"PX": {"deadline": "2027-01-15", "source": "x"}}}),
+        encoding="utf-8",
+    )
+    rows = [{"pl_number": "PX"}]
+    out = refresh.merge_land_status(rows, str(tmp_path / "none.json"), str(overrides))
+    assert out[0]["objection_deadline_verified"] == "2027-01-15"
+
+
+def test_page_prefers_verified_deadline():
+    """page._objection_deadline_iso falls back to the derived 2m field only
+    when no verified deadline exists."""
+    from ginot import page
+
+    r = {
+        "objection_deadline_verified": "2026-12-29",
+        "objection_deadline_derived_2m_from_publication": "2026-12-30",
+    }
+    assert page._objection_deadline_iso(r) == "2026-12-29"
+    assert (
+        page._objection_deadline_iso(
+            {"objection_deadline_derived_2m_from_publication": "2026-12-30"}
+        )
+        == "2026-12-30"
+    )
+    assert page._objection_deadline_iso({}) == ""
+
+
+def test_page_verified_cell_marks_tooltip():
+    from ginot import page
+
+    cell = page._objection_cell(
+        {
+            "objection_deadline_verified": "2026-12-29",
+            "objection_deadline_derived_2m_from_publication": "2026-12-30",
+        }
+    )
+    assert "29.12.26" in cell and "title=" in cell
+    plain = page._objection_cell(
+        {"objection_deadline_derived_2m_from_publication": "2026-12-30"}
+    )
+    assert "30.12.26" in plain and "title=" not in plain
