@@ -351,3 +351,27 @@ def test_escaped_translated_link_text_and_updated_value(monkeypatch):
     hostile = "<i>2026</i>"
     a11y = render_accessibility(hostile, "Council", "he")
     assert _e(hostile) in a11y and hostile not in a11y
+
+
+def test_col_obj_heading_keeps_base_label_and_marker():
+    """#1084: the mixed-aware deadline heading must keep each language's
+    base column label AND the ✓ marker it refers to (regression: the am
+    value once lost the label entirely)."""
+    import json
+    import pathlib
+
+    data = json.loads(
+        pathlib.Path("src/ginot/i18n/strings.json").read_text(encoding="utf-8")
+    )
+    base = {
+        "he": "אחרון להתנגדות",
+        "en": "Last day to object",
+        "ar": "آخر يوم للاعتراض",
+        "ru": "Последний день возражений",
+        "am": "የመቃወሚያ መጨረሻ ቀን",
+        "fr": "Dernier jour d'objection",
+    }
+    values = data["strings"]["index.col_obj"]
+    for lang, label in base.items():
+        assert label in values[lang], lang
+        assert "✓" in values[lang], lang

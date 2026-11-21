@@ -324,15 +324,17 @@ def _objection_deadline_fmt(r) -> str:
     return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
 
 
-def _objection_cell(r) -> str:
-    """Deadline cell; a verified deadline carries a tooltip saying so."""
+def _objection_cell(r, verified_tooltip: str = "") -> str:
+    """Deadline cell; a verified deadline carries a visible checkmark marker
+    and a localized tooltip (#1084: the column header refers to the marker,
+    so it must actually be drawn)."""
     cell = _date_cell(_objection_deadline_iso(r))
-    if r.get("objection_deadline_verified"):
+    if r.get("objection_deadline_verified") and cell:
         return cell.replace(
             "<span dir='ltr'",
-            "<span title='מאומת מול נוסח הודעת ההפקדה החתום' dir='ltr'",
+            f"<span title='{verified_tooltip}' aria-label='{verified_tooltip}' dir='ltr'",
             1,
-        )
+        ).replace("'>", "'>✓ ", 1)
     return cell
 
 
@@ -1150,7 +1152,7 @@ def render_index(
             f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
             f"<td data-label='{_e(_t('index.col_recv'))}'>{_date_cell(r['receiving_date'])}</td>"
             f"<td data-label='{_e(_t('index.col_dep'))}'>{_date_cell(_deposit_date(r))}</td>"
-            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_objection_cell(r)}</td>"
+            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_objection_cell(r, _e(_t('index.obj_verified_tooltip')))}</td>"
             f"<td data-label='{_e(_t('index.col_area'))}'>{_e(r['pl_area_dunam'])}</td><td data-label='{_e(_t('index.col_review'))}'>{review_cell(r)}</td></tr>"
         )
 

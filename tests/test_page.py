@@ -507,3 +507,21 @@ def test_render_site_removes_stale_official_projection(tmp_path):
     publications_path.unlink()
     render_site([], [], str(out), permits_path=str(permits_path))
     assert not projection.exists()
+
+
+def test_objection_cell_verified_marker_and_accessible_label():
+    """#1084: a verified deadline cell renders a visible checkmark glyph with
+    the localized tooltip on BOTH title and aria-label (the column header's
+    "check = verified" refers to this marker)."""
+    r = {
+        "objection_deadline_derived_2m_from_publication": "2026-12-09",
+        "objection_deadline_verified": "2026-12-29",
+    }
+    cell = page._objection_cell(r, "Verified tip")
+    assert "✓ 29.12.26" in cell
+    assert "title='Verified tip'" in cell
+    assert "aria-label='Verified tip'" in cell
+    # unverified rows carry no marker
+    r["objection_deadline_verified"] = ""
+    cell = page._objection_cell(r, "Verified tip")
+    assert "✓" not in cell and "title=" not in cell
