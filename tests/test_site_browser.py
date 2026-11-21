@@ -119,6 +119,27 @@ PERMITS = [
     _permit("2020/0008.01", "טיוטת היתר הוכנה", "נרקיסים 6"),
     # malformed scraper date -> degrades to date-unknown, never a bogus date
     _permit("2020/0009.01", "בבדיקה", "שמאי 8", pub="2026-13-45"),
+    # #1074: objection-window group with an ELAPSED window -> hidden by the
+    # open-only default; a bare deep link must still reveal it
+    _permit(
+        "2020/0010.01",
+        "תחילת פרסום הבקשה להקלה",
+        "עין רפאים 3",
+        pub=_d(-90),
+        end=_d(-76),
+    ),
+    # #1074: the live repro's shape - a status in the non-default review
+    # group (like 2026/0363.00 "נפתח תיק רישוי") -> hidden by the group chip
+    _permit("2020/0011.01", "נפתח תיק רישוי", "מבוא יורם 1", pub=_d(-95)),
+    # #1074: objection group, current window, OUT of the 7 neighbourhoods ->
+    # hidden only by the scope gate; a bare deep link must reveal it
+    _permit(
+        "2020/0012.01",
+        "תחילת פרסום הבקשה להקלה",
+        "דרך חברון 90 בית וגן",
+        pub=_d(-3),
+        end=_d(25),
+    ),
 ]
 
 
