@@ -36,7 +36,7 @@ python3 scripts/ci/actions_budget.py --check-timeouts
 ```
 
 The token needs read access to the account's billing usage and private repos.
-Exit code 2 means the stop threshold is crossed, 3 means jobs without a timeout.
+Exit code 2 means the stop threshold is crossed, 3 means jobs without a timeout. When both apply, 2 wins and the missing-timeout jobs are still listed in the output (#1051).
 The script does not block anything by itself. The stop rule is a process rule
 for agents and maintainers until the owner decides on CI enforcement.
 

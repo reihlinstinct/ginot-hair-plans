@@ -11,7 +11,9 @@ It never changes anything. It answers two questions:
   * Which workflow jobs have no ``timeout-minutes`` (a runaway job has no cap)?
 
 Exit codes: 0 ok or warn, 2 stop threshold crossed, 3 jobs without a timeout
-(only with --check-timeouts).
+(only with --check-timeouts). When both apply, 2 wins: stop is the halt signal
+callers branch on, and the missing-timeout lines are still printed in the
+output (issue #1051).
 
 Usage:
   GITHUB_TOKEN=... python3 scripts/ci/actions_budget.py --live --year $(date -u +%Y) --month $(date -u +%m)
