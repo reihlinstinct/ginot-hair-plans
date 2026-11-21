@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-19",
- "ingest_marker": "sha256:24f8b317c174097d",
+ "generated": "2026-11-21",
+ "ingest_marker": "sha256:8ae4603a54294285",
  "source": "over.org.il (גרסאות לעם) mirror of the Jerusalem municipality ykpubdata licensing viewer",
  "mirror_table": "append_ykpubdata_all_665e9000_76f0e069",
  "label": "DRAFT - third-party mirror data; completeness not guaranteed, verify at the source before reliance",
@@ -214131,6 +214131,21 @@
    ],
    "mirror_sample_date": "2026-11-14",
    "mirror_first_seen": "2026-11-07T02:07:56.642136+00:00",
+   "mirror_last_seen": ""
+  },
+  {
+   "tik_num": "2026/0495.00",
+   "status": "הגשה מקוונת הושלמה",
+   "status_date": "2026-11-16",
+   "sugbakasha": "עבודות הריסה",
+   "mahut": "הריסת מעונות \"כפר הסטודנטים\" במתחם ברונפמן, בצומת הרחובות חיים יסקי ולח\"י. כולל שני מבנים בני שש קומות, גדרות היקפיות ומבני עזר.",
+   "address": "הגבעה הצרפתית–גבעת שפירא",
+   "gush": 30173,
+   "parcels": [
+    18
+   ],
+   "mirror_sample_date": "2026-11-21",
+   "mirror_first_seen": "2026-11-21T02:38:37.644858+00:00",
    "mirror_last_seen": ""
   }
  ]
