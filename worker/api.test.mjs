@@ -302,6 +302,32 @@ test("/stats/summary does not cache a partial summary after a KV list failure", 
   assert.ok(!m.has("stats:v1:summary-cache"), "failed list result must not be cached");
 });
 
+test("an exhausted KV write quota drops counts only: public routes and the summary still answer (#1026 limit)", async () => {
+  // Free plan: puts fail once the daily write quota is gone while reads and
+  // lists still work. Measured behavior to keep: requests are never failed by
+  // the stats code, counts for the rest of the day are dropped, and because the
+  // summary cache cannot be stored every uncached summary call lists again.
+  let lists = 0;
+  const kv = fakeKv();
+  const today = new Date().toISOString().slice(0, 10);
+  await kv.put("stats:v1:" + today + ":search:x", "5");
+  const env = { STATS: { get: kv.get,
+    async put() { throw new Error("KV put() limit exceeded for the day."); },
+    async list(o) { lists++; return kv.list(o); } } };
+  const pub = await handleRequest(new Request("https://x.workers.dev/status?src=site"), stub, env);
+  assert.equal(pub.status, 200);
+  const ev = await handleRequest(new Request("https://x.workers.dev/stats/event",
+    { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ e: "search", k: "other" }) }), stub, env);
+  assert.equal(ev.status, 202);
+  const s1 = await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.equal(s1.status, 200);
+  assert.equal((await s1.json()).events.search.x, 5);
+  const listsAfterFirst = lists;
+  await handleRequest(new Request("https://x.workers.dev/stats/summary"), stub, env);
+  assert.ok(lists > listsAfterFirst, "no cache could be written, so the next summary lists again");
+});
+
 test("/stats/event tags the caller (src) and /stats/summary reports by_src", async () => {
   const env = { STATS: fakeKv() };
   const post = (b) => new Request("https://x.workers.dev/stats/event",
