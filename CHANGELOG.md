@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-22 - Review-findings design: status wording (#454)
+
+- `design/ai-review-findings.md`: review bodies are on main (not "proposed"), a
+  long bullet is wrapped, and the diagram label covers an optional minor.
+  Docs only; no enforcement change.
+
 ## 2026-11-22 - Review-thread report also lists review bodies (#454)
 
 - The run summary gains a "Review bodies" table from each PR review: reviewer,

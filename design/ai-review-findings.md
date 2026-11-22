@@ -7,9 +7,10 @@ check. The workflow `review-threads.yml` (read-only token, informational, never
 posts, resolves or commits, and does not hold a PR) shows in the run summary
 each inline review thread: resolved, answered by a human, bot replies only or
 unanswered, with an observed reply marker. That is observed text; it does not
-check that a fix or a reason is real. Review bodies (verdict word and the
-P0-P3 / Minor lines each review wrote) are proposed in #1130 and are not on
-main until that PR merges.
+check that a fix or a reason is real. The same summary also has a
+"Review bodies" table (verdict word and a count of the P0-P3 / Minor lines
+each review wrote, #1130). It is observed text too: findings written as prose
+are not counted, and a count includes lines that only recap earlier findings.
 
 Where findings come from today: independent Claude and Pally reviews that
 post as review comments (the findings sit in the review body, not in inline
@@ -58,11 +59,12 @@ The script cannot judge this; the merging reviewer does, per finding:
 - **Rejected** counts when the reason cites evidence (a line, a test, a data
   fact) showing the finding does not apply. "ok" or a reply from another bot
   is not a reason. A link to an issue is never a rejection of a P0, P1 or P2.
-- **Nonmaterial finding (standing owner policy of 18.11, given in chat and not recorded elsewhere in this repo):** a P3 or optional
-  minor may merge when it is written into a tracked issue, with the issue
-  linked from the PR. It does not need a fix commit. P0, P1 and P2 findings
-  still need Fixed or Rejected, with the reason or evidence, before merge; an
-  issue pointer alone does not satisfy that.
+- **Nonmaterial finding (standing owner policy of 18.11, given in chat and
+  not recorded elsewhere in this repo):** a P3 or optional minor may merge
+  when it is written into a tracked issue, with the issue linked from the PR.
+  It does not need a fix commit. P0, P1 and P2 findings still need Fixed or
+  Rejected, with the reason or evidence, before merge; an issue pointer alone
+  does not satisfy that.
 - A review that covers an older head does not cover the current one. After a
   push, the reviewer reads the delta or asks for a delta review.
 - Unresolved threads are not a blanket merge block. The report shows them; the
@@ -74,7 +76,7 @@ flowchart LR
   BOT --> F{each finding}
   F -->|verified real| FIX[fix commit + reply with SHA]
   F -->|not valid| REJ[one-line reason with evidence]
-  F -->|nonmaterial P3| ISS[tracked issue linked from the PR]
+  F -->|nonmaterial: P3 or optional minor| ISS[tracked issue linked from the PR]
   FIX --> CHK[template checkbox ticked]
   REJ --> CHK
   ISS --> CHK
