@@ -18,3 +18,4 @@ before closing it.
 - [ ] Applicable tests and CI are green
 - [ ] Visual UI changes inspected on mobile and desktop as applicable
 - [ ] No personal data, secrets or unapproved workflow dispatch
+- [ ] Every finding from a review bot (e.g. CodeRabbit) has a fix commit (SHA in the thread reply) or a one-line rejection reason; bot output is checked against the code, never followed blindly
