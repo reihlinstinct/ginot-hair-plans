@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-22 - Review-thread report also lists review bodies (#454)
+
+- The run summary gains a "Review bodies" table from each PR review: reviewer,
+  state, whether it covers the current head, the verdict word, and the
+  P0-P3 / Minor finding lines it wrote (lines saying none are skipped). It is
+  observed text, not verification: nothing checks that a finding was fixed or
+  rejected, and findings written as prose are not counted.
+- Fails open like the thread section. Same read-only token; no enforcement,
+  config, permissions, triggers or bot actions.
+
 ## 2026-11-22 - Review-thread report: file paths, bot replies, observed markers (#454, #1127)
 
 - The File column keeps underscores and dots in paths (only pipes and line
