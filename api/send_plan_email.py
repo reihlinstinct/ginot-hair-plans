@@ -32,6 +32,7 @@ change): SMTP_HOST / SMTP_PORT / SMTP_USER / SMTP_PASSWORD / EMAIL_FROM_ADDRESS
 Stdlib only; the Vercel Python runtime serves the `handler` class.
 """
 
+import functools
 import hashlib
 import hmac
 import html
@@ -533,6 +534,46 @@ def _log_failure(where: str, exc: Exception) -> None:
     print(f"send_plan_email failure stage={where} error={type(exc).__name__} {code}")
 
 
+def _is_daily_quota_refusal(exc: smtplib.SMTPRecipientsRefused) -> bool:
+    """Gmail's daily sending limit (550 5.4.5) arrives as a per-recipient
+    RCPT refusal, but it is account-wide: every remaining recipient would
+    fail the same way, and each attempt costs a fresh SMTP login (#1007).
+    """
+    return any(b"5.4.5" in bytes(resp) for _code, resp in exc.recipients.values())
+
+
+def _mark_delivered(record: dict) -> None:
+    record["all_pending"] = []  # delivered: clear only now
+    save_subscription(record["unsub_token"], record)
+
+
+def _deliver(build, args: tuple, to_addr: str, stage: str, on_sent) -> str:
+    """One send inside the notify/digest loops; returns "sent", "failed"
+    (skip to the next recipient) or "stop" (abort the run with a 502).
+    Compose/save errors are record-specific (#1007): one malformed stored
+    record must not 502 the run and starve everyone after it (#997).
+    Recipient refusals stay per-recipient, except a daily-quota refusal
+    (550 5.4.5), which is account-wide and stops the run."""
+    try:
+        msg = build(*args)
+    except Exception as exc:  # noqa: BLE001 - record-specific (#1007)
+        _log_failure(stage + "-compose", exc)
+        return "failed"
+    try:
+        send(msg, to_addr)
+    except smtplib.SMTPRecipientsRefused as exc:
+        _log_failure(stage, exc)
+        return "stop" if _is_daily_quota_refusal(exc) else "failed"
+    except Exception as exc:  # noqa: BLE001 - account/transport-wide
+        _log_failure(stage, exc)
+        return "stop"
+    try:
+        on_sent()
+    except Exception as exc:  # noqa: BLE001 - record-specific (#1007)
+        _log_failure(stage + "-save", exc)
+    return "sent"
+
+
 def send(msg: MIMEText, to_addr: str) -> None:
     host = os.environ.get("SMTP_HOST", "smtp.gmail.com")
     port = int(os.environ.get("SMTP_PORT", "465"))
@@ -751,8 +792,6 @@ class handler(BaseHTTPRequestHandler):
             auth = self.headers.get("Authorization", "")
             if not secret or not hmac.compare_digest(auth, f"Bearer {secret}"):
                 return self._reply(403, {"ok": False})
-            sent = 0
-            failed = 0
             try:
                 plans = load_plans()
                 notices = _subscription_notices(plans)
@@ -772,33 +811,39 @@ class handler(BaseHTTPRequestHandler):
             # of burning one fresh SMTP login per remaining recipient -
             # repeated failed logins from one IP can lock the account
             # (#1003 review P2).
+            outcomes = []
             for record, reason in notices:
                 if _over_limit("", per_ip=False):
                     break
-                try:
-                    send(compose_notify(record, reason), record["email"])
-                    save_subscription(record["unsub_token"], record)
-                    sent += 1
-                except smtplib.SMTPRecipientsRefused as exc:
-                    _log_failure("notify", exc)
-                    failed += 1
-                except Exception as exc:  # noqa: BLE001 - account/transport-wide
-                    _log_failure("notify", exc)
+                outcomes.append(
+                    _deliver(
+                        compose_notify,
+                        (record, reason),
+                        record["email"],
+                        "notify",
+                        functools.partial(
+                            save_subscription, record["unsub_token"], record
+                        ),
+                    )
+                )
+                if outcomes[-1] == "stop":
                     return self._reply(502, {"ok": False})
             for record, (deposited, other) in digests:
                 if _over_limit("", per_ip=False):
                     break
-                try:
-                    send(compose_all_digest(record, deposited, other), record["email"])
-                    record["all_pending"] = []  # delivered: clear only now
-                    save_subscription(record["unsub_token"], record)
-                    sent += 1
-                except smtplib.SMTPRecipientsRefused as exc:
-                    _log_failure("all-digest", exc)
-                    failed += 1
-                except Exception as exc:  # noqa: BLE001 - account/transport-wide
-                    _log_failure("all-digest", exc)
+                outcomes.append(
+                    _deliver(
+                        compose_all_digest,
+                        (record, deposited, other),
+                        record["email"],
+                        "all-digest",
+                        functools.partial(_mark_delivered, record),
+                    )
+                )
+                if outcomes[-1] == "stop":
                     return self._reply(502, {"ok": False})
+            sent = outcomes.count("sent")
+            failed = outcomes.count("failed")
             return self._reply(200, {"ok": True, "sent": sent, "failed": failed})
         return self._reply(404, {"ok": False})
 
