@@ -10,6 +10,15 @@
 - Fails open like the thread section. Same read-only token; no enforcement,
   config, permissions, triggers or bot actions.
 
+## 2026-11-22 - Review-findings design updated to current practice (#454)
+
+- `design/ai-review-findings.md` and CONTRIBUTING: where findings come from
+  now (Claude and Pally review bodies, Gemini; CodeRabbit's notices say it posts no
+  reviews on this repo, a vendor statement not verified here),
+  who verifies and what counts as Fixed or Rejected, the standing nonmaterial
+  finding rule (tracked issue instead of a fix commit), and that unresolved
+  threads are shown, not a blanket block. Docs only; no enforcement or config.
+
 ## 2026-11-22 - Stats KV write quota: documented limit and test (#1132)
 
 - worker/README.md records the grounded free-quota behavior of the stats
