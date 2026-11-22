@@ -1219,7 +1219,7 @@ def render_index(
     )
     _kind_chip = {"new": "c-approved", "status_change": "c-deposit", "removed": ""}
     changes_filter_opts = "".join(
-        f"<button type='button' class='chip {_kind_chip.get(k, '')}' data-kind='{k}' aria-pressed='false'>"
+        f"<button type='button' class='{('chip ' + _kind_chip[k]).strip()}' data-kind='{k}' aria-pressed='false'>"
         f"{_e(_t(f'changes.kind_{k}'))} ({sum(1 for c in changes if c['kind'] == k)})</button>"
         for k in _kinds
     )
@@ -1495,6 +1495,13 @@ def render_site(
 
     conservation_cases = _cons.load(conservation_path)
     if _cons.validate(conservation_cases):
+        import sys
+
+        print(
+            "conservation_cases.json invalid, section omitted: "
+            + "; ".join(_cons.validate(conservation_cases)),
+            file=sys.stderr,
+        )
         conservation_cases = []  # never render an invalid file
     for code in i18n.lang_codes():  # languages come from i18n/strings.json
         index_path = f"{out_dir}/{i18n.page_path(code, 'index.html')}"
