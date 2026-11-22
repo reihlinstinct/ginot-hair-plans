@@ -31,8 +31,17 @@ isolates - not one write per request); a failed flush or an isolate eviction
 drops pending counts but never fails the request. The site tags itself via
 `src` (`?src=about` on the about page's summary fetch, `src:'site'` in event
 posts); `mirror`/`mcp` stay at 0 until those callers pass `?src=` on their
-API calls. `/stats/summary` itself is cached in a single KV key with a 900 s
-TTL, so uncached KV `list` calls stay rare (issue #990).
+API calls. `/stats/summary` itself is cached in a single KV key with a 3600 s
+TTL (and `cache-control: max-age=900` for clients), so uncached KV `list` calls
+stay rare (issue #990).
+
+Known limit (#1132): each flush does a get and a put per distinct counter key
+per isolate, and a new isolate flushes on its first request, so KV writes grow
+with isolate count and key variety, not only with requests (about 0.3-0.45
+writes per request on 17-22 Nov 2026). At the free plan's 1,000 writes/day the
+stats code only drops counts until the daily reset: public routes and
+`/stats/event` still answer, and with no summary cache every uncached
+`/stats/summary` call lists again. A test pins that behavior.
 
 Rate limiting is best-effort per isolate (120 req/min/IP, fixed window);
 upstream data.json is edge-cached 5 minutes. Documented on the site's about
