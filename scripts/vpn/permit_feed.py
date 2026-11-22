@@ -11,6 +11,17 @@ procedure (which carries baaleiInyanList personal data) is NOT called.
 Search-level + process-level fields only, DRAFT pilot, manual dispatch
 only, slow pacing, stop on any anti-bot challenge (exit 2, no workaround).
 
+Record shape: one record per tik (permit request). The gush/helka identity
+fields always name the FIRST parcel the tik was scanned on and are never
+silently rewritten by a later sighting (#880). parcels_observed lists every
+[gush, helka] pair the tik was sighted on, in scan order; a single-parcel
+tik has exactly one entry matching its gush/helka identity, while a
+multi-parcel tik documents all observed parcels. Records backfilled before
+#880 predate parcels_observed and carry the identity pair only;
+the backfill in this file seeds the list on the tik's next sighting. Consumers should treat gush/helka as
+the display parcel and parcels_observed as the audit trail, not expect one
+record per parcel.
+
 Usage: python3 scripts/vpn/permit_feed.py [--limit 60] [--offset 0]
 """
 
