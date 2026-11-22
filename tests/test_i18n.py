@@ -415,5 +415,10 @@ def test_urgent_list_renders_single_separator_per_language():
         # Server render: the template's single space, never two.
         assert f"{_e(label)} 20.11.26" in html
         assert f"{_e(label)}  20.11.26" not in html
-        # Localized JS: the template appends the separator after the value.
+        # Localized JS: the template appends the separator after the value,
+        # for every label key (urgent + permit lines), not only the first.
+        for key in _URGENT_LABEL_KEYS:
+            if key.startswith("indexjs."):
+                js_label = json.dumps(i18n.t(code, key), ensure_ascii=False)
+                assert js_label + "+' '" in html, f"{code}:{key} lost its separator"
         assert json.dumps(label, ensure_ascii=False) + "+' '" in html
