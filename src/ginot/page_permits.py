@@ -98,6 +98,7 @@ def _permits_section(
             address_note_html += (
                 " <span class='pub-missing'>" + _t(lang, "permits.no_map") + "</span>"
             )
+        schuna = (p.get("schunaName") or "").strip()
         active = "0" if status in _PERMIT_TERMINAL_STATUSES else "1"
         pub_iso = _iso(p.get("publication_start"))
         search = _e(
@@ -130,9 +131,20 @@ def _permits_section(
         rows.append(
             f"<tr class='{('filtered-out' if active == '0' else '')}' data-active='{active}' data-status='{_e(status)}' data-sug='{_e(sug)}'"
             f" data-tik='{_e(p.get('tik_num') or '')}' data-group='{group_key}' data-scope='{scope}' data-statusdate='{_iso(p.get('status_date'))}'"
+            f" data-schuna='{_e(schuna)}'"
             f" data-pub='{pub_iso}' data-pubcat='{pubcat}' data-pubend='{pub_end_iso}' data-search='{search}'>"
             f"<td>{_permit_tik_link(p.get('tik_num'))}</td>"
-            f"<td data-label='{_e(_t(lang, 'permits.col_address'))}'>{_e(address_text)}{address_note_html}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_address'))}'>{_e(address_text)}{address_note_html}"
+            # #409: the neighborhood as its own field, revealed on demand
+            # (the pfshowschuna checkbox) and kept separate from the
+            # street address. Only when a street address exists - a
+            # neighborhood-only row already shows it labeled (#408).
+            + (
+                f"<span class='schuna-val'>{_e(_t(lang, 'permits.schuna', schuna=schuna))}</span>"
+                if schuna and (p.get("rehovName") or "").strip()
+                else ""
+            )
+            + "</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_mahut'))}'>{_e(p.get('mahut') or '')}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_sug'))}'>{_e(sug)}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(status)}</span></td>"
@@ -223,6 +235,18 @@ def _permits_section(
     sug_opts = f"<option value=''>{_e(_t(lang, 'permits.sug_all'))}</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs
     )
+    schunas = sorted(
+        {
+            (p.get("schunaName") or "").strip()
+            for p in permits
+            if (p.get("schunaName") or "").strip()
+        }
+    )
+    n_with_schuna = sum(1 for p in permits if (p.get("schunaName") or "").strip())
+    schuna_opts = (
+        f"<option value=''>{_e(_t(lang, 'permits.schuna_all'))}</option>"
+        + "".join(f"<option value='{_e(v)}'>{_e(v)}</option>" for v in schunas)
+    )
     return f"""
 <section id="permits" dir="{_dir}">
 <h2>{_e(_t(lang, "permits.h2"))}</h2>
@@ -237,10 +261,13 @@ def _permits_section(
 <input type="search" id="pfq" placeholder="{_e(_t(lang, "permits.search_placeholder"))}" title="{_e(_t(lang, "permits.search_title"))}">
 <select id="pfstatus" aria-label="{_e(_t(lang, "permits.status_aria"))}">{status_opts}</select>
 <select id="pfsug" aria-label="{_e(_t(lang, "permits.sug_aria"))}">{sug_opts}</select>
+<select id="pfschuna" aria-label="{_e(_t(lang, "permits.schuna_aria"))}">{schuna_opts}</select>
+<span id="pfschuna-note" class="permits-note" hidden>{_e(_t(lang, "permits.schuna_note", n=f"{n_with_schuna:,}", total=f"{len(permits):,}"))}</span>
 <label>{_e(_t(lang, "permits.from_label"))} <input type="date" id="pffrom"></label>
 <label>{_e(_t(lang, "permits.to_label"))} <input type="date" id="pfto"></label>
 <label><input type="checkbox" id="pfopenonly" checked> {_e(_t(lang, "permits.openonly"))}</label>
 <label><input type="checkbox" id="pfscope"> {_e(_t(lang, "permits.scope", n=n_out_scope))}</label>
+<label><input type="checkbox" id="pfshowschuna"> {_e(_t(lang, "permits.show_schuna"))}</label>
 <label><input type="checkbox" id="pfclosed"> {_e(_t(lang, "permits.closed", n=n_terminal))}</label>
 <button id="pfreset" type="button">{_e(_t(lang, "permits.reset"))}</button>
 <button id="copy-permit-link" type="button">{_e(_t(lang, "permits.copy_link"))}</button>

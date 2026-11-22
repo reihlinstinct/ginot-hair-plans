@@ -75,7 +75,7 @@ APPROVED = [feat(f"400-{i}", "אישור") for i in range(1, 4)]
 FEATURES = DEPOSIT + REVIEW + APPROVED
 
 
-def _permit(tik, status, address, pub=None, end=None):
+def _permit(tik, status, address, pub=None, end=None, **extra):
     p = {
         "tik_num": tik,
         "status": status,
@@ -88,6 +88,7 @@ def _permit(tik, status, address, pub=None, end=None):
         "publication_start": pub if pub is not None else "",
         "publication_end_planned": end if end is not None else "",
     }
+    p.update(extra)
     return p
 
 
@@ -102,23 +103,56 @@ PERMITS = [
     # regression: the permit that started the objection work stays visible
     _permit("2026/0439.00", "בבדיקה", 'הפלמ"ח 41', pub=_d(-7)),
     # category 1: published inside the six-month window -> visible
-    _permit("2020/0001.01", "בבדיקה", "אלפסי 9", pub=_d(-30), end=_d(-16)),
+    _permit(
+        "2020/0001.01",
+        "בבדיקה",
+        "אלפסי 9",
+        pub=_d(-30),
+        end=_d(-16),
+        schunaName="טלביה",
+        rehovName="אלפסי",
+    ),
     # category 4: no publication evidence -> visible, marked date-unknown
-    _permit("2020/0002.01", "בבדיקה", "בן יהודה 1"),
+    _permit(
+        "2020/0002.01",
+        "בבדיקה",
+        "בן יהודה 1",
+        schunaName="רחביה",
+        rehovName="בן יהודה",
+    ),
     # terminal, undated -> hidden by the existing closed rule
     _permit("2020/0003.01", "הבקשה נסגרה", "הרצל 5"),
     # category 2: published before the window -> hidden by default, recoverable
-    _permit("2020/0004.01", "בבדיקה", "יפו 12", pub=_d(-200), end=_d(-186)),
+    _permit(
+        "2020/0004.01",
+        "בבדיקה",
+        "יפו 12",
+        pub=_d(-200),
+        end=_d(-186),
+        schunaName="רחביה",
+        rehovName="יפו",
+    ),
     # category 1 edge: future publication start (real case 2026-10-28) -> visible
     _permit("2020/0005.01", "בבדיקה", "קינג ג'ורג' 3", pub=_d(3)),
     # category 3: publication evidenced by status, date unknown -> visible, marked
     _permit("2020/0006.01", "תום תקופת פרסום", "אמציה 2"),
     # category 3 via planned publication end only -> visible, marked
-    _permit("2020/0007.01", "בבדיקה", "בצלאל 4", end=_d(10)),
+    _permit(
+        "2020/0007.01",
+        "בבדיקה",
+        "בצלאל 4",
+        end=_d(10),
+    ),
     # category 4: draft-permit stage (where undated rows concentrate) -> visible
     _permit("2020/0008.01", "טיוטת היתר הוכנה", "נרקיסים 6"),
     # malformed scraper date -> degrades to date-unknown, never a bogus date
-    _permit("2020/0009.01", "בבדיקה", "שמאי 8", pub="2026-13-45"),
+    _permit(
+        "2020/0009.01",
+        "בבדיקה",
+        "שמאי 8",
+        pub="2026-13-45",
+        schunaName="רחביה",
+    ),
     # #1074: objection-window group with an ELAPSED window -> hidden by the
     # open-only default; a bare deep link must still reveal it
     _permit(
