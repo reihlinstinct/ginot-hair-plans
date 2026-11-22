@@ -375,3 +375,45 @@ def test_col_obj_heading_keeps_base_label_and_marker():
     for lang, label in base.items():
         assert label in values[lang], lang
         assert "✓" in values[lang], lang
+
+
+# Section: label separators live in the templates (#1097)
+
+_URGENT_LABEL_KEYS = [
+    "index.urgent_deadline",
+    "index.urgent_deadline_verified",
+    "indexjs.permit_prefix",
+    "indexjs.permit_pubcheck",
+    "indexjs.permit_official",
+    "indexjs.permit_planned",
+]
+
+
+def test_urgent_list_labels_carry_no_separator():
+    """#1097: the label/date separator is the template's job, so these label
+    values never carry outer whitespace (a trailing space in the value plus
+    the template's separator renders a double space)."""
+    data = json.loads(
+        (ROOT / "src/ginot/i18n/strings.json").read_text(encoding="utf-8")
+    )
+    for key in _URGENT_LABEL_KEYS:
+        for lang, value in data["strings"][key].items():
+            assert value == value.strip(), f"{key}:{lang} carries outer whitespace"
+
+
+def test_urgent_list_renders_single_separator_per_language():
+    """#1097: server render and localized JS both place exactly one space
+    between an urgent-list label and the date (regression: the server render
+    combined a trailing-space value with the template's space)."""
+    from ginot.page import render_index
+
+    row = _index_row()
+    row["objection_deadline_derived_2m_from_publication"] = "2026-11-20"
+    for code in i18n.lang_codes():
+        html = render_index([row], [], "2026-11-11", "גינות העיר", lang=code)
+        label = i18n.t(code, "index.urgent_deadline")
+        # Server render: the template's single space, never two.
+        assert f"{_e(label)} 20.11.26" in html
+        assert f"{_e(label)}  20.11.26" not in html
+        # Localized JS: the template appends the separator after the value.
+        assert json.dumps(label, ensure_ascii=False) + "+' '" in html

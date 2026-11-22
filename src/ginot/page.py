@@ -287,15 +287,23 @@ def _js(lang: str = "he", pre: str = "") -> str:
         + J("index.count_showing")
         + ",{shown:Math.min(n,expanded?n:20),total:n});",
     )
-    out = out.replace("name:'בקשת היתר: '+", "name:" + J("indexjs.permit_prefix") + "+")
+    out = out.replace(
+        "name:'בקשת היתר: '+", "name:" + J("indexjs.permit_prefix") + "+' '+"
+    )
     out = out.replace(
         "'פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: '",
-        J("indexjs.permit_pubcheck"),
+        J("indexjs.permit_pubcheck") + "+' '",
     )
-    out = out.replace("'מועד התנגדות (פרסום עירוני): '", J("indexjs.permit_official"))
-    out = out.replace("'סיום פרסום מתוכנן (לא מאומת): '", J("indexjs.permit_planned"))
-    out = out.replace("'אחרון להתנגדות (מאומת): '", J("index.urgent_deadline_verified"))
-    out = out.replace("'אחרון להתנגדות (משוער): '", J("index.urgent_deadline"))
+    out = out.replace(
+        "'מועד התנגדות (פרסום עירוני): '", J("indexjs.permit_official") + "+' '"
+    )
+    out = out.replace(
+        "'סיום פרסום מתוכנן (לא מאומת): '", J("indexjs.permit_planned") + "+' '"
+    )
+    out = out.replace(
+        "'אחרון להתנגדות (מאומת): '", J("index.urgent_deadline_verified") + "+' '"
+    )
+    out = out.replace("'אחרון להתנגדות (משוער): '", J("index.urgent_deadline") + "+' '")
     out = out.replace("'<li>אין</li>'", "'<li>'+" + J("index.none") + "+'</li>'")
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
@@ -327,15 +335,15 @@ def _objection_deadline_fmt(r) -> str:
 def _objection_cell(r, verified_tooltip: str = "") -> str:
     """Deadline cell; a verified deadline carries a visible checkmark marker
     and a localized tooltip (#1084: the column header refers to the marker,
-    so it must actually be drawn)."""
-    cell = _date_cell(_objection_deadline_iso(r))
-    if r.get("objection_deadline_verified") and cell:
-        return cell.replace(
-            "<span dir='ltr'",
-            f"<span title='{verified_tooltip}' aria-label='{verified_tooltip}' dir='ltr'",
-            1,
-        ).replace("'>", "'>✓ ", 1)
-    return cell
+    so it must actually be drawn). _date_cell takes the extra attributes and
+    marker directly (#1097): no string surgery on its markup."""
+    if r.get("objection_deadline_verified"):
+        return _date_cell(
+            _objection_deadline_iso(r),
+            pre_attrs=f"title='{verified_tooltip}' aria-label='{verified_tooltip}'",
+            marker="✓ ",
+        )
+    return _date_cell(_objection_deadline_iso(r))
 
 
 def _is_open_objection(r, today: str) -> bool:
