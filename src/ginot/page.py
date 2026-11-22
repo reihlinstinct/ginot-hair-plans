@@ -1215,12 +1215,11 @@ def render_index(
         )
         or f"<li>{_e(_t('index.no_changes'))}</li>"
     )
-    changes_filter_opts = (
-        f"<option value=''>{_e(_t('changes.filter_all'))} ({len(changes)})</option>"
-        + "".join(
-            f"<option value='{k}'>{_e(_t(f'changes.kind_{k}'))} ({sum(1 for c in changes if c['kind'] == k)})</option>"
-            for k in _kinds
-        )
+    _kind_chip = {"new": "c-approved", "status_change": "c-deposit", "removed": ""}
+    changes_filter_opts = "".join(
+        f"<button type='button' class='chip {_kind_chip.get(k, '')}' data-kind='{k}' aria-pressed='false'>"
+        f"{_e(_t(f'changes.kind_{k}'))} ({sum(1 for c in changes if c['kind'] == k)})</button>"
+        for k in _kinds
     )
     status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
@@ -1286,11 +1285,14 @@ def render_index(
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
 <details id="changes-panel" class="changes-panel">
 <summary><h2>{_e(_t("index.changes_h"))} ({len(changes)})</h2></summary>
-<select id="chfilter" aria-label="{_e(_t("changes.filter_aria"))}">{changes_filter_opts}</select>
+<div id="chfilter" role="group" aria-label="{_e(_t("changes.filter_aria"))}">{changes_filter_opts}</div>
 <ul id="changes-list">{changes_html}</ul>
 </details>
-<script>(function(){{var s=document.getElementById('chfilter');if(!s)return;
-s.addEventListener('change',function(){{document.querySelectorAll('#changes-list li[data-kind]').forEach(function(li){{li.hidden=!!s.value&&li.getAttribute('data-kind')!==s.value;}});}});}})();</script>
+<script>(function(){{var g=document.getElementById('chfilter');if(!g)return;
+function apply(){{var on={{}},n=0;g.querySelectorAll('button[aria-pressed=true]').forEach(function(b){{on[b.getAttribute('data-kind')]=1;n++;}});
+document.querySelectorAll('#changes-list li[data-kind]').forEach(function(li){{li.hidden=n>0&&!on[li.getAttribute('data-kind')];}});}}
+g.addEventListener('click',function(e){{var b=e.target.closest('button[data-kind]');if(!b)return;
+b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')==='true'?'false':'true');apply();}});}})();</script>
 {stats_html}
 <footer dir="{_meta["dir"]}"><p>
 {_e(_t("index.footer_html"))}
