@@ -2053,6 +2053,30 @@
    "ru": "Ежедневные новости о каждом новом плане в Гинот hа-Ир (планы, вынесенные на возражения, выделены)",
    "am": "ስለ እያንዳንዱ አዲስ ዕቅድ በጊኖት ሃዒር የዕለት ዝመና (ለተቃውሞ የተቀረጹ ዕቅዶች ይጎለበታሉ)",
    "fr": "Une mise à jour quotidienne sur chaque nouveau plan de Ginot HaIr (les plans déposés pour opposition sont mis en évidence)"
+  },
+  "permits.schuna_aria": {
+   "he": "סינון לפי שכונה",
+   "en": "Filter by neighborhood",
+   "ar": "تصفية حسب الحي",
+   "ru": "Фильтр по району",
+   "am": "በአካባቢ ማጣሪያ",
+   "fr": "Filtrer par quartier"
+  },
+  "permits.schuna_all": {
+   "he": "כל השכונות",
+   "en": "All neighborhoods",
+   "ar": "كل الأحياء",
+   "ru": "Все районы",
+   "am": "ሁሉም አካባቢዎች",
+   "fr": "Tous les quartiers"
+  },
+  "permits.show_schuna": {
+   "he": "הצג שדה שכונה",
+   "en": "Show neighborhood field",
+   "ar": "إظهار حقل الحي",
+   "ru": "Показать поле района",
+   "am": "የአካባቢ መስክ አሳይ",
+   "fr": "Afficher le champ quartier"
   }
  }
 }

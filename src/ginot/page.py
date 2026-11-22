@@ -446,6 +446,8 @@ var pfq=document.getElementById('pfq'),pfstatus=document.getElementById('pfstatu
 pfsug=document.getElementById('pfsug'),pffrom=document.getElementById('pffrom'),
 pfto=document.getElementById('pfto'),pfclosed=document.getElementById('pfclosed'),
 pfopenonly=document.getElementById('pfopenonly'),pfscope=document.getElementById('pfscope'),
+pfschuna=document.getElementById('pfschuna'),
+pfshowschuna=document.getElementById('pfshowschuna'),
 pfgroups=document.getElementById('pfgroups'),
 pfcount=document.getElementById('pfcount'),pmore=document.getElementById('pmore'),
 pfunknown=document.getElementById('pfunknown'),pfflag=document.getElementById('pfflag');
@@ -534,6 +536,7 @@ function selectedGroups(){
   if(!searchMatches(r.__ns||(r.__ns=normSearch(r.getAttribute('data-search'))),pfq.value))return false;
   if(pfstatus.value&&r.getAttribute('data-status')!==pfstatus.value)return false;
   if(pfsug.value&&r.getAttribute('data-sug')!==pfsug.value)return false;
+  if(pfschuna&&pfschuna.value&&(r.getAttribute('data-schuna')||'')!==pfschuna.value)return false;
   var pub=r.getAttribute('data-pub');
   if(pub&&!validIso(pub))pub='';
   // Date filters apply to dated rows only (design option A): undated rows
@@ -570,7 +573,7 @@ function apply(){
   pfflag.style.display=(pffrom.value&&!validIso(pffrom.value))?'':'none';
   document.dispatchEvent(new Event('permits-filtered'));
 }
-[pfq,pfstatus,pfsug,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
+[pfq,pfstatus,pfsug,pfschuna,pffrom,pfto,pfclosed,pfopenonly,pfscope].forEach(function(el){
   if(!el)return;
   var h=function(){cancelPendingUrlState();expanded=false;apply();};
   el.addEventListener('input',h);el.addEventListener('change',h);
@@ -578,6 +581,14 @@ function apply(){
 // Checking "הצג בקשות שהסתיימו" also selects the closed+issued group chips:
 // the checkbox would otherwise reveal nothing while those groups are
 // unselected (both gates must pass for a terminal row to show).
+// #409: the neighborhood field is display-only - reveal it on demand.
+if(pfshowschuna){
+  var applySchunaView=function(){
+    document.getElementById('permits-table').classList.toggle('show-schuna',pfshowschuna.checked);
+  };
+  pfshowschuna.addEventListener('change',function(){applySchunaView();apply();});
+  applySchunaView();
+}
 if(pfclosed&&pfgroups){
   pfclosed.addEventListener('change',function(){
     cancelPendingUrlState();
@@ -593,8 +604,9 @@ if(pfclosed&&pfgroups){
 }
 document.getElementById('pfreset').addEventListener('click',function(){
   cancelPendingUrlState();
-  pfq.value='';pfstatus.value='';pfsug.value='';pffrom.value='';pfto.value='';
+  pfq.value='';pfstatus.value='';pfsug.value='';if(pfschuna)pfschuna.value='';pffrom.value='';pfto.value='';
   pfclosed.checked=false;if(pfscope)pfscope.checked=false;if(pfopenonly)pfopenonly.checked=true;
+  if(pfshowschuna){pfshowschuna.checked=false;document.getElementById('permits-table').classList.remove('show-schuna');}
   pfgroups.querySelectorAll('.chip').forEach(function(c){
     var on=c.getAttribute('data-default')==='1';
     c.classList.toggle('sel',on);c.setAttribute('aria-pressed',on?'true':'false');
@@ -800,7 +812,7 @@ function installRows(h){
 }
 function isDefaultView(){
   if(pendingUrlState)return false;
-  if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||pffrom.value||pfto.value)return false;
+  if(expanded||pfq.value.trim()||pfstatus.value||pfsug.value||(pfschuna&&pfschuna.value)||pffrom.value||pfto.value)return false;
   if(pfclosed.checked||(pfscope&&pfscope.checked)||(pfopenonly&&!pfopenonly.checked))return false;
   var same=true;
   pfgroups.querySelectorAll('.chip').forEach(function(c){
@@ -916,7 +928,7 @@ fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');
   defaultFailed=true;window.__permitsDefaultFailed=true;loadFullPermits();
 });
 permitLink=window.GinotFilterLinks.register('permit',
-  {pfq:1,pfstatus:1,pfsug:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
+  {pfq:1,pfstatus:1,pfsug:1,pfschuna:1,pfshowschuna:1,pffrom:1,pfto:1,pfclosed:1,pfopenonly:1,pfscope:1}, {
   keys:['expanded','groups'],
   restore:function(p,n){
     if(p.get(n+'.expanded')==='1')expanded=true;
@@ -936,12 +948,15 @@ permitLink=window.GinotFilterLinks.register('permit',
     // non-default status groups (e.g. review/draft), and out-of-area rows.
     // A copied filters=1 link carries the sender's saved state, so it is
     // never widened; explicit gate params also skip this branch.
-    if(p.get('filters')===null&&p.get(n+'.pfq')&&p.get(n+'.pfclosed')===null&&p.get(n+'.pfopenonly')===null&&p.get(n+'.pfscope')===null&&raw===null&&!p.get(n+'.pfstatus')){
+    if(p.get('filters')===null&&(p.get(n+'.pfq')||p.get(n+'.pfschuna'))&&p.get(n+'.pfclosed')===null&&p.get(n+'.pfopenonly')===null&&p.get(n+'.pfscope')===null&&raw===null&&!p.get(n+'.pfstatus')){
       pfclosed.checked=true;
       if(pfopenonly)pfopenonly.checked=false;
       if(pfscope)pfscope.checked=true;
       chips.forEach(function(c){c.classList.add('sel');c.setAttribute('aria-pressed','true');});
     }
+    // #409: a restored pfshowschuna checkbox fires no change event -
+    // sync the display class here.
+    if(pfshowschuna)document.getElementById('permits-table').classList.toggle('show-schuna',pfshowschuna.checked);
   },
   write:function(p,n){
     if(expanded)p.set(n+'.expanded','1');
