@@ -118,7 +118,7 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 מספר הבקשה מקשר לתיק במערכת
 <a href='https://ykpubdata.jerusalem.muni.il/' target='_blank' rel='noopener'>איתור נתונים ברישוי של העירייה</a>.
 עמודת סקירת AI מקשרת לסיכום אוטומטי כשפורסם; אינו מסמך רשמי ואינו הגשת התנגדות.</p>
-<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> <button type="button" class="chip c-deposit sel" data-group="obj" aria-pressed="true" data-default='1' data-label="פרסום / הודעות להתנגדות">פרסום / הודעות להתנגדות (14)</button> <button type="button" class="chip c-inproc sel" data-group="pubcheck" aria-pressed="true" data-default='1' data-label="פרסום עירוני - דורש בדיקה">פרסום עירוני - דורש בדיקה</button> <button type="button" class="chip c-review sel" data-group="pre" aria-pressed="true" data-default='1' data-label="פרסום מתקרב">פרסום מתקרב (79)</button> <details class="more-statuses"><summary>קבוצות נוספות</summary> <div class="more-chips"><button type="button" class="chip c-inproc" data-group="review" aria-pressed="false" data-label="בטיפול/דיונים">בטיפול/דיונים (1296)</button> <button type="button" class="chip c-cond" data-group="draft" aria-pressed="false" data-label="טיוטת היתר">טיוטת היתר (3281)</button> <button type="button" class="chip c-inproc" data-group="postpub" aria-pressed="false" data-label="אחרי פרסום">אחרי פרסום (31)</button> <button type="button" class="chip c-approved" data-group="issued" aria-pressed="false" data-label="הופק היתר">הופק היתר (4962)</button> <button type="button" class="chip c-closed" data-group="closed" aria-pressed="false" data-label="סגור/אחר">סגור/אחר (2895)</button></div></details></div>
+<div class="legend" id="pfgroups"><b>קבוצות תצוגה:</b> <button type="button" class="chip c-deposit sel" data-group="obj" aria-pressed="true" data-default='1' data-label="פרסום / הודעות להתנגדות">פרסום / הודעות להתנגדות (14)</button> <button type="button" class="chip c-inproc sel" data-group="pubcheck" aria-pressed="true" data-default='1' data-label="פרסום עירוני - דורש בדיקה">פרסום עירוני - דורש בדיקה</button> <button type="button" class="chip c-review sel" data-group="pre" aria-pressed="true" data-default='1' data-label="פרסום מתקרב">פרסום מתקרב (79)</button> <details class="more-statuses"><summary>קבוצות נוספות</summary> <div class="more-chips"><button type="button" class="chip c-inproc" data-group="review" aria-pressed="false" data-label="בטיפול/דיונים">בטיפול/דיונים (1293)</button> <button type="button" class="chip c-cond" data-group="draft" aria-pressed="false" data-label="טיוטת היתר">טיוטת היתר (3283)</button> <button type="button" class="chip c-inproc" data-group="postpub" aria-pressed="false" data-label="אחרי פרסום">אחרי פרסום (32)</button> <button type="button" class="chip c-approved" data-group="issued" aria-pressed="false" data-label="הופק היתר">הופק היתר (4962)</button> <button type="button" class="chip c-closed" data-group="closed" aria-pressed="false" data-label="סגור/אחר">סגור/אחר (2895)</button></div></details></div>
 <p class="permits-note" id="permit-group-help">הכפתורים מסננים לפי קבוצות תצוגה, לא לפי סטטוס מדויק.
 קבוצת "פרסום / הודעות להתנגדות" כוללת שלבי פרסום מהמקור וגם בקשות עם פרסום עירוני מאומת,
 אפילו אם סטטוס המקור שלהן שונה. בקשות בסטטוס "שולמה מקדמה" אינן מועברות לקבוצה זו:
@@ -127,7 +127,7 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 לסינון סטטוס מדויק השתמשו ברשימה "כל סטטוסי המקור"; הסטטוס המקורי נשמר בכל שורה.</p>
 <details id="permit-coverage"><summary>מקור הנתונים וכיסוי תאריכי הפרסום</summary>
 <p>הטבלה כוללת את נתוני בקשות ההיתר ותאריכי שלבי הפרסום שנאספו ממערכת הרישוי העירונית.
-<span id="permit-coverage-counts">12558 בקשות במאגר; 1194 עם תאריך תחילת פרסום; 2049 עם סיום פרסום מתוכנן; 11364 ללא תאריך תחילת פרסום.</span></p>
+<span id="permit-coverage-counts">12558 בקשות במאגר; 1194 עם תאריך תחילת פרסום; 2048 עם סיום פרסום מתוכנן; 11364 ללא תאריך תחילת פרסום.</span></p>
 <p>הספירה מתייחסת לכל הבקשות שבמאגר, לפני סינון התצוגה.
 תאריך פרסום חסר אינו מעיד שלא פורסמה בקשה.
 סיום פרסום מתוכנן אינו מועד התנגדות מאומת; המועד בהודעת הפרסום המקורית הוא הקובע.
@@ -139,7 +139,7 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 <label>מתאריך פרסום <input type="date" id="pffrom"></label>
 <label>עד <input type="date" id="pfto"></label>
 <label><input type="checkbox" id="pfopenonly" checked> רק מועד התנגדות שלא עבר</label>
-<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות (4833)</label>
+<label><input type="checkbox" id="pfscope"> הצג גם מחוץ ל-7 השכונות (4832)</label>
 <label><input type="checkbox" id="pfclosed"> הצג בקשות שהסתיימו (7842)</label>
 <button id="pfreset" type="button">נקה</button>
 <button id="copy-permit-link" type="button">העתק קישור לסינון</button>
