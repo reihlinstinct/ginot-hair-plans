@@ -282,10 +282,13 @@ def test_verdict_comes_from_the_verdict_line_not_from_prose():
     assert rt._verdict_word("Verdict: PASS\nlater\nVerdict: FINDINGS") == "FINDINGS"
 
 
-def test_resolved_finding_lines_are_not_new_claims_but_open_ones_are():
-    body = "- **P1 (resolved):** was bad\n- P2 (fixed in abc): old\n- P3: still open"
+def test_outcome_words_never_suppress_a_finding_line():
+    body = (
+        "- **P1 (not fixed):** still bad\n- P2 (unresolved): open\n"
+        "- P3 (fixed in abc): old\n- Minor: none"
+    )
     _, _, _, _, claimed = rt.review_facts(rev(body), "aaa")
-    assert claimed == {"P3": 1}
+    assert claimed == {"P1": 1, "P2": 1, "P3": 1}
 
 
 def test_reviews_are_read_newest_first_and_overflow_is_disclosed():

@@ -105,8 +105,8 @@ _FINDING = re.compile(
     r"^\s*[-*]?\s*\**(P[0-3]|Minor)\b([^:\n]{0,60}):\**\s*(\S.*)$",
     re.IGNORECASE | re.MULTILINE,
 )
-# A finding line that reports its own outcome is a record, not a new claim.
-_RESOLVED = re.compile(r"\b(resolved|fixed|addressed|carried)\b", re.IGNORECASE)
+# Outcome words ("fixed", "resolved") are never read as resolution: the
+# script cannot tell "fixed" from "not fixed", so every finding line counts.
 
 
 def _verdict_word(body):
@@ -134,8 +134,8 @@ def review_facts(review, head):
     body = review.get("body") or ""
     verdict = _verdict_word(body)
     claimed = {}
-    for tag, mid, text in _FINDING.findall(body):
-        if re.match(r"\W*none\b", text, re.IGNORECASE) or _RESOLVED.search(mid):
+    for tag, _mid, text in _FINDING.findall(body):
+        if re.match(r"\W*none\b", text, re.IGNORECASE):
             continue
         key = tag.upper() if tag.upper().startswith("P") else "Minor"
         claimed[key] = claimed.get(key, 0) + 1
