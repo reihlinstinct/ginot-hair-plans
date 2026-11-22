@@ -1330,13 +1330,19 @@
    "status_date": "",
    "gush": 30024,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30024,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "rehovName": "",
    "mispBait": "",
    "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1945/2137.00",
@@ -3315,10 +3321,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 226,
+   "parcels_observed": [
+    [
+     30023,
+     226
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1951/0359.00",
@@ -3419,10 +3431,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30024,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1951/0523.00",
@@ -3471,10 +3489,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 197,
+   "parcels_observed": [
+    [
+     30023,
+     197
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1951/0575.00",
@@ -4159,10 +4183,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1952/1148.00",
@@ -4653,10 +4683,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1953/0273.00",
@@ -5124,10 +5160,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1953/0701.01",
@@ -5137,10 +5179,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1953/0718.00",
@@ -5195,10 +5243,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמנואל נח מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1953/0764.00",
@@ -5547,10 +5601,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1954/0444.00",
@@ -5961,10 +6021,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1955/0040.00",
@@ -7418,10 +7484,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך בית לחם מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1956/0651.00",
@@ -9427,10 +9499,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1957/0918.00",
@@ -9810,10 +9888,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30024,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1958/0141.01",
@@ -10701,10 +10785,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "כרמיה 1 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1958/0520.00",
@@ -11937,10 +12027,20 @@
    "status_date": "",
    "gush": 30024,
    "helka": 97,
+   "parcels_observed": [
+    [
+     30024,
+     97
+    ],
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1959/0659.00",
@@ -12860,10 +12960,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 225,
+   "parcels_observed": [
+    [
+     30023,
+     225
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "איתמר בן אבי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0206.01",
@@ -12873,10 +12979,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 225,
+   "parcels_observed": [
+    [
+     30023,
+     225
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "איתמר בן אבי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0206.02",
@@ -12886,10 +12998,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 225,
+   "parcels_observed": [
+    [
+     30023,
+     225
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "איתמר בן אבי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0206.03",
@@ -12899,10 +13017,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 225,
+   "parcels_observed": [
+    [
+     30023,
+     225
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "איתמר בן אבי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0244.00",
@@ -13510,10 +13634,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30024,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 17 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0518.01",
@@ -13523,10 +13653,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30024,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 17 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1960/0525.00",
@@ -14708,10 +14844,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30024,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0579.01",
@@ -14721,10 +14863,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30024,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0579.02",
@@ -14734,10 +14882,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30024,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.00",
@@ -14747,10 +14901,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 29 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.01",
@@ -14760,10 +14920,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 29 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.02",
@@ -14773,10 +14939,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.03",
@@ -14786,10 +14958,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיים ברודי 11 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.04",
@@ -14799,10 +14977,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-07-11",
    "address": "חיים ברודי 11 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.05",
@@ -14812,10 +14996,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיים ברודי 11 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.06",
@@ -14825,10 +15015,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-02-02",
    "address": "חיים ברודי 11 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0585.07",
@@ -14838,10 +15034,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיים ברודי 11 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1961/0597.00",
@@ -17468,10 +17670,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 8 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1963/0432.01",
@@ -17481,10 +17689,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 8 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1963/0438.00",
@@ -19722,10 +19936,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 97,
+   "parcels_observed": [
+    [
+     30024,
+     97
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין קרית צאנז",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1964/0810.00",
@@ -19967,10 +20187,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 100,
+   "parcels_observed": [
+    [
+     30024,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0099.01",
@@ -19980,10 +20206,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 100,
+   "parcels_observed": [
+    [
+     30024,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0099.02",
@@ -19993,10 +20225,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 100,
+   "parcels_observed": [
+    [
+     30024,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0099.03",
@@ -20006,10 +20244,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 100,
+   "parcels_observed": [
+    [
+     30024,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-05-03",
    "address": "הרב חיים ברלין 29 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0099.04",
@@ -20019,10 +20263,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 100,
+   "parcels_observed": [
+    [
+     30024,
+     100
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 29 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0203.00",
@@ -20882,10 +21132,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נילי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0826.01",
@@ -20895,10 +21151,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נילי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1965/0872.00",
@@ -22194,17 +22456,17 @@
    "parcels_observed": [
     [
      30023,
-     114
+     226
     ],
     [
      30023,
-     226
+     114
     ]
    ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הפלמח 13 קריית שמואל",
-   "details_checked_on": "2026-11-21"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1966/0855.00",
@@ -22832,10 +23094,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 13,
+   "parcels_observed": [
+    [
+     30024,
+     13
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1967/0300.01",
@@ -22845,10 +23113,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 13,
+   "parcels_observed": [
+    [
+     30024,
+     13
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1967/0300.02",
@@ -22858,10 +23132,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 13,
+   "parcels_observed": [
+    [
+     30024,
+     13
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1967/0300.03",
@@ -22871,10 +23151,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 13,
+   "parcels_observed": [
+    [
+     30024,
+     13
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1967/0300.04",
@@ -22884,10 +23170,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 13,
+   "parcels_observed": [
+    [
+     30024,
+     13
+    ]
+   ],
    "publication_start": "2023-08-09",
    "publication_end_planned": "2023-08-22",
    "address": "ש. טשרניחובסקי 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1967/0309.00",
@@ -23576,10 +23868,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/0086.01",
@@ -23589,10 +23887,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/0111.00",
@@ -24978,10 +25282,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/1074.01",
@@ -24991,10 +25301,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/1074.02",
@@ -25004,10 +25320,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-01-06",
    "address": "אלוף שמחוני 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/1075.00",
@@ -25029,10 +25351,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30012,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המגיד מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1968/1095.00",
@@ -26125,10 +26453,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1969/0176.01",
@@ -26138,10 +26472,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1969/0176.02",
@@ -26151,10 +26491,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1969/0176.03",
@@ -26164,10 +26510,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1995-11-02",
    "address": "ש. טשרניחובסקי 5 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1969/0179.00",
@@ -33122,10 +33474,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 10 צפון תלפיות",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1971/1327.01",
@@ -33135,10 +33493,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 10 צפון תלפיות",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1971/1327.02",
@@ -33148,10 +33512,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 10 צפון תלפיות",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1971/1329.01",
@@ -34363,10 +34733,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיים ולירו מרכז העיר",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1972/0490.00",
@@ -35292,10 +35668,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ל.י. פינסקר 10 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1972/0918.01",
@@ -35305,10 +35687,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ל.י. פינסקר טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1972/0930.01",
@@ -42766,10 +43154,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני 4 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1975/0864.01",
@@ -42779,10 +43173,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני 4 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1975/0908.02",
@@ -42792,10 +43192,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30012,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1975/0908.03",
@@ -42805,10 +43211,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30012,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1975/0908.04",
@@ -42818,10 +43230,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30012,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  16 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1975/0915.00",
@@ -43638,10 +44056,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1976/0362.00",
@@ -50501,10 +50925,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0560.01",
@@ -50514,10 +50944,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-11-30",
    "address": "עמק רפאים 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0560.02",
@@ -50527,10 +50963,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0561.00",
@@ -51608,10 +52050,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0775.01",
@@ -51621,10 +52069,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0775.02",
@@ -51634,10 +52088,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0775.03",
@@ -51647,10 +52107,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0775.04",
@@ -51660,10 +52126,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0778.00",
@@ -51931,10 +52403,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0802.01",
@@ -51944,10 +52422,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0802.02",
@@ -51957,10 +52441,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0802.03",
@@ -51970,10 +52460,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0802.04",
@@ -51983,10 +52479,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0802.05",
@@ -51996,10 +52498,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 17 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1978/0803.00",
@@ -53503,10 +54011,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30012,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1979/0410.00",
@@ -53898,10 +54412,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1979/0477.00",
@@ -54028,10 +54548,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 קטמון הישנה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1979/0538.00",
@@ -55288,10 +55814,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1979/0846.00",
@@ -55591,10 +56123,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30024,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 8 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0020.00",
@@ -57418,10 +57956,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0497.01",
@@ -57431,10 +57975,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0525.00",
@@ -58579,10 +59129,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נילי 16 קטמון הישנה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0894.01",
@@ -58592,10 +59148,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נילי 16 קטמון הישנה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0894.02",
@@ -58605,10 +59167,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "2025-09-03",
    "publication_end_planned": "",
    "address": "נילי 16 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0901.00",
@@ -58815,10 +59383,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1980/0919.00",
@@ -62553,10 +63127,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30024,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 8 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1981/0783.00",
@@ -62689,10 +63269,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30012,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 3 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1981/0839.01",
@@ -62702,10 +63288,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 34,
+   "parcels_observed": [
+    [
+     30012,
+     34
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-12-19",
    "address": "צבי גרץ 3 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1981/0848.00",
@@ -63635,10 +64227,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 44,
+   "parcels_observed": [
+    [
+     30011,
+     44
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1981/1082.01",
@@ -63648,10 +64246,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 44,
+   "parcels_observed": [
+    [
+     30011,
+     44
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0025.00",
@@ -64433,10 +65037,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0264.01",
@@ -64446,10 +65056,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0264.04",
@@ -64459,10 +65075,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30011,
+     42
+    ]
+   ],
    "publication_start": "2025-06-04",
    "publication_end_planned": "2022-04-26",
    "address": "יאשיה ודגווד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0281.00",
@@ -65403,10 +66025,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0748.00",
@@ -65804,10 +66432,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30011,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0862.00",
@@ -65916,10 +66550,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30011,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1982/0889.00",
@@ -66579,10 +67219,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30011,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0215.01",
@@ -66592,10 +67238,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30011,
+     51
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0215.02",
@@ -66605,10 +67257,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30011,
+     51
+    ]
+   ],
    "publication_start": "2025-04-08",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0245.00",
@@ -67518,10 +68176,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0587.01",
@@ -67531,10 +68195,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  20 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0587.02",
@@ -67557,10 +68227,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  20 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0587.04",
@@ -67570,10 +68246,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  20 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0590.00",
@@ -68168,10 +68850,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.01",
@@ -68181,10 +68869,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.02",
@@ -68194,10 +68888,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-10-05",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.03",
@@ -68207,10 +68907,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-06-05",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.04",
@@ -68220,10 +68926,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.05",
@@ -68233,10 +68945,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.06",
@@ -68246,10 +68964,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0799.07",
@@ -68259,10 +68983,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 5,
+   "parcels_observed": [
+    [
+     30012,
+     5
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 8 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1983/0817.00",
@@ -74053,10 +74783,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי 19 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0055.01",
@@ -74066,10 +74802,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי 19 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0075.01",
@@ -74381,10 +75123,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0157.01",
@@ -74394,10 +75142,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0157.02",
@@ -74407,10 +75161,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0178.00",
@@ -75293,10 +76053,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0473.01",
@@ -75306,10 +76072,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0473.02",
@@ -75319,10 +76091,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-11-06",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1985/0476.00",
@@ -77203,10 +77981,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0166.06",
@@ -77216,10 +78000,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 39,
+   "parcels_observed": [
+    [
+     30012,
+     39
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0167.00",
@@ -77412,10 +78202,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.01",
@@ -77425,10 +78221,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.02",
@@ -77438,10 +78240,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.03",
@@ -77451,10 +78259,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.04",
@@ -77464,10 +78278,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.05",
@@ -77477,10 +78297,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.06",
@@ -77490,10 +78316,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.07",
@@ -77503,10 +78335,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0218.08",
@@ -77516,10 +78354,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0220.00",
@@ -78143,10 +78987,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.01",
@@ -78156,10 +79006,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.02",
@@ -78169,10 +79025,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.03",
@@ -78182,10 +79044,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.04",
@@ -78195,10 +79063,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.05",
@@ -78208,10 +79082,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.06",
@@ -78221,10 +79101,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.07",
@@ -78234,10 +79120,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.08",
@@ -78247,10 +79139,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.09",
@@ -78260,10 +79158,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.10",
@@ -78273,10 +79177,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0422.11",
@@ -78286,10 +79196,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30012,
+     2
+    ]
+   ],
    "publication_start": "2025-11-16",
    "publication_end_planned": "",
    "address": "צבי גרץ 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1986/0423.00",
@@ -82642,10 +83558,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30012,
+     75
+    ]
+   ],
    "publication_start": "2018-08-23",
    "publication_end_planned": "2018-09-18",
    "address": "המגיד 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1987/0472.05",
@@ -82655,10 +83577,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30012,
+     75
+    ]
+   ],
    "publication_start": "2026-07-02",
    "publication_end_planned": "",
    "address": "המגיד 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1987/0481.03",
@@ -86821,10 +87749,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0305.00",
@@ -87789,10 +88723,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0523.01",
@@ -87802,10 +88742,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0523.02",
@@ -87815,10 +88761,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0523.03",
@@ -87828,10 +88780,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0525.00",
@@ -88104,10 +89062,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 110,
+   "parcels_observed": [
+    [
+     30024,
+     110
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חרלפ 44 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0591.01",
@@ -88117,10 +89081,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 110,
+   "parcels_observed": [
+    [
+     30024,
+     110
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חרלפ 44 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0601.00",
@@ -88182,10 +89152,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0609.01",
@@ -88195,10 +89171,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0609.02",
@@ -88208,10 +89190,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0609.03",
@@ -88221,10 +89209,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0609.04",
@@ -88234,10 +89228,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1994-08-07",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0609.05",
@@ -88247,10 +89247,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30012,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 5 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0610.00",
@@ -89817,10 +90823,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0888.01",
@@ -89830,10 +90842,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0888.02",
@@ -89843,10 +90861,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0888.03",
@@ -89856,10 +90880,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-09-14",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0888.04",
@@ -89869,10 +90899,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0888.05",
@@ -89882,10 +90918,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0903.00",
@@ -89947,10 +90989,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.01",
@@ -89960,10 +91008,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-09-22",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.02",
@@ -89973,10 +91027,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.03",
@@ -89986,10 +91046,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.04",
@@ -89999,10 +91065,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.05",
@@ -90012,10 +91084,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0919.06",
@@ -90025,10 +91103,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "2020-01-19",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1988/0932.00",
@@ -92112,10 +93196,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30024,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1989/0328.01",
@@ -93514,10 +94604,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30011,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1989/0518.01",
@@ -93527,10 +94623,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30011,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סמאטס יוחנן 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1989/0518.02",
@@ -93540,10 +94642,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30011,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1994-04-27",
    "address": "סמאטס יוחנן מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1989/0519.00",
@@ -94944,10 +96052,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 5 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1989/0750.00",
@@ -99471,10 +100585,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0408.02",
@@ -99484,10 +100604,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0408.03",
@@ -99497,10 +100623,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30024,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 37 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0428.01",
@@ -100813,10 +101945,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.01",
@@ -100839,10 +101977,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-12-23",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.03",
@@ -100852,10 +101996,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.04",
@@ -100865,10 +102015,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.05",
@@ -100878,10 +102034,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30012,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.06",
@@ -100891,10 +102053,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.07",
@@ -100904,10 +102072,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.08",
@@ -100917,10 +102091,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1990/0616.09",
@@ -104731,10 +105911,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0030.01",
@@ -104744,10 +105930,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0030.02",
@@ -104757,10 +105949,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0041.00",
@@ -104770,10 +105968,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30024,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 3 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0041.01",
@@ -104783,10 +105987,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 46,
+   "parcels_observed": [
+    [
+     30024,
+     46
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 3 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0042.00",
@@ -108980,10 +110190,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני 2 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0679.01",
@@ -108993,10 +110209,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2001-06-13",
    "address": "אלוף שמחוני 2 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0679.02",
@@ -109006,10 +110228,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-04-02",
    "address": "אלוף שמחוני 2 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1991/0680.00",
@@ -112443,10 +113671,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-03-29",
    "address": "דור דור ודורשיו 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0241.09",
@@ -112456,10 +113690,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0241.10",
@@ -112469,10 +113709,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-10-19",
    "address": "דור דור ודורשיו 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0241.11",
@@ -112482,10 +113728,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0241.12",
@@ -112495,10 +113747,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30012,
+     74
+    ]
+   ],
    "publication_start": "2026-08-11",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0282.00",
@@ -112508,10 +113766,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30012,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "המליץ 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0344.00",
@@ -113639,10 +114903,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30011,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0699.01",
@@ -113652,10 +114922,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30011,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-09-15",
    "address": "יאשיה ודגווד מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0699.02",
@@ -113665,10 +114941,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30011,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0699.03",
@@ -113678,10 +114960,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30011,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 3 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0699.04",
@@ -113691,10 +114979,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30011,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "יאשיה ודגווד 3 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1992/0707.00",
@@ -114400,10 +115694,16 @@
    "status_date": "",
    "gush": 30014,
    "helka": 98,
+   "parcels_observed": [
+    [
+     30014,
+     98
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 61 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1993/0095.01",
@@ -114413,10 +115713,16 @@
    "status_date": "",
    "gush": 30014,
    "helka": 98,
+   "parcels_observed": [
+    [
+     30014,
+     98
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1994-08-23",
    "address": "עמק רפאים 61 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1993/0095.02",
@@ -114426,10 +115732,16 @@
    "status_date": "",
    "gush": 30014,
    "helka": 98,
+   "parcels_observed": [
+    [
+     30014,
+     98
+    ]
+   ],
    "publication_start": "2017-06-29",
    "publication_end_planned": "2017-07-18",
    "address": "עמק רפאים 61 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1993/0095.03",
@@ -114439,10 +115751,16 @@
    "status_date": "",
    "gush": 30014,
    "helka": 98,
+   "parcels_observed": [
+    [
+     30014,
+     98
+    ]
+   ],
    "publication_start": "2025-07-30",
    "publication_end_planned": "",
    "address": "עמק רפאים 61 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1993/0133.00",
@@ -125434,10 +126752,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30024,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1996-10-15",
    "address": "הרב הרצוג 5 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1996/0783.01",
@@ -125447,10 +126771,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30024,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 5 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1996/0799.00",
@@ -129758,10 +131088,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30024,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-07-07",
    "address": "חרלפ 46 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0094.01",
@@ -129771,10 +131107,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30024,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-11-16",
    "address": "חרלפ 46 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0094.02",
@@ -129784,10 +131126,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 111,
+   "parcels_observed": [
+    [
+     30024,
+     111
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חרלפ 46 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0106.00",
@@ -130110,10 +131458,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30024,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 28 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0290.01",
@@ -130123,10 +131477,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30024,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 28 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0313.01",
@@ -131094,10 +132454,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 16,
+   "parcels_observed": [
+    [
+     30012,
+     16
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 11 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1998/0894.00",
@@ -133218,10 +134584,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30024,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-12-21",
    "address": "הרב חיים ברלין 47 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1999/0714.01",
@@ -133231,10 +134603,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30024,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2001-01-07",
    "address": "הרב חיים ברלין 47 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1999/0714.02",
@@ -133244,10 +134622,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30024,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 47 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "1999/0718.02",
@@ -139491,10 +140875,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-08-25",
    "address": "דור דור ודורשיו 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2002/0241.00",
@@ -141191,10 +142581,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 75,
+   "parcels_observed": [
+    [
+     30024,
+     75
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "נילי 14 קטמון הישנה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2003/0404.00",
@@ -141264,10 +142660,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2003/0414.00",
@@ -145368,10 +146770,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 63,
+   "parcels_observed": [
+    [
+     30024,
+     63
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-08-22",
    "address": "ש. טשרניחובסקי 17 גבעת אורן",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2005/0328.00",
@@ -146292,10 +147700,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30024,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 5 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2005/0548.01",
@@ -146305,10 +147719,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 45,
+   "parcels_observed": [
+    [
+     30024,
+     45
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 5 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2005/0550.00",
@@ -152477,10 +153897,16 @@
    "status_date": "",
    "gush": 30023,
    "helka": 225,
+   "parcels_observed": [
+    [
+     30023,
+     225
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2008-09-02",
    "address": "הפלמח 11 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2008/0295.02",
@@ -155661,10 +157087,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.01",
@@ -155674,10 +157106,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-05-10",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.02",
@@ -155687,10 +157125,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.03",
@@ -155700,10 +157144,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-09-02",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.04",
@@ -155713,10 +157163,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.05",
@@ -155726,10 +157182,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.06",
@@ -155739,10 +157201,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א בנ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.07",
@@ -155752,10 +157220,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א בנ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.08",
@@ -155765,10 +157239,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א בנ מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.09",
@@ -155778,10 +157258,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.10",
@@ -155791,10 +157277,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 א מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.11",
@@ -155804,10 +157296,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.12",
@@ -155817,10 +157315,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.13",
@@ -155830,10 +157334,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.14",
@@ -155843,10 +157353,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.15",
@@ -155856,10 +157372,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0808.16",
@@ -155869,10 +157391,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2009/0811.00",
@@ -157752,10 +159280,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2010/0968.00",
@@ -157913,10 +159447,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30024,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 15 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2010/1001.01",
@@ -157926,10 +159466,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30024,
+     40
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2014-03-17",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2010/1006.00",
@@ -160837,10 +162383,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/0783.01",
@@ -160850,23 +162402,35 @@
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/0783.02",
    "mahut": "תוספת ממ''ד",
    "sugbakasha": "",
-   "status": "נפתח תיק רישוי",
+   "status": "נדונה בוועדת המשנה",
    "status_date": "",
    "gush": 30012,
    "helka": 37,
+   "parcels_observed": [
+    [
+     30012,
+     37
+    ]
+   ],
    "publication_start": "2026-04-29",
    "publication_end_planned": "",
    "address": "עמק רפאים 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/0784.00",
@@ -161271,10 +162835,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-03-08",
    "address": "זאב ז'בוטינסקי 33 טלביה/המוגרבים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/0867.01",
@@ -161284,10 +162854,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30021,
+     4
+    ]
+   ],
    "publication_start": "2024-05-19",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי 33 טלביה/המוגרבים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/0891.00",
@@ -161870,10 +163446,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 9,
+   "parcels_observed": [
+    [
+     30021,
+     9
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-03-29",
    "address": "חובבי ציון 5 טלביה/המוגרבים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/1106.01",
@@ -161883,10 +163465,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 9,
+   "parcels_observed": [
+    [
+     30021,
+     9
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-04-25",
    "address": "חובבי ציון 5 טלביה/המוגרבים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/1106.02",
@@ -161896,10 +163484,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 9,
+   "parcels_observed": [
+    [
+     30021,
+     9
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חובבי ציון 5 טלביה/המוגרבים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/1106.03",
@@ -161909,10 +163503,16 @@
    "status_date": "",
    "gush": 30021,
    "helka": 9,
+   "parcels_observed": [
+    [
+     30021,
+     9
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חובבי ציון 5 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2011/1113.00",
@@ -164604,10 +166204,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30012,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-04-21",
    "address": "דור דור ודורשיו 9 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2013/0184.00",
@@ -171657,10 +173263,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  13 המושבה היוונית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2015/0952.00",
@@ -175006,10 +176618,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30012,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  18 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0112.00",
@@ -175140,10 +176758,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "2022-06-26",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0158.01",
@@ -175153,10 +176777,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "2025-08-27",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0158.02",
@@ -175166,10 +176796,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0158.03",
@@ -175179,10 +176815,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0159.00",
@@ -175340,10 +176982,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30012,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מבוא משה גסטר 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0224.01",
@@ -175353,10 +177001,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30012,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מבוא משה גסטר 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0224.02",
@@ -175366,10 +177020,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30012,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מבוא משה גסטר 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0224.03",
@@ -175379,10 +177039,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30012,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מבוא משה גסטר 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0230.00",
@@ -176387,10 +178053,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "2018-05-10",
    "publication_end_planned": "2017-09-28",
    "address": "אלוף שמחוני 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0606.01",
@@ -176400,10 +178072,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 77,
+   "parcels_observed": [
+    [
+     30024,
+     77
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אלוף שמחוני 4 גבעת הורדים",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2017/0626.00",
@@ -177518,10 +179196,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 110,
+   "parcels_observed": [
+    [
+     30024,
+     110
+    ]
+   ],
    "publication_start": "2018-02-07",
    "publication_end_planned": "",
    "address": "חרלפ 44 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2018/0046.00",
@@ -177872,10 +179556,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 6,
+   "parcels_observed": [
+    [
+     30012,
+     6
+    ]
+   ],
    "publication_start": "2018-05-01",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 10 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2018/0257.00",
@@ -178686,10 +180376,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30012,
+     69
+    ]
+   ],
    "publication_start": "2019-02-11",
    "publication_end_planned": "2019-02-26",
    "address": "מבוא משה גסטר 2 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2019/0055.00",
@@ -178947,10 +180643,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2019/0171.01",
@@ -178960,10 +180662,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 26,
+   "parcels_observed": [
+    [
+     30012,
+     26
+    ]
+   ],
    "publication_start": "2020-11-01",
    "publication_end_planned": "",
    "address": "דור דור ודורשיו 7 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2019/0197.00",
@@ -180646,10 +182354,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 61,
+   "parcels_observed": [
+    [
+     30024,
+     61
+    ]
+   ],
    "publication_start": "2020-10-19",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 22 טלביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2020/0458.00",
@@ -181216,10 +182930,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 99,
+   "parcels_observed": [
+    [
+     30024,
+     99
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "חיים ברודי 11 רחביה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2021/0034.01",
@@ -181356,10 +183076,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "2021-04-11",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 5 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2021/0064.01",
@@ -181369,10 +183095,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 28,
+   "parcels_observed": [
+    [
+     30024,
+     28
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ש. טשרניחובסקי 5א קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2021/0075.00",
@@ -181727,10 +183459,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30012,
+     23
+    ]
+   ],
    "publication_start": "2021-08-18",
    "publication_end_planned": "2021-08-31",
    "address": "המגיד 6 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2021/0254.00",
@@ -183811,6 +185549,22 @@
    "helka": 7,
    "parcels_observed": [
     [
+     30012,
+     34
+    ],
+    [
+     30012,
+     37
+    ],
+    [
+     30012,
+     39
+    ],
+    [
+     30014,
+     98
+    ],
+    [
      30008,
      7
     ],
@@ -183825,10 +185579,6 @@
     [
      30197,
      68
-    ],
-    [
-     30012,
-     34
     ]
    ],
    "publication_start": "",
@@ -184880,10 +186630,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 78,
+   "parcels_observed": [
+    [
+     30024,
+     78
+    ]
+   ],
    "publication_start": "2024-04-09",
    "publication_end_planned": "",
    "address": "אלוף שמחוני 2 קטמון הישנה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2024/0095.00",
@@ -185072,10 +186828,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 40,
+   "parcels_observed": [
+    [
+     30024,
+     40
+    ]
+   ],
    "publication_start": "2024-11-20",
    "publication_end_planned": "",
    "address": "הרב הרצוג 15 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2024/0194.00",
@@ -185987,10 +187749,16 @@
    "status_date": "",
    "gush": 30011,
    "helka": 44,
+   "parcels_observed": [
+    [
+     30011,
+     44
+    ]
+   ],
    "publication_start": "2026-02-12",
    "publication_end_planned": "2026-02-10",
    "address": "סמאטס יוחנן 12 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2024/0568.00",
@@ -186207,10 +187975,16 @@
    "status_date": "",
    "gush": 30012,
    "helka": 51,
+   "parcels_observed": [
+    [
+     30012,
+     51
+    ]
+   ],
    "publication_start": "2026-05-17",
    "publication_end_planned": "",
    "address": "עזריאל הילדסהיימר  16 מושבה גרמנית",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2025/0067.01",
@@ -187252,10 +189026,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 97,
+   "parcels_observed": [
+    [
+     30024,
+     97
+    ]
+   ],
    "publication_start": "2026-01-27",
    "publication_end_planned": "",
    "address": "חיים ברודי 20 ארנונה",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2025/0513.00",
@@ -188036,14 +189816,20 @@
    "tik_num": "2026/0264.00",
    "mahut": "תוספת קומות , מרפסות ויחד'' דיור , מחסנים , הריסה ובניה מחדש תוך שימור חזיתות וחיזוקים פנימים",
    "sugbakasha": "",
-   "status": "תום תקופת פרסום",
+   "status": "נפתח תיק רישוי",
    "status_date": "",
    "gush": 30024,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30024,
+     52
+    ]
+   ],
    "publication_start": "2026-09-22",
    "publication_end_planned": "",
    "address": "הרב חיים ברלין 12 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2026/0267.00",
@@ -188111,10 +189897,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2026/0314.00",
@@ -188168,10 +189960,16 @@
    "status_date": "",
    "gush": 30024,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30024,
+     17
+    ]
+   ],
    "publication_start": "2026-07-08",
    "publication_end_planned": "",
    "address": "הרב חן 6 קריית שמואל",
-   "details_checked_on": "2026-11-09"
+   "details_checked_on": "2026-11-22"
   },
   {
    "tik_num": "2026/0321.00",
