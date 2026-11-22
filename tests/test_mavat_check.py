@@ -57,3 +57,15 @@ def test_missing_page_chars_falls_back_to_flagging():
     prev = _prev()
     del prev["page_chars"]
     assert not mc.is_chrome_flap(prev, _info())
+
+
+def test_flap_suppressed_only_when_the_api_diff_can_still_catch_a_real_change():
+    prev_with_api = _prev(api={"fingerprint": "x"})
+    api = {"fingerprint": "x"}
+    assert mc.flap_is_safe_to_suppress(prev_with_api, _info(), api)
+    # API snapshot failed this run: the page text is the only signal
+    assert not mc.flap_is_safe_to_suppress(prev_with_api, _info(), None)
+    # previous run stored no API snapshot: nothing to diff against
+    assert not mc.flap_is_safe_to_suppress(_prev(), _info(), api)
+    # not chrome-sized: never suppressed
+    assert not mc.flap_is_safe_to_suppress(prev_with_api, _info(page_chars=5100), api)

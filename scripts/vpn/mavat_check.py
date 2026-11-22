@@ -147,6 +147,15 @@ def is_chrome_flap(prev: dict, info: dict) -> bool:
     ) == info.get("station_text", "")
 
 
+def flap_is_safe_to_suppress(prev: dict, info: dict, api) -> bool:
+    """Suppress a chrome-sized page-text change only when the API snapshot can
+    still catch a real change of that size: this run's snapshot succeeded and
+    the previous run stored one to diff against. Otherwise (no snapshot this
+    run, or none stored before) the page fingerprint is the only signal, so
+    a real +/-KNOWN_CHROME_CHARS change must still be flagged."""
+    return bool(api) and bool(prev.get("api")) and is_chrome_flap(prev, info)
+
+
 # Section: API evidence
 
 
@@ -360,7 +369,7 @@ def main():
                 api = None
             reasons = []
             if prev.get("fingerprint") and prev["fingerprint"] != info["fingerprint"]:
-                if is_chrome_flap(prev, info):
+                if flap_is_safe_to_suppress(prev, info, api):
                     print(
                         f"{num}: page-text flap is the known "
                         f"+/-{KNOWN_CHROME_CHARS}-char chrome block - not flagged"

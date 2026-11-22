@@ -95,6 +95,40 @@ def test_plain_denial_statuses_stop_the_run():
     pf._stop_on_status(404)
 
 
+def test_discover_procs_stops_on_viewer_and_bundle_denial(monkeypatch, tmp_path):
+    # #954: both _stop_on_status calls in discover_procs must fire. A denial
+    # on the viewer page stops before any bundle script is requested; a denial
+    # on a bundle script stops before its procs are read.
+    monkeypatch.setattr(pf, "WORK", str(tmp_path))
+    monkeypatch.setattr(pf.time, "sleep", lambda *_: None)
+    requested = []
+
+    def curl_viewer_denied(url, out, payload=None):
+        requested.append(url)
+        Path(out).write_text("<html></html>")
+        return 403, "text/html"
+
+    monkeypatch.setattr(pf, "_curl", curl_viewer_denied)
+    with pytest.raises(pf.Stop):
+        pf.discover_procs()
+    assert len(requested) == 1
+
+    requested.clear()
+
+    def curl_bundle_denied(url, out, payload=None):
+        requested.append(url)
+        if url.endswith("/"):
+            Path(out).write_text('<script src="/static/js/main.abc.js"></script>')
+            return 200, "text/html"
+        Path(out).write_text("var x=1;")
+        return 429, "text/html"
+
+    monkeypatch.setattr(pf, "_curl", curl_bundle_denied)
+    with pytest.raises(pf.Stop):
+        pf.discover_procs()
+    assert len(requested) == 2
+
+
 def test_discovered_procs_are_listed_not_called(monkeypatch, capsys):
     # Behavioural, not source-text (#954): run main with a bundle that
     # "discovers" an unknown stored procedure and assert api_call never
