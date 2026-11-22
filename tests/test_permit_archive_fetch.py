@@ -95,10 +95,27 @@ def test_plain_denial_statuses_stop_the_run():
     pf._stop_on_status(404)
 
 
-def test_discovered_procs_are_listed_not_called():
-    src = Path(pf.__file__).read_text(encoding="utf-8")
-    assert "listed, not called" in src
-    assert 'calls.append((p, {"sysId"' not in src
+def test_discovered_procs_are_listed_not_called(monkeypatch, capsys):
+    # Behavioural, not source-text (#954): run main with a bundle that
+    # "discovers" an unknown stored procedure and assert api_call never
+    # receives it - an unknown proc may return personal data.
+    called = []
+
+    def fake_api_call(proc, params, label):
+        called.append(proc)
+        return b"{}"
+
+    monkeypatch.setattr(pf, "api_call", fake_api_call)
+    monkeypatch.setattr(pf, "discover_procs", lambda: [242709999])
+    monkeypatch.setattr(pf.time, "sleep", lambda *_: None)
+    monkeypatch.setenv("PROBE_TIK", "2025/0147.00")
+    monkeypatch.delenv("PROBE_EXTRA_CALLS", raising=False)
+    monkeypatch.delenv("PROBE_EXTRA_GUIDS", raising=False)
+    assert pf.main() == 0
+    assert 242709999 not in called
+    # The known archive procs ran: 2 tik variants x 2 known procs.
+    assert called == [242700452, 242700571] * 2
+    assert "listed, not called" in capsys.readouterr().out
 
 
 # Section: the committed recipient key matches the pinned fingerprint
