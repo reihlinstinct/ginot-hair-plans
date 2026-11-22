@@ -120,6 +120,42 @@ def normalize(text):
     return text.strip()
 
 
+# Section: Fingerprint flaps
+
+# #989: in the #946 review 12 plans grew by exactly +246 chars and one
+# shrank by -246, the same block toggling run to run on different plans
+# with nothing semantic changed - mavat page chrome, not plan content.
+KNOWN_CHROME_CHARS = 246
+
+
+def is_chrome_flap(prev: dict, info: dict) -> bool:
+    """True when a fingerprint change matches the known page-chrome toggle
+    (#989): the text-length delta is exactly the observed chrome-block
+    size and every extracted field (deadline, station) is unchanged, so
+    the "changed" flag would be noise. A real content change of exactly
+    that size still surfaces through the API snapshot diff."""
+    if not prev.get("fingerprint") or prev["fingerprint"] == info.get("fingerprint"):
+        return False
+    old_chars = prev.get("page_chars")
+    new_chars = info.get("page_chars")
+    if not old_chars or not new_chars:
+        return False
+    if abs(new_chars - old_chars) != KNOWN_CHROME_CHARS:
+        return False
+    return prev.get("deadline_text", "") == info.get("deadline_text", "") and prev.get(
+        "station_text", ""
+    ) == info.get("station_text", "")
+
+
+def flap_is_safe_to_suppress(prev: dict, info: dict, api) -> bool:
+    """Suppress a chrome-sized page-text change only when the API snapshot can
+    still catch a real change of that size: this run's snapshot succeeded and
+    the previous run stored one to diff against. Otherwise (no snapshot this
+    run, or none stored before) the page fingerprint is the only signal, so
+    a real +/-KNOWN_CHROME_CHARS change must still be flagged."""
+    return bool(api) and bool(prev.get("api")) and is_chrome_flap(prev, info)
+
+
 # Section: API evidence
 
 
@@ -333,7 +369,13 @@ def main():
                 api = None
             reasons = []
             if prev.get("fingerprint") and prev["fingerprint"] != info["fingerprint"]:
-                reasons.append("טקסט העמוד השתנה")
+                if flap_is_safe_to_suppress(prev, info, api):
+                    print(
+                        f"{num}: page-text flap is the known "
+                        f"+/-{KNOWN_CHROME_CHARS}-char chrome block - not flagged"
+                    )
+                else:
+                    reasons.append("טקסט העמוד השתנה")
             if api and prev.get("api"):
                 reasons += diff_snapshots(prev["api"], api)
             if reasons:
