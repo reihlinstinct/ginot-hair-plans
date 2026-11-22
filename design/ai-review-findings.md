@@ -3,7 +3,11 @@
 ## Status
 Soft gate adopted (#454): the rule below is referenced from CONTRIBUTING.md and
 a PR-template checkbox that the reviewer checks before merge. It is not a CI
-check. Still proposed and not applied: `.coderabbit.yaml`, the path filters
+check. The workflow `review-threads.yml` (read-only token, informational, never fails
+a PR, never posts, resolves or commits) lists each review thread and whether it
+is resolved or answered in the run summary, so skipped findings are visible
+(#436 finding 4 was merged with its thread still unanswered). Still proposed
+and not applied: `.coderabbit.yaml`, the path filters
 below and any enforcement beyond the checkbox. Draft PR #504 (closed unmerged)
 originally combined all of this; #645 split the docs, and this change adds only
 the checkbox and the CONTRIBUTING pointer.

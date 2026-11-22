@@ -27,6 +27,7 @@ on:
       - Dependency review
       - Gemini review
       - OpenSSF Scorecard
+      - Review threads
       - Vulnerability scan
     types:
       - completed

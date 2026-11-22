@@ -1,0 +1,36 @@
+name: Review threads
+
+# Informational (#454): shows, in the run summary, each review thread on the
+# PR and whether it was resolved or answered. Read-only token, no actions
+# beyond checkout, never posts, resolves or commits, never fails the PR.
+# Same-repo PRs only; the report is advisory and is not a required check.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  report:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Report review thread dispositions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: python3 scripts/ci/review_threads.py --repo "$REPO" --pr "$PR_NUMBER"

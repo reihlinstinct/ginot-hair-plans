@@ -1,0 +1,179 @@
+#!/usr/bin/env python3
+"""Informational report: review threads on a PR and their disposition (#454).
+
+The written rule (design/ai-review-findings.md) says every review finding is
+fixed (commit named in the thread) or rejected (one-line reason) before merge.
+This script makes the state visible in the run summary: per thread, who
+started it, whether it is resolved, and whether anyone answered it. It is
+read-only (GraphQL query with the workflow's GITHUB_TOKEN, contents and
+pull-requests read), writes only the step summary, never posts, resolves or
+commits anything, and exits 0 unless --strict is given. A failed fetch (network,
+HTTP, GraphQL or response shape) is reported as unavailable and also exits 0,
+so the advisory report can never hold a PR or the guarded data automerge. Review text is
+external content: it is shown as a single truncated plain line and never
+interpreted.
+
+Usage: review_threads.py --repo OWNER/NAME --pr N [--strict]
+Environment: GITHUB_TOKEN, optional GITHUB_STEP_SUMMARY."""
+
+import argparse
+import json
+import os
+import re
+import urllib.request
+
+QUERY = """
+query($owner:String!,$name:String!,$pr:Int!){
+  repository(owner:$owner,name:$name){
+    pullRequest(number:$pr){
+      reviewThreads(first:100){
+        pageInfo{hasNextPage}
+        nodes{
+          isResolved isOutdated path
+          comments(first:20){pageInfo{hasNextPage} nodes{author{login __typename} body}}
+        }
+      }
+    }
+  }
+}"""
+
+SNIPPET_CHARS = 90
+
+
+def fetch(repo, pr, token):
+    """Return (thread nodes, more_threads_exist) for a PR (one GraphQL call)."""
+    owner, name = repo.split("/", 1)
+    payload = json.dumps(
+        {"query": QUERY, "variables": {"owner": owner, "name": name, "pr": pr}}
+    ).encode()
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {token}",
+            "Content-Type": "application/json",
+        },
+    )
+    # Fixed https GitHub API URL, never user-controlled.
+    with urllib.request.urlopen(req, timeout=30) as resp:  # noqa: S310
+        data = json.load(resp)
+    if data.get("errors"):
+        raise RuntimeError(
+            "GraphQL error: " + str(data["errors"][0].get("message", ""))[:120]
+        )
+    block = data["data"]["repository"]["pullRequest"]["reviewThreads"]
+    return block["nodes"], bool((block.get("pageInfo") or {}).get("hasNextPage"))
+
+
+def _snippet(body):
+    """One plain, truncated line; markup and HTML comments are dropped."""
+    text = re.sub(r"<!--.*?-->", " ", body or "", flags=re.DOTALL)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = re.sub(r"https?://\S+", "(link)", text)
+    text = re.sub(r"[|`\[\]*_~#>\\!]", " ", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text[:SNIPPET_CHARS]
+
+
+def classify(thread):
+    """Return (state, starter, is_bot). State is one of:
+    resolved, answered (reply by someone other than the starter), unanswered,
+    incomplete (more comments exist than were read, so it is not judged)."""
+    comments = (thread.get("comments") or {}).get("nodes") or []
+    first = comments[0] if comments else {}
+    author = first.get("author") or {}
+    starter = author.get("login") or "unknown"
+    is_bot = author.get("__typename") == "Bot"
+    if thread.get("isResolved"):
+        return "resolved", starter, is_bot
+    if ((thread.get("comments") or {}).get("pageInfo") or {}).get("hasNextPage"):
+        # Only the first 20 comments were read: a later reply may exist.
+        return "incomplete", starter, is_bot
+    replied = any(
+        (c.get("author") or {}).get("login") not in (None, starter)
+        for c in comments[1:]
+    )
+    return ("answered" if replied else "unanswered"), starter, is_bot
+
+
+def summarize(threads, pr, more_threads=False):
+    """Return (markdown, counts) for the given thread nodes."""
+    counts = {
+        "resolved": 0,
+        "answered": 0,
+        "unanswered": 0,
+        "incomplete": 0,
+        "bot_unanswered": 0,
+    }
+    rows = []
+    for t in threads:
+        state, starter, is_bot = classify(t)
+        counts[state] += 1
+        if state == "unanswered" and is_bot:
+            counts["bot_unanswered"] += 1
+        comments = (t.get("comments") or {}).get("nodes") or []
+        first_body = comments[0].get("body") if comments else ""
+        rows.append(
+            f"| {state} | {starter}{' (bot)' if is_bot else ''} "
+            f"| {'outdated' if t.get('isOutdated') else 'current'} "
+            f"| {_snippet(t.get('path'))} | {_snippet(first_body)} |"
+        )
+    lines = [f"### Review threads on #{pr} (informational)", ""]
+    if not threads:
+        lines.append("No review threads.")
+    else:
+        head = (
+            f"{len(threads)} thread(s): {counts['resolved']} resolved, "
+            f"{counts['answered']} answered, {counts['unanswered']} unanswered "
+            f"({counts['bot_unanswered']} from a bot), "
+            f"{counts['incomplete']} not judged (more than 20 comments)."
+        )
+        rule = (
+            "Rule (design/ai-review-findings.md): each finding is fixed "
+            "(commit named in the thread) or rejected (one-line reason) "
+            "before merge. This report only shows the state; it changes "
+            "nothing."
+        )
+        lines += [
+            head,
+            "",
+            rule,
+            "",
+            "| State | Started by | Anchor | File | First comment |",
+            "|---|---|---|---|---|",
+        ] + rows
+        if more_threads:
+            lines += ["", "Only the first 100 threads were read."]
+    return "\n".join(lines) + "\n", counts
+
+
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--repo", required=True)
+    ap.add_argument("--pr", type=int, required=True)
+    ap.add_argument("--strict", action="store_true")
+    args = ap.parse_args(argv)
+    counts = {"unanswered": 0}
+    failed = False
+    try:
+        threads, more = fetch(args.repo, args.pr, os.environ["GITHUB_TOKEN"])
+        text, counts = summarize(threads, args.pr, more)
+    except Exception as exc:  # noqa: BLE001 - advisory report must fail open
+        failed = True
+        text = (
+            f"### Review threads on #{args.pr} (informational)\n\n"
+            f"Report unavailable ({type(exc).__name__}). Nothing was changed; "
+            "this is not a check result.\n"
+        )
+    target = os.environ.get("GITHUB_STEP_SUMMARY")
+    if target:
+        with open(target, "a", encoding="utf-8") as fh:
+            fh.write(text)
+    print(text)
+    if args.strict and (failed or counts["unanswered"]):
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
