@@ -470,14 +470,6 @@
    "am": "የቅርብ ጊዜ ለውጦችን በዓይነት አጣራ",
    "fr": "Filtrer les changements récents par type"
   },
-  "changes.filter_all": {
-   "he": "כל השינויים",
-   "en": "All changes",
-   "ar": "كل التغييرات",
-   "ru": "Все изменения",
-   "am": "ሁሉም ለውጦች",
-   "fr": "Tous les changements"
-  },
   "changes.kind_new": {
    "he": "חדש",
    "en": "New",
@@ -2103,7 +2095,7 @@
    "fr": "Dossiers de conservation"
   },
   "conservation.note": {
-   "he": "תיקים מסדר היום של ועדת שימור. אינם בקשת היתר, ומספר התכנית הוא כפי שמופיע בכרטיס הוועדה, לא בהכרח תכנית במבא\"ת.",
+   "he": "תיקים מסדר היום של ישיבת ועדת שימור. אינם בקשת היתר, ומספר התכנית הוא כפי שמופיע בכרטיס הוועדה, לא בהכרח תכנית במבא\"ת.",
    "en": "Cases from a conservation committee agenda. Not permit requests; the plan number is as printed on the committee card, not necessarily a Mavat plan.",
    "ar": "ملفات من جدول أعمال لجنة الحفاظ على التراث. ليست طلبات رخصة، ورقم الخطة كما يظهر في بطاقة اللجنة وليس بالضرورة خطة في مبات.",
    "ru": "Дела из повестки комиссии по сохранению. Это не заявки на разрешение; номер плана указан как в карточке комиссии и не обязательно относится к Mavat.",
@@ -2129,18 +2121,18 @@
   "conservation.parcel": {
    "he": "גוש/חלקה",
    "en": "Block/parcel",
-   "ar": "قسيمة/حوض",
+   "ar": "حوض/قسيمة",
    "ru": "Блок/участок",
    "am": "ብሎክ/ይዞታ",
    "fr": "Bloc/parcelle"
   },
   "conservation.meeting": {
-   "he": "ועדת שימור",
-   "en": "Conservation committee",
-   "ar": "لجنة الحفاظ",
-   "ru": "Комиссия по сохранению",
-   "am": "የጥበቃ ኮሚቴ",
-   "fr": "Commission de conservation"
+   "he": "ישיבת ועדת שימור",
+   "en": "Conservation committee meeting",
+   "ar": "اجتماع لجنة الحفاظ",
+   "ru": "Заседание комиссии по сохранению",
+   "am": "የጥበቃ ኮሚቴ ስብሰባ",
+   "fr": "Réunion de la commission de conservation"
   },
   "conservation.review": {
    "he": "סקירת AI (עברית)",
@@ -2151,12 +2143,12 @@
    "fr": "Analyse IA (en hébreu)"
   },
   "conservation.source": {
-   "he": "פרוטוקול המקור",
-   "en": "Source agenda",
-   "ar": "المصدر",
-   "ru": "Источник",
-   "am": "ምንጭ",
-   "fr": "Source"
+   "he": "סדר היום באתר goinfo (העתק של צד שלישי)",
+   "en": "Agenda on goinfo (third-party mirror)",
+   "ar": "جدول الأعمال على goinfo (نسخة من طرف ثالث)",
+   "ru": "Повестка на goinfo (копия третьей стороны)",
+   "am": "አጀንዳ በ goinfo (የሶስተኛ ወገን ቅጂ)",
+   "fr": "Ordre du jour sur goinfo (copie tierce)"
   }
  }
 }

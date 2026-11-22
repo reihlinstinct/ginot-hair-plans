@@ -42,7 +42,7 @@ tr.filtered-out{display:none}
 #urgent-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #e61b2e;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list{background:#fff;border:1px solid #dde4f6;border-right:4px solid #387e6a;border-radius:10px;padding:10px 14px;list-style:none;margin:0}
 #changes-list li{margin:4px 0}
-.changes-panel summary{cursor:pointer;margin:14px 0 8px}.changes-panel summary h2{display:inline;margin:0}#chfilter{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}#chfilter .chip{cursor:pointer;padding:8px 12px;font-size:14px}#chfilter .chip[aria-pressed=true]{outline:2px solid #101f5b;outline-offset:1px}
+.changes-panel summary{cursor:pointer;margin:14px 0 8px}.changes-panel summary h2{display:inline;margin:0}#chfilter{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}#chfilter .chip{cursor:pointer;padding:8px 12px;font-size:14px}#chfilter .chip[aria-pressed=true]{outline:2px solid #101f5b;outline-offset:1px;font-weight:700}#chfilter .chip[aria-pressed=true]::before{content:'\\2713 '}
 .ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
 .review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
 .review-body h1{font-size:22px}.review-body h2{font-size:18px;margin-top:18px}.review-body h3{font-size:16px}

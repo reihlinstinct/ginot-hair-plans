@@ -5,6 +5,7 @@ plan number as printed on that card, which is not necessarily a Mavat plan, and 
 a permit request. The data file keeps each case apart so nothing is linked by guesswork.
 """
 
+import datetime
 import html
 import json
 import re
@@ -26,6 +27,16 @@ _DATE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _REVIEW = re.compile(r"^reviews/[\w\-./]+\.html$")
 
 
+def _real_date(value: str) -> bool:
+    if not _DATE.match(value):
+        return False
+    try:
+        datetime.date.fromisoformat(value)
+    except ValueError:
+        return False
+    return True
+
+
 def load(path) -> list[dict]:
     p = Path(path)
     if not p.exists():
@@ -44,8 +55,8 @@ def validate(cases: list[dict]) -> list[str]:
         for k in ("case_id", "plan_ref", "gush", "helka"):
             if not _DIGITS.match(str(c[k])):
                 problems.append(f"{where}: {k} must be digits")
-        if not _DATE.match(str(c["meeting_date"])):
-            problems.append(f"{where}: meeting_date must be YYYY-MM-DD")
+        if not _real_date(str(c["meeting_date"])):
+            problems.append(f"{where}: meeting_date must be a real YYYY-MM-DD date")
         if not str(c["source_url"]).startswith("https://"):
             problems.append(f"{where}: source_url must be https")
         if not _REVIEW.match(str(c["review_path"])) or ".." in str(c["review_path"]):

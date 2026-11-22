@@ -31,6 +31,7 @@ def test_validation_rejects_bad_records():
         ("source_url", "http://example.org/x"),
         ("review_path", "../secret.html"),
         ("meeting_date", "25.01.2026"),
+        ("meeting_date", "2026-02-31"),
     ):
         c = copy.deepcopy(OK) | {key: bad}
         assert cons.validate([c]), key
@@ -56,6 +57,9 @@ def test_section_is_collapsed_escaped_and_not_linked_to_a_plan_or_permit():
 def test_every_language_has_the_conservation_strings():
     keys = [k for k in i18n.load()["strings"] if k.startswith("conservation.")]
     assert len(keys) == 8
+    assert (
+        i18n.load()["strings"]["conservation.parcel"]["ar"] == "حوض/قسيمة"
+    )  # block/parcel
     for lang in i18n.lang_codes():
         for k in keys:
             assert i18n.load()["strings"][k].get(lang), (lang, k)

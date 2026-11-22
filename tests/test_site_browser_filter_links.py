@@ -374,7 +374,12 @@ def test_recent_changes_collapsed_by_default_and_filterable_by_type(page):
     all_kinds = page.eval_on_selector_all(
         "#changes-list li[data-kind]", "e=>e.map(x=>x.dataset.kind)"
     )
-    assert set(all_kinds) <= {"new", "status_change", "removed"}
+    # the fixture seeds a prior snapshot so every kind exists (not vacuous)
+    assert {k: all_kinds.count(k) for k in set(all_kinds)} == {
+        "new": 1,
+        "status_change": 1,
+        "removed": 2,
+    }
     chips = page.locator("#chfilter button.chip")
     assert [t.split(" (")[0] for t in chips.all_text_contents()] == [
         "חדש",
@@ -409,3 +414,21 @@ def test_recent_changes_collapsed_by_default_and_filterable_by_type(page):
         "השתנה",
         "נמחק",
     }
+
+
+def test_conservation_cases_section_is_collapsed_and_links_to_its_review(page):
+    """The conservation-cases section is a closed <details>; opening shows the
+    case and its two links, with no plan or permit link."""
+    panel = page.locator("#conservation-panel")
+    assert panel.count() == 1 and panel.get_attribute("open") is None
+    assert not page.locator("#conservation-list").is_visible()
+    page.click("#conservation-panel summary")
+    assert page.locator("#conservation-list").is_visible()
+    text = page.locator("#conservation-list").inner_text()
+    assert "7549" in text and "15913" in text and "30024/224" in text
+    hrefs = page.eval_on_selector_all(
+        "#conservation-list a", "e=>e.map(a=>a.getAttribute('href'))"
+    )
+    assert hrefs[0].endswith("reviews/palmach40a/review-shimur-7549.html")
+    assert hrefs[1].startswith("https://goinfo.co.il/")
+    assert not any("mavat" in h or "permit" in h for h in hrefs)
