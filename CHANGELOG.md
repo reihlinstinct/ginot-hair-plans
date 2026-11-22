@@ -9,6 +9,14 @@
   finding rule (tracked issue instead of a fix commit), and that unresolved
   threads are shown, not a blanket block. Docs only; no enforcement or config.
 
+## 2026-11-22 - Stats KV write quota: documented limit and test (#1132)
+
+- worker/README.md records the grounded free-quota behavior of the stats
+  counters (drops counts, never fails requests) and corrects the summary cache
+  TTL to the 3600 s the code uses. New worker test: with KV puts failing the
+  public routes, /stats/event and /stats/summary still answer. No worker code
+  change, no deploy.
+
 ## 2026-11-22 - Review-thread report: file paths, bot replies, observed markers (#454, #1127)
 
 - The File column keeps underscores and dots in paths (only pipes and line
