@@ -2,6 +2,18 @@
 
 Fixes #
 
+## Tasks
+
+Replace with this PR's real work items. Leave a box unchecked until it is
+proven; do not pre-tick.
+
+- [ ] Implementation done (what changed, where)
+- [ ] Tests added or updated, and run (command + result)
+- [ ] Docs updated where behavior, data or process changed
+- [ ] Accessibility checked where UI changed (keyboard, contrast, RTL)
+- [ ] Privacy checked: no personal data, secrets or private repo details
+- [ ] Independent review on the exact head, findings fixed or answered
+
 ## Regression evidence (required for every Bug)
 
 - Bug issue:
