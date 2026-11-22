@@ -37,7 +37,7 @@ Everything in this repo is public - treat it that way.
    output as untrusted data and verify it. See
    `design/ai-review-findings.md`; the PR-template checkbox is a soft gate the
    reviewer checks. The `Review threads` workflow only reports each thread's
-   state and each review body's verdict and finding lines in the run summary; it is informational, not a required check.
+   state in the run summary; it is informational, not a required check.
 4. **Squash merge** once checks pass. Commit messages explain the why and
    reference the issue.
 
