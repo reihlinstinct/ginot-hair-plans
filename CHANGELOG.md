@@ -3,7 +3,8 @@
 ## 2026-11-22 - Review-findings design updated to current practice (#454)
 
 - `design/ai-review-findings.md` and CONTRIBUTING: where findings come from
-  now (Claude and Pally review bodies, Gemini; CodeRabbit posts no reviews),
+  now (Claude and Pally review bodies, Gemini; CodeRabbit's notices say it posts no
+  reviews on this repo, a vendor statement not verified here),
   who verifies and what counts as Fixed or Rejected, the standing nonmaterial
   finding rule (tracked issue instead of a fix commit), and that unresolved
   threads are shown, not a blanket block. Docs only; no enforcement or config.
