@@ -284,8 +284,8 @@ def test_permit_partial_address_display(tmp_path):
     html = (tmp_path / "index.html").read_text(encoding="utf-8")
     # street present -> plain street address
     assert (
-        "<td data-label='כתובת'>אלפסי 9 <span class='pub-missing'>אין מיקום</span></td>"
-        in html
+        "<td data-label='כתובת'>אלפסי 9 <span class='pub-missing'>אין מיקום</span>"
+        "<span class='schuna-val'>שכונה: גינות העיר</span></td>" in html
     )
     # neighborhood only -> labeled neighborhood + explicit note
     assert "שכונה: גינות העיר" in html and "לא צוינה כתובת מדויקת בתיק" in html
