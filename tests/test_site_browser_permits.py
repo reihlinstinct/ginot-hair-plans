@@ -167,9 +167,18 @@ def test_committed_permit_legend_cannot_trigger_plan_listener():
 
 @pytest.fixture(scope="module")
 def real_site(tmp_path_factory):
-    """Site built from the REAL feed (data/permit_requests.json) - #451
-    requires proving the sort surfaces 2026/0439.00 inside the default
-    20-row view on the real 11k-row dataset, not only on fixtures."""
+    """Site built from the REAL feed (data/permit_requests.json) so the
+    sort invariant is proven on the real 11k-row dataset, not only on
+    fixtures. The test asserts the generic invariant (dated rows sort
+    newest-first and precede undated rows, so the newest dated matching
+    row is the first of the visible 20) rather than pinning a specific
+    tik: the original #451 anchor 2026/0439.00 drifted into a default-off
+    group in the 2026-11-21 batch (#1077/#1078).
+
+    Known limitation: the real-dataset assertions order the visible capped
+    subset; they do not independently compute the maximum publication date
+    over every matching feed row, so the test is not a full independent
+    top-20-membership oracle (#1079)."""
     tmp = tmp_path_factory.mktemp("realsite")
     cwd = pathlib.Path.cwd()
     (tmp / "data").mkdir()
