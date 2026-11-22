@@ -47,6 +47,17 @@ bridge an English-derived colloquial name and an official Hebrew name.
   https://he.wikipedia.org/wiki/רחוב_המלך_ג%27ורג%27_(ירושלים)
   Kept deliberately narrow: street names only, every entry cited, no
   free-form aliases.
+  **Implemented (#468) as index-side expansion, not symmetric folding.**
+  The pairs live in the `street_aliases` section of
+  `data/neighborhoods.json` (not a separate `search_aliases.json`), and
+  `src/ginot/neighborhoods.py` adds, per plan, a variant of the full plan
+  name with the street swapped. The matcher is unchanged: a query for the
+  alias is a plain substring of that variant. This is equivalent under the
+  current single-`indexOf` matcher and needs no JS change, so do not add a
+  second, symmetric implementation. Known gap: the permits table builds its
+  own `data-search` in `page_permits.py` without these variants, so
+  "קינג ג'ורג'" still misses permits on המלך ג'ורג' there. Closing that gap
+  is a separate change.
 - **B. Declare the observed case out of scope.** Close #468 after #413
   with the finding that the feed has no street fields and colloquial names
   are unmaintainable. Rejected: the owner hit this live on a flagship

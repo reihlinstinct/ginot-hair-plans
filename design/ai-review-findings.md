@@ -1,10 +1,12 @@
 # AI review findings in the pipeline (#454 design, #645 docs split)
 
 ## Status
-Proposal, for discussion with Tab before it becomes the rule. Draft PR #504
-originally combined this proposal with `.coderabbit.yaml`, a PR-template
-checkbox and a CONTRIBUTING change. This docs-only split (#645) changes no
-review configuration or enforcement. Those pieces stay held in #504.
+Soft gate adopted (#454): the rule below is referenced from CONTRIBUTING.md and
+a PR-template checkbox that the reviewer checks before merge. It is not a CI
+check. Still proposed and not applied: `.coderabbit.yaml`, the path filters
+below and any enforcement beyond the checkbox. Draft PR #504 (closed unmerged)
+originally combined all of this; #645 split the docs, and this change adds only
+the checkbox and the CONTRIBUTING pointer.
 
 ## Why
 CodeRabbit reviews PRs on this public repository (approved 2026-10-25). Its

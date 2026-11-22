@@ -384,3 +384,78 @@ def test_permit_neighborhood_deep_link_widens_and_restores_display_field(page):
         "e=>e.filter(r=>!r.classList.contains('filtered-out')).map(r=>r.dataset.schuna)",
     )
     assert vis and set(vis) == {"רחביה"}
+
+
+def test_recent_changes_collapsed_by_default_and_filterable_by_type(page):
+    """Owner request 2026-11-22: the recent-changes list is optional (a closed
+    <details> like the map) and filtered by type with category buttons in the
+    chip style, several selectable together: new / changed / deleted. With no
+    button pressed every item shows."""
+    panel = page.locator("#changes-panel")
+    assert panel.get_attribute("open") is None
+    assert not page.locator("#changes-list").is_visible()
+    page.click("#changes-panel summary")
+    assert page.locator("#changes-list").is_visible()
+    total = page.locator("#changes-list li[data-kind]").count()
+    assert total > 0
+    all_kinds = page.eval_on_selector_all(
+        "#changes-list li[data-kind]", "e=>e.map(x=>x.dataset.kind)"
+    )
+    # the fixture seeds a prior snapshot so every kind exists (not vacuous)
+    assert {k: all_kinds.count(k) for k in set(all_kinds)} == {
+        "new": 1,
+        "status_change": 1,
+        "removed": 2,
+    }
+    chips = page.locator("#chfilter button.chip")
+    assert [t.split(" (")[0] for t in chips.all_text_contents()] == [
+        "חדש",
+        "השתנה",
+        "נמחק",
+    ]
+    assert page.locator("#chfilter select").count() == 0
+
+    def visible_kinds():
+        return page.eval_on_selector_all(
+            "#changes-list li[data-kind]",
+            "e=>e.filter(x=>!x.hidden).map(x=>x.dataset.kind)",
+        )
+
+    for kind in ("new", "status_change", "removed"):
+        page.click(f"#chfilter button[data-kind={kind}]")
+        assert (
+            page.get_attribute(f"#chfilter button[data-kind={kind}]", "aria-pressed")
+            == "true"
+        )
+        assert visible_kinds() == [k for k in all_kinds if k == kind]
+        page.click(f"#chfilter button[data-kind={kind}]")
+    # no button pressed: everything shows again
+    assert page.locator("#changes-list li[data-kind]:not([hidden])").count() == total
+    # several buttons combine
+    page.click("#chfilter button[data-kind=new]")
+    page.click("#chfilter button[data-kind=removed]")
+    assert visible_kinds() == [k for k in all_kinds if k in ("new", "removed")]
+    # the localized label replaces the raw kind in the item text
+    assert page.locator("#changes-list li").first.inner_text().split(":")[0] in {
+        "חדש",
+        "השתנה",
+        "נמחק",
+    }
+
+
+def test_conservation_cases_section_is_collapsed_and_links_to_its_review(page):
+    """The conservation-cases section is a closed <details>; opening shows the
+    case and its two links, with no plan or permit link."""
+    panel = page.locator("#conservation-panel")
+    assert panel.count() == 1 and panel.get_attribute("open") is None
+    assert not page.locator("#conservation-list").is_visible()
+    page.click("#conservation-panel summary")
+    assert page.locator("#conservation-list").is_visible()
+    text = page.locator("#conservation-list").inner_text()
+    assert "7549" in text and "15913" in text and "30024/224" in text
+    hrefs = page.eval_on_selector_all(
+        "#conservation-list a", "e=>e.map(a=>a.getAttribute('href'))"
+    )
+    assert hrefs[0].endswith("reviews/palmach40a/review-shimur-7549.html")
+    assert hrefs[1].startswith("https://goinfo.co.il/")
+    assert not any("mavat" in h or "permit" in h for h in hrefs)

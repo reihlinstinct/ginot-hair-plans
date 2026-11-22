@@ -283,3 +283,25 @@ def test_rename_from_code_into_language_fragment_stops():
     p["changed_files"] += 1
     with pytest.raises(pr_mod.RouterError, match="outside the generated data"):
         decide(p, w)
+
+
+def test_language_fragment_check_resolves_when_loaded_by_file_path(monkeypatch):
+    # The router must not depend on scripts/ci already being on sys.path:
+    # loading it by file path (importlib) and calling the language-fragment
+    # check used to raise ModuleNotFoundError for permit_fragments.
+    import importlib.util
+    import pathlib
+    import sys
+
+    root = pathlib.Path(__file__).resolve().parents[1]
+    monkeypatch.setattr(
+        sys, "path", [p for p in sys.path if not p.rstrip("/").endswith("scripts/ci")]
+    )
+    monkeypatch.delitem(sys.modules, "permit_fragments", raising=False)
+    spec = importlib.util.spec_from_file_location(
+        "permit_router_by_path", root / "scripts/ci/permit_router.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert mod._language_permit_fragment("docs/en/permits.html") is True
+    assert mod._language_permit_fragment("docs/zz/permits.html") is False

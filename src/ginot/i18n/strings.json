@@ -462,6 +462,38 @@
    "am": "የቅርብ ጊዜ ለውጦች",
    "fr": "Changements récents"
   },
+  "changes.filter_aria": {
+   "he": "סינון שינויים אחרונים לפי סוג",
+   "en": "Filter recent changes by type",
+   "ar": "تصفية التغييرات الأخيرة حسب النوع",
+   "ru": "Фильтр последних изменений по типу",
+   "am": "የቅርብ ጊዜ ለውጦችን በዓይነት አጣራ",
+   "fr": "Filtrer les changements récents par type"
+  },
+  "changes.kind_new": {
+   "he": "חדש",
+   "en": "New",
+   "ar": "جديد",
+   "ru": "Новый",
+   "am": "አዲስ",
+   "fr": "Nouveau"
+  },
+  "changes.kind_status_change": {
+   "he": "השתנה",
+   "en": "Changed",
+   "ar": "تغيّر",
+   "ru": "Изменён",
+   "am": "ተቀይሯል",
+   "fr": "Modifié"
+  },
+  "changes.kind_removed": {
+   "he": "נמחק",
+   "en": "Deleted",
+   "ar": "محذوف",
+   "ru": "Удалён",
+   "am": "ተሰርዟል",
+   "fr": "Supprimé"
+  },
   "index.urgent_deadline": {
    "he": "אחרון להתנגדות (משוער): ",
    "en": "Last day to object (estimated): ",
@@ -2085,6 +2117,70 @@
    "ru": "Фильтр показывает только заявки, в деле которых указан район ({n} из {total}). Заявки без района не показываются.",
    "am": "ይህ ማጣሪያ በፋይላቸው አካባቢ የተመዘገበባቸውን ጥያቄዎች ብቻ ያሳያል ({n} ከ {total})። አካባቢ የሌላቸው አይታዩም።",
    "fr": "Ce filtre n’affiche que les demandes dont le dossier indique un quartier ({n} sur {total}). Les demandes sans quartier au dossier ne sont pas affichées."
+  },
+  "conservation.h": {
+   "he": "תיקי שימור",
+   "en": "Conservation cases",
+   "ar": "ملفات الحفاظ على التراث",
+   "ru": "Дела по сохранению",
+   "am": "የጥበቃ ጉዳዮች",
+   "fr": "Dossiers de conservation"
+  },
+  "conservation.note": {
+   "he": "תיקים מסדר היום של ישיבת ועדת שימור. אינם בקשת היתר, ומספר התכנית הוא כפי שמופיע בכרטיס הוועדה, לא בהכרח תכנית במבא\"ת.",
+   "en": "Cases from a conservation committee agenda. Not permit requests; the plan number is as printed on the committee card, not necessarily a Mavat plan.",
+   "ar": "ملفات من جدول أعمال لجنة الحفاظ على التراث. ليست طلبات رخصة، ورقم الخطة كما يظهر في بطاقة اللجنة وليس بالضرورة خطة في مبات.",
+   "ru": "Дела из повестки комиссии по сохранению. Это не заявки на разрешение; номер плана указан как в карточке комиссии и не обязательно относится к Mavat.",
+   "am": "ከጥበቃ ኮሚቴ አጀንዳ የተወሰዱ ጉዳዮች። የፈቃድ ጥያቄ አይደሉም፤ የዕቅድ ቁጥሩ በኮሚቴው ካርድ ላይ እንደተጻፈው ነው፣ የግድ የMavat ዕቅድ አይደለም።",
+   "fr": "Dossiers issus d'un ordre du jour de commission de conservation. Ce ne sont pas des demandes de permis ; le numéro de plan est celui de la fiche de la commission, pas forcément un plan Mavat."
+  },
+  "conservation.case": {
+   "he": "תיק שימור",
+   "en": "Case",
+   "ar": "ملف",
+   "ru": "Дело",
+   "am": "ጉዳይ",
+   "fr": "Dossier"
+  },
+  "conservation.plan_ref": {
+   "he": "מספר תכנית בכרטיס הוועדה",
+   "en": "Plan number on committee card",
+   "ar": "رقم الخطة في بطاقة اللجنة",
+   "ru": "Номер плана в карточке комиссии",
+   "am": "በኮሚቴ ካርድ ላይ ያለ የዕቅድ ቁጥር",
+   "fr": "Numéro de plan sur la fiche"
+  },
+  "conservation.parcel": {
+   "he": "גוש/חלקה",
+   "en": "Block/parcel",
+   "ar": "حوض/قسيمة",
+   "ru": "Блок/участок",
+   "am": "ብሎክ/ይዞታ",
+   "fr": "Bloc/parcelle"
+  },
+  "conservation.meeting": {
+   "he": "ישיבת ועדת שימור",
+   "en": "Conservation committee meeting",
+   "ar": "اجتماع لجنة الحفاظ",
+   "ru": "Заседание комиссии по сохранению",
+   "am": "የጥበቃ ኮሚቴ ስብሰባ",
+   "fr": "Réunion de la commission de conservation"
+  },
+  "conservation.review": {
+   "he": "סקירת AI (עברית)",
+   "en": "AI review (Hebrew)",
+   "ar": "مراجعة ذكاء اصطناعي (بالعبرية)",
+   "ru": "ИИ-обзор (на иврите)",
+   "am": "የAI ግምገማ (በዕብራይስጥ)",
+   "fr": "Analyse IA (en hébreu)"
+  },
+  "conservation.source": {
+   "he": "סדר היום באתר goinfo (העתק של צד שלישי)",
+   "en": "Agenda on goinfo (third-party mirror)",
+   "ar": "جدول الأعمال على goinfo (نسخة من طرف ثالث)",
+   "ru": "Повестка на goinfo (копия третьей стороны)",
+   "am": "አጀንዳ በ goinfo (የሶስተኛ ወገን ቅጂ)",
+   "fr": "Ordre du jour sur goinfo (copie tierce)"
   }
  }
 }

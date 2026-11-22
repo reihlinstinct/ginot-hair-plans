@@ -188,6 +188,38 @@ def site(tmp_path_factory):
     (tmp / "data" / "permit_requests.json").write_text(
         json.dumps({"requests": PERMITS}, ensure_ascii=False), encoding="utf-8"
     )
+    shutil.copy(
+        ROOT / "data" / "conservation_cases.json",
+        tmp / "data" / "conservation_cases.json",
+    )
+    # A prior snapshot so every change kind exists: 200-1 is new, 300-1 changed
+    # status, and 900-1/900-2 were removed.
+    old_rows = [
+        {
+            "pl_number": f["attributes"]["pl_number"],
+            "pl_name": f["attributes"]["pl_name"],
+            "station_desc": (
+                "אישור"
+                if f["attributes"]["pl_number"] == "300-1"
+                else f["attributes"]["station_desc"]
+            ),
+            "mavat_url": f["attributes"]["pl_url"],
+        }
+        for f in FEATURES
+        if f["attributes"]["pl_number"] != "200-1"
+    ] + [
+        {
+            "pl_number": f"900-{i}",
+            "pl_name": f"תכנית ישנה {i}",
+            "station_desc": "אישור",
+            "mavat_url": f"https://mavat.iplan.gov.il/900-{i}",
+        }
+        for i in (1, 2)
+    ]
+    (tmp / "snapshots").mkdir()
+    (tmp / "snapshots" / "latest.json").write_text(
+        json.dumps({"rows": old_rows}, ensure_ascii=False), encoding="utf-8"
+    )
     shutil.copytree(ROOT / "docs", tmp / "docs", ignore=shutil.ignore_patterns("badge"))
     mp = pytest.MonkeyPatch()
     mp.chdir(tmp)

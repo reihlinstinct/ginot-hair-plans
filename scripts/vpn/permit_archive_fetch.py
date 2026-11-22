@@ -164,6 +164,7 @@ def discover_procs():
         if os.path.exists(index)
         else ""
     )
+    _stop_on_status(status)  # uniform stop-on-denial (#954)
     scripts = sorted(set(re.findall(r"/static/js/[A-Za-z0-9._-]+\.js", html)))
     print(f"viewer page status={status} scripts={len(scripts)}")
     procs: list[int] = []
@@ -175,6 +176,7 @@ def discover_procs():
             if os.path.exists(out)
             else ""
         )
+        _stop_on_status(status)  # uniform stop-on-denial (#954)
         for p in archive_procs_in_bundle(js):
             if p not in procs:
                 procs.append(p)
@@ -218,6 +220,10 @@ def main():
             out = f"{WORK}/item_{n:02d}_{g}.bin"
             status, ctype = _curl(ARCHIVE_ITEM + g, out)
             size = os.path.getsize(out) if os.path.exists(out) else 0
+            # Items of 200 KB or more skip the challenge check: challenge
+            # pages are small HTML, and is_challenge only scans the first
+            # 200000 bytes anyway, so a large binary item cannot be told
+            # from a challenge this way (#954).
             if size and size < 200000:
                 _guard(out)
             print(f"item {n:02d} status={status} bytes={size} type={ctype[:40]}")

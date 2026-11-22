@@ -102,4 +102,4 @@ def test_permit_feed_stages_language_fragments_from_the_i18n_source():
     # directory's files. The feed derives fragment paths from i18n instead.
     text = (ROOT / ".github/workflows/permit-feed.yml").read_text()
     assert "docs/*/permits" not in text
-    assert "from ginot import i18n" in text and "FRAGMENTS=$(" in text
+    assert "scripts/ci/permit_fragments.py" in text and "FRAGMENTS=$(" in text

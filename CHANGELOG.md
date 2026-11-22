@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-22 - Review-bot findings soft gate (#454)
+
+- PR template gains one checkbox: every review-bot finding is fixed (SHA) or
+  rejected with a reason. CONTRIBUTING points to the rule.
+- design/ai-review-findings.md status updated: soft gate adopted; bot config
+  and path filters remain proposed, not applied.
+- permit-recency design doc: a planned publication end signals the stage only
+  (CodeRabbit #436 finding clarified). Docs only; no config, workflow,
+  permission or behavior change.
+
 ## 2026-11-02 - Fail-closed permit mirror pagination
 
 - Sort latest mirror rows by permit number and verify unique keys, order,

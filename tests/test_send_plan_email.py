@@ -844,3 +844,79 @@ def test_account_wide_smtp_error_stops_the_notice_loop_too(monkeypatch):
     code, _ = _get("/api/send_plan_email?action=notify", auth)
     assert code == 502
     assert len(attempts) == 1
+
+
+def test_daily_quota_refusal_stops_the_run(monkeypatch):
+    # #1007: Gmail's daily sending limit (550 5.4.5) arrives as a
+    # per-recipient RCPT refusal but is account-wide - stop the run
+    # instead of one fresh SMTP login per remaining recipient.
+    _sent, token1 = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token1}")
+    _post(
+        {
+            "email": "all2@example.com",
+            "plan_number": "",
+            "lang": "en",
+            "subscribe": False,
+            "scope": "all",
+        }
+    )
+    token2 = next(iter(spe._kv.pending())).split(":", 1)[1]
+    _post_action(f"/api/send_plan_email?action=confirm&token={token2}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+    attempts = []
+
+    def quota(msg, to_addr):
+        attempts.append(to_addr)
+        raise smtplib.SMTPRecipientsRefused(
+            {to_addr: (550, b"5.4.5 Daily user sending limit exceeded")}
+        )
+
+    monkeypatch.setattr(spe, "send", quota)
+    code, _ = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 502
+    assert len(attempts) == 1  # not one login per due recipient
+
+
+def test_compose_error_does_not_starve_the_run(monkeypatch):
+    # #1007: a record-specific compose failure (a malformed stored
+    # record) must skip that recipient, not 502 the whole run and starve
+    # everyone after it (#997-style).
+    sent, token1 = _request_all_scope(monkeypatch, lang="en")
+    _post_action(f"/api/send_plan_email?action=confirm&token={token1}")
+    _post(
+        {
+            "email": "all2@example.com",
+            "plan_number": "",
+            "lang": "en",
+            "subscribe": False,
+            "scope": "all",
+        }
+    )
+    token2 = next(iter(spe._kv.pending())).split(":", 1)[1]
+    _post_action(f"/api/send_plan_email?action=confirm&token={token2}")
+    spe._kv.d[spe.KNOWN_PLANS_KEY] = "[]"
+    plan = dict(PLAN, pl_number="101-0111111", _open_obj=False)
+    monkeypatch.setattr(spe, "load_plans", lambda: {plan["pl_number"]: plan})
+    monkeypatch.setenv("CRON_SECRET", "s3cret")
+    auth = {"Authorization": "Bearer s3cret"}
+
+    members = spe._kv("smembers", f"plans:{spe.ALL_SCOPE}")
+    assert len(members) == 2
+    first_email = json.loads(spe._kv.d[f"sub:{members[0]}"])["email"]
+    real_compose = spe.compose_all_digest
+
+    def broken_compose(record, deposited, other):
+        if record["email"] == first_email:
+            raise KeyError("malformed stored record")
+        return real_compose(record, deposited, other)
+
+    monkeypatch.setattr(spe, "compose_all_digest", broken_compose)
+    before = len(sent)
+    code, body = _get("/api/send_plan_email?action=notify", auth)
+    assert code == 200 and '"sent": 1' in body and '"failed": 1' in body
+    assert len(sent) == before + 1  # the healthy recipient was not starved

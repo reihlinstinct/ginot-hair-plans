@@ -365,11 +365,12 @@ def test_multi_parcel_tik_records_all_observed_parcels(monkeypatch, tmp_path):
     assert row["parcels_observed"] == [[100, 1], [100, 2]]
 
 
-def test_multi_parcel_tik_identity_moves_stay_visible(monkeypatch, tmp_path):
+def test_multi_parcel_tik_keeps_prior_identity(monkeypatch, tmp_path, capsys):
     # Parcels scan sorted within a run, so movement happens across
-    # runs/batches: the freshly scanned row still wins the identity
-    # fields (no silent cadastral change either way), and every run's
-    # sightings stay recorded in parcels_observed (#880).
+    # runs/batches: the PRIOR identity wins (#988 - a source-side
+    # multi-parcel/block match must not move the map pin to whichever
+    # parcel this batch scanned), the conflict is reported in the run
+    # summary, and every run's sightings stay in parcels_observed (#880).
     p1 = parcels_file(tmp_path, [(100, 2)])
     out = tmp_path / "out.json"
     out.write_text(json.dumps({"requests": []}))
@@ -388,8 +389,20 @@ def test_multi_parcel_tik_identity_moves_stay_visible(monkeypatch, tmp_path):
     row = next(
         r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
     )
-    assert (row["gush"], row["helka"]) == (100, 1)
+    assert (row["gush"], row["helka"]) == (100, 2)  # prior identity kept
     assert row["parcels_observed"] == [[100, 1], [100, 2]]
+    summary = capsys.readouterr().out
+    assert "prior identity 100/2 kept" in summary
+    assert "1 tik(s) sighted on a parcel other than their stored identity" in summary
+
+
+def test_reconcile_parcel_identity_no_prior_or_same_parcel():
+    # No prior record or an unchanged parcel: no conflict, row untouched.
+    row = {"gush": 100, "helka": 1}
+    assert not feed._reconcile_parcel_identity(row, {})
+    assert row == {"gush": 100, "helka": 1}
+    assert not feed._reconcile_parcel_identity(row, {"gush": 100, "helka": 1})
+    assert row == {"gush": 100, "helka": 1}
 
 
 def test_prior_parcels_observed_survive_a_fresh_scan(monkeypatch, tmp_path):
@@ -427,10 +440,10 @@ def test_legacy_prior_without_parcels_observed_seeds_its_old_pair(
     monkeypatch, tmp_path
 ):
     # Rows recorded before #880 carry gush/helka but no parcels_observed.
-    # When a fresh scan moves the tik to a new parcel, the old identity
-    # must be seeded into parcels_observed, not silently lost (the #1066
-    # review P2: 11 legacy rows changed gush/helka with the old pair
-    # recorded nowhere).
+    # When a fresh scan sights the tik on a new parcel, the old identity
+    # is kept (#988: the map pin does not move) AND seeded into
+    # parcels_observed, not silently lost (the #1066 review P2: 11
+    # legacy rows changed gush/helka with the old pair recorded nowhere).
     parcels = parcels_file(tmp_path, [(100, 1)])
     out = tmp_path / "out.json"
     out.write_text(
@@ -449,7 +462,7 @@ def test_legacy_prior_without_parcels_observed_seeds_its_old_pair(
     row = next(
         r for r in json.loads(out.read_text())["requests"] if r["tik_num"] == "T/9"
     )
-    assert (row["gush"], row["helka"]) == (100, 1)
+    assert (row["gush"], row["helka"]) == (200, 5)  # prior identity kept (#988)
     assert row["parcels_observed"] == [[100, 1], [200, 5]]
 
 

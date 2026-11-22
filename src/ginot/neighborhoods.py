@@ -12,6 +12,12 @@ layer plus the municipality's plan-name anchors; numbers outside every
 range tag nothing. Matching folds spelling exactly like the site's
 normSearch (#413, #468) and compares whole words only, so מכור never
 matches מכוור.
+
+The data file's street_aliases section names colloquial street names
+with a documented source (#468): a plan on the canonical street also
+searches by each alias, as a variant of the full plan name with the
+street swapped (house numbers after the street included), so
+"קינג גורג' 60" finds "מלון המלכים- המלך ג'ורג' 60".
 """
 
 import json
@@ -65,6 +71,20 @@ def _mapping() -> dict:
             if key:
                 mapping.setdefault(key, []).append((frozenset(labels), _ranges(spec)))
     return mapping
+
+
+@lru_cache(maxsize=1)
+def _aliases() -> dict:
+    """Canonical street word-tuple -> alias word-tuples, from the data
+    file's street_aliases section: colloquial street names, each with a
+    documented source (#468)."""
+    data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    out: dict[tuple, list] = {}
+    for street, entry in data.get("street_aliases", {}).items():
+        key = tuple(_norm(street).split())
+        if key:
+            out[key] = [tuple(_norm(a).split()) for a in entry.get("aliases", [])]
+    return out
 
 
 def _first_word_matches(word: str, key_word: str, multi_word: bool) -> bool:
@@ -141,9 +161,30 @@ def tags_for(plan_name: str) -> list[str]:
     return sorted(tags)
 
 
+def _alias_variants(words: tuple) -> list[str]:
+    """Plan-name variants with a canonical street swapped for each of its
+    sourced aliases (#468), keeping the rest of the name - including any
+    house number after the street - so "קינג גורג' 60" finds a plan
+    named "מלון המלכים- המלך ג'ורג' 60". Whole-word matches only, the
+    same rules as the neighborhood mapping."""
+    variants = []
+    for key, aliases in _aliases().items():
+        n = len(key)
+        for i in range(len(words) - n + 1):
+            if not (
+                _first_word_matches(words[i], key[0], n > 1)
+                and words[i + 1 : i + n] == key[1:]
+            ):
+                continue
+            for alias in aliases:
+                variants.append(" ".join(words[:i] + alias + words[i + n :]))
+    return variants
+
+
 def search_extra(plan_name: str) -> str:
     """The text appended to a row's data-search (may be empty)."""
-    return " ".join(tags_for(plan_name))
+    words = tuple(_norm(plan_name).split())
+    return " ".join(tags_for(plan_name) + _alias_variants(words))
 
 
 def autocomplete_terms() -> list[str]:
@@ -154,4 +195,6 @@ def autocomplete_terms() -> list[str]:
         terms.append(name)
         terms.extend(entry.get("variants", []))
         terms.extend(entry.get("streets", {}))
+    for entry in data.get("street_aliases", {}).values():
+        terms.extend(entry.get("aliases", []))
     return sorted(set(terms))
