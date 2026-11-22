@@ -94,6 +94,8 @@ def test_runtime_lock_covers_the_loose_source():
 
 # Section: source vs lock
 
+# Keep in sync with the ci.yml test matrix (3.11-3.13) plus the informational
+# 3.15 job.
 _CI_PYTHONS = ["3.11", "3.12", "3.13", "3.15"]
 
 
@@ -141,6 +143,7 @@ def test_source_specifiers_cover_locked_versions():
     # effect (CI installs only the lock).
     from packaging.markers import Marker
     from packaging.requirements import Requirement
+    from packaging.utils import canonicalize_name
 
     pins = _lock_pins(ROOT / "requirements-lock.txt")
     for line in (ROOT / "requirements.txt").read_text().splitlines():
@@ -148,7 +151,8 @@ def test_source_specifiers_cover_locked_versions():
         if not line or line.startswith("#"):
             continue
         req = Requirement(line)
-        for version, marker in pins.get(canonical := req.name.lower(), []):
+        canonical = canonicalize_name(req.name)
+        for version, marker in pins.get(canonical, []):
             for py in _CI_PYTHONS:
                 env = _marker_env(py)
                 if req.marker is not None and not req.marker.evaluate(env):
@@ -200,23 +204,41 @@ def _co_installed_lock_groups():
     ]
 
 
+def _resolved_versions(pins, name, py):
+    """Versions a lock would install for `name` on CI Python `py`."""
+    from packaging.markers import Marker
+
+    env = _marker_env(py)
+    return {
+        version
+        for version, marker in pins.get(name, [])
+        if marker is None or Marker(marker).evaluate(env)
+    }
+
+
 def test_co_installed_locks_pin_equal_versions():
-    # #1009: two locks installed into one environment must pin any shared
-    # package at the same version and marker, or the pair fails only at
-    # resolver time in CI with an unclear error.
+    # #1009: locks installed into one environment must resolve any shared
+    # package to the same version on every CI Python, or the second install
+    # silently replaces the first (separate pip runs) or fails only at
+    # resolver time. Every PAIR is compared, not just the intersection of all
+    # locks: ci.yml's pip-audit job co-installs three locks whose three-way
+    # intersection is empty. Markers are evaluated per Python, so equivalent
+    # spellings (python_version vs python_full_version) do not false-alarm.
+    import itertools
+
     groups = _co_installed_lock_groups()
     assert groups, "no co-installed lock groups found in workflows"
     for wf_name, job, pip, locks in groups:
         pin_maps = {lock: _lock_pins(ROOT / lock) for lock in locks}
-        shared = set.intersection(*[set(m) for m in pin_maps.values()])
-        for name in sorted(shared):
-            seen = {
-                (lock, version, marker)
-                for lock, pins in pin_maps.items()
-                for version, marker in pins[name]
-            }
-            versions = {(version, marker) for _, version, marker in seen}
-            assert len(versions) == 1, (
-                f"{wf_name} job {job!r} ({pip}): {name} pinned differently "
-                f"across co-installed locks: {sorted(seen)}"
-            )
+        for a, b in itertools.combinations(locks, 2):
+            for name in sorted(set(pin_maps[a]) & set(pin_maps[b])):
+                for py in _CI_PYTHONS:
+                    va = _resolved_versions(pin_maps[a], name, py)
+                    vb = _resolved_versions(pin_maps[b], name, py)
+                    if not va or not vb:
+                        continue  # not installed on this Python by one side
+                    assert va == vb, (
+                        f"{wf_name} job {job!r} ({pip}): {name} resolves to "
+                        f"{sorted(va)} in {a} but {sorted(vb)} in {b} on "
+                        f"Python {py}"
+                    )
