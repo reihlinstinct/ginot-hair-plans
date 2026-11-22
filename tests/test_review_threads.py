@@ -5,12 +5,20 @@ fails unless --strict is given."""
 import importlib.util
 import pathlib
 
+import pytest
+
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location(
     "review_threads", ROOT / "scripts/ci/review_threads.py"
 )
 rt = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(rt)
+
+
+@pytest.fixture(autouse=True)
+def _no_network_for_reviews(monkeypatch):
+    """The review-body section makes its own call; tests never reach GitHub."""
+    monkeypatch.setattr(rt, "fetch_reviews", lambda *a: ("h", [], False))
 
 
 # Section: builders
@@ -196,3 +204,118 @@ def test_unwritable_summary_file_does_not_fail_the_run(monkeypatch, tmp_path):
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(tmp_path / "no" / "such" / "f.md"))
     monkeypatch.setattr(rt, "fetch", lambda *a: ([thread()], False))
     assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+
+
+# Section: review bodies (observed text, #454)
+
+
+def rev(body, oid="aaa", state="COMMENTED", login="reihl"):
+    return {
+        "author": {"login": login, "__typename": "User"},
+        "state": state,
+        "commit": {"oid": oid},
+        "body": body,
+    }
+
+
+def test_review_facts_read_verdict_and_skip_none_findings():
+    body = "**Findings:**\n- P1: none. P2: none.\n- Minor (x.py:1): thing\n**Verdict: PASS with follow-ups.**"
+    who, state, on_head, verdict, claimed = rt.review_facts(rev(body), "aaa")
+    assert (who, state, on_head, verdict) == (
+        "reihl",
+        "COMMENTED",
+        True,
+        "PASS with follow-ups",
+    )
+    assert claimed == {"Minor": 1}
+
+
+def test_review_facts_pally_style_and_older_head():
+    body = "Verdict: FINDINGS (two).\nP2: a real one\nP3: another\nP3: third"
+    _, _, on_head, verdict, claimed = rt.review_facts(rev(body, oid="old"), "new")
+    assert not on_head and verdict == "FINDINGS"
+    assert claimed == {"P2": 1, "P3": 2}
+
+
+def test_review_without_verdict_or_findings_is_dashes_and_empty_bodies_skipped():
+    text = rt.summarize_reviews("h", [rev("hello"), rev("  ")])
+    assert "| reihl | COMMENTED | older head | - | - |" in text
+    assert text.count("| reihl |") == 1
+    assert rt.summarize_reviews("h", [rev("")]) == ""
+
+
+def test_review_section_says_it_is_not_verification():
+    text = rt.summarize_reviews("aaa", [rev("Verdict: PASS")], more=True)
+    assert "not verified" in text and "current head" in text
+    assert "Nothing here checks that a finding was fixed" in text
+    assert "newest 50 reviews" in text
+
+
+def test_main_appends_review_section_and_fails_open_for_it(monkeypatch, tmp_path):
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(tmp_path / "s.md"))
+    monkeypatch.setattr(rt, "fetch", lambda *a: ([thread()], False))
+    monkeypatch.setattr(
+        rt, "fetch_reviews", lambda *a: ("aaa", [rev("Verdict: PASS")], False)
+    )
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+    assert "Review bodies (observed text" in (tmp_path / "s.md").read_text()
+
+    def boom(*a):
+        raise RuntimeError("x")
+
+    monkeypatch.setattr(rt, "fetch_reviews", boom)
+    (tmp_path / "s.md").unlink()
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+    out = (tmp_path / "s.md").read_text()
+    assert "Review bodies unavailable (RuntimeError)" in out and "1 thread(s)" in out
+
+
+def test_verdict_comes_from_the_verdict_line_not_from_prose():
+    body = "Asked for a verdict on the delta.\n- reason\n**Verdict: PASS with follow-ups.**"
+    assert rt._verdict_word(body) == "PASS with follow-ups"
+    assert rt._verdict_word("Verdict \u2014 **PASS**") == "PASS"
+    assert rt._verdict_word("Verdict: CHANGES REQUESTED") == "CHANGES REQUESTED"
+    assert rt._verdict_word("Verdict: FINDINGS (two non-blocking P3s)") == "FINDINGS"
+    assert rt._verdict_word("we want a verdict later") == "-"
+    # the last verdict line wins
+    assert rt._verdict_word("Verdict: PASS\nlater\nVerdict: FINDINGS") == "FINDINGS"
+
+
+def test_outcome_words_never_suppress_a_finding_line():
+    body = (
+        "- **P1 (not fixed):** still bad\n- P2 (unresolved): open\n"
+        "- P3 (fixed in abc): old\n- Minor: none"
+    )
+    _, _, _, _, claimed = rt.review_facts(rev(body), "aaa")
+    assert claimed == {"P1": 1, "P2": 1, "P3": 1}
+
+
+def test_reviews_are_read_newest_first_and_overflow_is_disclosed():
+    assert "reviews(last:50)" in rt.REVIEWS_QUERY
+    assert (
+        "hasPreviousPage" in rt.REVIEWS_QUERY and "__typename" not in rt.REVIEWS_QUERY
+    )
+
+
+def test_verdict_negation_qualifier_and_punctuation():
+    vw = rt._verdict_word
+    assert vw("Verdict: PASS - no follow-ups") == "PASS"
+    assert vw("Verdict: PASS without follow-ups") == "PASS"
+    assert vw("Verdict: PASS, no follow-ups needed") == "PASS"
+    assert vw("**Verdict: PASS with follow-ups.**") == "PASS with follow-ups"
+    assert vw("**Verdict on the delta: PASS**") == "PASS"
+    assert vw("Verdict (delta only): **PASS**") == "PASS"
+    assert vw("Verdict \u2014 **CHANGES REQUESTED**") == "CHANGES REQUESTED"
+    assert vw("Verdict: maybe later") == "-"
+
+
+def test_long_verdict_line_later_prose_and_extra_words():
+    vw = rt._verdict_word
+    long_line = "**Verdict: PASS with follow-ups** - " + "x " * 100
+    assert vw(long_line) == "PASS with follow-ups"
+    assert vw("Verdict: PASS\n\nVerdict words are parsed from the last line.") == "PASS"
+    assert vw("Verdict: APPROVE with follow-up") == "APPROVE with follow-ups"
+    assert vw("Verdict: PASSED") == "PASS"
+    assert vw("Verdict (delta, re: 9101be7): PASS") == "PASS"
+    assert vw("Verdict: FINDINGS\nVerdict: PASS") == "PASS"

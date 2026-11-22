@@ -39,15 +39,32 @@ query($owner:String!,$name:String!,$pr:Int!){
   }
 }"""
 
+REVIEWS_QUERY = """
+query($owner:String!,$name:String!,$pr:Int!){
+  repository(owner:$owner,name:$name){
+    pullRequest(number:$pr){
+      headRefOid
+      reviews(last:50){
+        pageInfo{hasPreviousPage}
+        nodes{author{login} state commit{oid} body}
+      }
+    }
+  }
+}"""
+
 SNIPPET_CHARS = 90
 
 
 def fetch(repo, pr, token):
     """Return (thread nodes, more_threads_exist) for a PR (one GraphQL call)."""
     owner, name = repo.split("/", 1)
-    payload = json.dumps(
-        {"query": QUERY, "variables": {"owner": owner, "name": name, "pr": pr}}
-    ).encode()
+    data = _graphql(QUERY, {"owner": owner, "name": name, "pr": pr}, token)
+    block = data["repository"]["pullRequest"]["reviewThreads"]
+    return block["nodes"], bool((block.get("pageInfo") or {}).get("hasNextPage"))
+
+
+def _graphql(query, variables, token):
+    payload = json.dumps({"query": query, "variables": variables}).encode()
     req = urllib.request.Request(
         "https://api.github.com/graphql",
         data=payload,
@@ -63,8 +80,127 @@ def fetch(repo, pr, token):
         raise RuntimeError(
             "GraphQL error: " + str(data["errors"][0].get("message", ""))[:120]
         )
-    block = data["data"]["repository"]["pullRequest"]["reviewThreads"]
-    return block["nodes"], bool((block.get("pageInfo") or {}).get("hasNextPage"))
+    return data["data"]
+
+
+def fetch_reviews(repo, pr, token):
+    """Return (head sha, review nodes, more_reviews_exist) for a PR."""
+    owner, name = repo.split("/", 1)
+    data = _graphql(REVIEWS_QUERY, {"owner": owner, "name": name, "pr": pr}, token)[
+        "repository"
+    ]["pullRequest"]
+    block = data["reviews"]
+    more = bool((block.get("pageInfo") or {}).get("hasPreviousPage"))
+    return data["headRefOid"], block["nodes"], more
+
+
+# The verdict is read from a line that starts with the word, never from prose
+# that merely mentions it, and the last such line wins (the formal verdict
+# closes a review). Decoration such as bullets, bold, dashes is skipped.
+_VERDICT = re.compile(
+    r"^[\s>*_-]*verdict\b([^\n]{0,120})", re.IGNORECASE | re.MULTILINE
+)
+_VERDICT_WORDS = (
+    "PASSED",
+    "PASS",
+    "FINDINGS",
+    "CHANGES REQUESTED",
+    "BLOCKED",
+    "FAIL",
+    "APPROVED",
+    "APPROVE",
+)
+_WITH_FOLLOWUPS = re.compile(r"\bwith\s+follow-?\s?ups?\b", re.IGNORECASE)
+_FINDING = re.compile(
+    r"^\s*[-*]?\s*\**(P[0-3]|Minor)\b([^:\n]{0,60}):\**\s*(\S.*)$",
+    re.IGNORECASE | re.MULTILINE,
+)
+# Outcome words ("fixed", "resolved") are never read as resolution: the
+# script cannot tell "fixed" from "not fixed", so every finding line counts.
+
+
+def _verdict_word(body):
+    """Return the closing verdict as a short phrase: PASS, FINDINGS, CHANGES
+    REQUESTED, etc., plus 'with follow-ups' when the line says so; '-' if
+    no verdict line exists."""
+    # The newest verdict line that yields a known word wins, so a later prose
+    # line that merely starts with "Verdict" cannot hide the formal one.
+    for rest in reversed(_VERDICT.findall(body or "")):
+        # A parenthetical qualifier may contain a colon: drop it first.
+        rest = re.sub(r"^\s*\([^)]*\)", "", rest)
+        # A plain qualifier before the colon ("Verdict on the delta: PASS").
+        if ":" in rest:
+            rest = rest.split(":", 1)[1]
+        text = re.sub(r"^[^A-Za-z]+", "", rest)
+        upper = re.sub(r"[^A-Z ]", " ", text.upper()).strip()
+        word = next((w for w in _VERDICT_WORDS if re.match(w + r"\b", upper)), None)
+        if word is None:
+            continue
+        if word in ("PASSED",):
+            word = "PASS"
+        if _WITH_FOLLOWUPS.search(text):
+            word += " with follow-ups"
+        return word
+    return "-"
+
+
+def review_facts(review, head):
+    """Observed facts from one review body: (reviewer, state, on_current_head,
+    verdict word, finding lines that are not 'none'). All of it is text the
+    reviewer wrote; none of it is verified here."""
+    author = review.get("author") or {}
+    body = review.get("body") or ""
+    verdict = _verdict_word(body)
+    claimed = {}
+    for tag, _mid, text in _FINDING.findall(body):
+        if re.match(r"\W*none\b", text, re.IGNORECASE):
+            continue
+        key = tag.upper() if tag.upper().startswith("P") else "Minor"
+        claimed[key] = claimed.get(key, 0) + 1
+    on_head = ((review.get("commit") or {}).get("oid") or "") == head
+    return (
+        author.get("login") or "unknown",
+        review.get("state") or "-",
+        on_head,
+        verdict,
+        claimed,
+    )
+
+
+def summarize_reviews(head, reviews, more=False):
+    """Markdown section for review bodies, or '' when there are none."""
+    rows = []
+    for r in reviews:
+        if not (r.get("body") or "").strip():
+            continue
+        who, state, on_head, verdict, claimed = review_facts(r, head)
+        found = ", ".join(f"{k} x{v}" for k, v in sorted(claimed.items())) or "-"
+        rows.append(
+            f"| {_cell(who)} | {_cell(state)} | "
+            f"{'current head' if on_head else 'older head'} | "
+            f"{_cell(verdict)} | {found} |"
+        )
+    if not rows:
+        return ""
+    note = (
+        "Verdict word and finding lines are read from what the reviewer wrote. "
+        "Only lines that start with P0-P3 or Minor and a colon are parsed, and "
+        "lines that say none are skipped, so findings written as prose are not "
+        "counted. Nothing here checks that a finding was fixed or rejected, and "
+        "a review on an older head may not cover the current one."
+    )
+    lines = [
+        "",
+        "#### Review bodies (observed text, not verified)",
+        "",
+        note,
+        "",
+        "| Reviewer | State | Reviewed | Verdict word | Finding lines parsed |",
+        "|---|---|---|---|---|",
+    ] + rows
+    if more:
+        lines += ["", "Only the newest 50 reviews were read."]
+    return "\n".join(lines) + "\n"
 
 
 def _snippet(body):
@@ -169,7 +305,7 @@ def summarize(threads, pr, more_threads=False):
             "(commit named in the thread) or rejected (one-line reason) "
             "before merge. This report only shows the state and any observed "
             "marker in the replies; it does not check that a fix or reason "
-            "is real, does not read review bodies, and changes nothing."
+            "is real, and changes nothing."
         )
         lines += [
             head,
@@ -193,8 +329,17 @@ def main(argv=None):
     counts = {"unanswered": 0}
     failed = False
     try:
-        threads, more = fetch(args.repo, args.pr, os.environ["GITHUB_TOKEN"])
+        token = os.environ["GITHUB_TOKEN"]
+        threads, more = fetch(args.repo, args.pr, token)
         text, counts = summarize(threads, args.pr, more)
+        try:
+            head, reviews, more_rev = fetch_reviews(args.repo, args.pr, token)
+            text += summarize_reviews(head, reviews, more_rev)
+        except Exception as exc:  # noqa: BLE001 - second section also fails open
+            text += (
+                "\nReview bodies unavailable "
+                f"({type(exc).__name__}). Nothing was changed.\n"
+            )
     except Exception as exc:  # noqa: BLE001 - advisory report must fail open
         failed = True
         text = (
