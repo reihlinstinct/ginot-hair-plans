@@ -48,6 +48,29 @@ def test_permit_search_and_status_select(page):
     assert page.locator("#permits-table tbody tr:not(.filtered-out)").count() == 7
 
 
+def test_permit_neighborhood_filter_and_on_demand_field(page):
+    # #409: options come from the data; rows without a schuna never match.
+    opts = page.locator("#pfschuna option").all_text_contents()
+    assert "טלביה" in opts and "רחביה" in opts
+    page.click("#pfreset")
+    page.select_option("#pfstatus", "בבדיקה")
+    page.select_option("#pfschuna", "רחביה")
+    rows = page.locator("#permits-table tbody tr:not(.filtered-out)")
+    # 0002 and 0004 have a street; 0009 has a schuna but no street name
+    assert rows.count() == 3
+    # the field is on demand: hidden until the checkbox is ticked
+    shown = "#permits-table tbody tr:not(.filtered-out) .schuna-val"
+    assert page.locator(shown).count() == 2
+    assert not page.locator(shown).first.is_visible()
+    page.check("#pfshowschuna")
+    assert page.locator(shown).first.is_visible()
+    assert "רחביה" in page.locator(shown).first.inner_text()
+    assert page.locator("tr[data-tik='2020/0009.01'] .schuna-val").count() == 0
+    page.click("#pfreset")
+    assert page.locator("#pfschuna").input_value() == ""
+    assert not page.locator("#pfshowschuna").is_checked()
+
+
 def test_permit_publication_date_filter(page):
     # Manual from-date filters DATED rows only; undated rows stay visible
     # (design option A: the recency filter never hides date-unknown rows).
