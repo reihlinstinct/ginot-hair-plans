@@ -97,10 +97,16 @@ def fetch_reviews(repo, pr, token):
 # The verdict is read from a line that starts with the word, never from prose
 # that merely mentions it, and the last such line wins (the formal verdict
 # closes a review). Decoration such as bullets, bold, dashes is skipped.
-_VERDICT = re.compile(
-    r"^[\s>*_-]*verdict\b[^A-Za-z\n]{0,12}([A-Za-z][A-Za-z ,-]{0,60})",
-    re.IGNORECASE | re.MULTILINE,
+_VERDICT = re.compile(r"^[\s>*_-]*verdict\b(.{0,120})$", re.IGNORECASE | re.MULTILINE)
+_VERDICT_WORDS = (
+    "PASS",
+    "FINDINGS",
+    "CHANGES REQUESTED",
+    "BLOCKED",
+    "FAIL",
+    "APPROVED",
 )
+_WITH_FOLLOWUPS = re.compile(r"\bwith\s+follow-?\s?ups?\b", re.IGNORECASE)
 _FINDING = re.compile(
     r"^\s*[-*]?\s*\**(P[0-3]|Minor)\b([^:\n]{0,60}):\**\s*(\S.*)$",
     re.IGNORECASE | re.MULTILINE,
@@ -116,14 +122,18 @@ def _verdict_word(body):
     found = _VERDICT.findall(body or "")
     if not found:
         return "-"
-    text = found[-1].strip()
-    words = text.upper().split()
-    if not words:
+    rest = found[-1]
+    # A qualifier before the colon ("Verdict on the delta: PASS") is skipped.
+    if ":" in rest:
+        rest = rest.split(":", 1)[1]
+    text = re.sub(r"^[^A-Za-z]+", "", rest)
+    upper = re.sub(r"[^A-Z ]", " ", text.upper())
+    word = next((w for w in _VERDICT_WORDS if re.match(w + r"\b", upper.strip())), None)
+    if word is None:
         return "-"
-    head = " ".join(words[:2]) if words[0] == "CHANGES" else words[0]
-    if re.search(r"follow-?\s?ups?", text, re.IGNORECASE):
-        head += " with follow-ups"
-    return head.strip(" ,-")
+    if _WITH_FOLLOWUPS.search(text):
+        word += " with follow-ups"
+    return word
 
 
 def review_facts(review, head):

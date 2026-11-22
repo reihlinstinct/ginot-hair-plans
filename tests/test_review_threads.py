@@ -296,3 +296,15 @@ def test_reviews_are_read_newest_first_and_overflow_is_disclosed():
     assert (
         "hasPreviousPage" in rt.REVIEWS_QUERY and "__typename" not in rt.REVIEWS_QUERY
     )
+
+
+def test_verdict_negation_qualifier_and_punctuation():
+    vw = rt._verdict_word
+    assert vw("Verdict: PASS - no follow-ups") == "PASS"
+    assert vw("Verdict: PASS without follow-ups") == "PASS"
+    assert vw("Verdict: PASS, no follow-ups needed") == "PASS"
+    assert vw("**Verdict: PASS with follow-ups.**") == "PASS with follow-ups"
+    assert vw("**Verdict on the delta: PASS**") == "PASS"
+    assert vw("Verdict (delta only): **PASS**") == "PASS"
+    assert vw("Verdict \u2014 **CHANGES REQUESTED**") == "CHANGES REQUESTED"
+    assert vw("Verdict: maybe later") == "-"
