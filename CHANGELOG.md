@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-22 - Review-thread report: file paths, bot replies, observed markers (#454, #1127)
+
+- The File column keeps underscores and dots in paths (only pipes and line
+  breaks are neutralised).
+- A thread whose only replies come from bots is shown as "bot-reply-only", not
+  as answered. A reply holding a commit-like id or a rejection note shows an
+  observed "Reply marker"; the report does not check that the fix or reason is
+  real and does not read review bodies.
+- An unwritable summary file or closed stdout no longer fails the run.
+- Still informational: no enforcement, config, permissions or new triggers.
+
 ## 2026-11-22 - Review-thread report in the run summary (#454)
 
 - New informational workflow `review-threads.yml` plus

@@ -9,7 +9,9 @@ read-only (GraphQL query with the workflow's GITHUB_TOKEN, contents and
 pull-requests read), writes only the step summary, never posts, resolves or
 commits anything, and exits 0 unless --strict is given. A failed fetch (network,
 HTTP, GraphQL or response shape) is reported as unavailable and also exits 0,
-so the advisory report can never hold a PR or the guarded data automerge. Review text is
+so the advisory report does not hold a PR or the guarded data automerge.
+A reply by a bot alone is shown as such, and a commit-like id or a rejection
+note in a reply is shown as an observed marker, not as verification. Review text is
 external content: it is shown as a single truncated plain line and never
 interpreted.
 
@@ -75,9 +77,37 @@ def _snippet(body):
     return text[:SNIPPET_CHARS]
 
 
+def _cell(text):
+    """A table cell for a value that is data, not prose (a file path): only
+    the pipe and line breaks are neutralised and the length is capped, so
+    underscores and dots survive and the path stays accurate."""
+    text = re.sub(r"[|\s]+", " ", text or "").strip()
+    return text[:SNIPPET_CHARS]
+
+
+_FIX_REF = re.compile(r"\b[0-9a-f]{7,40}\b")
+_REJECT = re.compile(r"\b(rejected|won't fix|wontfix|not a bug)\b", re.IGNORECASE)
+
+
+def marker(thread):
+    """Observed marker in the replies, never a verification: 'commit ref'
+    when a reply contains a hex id that looks like a commit, 'rejection
+    note' when it says rejected / won't fix, else '-'. Whether the fix or the
+    reason is real is not checked here."""
+    comments = (thread.get("comments") or {}).get("nodes") or []
+    text = " ".join((c.get("body") or "") for c in comments[1:])
+    if _FIX_REF.search(text):
+        return "commit ref"
+    if _REJECT.search(text):
+        return "rejection note"
+    return "-"
+
+
 def classify(thread):
     """Return (state, starter, is_bot). State is one of:
-    resolved, answered (reply by someone other than the starter), unanswered,
+    resolved, answered (reply by a human other than the starter),
+    bot-reply-only (replies exist but all are from bots, so no human
+    disposition is shown), unanswered,
     incomplete (more comments exist than were read, so it is not judged)."""
     comments = (thread.get("comments") or {}).get("nodes") or []
     first = comments[0] if comments else {}
@@ -89,11 +119,14 @@ def classify(thread):
     if ((thread.get("comments") or {}).get("pageInfo") or {}).get("hasNextPage"):
         # Only the first 20 comments were read: a later reply may exist.
         return "incomplete", starter, is_bot
-    replied = any(
-        (c.get("author") or {}).get("login") not in (None, starter)
+    others = [
+        c.get("author") or {}
         for c in comments[1:]
-    )
-    return ("answered" if replied else "unanswered"), starter, is_bot
+        if (c.get("author") or {}).get("login") not in (None, starter)
+    ]
+    if any(a.get("__typename") != "Bot" for a in others):
+        return "answered", starter, is_bot
+    return ("bot-reply-only" if others else "unanswered"), starter, is_bot
 
 
 def summarize(threads, pr, more_threads=False):
@@ -102,6 +135,7 @@ def summarize(threads, pr, more_threads=False):
         "resolved": 0,
         "answered": 0,
         "unanswered": 0,
+        "bot-reply-only": 0,
         "incomplete": 0,
         "bot_unanswered": 0,
     }
@@ -116,7 +150,7 @@ def summarize(threads, pr, more_threads=False):
         rows.append(
             f"| {state} | {starter}{' (bot)' if is_bot else ''} "
             f"| {'outdated' if t.get('isOutdated') else 'current'} "
-            f"| {_snippet(t.get('path'))} | {_snippet(first_body)} |"
+            f"| {_cell(t.get('path'))} | {marker(t)} | {_snippet(first_body)} |"
         )
     lines = [f"### Review threads on #{pr} (informational)", ""]
     if not threads:
@@ -124,23 +158,26 @@ def summarize(threads, pr, more_threads=False):
     else:
         head = (
             f"{len(threads)} thread(s): {counts['resolved']} resolved, "
-            f"{counts['answered']} answered, {counts['unanswered']} unanswered "
+            f"{counts['answered']} answered by a human, "
+            f"{counts['bot-reply-only']} with bot replies only, "
+            f"{counts['unanswered']} unanswered "
             f"({counts['bot_unanswered']} from a bot), "
             f"{counts['incomplete']} not judged (more than 20 comments)."
         )
         rule = (
             "Rule (design/ai-review-findings.md): each finding is fixed "
             "(commit named in the thread) or rejected (one-line reason) "
-            "before merge. This report only shows the state; it changes "
-            "nothing."
+            "before merge. This report only shows the state and any observed "
+            "marker in the replies; it does not check that a fix or reason "
+            "is real, does not read review bodies, and changes nothing."
         )
         lines += [
             head,
             "",
             rule,
             "",
-            "| State | Started by | Anchor | File | First comment |",
-            "|---|---|---|---|---|",
+            "| State | Started by | Anchor | File | Reply marker | First comment |",
+            "|---|---|---|---|---|---|",
         ] + rows
         if more_threads:
             lines += ["", "Only the first 100 threads were read."]
@@ -167,9 +204,15 @@ def main(argv=None):
         )
     target = os.environ.get("GITHUB_STEP_SUMMARY")
     if target:
-        with open(target, "a", encoding="utf-8") as fh:
-            fh.write(text)
-    print(text)
+        try:
+            with open(target, "a", encoding="utf-8") as fh:
+                fh.write(text)
+        except OSError:
+            pass  # advisory: an unwritable summary must not fail the run
+    try:
+        print(text)
+    except OSError:
+        pass
     if args.strict and (failed or counts["unanswered"]):
         return 1
     return 0
