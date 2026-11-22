@@ -604,3 +604,21 @@ def test_permits_fragment_nojs_links_to_the_index(served):
         html = urllib.request.urlopen(url).read().decode("utf-8")
         assert "<noscript>" in html
         assert "index.html#permits" in html
+
+
+def test_permits_fragment_nojs_fallback_link_works(browser, served):
+    # Real browser pass with scripting disabled (#978): the noscript link
+    # renders, leads to the styled index section, and the inline top rows
+    # are there without any script running.
+    ctx = browser.new_context(java_script_enabled=False)
+    pg = ctx.new_page()
+    try:
+        pg.goto(served + "/" + i18n.page_path("en", "permits-default.html"))
+        link = pg.locator("a[href='index.html#permits']")
+        assert link.is_visible()
+        link.click()
+        pg.wait_for_url("**/en/index.html#permits")
+        assert pg.locator("#permits-table tbody tr").count() > 0
+        assert pg.evaluate("document.styleSheets.length") > 0
+    finally:
+        ctx.close()

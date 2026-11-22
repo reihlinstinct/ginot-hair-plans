@@ -527,3 +527,11 @@ def test_objection_cell_verified_marker_and_accessible_label():
     r["objection_deadline_verified"] = ""
     cell = page._objection_cell(r, "Verified tip")
     assert "✓" not in cell and "title=" not in cell
+
+
+def test_draft_note_has_a_css_rule():
+    # #964: the draft-language banner emits class="draft-note"; without a rule
+    # in the stylesheet it renders unstyled (the original bug).
+    from ginot import page_resources
+
+    assert ".draft-note{" in page_resources._CSS

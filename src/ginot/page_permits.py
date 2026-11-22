@@ -30,7 +30,9 @@ _FRAGMENT_REDIRECT = (
 def _fragment_noscript(lang: str) -> str:
     """No-JS fallback inside the fragment: a direct link to the styled table.
     Injected with innerHTML it stays inert; served top-level with scripting
-    off it is the only way off the bare rows."""
+    off it is the only way off the bare rows. A static link cannot carry the
+    visitor's query string the way the script redirect does - accepted
+    limitation (#978): no-JS visitors land on the unfiltered table."""
     from .i18n import t as _t
 
     return (

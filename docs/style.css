@@ -40,6 +40,7 @@ tr.filtered-out{display:none}
 #changes-list li{margin:4px 0}
 .changes-panel summary{cursor:pointer;margin:14px 0 8px}.changes-panel summary h2{display:inline;margin:0}#chfilter{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px}#chfilter .chip{cursor:pointer;padding:8px 12px;font-size:14px}#chfilter .chip[aria-pressed=true]{outline:2px solid #101f5b;outline-offset:1px;font-weight:700}#chfilter .chip[aria-pressed=true]::before{content:'\2713 '}
 .ai-banner{background:#fff;border:1px solid #dde4f6;border-right:4px solid #c8a4de;border-radius:10px;padding:10px 14px;margin:0 0 14px}
+.draft-note{background:#fdf3d7;border:1px solid #e8c31d;border-right:4px solid #e8c31d;border-radius:10px;padding:10px 14px;margin:0 0 14px}
 .review-body{background:#fff;border:1px solid #dde4f6;border-radius:10px;padding:14px 18px;max-width:900px}
 .review-body h1{font-size:22px}.review-body h2{font-size:18px;margin-top:18px}.review-body h3{font-size:16px}
 .review-body li{margin:4px 0}
@@ -63,7 +64,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #filters label,#pfilters label{display:flex;align-items:center;gap:10px;min-height:44px;font-size:16px}
 #filters input[type=checkbox],#pfilters input[type=checkbox]{width:24px;min-height:24px;height:24px}
 #more{width:100%;min-height:44px;font-size:16px}
-.legend .chip{padding:8px 12px;font-size:14px}
+.legend .chip{padding:8px 12px;font-size:14px;white-space:normal;text-align:start}
 #plans,#plans tbody,#plans tr,#plans td,#permits-table,#permits-table tbody,#permits-table tr,#permits-table td{display:block;width:auto}
 #plans thead tr{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
 #plans thead th{display:block;background:#fff;border:1px solid #387e6a;border-radius:16px;padding:0;position:static;color:#101f5b}
@@ -74,7 +75,7 @@ font-size:16px;min-height:44px;width:100%;box-sizing:border-box}
 #permits-table thead{display:none}
 #plans tr,#permits-table tr{border:1px solid #dde4f6;border-radius:10px;margin:0 0 10px;padding:6px 10px;background:#fff}
 #plans td,#permits-table td{border:0;padding:3px 0;font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
-#plans td::before,#permits-table td::before{content:attr(data-label);color:#666;font-size:13px;flex:none}
+#plans td::before,#permits-table td::before{content:attr(data-label);color:#666;font-size:13px;flex:1 1 auto;min-width:0;overflow-wrap:break-word}
 #plans td:nth-child(1){font-weight:600;font-size:17px}
 #plans td:nth-child(2){font-size:16px;padding-bottom:6px}
 #plans td:nth-child(3){padding-bottom:6px}
