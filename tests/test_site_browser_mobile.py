@@ -186,3 +186,30 @@ def test_mobile_group_chips_do_not_overlap(mobile_page):
             overlap_x = min(a["r"], b["r"]) - max(a["l"], b["l"])
             overlap_y = min(a["b"], b["b"]) - max(a["tp"], b["tp"])
             assert not (overlap_x > 1 and overlap_y > 1), f"chips overlap: {a} {b}"
+
+
+def test_mobile_long_ru_label_and_chip_do_not_overflow(browser, served):
+    """#963: a long Russian data-label next to a long value, and a legend chip
+    wider than the viewport, must wrap instead of scrolling the page sideways.
+    The default fixture content never overflowed, so a revert of the CSS
+    passed; this injects the real shapes: the 41-character ru label and a chip
+    longer than a 390px line."""
+    ctx = browser.new_context(
+        viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True
+    )
+    pg = ctx.new_page()
+    pg.goto(served + "/ru/index.html")
+    pg.wait_for_function("window.__rowsLoaded === true || window.__rowsFailed === true")
+    pg.evaluate(
+        """() => {
+          const label = 'Дата начала публикации объявления';
+          const row = document.querySelector('#plans tbody tr');
+          row.classList.remove('filtered-out');
+          row.querySelectorAll('td').forEach(td => td.setAttribute('data-label', label));
+          const chip = document.querySelector('.legend .chip');
+          chip.textContent = 'Очень длинное название статуса заявки на разрешение, которое не помещается в одну строку на узком экране';
+        }"""
+    )
+    assert len("Дата начала публикации объявления") >= 33
+    assert pg.evaluate("document.documentElement.scrollWidth") <= 391
+    ctx.close()
