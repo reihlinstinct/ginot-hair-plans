@@ -66,8 +66,11 @@ no code itself.
    75 late / 1,243 terminal): positive evidence the request entered the
    publication STAGE exists (status "תום תקופת פרסום" / "פורסמה בקשה להקלה"
    or a planned publication end) but no start date. A planned end alone is
-   evidence of a scheduled window, not proof a publication completed - see
-   the Decision section. NOT treated as old (nothing proves age) and NOT
+   evidence of a scheduled window, not proof a publication completed: it
+   signals the publication STAGE only and never substitutes for
+   `publication_start`. "Published" in this category's name means "publication
+   stage evidenced"; "not a publication proxy" elsewhere refers to date and
+   recency use only - see the Decision section. NOT treated as old (nothing proves age) and NOT
    treated as never-published. Non-terminal rows shown by default with a
    visible "תאריך פרסום חסר" marker + live count.
 4. no publication evidence in the current feed (8,635 of all undated today;
