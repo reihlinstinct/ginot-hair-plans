@@ -2093,6 +2093,70 @@
    "ru": "Ежедневные новости о каждом новом плане в Гинот hа-Ир (планы, вынесенные на возражения, выделены)",
    "am": "ስለ እያንዳንዱ አዲስ ዕቅድ በጊኖት ሃዒር የዕለት ዝመና (ለተቃውሞ የተቀረጹ ዕቅዶች ይጎለበታሉ)",
    "fr": "Une mise à jour quotidienne sur chaque nouveau plan de Ginot HaIr (les plans déposés pour opposition sont mis en évidence)"
+  },
+  "conservation.h": {
+   "he": "תיקי שימור",
+   "en": "Conservation cases",
+   "ar": "ملفات الحفاظ على التراث",
+   "ru": "Дела по сохранению",
+   "am": "የጥበቃ ጉዳዮች",
+   "fr": "Dossiers de conservation"
+  },
+  "conservation.note": {
+   "he": "תיקים מסדר היום של ועדת שימור. אינם בקשת היתר, ומספר התכנית הוא כפי שמופיע בכרטיס הוועדה, לא בהכרח תכנית במבא\"ת.",
+   "en": "Cases from a conservation committee agenda. Not permit requests; the plan number is as printed on the committee card, not necessarily a Mavat plan.",
+   "ar": "ملفات من جدول أعمال لجنة الحفاظ على التراث. ليست طلبات رخصة، ورقم الخطة كما يظهر في بطاقة اللجنة وليس بالضرورة خطة في مبات.",
+   "ru": "Дела из повестки комиссии по сохранению. Это не заявки на разрешение; номер плана указан как в карточке комиссии и не обязательно относится к Mavat.",
+   "am": "ከጥበቃ ኮሚቴ አጀንዳ የተወሰዱ ጉዳዮች። የፈቃድ ጥያቄ አይደሉም፤ የዕቅድ ቁጥሩ በኮሚቴው ካርድ ላይ እንደተጻፈው ነው፣ የግድ የMavat ዕቅድ አይደለም።",
+   "fr": "Dossiers issus d'un ordre du jour de commission de conservation. Ce ne sont pas des demandes de permis ; le numéro de plan est celui de la fiche de la commission, pas forcément un plan Mavat."
+  },
+  "conservation.case": {
+   "he": "תיק שימור",
+   "en": "Case",
+   "ar": "ملف",
+   "ru": "Дело",
+   "am": "ጉዳይ",
+   "fr": "Dossier"
+  },
+  "conservation.plan_ref": {
+   "he": "מספר תכנית בכרטיס הוועדה",
+   "en": "Plan number on committee card",
+   "ar": "رقم الخطة في بطاقة اللجنة",
+   "ru": "Номер плана в карточке комиссии",
+   "am": "በኮሚቴ ካርድ ላይ ያለ የዕቅድ ቁጥር",
+   "fr": "Numéro de plan sur la fiche"
+  },
+  "conservation.parcel": {
+   "he": "גוש/חלקה",
+   "en": "Block/parcel",
+   "ar": "قسيمة/حوض",
+   "ru": "Блок/участок",
+   "am": "ብሎክ/ይዞታ",
+   "fr": "Bloc/parcelle"
+  },
+  "conservation.meeting": {
+   "he": "ועדת שימור",
+   "en": "Conservation committee",
+   "ar": "لجنة الحفاظ",
+   "ru": "Комиссия по сохранению",
+   "am": "የጥበቃ ኮሚቴ",
+   "fr": "Commission de conservation"
+  },
+  "conservation.review": {
+   "he": "סקירת AI (עברית)",
+   "en": "AI review (Hebrew)",
+   "ar": "مراجعة ذكاء اصطناعي (بالعبرية)",
+   "ru": "ИИ-обзор (на иврите)",
+   "am": "የAI ግምገማ (በዕብራይስጥ)",
+   "fr": "Analyse IA (en hébreu)"
+  },
+  "conservation.source": {
+   "he": "פרוטוקול המקור",
+   "en": "Source agenda",
+   "ar": "المصدر",
+   "ru": "Источник",
+   "am": "ምንጭ",
+   "fr": "Source"
   }
  }
 }
