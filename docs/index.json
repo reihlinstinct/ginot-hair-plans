@@ -11,6 +11,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/backfill_request.json"
   },
   {
+   "name": "conservation_cases.json",
+   "path": "data/conservation_cases.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 791,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/conservation_cases.json"
+  },
+  {
    "name": "council_ginot_hair.geojson",
    "path": "data/council_ginot_hair.geojson",
    "kind": "geojson",

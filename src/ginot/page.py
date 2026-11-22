@@ -1087,8 +1087,10 @@ def render_index(
     permits_default_file: str | None = None,
     evidence_tiks: frozenset = frozenset(),
     lang: str = "he",
+    conservation_cases: list[dict] | None = None,
 ) -> str:
     reviews = reviews or {}
+    from . import conservation as _conservation
     from . import i18n as _i18n
     from . import mapview
 
@@ -1283,6 +1285,7 @@ def render_index(
 <button id="more" type="button">{_e(_t("index.show_all", n=len(rows)))}</button>
 {_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre)}
 {mapview.panel(lang, pre)}
+{_conservation.render_section(conservation_cases or [], _t, pre)}
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
 <details id="changes-panel" class="changes-panel">
 <summary><h2>{_e(_t("index.changes_h"))} ({len(changes)})</h2></summary>
@@ -1418,6 +1421,7 @@ def render_site(
     council_geojson: str | None = None,
     plans_dir: str = "plans",
     external_reviews_path: str = "data/external_reviews.json",
+    conservation_path: str = "data/conservation_cases.json",
 ):
     import glob
     import re as _re
@@ -1485,6 +1489,11 @@ def render_site(
     from . import i18n
 
     evidence_tiks = publication_evidence_tiks(publications_path)
+    from . import conservation as _cons
+
+    conservation_cases = _cons.load(conservation_path)
+    if _cons.validate(conservation_cases):
+        conservation_cases = []  # never render an invalid file
     for code in i18n.lang_codes():  # languages come from i18n/strings.json
         index_path = f"{out_dir}/{i18n.page_path(code, 'index.html')}"
         lang_dir = os.path.dirname(index_path)
@@ -1505,6 +1514,7 @@ def render_site(
                     permits_default_file=f"{lang_dir}/permits-default.html",
                     evidence_tiks=evidence_tiks,
                     lang=code,
+                    conservation_cases=conservation_cases,
                 )
             )
     if permits_path:
