@@ -191,20 +191,20 @@
    "fr": "Recevoir un e-mail sur un plan (avec possibilité de s'abonner aux mises à jour)"
   },
   "index.default_order_html": {
-   "he": "<b>סדר ברירת המחדל:</b> לפי \"אחרון להתנגדות\" (משוער) - התאריך הרחוק ביותר למעלה; תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.\nמוצגות {top} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.\nתכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו \"הצג תכניות מאושרות\" כדי לראותן.",
-   "en": "<b>Default order:</b> by \"last day to object\" (estimated) - the latest date on top; plans without an objection deadline appear below those that have one. Clicking a column header sorts by it.\nThe {top} most relevant plans are shown; filtering and search work on all plans.\nApproved plans ({n_approved}) are hidden by default - check \"Show approved plans\" to see them.",
-   "ar": "<b>الترتيب الافتراضي:</b> حسب \"آخر يوم للاعتراض\" (تقديري) - التاريخ الأبعد أولاً؛ المخططات بدون موعد نهائي للاعتراض تظهر أسفل تلك التي لها موعد. النقر على عنوان عمود يرتّب حسبه.\nتُعرض أكثر {top} مخططات صلة؛ يعمل التصفية والبحث على جميع المخططات.\nالمخططات المصادق عليها ({n_approved}) مخفية افتراضيًا - فعّلوا \"إظهار المخططات المصادق عليها\" لرؤيتها.",
-   "ru": "<b>Порядок по умолчанию:</b> по «последнему дню возражений» (оценка) - самая поздняя дата сверху; планы без срока возражений идут ниже тех, у кого он есть. Нажатие на заголовок столбца сортирует по нему.\nПоказаны {top} наиболее актуальных планов; фильтр и поиск работают по всем планам.\nУтверждённые планы ({n_approved}) скрыты по умолчанию - отметьте «Показать утверждённые планы», чтобы увидеть их.",
-   "am": "<b>ነባሪ ቅደም ተከተል:</b> በ\"የመቃወሚያ መጨረሻ ቀን\" (ግምት) - ረዘም ያለው ቀን ከላይ ይገኛል፤ የመቃወሚያ ቀን የሌላቸው እቅዶች ያለባቸውን ስር ይታያሉ። የአምድ ርዕስ ጠቅ ማድረግ ያደራጃል።\nበጣም ተዛማጅ {top} እቅዶች ይታያሉ፤ ማጣሪያ እና ፍለጋ በሁሉም እቅዶች ላይ ይሰራሉ።\nየጸደቁ እቅዶች ({n_approved}) በነባሪነት ይደበቃሉ - ለማየት \"የጸደቁ እቅዶችን አሳይ\" ይምረጡ።",
-   "fr": "<b>Ordre par défaut :</b> par « dernier jour d'objection » (estimé) - la date la plus lointaine en haut ; les plans sans date limite d'objection apparaissent en dessous de ceux qui en ont une. Cliquer sur un en-tête de colonne trie par celle-ci.\nLes {top} plans les plus pertinents sont affichés ; le filtre et la recherche portent sur tous les plans.\nLes plans approuvés ({n_approved}) sont masqués par défaut - cochez « Afficher les plans approuvés » pour les voir."
+   "he": "<b>סדר ברירת המחדל:</b> לפי \"אחרון להתנגדות\" (משוער; ✓ = מאומת) - התאריך הרחוק ביותר למעלה; תכניות ללא תאריך יעד להתנגדות מופיעות מתחת לאלה שיש להן. לחיצה על כותרת עמודה ממיינת לפיה.\nמוצגות {top} התכניות הרלוונטיות ביותר; סינון וחיפוש פועלים על כל התכניות.\nתכניות מאושרות ({n_approved}) מוסתרות כברירת מחדל - סמנו \"הצג תכניות מאושרות\" כדי לראותן.",
+   "en": "<b>Default order:</b> by \"last day to object\" (estimated; ✓ = verified) - the latest date on top; plans without an objection deadline appear below those that have one. Clicking a column header sorts by it.\nThe {top} most relevant plans are shown; filtering and search work on all plans.\nApproved plans ({n_approved}) are hidden by default - check \"Show approved plans\" to see them.",
+   "ar": "<b>الترتيب الافتراضي:</b> حسب \"آخر يوم للاعتراض\" (تقديري؛ ✓ = موثّق) - التاريخ الأبعد أولاً؛ المخططات بدون موعد نهائي للاعتراض تظهر أسفل تلك التي لها موعد. النقر على عنوان عمود يرتّب حسبه.\nتُعرض أكثر {top} مخططات صلة؛ يعمل التصفية والبحث على جميع المخططات.\nالمخططات المصادق عليها ({n_approved}) مخفية افتراضيًا - فعّلوا \"إظهار المخططات المصادق عليها\" لرؤيتها.",
+   "ru": "<b>Порядок по умолчанию:</b> по «последнему дню возражений» (оценка; ✓ = подтверждено) - самая поздняя дата сверху; планы без срока возражений идут ниже тех, у кого он есть. Нажатие на заголовок столбца сортирует по нему.\nПоказаны {top} наиболее актуальных планов; фильтр и поиск работают по всем планам.\nУтверждённые планы ({n_approved}) скрыты по умолчанию - отметьте «Показать утверждённые планы», чтобы увидеть их.",
+   "am": "<b>ነባሪ ቅደም ተከተል:</b> በ\"የመቃወሚያ መጨረሻ ቀን\" (ግምት፤ ✓ = የተረጋገጠ) - ረዘም ያለው ቀን ከላይ ይገኛል፤ የመቃወሚያ ቀን የሌላቸው እቅዶች ያለባቸውን ስር ይታያሉ። የአምድ ርዕስ ጠቅ ማድረግ ያደራጃል።\nበጣም ተዛማጅ {top} እቅዶች ይታያሉ፤ ማጣሪያ እና ፍለጋ በሁሉም እቅዶች ላይ ይሰራሉ።\nየጸደቁ እቅዶች ({n_approved}) በነባሪነት ይደበቃሉ - ለማየት \"የጸደቁ እቅዶችን አሳይ\" ይምረጡ።",
+   "fr": "<b>Ordre par défaut :</b> par « dernier jour d'objection » (estimé ; ✓ = vérifié) - la date la plus lointaine en haut ; les plans sans date limite d'objection apparaissent en dessous de ceux qui en ont une. Cliquer sur un en-tête de colonne trie par celle-ci.\nLes {top} plans les plus pertinents sont affichés ; le filtre et la recherche portent sur tous les plans.\nLes plans approuvés ({n_approved}) sont masqués par défaut - cochez « Afficher les plans approuvés » pour les voir."
   },
   "index.obj_column_note_html": {
-   "he": "עמודת \"אחרון להתנגדות\" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים) - לבדיקה מול המו\"ת.",
-   "en": "The \"last day to object\" column is a <b>computed estimate</b> (deposit publication + two months) - verify with the planning authorities.",
-   "ar": "عمود \"آخر يوم للاعتراض\" هو <b>تقدير محسوب</b> (نشر الإيداع + شهرين) - يُرجى التحقق لدى سلطات التخطيط.",
-   "ru": "Столбец «последний день возражений» - <b>вычисленная оценка</b> (публикация депозита + два месяца) - проверяйте в планировочных органах.",
-   "am": "የ\"መቃወሚያ መጨረሻ ቀን\" አምድ <b>የተሰላ ግምት</b> ነው (የተቀማጭነት ማተሚያ + ሁለት ወራት) - ከእቅድ ባለሥልጣናት ጋር ያረጋግጡ።",
-   "fr": "La colonne « dernier jour d'objection » est une <b>estimation calculée</b> (publication du dépôt + deux mois) - à vérifier auprès des autorités de planification."
+   "he": "עמודת \"אחרון להתנגדות\" היא <b>הערכה מחושבת</b> (פרסום הפקדה + חודשיים), אלא אם התאריך סומן ✓ כמאומת מול נוסח הודעת ההפקדה החתום - לבדיקה מול המו\"ת.",
+   "en": "The \"last day to object\" column is a <b>computed estimate</b> (deposit publication + two months) unless the date is marked ✓ as verified against the signed deposit notice - verify with the planning authorities.",
+   "ar": "عمود \"آخر يوم للاعتراض\" هو <b>تقدير محسوب</b> (نشر الإيداع + شهرين) ما لم يكن التاريخ موسومًا ✓ كموثّق مقابل نص إشعار الإيداع الموقّع - يُرجى التحقق لدى سلطات التخطيط.",
+   "ru": "Столбец «последний день возражений» - <b>вычисленная оценка</b> (публикация депозита + два месяца), если только дата не отмечена ✓ как подтверждённая подписанным уведомлением о депозите - проверяйте в планировочных органах.",
+   "am": "የ\"መቃወሚያ መጨረሻ ቀን\" አምድ <b>የተሰላ ግምት</b> ነው (የተቀማጭነት ማተሚያ + ሁለት ወራት)፣ ቀኑ በ✓ እንደተረጋገጠ ካልተሰየመ - ከእቅድ ባለሥልጣናት ጋር ያረጋግጡ።",
+   "fr": "La colonne « dernier jour d'objection » est une <b>estimation calculée</b> (publication du dépôt + deux mois), sauf si la date est marquée ✓ comme vérifiée sur l'avis de dépôt signé - à vérifier auprès des autorités de planification."
   },
   "index.review_note_html": {
    "he": "עמודת \"סקירת AI\" מקשרת לסיכומי נקודות לדיון שהופקו <b>אוטומטית באמצעות AI</b> מתוך מסמכי התכנית - התוכן אינו מסמך רשמי ואינו תחליף לקריאת המסמכים במו\"ת.",
@@ -359,12 +359,20 @@
    "fr": "Dépôt"
   },
   "index.col_obj": {
-   "he": "אחרון להתנגדות (משוער)",
-   "en": "Last day to object (estimated)",
-   "ar": "آخر يوم للاعتراض (تقديري)",
-   "ru": "Последний день возражений (оценка)",
-   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት)",
-   "fr": "Dernier jour d'objection (estimé)"
+   "he": "אחרון להתנגדות (✓ = מאומת)",
+   "en": "Last day to object (✓ = verified)",
+   "ar": "آخر يوم للاعتراض (✓ = موثّق)",
+   "ru": "Последний день возражений (✓ = проверено)",
+   "am": "የመቃወሚያ መጨረሻ ቀን (✓ = የተረጋገጠ)",
+   "fr": "Dernier jour d'objection (✓ = vérifié)"
+  },
+  "index.obj_verified_tooltip": {
+   "he": "מאומת מול נוסח הודעת ההפקדה החתום",
+   "en": "Verified against the signed deposit notice",
+   "ar": "موثّق مقابل نص إشعار الإيداع الموقّع",
+   "ru": "Подтверждено подписанным уведомлением о депозите",
+   "am": "ከተፈረመው የተቀማጭነት ማሳወቂያ ጋር የተረጋገጠ",
+   "fr": "Vérifié sur l'avis de dépôt signé"
   },
   "index.col_area": {
    "he": "שטח (דונם)",
@@ -455,20 +463,20 @@
    "fr": "Changements récents"
   },
   "index.urgent_deadline": {
-   "he": "אחרון להתנגדות (משוער):",
-   "en": "Last day to object (estimated):",
-   "ar": "آخر يوم للاعتراض (تقديري):",
-   "ru": "Последний день возражений (оценка):",
-   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት):",
-   "fr": "Dernier jour d'objection (estimé) :"
+   "he": "אחרון להתנגדות (משוער): ",
+   "en": "Last day to object (estimated): ",
+   "ar": "آخر يوم للاعتراض (تقديري): ",
+   "ru": "Последний день возражений (оценка): ",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት): ",
+   "fr": "Dernier jour d'objection (estimé) : "
   },
   "index.urgent_deadline_verified": {
-   "he": "אחרון להתנגדות (מאומת):",
-   "en": "Last day to object (verified):",
-   "ar": "آخر يوم للاعتراض (مؤكد):",
-   "ru": "Последний день возражений (подтверждено):",
-   "am": "የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ):",
-   "fr": "Dernier jour d'objection (vérifié) :"
+   "he": "אחרון להתנגדות (מאומת): ",
+   "en": "Last day to object (verified): ",
+   "ar": "آخر يوم للاعتراض (مؤكد): ",
+   "ru": "Последний день возражений (подтверждено): ",
+   "am": "የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ): ",
+   "fr": "Dernier jour d'objection (vérifié) : "
   },
   "index.none": {
    "he": "אין",

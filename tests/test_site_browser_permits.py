@@ -341,6 +341,58 @@ def test_urgent_permits_official_date_overrides_planned(
         server.shutdown()
 
 
+def test_urgent_plan_verified_deadline_label(tmp_path, browser):
+    """#1084 item 2: a plan whose deadline is VERIFIED (data-verf=1) must be
+    labelled verified in the urgent list, not estimated - the client-side
+    _renderUrgent label switch was only covered indirectly."""
+
+    def plan(num, verified, derived):
+        return {
+            "pl_number": num,
+            "pl_name": f"תכנית {num}",
+            "station_desc": "הפקדה להתנגדויות/השגות",
+            "receiving_date": "2026-09-01",
+            "pl_last_deposit_date": "",
+            "depositing_date": "",
+            "objection_deadline_derived_2m_from_publication": derived,
+            "objection_deadline_verified": verified,
+            "objection_deadline_verified_source": "test fixture" if verified else "",
+            "pl_area_dunam": 1.0,
+            "inside_flag": "inside",
+            "mavat_url": "https://mavat.iplan.gov.il/x",
+        }
+
+    rows = [
+        plan("101-VERF", "2026-11-10", "2026-12-20"),
+        plan("101-ESTM", "", "2026-11-12"),
+    ]
+    from ginot.page import render_site
+
+    src = tmp_path / "input"
+    src.mkdir()
+    permits = src / "permit_requests.json"
+    permits.write_text(json.dumps({"requests": []}))
+    out = tmp_path / "site"
+    render_site(rows, [], str(out), permits_path=str(permits))
+    handler = functools.partial(
+        http.server.SimpleHTTPRequestHandler, directory=str(out)
+    )
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", 0), handler)
+    threading.Thread(target=server.serve_forever, daemon=True).start()
+    try:
+        page = browser.new_page()
+        page.goto(f"http://127.0.0.1:{server.server_port}/?today=2026-11-01")
+        page.wait_for_function(
+            "document.getElementById('urgent-list') && "
+            "document.getElementById('urgent-list').innerText.includes('101-VERF')"
+        )
+        text = page.locator("#urgent-list").inner_text()
+        assert "101-VERF" in text and "אחרון להתנגדות (מאומת): 10.11.2026" in text
+        assert "101-ESTM" in text and "אחרון להתנגדות (משוער): 12.11.2026" in text
+    finally:
+        server.shutdown()
+
+
 def test_tel_hai_publication_visible_despite_stale_feed_status(tmp_path, browser):
     from ginot.page import render_site
 
