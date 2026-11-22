@@ -495,20 +495,20 @@
    "fr": "Supprimé"
   },
   "index.urgent_deadline": {
-   "he": "אחרון להתנגדות (משוער): ",
-   "en": "Last day to object (estimated): ",
-   "ar": "آخر يوم للاعتراض (تقديري): ",
-   "ru": "Последний день возражений (оценка): ",
-   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት): ",
-   "fr": "Dernier jour d'objection (estimé) : "
+   "he": "אחרון להתנגדות (משוער):",
+   "en": "Last day to object (estimated):",
+   "ar": "آخر يوم للاعتراض (تقديري):",
+   "ru": "Последний день возражений (оценка):",
+   "am": "የመቃወሚያ መጨረሻ ቀን (ግምት):",
+   "fr": "Dernier jour d'objection (estimé) :"
   },
   "index.urgent_deadline_verified": {
-   "he": "אחרון להתנגדות (מאומת): ",
-   "en": "Last day to object (verified): ",
-   "ar": "آخر يوم للاعتراض (مؤكد): ",
-   "ru": "Последний день возражений (подтверждено): ",
-   "am": "የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ): ",
-   "fr": "Dernier jour d'objection (vérifié) : "
+   "he": "אחרון להתנגדות (מאומת):",
+   "en": "Last day to object (verified):",
+   "ar": "آخر يوم للاعتراض (مؤكد):",
+   "ru": "Последний день возражений (подтверждено):",
+   "am": "የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ):",
+   "fr": "Dernier jour d'objection (vérifié) :"
   },
   "index.none": {
    "he": "אין",
@@ -679,36 +679,36 @@
    "fr": "Source des emplacements et limites des plans : l'administration de planification. Emplacements des demandes de permis : couche publique des parcelles (bloc et parcelle), pas un relevé officiel. Disponibilité et actualité non garanties."
   },
   "indexjs.permit_prefix": {
-   "he": "בקשת היתר: ",
-   "en": "Permit request: ",
-   "ar": "طلب رخصة: ",
-   "ru": "Заявка на разрешение: ",
-   "am": "የፈቃድ ጥያቄ: ",
-   "fr": "Demande de permis : "
+   "he": "בקשת היתר:",
+   "en": "Permit request:",
+   "ar": "طلب رخصة:",
+   "ru": "Заявка на разрешение:",
+   "am": "የፈቃድ ጥያቄ:",
+   "fr": "Demande de permis :"
   },
   "indexjs.permit_pubcheck": {
-   "he": "פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ",
-   "en": "Municipal publication - requires verification; submission option unverified. Date in publication: ",
-   "ar": "نشر بلدي - يتطلب تحققًا؛ إمكانية التقديم غير مؤكدة. التاريخ في النشر: ",
-   "ru": "Муниципальная публикация - требует проверки; возможность подачи не подтверждена. Дата в публикации: ",
-   "am": "የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን: ",
-   "fr": "Publication municipale - à vérifier ; possibilité de dépôt non confirmée. Date dans la publication : "
+   "he": "פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום:",
+   "en": "Municipal publication - requires verification; submission option unverified. Date in publication:",
+   "ar": "نشر بلدي - يتطلب تحققًا؛ إمكانية التقديم غير مؤكدة. التاريخ في النشر:",
+   "ru": "Муниципальная публикация - требует проверки; возможность подачи не подтверждена. Дата в публикации:",
+   "am": "የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን:",
+   "fr": "Publication municipale - à vérifier ; possibilité de dépôt non confirmée. Date dans la publication :"
   },
   "indexjs.permit_official": {
-   "he": "מועד התנגדות (פרסום עירוני): ",
-   "en": "Objection deadline (municipal publication): ",
-   "ar": "موعد الاعتراض (نشر بلدي): ",
-   "ru": "Срок возражений (муниципальная публикация): ",
-   "am": "የመቃወሚያ ቀን (የከተማ ማተሚያ): ",
-   "fr": "Date limite d'objection (publication municipale) : "
+   "he": "מועד התנגדות (פרסום עירוני):",
+   "en": "Objection deadline (municipal publication):",
+   "ar": "موعد الاعتراض (نشر بلدي):",
+   "ru": "Срок возражений (муниципальная публикация):",
+   "am": "የመቃወሚያ ቀን (የከተማ ማተሚያ):",
+   "fr": "Date limite d'objection (publication municipale) :"
   },
   "indexjs.permit_planned": {
-   "he": "סיום פרסום מתוכנן (לא מאומת): ",
-   "en": "Planned publication end (unverified): ",
-   "ar": "نهاية نشر مخططة (غير مؤكدة): ",
-   "ru": "Плановый конец публикации (не подтверждено): ",
-   "am": "የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ): ",
-   "fr": "Fin de publication prévue (non confirmée) : "
+   "he": "סיום פרסום מתוכנן (לא מאומת):",
+   "en": "Planned publication end (unverified):",
+   "ar": "نهاية نشر مخططة (غير مؤكدة):",
+   "ru": "Плановый конец публикации (не подтверждено):",
+   "am": "የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ):",
+   "fr": "Fin de publication prévue (non confirmée) :"
   },
   "fl.aria": {
    "he": "קישור לסינון הנוכחי",

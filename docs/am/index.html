@@ -170,7 +170,7 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 </details>
 <script src="../plan-map.js" defer></script>
 <details id="conservation-panel" class="changes-panel"><summary><h2>የጥበቃ ጉዳዮች (1)</h2></summary><p>ከጥበቃ ኮሚቴ አጀንዳ የተወሰዱ ጉዳዮች። የፈቃድ ጥያቄ አይደሉም፤ የዕቅድ ቁጥሩ በኮሚቴው ካርድ ላይ እንደተጻፈው ነው፣ የግድ የMavat ዕቅድ አይደለም።</p><ul id="conservation-list"><li><strong>ጉዳይ 7549</strong> <span dir="auto">הפלמ&quot;ח 40א&#x27;, גבעת הורדים, ירושלים</span><br>በኮሚቴ ካርድ ላይ ያለ የዕቅድ ቁጥር: <span dir="ltr">15913</span> &middot; ብሎክ/ይዞታ: <span dir="ltr">30024/224</span> &middot; የጥበቃ ኮሚቴ ስብሰባ <span dir="ltr">37/2026, 25.01.2026</span><br><a href="../reviews/palmach40a/review-shimur-7549.html">የAI ግምገማ (በዕብራይስጥ)</a> &middot; <a href="https://goinfo.co.il/pro/protocols/jerusalem/2026-01-25_other_%D7%99%D7%A9%D7%99%D7%91%D7%AA-%D7%A9%D7%99%D7%9E%D7%95%D7%A8-%D7%90%D7%AA%D7%A8%D7%99%D7%9D-%D7%9E%D7%A1-37_12e0d377fddf.html" rel="noopener">አጀንዳ በ goinfo (የሶስተኛ ወገን ቅጂ)</a></li></ul></details>
-<h2>አስቸኳይ ተቃውሞዎች</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - የመቃወሚያ መጨረሻ ቀን (ግምት):  19.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005451880/310'>101-1451699</a> תכנית איחוד וחלוקה עבור מדרשיית הרטמן לבנות - የመቃወሚያ መጨረሻ ቀን (ግምት):  25.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005388186/310'>101-1348069</a> הרחבת יח&quot;ד קיימת ברחוב דוד מרכוס 11, טלביה - የመቃወሚያ መጨረሻ ቀን (ግምት):  09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005474110/310'>101-1488261</a> שינוי בקווי בניין מאושרים  מלון ענבל - የመቃወሚያ መጨረሻ ቀን (ግምት):  09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005412538/310'>101-1386671</a> התחדשות עירונית - לינקולן 13 - የመቃወሚያ መጨረሻ ቀን (ግምት):  16.12.26</li></ul>
+<h2>አስቸኳይ ተቃውሞዎች</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - የመቃወሚያ መጨረሻ ቀን (ግምት): 19.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005451880/310'>101-1451699</a> תכנית איחוד וחלוקה עבור מדרשיית הרטמן לבנות - የመቃወሚያ መጨረሻ ቀን (ግምት): 25.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005388186/310'>101-1348069</a> הרחבת יח&quot;ד קיימת ברחוב דוד מרכוס 11, טלביה - የመቃወሚያ መጨረሻ ቀን (ግምት): 09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005474110/310'>101-1488261</a> שינוי בקווי בניין מאושרים  מלון ענבל - የመቃወሚያ መጨረሻ ቀን (ግምት): 09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005412538/310'>101-1386671</a> התחדשות עירונית - לינקולן 13 - የመቃወሚያ መጨረሻ ቀን (ግምት): 16.12.26</li></ul>
 <details id="changes-panel" class="changes-panel">
 <summary><h2>የቅርብ ጊዜ ለውጦች (200)</h2></summary>
 <div id="chfilter" role="group" aria-label="የቅርብ ጊዜ ለውጦችን በዓይነት አጣራ"><button type='button' class='chip c-approved' data-kind='new' aria-pressed='false'>አዲስ (3)</button><button type='button' class='chip c-deposit' data-kind='status_change' aria-pressed='false'>ተቀይሯል (7)</button><button type='button' class='chip' data-kind='removed' aria-pressed='false'>ተሰርዟል (190)</button></div>
@@ -349,13 +349,13 @@ function _renderUrgent(){
     if(!isFinite(parsed)||new Date(parsed).toISOString().slice(0,10)!==d)return;
     var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
-      name:"የፈቃድ ጥያቄ: "+(r.cells[1]?r.cells[1].textContent:''),
+      name:"የፈቃድ ጥያቄ:"+' '+(r.cells[1]?r.cells[1].textContent:''),
       d:d.split('-').reverse().join('.'),permit:true,official:!!official,verify:group==='pubcheck'});
   });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - '+(it.permit?(it.verify?"የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን: ":it.official?"የመቃወሚያ ቀን (የከተማ ማተሚያ): ":"የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ): "):(it.verf?"የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ): ":"የመቃወሚያ መጨረሻ ቀን (ግምት): "))+it.d+'</li>';}).join(''):'<li>'+"የለም"+'</li>';
+           ' - '+(it.permit?(it.verify?"የከተማ ማተሚያ - ማረጋገጥ ያስፈልጋል፤ የማቅረቢያ አማራጭ ያልተረጋገጠ። በማተሚያው ውስጥ ቀን:"+' ':it.official?"የመቃወሚያ ቀን (የከተማ ማተሚያ):"+' ':"የታቀደ ማተሚያ መጨረሻ (ያልተረጋገጠ):"+' '):(it.verf?"የመቃወሚያ መጨረሻ ቀን (የተረጋገጸ):"+' ':"የመቃወሚያ መጨረሻ ቀን (ግምት):"+' '))+it.d+'</li>';}).join(''):'<li>'+"የለም"+'</li>';
 }
 window.__renderUrgent=_renderUrgent;
 _renderUrgent();

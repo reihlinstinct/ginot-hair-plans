@@ -168,7 +168,7 @@ s.addEventListener('blur',function(){if(pending){go(pending);}mouse=false;});
 </details>
 <script src="plan-map.js" defer></script>
 <details id="conservation-panel" class="changes-panel"><summary><h2>תיקי שימור (1)</h2></summary><p>תיקים מסדר היום של ישיבת ועדת שימור. אינם בקשת היתר, ומספר התכנית הוא כפי שמופיע בכרטיס הוועדה, לא בהכרח תכנית במבא&quot;ת.</p><ul id="conservation-list"><li><strong>תיק שימור 7549</strong> <span dir="auto">הפלמ&quot;ח 40א&#x27;, גבעת הורדים, ירושלים</span><br>מספר תכנית בכרטיס הוועדה: <span dir="ltr">15913</span> &middot; גוש/חלקה: <span dir="ltr">30024/224</span> &middot; ישיבת ועדת שימור <span dir="ltr">37/2026, 25.01.2026</span><br><a href="reviews/palmach40a/review-shimur-7549.html">סקירת AI (עברית)</a> &middot; <a href="https://goinfo.co.il/pro/protocols/jerusalem/2026-01-25_other_%D7%99%D7%A9%D7%99%D7%91%D7%AA-%D7%A9%D7%99%D7%9E%D7%95%D7%A8-%D7%90%D7%AA%D7%A8%D7%99%D7%9D-%D7%9E%D7%A1-37_12e0d377fddf.html" rel="noopener">סדר היום באתר goinfo (העתק של צד שלישי)</a></li></ul></details>
-<h2>דחוף להתנגדות</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - אחרון להתנגדות (משוער):  19.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005451880/310'>101-1451699</a> תכנית איחוד וחלוקה עבור מדרשיית הרטמן לבנות - אחרון להתנגדות (משוער):  25.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005388186/310'>101-1348069</a> הרחבת יח&quot;ד קיימת ברחוב דוד מרכוס 11, טלביה - אחרון להתנגדות (משוער):  09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005474110/310'>101-1488261</a> שינוי בקווי בניין מאושרים  מלון ענבל - אחרון להתנגדות (משוער):  09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005412538/310'>101-1386671</a> התחדשות עירונית - לינקולן 13 - אחרון להתנגדות (משוער):  16.12.26</li></ul>
+<h2>דחוף להתנגדות</h2><ul id="urgent-list"><li><a href='https://mavat.iplan.gov.il/SV4/1/1005407450/310'>101-1377753</a> התחדשות עירונית הפלמ&quot;ח 49, 51 והשיירות 2 - אחרון להתנגדות (משוער): 19.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005451880/310'>101-1451699</a> תכנית איחוד וחלוקה עבור מדרשיית הרטמן לבנות - אחרון להתנגדות (משוער): 25.11.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005388186/310'>101-1348069</a> הרחבת יח&quot;ד קיימת ברחוב דוד מרכוס 11, טלביה - אחרון להתנגדות (משוער): 09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005474110/310'>101-1488261</a> שינוי בקווי בניין מאושרים  מלון ענבל - אחרון להתנגדות (משוער): 09.12.26</li><li><a href='https://mavat.iplan.gov.il/SV4/1/1005412538/310'>101-1386671</a> התחדשות עירונית - לינקולן 13 - אחרון להתנגדות (משוער): 16.12.26</li></ul>
 <details id="changes-panel" class="changes-panel">
 <summary><h2>שינויים אחרונים (200)</h2></summary>
 <div id="chfilter" role="group" aria-label="סינון שינויים אחרונים לפי סוג"><button type='button' class='chip c-approved' data-kind='new' aria-pressed='false'>חדש (3)</button><button type='button' class='chip c-deposit' data-kind='status_change' aria-pressed='false'>השתנה (7)</button><button type='button' class='chip' data-kind='removed' aria-pressed='false'>נמחק (190)</button></div>
@@ -347,13 +347,13 @@ function _renderUrgent(){
     if(!isFinite(parsed)||new Date(parsed).toISOString().slice(0,10)!==d)return;
     var dd=Math.round((parsed-tms)/86400000);if(dd<0||dd>URGENT_DAYS)return;
     items.push({dd:dd,href:a?a.getAttribute('href'):'',num:num,
-      name:"בקשת היתר: "+(r.cells[1]?r.cells[1].textContent:''),
+      name:"בקשת היתר:"+' '+(r.cells[1]?r.cells[1].textContent:''),
       d:d.split('-').reverse().join('.'),permit:true,official:!!official,verify:group==='pubcheck'});
   });
   items.sort(function(a,b){return a.dd-b.dd;});
   ul.innerHTML=items.length?items.map(function(it){
     return '<li><a href="'+_esc(it.href)+'">'+_esc(it.num)+'</a> '+_esc(it.name)+
-           ' - '+(it.permit?(it.verify?"פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום: ":it.official?"מועד התנגדות (פרסום עירוני): ":"סיום פרסום מתוכנן (לא מאומת): "):(it.verf?"אחרון להתנגדות (מאומת): ":"אחרון להתנגדות (משוער): "))+it.d+'</li>';}).join(''):'<li>'+"אין"+'</li>';
+           ' - '+(it.permit?(it.verify?"פרסום עירוני - דורש בדיקה; אפשרות הגשה לא אומתה. מועד בפרסום:"+' ':it.official?"מועד התנגדות (פרסום עירוני):"+' ':"סיום פרסום מתוכנן (לא מאומת):"+' '):(it.verf?"אחרון להתנגדות (מאומת):"+' ':"אחרון להתנגדות (משוער):"+' '))+it.d+'</li>';}).join(''):'<li>'+"אין"+'</li>';
 }
 window.__renderUrgent=_renderUrgent;
 _renderUrgent();

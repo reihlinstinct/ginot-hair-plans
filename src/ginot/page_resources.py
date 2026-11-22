@@ -215,9 +215,15 @@ def _fmt(d) -> str:
     return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
 
 
-def _date_cell(d) -> str:
+def _date_cell(d, pre_attrs: str = "", marker: str = "") -> str:
+    """Date span; pre_attrs (extra span attributes) and marker (inline text
+    before the date) are inserted structurally so callers never patch this
+    markup with string replaces (#1097)."""
     iso = _iso(d)
-    return f"<span dir='ltr' data-iso='{iso}'>{_e(_fmt(d))}</span>" if iso else ""
+    if not iso:
+        return ""
+    lead = f" {pre_attrs}" if pre_attrs else ""
+    return f"<span{lead} dir='ltr' data-iso='{iso}'>{marker}{_e(_fmt(d))}</span>"
 
 
 COLLAPSE_TOP = 20
