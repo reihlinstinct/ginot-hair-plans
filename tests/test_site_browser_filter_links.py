@@ -357,3 +357,47 @@ def test_implicit_or_queries_roundtrip_without_new_controls(page):
         ).all_inner_texts()
         == expected
     )
+
+
+def test_recent_changes_collapsed_by_default_and_filterable_by_type(page):
+    """Owner request 2026-11-22: the recent-changes list is optional (a closed
+    <details> like the map) and can be filtered by type: new / changed /
+    deleted. Closed by default, the list is not visible; opening shows every
+    item; the select narrows it to one kind and back."""
+    panel = page.locator("#changes-panel")
+    assert panel.get_attribute("open") is None
+    assert not page.locator("#changes-list").is_visible()
+    page.click("#changes-panel summary")
+    assert page.locator("#changes-list").is_visible()
+    items = page.locator("#changes-list li[data-kind]")
+    total = items.count()
+    assert total > 0
+    kinds = set(
+        page.eval_on_selector_all(
+            "#changes-list li[data-kind]", "e=>e.map(x=>x.dataset.kind)"
+        )
+    )
+    assert kinds <= {"new", "status_change", "removed"}
+    # the control offers the three owner-named types plus "all", with counts
+    opts = page.locator("#chfilter option").all_text_contents()
+    assert [o.split(" (")[0] for o in opts] == ["כל השינויים", "חדש", "השתנה", "נמחק"]
+    all_kinds = page.eval_on_selector_all(
+        "#changes-list li[data-kind]", "e=>e.map(x=>x.dataset.kind)"
+    )
+    for kind in ("new", "status_change", "removed"):
+        page.select_option("#chfilter", kind)
+        visible = page.eval_on_selector_all(
+            "#changes-list li[data-kind]",
+            "e=>e.filter(x=>!x.hidden).map(x=>x.dataset.kind)",
+        )
+        # exactly the items of that kind (zero for a kind the data lacks)
+        assert visible == [k for k in all_kinds if k == kind]
+    # the localized label replaces the raw kind in the item text
+    page.select_option("#chfilter", "")
+    assert page.locator("#changes-list li").first.inner_text().split(":")[0] in {
+        "חדש",
+        "השתנה",
+        "נמחק",
+    }
+    page.select_option("#chfilter", "")
+    assert page.locator("#changes-list li[data-kind]:not([hidden])").count() == total

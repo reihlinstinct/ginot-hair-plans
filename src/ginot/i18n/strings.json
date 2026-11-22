@@ -462,6 +462,46 @@
    "am": "የቅርብ ጊዜ ለውጦች",
    "fr": "Changements récents"
   },
+  "changes.filter_aria": {
+   "he": "סינון שינויים אחרונים לפי סוג",
+   "en": "Filter recent changes by type",
+   "ar": "تصفية التغييرات الأخيرة حسب النوع",
+   "ru": "Фильтр последних изменений по типу",
+   "am": "የቅርብ ጊዜ ለውጦችን በዓይነት አጣራ",
+   "fr": "Filtrer les changements récents par type"
+  },
+  "changes.filter_all": {
+   "he": "כל השינויים",
+   "en": "All changes",
+   "ar": "كل التغييرات",
+   "ru": "Все изменения",
+   "am": "ሁሉም ለውጦች",
+   "fr": "Tous les changements"
+  },
+  "changes.kind_new": {
+   "he": "חדש",
+   "en": "New",
+   "ar": "جديد",
+   "ru": "Новый",
+   "am": "አዲስ",
+   "fr": "Nouveau"
+  },
+  "changes.kind_status_change": {
+   "he": "השתנה",
+   "en": "Changed",
+   "ar": "تغيّر",
+   "ru": "Изменён",
+   "am": "ተቀይሯል",
+   "fr": "Modifié"
+  },
+  "changes.kind_removed": {
+   "he": "נמחק",
+   "en": "Deleted",
+   "ar": "محذوف",
+   "ru": "Удалён",
+   "am": "ተሰርዟል",
+   "fr": "Supprimé"
+  },
   "index.urgent_deadline": {
    "he": "אחרון להתנגדות (משוער): ",
    "en": "Last day to object (estimated): ",

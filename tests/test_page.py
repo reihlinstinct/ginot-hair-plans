@@ -411,6 +411,8 @@ def test_changes_section_renders_as_card(tmp_path):
     css = (tmp_path / "style.css").read_text(encoding="utf-8")
     # owner request 2026-10-21: changes list sits in a card like the urgent row
     assert '<ul id="changes-list">' in html
+    # collapsed by default, like the map panel (owner request 2026-11-22)
+    assert '<details id="changes-panel" class="changes-panel">' in html
     assert "#changes-list{background:#fff;border:1px solid #dde4f6" in css
     assert "border-radius:10px" in css
 

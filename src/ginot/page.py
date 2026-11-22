@@ -1197,9 +1197,14 @@ def render_index(
         )
         or f"<li>{_e(_t('index.none'))}</li>"
     )
+    _kinds = ("new", "status_change", "removed")
+
+    def _kind_label(kind):
+        return _t(f"changes.kind_{kind}") if kind in _kinds else kind
+
     changes_html = (
         "".join(
-            f"<li>{_e(c['kind'])}: <a href='{_e(c['mavat_url'])}'>{_e(c['pl_number'])}</a> {_e(c['pl_name'])}"
+            f"<li data-kind='{_e(c['kind'])}'>{_e(_kind_label(c['kind']))}: <a href='{_e(c['mavat_url'])}'>{_e(c['pl_number'])}</a> {_e(c['pl_name'])}"
             + (
                 f" ({_e(c.get('from'))} → {_e(c.get('to'))})"
                 if c["kind"] == "status_change"
@@ -1209,6 +1214,13 @@ def render_index(
             for c in changes
         )
         or f"<li>{_e(_t('index.no_changes'))}</li>"
+    )
+    changes_filter_opts = (
+        f"<option value=''>{_e(_t('changes.filter_all'))} ({len(changes)})</option>"
+        + "".join(
+            f"<option value='{k}'>{_e(_t(f'changes.kind_{k}'))} ({sum(1 for c in changes if c['kind'] == k)})</option>"
+            for k in _kinds
+        )
     )
     status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
@@ -1272,7 +1284,13 @@ def render_index(
 {_permits_section(permits or [], rows_file=permits_file, default_rows_file=permits_default_file, evidence_tiks=evidence_tiks, lang=lang, pre=pre)}
 {mapview.panel(lang, pre)}
 <h2>{_e(_t("index.urgent_h"))}</h2><ul id="urgent-list">{urgent_html}</ul>
-<h2>{_e(_t("index.changes_h"))}</h2><ul id="changes-list">{changes_html}</ul>
+<details id="changes-panel" class="changes-panel">
+<summary><h2>{_e(_t("index.changes_h"))} ({len(changes)})</h2></summary>
+<select id="chfilter" aria-label="{_e(_t("changes.filter_aria"))}">{changes_filter_opts}</select>
+<ul id="changes-list">{changes_html}</ul>
+</details>
+<script>(function(){{var s=document.getElementById('chfilter');if(!s)return;
+s.addEventListener('change',function(){{document.querySelectorAll('#changes-list li[data-kind]').forEach(function(li){{li.hidden=!!s.value&&li.getAttribute('data-kind')!==s.value;}});}});}})();</script>
 {stats_html}
 <footer dir="{_meta["dir"]}"><p>
 {_e(_t("index.footer_html"))}
