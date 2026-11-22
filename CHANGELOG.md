@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-22 - Review-findings design updated to current practice (#454)
+
+- `design/ai-review-findings.md` and CONTRIBUTING: where findings come from
+  now (Claude and Pally review bodies, Gemini; CodeRabbit posts no reviews),
+  who verifies and what counts as Fixed or Rejected, the standing nonmaterial
+  finding rule (tracked issue instead of a fix commit), and that unresolved
+  threads are shown, not a blanket block. Docs only; no enforcement or config.
+
 ## 2026-11-22 - Review-thread report: file paths, bot replies, observed markers (#454, #1127)
 
 - The File column keeps underscores and dots in paths (only pipes and line
