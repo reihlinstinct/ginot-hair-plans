@@ -58,6 +58,7 @@ def test_summary_counts_and_flags_bot_unanswered():
         "resolved": 1,
         "answered": 1,
         "unanswered": 1,
+        "bot-reply-only": 0,
         "incomplete": 0,
         "bot_unanswered": 1,
     }
@@ -80,7 +81,7 @@ def test_snippet_is_plain_truncated_and_drops_markup():
 def test_table_cell_cannot_break_the_row_with_a_pipe_or_newline():
     text, _ = rt.summarize([thread(body="a | b\nc")], 1)
     row = next(ln for ln in text.splitlines() if ln.startswith("| unanswered"))
-    assert row.count("|") == 6 and "\n" not in row
+    assert row.count("|") == 7 and "\n" not in row
 
 
 # Section: exit codes
@@ -155,3 +156,43 @@ def test_snippet_drops_markdown_formatting_and_bare_urls():
         assert ch not in snip
     assert "https://" not in snip and "evil.example" not in snip
     assert "(link)" in snip
+
+
+# Section: observed markers, file cell, bot replies, output I/O (#454, #1127)
+
+
+def test_file_path_keeps_underscores_and_dots_but_not_pipes():
+    assert rt._cell("scripts/ci/review_threads.py") == "scripts/ci/review_threads.py"
+    assert "|" not in rt._cell("a|b\nc") and "\n" not in rt._cell("a|b\nc")
+    text, _ = rt.summarize([thread(authors=("u",), bot=False)], 1)
+    assert "a/b.py" in text
+
+
+def test_bot_replies_alone_are_not_a_human_answer():
+    t = thread(authors=("bot", "other-bot"), bot=True)
+    t["comments"]["nodes"][1]["author"]["__typename"] = "Bot"
+    assert rt.classify(t)[0] == "bot-reply-only"
+    assert rt.classify(thread(authors=("bot", "owner")))[0] == "answered"
+    text, counts = rt.summarize([t], 1)
+    assert counts["bot-reply-only"] == 1 and "bot replies only" in text
+
+
+def test_marker_is_observed_text_not_verification():
+    def with_reply(body):
+        t = thread(authors=("bot", "owner"))
+        t["comments"]["nodes"][1]["body"] = body
+        return t
+
+    assert rt.marker(with_reply("fixed in 3b760a9")) == "commit ref"
+    assert rt.marker(with_reply("Rejected: the date is real")) == "rejection note"
+    assert rt.marker(with_reply("ok")) == "-"
+    assert rt.marker(thread(authors=("bot",))) == "-"
+    text, _ = rt.summarize([with_reply("fixed in 3b760a9")], 1)
+    assert "does not check that a fix or reason is real" in text
+
+
+def test_unwritable_summary_file_does_not_fail_the_run(monkeypatch, tmp_path):
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(tmp_path / "no" / "such" / "f.md"))
+    monkeypatch.setattr(rt, "fetch", lambda *a: ([thread()], False))
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0

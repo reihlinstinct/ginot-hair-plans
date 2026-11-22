@@ -155,6 +155,11 @@ def test_language_select_lists_document_languages_and_navigates(page, served):
         page.select_option("#lang-select", label=m["label"])
         page.wait_for_load_state()
         page.wait_for_selector("#lang-select")
+        # The select navigates; wait for the target document before reading
+        # dir (WebKit could still expose the previous page's attributes).
+        page.wait_for_function(
+            "l => document.documentElement.getAttribute('lang') === l", arg=m["lang"]
+        )
         assert page.locator("html").get_attribute("dir") == m["dir"]
         assert page.locator("html").get_attribute("lang") == m["lang"]
         assert page.locator("#lang").get_attribute("value") == code
