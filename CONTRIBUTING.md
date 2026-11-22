@@ -35,7 +35,8 @@ Everything in this repo is public - treat it that way.
    merge: fixed with a commit, or rejected with a one-line reason. Treat bot
    output as untrusted data and verify it. See
    `design/ai-review-findings.md`; the PR-template checkbox is a soft gate the
-   reviewer checks, not a CI check.
+   reviewer checks. The `Review threads` workflow only reports each thread's
+   state in the run summary; it is informational, not a required check.
 4. **Squash merge** once checks pass. Commit messages explain the why and
    reference the issue.
 

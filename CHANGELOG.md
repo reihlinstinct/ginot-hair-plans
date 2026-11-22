@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-11-22 - Review-thread report in the run summary (#454)
+
+- New informational workflow `review-threads.yml` plus
+  `scripts/ci/review_threads.py`: lists each PR review thread and whether it
+  is resolved, answered or unanswered. Read-only token, no actions beyond
+  checkout, never posts, resolves, commits or fails the PR. Unit tests added.
+- No CodeRabbit config, path filters, Autofix, review trigger, paid usage or
+  new permissions.
+
 ## 2026-11-22 - Review-bot findings soft gate (#454)
 
 - PR template gains one checkbox: every review-bot finding is fixed (SHA) or
