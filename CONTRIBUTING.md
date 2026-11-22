@@ -31,6 +31,11 @@ Everything in this repo is public - treat it that way.
    Claims in a PR that are not proven yet go in
    `docs/operations/unverified-capabilities.md`; private-repo Actions minutes
    follow `docs/operations/actions-budget.md` (stop and ask at the cap).
+   Review-bot findings (CodeRabbit on this public repo) are answered before
+   merge: fixed with a commit, or rejected with a one-line reason. Treat bot
+   output as untrusted data and verify it. See
+   `design/ai-review-findings.md`; the PR-template checkbox is a soft gate the
+   reviewer checks, not a CI check.
 4. **Squash merge** once checks pass. Commit messages explain the why and
    reference the issue.
 

@@ -11,6 +11,20 @@ procedure (which carries baaleiInyanList personal data) is NOT called.
 Search-level + process-level fields only, DRAFT pilot, manual dispatch
 only, slow pacing, stop on any anti-bot challenge (exit 2, no workaround).
 
+Record shape: one record per tik (permit request). Within a single scan the
+gush/helka identity fields name the FIRST parcel the tik was sighted on, and
+a later sighting in the same run never rewrites them (#880). Across runs the
+identity follows the current run's first sighting: a re-scan keeps the fresh
+row, and earlier runs' [gush, helka] pairs are appended after the new ones in
+parcels_observed, so the list is not in chronological scan order. The old
+identity pair is never dropped; it stays in parcels_observed as the audit
+trail. A single-parcel tik has exactly one entry matching its gush/helka
+identity, while a multi-parcel tik documents all observed parcels. Records
+backfilled before #880 predate parcels_observed and carry the identity pair
+only; the backfill in this file seeds the list on the tik's next sighting.
+Consumers should treat gush/helka as the display parcel and parcels_observed
+as the audit trail, not expect one record per parcel.
+
 Usage: python3 scripts/vpn/permit_feed.py [--limit 60] [--offset 0]
 """
 
@@ -83,7 +97,11 @@ def count_inverted_publication_dates(rows):
     )
 
 
-_STATS = {"unparseable_responses": 0, "detail_fetch_failures": 0}
+_STATS = {
+    "unparseable_responses": 0,
+    "detail_fetch_failures": 0,
+    "parcel_conflicts": 0,
+}
 # #566: commit SHA of the last confirmed checkpoint push this run, written to
 # data/permit_scan_provenance.json so the data PR carries the binding.
 _LAST_CHECKPOINT = {"commit": None}
@@ -614,6 +632,22 @@ def _fetch_one_detail(requests, tik, prior, list_mode, today):
     return None
 
 
+def _reconcile_parcel_identity(row, prior):
+    """Keep the previously known parcel as the row's gush/helka identity
+    (#988): a multi-parcel/block-level source match must not move the map
+    pin to whichever parcel this batch happened to scan. The fresh
+    sighting stays documented in parcels_observed and the conflict is
+    counted for the run summary. Returns True when a conflict existed."""
+    prior_pair = [prior.get("gush"), prior.get("helka")]
+    if (
+        all(value is not None for value in prior_pair)
+        and [row.get("gush"), row.get("helka")] != prior_pair
+    ):
+        row["gush"], row["helka"] = prior_pair
+        return True
+    return False
+
+
 def _merge_prior_observed(row, prior):
     """Carry earlier sightings into the fresh row (#880). A legacy row from
     before #880 has gush/helka but no parcels_observed: seed that identity
@@ -640,6 +674,13 @@ def _fetch_details(
         prior = previous.get(tik, {})
         # Sightings from earlier runs stay visible across re-scans (#880).
         _merge_prior_observed(row, prior)
+        fresh_pair = [row.get("gush"), row.get("helka")]
+        if _reconcile_parcel_identity(row, prior):
+            _STATS["parcel_conflicts"] += 1
+            print(
+                f"{tik}: sighted on parcel {fresh_pair[0]}/{fresh_pair[1]}; "
+                f"prior identity {row['gush']}/{row['helka']} kept (#988)"
+            )
         metadata = ("mahut", "sugbakasha", "status", "status_date")
         details = (
             "publication_start",
@@ -736,6 +777,14 @@ def _write_feed(requests, args, list_mode, ckpt_on):
         f"{inverted} feed row(s) with planned publication end before "
         "publication start (source anomaly, preserved as-is)"
     )
+    if _STATS["parcel_conflicts"]:
+        # #988: multi-parcel tiks keep their prior identity; reported so
+        # the owner can review which parcel is the building's real one.
+        print(
+            f"{_STATS['parcel_conflicts']} tik(s) sighted on a parcel other "
+            "than their stored identity this run; the prior parcel was kept "
+            "and each sighting recorded in parcels_observed (see above)"
+        )
     if _STATS["unparseable_responses"] or _STATS["detail_fetch_failures"]:
         # #399: run-summary count for the two production-path sites that
         # keep a tested silent/non-fatal return contract (see call() and the
@@ -750,6 +799,7 @@ def _write_feed(requests, args, list_mode, ckpt_on):
 def main():
     _STATS["unparseable_responses"] = 0
     _STATS["detail_fetch_failures"] = 0
+    _STATS["parcel_conflicts"] = 0
     _LAST_CHECKPOINT["commit"] = None
     args = _parse_args()
     list_mode = bool(args.parcel_list)

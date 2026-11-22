@@ -1,10 +1,12 @@
-"""Every CI pip install is hash-locked (#770, approved by the owner).
+"""Every CI pip install is hash-locked (#770; the hash-locking was
+owner-approved after that issue's body was written).
 
 The OpenSSF Scorecard baseline carried the unhashed installs as accepted
 debt first tracked by #709 (now closed); the live tracker is #770. The
 fix is structural: workflow install lines only reference requirements-*.txt
 lock files with --require-hashes, and every locked entry pins an exact
-version with at least one sha256.
+version with at least one sha256. #1009 adds source-vs-lock specifier and
+co-installed-lock pin-equality coverage.
 """
 
 import re
@@ -58,13 +60,6 @@ def test_every_pip_install_references_only_lock_files():
 # Section: lock files
 
 
-def _lock_entries(path):
-    """(package, line-index) for each pinned entry of a lock file."""
-    text = path.read_text()
-    for m in re.finditer(r"^([A-Za-z0-9_.-]+)==(\S+?) \\\n", text, re.MULTILINE):
-        yield m.group(1), m.start()
-
-
 def test_lock_files_pin_versions_and_hashes():
     locks = sorted(ROOT.glob("requirements-*.txt"))
     assert locks, "no lock files found"
@@ -95,3 +90,155 @@ def test_runtime_lock_covers_the_loose_source():
         assert re.search(rf"^{re.escape(pkg)}==", lock, re.MULTILINE | re.IGNORECASE), (
             f"requirements-lock.txt drops {pkg}"
         )
+
+
+# Section: source vs lock
+
+# Keep in sync with the ci.yml test matrix (3.11-3.13) plus the informational
+# 3.15 job.
+_CI_PYTHONS = ["3.11", "3.12", "3.13", "3.15"]
+
+
+def _marker_env(py):
+    return {
+        "python_version": py,
+        "python_full_version": py + ".0",
+        "implementation_version": py + ".0",
+        "os_name": "posix",
+        "sys_platform": "linux",
+        "platform_system": "Linux",
+        "platform_machine": "x86_64",
+        "platform_python_implementation": "CPython",
+        "platform_release": "",
+        "platform_version": "",
+        "implementation_name": "cpython",
+        "extra": "",
+    }
+
+
+def _lock_pins(path):
+    """{canonical name: [(version, marker-or-None)]} from a lock file."""
+    from packaging.utils import canonicalize_name
+
+    joined = re.sub(r" \\\n\s+", " ", path.read_text())
+    pins = {}
+    for line in joined.splitlines():
+        # Drop hash options and trailing comments before parsing the pin.
+        line = re.split(r"\s+--hash=", line, maxsplit=1)[0]
+        line = re.split(r"\s+#", line, maxsplit=1)[0].strip()
+        m = re.match(r"^([A-Za-z0-9_.-]+)==(\S+?)(?:\s*;\s*(\S.*))?$", line)
+        if not m:
+            continue
+        name, version, marker = m.group(1), m.group(2), m.group(3)
+        pins.setdefault(canonicalize_name(name), []).append(
+            (version, marker.strip() if marker else None)
+        )
+    return pins
+
+
+def test_source_specifiers_cover_locked_versions():
+    # #1009: requirements.txt is the human-edited source; every locked pin
+    # whose marker overlaps a source requirement's marker must satisfy that
+    # requirement's specifier, or a bump in the source silently never takes
+    # effect (CI installs only the lock).
+    from packaging.markers import Marker
+    from packaging.requirements import Requirement
+    from packaging.utils import canonicalize_name
+
+    pins = _lock_pins(ROOT / "requirements-lock.txt")
+    for line in (ROOT / "requirements.txt").read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        req = Requirement(line)
+        canonical = canonicalize_name(req.name)
+        for version, marker in pins.get(canonical, []):
+            for py in _CI_PYTHONS:
+                env = _marker_env(py)
+                if req.marker is not None and not req.marker.evaluate(env):
+                    continue
+                if marker is not None and not Marker(marker).evaluate(env):
+                    continue
+                assert req.specifier.contains(version, prereleases=True), (
+                    f"requirements-lock.txt pins {canonical}=={version} "
+                    f"(marker {marker!r}) which violates source specifier "
+                    f"{req.specifier} on Python {py}"
+                )
+                break  # one overlapping environment is enough to check
+
+
+# Section: cross-lock pins
+
+
+def _co_installed_lock_groups():
+    """Lock-file sets co-installed by one pip, derived from the workflows."""
+    import yaml
+
+    groups = []
+    for wf in sorted([*WF.glob("*.yml"), *WF.glob("*.yaml")]):
+        doc = yaml.safe_load(wf.read_text())
+        for job_name, job in (doc.get("jobs") or {}).items():
+            for step in job.get("steps") or []:
+                run = step.get("run") or ""
+                for line in run.splitlines():
+                    m = re.search(
+                        r"((?:\S*/)?pip3?|python3?\s+-m\s+pip)\s+install", line
+                    )
+                    if not m:
+                        continue
+                    locks = [
+                        t
+                        for t in line.split()
+                        if t.startswith("requirements-") and t.endswith(".txt")
+                    ]
+                    if locks:
+                        groups.append((wf.name, str(job_name), m.group(1), locks))
+    # Same pip executable inside one job shares one environment.
+    merged = {}
+    for wf_name, job, pip, locks in groups:
+        merged.setdefault((wf_name, job, pip), set()).update(locks)
+    return [
+        (wf_name, job, pip, sorted(locks))
+        for (wf_name, job, pip), locks in merged.items()
+        if len(locks) > 1
+    ]
+
+
+def _resolved_versions(pins, name, py):
+    """Versions a lock would install for `name` on CI Python `py`."""
+    from packaging.markers import Marker
+
+    env = _marker_env(py)
+    return {
+        version
+        for version, marker in pins.get(name, [])
+        if marker is None or Marker(marker).evaluate(env)
+    }
+
+
+def test_co_installed_locks_pin_equal_versions():
+    # #1009: locks installed into one environment must resolve any shared
+    # package to the same version on every CI Python, or the second install
+    # silently replaces the first (separate pip runs) or fails only at
+    # resolver time. Every PAIR is compared, not just the intersection of all
+    # locks: ci.yml's pip-audit job co-installs three locks whose three-way
+    # intersection is empty. Markers are evaluated per Python, so equivalent
+    # spellings (python_version vs python_full_version) do not false-alarm.
+    import itertools
+
+    groups = _co_installed_lock_groups()
+    assert groups, "no co-installed lock groups found in workflows"
+    for wf_name, job, pip, locks in groups:
+        pin_maps = {lock: _lock_pins(ROOT / lock) for lock in locks}
+        for a, b in itertools.combinations(locks, 2):
+            for name in sorted(set(pin_maps[a]) & set(pin_maps[b])):
+                for py in _CI_PYTHONS:
+                    va = _resolved_versions(pin_maps[a], name, py)
+                    vb = _resolved_versions(pin_maps[b], name, py)
+                    if not va or not vb:
+                        continue  # not installed on this Python by one side
+                    assert va == vb, (
+                        f"{wf_name} job {job!r} ({pip}): {name} resolves to "
+                        f"{sorted(va)} in {a} but {sorted(vb)} in {b} on "
+                        f"Python {py}"
+                    )

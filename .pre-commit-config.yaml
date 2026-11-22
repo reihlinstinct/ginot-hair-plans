@@ -9,7 +9,9 @@ repos:
       - id: end-of-file-fixer
         # #1070: data/*.json is machine-written; producer byte counts are
         # recorded in docs/index.json, so the fixer must not fight them.
-        exclude: '^data/.*\.json$'
+        # #1096: same for the two data/*.geojson layers (byte counts are
+        # tracked in docs/index.json via check_docs_fresh).
+        exclude: '^data/.*\.(json|geojson)$'
       - id: check-yaml
       - id: check-added-large-files
       - id: detect-private-key
