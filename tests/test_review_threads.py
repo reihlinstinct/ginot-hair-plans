@@ -221,7 +221,12 @@ def rev(body, oid="aaa", state="COMMENTED", login="reihl"):
 def test_review_facts_read_verdict_and_skip_none_findings():
     body = "**Findings:**\n- P1: none. P2: none.\n- Minor (x.py:1): thing\n**Verdict: PASS with follow-ups.**"
     who, state, on_head, verdict, claimed = rt.review_facts(rev(body), "aaa")
-    assert (who, state, on_head, verdict) == ("reihl", "COMMENTED", True, "PASS")
+    assert (who, state, on_head, verdict) == (
+        "reihl",
+        "COMMENTED",
+        True,
+        "PASS with follow-ups",
+    )
     assert claimed == {"Minor": 1}
 
 
@@ -243,7 +248,7 @@ def test_review_section_says_it_is_not_verification():
     text = rt.summarize_reviews("aaa", [rev("Verdict: PASS")], more=True)
     assert "not verified" in text and "current head" in text
     assert "Nothing here checks that a finding was fixed" in text
-    assert "first 50 reviews" in text
+    assert "newest 50 reviews" in text
 
 
 def test_main_appends_review_section_and_fails_open_for_it(monkeypatch, tmp_path):
@@ -264,3 +269,27 @@ def test_main_appends_review_section_and_fails_open_for_it(monkeypatch, tmp_path
     assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
     out = (tmp_path / "s.md").read_text()
     assert "Review bodies unavailable (RuntimeError)" in out and "1 thread(s)" in out
+
+
+def test_verdict_comes_from_the_verdict_line_not_from_prose():
+    body = "Asked for a verdict on the delta.\n- reason\n**Verdict: PASS with follow-ups.**"
+    assert rt._verdict_word(body) == "PASS with follow-ups"
+    assert rt._verdict_word("Verdict \u2014 **PASS**") == "PASS"
+    assert rt._verdict_word("Verdict: CHANGES REQUESTED") == "CHANGES REQUESTED"
+    assert rt._verdict_word("Verdict: FINDINGS (two non-blocking P3s)") == "FINDINGS"
+    assert rt._verdict_word("we want a verdict later") == "-"
+    # the last verdict line wins
+    assert rt._verdict_word("Verdict: PASS\nlater\nVerdict: FINDINGS") == "FINDINGS"
+
+
+def test_resolved_finding_lines_are_not_new_claims_but_open_ones_are():
+    body = "- **P1 (resolved):** was bad\n- P2 (fixed in abc): old\n- P3: still open"
+    _, _, _, _, claimed = rt.review_facts(rev(body), "aaa")
+    assert claimed == {"P3": 1}
+
+
+def test_reviews_are_read_newest_first_and_overflow_is_disclosed():
+    assert "reviews(last:50)" in rt.REVIEWS_QUERY
+    assert (
+        "hasPreviousPage" in rt.REVIEWS_QUERY and "__typename" not in rt.REVIEWS_QUERY
+    )

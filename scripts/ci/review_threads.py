@@ -44,9 +44,9 @@ query($owner:String!,$name:String!,$pr:Int!){
   repository(owner:$owner,name:$name){
     pullRequest(number:$pr){
       headRefOid
-      reviews(first:50){
-        pageInfo{hasNextPage}
-        nodes{author{login __typename} state commit{oid} body}
+      reviews(last:50){
+        pageInfo{hasPreviousPage}
+        nodes{author{login} state commit{oid} body}
       }
     }
   }
@@ -90,15 +90,40 @@ def fetch_reviews(repo, pr, token):
         "repository"
     ]["pullRequest"]
     block = data["reviews"]
-    more = bool((block.get("pageInfo") or {}).get("hasNextPage"))
+    more = bool((block.get("pageInfo") or {}).get("hasPreviousPage"))
     return data["headRefOid"], block["nodes"], more
 
 
-_VERDICT = re.compile(r"verdict\W{0,4}\s*([A-Za-z][A-Za-z ]{0,30})", re.IGNORECASE)
-_FINDING = re.compile(
-    r"^\s*[-*]?\s*\**(P[0-3]|Minor)\b[^:\n]{0,60}:\**\s*(\S.*)$",
+# The verdict is read from a line that starts with the word, never from prose
+# that merely mentions it, and the last such line wins (the formal verdict
+# closes a review). Decoration such as bullets, bold, dashes is skipped.
+_VERDICT = re.compile(
+    r"^[\s>*_-]*verdict\b[^A-Za-z\n]{0,12}([A-Za-z][A-Za-z ,-]{0,60})",
     re.IGNORECASE | re.MULTILINE,
 )
+_FINDING = re.compile(
+    r"^\s*[-*]?\s*\**(P[0-3]|Minor)\b([^:\n]{0,60}):\**\s*(\S.*)$",
+    re.IGNORECASE | re.MULTILINE,
+)
+# A finding line that reports its own outcome is a record, not a new claim.
+_RESOLVED = re.compile(r"\b(resolved|fixed|addressed|carried)\b", re.IGNORECASE)
+
+
+def _verdict_word(body):
+    """Return the closing verdict as a short phrase: PASS, FINDINGS, CHANGES
+    REQUESTED, etc., plus 'with follow-ups' when the line says so; '-' if
+    no verdict line exists."""
+    found = _VERDICT.findall(body or "")
+    if not found:
+        return "-"
+    text = found[-1].strip()
+    words = text.upper().split()
+    if not words:
+        return "-"
+    head = " ".join(words[:2]) if words[0] == "CHANGES" else words[0]
+    if re.search(r"follow-?\s?ups?", text, re.IGNORECASE):
+        head += " with follow-ups"
+    return head.strip(" ,-")
 
 
 def review_facts(review, head):
@@ -107,11 +132,10 @@ def review_facts(review, head):
     reviewer wrote; none of it is verified here."""
     author = review.get("author") or {}
     body = review.get("body") or ""
-    m = _VERDICT.search(body)
-    verdict = m.group(1).strip().split(" ")[0].upper() if m else "-"
+    verdict = _verdict_word(body)
     claimed = {}
-    for tag, text in _FINDING.findall(body):
-        if re.match(r"\W*none\b", text, re.IGNORECASE):
+    for tag, mid, text in _FINDING.findall(body):
+        if re.match(r"\W*none\b", text, re.IGNORECASE) or _RESOLVED.search(mid):
             continue
         key = tag.upper() if tag.upper().startswith("P") else "Minor"
         claimed[key] = claimed.get(key, 0) + 1
@@ -157,7 +181,7 @@ def summarize_reviews(head, reviews, more=False):
         "|---|---|---|---|---|",
     ] + rows
     if more:
-        lines += ["", "Only the first 50 reviews were read."]
+        lines += ["", "Only the newest 50 reviews were read."]
     return "\n".join(lines) + "\n"
 
 
