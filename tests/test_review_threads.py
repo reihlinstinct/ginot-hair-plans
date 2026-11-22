@@ -58,6 +58,7 @@ def test_summary_counts_and_flags_bot_unanswered():
         "resolved": 1,
         "answered": 1,
         "unanswered": 1,
+        "incomplete": 0,
         "bot_unanswered": 1,
     }
     assert "#7" in text and "1 from a bot" in text
@@ -88,7 +89,7 @@ def test_table_cell_cannot_break_the_row_with_a_pipe_or_newline():
 def test_main_is_informational_unless_strict(monkeypatch):
     monkeypatch.setenv("GITHUB_TOKEN", "t")
     monkeypatch.delenv("GITHUB_STEP_SUMMARY", raising=False)
-    monkeypatch.setattr(rt, "fetch", lambda repo, pr, token: [thread()])
+    monkeypatch.setattr(rt, "fetch", lambda repo, pr, token: ([thread()], False))
     assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
     assert rt.main(["--repo", "o/r", "--pr", "1", "--strict"]) == 1
 
@@ -97,6 +98,60 @@ def test_main_writes_the_step_summary(monkeypatch, tmp_path):
     out = tmp_path / "summary.md"
     monkeypatch.setenv("GITHUB_TOKEN", "t")
     monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(out))
-    monkeypatch.setattr(rt, "fetch", lambda repo, pr, token: [])
+    monkeypatch.setattr(rt, "fetch", lambda repo, pr, token: ([], False))
     assert rt.main(["--repo", "o/r", "--pr", "2"]) == 0
     assert "No review threads." in out.read_text()
+
+
+# Section: pagination, fail-open and rendering (review 6012414622)
+
+
+def test_thread_with_more_than_20_comments_is_not_judged_unanswered():
+    t = thread(authors=("bot",))
+    t["comments"]["pageInfo"] = {"hasNextPage": True}
+    assert rt.classify(t)[0] == "incomplete"
+    text, counts = rt.summarize([t], 5)
+    assert counts["incomplete"] == 1 and counts["unanswered"] == 0
+    assert "1 not judged" in text
+
+
+def test_more_than_100_threads_is_disclosed():
+    text, _ = rt.summarize([thread()], 5, more_threads=True)
+    assert "Only the first 100 threads were read." in text
+    text, _ = rt.summarize([thread()], 5, more_threads=False)
+    assert "first 100" not in text
+
+
+def test_fetch_failure_fails_open_with_an_unavailable_summary(monkeypatch, tmp_path):
+    out = tmp_path / "s.md"
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setenv("GITHUB_STEP_SUMMARY", str(out))
+
+    def boom(repo, pr, token):
+        raise RuntimeError("secret-looking detail must not be echoed")
+
+    monkeypatch.setattr(rt, "fetch", boom)
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+    text = out.read_text()
+    assert "Report unavailable (RuntimeError)" in text
+    assert "secret-looking" not in text
+    assert rt.main(["--repo", "o/r", "--pr", "1", "--strict"]) == 1
+
+
+def test_missing_token_and_bad_shape_also_fail_open(monkeypatch):
+    monkeypatch.delenv("GITHUB_TOKEN", raising=False)
+    monkeypatch.delenv("GITHUB_STEP_SUMMARY", raising=False)
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    monkeypatch.setattr(rt, "fetch", lambda repo, pr, token: {"unexpected": 1})
+    assert rt.main(["--repo", "o/r", "--pr", "1"]) == 0
+
+
+def test_snippet_drops_markdown_formatting_and_bare_urls():
+    snip = rt._snippet(
+        "**bold** _it_ ~~x~~ # head > quote \\ ! see https://evil.example/a?b=c now"
+    )
+    for ch in "*_~#>\\!":
+        assert ch not in snip
+    assert "https://" not in snip and "evil.example" not in snip
+    assert "(link)" in snip
