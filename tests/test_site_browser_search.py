@@ -195,8 +195,9 @@ def test_plan_search_folds_spelling_variants_without_aliases(
     """Regression (#468): the owner could not find plan 101-0617134 by a
     spelling variant. The plans table must fold geresh/quote/prime variants,
     niqqud, dashes and whitespace runs identically on query and row text,
-    keep literal plan-number matching, and add NO aliases: the plan feed
-    carries no street field, so the colloquial "קינג גורג" stays a miss.
+    and keep literal plan-number matching. The colloquial "קינג גורג" now
+    finds the plan through the committed street_aliases source in
+    data/neighborhoods.json (the plan feed itself carries no street field).
     Synthetic rows; the official name shape is decorated with row-side
     Unicode variants to cover query AND index normalization (#678)."""
     from ginot import page as _page
@@ -253,8 +254,13 @@ def test_plan_search_folds_spelling_variants_without_aliases(
                 assert ids(variant) == george, (
                     f"{variant!r} should find only 101-0617134"
                 )
-            # no aliases: no committed source spells the plan this way
-            assert ids("קינג גורג") == []
+            # the sourced street_aliases entry bridges the colloquial
+            # street name, house number included (#468)
+            assert ids("קינג גורג") == george
+            assert ids("קינג ג'ורג' 60") == george
+            # an unanchored colloquial spelling of another street still
+            # misses: no committed source spells it that way
+            assert ids("גולדי מאיר") == []
             # no false-positive broadening
             assert ids("הרצל") == ["101-0000002"]
             assert ids("גולדה") == ["101-0000001"]

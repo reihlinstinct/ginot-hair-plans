@@ -56,6 +56,42 @@ def test_prefix_rule_is_limited_to_multi_word_streets():
     assert "טלביה" in neighborhoods.tags_for("תוספת שטחים בחובבי ציון 5")
 
 
+# Section: sourced street aliases (#468)
+
+
+def test_king_george_alias_finds_the_kings_hotel_plan():
+    # The owner report: "קינג גורג" missed plan 101-0617134, officially
+    # "מלון המלכים- המלך ג'ורג' 60". The sourced street_aliases entry
+    # bridges the colloquial street name.
+    extra = neighborhoods.search_extra("מלון המלכים- המלך ג'ורג' 60")
+    assert "קינג גורג 60" in extra
+
+
+def test_alias_variant_keeps_the_house_number():
+    # The swap emits the whole name variant, so a query with the house
+    # number still matches.
+    extra = neighborhoods.search_extra("שיפוץ מבנה ברחוב המלך ג'ורג' 12, ירושלים")
+    assert "קינג גורג 12" in extra
+
+
+def test_alias_requires_the_whole_street_name():
+    # Whole-word discipline: המלך alone or גורג alone must not trigger it.
+    assert (
+        neighborhoods._alias_variants(tuple(neighborhoods._norm("המלך דוד 5").split()))
+        == []
+    )
+    assert (
+        neighborhoods._alias_variants(
+            tuple(neighborhoods._norm("גורג וושינגטון 3").split())
+        )
+        == []
+    )
+
+
+def test_alias_in_the_autocomplete_datalist():
+    assert "קינג ג'ורג'" in neighborhoods.autocomplete_terms()
+
+
 # Section: full street-prefix regression matrix (#1011, follows #998)
 
 _MULTI = "חובבי ציון"  # known multi-word street (טלביה)
