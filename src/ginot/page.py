@@ -550,6 +550,9 @@ function selectedGroups(){
   return true;
 }
 function apply(){
+  // #409: disclose that the filter excludes permits with no neighborhood on file.
+  var pfschunanote=document.getElementById('pfschuna-note');
+  if(pfschunanote)pfschunanote.hidden=!(pfschuna&&pfschuna.value);
   if(!fullLoaded&&defaultFailed){showLoadState();return;}
   if(!fullLoaded&&!isDefaultView()){loadFullPermits();showLoadState();return;}
   showLoadState();
@@ -586,7 +589,7 @@ if(pfshowschuna){
   var applySchunaView=function(){
     document.getElementById('permits-table').classList.toggle('show-schuna',pfshowschuna.checked);
   };
-  pfshowschuna.addEventListener('change',function(){applySchunaView();apply();});
+  pfshowschuna.addEventListener('change',function(){cancelPendingUrlState();applySchunaView();apply();});
   applySchunaView();
 }
 if(pfclosed&&pfgroups){
@@ -948,6 +951,8 @@ permitLink=window.GinotFilterLinks.register('permit',
     // non-default status groups (e.g. review/draft), and out-of-area rows.
     // A copied filters=1 link carries the sender's saved state, so it is
     // never widened; explicit gate params also skip this branch.
+    // #409: a bare neighborhood link (?permit.pfschuna=...) is widened the same
+    // way: "show me everything in X" must include closed and out-of-window rows.
     if(p.get('filters')===null&&(p.get(n+'.pfq')||p.get(n+'.pfschuna'))&&p.get(n+'.pfclosed')===null&&p.get(n+'.pfopenonly')===null&&p.get(n+'.pfscope')===null&&raw===null&&!p.get(n+'.pfstatus')){
       pfclosed.checked=true;
       if(pfopenonly)pfopenonly.checked=false;

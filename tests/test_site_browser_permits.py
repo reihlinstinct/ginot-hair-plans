@@ -69,6 +69,15 @@ def test_permit_neighborhood_filter_and_on_demand_field(page):
     page.click("#pfreset")
     assert page.locator("#pfschuna").input_value() == ""
     assert not page.locator("#pfshowschuna").is_checked()
+    # coverage disclosure: shown only while a neighborhood is selected, and it
+    # states how few permits carry the field (3 of 13 in this fixture)
+    note = page.locator("#pfschuna-note")
+    assert note.is_hidden()
+    page.select_option("#pfschuna", "רחביה")
+    assert note.is_visible()
+    assert "3" in note.inner_text() and "13" in note.inner_text()
+    page.click("#pfreset")
+    assert note.is_hidden()
 
 
 def test_permit_publication_date_filter(page):

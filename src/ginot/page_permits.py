@@ -240,6 +240,7 @@ def _permits_section(
             if (p.get("schunaName") or "").strip()
         }
     )
+    n_with_schuna = sum(1 for p in permits if (p.get("schunaName") or "").strip())
     schuna_opts = (
         f"<option value=''>{_e(_t(lang, 'permits.schuna_all'))}</option>"
         + "".join(f"<option value='{_e(v)}'>{_e(v)}</option>" for v in schunas)
@@ -259,6 +260,7 @@ def _permits_section(
 <select id="pfstatus" aria-label="{_e(_t(lang, "permits.status_aria"))}">{status_opts}</select>
 <select id="pfsug" aria-label="{_e(_t(lang, "permits.sug_aria"))}">{sug_opts}</select>
 <select id="pfschuna" aria-label="{_e(_t(lang, "permits.schuna_aria"))}">{schuna_opts}</select>
+<span id="pfschuna-note" class="permits-note" hidden>{_e(_t(lang, "permits.schuna_note", n=f"{n_with_schuna:,}", total=f"{len(permits):,}"))}</span>
 <label>{_e(_t(lang, "permits.from_label"))} <input type="date" id="pffrom"></label>
 <label>{_e(_t(lang, "permits.to_label"))} <input type="date" id="pfto"></label>
 <label><input type="checkbox" id="pfopenonly" checked> {_e(_t(lang, "permits.openonly"))}</label>

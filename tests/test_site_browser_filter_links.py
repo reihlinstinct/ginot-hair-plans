@@ -357,3 +357,30 @@ def test_implicit_or_queries_roundtrip_without_new_controls(page):
         ).all_inner_texts()
         == expected
     )
+
+
+def test_permit_neighborhood_deep_link_widens_and_restores_display_field(page):
+    """#409: a bare ?permit.pfschuna=... link restores the select, widens the
+    default gates like a bare pfq link (closed/out-of-window rows are shown),
+    and a restored pfshowschuna syncs the show-schuna class (no change event
+    fires on restore)."""
+    url = page.url.split("?")[0]
+    page.goto(
+        url
+        + "?permit.pfschuna=%D7%A8%D7%97%D7%91%D7%99%D7%94&permit.pfshowschuna=1#permits"
+    )
+    page.wait_for_function(
+        "window.__permitsLoaded === true || window.__permitsFailed === true"
+    )
+    assert page.evaluate("window.__permitsLoaded") is True
+    assert page.input_value("#pfschuna") == "רחביה"
+    assert page.is_checked("#pfshowschuna")
+    assert "show-schuna" in page.get_attribute("#permits-table", "class")
+    assert page.is_checked("#pfclosed")
+    assert not page.is_checked("#pfopenonly")
+    assert page.is_visible("#pfschuna-note")
+    vis = page.eval_on_selector_all(
+        "#permits-table tbody tr",
+        "e=>e.filter(r=>!r.classList.contains('filtered-out')).map(r=>r.dataset.schuna)",
+    )
+    assert vis and set(vis) == {"רחביה"}

@@ -2077,6 +2077,14 @@
    "ru": "Показать поле района",
    "am": "የአካባቢ መስክ አሳይ",
    "fr": "Afficher le champ quartier"
+  },
+  "permits.schuna_note": {
+   "he": "המסנן מציג רק בקשות שבתיקן רשומה שכונה ({n} מתוך {total}). בקשות בלי שכונה בתיק אינן מוצגות.",
+   "en": "This filter shows only permits whose file lists a neighborhood ({n} of {total}). Permits without a neighborhood on file are not shown.",
+   "ar": "يعرض هذا المرشح فقط الطلبات التي يذكر ملفها حيًا ({n} من {total}). الطلبات بلا حي في الملف لا تظهر.",
+   "ru": "Фильтр показывает только заявки, в деле которых указан район ({n} из {total}). Заявки без района не показываются.",
+   "am": "ይህ ማጣሪያ በፋይላቸው አካባቢ የተመዘገበባቸውን ጥያቄዎች ብቻ ያሳያል ({n} ከ {total})። አካባቢ የሌላቸው አይታዩም።",
+   "fr": "Ce filtre n’affiche que les demandes dont le dossier indique un quartier ({n} sur {total}). Les demandes sans quartier au dossier ne sont pas affichées."
   }
  }
 }
