@@ -308,3 +308,14 @@ def test_verdict_negation_qualifier_and_punctuation():
     assert vw("Verdict (delta only): **PASS**") == "PASS"
     assert vw("Verdict \u2014 **CHANGES REQUESTED**") == "CHANGES REQUESTED"
     assert vw("Verdict: maybe later") == "-"
+
+
+def test_long_verdict_line_later_prose_and_extra_words():
+    vw = rt._verdict_word
+    long_line = "**Verdict: PASS with follow-ups** - " + "x " * 100
+    assert vw(long_line) == "PASS with follow-ups"
+    assert vw("Verdict: PASS\n\nVerdict words are parsed from the last line.") == "PASS"
+    assert vw("Verdict: APPROVE with follow-up") == "APPROVE with follow-ups"
+    assert vw("Verdict: PASSED") == "PASS"
+    assert vw("Verdict (delta, re: 9101be7): PASS") == "PASS"
+    assert vw("Verdict: FINDINGS\nVerdict: PASS") == "PASS"

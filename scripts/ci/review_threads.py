@@ -97,14 +97,18 @@ def fetch_reviews(repo, pr, token):
 # The verdict is read from a line that starts with the word, never from prose
 # that merely mentions it, and the last such line wins (the formal verdict
 # closes a review). Decoration such as bullets, bold, dashes is skipped.
-_VERDICT = re.compile(r"^[\s>*_-]*verdict\b(.{0,120})$", re.IGNORECASE | re.MULTILINE)
+_VERDICT = re.compile(
+    r"^[\s>*_-]*verdict\b([^\n]{0,120})", re.IGNORECASE | re.MULTILINE
+)
 _VERDICT_WORDS = (
+    "PASSED",
     "PASS",
     "FINDINGS",
     "CHANGES REQUESTED",
     "BLOCKED",
     "FAIL",
     "APPROVED",
+    "APPROVE",
 )
 _WITH_FOLLOWUPS = re.compile(r"\bwith\s+follow-?\s?ups?\b", re.IGNORECASE)
 _FINDING = re.compile(
@@ -119,21 +123,25 @@ def _verdict_word(body):
     """Return the closing verdict as a short phrase: PASS, FINDINGS, CHANGES
     REQUESTED, etc., plus 'with follow-ups' when the line says so; '-' if
     no verdict line exists."""
-    found = _VERDICT.findall(body or "")
-    if not found:
-        return "-"
-    rest = found[-1]
-    # A qualifier before the colon ("Verdict on the delta: PASS") is skipped.
-    if ":" in rest:
-        rest = rest.split(":", 1)[1]
-    text = re.sub(r"^[^A-Za-z]+", "", rest)
-    upper = re.sub(r"[^A-Z ]", " ", text.upper())
-    word = next((w for w in _VERDICT_WORDS if re.match(w + r"\b", upper.strip())), None)
-    if word is None:
-        return "-"
-    if _WITH_FOLLOWUPS.search(text):
-        word += " with follow-ups"
-    return word
+    # The newest verdict line that yields a known word wins, so a later prose
+    # line that merely starts with "Verdict" cannot hide the formal one.
+    for rest in reversed(_VERDICT.findall(body or "")):
+        # A parenthetical qualifier may contain a colon: drop it first.
+        rest = re.sub(r"^\s*\([^)]*\)", "", rest)
+        # A plain qualifier before the colon ("Verdict on the delta: PASS").
+        if ":" in rest:
+            rest = rest.split(":", 1)[1]
+        text = re.sub(r"^[^A-Za-z]+", "", rest)
+        upper = re.sub(r"[^A-Z ]", " ", text.upper()).strip()
+        word = next((w for w in _VERDICT_WORDS if re.match(w + r"\b", upper)), None)
+        if word is None:
+            continue
+        if word in ("PASSED",):
+            word = "PASS"
+        if _WITH_FOLLOWUPS.search(text):
+            word += " with follow-ups"
+        return word
+    return "-"
 
 
 def review_facts(review, head):
