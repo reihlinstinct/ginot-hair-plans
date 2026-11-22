@@ -324,7 +324,7 @@ jobs:
           # default-locale index.html and must be staged here too - the
           # #874 cleanliness guard failed run 43733250766 on exactly these
           # five files left unstaged.
-          FRAGMENTS=$(python3 -c "import sys; sys.path.insert(0, 'src'); from ginot import i18n; print(' '.join(f'docs/{c}/index.html docs/{c}/permits.html docs/{c}/permits-default.html' for c in i18n.lang_codes() if c != i18n.default_lang()))")
+          FRAGMENTS=$(python3 scripts/ci/permit_fragments.py)
           # #121: the versioned API outputs regenerate with the permit data and
           # must land in the same commit (runs 44582522110/44629550288 failed
           # the #874 guard on docs/api/v1/permits.json left unstaged).

@@ -203,3 +203,70 @@ def test_stop_exit_code_wins_over_missing_timeouts(tmp_path, capsys, monkeypatch
     assert code == 2
     assert "STOP" in out
     assert "no timeout-minutes: wf.yml: job1" in out
+
+
+# Section: --live path (#1050)
+
+# Recorded-shape mocks of the billing usage API: /user returns {"login"},
+# the usage endpoint returns {"usageItems": [...]} with the fields item()
+# documents (product, sku, unitType, quantity, repositoryName), and
+# /user/repos paginates 100 per page. The live response schema itself is
+# unverified against the real endpoint (registry row U-003 stays
+# explicitly unverified); these tests pin the documented shape the parser
+# relies on.
+
+
+def _fake_get_factory(usage_items, repo_pages):
+    def fake_get(url, token):
+        if url.endswith("/user"):
+            return {"login": "octo"}
+        if "/settings/billing/usage" in url:
+            return {"usageItems": usage_items}
+        if "/user/repos" in url:
+            page = int(url.rsplit("page=", 1)[1])
+            return repo_pages.get(page, [])
+        raise AssertionError(f"unexpected URL: {url}")
+
+    return fake_get
+
+
+def test_live_inputs_parses_documented_schema(monkeypatch):
+    calls = []
+
+    def fake_get(url, token):
+        calls.append(url)
+        return _fake_get_factory(
+            [item("octo/app", 100)], {1: [{"full_name": "octo/app"}]}
+        )(url, token)
+
+    monkeypatch.setattr(ab, "_get", fake_get)
+    items, private = ab.live_inputs("t", 2026, 11)
+    assert items == [item("octo/app", 100)]
+    assert private == {"octo/app"}
+    assert any("year=2026&month=11" in u for u in calls)
+
+
+def test_live_inputs_paginates_private_repos(monkeypatch):
+    pages = {
+        1: [{"full_name": f"octo/r{i}"} for i in range(100)],
+        2: [{"full_name": "octo/last"}],
+    }
+    monkeypatch.setattr(ab, "_get", _fake_get_factory([], pages))
+    _, private = ab.live_inputs("t", 2026, 11)
+    assert len(private) == 101
+    assert "octo/last" in private
+
+
+def test_live_end_to_end_with_recorded_shape(monkeypatch, capsys):
+    monkeypatch.setattr(
+        ab,
+        "_get",
+        _fake_get_factory([item("octo/app", 1700)], {1: [{"full_name": "octo/app"}]}),
+    )
+    monkeypatch.setattr(ab, "load_config", lambda: CFG)
+    monkeypatch.setenv("GITHUB_TOKEN", "t")
+    code = ab.main(["--live", "--year", "2026", "--month", "11"])
+    out = capsys.readouterr().out
+    # 1700 of 2000 = 85% >= the 80% stop threshold.
+    assert code == 2
+    assert "private-repo minutes: 1700 of 2000" in out

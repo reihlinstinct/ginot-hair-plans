@@ -185,14 +185,16 @@ def _language_permit_fragment(path):
     parts = path.split("/")
     if len(parts) != 3 or parts[0] != "docs":
         return False
-    if parts[2] not in ("index.html", "permits.html", "permits-default.html"):
+    # scripts/ holds _src_path and permit_fragments; insert at most once
+    # (#979: the unguarded insert grew sys.path on every call).
+    scripts_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+    from permit_fragments import FRAGMENT_NAMES, languages
+
+    if parts[2] not in FRAGMENT_NAMES:
         return False
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
-    import _src_path  # noqa: F401  (shared bootstrap: adds the repo src/ to sys.path)
-
-    from ginot import i18n
-
-    return parts[1] in frozenset(i18n.lang_codes()) - {i18n.default_lang()}
+    return parts[1] in languages()
 
 
 def check_provenance(prov):
