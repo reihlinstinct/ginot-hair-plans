@@ -257,6 +257,25 @@ def test_live_inputs_paginates_private_repos(monkeypatch):
     assert "octo/last" in private
 
 
+def test_live_inputs_stops_after_an_exactly_full_last_page(monkeypatch):
+    # Boundary: page 1 holds exactly 100 repos (a full page, so the loop asks
+    # for page 2), page 2 is empty and ends it. Pinned explicitly instead of
+    # relying on the fake's .get(page, []) default.
+    requested = []
+    pages = {1: [{"full_name": f"octo/r{i}"} for i in range(100)], 2: []}
+    base = _fake_get_factory([], pages)
+
+    def fake_get(url, token):
+        if "/user/repos" in url:
+            requested.append(int(url.rsplit("page=", 1)[1]))
+        return base(url, token)
+
+    monkeypatch.setattr(ab, "_get", fake_get)
+    _, private = ab.live_inputs("t", 2026, 11)
+    assert len(private) == 100
+    assert requested == [1, 2]
+
+
 def test_live_end_to_end_with_recorded_shape(monkeypatch, capsys):
     monkeypatch.setattr(
         ab,

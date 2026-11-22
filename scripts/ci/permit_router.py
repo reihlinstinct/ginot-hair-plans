@@ -185,11 +185,13 @@ def _language_permit_fragment(path):
     parts = path.split("/")
     if len(parts) != 3 or parts[0] != "docs":
         return False
-    # scripts/ holds _src_path and permit_fragments; insert at most once
-    # (#979: the unguarded insert grew sys.path on every call).
-    scripts_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-    if scripts_dir not in sys.path:
-        sys.path.insert(0, scripts_dir)
+    # permit_fragments lives next to this file (scripts/ci/); it adds scripts/
+    # to sys.path itself. Insert at most once (#979: the unguarded insert grew
+    # sys.path on every call), and use this file's own directory so loading
+    # the router by file path (importlib) also resolves it.
+    here = os.path.dirname(os.path.abspath(__file__))
+    if here not in sys.path:
+        sys.path.insert(0, here)
     from permit_fragments import FRAGMENT_NAMES, languages
 
     if parts[2] not in FRAGMENT_NAMES:
