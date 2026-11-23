@@ -142,8 +142,8 @@
    "name": "publications_active.json",
    "path": "data/publications_active.json",
    "kind": "json",
-   "records": 111,
-   "bytes": 132106,
+   "records": 113,
+   "bytes": 134539,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_active.json"
   },
   {
@@ -151,7 +151,7 @@
    "path": "data/publications_new_latest.json",
    "kind": "json",
    "records": null,
-   "bytes": 5064,
+   "bytes": 5246,
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/publications_new_latest.json"
   }
  ]

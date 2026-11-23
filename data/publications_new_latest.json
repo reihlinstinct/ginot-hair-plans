@@ -2,67 +2,17 @@
   "new_in_polygon": [],
   "unresolved_new": [
     {
-      "myIndex": 16497460,
-      "tik_num": "1977/0527.04",
-      "street": "ח.ד. שחר",
-      "house_number": "1",
-      "neighborhood": "בית הכרם",
-      "place_description": "רחוב השחר 1 שכונת בעת הכרם ",
-      "publication_date": "2026-11-22",
-      "objection_deadline": null,
-      "ed700": "2026-11-08",
-      "connected_rec_id": 1182545,
-      "doc_id": null,
-      "diagnostics": {
-        "fields": {
-          "PD900": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "DocId": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "ED800": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          },
-          "ED700": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          }
-        },
-        "raw": {
-          "PD900": null,
-          "DocId": null,
-          "ED800": "2026-11-22T00:00:00",
-          "ED700": "2026-11-08T00:00:00"
-        },
-        "unexpected_keys": [
-          "description"
-        ],
-        "unexpected_keys_total": 1
-      },
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16600047,
-      "tik_num": "1981/0346.06",
-      "street": "ברוך רפפורט",
-      "house_number": "22",
-      "neighborhood": "בית ישראל",
+      "myIndex": 16547606,
+      "tik_num": "1993/0788.05",
+      "street": "כנפי נשרים",
+      "house_number": "4",
+      "neighborhood": "גבעת שאול",
       "place_description": null,
-      "publication_date": "2026-11-22",
+      "publication_date": "2026-11-23",
       "objection_deadline": null,
-      "ed700": "2026-11-19",
-      "connected_rec_id": 1271029,
-      "doc_id": null,
+      "ed700": "2026-11-22",
+      "connected_rec_id": null,
+      "doc_id": "b43a6035-a4a6-4b65-a1b9-edcbff39b2ef",
       "diagnostics": {
         "fields": {
           "PD900": {
@@ -72,8 +22,8 @@
           },
           "DocId": {
             "present": true,
-            "null": true,
-            "type": "null"
+            "null": false,
+            "type": "str"
           },
           "ED800": {
             "present": true,
@@ -90,9 +40,9 @@
         },
         "raw": {
           "PD900": null,
-          "DocId": null,
-          "ED800": "2026-11-22T00:00:00",
-          "ED700": "2026-11-19T00:00:00"
+          "DocId": "b43a6035-a4a6-4b65-a1b9-edcbff39",
+          "ED800": "2026-11-23T00:00:00",
+          "ED700": "2026-11-22T00:00:00"
         },
         "unexpected_keys": [
           "description"
@@ -102,17 +52,17 @@
       "in_polygon": null
     },
     {
-      "myIndex": 16599207,
-      "tik_num": "2016/0099.02",
-      "street": "טללים",
-      "house_number": "1",
+      "myIndex": 16578348,
+      "tik_num": "1998/0664.09",
+      "street": "קהילות שו\"ם",
+      "house_number": "13",
       "neighborhood": "רמות",
       "place_description": null,
-      "publication_date": "2026-11-22",
+      "publication_date": "2026-11-23",
       "objection_deadline": null,
-      "ed700": "2026-11-19",
-      "connected_rec_id": 1161994,
-      "doc_id": null,
+      "ed700": "2026-11-22",
+      "connected_rec_id": null,
+      "doc_id": "7cb69c01-6658-4098-96a7-145c0bf1900f",
       "diagnostics": {
         "fields": {
           "PD900": {
@@ -122,8 +72,8 @@
           },
           "DocId": {
             "present": true,
-            "null": true,
-            "type": "null"
+            "null": false,
+            "type": "str"
           },
           "ED800": {
             "present": true,
@@ -140,9 +90,9 @@
         },
         "raw": {
           "PD900": null,
-          "DocId": null,
-          "ED800": "2026-11-22T00:00:00",
-          "ED700": "2026-11-19T00:00:00"
+          "DocId": "7cb69c01-6658-4098-96a7-145c0bf1",
+          "ED800": "2026-11-23T00:00:00",
+          "ED700": "2026-11-22T00:00:00"
         },
         "unexpected_keys": [
           "description"
@@ -152,16 +102,66 @@
       "in_polygon": null
     },
     {
-      "myIndex": 16596960,
-      "tik_num": "2018/0047.02",
-      "street": "אהרון בראנד ",
-      "house_number": "2",
-      "neighborhood": "הר נוף",
-      "place_description": null,
-      "publication_date": "2026-11-22",
+      "myIndex": 16571736,
+      "tik_num": "2026/0385.00",
+      "street": "משה נובומיסקי ",
+      "house_number": "3",
+      "neighborhood": "רמת שרת",
+      "place_description": "משה נובומסקי 3",
+      "publication_date": "2026-11-23",
       "objection_deadline": null,
-      "ed700": "2026-11-18",
-      "connected_rec_id": 1275802,
+      "ed700": "2026-11-22",
+      "connected_rec_id": null,
+      "doc_id": "55386aab-d5f9-4f26-98d0-26407cfa92ad",
+      "diagnostics": {
+        "fields": {
+          "PD900": {
+            "present": true,
+            "null": true,
+            "type": "null"
+          },
+          "DocId": {
+            "present": true,
+            "null": false,
+            "type": "str"
+          },
+          "ED800": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          },
+          "ED700": {
+            "present": true,
+            "null": false,
+            "type": "str",
+            "date_like": true
+          }
+        },
+        "raw": {
+          "PD900": null,
+          "DocId": "55386aab-d5f9-4f26-98d0-26407cfa",
+          "ED800": "2026-11-23T00:00:00",
+          "ED700": "2026-11-22T00:00:00"
+        },
+        "unexpected_keys": [
+          "description"
+        ],
+        "unexpected_keys_total": 1
+      },
+      "in_polygon": null
+    },
+    {
+      "myIndex": 16568343,
+      "tik_num": "2026/0429.00",
+      "street": "משעול הקורנית",
+      "house_number": "23",
+      "neighborhood": "רמות",
+      "place_description": null,
+      "publication_date": "2026-11-23",
+      "objection_deadline": null,
+      "ed700": "2026-11-05",
+      "connected_rec_id": 1273969,
       "doc_id": null,
       "diagnostics": {
         "fields": {
@@ -191,8 +191,8 @@
         "raw": {
           "PD900": null,
           "DocId": null,
-          "ED800": "2026-11-22T00:00:00",
-          "ED700": "2026-11-18T00:00:00"
+          "ED800": "2026-11-23T00:00:00",
+          "ED700": "2026-11-05T00:00:00"
         },
         "unexpected_keys": [
           "description"
