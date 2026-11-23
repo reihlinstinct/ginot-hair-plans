@@ -19,6 +19,7 @@
       ".coveragerc",
       ".gitattributes",
       ".gitignore",
+      ".gitleaks.toml",
       ".pre-commit-config.yaml",
       ".repo-layout.yml",
       ".vercelignore",
