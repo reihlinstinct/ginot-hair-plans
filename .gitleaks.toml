@@ -2,6 +2,9 @@
 # values are allowed, by exact file, and only for the generic rule.
 title = "ginot-hair-plans gitleaks"
 
+# [[allowlists]] with targetRules needs gitleaks 8.25 or newer; the version is
+# pinned in .github/workflows/gitleaks.yml (GITLEAKS_VERSION).
+
 [extend]
 useDefault = true
 

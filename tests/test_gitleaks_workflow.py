@@ -43,6 +43,16 @@ def test_gitleaks_check_is_known_to_data_automerge():
     assert "      - Gitleaks\n" in AUTOMERGE
 
 
+# Section: scanner version supports the config
+
+
+def test_scanner_version_is_pinned_and_supports_targeted_allowlists():
+    m = re.search(r'GITLEAKS_VERSION: "(\d+)\.(\d+)\.(\d+)"', WORKFLOW)
+    assert m, "pin GITLEAKS_VERSION to an exact version (the action default is old)"
+    assert tuple(map(int, m.groups())) >= (8, 25, 0)
+    assert "[[allowlists]]" in CONFIG
+
+
 # Section: allowlist stays narrow
 
 

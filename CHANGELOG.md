@@ -9,7 +9,9 @@
   the default rules and allowlists only two test files that hold synthetic
   sentinels or a public key fingerprint. Listed in `data-automerge.yml`'s
   `workflow_run` so data PRs wait for it. No paid service, no other workflow
-  changed.
+  changed. Scanner pinned to gitleaks 8.30.1 (the action default ignores the
+  targeted allowlists). Limits: a PR is scanned by commit range (first 30
+  commits) and merge commits are skipped; not a full-history audit.
 
 ## 2026-11-22 - Review-findings design: status wording (#454)
 
