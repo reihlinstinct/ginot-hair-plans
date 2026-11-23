@@ -614,6 +614,254 @@
    "am": "(የለም)",
    "fr": "(aucun)"
   },
+  "planstatus.approved": {
+   "he": "אישור",
+   "en": "Approved",
+   "ar": "مصادق عليها",
+   "ru": "Утверждён",
+   "am": "ጸድቋል",
+   "fr": "Approuvé"
+  },
+  "planstatus.review": {
+   "he": "בבדיקה תכנונית",
+   "en": "Planning review",
+   "ar": "قيد الفحص التخطيطي",
+   "ru": "Планировочная проверка",
+   "am": "በእቅድ ግምገማ ላይ",
+   "fr": "Examen de planification"
+  },
+  "planstatus.conditions": {
+   "he": "במילוי תנאים להפקדה",
+   "en": "Meeting deposit conditions",
+   "ar": "استيفاء شروط الإيداع",
+   "ru": "Выполнение условий депонирования",
+   "am": "የማስቀመጫ ቅድመ ሁኔታዎችን በማሟላት ላይ",
+   "fr": "Conditions de dépôt en cours"
+  },
+  "planstatus.deposit_obj": {
+   "he": "הפקדה להתנגדויות/השגות",
+   "en": "Deposited for objections",
+   "ar": "مودعة للاعتراضات",
+   "ru": "Депонирован для возражений",
+   "am": "ለተቃውሞ ተቀምጧል",
+   "fr": "Déposé pour oppositions"
+  },
+  "planstatus.deposit_obj2": {
+   "he": "הפקדה להתנגדויות",
+   "en": "Deposited for objections",
+   "ar": "مودعة للاعتراضات",
+   "ru": "Депонирован для возражений",
+   "am": "ለተቃውሞ ተቀምጧል",
+   "fr": "Déposé pour oppositions"
+  },
+  "planstatus.deposit": {
+   "he": "הפקדה",
+   "en": "Deposit",
+   "ar": "إيداع",
+   "ru": "Депонирование",
+   "am": "ማስቀመጥ",
+   "fr": "Dépôt"
+  },
+  "planstatus.inproc": {
+   "he": "בהליך אישור",
+   "en": "In approval process",
+   "ar": "قيد إجراءات المصادقة",
+   "ru": "В процессе утверждения",
+   "am": "በማጽደቅ ሂደት ላይ",
+   "fr": "En cours d'approbation"
+  },
+  "planstatus.decision": {
+   "he": "הכרעה בהתנגדויות / אישור",
+   "en": "Ruling on objections / approval",
+   "ar": "البتّ في الاعتراضات / المصادقة",
+   "ru": "Рассмотрение возражений / утверждение",
+   "am": "በተቃውሞ ላይ ውሳኔ / ማጽደቅ",
+   "fr": "Décision sur oppositions / approbation"
+  },
+  "permitstatus.00": {
+   "he": "הופק-הוצא היתר בניה",
+   "en": "Building permit issued",
+   "ar": "تم إصدار رخصة بناء",
+   "ru": "Разрешение на строительство выдано",
+   "am": "የግንባታ ፈቃድ ተሰጥቷል",
+   "fr": "Permis de construire délivré"
+  },
+  "permitstatus.01": {
+   "he": "הוכנה טיוטת היתר בניה",
+   "en": "Draft building permit prepared",
+   "ar": "أُعدّ مسوّدة رخصة بناء",
+   "ru": "Подготовлен проект разрешения на строительство",
+   "am": "የግንባታ ፈቃድ ረቂቅ ተዘጋጅቷል",
+   "fr": "Projet de permis de construire préparé"
+  },
+  "permitstatus.02": {
+   "he": "הבקשה נסגרה",
+   "en": "Request closed",
+   "ar": "أُغلق الطلب",
+   "ru": "Заявка закрыта",
+   "am": "ጥያቄው ተዘግቷል",
+   "fr": "Demande clôturée"
+  },
+  "permitstatus.03": {
+   "he": "נדונה בוועדת המשנה",
+   "en": "Discussed by the sub-committee",
+   "ar": "نوقش في اللجنة الفرعية",
+   "ru": "Рассмотрена подкомиссией",
+   "am": "በንዑስ ኮሚቴ ተወያይቷል",
+   "fr": "Examinée par la sous-commission"
+  },
+  "permitstatus.04": {
+   "he": "התקבל תיק ורוד / מסמכים חתומים",
+   "en": "Pink file / signed documents received",
+   "ar": "استُلم الملف الوردي / مستندات موقّعة",
+   "ru": "Получено розовое дело / подписанные документы",
+   "am": "ሮዝ ፋይል / የተፈረሙ ሰነዶች ደርሰዋል",
+   "fr": "Dossier rose / documents signés reçus"
+  },
+  "permitstatus.05": {
+   "he": "שולמה מקדמה",
+   "en": "Advance payment made",
+   "ar": "دُفعت دفعة مقدّمة",
+   "ru": "Аванс оплачен",
+   "am": "ቅድመ ክፍያ ተከፍሏል",
+   "fr": "Acompte payé"
+  },
+  "permitstatus.06": {
+   "he": "נדונה ברשות הרישוי",
+   "en": "Discussed by the licensing authority",
+   "ar": "نوقش لدى سلطة الترخيص",
+   "ru": "Рассмотрена органом лицензирования",
+   "am": "በፈቃድ ሰጪ ባለሥልጣን ተወያይቷል",
+   "fr": "Examinée par l'autorité de délivrance des permis"
+  },
+  "permitstatus.07": {
+   "he": "נפתח תיק רישוי",
+   "en": "Licensing file opened",
+   "ar": "فُتح ملف ترخيص",
+   "ru": "Открыто лицензионное дело",
+   "am": "የፈቃድ ፋይል ተከፍቷል",
+   "fr": "Dossier de permis ouvert"
+  },
+  "permitstatus.08": {
+   "he": "הופק היתר מוארך",
+   "en": "Extended permit issued",
+   "ar": "تم إصدار رخصة ممدّدة",
+   "ru": "Выдано продлённое разрешение",
+   "am": "የተራዘመ ፈቃድ ተሰጥቷል",
+   "fr": "Permis prolongé délivré"
+  },
+  "permitstatus.09": {
+   "he": "נדונה בועדת ערר",
+   "en": "Discussed by the appeals committee",
+   "ar": "نوقش في لجنة الاستئناف",
+   "ru": "Рассмотрена апелляционной комиссией",
+   "am": "በይግባኝ ኮሚቴ ተወያይቷል",
+   "fr": "Examinée par la commission de recours"
+  },
+  "permitstatus.10": {
+   "he": "הגשה מקוונת הושלמה",
+   "en": "Online submission completed",
+   "ar": "اكتمل التقديم عبر الإنترنت",
+   "ru": "Онлайн-подача завершена",
+   "am": "በመስመር ላይ ማቅረብ ተጠናቋል",
+   "fr": "Dépôt en ligne terminé"
+  },
+  "permitstatus.11": {
+   "he": "ממתין לאישור נוסח פרסום",
+   "en": "Awaiting approval of publication text",
+   "ar": "بانتظار الموافقة على نص النشر",
+   "ru": "Ожидается утверждение текста публикации",
+   "am": "የህትመት ጽሑፍ ማጽደቅ በመጠበቅ ላይ",
+   "fr": "En attente d'approbation du texte de publication"
+  },
+  "permitstatus.12": {
+   "he": "אושר ע\"י מהנדס העיר",
+   "en": "Approved by the city engineer",
+   "ar": "وافق عليه مهندس المدينة",
+   "ru": "Утверждено городским инженером",
+   "am": "በከተማው መሐንዲስ ጸድቋል",
+   "fr": "Approuvé par l'ingénieur de la ville"
+  },
+  "permitstatus.13": {
+   "he": "תום תקופת פרסום",
+   "en": "Publication period ended",
+   "ar": "انتهت فترة النشر",
+   "ru": "Срок публикации истёк",
+   "am": "የህትመት ጊዜ አብቅቷል",
+   "fr": "Période de publication terminée"
+  },
+  "permitstatus.14": {
+   "he": "חידוש טיפול בבקשה",
+   "en": "Handling of the request resumed",
+   "ar": "استئناف معالجة الطلب",
+   "ru": "Возобновлено рассмотрение заявки",
+   "am": "የጥያቄው አያያዝ ቀጥሏል",
+   "fr": "Reprise du traitement de la demande"
+  },
+  "permitstatus.15": {
+   "he": "התקבל ערר",
+   "en": "Appeal received",
+   "ar": "استُلم استئناف",
+   "ru": "Получена апелляция",
+   "am": "ይግባኝ ደርሷል",
+   "fr": "Recours reçu"
+  },
+  "permitstatus.16": {
+   "he": "הבקשה נגנזה",
+   "en": "Request archived",
+   "ar": "تم حفظ الطلب في الأرشيف",
+   "ru": "Заявка отправлена в архив",
+   "am": "ጥያቄው ተቀምጧል (ተዘግቷል)",
+   "fr": "Demande classée"
+  },
+  "permitstatus.17": {
+   "he": "נוסח פרסום אושר",
+   "en": "Publication text approved",
+   "ar": "تمت الموافقة على نص النشر",
+   "ru": "Текст публикации утверждён",
+   "am": "የህትመት ጽሑፍ ጸድቋል",
+   "fr": "Texte de publication approuvé"
+  },
+  "permitstatus.18": {
+   "he": "תחילת פרסום הבקשה להקלה",
+   "en": "Publication of the variance request started",
+   "ar": "بدء نشر طلب التخفيف",
+   "ru": "Началась публикация заявки на послабление",
+   "am": "የቅናሽ ጥያቄ ህትመት ተጀምሯል",
+   "fr": "Début de la publication de la demande de dérogation"
+  },
+  "permitstatus.19": {
+   "he": "השלמת הודעות לפני תקנה 36",
+   "en": "Notices before Regulation 36 completed",
+   "ar": "اكتمل الإخطار قبل اللائحة 36",
+   "ru": "Уведомления по пункту 36 завершены",
+   "am": "ከደንብ 36 በፊት ማሳወቂያዎች ተጠናቀዋል",
+   "fr": "Notifications avant le règlement 36 terminées"
+  },
+  "permitstatus.20": {
+   "he": "פורסמה בקשה להקלה",
+   "en": "Variance request published",
+   "ar": "نُشر طلب التخفيف",
+   "ru": "Заявка на послабление опубликована",
+   "am": "የቅናሽ ጥያቄ ታትሟል",
+   "fr": "Demande de dérogation publiée"
+  },
+  "permitstatus.21": {
+   "he": "תחילת הודעות לפני תקנה 36",
+   "en": "Notices before Regulation 36 started",
+   "ar": "بدء الإخطار قبل اللائحة 36",
+   "ru": "Начаты уведомления по пункту 36",
+   "am": "ከደንብ 36 በፊት ማሳወቂያዎች ተጀምረዋል",
+   "fr": "Début des notifications avant le règlement 36"
+  },
+  "permitstatus.22": {
+   "he": "התקבלה בקשה לדיון המועצה",
+   "en": "Request for council discussion received",
+   "ar": "استُلم طلب لمناقشة المجلس",
+   "ru": "Получен запрос на рассмотрение советом",
+   "am": "ለምክር ቤት ውይይት ጥያቄ ደርሷል",
+   "fr": "Demande d'examen par le conseil reçue"
+  },
   "map.summary": {
    "he": "מפת התכניות ובקשות ההיתר - נקודות וגבולות",
    "en": "Map of plans and permit requests - points and boundaries",

@@ -422,3 +422,28 @@ def test_urgent_list_renders_single_separator_per_language():
                 js_label = json.dumps(i18n.t(code, key), ensure_ascii=False)
                 assert js_label + "+' '" in html, f"{code}:{key} lost its separator"
         assert json.dumps(label, ensure_ascii=False) + "+' '" in html
+
+
+# Section: municipal plan-status labels are translated for display only
+def test_plan_status_label_translates_known_and_keeps_unknown():
+    assert i18n.plan_status_label("he", "אישור") == "אישור"
+    assert i18n.plan_status_label("fr", "אישור") == "Approuvé"
+    assert i18n.plan_status_label("ar", "בבדיקה תכנונית") != "בבדיקה תכנונית"
+    assert i18n.plan_status_label("fr", "ערך לא מוכר") == "ערך לא מוכר"
+
+
+def test_every_plan_status_key_exists_in_every_language():
+    doc = i18n.load()
+    for status, key in i18n.PLAN_STATUS_KEYS.items():
+        assert key in doc["strings"], status
+        for lang in doc["languages"]:
+            assert i18n.t(lang, key).strip(), (status, lang)
+
+
+def test_permit_status_label_translates_known_and_keeps_unknown():
+    assert i18n.permit_status_label("he", "הבקשה נסגרה") == "הבקשה נסגרה"
+    assert i18n.permit_status_label("fr", "הבקשה נסגרה") == "Demande clôturée"
+    assert i18n.permit_status_label("ru", "סטטוס חדש") == "סטטוס חדש"
+    doc = i18n.load()
+    for status, key in i18n.PERMIT_STATUS_KEYS.items():
+        assert doc["strings"][key]["he"] == status, key

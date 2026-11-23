@@ -157,3 +157,58 @@ def switcher(lang: str, name: str) -> str:
         f"<noscript> {' &middot; '.join(links)}</noscript>"
         f"<script>{_SWITCH_JS}</script></nav>"
     )
+
+
+# Municipal plan-status strings (data values) that have a translated label.
+# The raw value stays in data-status and in filtering; only the shown text
+# changes. A value not listed here is shown as the source gives it.
+PLAN_STATUS_KEYS = {
+    "אישור": "planstatus.approved",
+    "בבדיקה תכנונית": "planstatus.review",
+    "במילוי תנאים להפקדה": "planstatus.conditions",
+    "הפקדה להתנגדויות/השגות": "planstatus.deposit_obj",
+    "הפקדה להתנגדויות": "planstatus.deposit_obj2",
+    "הפקדה": "planstatus.deposit",
+    "בהליך אישור": "planstatus.inproc",
+    "הכרעה בהתנגדויות / אישור": "planstatus.decision",
+}
+
+
+PERMIT_STATUS_KEYS = {
+    "הופק-הוצא היתר בניה": "permitstatus.00",
+    "הוכנה טיוטת היתר בניה": "permitstatus.01",
+    "הבקשה נסגרה": "permitstatus.02",
+    "נדונה בוועדת המשנה": "permitstatus.03",
+    "התקבל תיק ורוד / מסמכים חתומים": "permitstatus.04",
+    "שולמה מקדמה": "permitstatus.05",
+    "נדונה ברשות הרישוי": "permitstatus.06",
+    "נפתח תיק רישוי": "permitstatus.07",
+    "הופק היתר מוארך": "permitstatus.08",
+    "נדונה בועדת ערר": "permitstatus.09",
+    "הגשה מקוונת הושלמה": "permitstatus.10",
+    "ממתין לאישור נוסח פרסום": "permitstatus.11",
+    'אושר ע"י מהנדס העיר': "permitstatus.12",
+    "תום תקופת פרסום": "permitstatus.13",
+    "חידוש טיפול בבקשה": "permitstatus.14",
+    "התקבל ערר": "permitstatus.15",
+    "הבקשה נגנזה": "permitstatus.16",
+    "נוסח פרסום אושר": "permitstatus.17",
+    "תחילת פרסום הבקשה להקלה": "permitstatus.18",
+    "השלמת הודעות לפני תקנה 36": "permitstatus.19",
+    "פורסמה בקשה להקלה": "permitstatus.20",
+    "תחילת הודעות לפני תקנה 36": "permitstatus.21",
+    "התקבלה בקשה לדיון המועצה": "permitstatus.22",
+}
+
+
+def plan_status_label(lang: str, status: str) -> str:
+    """Display text for a municipal plan status in lang (raw when unknown)."""
+    key = PLAN_STATUS_KEYS.get(status)
+    return t(lang, key) if key else status
+
+
+def permit_status_label(lang: str, status: str) -> str:
+    """Display text for a municipal permit-request status in lang (raw when
+    the status has no translation)."""
+    key = PERMIT_STATUS_KEYS.get(status)
+    return t(lang, key) if key else status
