@@ -1,9 +1,22 @@
 {
- "generated": "2026-11-21",
+ "generated": "2026-11-23",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
   {
+   "plan": "101-1215656",
+   "reasons": [
+    "טקסט העמוד השתנה",
+    "התנגדויות: 34 -> 41"
+   ]
+  },
+  {
    "plan": "101-1377753",
+   "reasons": [
+    "טקסט העמוד השתנה"
+   ]
+  },
+  {
+   "plan": "101-1158146",
    "reasons": [
     "טקסט העמוד השתנה"
    ]
@@ -538,7 +551,7 @@
   "101-1215656": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "c61eb8f68b9f1c48",
+   "fingerprint": "ba2b841f3cb9718c",
    "page_chars": 1321,
    "api": {
     "docs": [
@@ -623,16 +636,16 @@
      "AUTHORISED_QUANTITY=+30|AUTHORISED_QUANTITY_ADD=+64|DETAILED_PLAN=|ID=1001902403|IMPLEMENTATION=94|LAST_UPDATE=19/08/2026 12:52|LAST_UPDATER=alonsi|QUANTITY_CODE=120|QUANTITY_DESC=מגורים (יח\"ד)|REMARK=שטחים כוללים מירביים מעל לקרקע.|ROW_NUM=3|UNIT_DESC=יח\"ד",
      "AUTHORISED_QUANTITY=|AUTHORISED_QUANTITY_ADD=+240|DETAILED_PLAN=|ID=1001902399|IMPLEMENTATION=240|LAST_UPDATE=19/08/2026 12:50|LAST_UPDATER=alonsi|QUANTITY_CODE=80|QUANTITY_DESC=מבני ציבור (מ\"ר)|REMARK=|ROW_NUM=2|UNIT_DESC=מ\"ר"
     ],
-    "oppositions_count": 34,
-    "fingerprint": "29aeae4feaf29159"
+    "oppositions_count": 41,
+    "fingerprint": "9cbd6ae3d4790259"
    },
    "mp_id": "1005304728"
   },
   "101-1377753": {
    "deadline_text": "",
    "station_text": "הכרעה בהתנגדויות",
-   "fingerprint": "91fe40890977e603",
-   "page_chars": 1372,
+   "fingerprint": "f7380100b1505dcd",
+   "page_chars": 1377,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001136616195|קו כחול|24/02/2025|",
@@ -1087,8 +1100,8 @@
   "101-1158146": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "9078149fad789904",
-   "page_chars": 1294,
+   "fingerprint": "870965ef34eef0e7",
+   "page_chars": 1281,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001071822519|תכתובות|19/01/2025|התייחסות מינהל קהילתי גוננים",
