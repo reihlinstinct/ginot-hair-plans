@@ -1,0 +1,19 @@
+# gitleaks config (#1141). The default ruleset applies; only synthetic test
+# values are allowed, by exact file, and only for the generic rule.
+title = "ginot-hair-plans gitleaks"
+
+# [[allowlists]] with targetRules needs gitleaks 8.25 or newer; the version is
+# pinned in .github/workflows/gitleaks.yml (GITLEAKS_VERSION).
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Synthetic sentinel secrets in the L2TP redaction test"
+targetRules = ["generic-api-key"]
+paths = ['''^tests/test_l2tp_safety_928\.py$''']
+
+[[allowlists]]
+description = "Public OpenPGP key fingerprint pin (not a secret)"
+targetRules = ["generic-api-key"]
+paths = ['''^tests/test_permit_archive_fetch\.py$''']

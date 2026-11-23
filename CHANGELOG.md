@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-23 - Credential-format scan in CI (#1141)
+
+- New `Gitleaks` workflow (push and pull request): pinned `gitleaks-action` v3.0.0,
+  read-only token, `persist-credentials: false`, no PR comments, no artifact
+  upload, `--redact` so findings name rule, file and line but never the value.
+  Free for a personal-account repo (no license key). `.gitleaks.toml` extends
+  the default rules and allowlists only two test files that hold synthetic
+  sentinels or a public key fingerprint. Listed in `data-automerge.yml`'s
+  `workflow_run` so data PRs wait for it. No paid service, no other workflow
+  changed. Scanner pinned to gitleaks 8.30.1 (the action default ignores the
+  targeted allowlists). Limits: a PR is scanned by commit range (first 30
+  commits) and merge commits are skipped; not a full-history audit.
+
 ## 2026-11-22 - Review-findings design: status wording (#454)
 
 - `design/ai-review-findings.md`: review bodies are on main (not "proposed"), a
