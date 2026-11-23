@@ -26,6 +26,7 @@ on:
       - CodeQL Advanced
       - Dependency review
       - Gemini review
+      - Gitleaks
       - OpenSSF Scorecard
       - Review threads
       - Vulnerability scan
