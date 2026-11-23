@@ -449,10 +449,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1910/0911.09",
@@ -1649,10 +1655,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1947/0820.01",
@@ -1662,10 +1674,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1947/0905.00",
@@ -1887,10 +1905,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30025,
+     118
+    ]
+   ],
    "publication_start": "2026-06-07",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1949/0126.02",
@@ -1900,10 +1924,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30025,
+     118
+    ]
+   ],
    "publication_start": "2026-06-04",
    "publication_end_planned": "",
    "address": "אפודי 4 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1949/0456.00",
@@ -1945,10 +1975,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 179,
+   "parcels_observed": [
+    [
+     30025,
+     179
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1949/0826.00",
@@ -2065,13 +2101,19 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "rehovName": "",
    "mispBait": "",
    "schunaName": "",
    "address": "",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1949/1577.00",
@@ -2274,10 +2316,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 144,
+   "parcels_observed": [
+    [
+     30025,
+     144
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1950/0031.03",
@@ -2287,10 +2335,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 144,
+   "parcels_observed": [
+    [
+     30025,
+     144
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1950/0031.04",
@@ -2482,10 +2536,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1950/0606.00",
@@ -2647,10 +2707,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1950/1028.01",
@@ -2660,10 +2726,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1950/1049.00",
@@ -4045,10 +4117,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 15 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1952/0750.01",
@@ -4058,10 +4136,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 15 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1952/1007.00",
@@ -5151,10 +5235,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 181,
+   "parcels_observed": [
+    [
+     30025,
+     181
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1953/0692.00",
@@ -5630,10 +5720,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30026,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1954/0433.00",
@@ -5798,10 +5894,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30025,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1954/0584.01",
@@ -5811,10 +5913,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30025,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1954/0598.00",
@@ -6357,10 +6465,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 224,
+   "parcels_observed": [
+    [
+     30025,
+     224
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1955/0171.01",
@@ -6370,10 +6484,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 224,
+   "parcels_observed": [
+    [
+     30025,
+     224
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1955/0242.00",
@@ -6727,10 +6847,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1955/0573.00",
@@ -6805,10 +6931,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מלכי רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0311.01",
@@ -6818,10 +6950,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מלכי רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0314.00",
@@ -6922,10 +7060,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 150,
+   "parcels_observed": [
+    [
+     30025,
+     150
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0432.00",
@@ -7261,10 +7405,28 @@
    "status_date": "",
    "gush": 30026,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30026,
+     7
+    ],
+    [
+     30026,
+     10
+    ],
+    [
+     30026,
+     12
+    ],
+    [
+     30026,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 12 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0530.00",
@@ -7274,10 +7436,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0530.01",
@@ -7287,10 +7455,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0530.02",
@@ -7300,10 +7474,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0534.00",
@@ -7326,10 +7506,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0541.01",
@@ -7339,10 +7525,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0558.00",
@@ -7391,10 +7583,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "קריית שמואל",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0586.00",
@@ -7584,10 +7782,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 150,
+   "parcels_observed": [
+    [
+     30025,
+     150
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 49 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0643.00",
@@ -7686,10 +7890,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "האר\"י רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1956/0675.01",
@@ -8047,10 +8257,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30026,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 11 טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1957/0005.01",
@@ -8060,10 +8276,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30026,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 11 טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1957/0012.00",
@@ -9948,10 +10170,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30026,
+     10
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1958/0133.00",
@@ -10930,10 +11158,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 144,
+   "parcels_observed": [
+    [
+     30025,
+     144
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1958/0486.00",
@@ -12243,10 +12477,20 @@
    "status_date": "",
    "gush": 30026,
    "helka": 20,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ],
+    [
+     30026,
+     20
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1959/0680.01",
@@ -12256,10 +12500,20 @@
    "status_date": "",
    "gush": 30026,
    "helka": 20,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ],
+    [
+     30026,
+     20
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-10-23"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1959/0681.00",
@@ -12893,10 +13147,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30026,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1960/0063.00",
@@ -15482,10 +15742,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1961/0660.00",
@@ -15586,10 +15852,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30026,
+     88
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 13 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1962/0029.01",
@@ -15726,6 +15998,90 @@
    "gush": 30025,
    "helka": 99,
    "parcels_observed": [
+    [
+     30025,
+     115
+    ],
+    [
+     30025,
+     116
+    ],
+    [
+     30025,
+     118
+    ],
+    [
+     30025,
+     126
+    ],
+    [
+     30025,
+     133
+    ],
+    [
+     30025,
+     135
+    ],
+    [
+     30025,
+     142
+    ],
+    [
+     30025,
+     144
+    ],
+    [
+     30025,
+     149
+    ],
+    [
+     30025,
+     150
+    ],
+    [
+     30025,
+     159
+    ],
+    [
+     30025,
+     165
+    ],
+    [
+     30025,
+     166
+    ],
+    [
+     30025,
+     170
+    ],
+    [
+     30025,
+     171
+    ],
+    [
+     30025,
+     179
+    ],
+    [
+     30025,
+     181
+    ],
+    [
+     30025,
+     183
+    ],
+    [
+     30025,
+     188
+    ],
+    [
+     30025,
+     216
+    ],
+    [
+     30025,
+     224
+    ],
     [
      30025,
      1
@@ -16607,10 +16963,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1962/0535.01",
@@ -16620,10 +16982,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1962/0535.02",
@@ -16633,10 +17001,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 30 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1962/0550.00",
@@ -17262,10 +17636,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30025,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "סעדיה גאון רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1963/0103.00",
@@ -17383,10 +17763,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 224,
+   "parcels_observed": [
+    [
+     30025,
+     224
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1963/0198.01",
@@ -17396,10 +17782,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 224,
+   "parcels_observed": [
+    [
+     30025,
+     224
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1963/0198.02",
@@ -17409,10 +17801,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 224,
+   "parcels_observed": [
+    [
+     30025,
+     224
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 9 קריית שמואל",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1963/0212.00",
@@ -22966,10 +23364,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "זאב ז'בוטינסקי טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1966/0904.00",
@@ -23826,10 +24230,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30026,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1967/0421.02",
@@ -23839,10 +24249,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30026,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1967/0430.00",
@@ -24319,10 +24735,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 80 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1968/0086.00",
@@ -34712,10 +35134,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 38 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1972/0298.00",
@@ -37397,10 +37825,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1973/0107.01",
@@ -37410,10 +37844,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1973/0110.00",
@@ -39073,10 +39513,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1973/0751.01",
@@ -39086,10 +39532,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1973/0761.00",
@@ -39646,10 +40098,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1974/0132.01",
@@ -39659,10 +40117,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1974/0132.02",
@@ -39672,10 +40136,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1974/0132.03",
@@ -39685,10 +40155,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1974/0158.00",
@@ -41251,10 +41727,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רוממה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1974/0619.00",
@@ -45363,10 +45845,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30026,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1976/0540.01",
@@ -45376,10 +45864,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 2,
+   "parcels_observed": [
+    [
+     30026,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1976/0547.00",
@@ -45576,10 +46070,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1976/0616.01",
@@ -45589,10 +46089,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1976/0616.02",
@@ -45602,10 +46108,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1976/0619.00",
@@ -48191,10 +48703,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30026,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 20 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1977/0533.00",
@@ -55185,10 +55703,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 166,
+   "parcels_observed": [
+    [
+     30025,
+     166
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0538.01",
@@ -55198,10 +55722,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 166,
+   "parcels_observed": [
+    [
+     30025,
+     166
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0539.00",
@@ -56218,10 +56748,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0748.01",
@@ -56231,10 +56767,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0757.05",
@@ -56582,10 +57124,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 18 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0933.01",
@@ -56595,10 +57143,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 18 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0933.02",
@@ -56608,10 +57162,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 84,
+   "parcels_observed": [
+    [
+     30026,
+     84
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-11-24",
    "address": "ארלוזורוב 18 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1979/0948.00",
@@ -58894,10 +59454,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1980/0604.01",
@@ -58907,10 +59473,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1980/0616.00",
@@ -59192,10 +59764,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30025,
+     188
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1980/0705.00",
@@ -62501,10 +63079,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30026,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0463.01",
@@ -62514,10 +63098,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30026,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0463.02",
@@ -62527,10 +63117,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30026,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0463.03",
@@ -62540,10 +63136,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 52,
+   "parcels_observed": [
+    [
+     30026,
+     52
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0472.03",
@@ -63788,10 +64390,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0727.01",
@@ -63801,10 +64409,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1994-06-13",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0727.02",
@@ -63814,10 +64428,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-07-12",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0727.03",
@@ -63827,10 +64447,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0727.04",
@@ -63840,10 +64466,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 30,
+   "parcels_observed": [
+    [
+     30026,
+     30
+    ]
+   ],
    "publication_start": "2024-12-18",
    "publication_end_planned": "",
    "address": "ארלוזורוב 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/0728.00",
@@ -64602,10 +65234,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 144,
+   "parcels_observed": [
+    [
+     30025,
+     144
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/1055.01",
@@ -64615,10 +65253,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 144,
+   "parcels_observed": [
+    [
+     30025,
+     144
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 50 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1981/1061.00",
@@ -69253,10 +69897,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30026,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1983/0654.01",
@@ -69266,10 +69916,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30026,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1983/0654.02",
@@ -69279,10 +69935,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 41,
+   "parcels_observed": [
+    [
+     30026,
+     41
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1983/0657.00",
@@ -72211,10 +72873,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0256.01",
@@ -72224,10 +72892,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0258.00",
@@ -72542,10 +73216,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 135,
+   "parcels_observed": [
+    [
+     30025,
+     135
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0369.00",
@@ -72874,10 +73554,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 179,
+   "parcels_observed": [
+    [
+     30025,
+     179
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0406.01",
@@ -72887,10 +73573,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 179,
+   "parcels_observed": [
+    [
+     30025,
+     179
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0418.00",
@@ -75013,10 +75705,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0864.01",
@@ -75026,10 +75724,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0864.02",
@@ -75039,10 +75743,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2010-08-17",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0864.03",
@@ -75052,10 +75762,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 57,
+   "parcels_observed": [
+    [
+     30026,
+     57
+    ]
+   ],
    "publication_start": "2021-02-01",
    "publication_end_planned": "2021-02-23",
    "address": "עובדיה מברטינורה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1984/0884.00",
@@ -79565,10 +80281,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 13 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0329.00",
@@ -81097,10 +81819,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0727.01",
@@ -81110,10 +81838,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0727.02",
@@ -81123,10 +81857,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2004-11-16",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0727.03",
@@ -81136,10 +81876,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0727.04",
@@ -81149,10 +81895,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 133,
+   "parcels_observed": [
+    [
+     30025,
+     133
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0757.00",
@@ -81220,10 +81972,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 183,
+   "parcels_observed": [
+    [
+     30025,
+     183
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0762.01",
@@ -81233,10 +81991,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 183,
+   "parcels_observed": [
+    [
+     30025,
+     183
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1986/0764.00",
@@ -86388,10 +87152,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1987/0859.00",
@@ -87762,10 +88532,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0065.01",
@@ -87775,10 +88551,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0065.02",
@@ -87788,10 +88570,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0073.00",
@@ -88346,10 +89134,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0208.01",
@@ -88359,10 +89153,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0208.02",
@@ -88372,10 +89172,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0208.03",
@@ -88385,10 +89191,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-12-24",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0208.04",
@@ -88398,10 +89210,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0208.05",
@@ -88411,10 +89229,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 42,
+   "parcels_observed": [
+    [
+     30026,
+     42
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רד\"ק 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0209.00",
@@ -92064,10 +92888,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0932.01",
@@ -92077,10 +92907,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0932.02",
@@ -92090,10 +92926,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-09-12",
    "address": "הרב מימון 7 קרית משה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0932.03",
@@ -92103,10 +92945,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0932.04",
@@ -92116,10 +92964,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 31,
+   "parcels_observed": [
+    [
+     30026,
+     31
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב מימון 7 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1988/0951.00",
@@ -97228,10 +98082,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 135,
+   "parcels_observed": [
+    [
+     30025,
+     135
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0769.01",
@@ -97241,10 +98101,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 135,
+   "parcels_observed": [
+    [
+     30025,
+     135
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0769.02",
@@ -97254,10 +98120,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 135,
+   "parcels_observed": [
+    [
+     30025,
+     135
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0769.03",
@@ -97267,10 +98139,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 135,
+   "parcels_observed": [
+    [
+     30025,
+     135
+    ]
+   ],
    "publication_start": "2026-10-18",
    "publication_end_planned": "2026-11-24",
    "address": "דרך עזה 42 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0784.00",
@@ -97519,10 +98397,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0814.06",
@@ -97608,10 +98492,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30025,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "גאולה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0819.03",
@@ -97621,10 +98511,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30025,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "התיבונים 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0819.04",
@@ -97634,10 +98530,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 159,
+   "parcels_observed": [
+    [
+     30025,
+     159
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-12-02",
    "address": "רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0823.00",
@@ -98296,10 +99198,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0917.00",
@@ -98471,10 +99379,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 170,
+   "parcels_observed": [
+    [
+     30025,
+     170
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0928.01",
@@ -98484,10 +99398,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 170,
+   "parcels_observed": [
+    [
+     30025,
+     170
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-10-05",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0928.02",
@@ -98497,10 +99417,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 170,
+   "parcels_observed": [
+    [
+     30025,
+     170
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2002-06-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0928.03",
@@ -98510,10 +99436,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 170,
+   "parcels_observed": [
+    [
+     30025,
+     170
+    ]
+   ],
    "publication_start": "2017-03-19",
    "publication_end_planned": "2017-04-04",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0928.04",
@@ -98523,10 +99455,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 170,
+   "parcels_observed": [
+    [
+     30025,
+     170
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/0931.00",
@@ -99018,10 +99956,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1989/1046.00",
@@ -103370,10 +104314,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30026,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ככר דניאל  אוסטר רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0640.00",
@@ -104708,10 +105658,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.01",
@@ -104721,10 +105677,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.02",
@@ -104734,10 +105696,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1994-05-24",
    "address": "שד בן מימון (הרמב\"ם) רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.03",
@@ -104747,10 +105715,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-02-02",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.04",
@@ -104760,10 +105734,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.05",
@@ -104773,10 +105753,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0795.06",
@@ -104786,10 +105772,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 19,
+   "parcels_observed": [
+    [
+     30026,
+     19
+    ]
+   ],
    "publication_start": "2022-05-15",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 26 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0799.00",
@@ -105601,10 +106593,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0977.01",
@@ -105614,10 +106612,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0977.02",
@@ -105627,10 +106631,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0977.03",
@@ -105640,10 +106650,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 27",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0977.04",
@@ -105653,10 +106669,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 22,
+   "parcels_observed": [
+    [
+     30026,
+     22
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ע. רינגלבלום 0 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1990/0980.00",
@@ -107573,10 +108595,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0222.00",
@@ -107709,10 +108737,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.01",
@@ -107722,10 +108756,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1992-05-10",
    "address": "בלפור 16 טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.02",
@@ -107735,10 +108775,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.03",
@@ -107748,10 +108794,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.04",
@@ -107761,10 +108813,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 טלביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.05",
@@ -107774,10 +108832,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-08-12",
    "address": "בלפור 16 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.06",
@@ -107787,10 +108851,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.07",
@@ -107800,10 +108870,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2012-07-22",
    "address": "בלפור 16 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0255.08",
@@ -107813,10 +108889,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 72,
+   "parcels_observed": [
+    [
+     30026,
+     72
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 16 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1991/0262.00",
@@ -115445,10 +116527,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1992/0489.01",
@@ -115458,10 +116546,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1992/0489.02",
@@ -115471,10 +116565,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1992/0489.03",
@@ -115484,10 +116584,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1992/0489.04",
@@ -115497,10 +116603,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 71,
+   "parcels_observed": [
+    [
+     30026,
+     71
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 19 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1992/0492.00",
@@ -118261,10 +119373,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-12-03",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0664.01",
@@ -118274,10 +119392,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0664.02",
@@ -118287,10 +119411,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0664.03",
@@ -118300,10 +119430,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 126,
+   "parcels_observed": [
+    [
+     30025,
+     126
+    ]
+   ],
    "publication_start": "2026-10-04",
    "publication_end_planned": "",
    "address": "י. אלפסי 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0698.00",
@@ -118455,10 +119591,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 142,
+   "parcels_observed": [
+    [
+     30025,
+     142
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1993-12-26",
    "address": "רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0727.01",
@@ -118468,10 +119610,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 142,
+   "parcels_observed": [
+    [
+     30025,
+     142
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1993/0791.00",
@@ -122067,10 +123215,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1995/0331.01",
@@ -122080,10 +123234,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1995/0331.02",
@@ -122093,10 +123253,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 29,
+   "parcels_observed": [
+    [
+     30026,
+     29
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 5 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1995/0336.00",
@@ -125886,10 +127052,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.01",
@@ -125899,10 +127071,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.02",
@@ -125912,10 +127090,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1997-02-25",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.03",
@@ -125925,10 +127109,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-03-07",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.04",
@@ -125938,10 +127128,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.05",
@@ -125951,10 +127147,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.06",
@@ -125964,10 +127166,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2000-05-17",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0174.07",
@@ -125977,10 +127185,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2004-08-20",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0195.00",
@@ -128268,10 +129482,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 38,
+   "parcels_observed": [
+    [
+     30026,
+     38
+    ]
+   ],
    "publication_start": "2026-01-20",
    "publication_end_planned": "",
    "address": "דרך עזה 24 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1996/0877.00",
@@ -129231,10 +130451,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1998-02-28",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.01",
@@ -129244,10 +130470,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.02",
@@ -129257,10 +130489,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.03",
@@ -129270,10 +130508,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.04",
@@ -129283,10 +130527,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.05",
@@ -129296,10 +130546,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-06-23",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.06",
@@ -129309,10 +130565,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.07",
@@ -129322,10 +130584,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-11-29",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0061.08",
@@ -129335,10 +130603,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 32,
+   "parcels_observed": [
+    [
+     30026,
+     32
+    ]
+   ],
    "publication_start": "2025-08-24",
    "publication_end_planned": "",
    "address": "דרך עזה 18 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1997/0062.00",
@@ -132529,10 +133803,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30025,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1998/0136.01",
@@ -132542,10 +133822,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30025,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1998/0136.02",
@@ -132555,10 +133841,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 118,
+   "parcels_observed": [
+    [
+     30025,
+     118
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-11-10",
    "address": "י. אלפסי 19 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1998/0146.00",
@@ -134082,10 +135374,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1999/0009.01",
@@ -134095,10 +135393,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2001-03-27",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1999/0009.02",
@@ -134108,10 +135412,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 23,
+   "parcels_observed": [
+    [
+     30026,
+     23
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 28 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1999/0017.00",
@@ -134955,10 +136265,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "1999-06-09",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "1999/0294.00",
@@ -137666,10 +138982,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.01",
@@ -137679,10 +139001,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2004-03-18",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.02",
@@ -137692,10 +139020,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.03",
@@ -137705,10 +139039,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.04",
@@ -137718,10 +139058,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.05",
@@ -137731,10 +139077,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0763.06",
@@ -137744,10 +139096,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 49,
+   "parcels_observed": [
+    [
+     30026,
+     49
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2000/0769.00",
@@ -142859,10 +144217,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 53,
+   "parcels_observed": [
+    [
+     30026,
+     53
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-07-10",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2002/0559.01",
@@ -142872,10 +144236,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 53,
+   "parcels_observed": [
+    [
+     30026,
+     53
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-05-15",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2002/0559.02",
@@ -142885,10 +144255,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 53,
+   "parcels_observed": [
+    [
+     30026,
+     53
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-05-15",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2002/0559.03",
@@ -142898,10 +144274,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 53,
+   "parcels_observed": [
+    [
+     30026,
+     53
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2002/0565.00",
@@ -143105,10 +144487,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2003-03-28",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0047.01",
@@ -143118,10 +144506,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0047.02",
@@ -143131,10 +144525,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0060.00",
@@ -143872,10 +145272,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30025,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0309.01",
@@ -143885,10 +145291,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 171,
+   "parcels_observed": [
+    [
+     30025,
+     171
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דונש בן לברט 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0319.00",
@@ -143917,10 +145329,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 150,
+   "parcels_observed": [
+    [
+     30025,
+     150
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "דרך עזה 58 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2003/0350.00",
@@ -145807,10 +147225,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30025,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0247.01",
@@ -145820,10 +147244,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 115,
+   "parcels_observed": [
+    [
+     30025,
+     115
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "י. אלפסי 21 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0249.00",
@@ -146988,10 +148418,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2005-01-13",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0668.01",
@@ -147001,10 +148437,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2013-12-16",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0689.00",
@@ -147241,10 +148683,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 91,
+   "parcels_observed": [
+    [
+     30026,
+     91
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מולכו 9 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0743.01",
@@ -147254,10 +148702,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 91,
+   "parcels_observed": [
+    [
+     30026,
+     91
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "מולכו 9 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0743.02",
@@ -147267,10 +148721,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 91,
+   "parcels_observed": [
+    [
+     30026,
+     91
+    ]
+   ],
    "publication_start": "2023-02-09",
    "publication_end_planned": "",
    "address": "מולכו 9 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0743.03",
@@ -147280,10 +148740,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 91,
+   "parcels_observed": [
+    [
+     30026,
+     91
+    ]
+   ],
    "publication_start": "2025-02-17",
    "publication_end_planned": "",
    "address": "מולכו 9 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2004/0773.00",
@@ -148883,10 +150349,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 17,
+   "parcels_observed": [
+    [
+     30026,
+     17
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 21 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2005/0458.00",
@@ -149976,10 +151448,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30025,
+     188
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2007-11-26",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2005/0757.04",
@@ -149989,10 +151467,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30025,
+     188
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2005/0757.05",
@@ -150002,10 +151486,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30025,
+     188
+    ]
+   ],
    "publication_start": "2019-02-17",
    "publication_end_planned": "2019-02-26",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2005/0757.06",
@@ -150015,10 +151505,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 188,
+   "parcels_observed": [
+    [
+     30025,
+     188
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "הרב הרצוג 2 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2005/0771.00",
@@ -150897,10 +152393,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0067.01",
@@ -150910,10 +152412,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2008-02-06",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0067.02",
@@ -150923,10 +152431,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "2016-03-24",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0067.03",
@@ -150936,10 +152450,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0067.04",
@@ -150949,10 +152469,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "2023-07-30",
    "publication_end_planned": "2023-08-08",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0067.05",
@@ -150962,10 +152488,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 69,
+   "parcels_observed": [
+    [
+     30026,
+     69
+    ]
+   ],
    "publication_start": "2025-11-20",
    "publication_end_planned": "",
    "address": "בלפור 14 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0079.00",
@@ -151683,10 +153215,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 12,
+   "parcels_observed": [
+    [
+     30026,
+     12
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 15 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0384.00",
@@ -152191,10 +153729,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30026,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 טלביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0591.01",
@@ -152204,10 +153748,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 50,
+   "parcels_observed": [
+    [
+     30026,
+     50
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בלפור 4 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2006/0594.00",
@@ -153330,10 +154880,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 7,
+   "parcels_observed": [
+    [
+     30026,
+     7
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 12 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2007/0125.00",
@@ -155521,10 +157077,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2008/0351.00",
@@ -156659,10 +158221,20 @@
    "status_date": "",
    "gush": 30025,
    "helka": 216,
+   "parcels_observed": [
+    [
+     30025,
+     216
+    ],
+    [
+     30026,
+     2
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2008/0671.02",
@@ -156672,10 +158244,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 216,
+   "parcels_observed": [
+    [
+     30025,
+     216
+    ]
+   ],
    "publication_start": "2018-12-11",
    "publication_end_planned": "2018-12-25",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2008/0683.00",
@@ -161185,10 +162763,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2010/1006.01",
@@ -161198,10 +162782,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2010/1006.02",
@@ -161211,10 +162801,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 74,
+   "parcels_observed": [
+    [
+     30026,
+     74
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "ארלוזורוב 21 רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2010/1013.00",
@@ -163213,10 +164809,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2011/0472.00",
@@ -172852,10 +174454,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 149,
+   "parcels_observed": [
+    [
+     30025,
+     149
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "2015-03-02",
    "address": "דרך עזה 54 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2015/0073.00",
@@ -174403,10 +176011,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 142,
+   "parcels_observed": [
+    [
+     30025,
+     142
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2015/0701.01",
@@ -174416,10 +176030,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 142,
+   "parcels_observed": [
+    [
+     30025,
+     142
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "בנימין מטודלה 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2015/0718.00",
@@ -176916,10 +178536,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 165,
+   "parcels_observed": [
+    [
+     30025,
+     165
+    ]
+   ],
    "publication_start": "2016-09-27",
    "publication_end_planned": "2016-11-08",
    "address": "דרך עזה 64 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2016/0785.00",
@@ -178418,10 +180044,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 88,
+   "parcels_observed": [
+    [
+     30026,
+     88
+    ]
+   ],
    "publication_start": "2017-02-12",
    "publication_end_planned": "",
    "address": "ארלוזורוב רחביה",
-   "details_checked_on": "2026-11-17"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2017/0029.00",
@@ -181653,10 +183285,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30026,
+     35
+    ]
+   ],
    "publication_start": "2018-10-04",
    "publication_end_planned": "2018-10-16",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2018/0544.00",
@@ -182158,10 +183796,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 4,
+   "parcels_observed": [
+    [
+     30026,
+     4
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 8 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2018/0807.00",
@@ -183948,10 +185592,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2020/0333.00",
@@ -184478,10 +186128,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30026,
+     35
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2020/0639.01",
@@ -184491,10 +186147,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 35,
+   "parcels_observed": [
+    [
+     30026,
+     35
+    ]
+   ],
    "publication_start": "2023-06-26",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 9 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2020/0653.00",
@@ -185846,10 +187508,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 216,
+   "parcels_observed": [
+    [
+     30025,
+     216
+    ]
+   ],
    "publication_start": "",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2021/0536.00",
@@ -185995,10 +187663,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 216,
+   "parcels_observed": [
+    [
+     30025,
+     216
+    ]
+   ],
    "publication_start": "2022-03-07",
    "publication_end_planned": "",
    "address": "רמבן 39 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2022/0070.00",
@@ -188224,10 +189898,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 150,
+   "parcels_observed": [
+    [
+     30025,
+     150
+    ]
+   ],
    "publication_start": "2024-07-07",
    "publication_end_planned": "",
    "address": "דרך עזה 56 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2023/0555.00",
@@ -188966,10 +190646,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 166,
+   "parcels_observed": [
+    [
+     30025,
+     166
+    ]
+   ],
    "publication_start": "2025-02-03",
    "publication_end_planned": "",
    "address": "דרך עזה 66 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2024/0234.00",
@@ -189142,10 +190828,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 116,
+   "parcels_observed": [
+    [
+     30025,
+     116
+    ]
+   ],
    "publication_start": "2024-12-11",
    "publication_end_planned": "",
    "address": "אפודי 3 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2024/0333.00",
@@ -189409,10 +191101,16 @@
    "status_date": "",
    "gush": 30026,
    "helka": 10,
+   "parcels_observed": [
+    [
+     30026,
+     10
+    ]
+   ],
    "publication_start": "2026-02-01",
    "publication_end_planned": "",
    "address": "שד בן מימון (הרמב\"ם) 16 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2024/0435.00",
@@ -190073,10 +191771,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 181,
+   "parcels_observed": [
+    [
+     30025,
+     181
+    ]
+   ],
    "publication_start": "2025-06-18",
    "publication_end_planned": "",
    "address": "התיבונים 22 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2025/0115.00",
@@ -191596,10 +193300,16 @@
    "status_date": "",
    "gush": 30025,
    "helka": 183,
+   "parcels_observed": [
+    [
+     30025,
+     183
+    ]
+   ],
    "publication_start": "2026-08-09",
    "publication_end_planned": "",
    "address": "הרב הרצוג 6 רחביה",
-   "details_checked_on": "2026-11-16"
+   "details_checked_on": "2026-11-23"
   },
   {
    "tik_num": "2026/0202.00",
