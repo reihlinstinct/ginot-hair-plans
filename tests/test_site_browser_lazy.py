@@ -480,3 +480,42 @@ def test_failed_evidence_full_load_offers_retry_and_keeps_subset(
             assert errors == []
     finally:
         srv.shutdown()
+
+
+# --- #1146: status select keeps translated labels after the full install ----
+
+
+def test_status_select_stays_translated_after_full_install(tmp_path, browser, request):
+    """The full-list install rebuilds the permit status select from the raw
+    values; per language the option text must stay the label while the option
+    value (what filtering compares) stays the raw municipal string."""
+    srv, url = _lazy_site(tmp_path)
+    try:
+        for lang, label in (("fr", "Acompte payé"), ("ru", "Аванс оплачен")):
+            with recorded_page(browser, request) as (pg, errors):
+                pg.goto(url.replace("/index.html", f"/{lang}/index.html"))
+                pg.wait_for_function("window.__permitsDefaultLoaded === true")
+                pg.evaluate("window.__loadFullPermits()")
+                pg.wait_for_function("window.__permitsLoaded === true")
+                opts = pg.eval_on_selector_all(
+                    "#pfstatus option", "o=>o.map(x=>[x.value,x.textContent])"
+                )
+                by_value = dict(opts)
+                assert by_value[_LAZY_REVIEW] == label, (lang, opts)
+                assert by_value[_LAZY_OBJ] != _LAZY_OBJ, (lang, opts)
+                # filtering still compares the raw value
+                pg.select_option("#pfstatus", _LAZY_REVIEW)
+                assert errors == []
+        with recorded_page(browser, request) as (pg, errors):
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsDefaultLoaded === true")
+            pg.evaluate("window.__loadFullPermits()")
+            pg.wait_for_function("window.__permitsLoaded === true")
+            he = dict(
+                pg.eval_on_selector_all(
+                    "#pfstatus option", "o=>o.map(x=>[x.value,x.textContent])"
+                )
+            )
+            assert he[_LAZY_REVIEW] == _LAZY_REVIEW
+    finally:
+        srv.shutdown()

@@ -385,6 +385,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 })();
 
 (function(){
+var PSL={"הופק-הוצא היתר בניה": "Разрешение на строительство выдано", "הוכנה טיוטת היתר בניה": "Подготовлен проект разрешения на строительство", "הבקשה נסגרה": "Заявка закрыта", "נדונה בוועדת המשנה": "Рассмотрена подкомиссией", "התקבל תיק ורוד / מסמכים חתומים": "Получено розовое дело / подписанные документы", "שולמה מקדמה": "Аванс оплачен", "נדונה ברשות הרישוי": "Рассмотрена органом лицензирования", "נפתח תיק רישוי": "Открыто лицензионное дело", "הופק היתר מוארך": "Выдано продлённое разрешение", "נדונה בועדת ערר": "Рассмотрена апелляционной комиссией", "הגשה מקוונת הושלמה": "Онлайн-подача завершена", "ממתין לאישור נוסח פרסום": "Ожидается утверждение текста публикации", "אושר ע\"י מהנדס העיר": "Утверждено городским инженером", "תום תקופת פרסום": "Срок публикации истёк", "חידוש טיפול בבקשה": "Возобновлено рассмотрение заявки", "התקבל ערר": "Получена апелляция", "הבקשה נגנזה": "Заявка отправлена в архив", "נוסח פרסום אושר": "Текст публикации утверждён", "תחילת פרסום הבקשה להקלה": "Началась публикация заявки на послабление", "השלמת הודעות לפני תקנה 36": "Уведомления по пункту 36 завершены", "פורסמה בקשה להקלה": "Заявка на послабление опубликована", "תחילת הודעות לפני תקנה 36": "Начаты уведомления по пункту 36", "התקבלה בקשה לדיון המועצה": "Получен запрос на рассмотрение советом"};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -635,7 +636,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"Все статусы источника",Object.keys(counts).sort());

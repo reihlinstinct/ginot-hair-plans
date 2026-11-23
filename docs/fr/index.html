@@ -387,6 +387,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 })();
 
 (function(){
+var PSL={"הופק-הוצא היתר בניה": "Permis de construire délivré", "הוכנה טיוטת היתר בניה": "Projet de permis de construire préparé", "הבקשה נסגרה": "Demande clôturée", "נדונה בוועדת המשנה": "Examinée par la sous-commission", "התקבל תיק ורוד / מסמכים חתומים": "Dossier rose / documents signés reçus", "שולמה מקדמה": "Acompte payé", "נדונה ברשות הרישוי": "Examinée par l'autorité de délivrance des permis", "נפתח תיק רישוי": "Dossier de permis ouvert", "הופק היתר מוארך": "Permis prolongé délivré", "נדונה בועדת ערר": "Examinée par la commission de recours", "הגשה מקוונת הושלמה": "Dépôt en ligne terminé", "ממתין לאישור נוסח פרסום": "En attente d'approbation du texte de publication", "אושר ע\"י מהנדס העיר": "Approuvé par l'ingénieur de la ville", "תום תקופת פרסום": "Période de publication terminée", "חידוש טיפול בבקשה": "Reprise du traitement de la demande", "התקבל ערר": "Recours reçu", "הבקשה נגנזה": "Demande classée", "נוסח פרסום אושר": "Texte de publication approuvé", "תחילת פרסום הבקשה להקלה": "Début de la publication de la demande de dérogation", "השלמת הודעות לפני תקנה 36": "Notifications avant le règlement 36 terminées", "פורסמה בקשה להקלה": "Demande de dérogation publiée", "תחילת הודעות לפני תקנה 36": "Début des notifications avant le règlement 36", "התקבלה בקשה לדיון המועצה": "Demande d'examen par le conseil reçue"};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -637,7 +638,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"Tous les statuts de la source",Object.keys(counts).sort());

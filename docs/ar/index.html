@@ -380,6 +380,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 })();
 
 (function(){
+var PSL={"הופק-הוצא היתר בניה": "تم إصدار رخصة بناء", "הוכנה טיוטת היתר בניה": "أُعدّ مسوّدة رخصة بناء", "הבקשה נסגרה": "أُغلق الطلب", "נדונה בוועדת המשנה": "نوقش في اللجنة الفرعية", "התקבל תיק ורוד / מסמכים חתומים": "استُلم الملف الوردي / مستندات موقّعة", "שולמה מקדמה": "دُفعت دفعة مقدّمة", "נדונה ברשות הרישוי": "نوقش لدى سلطة الترخيص", "נפתח תיק רישוי": "فُتح ملف ترخيص", "הופק היתר מוארך": "تم إصدار رخصة ممدّدة", "נדונה בועדת ערר": "نوقش في لجنة الاستئناف", "הגשה מקוונת הושלמה": "اكتمل التقديم عبر الإنترنت", "ממתין לאישור נוסח פרסום": "بانتظار الموافقة على نص النشر", "אושר ע\"י מהנדס העיר": "وافق عليه مهندس المدينة", "תום תקופת פרסום": "انتهت فترة النشر", "חידוש טיפול בבקשה": "استئناف معالجة الطلب", "התקבל ערר": "استُلم استئناف", "הבקשה נגנזה": "تم حفظ الطلب في الأرشيف", "נוסח פרסום אושר": "تمت الموافقة على نص النشر", "תחילת פרסום הבקשה להקלה": "بدء نشر طلب التخفيف", "השלמת הודעות לפני תקנה 36": "اكتمل الإخطار قبل اللائحة 36", "פורסמה בקשה להקלה": "نُشر طلب التخفيف", "תחילת הודעות לפני תקנה 36": "بدء الإخطار قبل اللائحة 36", "התקבלה בקשה לדיון המועצה": "استُلم طلب لمناقشة المجلس"};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -630,7 +631,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"كل حالات المصدر",Object.keys(counts).sort());

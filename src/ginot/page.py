@@ -1004,6 +1004,21 @@ def _permits_js(lang: str, pre: str) -> str:
         "(function(){\nvar rows=",
         "(function(){\nvar TF=function(s,m){return String(s).replace(/\\{(\\w+)\\}/g,function(_,k){return m[k];});};\nvar rows=",
     )
+    # The full-list install rebuilds the status select from the raw values;
+    # show each as its translated label (the option value stays raw).
+    psl = _json.dumps(
+        {
+            raw: _i18n.t(lang, key)
+            for raw, key in _i18n.PERMIT_STATUS_KEYS.items()
+            if lang != _i18n.default_lang()
+        },
+        ensure_ascii=False,
+    )
+    out = out.replace(
+        "x.value=v;x.textContent=v;",
+        "x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;",
+    )
+    out = out.replace("var TF=function", f"var PSL={psl};\nvar TF=function", 1)
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
     )

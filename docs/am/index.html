@@ -379,6 +379,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 })();
 
 (function(){
+var PSL={"הופק-הוצא היתר בניה": "የግንባታ ፈቃድ ተሰጥቷል", "הוכנה טיוטת היתר בניה": "የግንባታ ፈቃድ ረቂቅ ተዘጋጅቷል", "הבקשה נסגרה": "ጥያቄው ተዘግቷል", "נדונה בוועדת המשנה": "በንዑስ ኮሚቴ ተወያይቷል", "התקבל תיק ורוד / מסמכים חתומים": "ሮዝ ፋይል / የተፈረሙ ሰነዶች ደርሰዋል", "שולמה מקדמה": "ቅድመ ክፍያ ተከፍሏል", "נדונה ברשות הרישוי": "በፈቃድ ሰጪ ባለሥልጣን ተወያይቷል", "נפתח תיק רישוי": "የፈቃድ ፋይል ተከፍቷል", "הופק היתר מוארך": "የተራዘመ ፈቃድ ተሰጥቷል", "נדונה בועדת ערר": "በይግባኝ ኮሚቴ ተወያይቷል", "הגשה מקוונת הושלמה": "በመስመር ላይ ማቅረብ ተጠናቋል", "ממתין לאישור נוסח פרסום": "የህትመት ጽሑፍ ማጽደቅ በመጠበቅ ላይ", "אושר ע\"י מהנדס העיר": "በከተማው መሐንዲስ ጸድቋል", "תום תקופת פרסום": "የህትመት ጊዜ አብቅቷል", "חידוש טיפול בבקשה": "የጥያቄው አያያዝ ቀጥሏል", "התקבל ערר": "ይግባኝ ደርሷል", "הבקשה נגנזה": "ጥያቄው ተቀምጧል (ተዘግቷል)", "נוסח פרסום אושר": "የህትመት ጽሑፍ ጸድቋል", "תחילת פרסום הבקשה להקלה": "የቅናሽ ጥያቄ ህትመት ተጀምሯል", "השלמת הודעות לפני תקנה 36": "ከደንብ 36 በፊት ማሳወቂያዎች ተጠናቀዋል", "פורסמה בקשה להקלה": "የቅናሽ ጥያቄ ታትሟል", "תחילת הודעות לפני תקנה 36": "ከደንብ 36 በፊት ማሳወቂያዎች ተጀምረዋል", "התקבלה בקשה לדיון המועצה": "ለምክር ቤት ውይይት ጥያቄ ደርሷል"};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -629,7 +630,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"የምንጭ ሁኔታዎች ሁሉ",Object.keys(counts).sort());

@@ -385,6 +385,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 })();
 
 (function(){
+var PSL={"הופק-הוצא היתר בניה": "Building permit issued", "הוכנה טיוטת היתר בניה": "Draft building permit prepared", "הבקשה נסגרה": "Request closed", "נדונה בוועדת המשנה": "Discussed by the sub-committee", "התקבל תיק ורוד / מסמכים חתומים": "Pink file / signed documents received", "שולמה מקדמה": "Advance payment made", "נדונה ברשות הרישוי": "Discussed by the licensing authority", "נפתח תיק רישוי": "Licensing file opened", "הופק היתר מוארך": "Extended permit issued", "נדונה בועדת ערר": "Discussed by the appeals committee", "הגשה מקוונת הושלמה": "Online submission completed", "ממתין לאישור נוסח פרסום": "Awaiting approval of publication text", "אושר ע\"י מהנדס העיר": "Approved by the city engineer", "תום תקופת פרסום": "Publication period ended", "חידוש טיפול בבקשה": "Handling of the request resumed", "התקבל ערר": "Appeal received", "הבקשה נגנזה": "Request archived", "נוסח פרסום אושר": "Publication text approved", "תחילת פרסום הבקשה להקלה": "Publication of the variance request started", "השלמת הודעות לפני תקנה 36": "Notices before Regulation 36 completed", "פורסמה בקשה להקלה": "Variance request published", "תחילת הודעות לפני תקנה 36": "Notices before Regulation 36 started", "התקבלה בקשה לדיון המועצה": "Request for council discussion received"};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -635,7 +636,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"All source statuses",Object.keys(counts).sort());
