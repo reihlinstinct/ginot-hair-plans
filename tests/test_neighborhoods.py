@@ -295,3 +295,10 @@ def test_kiryat_shmuel_unique_streets():
     # parcel on these streets sits in קריית שמואל (#1006, JTMT join).
     assert "קרית שמואל" in neighborhoods.tags_for("תוספת יח\"ד ברח' הרב חן 4")
     assert "קרית שמואל" in neighborhoods.tags_for("שינוי הוראות בחיים ברודי 7")
+
+
+# Section: Street aliases for permit-request addresses (#468)
+def test_alias_extra_swaps_street_in_a_permit_address_and_keeps_number():
+    assert "קינג גורג 60" in neighborhoods.alias_extra("המלך ג'ורג' 60")
+    # an address with no aliased street adds nothing, and no neighborhood tags
+    assert neighborhoods.alias_extra("רחוב אלף 3") == ""
