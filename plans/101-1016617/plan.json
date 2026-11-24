@@ -13,6 +13,8 @@
  "pl_date_8_approval": "2022-10-27",
  "objection_deadline_derived_60d_from_publication": "2022-06-14",
  "objection_deadline_derived_2m_from_publication": "2022-06-15",
+ "objection_deadline_verified": "",
+ "objection_deadline_verified_source": "",
  "pl_area_dunam": 0.146,
  "intersection_dunam": 0.0,
  "inside_flag": "partial",
@@ -20,5 +22,8 @@
  "mp_id": 1005181686.0,
  "jurstiction_area_name": "ירושלים",
  "last_update_date": "2022-11-21",
+ "land_status": "פרסום לתוקף בעיתונים",
+ "land_status_date": "2022-11-11",
+ "land_plan_id": 1054034,
  "advisory_urgent": false
 }
