@@ -599,3 +599,26 @@ def test_rejected_permit_is_terminal_but_preserved_in_all_rows(tmp_path):
     assert "2026/0999.01" in all_rows
     default_rows = (tmp_path / "permits-default.html").read_text(encoding="utf-8")
     assert "2026/0999.01" not in default_rows
+
+
+def test_permit_search_text_includes_sourced_street_alias(tmp_path):
+    # #468: a permit request on המלך ג'ורג' also searches as קינג גורג, the
+    # official address text stays as shown.
+    import re
+
+    from ginot import page
+
+    reqs = [
+        {
+            "tik_num": "9/1",
+            "status": "נפתח תיק רישוי",
+            "address": "המלך ג'ורג' 60",
+        },
+        {"tik_num": "9/2", "status": "נפתח תיק רישוי", "address": "רחוב אלף 3"},
+    ]
+    page.render_site([], [], str(tmp_path), permits_path=_permits(tmp_path, reqs))
+    html = (tmp_path / "permits.html").read_text(encoding="utf-8")
+    search = dict(re.findall(r"data-tik='([^']*)'.*?data-search='([^']*)'", html))
+    assert "קינג גורג 60" in search["9/1"]
+    assert "קינג" not in search["9/2"]
+    assert "המלך ג&#x27;ורג&#x27; 60" in html or "המלך ג'ורג' 60" in html

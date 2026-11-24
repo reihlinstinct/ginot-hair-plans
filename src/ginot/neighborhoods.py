@@ -187,6 +187,13 @@ def search_extra(plan_name: str) -> str:
     return " ".join(tags_for(plan_name) + _alias_variants(words))
 
 
+def alias_extra(text: str) -> str:
+    """Only the sourced street-alias variants of text (no neighborhood
+    tags), for rows whose text is an address, such as the permit
+    requests (#468): "המלך ג'ורג' 60" also searches as "קינג ג'ורג' 60"."""
+    return " ".join(_alias_variants(tuple(_norm(text).split())))
+
+
 def autocomplete_terms() -> list[str]:
     """Neighborhoods, their variants and streets for the search datalist."""
     data = json.loads(DATA_PATH.read_text(encoding="utf-8"))

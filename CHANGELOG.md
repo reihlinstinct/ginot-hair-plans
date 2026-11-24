@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-24 - Street nicknames now find permit requests too
+
+- The permit-requests table search now also matches the sourced alternative
+  street names (for example "קינג גורג" finds a request on "המלך ג'ורג'"),
+  the same way the plans table already did (#1105). The address shown is
+  unchanged. Only streets in `street_aliases` (data/neighborhoods.json) are
+  affected; no new aliases were added.
+
 ## 2026-11-23 - Translated status labels on the plan and permit tables
 
 - Municipal plan statuses (8 values) and permit-request statuses (23 values) now

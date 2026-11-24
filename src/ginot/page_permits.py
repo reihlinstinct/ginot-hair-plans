@@ -3,6 +3,7 @@
 import datetime
 
 from . import i18n as _i18n
+from . import neighborhoods as _neighborhoods
 from .page_permit_policy import (
     _PERMIT_GROUP_CLASS,
     _PERMIT_PUB_EVIDENCE_STATUSES,
@@ -112,6 +113,7 @@ def _permits_section(
                     sug,
                     f"גוש {p.get('gush')}" if p.get("gush") else "",
                     f"חלקה {p.get('helka')}" if p.get("helka") else "",
+                    _neighborhoods.alias_extra(p.get("address") or ""),
                 ]
             ).lower()
         )
