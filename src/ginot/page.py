@@ -1004,6 +1004,21 @@ def _permits_js(lang: str, pre: str) -> str:
         "(function(){\nvar rows=",
         "(function(){\nvar TF=function(s,m){return String(s).replace(/\\{(\\w+)\\}/g,function(_,k){return m[k];});};\nvar rows=",
     )
+    # The full-list install rebuilds the status select from the raw values;
+    # show each as its translated label (the option value stays raw).
+    psl = _json.dumps(
+        {
+            raw: _i18n.t(lang, key)
+            for raw, key in _i18n.PERMIT_STATUS_KEYS.items()
+            if lang != _i18n.default_lang()
+        },
+        ensure_ascii=False,
+    )
+    out = out.replace(
+        "x.value=v;x.textContent=v;",
+        "x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;",
+    )
+    out = out.replace("var TF=function", f"var PSL={psl};\nvar TF=function", 1)
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
     )
@@ -1146,15 +1161,18 @@ def render_index(
             return "c-approved"
         return ""
 
+    def _label(st):
+        return _i18n.plan_status_label(lang, st)
+
     def chip(st):
         st = st or ""
-        return f'<span class="chip {_status_class(st)}" data-status="{_e(st)}">{_e(st)}</span>'
+        return f'<span class="chip {_status_class(st)}" data-status="{_e(st)}">{_e(_label(st))}</span>'
 
     def legend_chip(st):
         st = st or ""
         return (
             f'<button type="button" class="chip {_status_class(st)}"'
-            f' data-status="{_e(st)}" aria-pressed="false">{_e(st)}</button>'
+            f' data-status="{_e(st)}" aria-pressed="false">{_e(_label(st))}</button>'
         )
 
     def review_cell(r):
@@ -1251,7 +1269,9 @@ def render_index(
         f"{_e(_t(f'changes.kind_{k}'))} ({sum(1 for c in changes if c['kind'] == k)})</button>"
         for k in _kinds
     )
-    status_opts = "".join(f"<option value='{_e(s)}'>{_e(s)}</option>" for s in statuses)
+    status_opts = "".join(
+        f"<option value='{_e(s)}'>{_e(_label(s))}</option>" for s in statuses
+    )
     n_approved = sum(1 for r in rows if not r["_open_obj"] and not _is_active(r))
     suggest_options = "".join(
         f"<option value='{_e(t)}'></option>"

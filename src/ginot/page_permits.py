@@ -2,6 +2,7 @@
 
 import datetime
 
+from . import i18n as _i18n
 from .page_permit_policy import (
     _PERMIT_GROUP_CLASS,
     _PERMIT_PUB_EVIDENCE_STATUSES,
@@ -147,7 +148,7 @@ def _permits_section(
             + "</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_mahut'))}'>{_e(p.get('mahut') or '')}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_sug'))}'>{_e(sug)}</td>"
-            f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(status)}</span></td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(_i18n.permit_status_label(lang, status))}</span></td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_statusdate'))}'>{_date_cell(p.get('status_date'))}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_pubstart'))}' data-publication-cell>{pub_cell}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.mobile_pubend'))}'>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
@@ -230,7 +231,10 @@ def _permits_section(
     sugs = sorted({(p.get("sugbakasha") or "") for p in permits if p.get("sugbakasha")})
     status_opts = (
         f"<option value=''>{_e(_t(lang, 'permits.status_all'))}</option>"
-        + "".join(f"<option value='{_e(v)}'>{_e(v)}</option>" for v in statuses)
+        + "".join(
+            f"<option value='{_e(v)}'>{_e(_i18n.permit_status_label(lang, v))}</option>"
+            for v in statuses
+        )
     )
     sug_opts = f"<option value=''>{_e(_t(lang, 'permits.sug_all'))}</option>" + "".join(
         f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs

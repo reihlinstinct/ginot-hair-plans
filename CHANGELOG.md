@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-11-23 - Translated status labels on the plan and permit tables
+
+- Municipal plan statuses (8 values) and permit-request statuses (23 values) now
+  show in the page language (ar, en, fr, ru, am) in the status chips, the plan
+  legend and both status filters. The raw Hebrew value stays in `data-status`
+  and drives filtering and colour, so nothing about matching changes. A status
+  with no translation is shown as the source gives it. Machine translation,
+  not yet read by a native speaker (the draft banner already says so).
+- Mobile cards: status chips now wrap, so a long French or Russian label no
+  longer squeezes the field label or overflows the card.
+- The permit status filter keeps the label after the full list installs (the
+  install rebuilds the select; it now maps the raw value to the label).
+- Not translated: addresses, request subjects, request types and plan names
+  (source data).
+  Map popups and the sort order of the status options still use the raw Hebrew
+  value (follow-up).
+
 ## 2026-11-23 - Credential-format scan in CI (#1141)
 
 - New `Gitleaks` workflow (push and pull request): pinned `gitleaks-action` v3.0.0,
