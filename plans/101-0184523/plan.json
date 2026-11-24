@@ -13,6 +13,8 @@
  "pl_date_8_approval": "2017-10-02",
  "objection_deadline_derived_60d_from_publication": "2015-09-15",
  "objection_deadline_derived_2m_from_publication": "2015-09-17",
+ "objection_deadline_verified": "",
+ "objection_deadline_verified_source": "",
  "pl_area_dunam": 138.954,
  "intersection_dunam": 0.1,
  "inside_flag": "partial",

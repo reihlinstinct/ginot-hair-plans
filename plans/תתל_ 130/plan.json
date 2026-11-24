@@ -13,6 +13,8 @@
  "pl_date_8_approval": "2023-10-17",
  "objection_deadline_derived_60d_from_publication": "2023-04-08",
  "objection_deadline_derived_2m_from_publication": "2023-04-07",
+ "objection_deadline_verified": "",
+ "objection_deadline_verified_source": "",
  "pl_area_dunam": 5440.0,
  "intersection_dunam": 4.6,
  "inside_flag": "partial",
