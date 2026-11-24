@@ -1,20 +1,7 @@
 {
- "generated": "2026-11-23",
+ "generated": "2026-11-24",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
  "changed_since_previous": [
-  {
-   "plan": "101-1215656",
-   "reasons": [
-    "טקסט העמוד השתנה",
-    "התנגדויות: 34 -> 41"
-   ]
-  },
-  {
-   "plan": "101-1377753",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  },
   {
    "plan": "101-1158146",
    "reasons": [
@@ -26,8 +13,8 @@
   "101-0775940": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "6039ae822b0297ca",
-   "page_chars": 1094,
+   "fingerprint": "ad7c5d60476cfad1",
+   "page_chars": 1340,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000488667615|קבצי התכנית (SHP)|27/02/2020|",
@@ -1100,8 +1087,8 @@
   "101-1158146": {
    "deadline_text": "",
    "station_text": "במילוי תנאים להפקדה",
-   "fingerprint": "870965ef34eef0e7",
-   "page_chars": 1281,
+   "fingerprint": "9078149fad789904",
+   "page_chars": 1294,
    "api": {
     "docs": [
      "rsPlanDocsAdd|1001071822519|תכתובות|19/01/2025|התייחסות מינהל קהילתי גוננים",
