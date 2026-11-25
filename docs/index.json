@@ -43,6 +43,14 @@
    "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/external_reviews.json"
   },
   {
+   "name": "forum_deadline_claims.json",
+   "path": "data/forum_deadline_claims.json",
+   "kind": "json",
+   "records": null,
+   "bytes": 885,
+   "url": "https://github.com/reihlinstinct/ginot-hair-plans/blob/main/data/forum_deadline_claims.json"
+  },
+  {
    "name": "ginot_hair_parcels.geojson",
    "path": "data/ginot_hair_parcels.geojson",
    "kind": "geojson",

@@ -26,5 +26,8 @@
  "land_status_date": "2026-10-16",
  "land_plan_id": 1057219,
  "deadline_source_note": "max(iplan, land.gov.il) publication + 60d / +2 months",
- "advisory_urgent": true
+ "advisory_urgent": true,
+ "forum_deadline_claim": "2026-12-04",
+ "forum_deadline_claim_forum_date": "2026-11-18",
+ "forum_deadline_claim_source": "https://www.ginothair.org.il/files/2026/10/18_11_26_%D7%A4%D7%95%D7%A8%D7%95%D7%9D_%D7%92%D7%99%D7%A0%D7%95%D7%AA_%D7%94%D7%A2%D7%99%D7%A8_%D7%A1%D7%99%D7%9B%D7%95%D7%9D.pdf"
 }

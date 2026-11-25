@@ -19,9 +19,11 @@ sorting/filtering uses true dates. Statistics render in a collapsed block below 
 import datetime
 import json
 import os
+from urllib.parse import urlparse
 
 from . import __version__, neighborhoods
 from .dates import today_il
+from .forum_claims import merge_forum_deadline_claims
 from .page_permit_policy import (  # noqa: F401 - keep the page module API
     _PERMIT_GROUP_CLASS,
     _PERMIT_PUB_EVIDENCE_STATUSES,
@@ -332,7 +334,27 @@ def _objection_deadline_fmt(r) -> str:
     return f"{iso[8:10]}.{iso[5:7]}.{iso[2:4]}" if iso else ""
 
 
-def _objection_cell(r, verified_tooltip: str = "") -> str:
+def _forum_claim_note(r, claim_text: str = "") -> str:
+    """Attributed forum-summary deadline shown under the computed one while the
+    two differ. Display only: it never feeds sorting, urgency or the API
+    deadline (data/forum_deadline_claims.json)."""
+    claim = _iso(r.get("forum_deadline_claim"))
+    if not claim or not claim_text:
+        return ""
+    src = r.get("forum_deadline_claim_source") or ""
+    parsed = urlparse(src)
+    if parsed.scheme == "https" and parsed.hostname in (
+        "www.ginothair.org.il",
+        "ginothair.org.il",
+    ):
+        claim_text = (
+            f"<a href='{_e(src)}' target='_blank' rel='noopener noreferrer'>"
+            f"{claim_text}</a>"
+        )
+    return f"<small class='forum-claim'>{claim_text}</small>"
+
+
+def _objection_cell(r, verified_tooltip: str = "", claim_text: str = "") -> str:
     """Deadline cell; a verified deadline carries a visible checkmark marker
     and a localized tooltip (#1084: the column header refers to the marker,
     so it must actually be drawn). _date_cell takes the extra attributes and
@@ -342,8 +364,8 @@ def _objection_cell(r, verified_tooltip: str = "") -> str:
             _objection_deadline_iso(r),
             pre_attrs=f"title='{verified_tooltip}' aria-label='{verified_tooltip}'",
             marker="✓ ",
-        )
-    return _date_cell(_objection_deadline_iso(r))
+        ) + _forum_claim_note(r, claim_text)
+    return _date_cell(_objection_deadline_iso(r)) + _forum_claim_note(r, claim_text)
 
 
 def _is_open_objection(r, today: str) -> bool:
@@ -1143,6 +1165,19 @@ def render_index(
     def _t(key: str, **fmt) -> str:
         return _i18n.t(lang, key, **fmt)
 
+    def _claim_text(r):
+        c = _iso(r.get("forum_deadline_claim"))
+        if not c:
+            return ""
+        fd = _iso(r.get("forum_deadline_claim_forum_date"))
+        return _e(
+            _t(
+                "index.forum_claim",
+                forum=f"{fd[8:10]}.{fd[5:7]}.{fd[2:4]}" if fd else "",
+                date=f"{c[8:10]}.{c[5:7]}.{c[2:4]}",
+            )
+        )
+
     rows = sort_rows(rows)
     statuses = sorted({(r.get("station_desc") or "") for r in rows} - {""})
 
@@ -1205,7 +1240,7 @@ def render_index(
             f"<td>{_e(r['pl_name'])}</td><td>{chip(r['station_desc'])}</td>"
             f"<td data-label='{_e(_t('index.col_recv'))}'>{_date_cell(r['receiving_date'])}</td>"
             f"<td data-label='{_e(_t('index.col_dep'))}'>{_date_cell(_deposit_date(r))}</td>"
-            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_objection_cell(r, _e(_t('index.obj_verified_tooltip')))}</td>"
+            f"<td class='derived' data-label='{_e(_t('index.col_obj'))}'>{_objection_cell(r, _e(_t('index.obj_verified_tooltip')), _claim_text(r))}</td>"
             f"<td data-label='{_e(_t('index.col_area'))}'>{_e(r['pl_area_dunam'])}</td><td data-label='{_e(_t('index.col_review'))}'>{review_cell(r)}</td></tr>"
         )
 
@@ -1476,6 +1511,10 @@ def render_site(
     import glob
     import re as _re
     import shutil
+
+    # Overlay attributed forum claims from the committed data file on copies of
+    # the rows (display only; snapshot rows may be stale or carry none).
+    rows = merge_forum_deadline_claims([dict(r) for r in rows])
 
     os.makedirs(out_dir, exist_ok=True)
     from pathlib import Path
