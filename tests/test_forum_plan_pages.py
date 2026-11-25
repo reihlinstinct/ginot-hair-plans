@@ -7,7 +7,11 @@ from ginot.page import _community_source_link
 from ginot.page_permit_policy import COMMUNITY_SOURCE_RECORDS
 
 ROOT = Path(__file__).resolve().parents[1]
-NEW = [r for r in COMMUNITY_SOURCE_RECORDS if r[2] not in {"14.10.26", "04.11.26", "18.11.26"}]
+NEW = [
+    r
+    for r in COMMUNITY_SOURCE_RECORDS
+    if r[2] not in {"14.10.26", "04.11.26", "18.11.26"}
+]
 
 
 def test_every_record_has_redacted_copy_readme_and_note():
@@ -34,7 +38,10 @@ def test_links_only_on_listed_plans():
 
 def test_live_rows_show_the_links():
     rows = (ROOT / "docs/rows.html").read_text()
-    live = {r["pl_number"] for r in json.loads((ROOT / "docs/data.json").read_text())["rows"]}
+    live = {
+        r["pl_number"]
+        for r in json.loads((ROOT / "docs/data.json").read_text())["rows"]
+    }
     for cases, url, _d in NEW:
         for plan in cases & live:
             row = rows.split(f"data-num='{plan}'", 1)[1].split("</tr>", 1)[0]
