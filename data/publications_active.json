@@ -399,29 +399,28 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16535861,
-    "tik_num": "1980/1030.02",
-    "street": "הרב יוסף חיים שרים ",
-    "house_number": "6",
-    "neighborhood": "רמת שרת",
+    "myIndex": 16607350,
+    "tik_num": "1980/0237.12",
+    "street": "הרב שמואל א. שאולזון",
+    "house_number": "46",
+    "neighborhood": "הר נוף",
     "place_description": null,
-    "publication_date": "2026-10-28",
-    "objection_deadline": "2026-11-24",
-    "ed700": "2026-10-26",
-    "connected_rec_id": 1222394,
-    "doc_id": "26b7cc96-912b-4ad1-91c8-be06cce34bf5",
+    "publication_date": "2026-11-25",
+    "objection_deadline": null,
+    "ed700": "2026-11-24",
+    "connected_rec_id": 1280329,
+    "doc_id": null,
     "diagnostics": {
       "fields": {
         "PD900": {
           "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
+          "null": true,
+          "type": "null"
         },
         "DocId": {
           "present": true,
-          "null": false,
-          "type": "str"
+          "null": true,
+          "type": "null"
         },
         "ED800": {
           "present": true,
@@ -437,10 +436,10 @@
         }
       },
       "raw": {
-        "PD900": "2026-11-24T00:00:00",
-        "DocId": "26b7cc96-912b-4ad1-91c8-be06cce3",
-        "ED800": "2026-10-28T00:00:00",
-        "ED700": "2026-10-26T00:00:00"
+        "PD900": null,
+        "DocId": null,
+        "ED800": "2026-11-25T00:00:00",
+        "ED700": "2026-11-24T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -652,57 +651,6 @@
     "in_polygon": true
   },
   {
-    "myIndex": 16548843,
-    "tik_num": "1984/0889.04",
-    "street": "עמשא",
-    "house_number": "80",
-    "neighborhood": "מנחת",
-    "place_description": null,
-    "publication_date": "2026-10-28",
-    "objection_deadline": "2026-11-24",
-    "ed700": "2026-10-26",
-    "connected_rec_id": 1280596,
-    "doc_id": null,
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": true,
-          "type": "null"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-24T00:00:00",
-        "DocId": null,
-        "ED800": "2026-10-28T00:00:00",
-        "ED700": "2026-10-26T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 16528623,
     "tik_num": "1985/0665.07",
     "street": "חיים ויטאל",
@@ -794,6 +742,56 @@
         "DocId": null,
         "ED800": "2026-11-05T00:00:00",
         "ED700": "2026-10-14T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16557482,
+    "tik_num": "1986/0215.07",
+    "street": "קדושת אהרון",
+    "house_number": "4",
+    "neighborhood": "הקריות החסידיות",
+    "place_description": null,
+    "publication_date": "2026-11-25",
+    "objection_deadline": null,
+    "ed700": "2026-11-22",
+    "connected_rec_id": null,
+    "doc_id": "ff868d23-c7c8-4b86-837c-3a9f4740c329",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "ff868d23-c7c8-4b86-837c-3a9f4740",
+        "ED800": "2026-11-25T00:00:00",
+        "ED700": "2026-11-22T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -951,57 +949,6 @@
       "unexpected_keys_total": 1
     },
     "in_polygon": null
-  },
-  {
-    "myIndex": 16528167,
-    "tik_num": "1989/0769.03",
-    "street": "דרך עזה",
-    "house_number": "42",
-    "neighborhood": "רחביה",
-    "place_description": null,
-    "publication_date": "2026-10-18",
-    "objection_deadline": "2026-11-13",
-    "ed700": "2026-10-15",
-    "connected_rec_id": 1243907,
-    "doc_id": null,
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": true,
-          "type": "null"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-13T00:00:00",
-        "DocId": null,
-        "ED800": "2026-10-18T00:00:00",
-        "ED700": "2026-10-15T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": true
   },
   {
     "myIndex": 16522294,
@@ -2260,7 +2207,7 @@
     "neighborhood": "נוה יעקב",
     "place_description": null,
     "publication_date": "2026-10-26",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-24",
     "ed700": "2026-10-14",
     "connected_rec_id": 1264039,
     "doc_id": "7596415b-891a-477d-a247-d66f8a93f078",
@@ -2268,8 +2215,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -2290,7 +2238,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-24T00:00:00",
         "DocId": "7596415b-891a-477d-a247-d66f8a93",
         "ED800": "2026-10-26T00:00:00",
         "ED700": "2026-10-14T00:00:00"
@@ -4109,7 +4057,7 @@
     "neighborhood": "סנהדריה",
     "place_description": null,
     "publication_date": "2026-10-22",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-24",
     "ed700": "2026-10-21",
     "connected_rec_id": 1226335,
     "doc_id": null,
@@ -4117,8 +4065,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -4139,7 +4088,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-24T00:00:00",
         "DocId": null,
         "ED800": "2026-10-22T00:00:00",
         "ED700": "2026-10-21T00:00:00"
@@ -4193,6 +4142,56 @@
         "DocId": "cf6c6fb9-75b4-4923-a28e-b8e7b98d",
         "ED800": "2024-07-24T00:00:00",
         "ED700": "2024-06-17T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": null
+  },
+  {
+    "myIndex": 16565992,
+    "tik_num": "2021/0188.01",
+    "street": "מקור חיים",
+    "house_number": "12",
+    "neighborhood": "מקור חיים",
+    "place_description": null,
+    "publication_date": "2026-11-25",
+    "objection_deadline": null,
+    "ed700": "2026-11-22",
+    "connected_rec_id": null,
+    "doc_id": "9a4092cf-f2dc-44ed-bc87-68cab25766a4",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "9a4092cf-f2dc-44ed-bc87-68cab257",
+        "ED800": "2026-11-25T00:00:00",
+        "ED700": "2026-11-22T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -4402,57 +4401,6 @@
     "in_polygon": null
   },
   {
-    "myIndex": 16534231,
-    "tik_num": "2022/0335.03",
-    "street": "הדף היומי",
-    "house_number": "609",
-    "neighborhood": "רמות",
-    "place_description": null,
-    "publication_date": "2026-10-28",
-    "objection_deadline": "2026-11-24",
-    "ed700": "2026-10-25",
-    "connected_rec_id": null,
-    "doc_id": "33d5c1b2-7418-4a39-a229-53148d149dfe",
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "DocId": {
-          "present": true,
-          "null": false,
-          "type": "str"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": "2026-11-24T00:00:00",
-        "DocId": "33d5c1b2-7418-4a39-a229-53148d14",
-        "ED800": "2026-10-28T00:00:00",
-        "ED700": "2026-10-25T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
     "myIndex": 16562785,
     "tik_num": "2023/0262.01",
     "street": "האימאם מוסלם",
@@ -4510,7 +4458,7 @@
     "neighborhood": "הר המנוחות",
     "place_description": ".",
     "publication_date": "2026-10-15",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-17",
     "ed700": "2026-10-12",
     "connected_rec_id": 1266459,
     "doc_id": null,
@@ -4518,8 +4466,9 @@
       "fields": {
         "PD900": {
           "present": true,
-          "null": true,
-          "type": "null"
+          "null": false,
+          "type": "str",
+          "date_like": true
         },
         "DocId": {
           "present": true,
@@ -4540,7 +4489,7 @@
         }
       },
       "raw": {
-        "PD900": null,
+        "PD900": "2026-11-17T00:00:00",
         "DocId": null,
         "ED800": "2026-10-15T00:00:00",
         "ED700": "2026-10-12T00:00:00"
@@ -5360,59 +5309,9 @@
     "neighborhood": "רמות",
     "place_description": null,
     "publication_date": "2026-10-26",
-    "objection_deadline": null,
+    "objection_deadline": "2026-11-24",
     "ed700": "2026-08-03",
     "connected_rec_id": 1249807,
-    "doc_id": null,
-    "diagnostics": {
-      "fields": {
-        "PD900": {
-          "present": true,
-          "null": true,
-          "type": "null"
-        },
-        "DocId": {
-          "present": true,
-          "null": true,
-          "type": "null"
-        },
-        "ED800": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        },
-        "ED700": {
-          "present": true,
-          "null": false,
-          "type": "str",
-          "date_like": true
-        }
-      },
-      "raw": {
-        "PD900": null,
-        "DocId": null,
-        "ED800": "2026-10-26T00:00:00",
-        "ED700": "2026-08-03T00:00:00"
-      },
-      "unexpected_keys": [
-        "description"
-      ],
-      "unexpected_keys_total": 1
-    },
-    "in_polygon": null
-  },
-  {
-    "myIndex": 16532241,
-    "tik_num": "2026/0310.00",
-    "street": "אריה אלטמן",
-    "house_number": "21",
-    "neighborhood": "פסגת זאב",
-    "place_description": null,
-    "publication_date": "2026-10-26",
-    "objection_deadline": "2026-11-24",
-    "ed700": "2026-10-19",
-    "connected_rec_id": 1253725,
     "doc_id": null,
     "diagnostics": {
       "fields": {
@@ -5444,7 +5343,7 @@
         "PD900": "2026-11-24T00:00:00",
         "DocId": null,
         "ED800": "2026-10-26T00:00:00",
-        "ED700": "2026-10-19T00:00:00"
+        "ED700": "2026-08-03T00:00:00"
       },
       "unexpected_keys": [
         "description"
@@ -5802,6 +5701,56 @@
       "unexpected_keys_total": 1
     },
     "in_polygon": null
+  },
+  {
+    "myIndex": 16563479,
+    "tik_num": "2026/0422.00",
+    "street": "ניות",
+    "house_number": "2",
+    "neighborhood": "נוה שאנן/ניות",
+    "place_description": null,
+    "publication_date": "2026-11-25",
+    "objection_deadline": null,
+    "ed700": "2026-11-22",
+    "connected_rec_id": null,
+    "doc_id": "2c77e7ef-f00c-48aa-8efd-eb443d1f8269",
+    "diagnostics": {
+      "fields": {
+        "PD900": {
+          "present": true,
+          "null": true,
+          "type": "null"
+        },
+        "DocId": {
+          "present": true,
+          "null": false,
+          "type": "str"
+        },
+        "ED800": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        },
+        "ED700": {
+          "present": true,
+          "null": false,
+          "type": "str",
+          "date_like": true
+        }
+      },
+      "raw": {
+        "PD900": null,
+        "DocId": "2c77e7ef-f00c-48aa-8efd-eb443d1f",
+        "ED800": "2026-11-25T00:00:00",
+        "ED700": "2026-11-22T00:00:00"
+      },
+      "unexpected_keys": [
+        "description"
+      ],
+      "unexpected_keys_total": 1
+    },
+    "in_polygon": true
   },
   {
     "myIndex": 16568343,
