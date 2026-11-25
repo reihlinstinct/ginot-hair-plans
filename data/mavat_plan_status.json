@@ -1,20 +1,13 @@
 {
- "generated": "2026-11-24",
+ "generated": "2026-11-25",
  "source": "Mavat SV4 plan pages via headless Chromium through the owner VPN",
- "changed_since_previous": [
-  {
-   "plan": "101-1158146",
-   "reasons": [
-    "טקסט העמוד השתנה"
-   ]
-  }
- ],
+ "changed_since_previous": [],
  "plans": {
   "101-0775940": {
    "deadline_text": "",
    "station_text": "הפקדה להתנגדויות/השגות",
-   "fingerprint": "ad7c5d60476cfad1",
-   "page_chars": 1340,
+   "fingerprint": "6039ae822b0297ca",
+   "page_chars": 1094,
    "api": {
     "docs": [
      "rsPlanDocsAdd|6000488667615|קבצי התכנית (SHP)|27/02/2020|",
