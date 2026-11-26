@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-11-25 - Forum-stated objection deadline shown beside the computed one
+
+- When a community forum summary states an objection deadline that differs
+  from the computed one, the plans table now shows it under the computed
+  deadline, labeled as the forum's statement and unverified
+  (`data/forum_deadline_claims.json`). It never changes the displayed, sorted
+  or API deadline. First entries: 101-1386671 and 101-1348069 (forum summary of
+  18.11.2026: 4.12 and 5.12, computed: 16.12 and 9.12). The conflict is open:
+  the signed deposit notices set no fixed date, they say two months from the
+  later newspaper publication.
+
 ## 2026-11-24 - Street nicknames now find permit requests too
 
 - The permit-requests table search now also matches the sourced alternative

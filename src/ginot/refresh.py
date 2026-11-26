@@ -65,6 +65,9 @@ def _apply_deadline_override(r, info, ov):
     r["objection_deadline_verified_source"] = ov.get("source", "")
 
 
+from .forum_claims import merge_forum_deadline_claims
+
+
 def merge_land_status(
     rows,
     land_path="data/land_plan_status.json",
@@ -158,6 +161,7 @@ def main():
     # Land/override merge first so the tracking advisory sees verified
     # deadlines, not only the derived 2m estimate.
     rows = merge_land_status(rows)
+    rows = merge_forum_deadline_claims(rows)
     rows, changed_defaults = tracking.merge(rows, states)
     if changed_defaults:
         tracking.save(states, args.status)

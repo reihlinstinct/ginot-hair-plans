@@ -2429,6 +2429,14 @@
    "ru": "Повестка на goinfo (копия третьей стороны)",
    "am": "አጀንዳ በ goinfo (የሶስተኛ ወገን ቅጂ)",
    "fr": "Ordre du jour sur goinfo (copie tierce)"
+  },
+  "index.forum_claim": {
+   "he": "לפי סיכום פורום {forum}: {date} (לא אומת; שונה מהמחושב)",
+   "en": "Per forum summary {forum}: {date} (unverified; differs from computed)",
+   "ar": "وفق ملخص المنتدى {forum}: {date} (غير موثّق؛ يختلف عن المحسوب)",
+   "ru": "По итогам форума {forum}: {date} (не проверено; отличается от расчётной)",
+   "am": "በፎረም ማጠቃለያ {forum} መሠረት፡ {date} (ያልተረጋገጠ፤ ከተሰላው ይለያል)",
+   "fr": "Selon le compte rendu du forum {forum} : {date} (non vérifié ; diffère du calcul)"
   }
  }
 }
