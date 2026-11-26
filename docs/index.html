@@ -378,6 +378,7 @@ fetch('rows.html').then(function(r){if(!r.ok)throw new Error('http');return r.te
 
 (function(){
 var PSL={};
+var PSG={};
 var TF=function(s,m){return String(s).replace(/\{(\w+)\}/g,function(_,k){return m[k];});};
 var rows=Array.prototype.slice.call(document.querySelectorAll('#permits-table tbody tr'));
 if(!rows.length){window.__permitsLoaded=true;return;}
@@ -628,7 +629,7 @@ function rebuildDerived(){
     var keep=sel.value;
     sel.innerHTML='';
     var o=document.createElement('option');o.value='';o.textContent=first;sel.appendChild(o);
-    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;sel.appendChild(x);});
+    values.forEach(function(v){var x=document.createElement('option');x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||(sel===pfsug&&PSG[v])||v;sel.appendChild(x);});
     sel.value=values.indexOf(keep)!==-1?keep:'';
   }
   refill(pfstatus,"כל סטטוסי המקור",Object.keys(counts).sort());

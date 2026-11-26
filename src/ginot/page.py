@@ -1014,11 +1014,23 @@ def _permits_js(lang: str, pre: str) -> str:
         },
         ensure_ascii=False,
     )
+    # Same for the type select (#1175 follow-up): the option text is the
+    # translated type, the value stays the raw Hebrew data-sug.
+    pgl = _json.dumps(
+        {
+            raw: _i18n.t(lang, key)
+            for raw, key in _i18n.PERMIT_SUG_KEYS.items()
+            if lang != _i18n.default_lang()
+        },
+        ensure_ascii=False,
+    )
     out = out.replace(
         "x.value=v;x.textContent=v;",
-        "x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||v;",
+        "x.value=v;x.textContent=(sel===pfstatus&&PSL[v])||(sel===pfsug&&PSG[v])||v;",
     )
-    out = out.replace("var TF=function", f"var PSL={psl};\nvar TF=function", 1)
+    out = out.replace(
+        "var TF=function", f"var PSL={psl};\nvar PSG={pgl};\nvar TF=function", 1
+    )
     out = out.replace(
         "fetch('publications_active.json')", f"fetch('{pre}publications_active.json')"
     )

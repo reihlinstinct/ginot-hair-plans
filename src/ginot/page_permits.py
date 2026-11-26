@@ -149,7 +149,7 @@ def _permits_section(
             )
             + "</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_mahut'))}'>{_e(p.get('mahut') or '')}</td>"
-            f"<td data-label='{_e(_t(lang, 'permits.col_sug'))}'>{_e(sug)}</td>"
+            f"<td data-label='{_e(_t(lang, 'permits.col_sug'))}'>{_e(_i18n.permit_sug_label(lang, sug))}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(_i18n.permit_status_label(lang, status))}</span></td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_statusdate'))}'>{_date_cell(p.get('status_date'))}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_pubstart'))}' data-publication-cell>{pub_cell}</td>"
@@ -239,7 +239,8 @@ def _permits_section(
         )
     )
     sug_opts = f"<option value=''>{_e(_t(lang, 'permits.sug_all'))}</option>" + "".join(
-        f"<option value='{_e(v)}'>{_e(v)}</option>" for v in sugs
+        f"<option value='{_e(v)}'>{_e(_i18n.permit_sug_label(lang, v))}</option>"
+        for v in sugs
     )
     schunas = sorted(
         {

@@ -2429,6 +2429,582 @@
    "ru": "Повестка на goinfo (копия третьей стороны)",
    "am": "አጀንዳ በ goinfo (የሶስተኛ ወገን ቅጂ)",
    "fr": "Ordre du jour sur goinfo (copie tierce)"
+  },
+  "permitsug.00": {
+   "he": "תוספת בניה / הרחבה לבניין קיים",
+   "en": "Addition / extension to an existing building",
+   "ar": "إضافة بناء / توسيع لمبنى قائم",
+   "ru": "Пристройка / расширение существующего здания",
+   "am": "ለነባር ሕንፃ መጨመር / ማስፋፋት",
+   "fr": "Ajout / extension d'un bâtiment existant"
+  },
+  "permitsug.01": {
+   "he": "תוספת בניה לדירות",
+   "en": "Addition to apartments",
+   "ar": "إضافة بناء للشقق",
+   "ru": "Пристройка к квартирам",
+   "am": "ለአፓርታማዎች መጨመር",
+   "fr": "Ajout aux appartements"
+  },
+  "permitsug.02": {
+   "he": "בניה חדשה / בניין חדש",
+   "en": "New construction / new building",
+   "ar": "بناء جديد / مبنى جديد",
+   "ru": "Новое строительство / новое здание",
+   "am": "አዲስ ግንባታ / አዲስ ሕንፃ",
+   "fr": "Construction neuve / nouveau bâtiment"
+  },
+  "permitsug.03": {
+   "he": "שינויים בבנין קיים",
+   "en": "Changes to an existing building",
+   "ar": "تغييرات في مبنى قائم",
+   "ru": "Изменения в существующем здании",
+   "am": "በነባር ሕንፃ ላይ ለውጦች",
+   "fr": "Modifications d'un bâtiment existant"
+  },
+  "permitsug.04": {
+   "he": "בניית מרפסת",
+   "en": "Building a balcony",
+   "ar": "بناء شرفة",
+   "ru": "Строительство балкона",
+   "am": "ሰገነት መገንባት",
+   "fr": "Construction d'un balcon"
+  },
+  "permitsug.05": {
+   "he": "תוכנית שינויים",
+   "en": "Changes plan",
+   "ar": "مخطط تغييرات",
+   "ru": "План изменений",
+   "am": "የለውጥ ዕቅድ",
+   "fr": "Plan de modifications"
+  },
+  "permitsug.06": {
+   "he": "התקנת מעלית",
+   "en": "Elevator installation",
+   "ar": "تركيب مصعد",
+   "ru": "Установка лифта",
+   "am": "ሊፍት መትከል",
+   "fr": "Installation d'un ascenseur"
+  },
+  "permitsug.07": {
+   "he": "סגירת מרפסת",
+   "en": "Enclosing a balcony",
+   "ar": "إغلاق شرفة",
+   "ru": "Остекление балкона",
+   "am": "ሰገነት መዝጋት",
+   "fr": "Fermeture d'un balcon"
+  },
+  "permitsug.08": {
+   "he": "חידוש היתר",
+   "en": "Permit renewal",
+   "ar": "تجديد رخصة",
+   "ru": "Продление разрешения",
+   "am": "ፈቃድ ማደስ",
+   "fr": "Renouvellement de permis"
+  },
+  "permitsug.09": {
+   "he": "רישוי עסקים - שימוש חורג מתוכנית",
+   "en": "Business licensing - use deviating from the plan",
+   "ar": "ترخيص الأعمال - استخدام مخالف للمخطط",
+   "ru": "Лицензирование бизнеса - использование, отклоняющееся от плана",
+   "am": "የንግድ ፈቃድ - ከዕቅዱ የተለየ አጠቃቀም",
+   "fr": "Licence d'activité - usage dérogeant au plan"
+  },
+  "permitsug.10": {
+   "he": "התקנת מתקנים מיוחדים",
+   "en": "Installation of special facilities",
+   "ar": "تركيب منشآت خاصة",
+   "ru": "Установка специального оборудования",
+   "am": "ልዩ መሣሪያዎች መትከል",
+   "fr": "Installation d'équipements spéciaux"
+  },
+  "permitsug.11": {
+   "he": "רישוי בניה - שימוש חורג מהיתר",
+   "en": "Building licensing - use deviating from the permit",
+   "ar": "ترخيص البناء - استخدام مخالف للرخصة",
+   "ru": "Лицензирование строительства - использование, отклоняющееся от разрешения",
+   "am": "የግንባታ ፈቃድ - ከፈቃዱ የተለየ አጠቃቀም",
+   "fr": "Permis de construire - usage dérogeant au permis"
+  },
+  "permitsug.12": {
+   "he": "בנית מחסן/מחסנים",
+   "en": "Building a storage room / rooms",
+   "ar": "بناء مخزن / مخازن",
+   "ru": "Строительство кладовой / кладовых",
+   "am": "መጋዘን / መጋዘኖች መገንባት",
+   "fr": "Construction d'un ou de plusieurs entrepôts"
+  },
+  "permitsug.13": {
+   "he": "פרגולה",
+   "en": "Pergola",
+   "ar": "بيرغولا",
+   "ru": "Пергола",
+   "am": "ፐርጎላ",
+   "fr": "Pergola"
+  },
+  "permitsug.14": {
+   "he": "תוספת מבנה-מגרש בנוי",
+   "en": "Added structure - built plot",
+   "ar": "إضافة مبنى - قسيمة مبنية",
+   "ru": "Дополнительное строение - застроенный участок",
+   "am": "የተጨመረ ሕንፃ - የተገነባ ቦታ",
+   "fr": "Structure ajoutée - parcelle bâtie"
+  },
+  "permitsug.15": {
+   "he": "בניית גדר גבוהה מ 1.5 מטר",
+   "en": "Building a fence higher than 1.5 m",
+   "ar": "بناء سياج أعلى من 1.5 متر",
+   "ru": "Строительство забора выше 1,5 м",
+   "am": "ከ1.5 ሜትር በላይ አጥር መገንባት",
+   "fr": "Construction d'une clôture de plus de 1,5 m"
+  },
+  "permitsug.16": {
+   "he": "תמ\"א 38 - תוספות",
+   "en": "TAMA 38 - additions",
+   "ar": "تاما 38 - إضافات",
+   "ru": "ТАМА 38 - пристройки",
+   "am": "ታማ 38 - ጭማሪዎች",
+   "fr": "TAMA 38 - ajouts"
+  },
+  "permitsug.17": {
+   "he": "סגירת חורף",
+   "en": "Winter enclosure",
+   "ar": "إغلاق شتوي",
+   "ru": "Зимнее остекление",
+   "am": "የክረምት መዝጊያ",
+   "fr": "Fermeture d'hiver"
+  },
+  "permitsug.18": {
+   "he": "שינויים בקירות חזית במבנים קיימים",
+   "en": "Changes to façade walls in existing buildings",
+   "ar": "تغييرات في جدران الواجهة في مبانٍ قائمة",
+   "ru": "Изменения фасадных стен в существующих зданиях",
+   "am": "በነባር ሕንፃዎች የፊት ግድግዳዎች ላይ ለውጦች",
+   "fr": "Modifications des murs de façade de bâtiments existants"
+  },
+  "permitsug.19": {
+   "he": "עבודות בקיר חיצון",
+   "en": "Work on an exterior wall",
+   "ar": "أعمال في جدار خارجي",
+   "ru": "Работы на наружной стене",
+   "am": "በውጫዊ ግድግዳ ላይ ሥራዎች",
+   "fr": "Travaux sur un mur extérieur"
+  },
+  "permitsug.20": {
+   "he": "שנוי יעוד המבנה",
+   "en": "Change of building use",
+   "ar": "تغيير غرض المبنى",
+   "ru": "Изменение назначения здания",
+   "am": "የሕንፃ አጠቃቀም ለውጥ",
+   "fr": "Changement d'affectation du bâtiment"
+  },
+  "permitsug.21": {
+   "he": "ממ\"ד",
+   "en": "Safe room (mamad)",
+   "ar": "غرفة آمنة (ممد)",
+   "ru": "Защищённая комната (мамад)",
+   "am": "አስተማማኝ ክፍል (ማማድ)",
+   "fr": "Pièce sécurisée (mamad)"
+  },
+  "permitsug.22": {
+   "he": "הכשרת שטח לחניה",
+   "en": "Preparing an area for parking",
+   "ar": "تجهيز مساحة لموقف سيارات",
+   "ru": "Подготовка площадки под парковку",
+   "am": "ለመኪና ማቆሚያ ቦታ ማዘጋጀት",
+   "fr": "Aménagement d'une aire de stationnement"
+  },
+  "permitsug.23": {
+   "he": "תכנית שינויים בסמכות מהנדס העיר",
+   "en": "Changes plan under the city engineer's authority",
+   "ar": "مخطط تغييرات بصلاحية مهندس المدينة",
+   "ru": "План изменений в компетенции городского инженера",
+   "am": "በከተማ መሐንዲስ ሥልጣን የሚደረግ የለውጥ ዕቅድ",
+   "fr": "Plan de modifications relevant du pouvoir de l'ingénieur municipal"
+  },
+  "permitsug.24": {
+   "he": "מתקן שידור / אנטנה סלולרית",
+   "en": "Broadcast facility / cellular antenna",
+   "ar": "منشأة بث / هوائي خلوي",
+   "ru": "Передающее устройство / сотовая антенна",
+   "am": "የስርጭት መሣሪያ / የሞባይል አንቴና",
+   "fr": "Installation d'émission / antenne cellulaire"
+  },
+  "permitsug.25": {
+   "he": "התקנת גג רעפים",
+   "en": "Installing a tiled roof",
+   "ar": "تركيب سقف قرميد",
+   "ru": "Устройство черепичной крыши",
+   "am": "የጣሪያ ክዳን መትከል",
+   "fr": "Pose d'un toit en tuiles"
+  },
+  "permitsug.26": {
+   "he": "פיתוח חצר",
+   "en": "Yard development",
+   "ar": "تطوير ساحة",
+   "ru": "Благоустройство двора",
+   "am": "የግቢ ልማት",
+   "fr": "Aménagement de la cour"
+  },
+  "permitsug.27": {
+   "he": "חפירה ומילוי",
+   "en": "Excavation and fill",
+   "ar": "حفر وردم",
+   "ru": "Выемка и засыпка",
+   "am": "ቁፋሮና መሙላት",
+   "fr": "Excavation et remblai"
+  },
+  "permitsug.28": {
+   "he": "מדרגות",
+   "en": "Stairs",
+   "ar": "درج",
+   "ru": "Лестница",
+   "am": "ደረጃዎች",
+   "fr": "Escaliers"
+  },
+  "permitsug.29": {
+   "he": "ביצוע שיפור הנגישות לבניין ובתוכו",
+   "en": "Improving accessibility to and inside the building",
+   "ar": "تحسين الوصول إلى المبنى وداخله",
+   "ru": "Улучшение доступности здания и внутри него",
+   "am": "ወደ ሕንፃውና በውስጡ ተደራሽነትን ማሻሻል",
+   "fr": "Amélioration de l'accessibilité du bâtiment et à l'intérieur"
+  },
+  "permitsug.30": {
+   "he": "תוספת יח\"ד באמצעות תוספת בניה",
+   "en": "Adding a housing unit through an addition",
+   "ar": "إضافة وحدة سكنية عبر إضافة بناء",
+   "ru": "Добавление жилой единицы за счёт пристройки",
+   "am": "በግንባታ ጭማሪ የመኖሪያ ክፍል መጨመር",
+   "fr": "Ajout d'un logement par une extension"
+  },
+  "permitsug.31": {
+   "he": "עבודות הריסה",
+   "en": "Demolition work",
+   "ar": "أعمال هدم",
+   "ru": "Снос",
+   "am": "የማፍረስ ሥራዎች",
+   "fr": "Travaux de démolition"
+  },
+  "permitsug.32": {
+   "he": "שינוי שם בהיתר",
+   "en": "Name change on a permit",
+   "ar": "تغيير اسم في الرخصة",
+   "ru": "Изменение имени в разрешении",
+   "am": "በፈቃድ ላይ የስም ለውጥ",
+   "fr": "Changement de nom sur un permis"
+  },
+  "permitsug.33": {
+   "he": "עבודות בדרכים",
+   "en": "Road works",
+   "ar": "أعمال طرق",
+   "ru": "Дорожные работы",
+   "am": "የመንገድ ሥራዎች",
+   "fr": "Travaux routiers"
+  },
+  "permitsug.34": {
+   "he": "פיצול היתר",
+   "en": "Permit split",
+   "ar": "تقسيم رخصة",
+   "ru": "Разделение разрешения",
+   "am": "ፈቃድ መከፋፈል",
+   "fr": "Division de permis"
+  },
+  "permitsug.35": {
+   "he": "התקנת חלון",
+   "en": "Window installation",
+   "ar": "تركيب نافذة",
+   "ru": "Установка окна",
+   "am": "መስኮት መትከል",
+   "fr": "Installation d'une fenêtre"
+  },
+  "permitsug.36": {
+   "he": "ריצוף חצר",
+   "en": "Yard paving",
+   "ar": "رصف ساحة",
+   "ru": "Мощение двора",
+   "am": "የግቢ ንጣፍ",
+   "fr": "Pavage de la cour"
+  },
+  "permitsug.37": {
+   "he": "גג רעפים",
+   "en": "Tiled roof",
+   "ar": "سقف قرميد",
+   "ru": "Черепичная крыша",
+   "am": "የጣሪያ ክዳን ጣሪያ",
+   "fr": "Toit en tuiles"
+  },
+  "permitsug.38": {
+   "he": "עבודות עפר",
+   "en": "Earthworks",
+   "ar": "أعمال ترابية",
+   "ru": "Земляные работы",
+   "am": "የመሬት ሥራዎች",
+   "fr": "Terrassement"
+  },
+  "permitsug.39": {
+   "he": "שינויים ללא תוספת שטחים",
+   "en": "Changes without added floor area",
+   "ar": "تغييرات بدون إضافة مساحات",
+   "ru": "Изменения без увеличения площади",
+   "am": "ቦታ ሳይጨመር የሚደረግ ለውጥ",
+   "fr": "Modifications sans surface ajoutée"
+  },
+  "permitsug.40": {
+   "he": "מערכת פוטוולטאית",
+   "en": "Photovoltaic system",
+   "ar": "منظومة كهروضوئية",
+   "ru": "Фотоэлектрическая система",
+   "am": "የፀሐይ ኤሌክትሪክ ሥርዓት",
+   "fr": "Système photovoltaïque"
+  },
+  "permitsug.41": {
+   "he": "מבנה ארעי / מנ\"ד",
+   "en": "Temporary structure",
+   "ar": "مبنى مؤقت",
+   "ru": "Временное строение",
+   "am": "ጊዜያዊ ሕንፃ",
+   "fr": "Structure temporaire"
+  },
+  "permitsug.42": {
+   "he": "התקנת צובר גז עד 10 טון",
+   "en": "Gas tank installation up to 10 tons",
+   "ar": "تركيب خزان غاز حتى 10 أطنان",
+   "ru": "Установка газового резервуара до 10 тонн",
+   "am": "እስከ 10 ቶን የጋዝ ማጠራቀሚያ መትከል",
+   "fr": "Installation d'une citerne de gaz jusqu'à 10 tonnes"
+  },
+  "permitsug.43": {
+   "he": "פתיחת חלון",
+   "en": "Opening a window",
+   "ar": "فتح نافذة",
+   "ru": "Прорезание окна",
+   "am": "መስኮት መክፈት",
+   "fr": "Ouverture d'une fenêtre"
+  },
+  "permitsug.44": {
+   "he": "תמ\"א 38 הריסה ובניה",
+   "en": "TAMA 38 - demolition and construction",
+   "ar": "تاما 38 - هدم وبناء",
+   "ru": "ТАМА 38 - снос и строительство",
+   "am": "ታማ 38 - ማፍረስና መገንባት",
+   "fr": "TAMA 38 - démolition et reconstruction"
+  },
+  "permitsug.45": {
+   "he": "התקנת צובר גז במשקל העולה על 10 טון",
+   "en": "Gas tank installation over 10 tons",
+   "ar": "تركيب خزان غاز يزيد وزنه عن 10 أطنان",
+   "ru": "Установка газового резервуара свыше 10 тонн",
+   "am": "ከ10 ቶን በላይ የጋዝ ማጠራቀሚያ መትከል",
+   "fr": "Installation d'une citerne de gaz de plus de 10 tonnes"
+  },
+  "permitsug.46": {
+   "he": "הכשרת שטח לגן ציבורי",
+   "en": "Preparing an area for a public garden",
+   "ar": "تجهيز مساحة لحديقة عامة",
+   "ru": "Подготовка участка под общественный сад",
+   "am": "ለሕዝብ የአትክልት ስፍራ ቦታ ማዘጋጀት",
+   "fr": "Aménagement d'un jardin public"
+  },
+  "permitsug.47": {
+   "he": "עבודות סלילה",
+   "en": "Paving works",
+   "ar": "أعمال تعبيد",
+   "ru": "Дорожно-укладочные работы",
+   "am": "የመንገድ ንጣፍ ሥራዎች",
+   "fr": "Travaux de revêtement routier"
+  },
+  "permitsug.48": {
+   "he": "יציקת תקרה",
+   "en": "Pouring a ceiling slab",
+   "ar": "صب سقف",
+   "ru": "Заливка перекрытия",
+   "am": "የጣሪያ ኮንክሪት ማፍሰስ",
+   "fr": "Coulage d'une dalle"
+  },
+  "permitsug.49": {
+   "he": "בנית קירות פנימיים",
+   "en": "Building interior walls",
+   "ar": "بناء جدران داخلية",
+   "ru": "Возведение внутренних стен",
+   "am": "የውስጥ ግድግዳዎች መገንባት",
+   "fr": "Construction de cloisons intérieures"
+  },
+  "permitsug.50": {
+   "he": "התקנת אביזרים",
+   "en": "Fixture installation",
+   "ar": "تركيب ملحقات",
+   "ru": "Установка приспособлений",
+   "am": "መለዋወጫዎች መትከል",
+   "fr": "Installation d'accessoires"
+  },
+  "permitsug.51": {
+   "he": "הקמת סככה",
+   "en": "Building a shed",
+   "ar": "إقامة سقيفة",
+   "ru": "Возведение навеса",
+   "am": "መጠለያ መገንባት",
+   "fr": "Construction d'un abri"
+  },
+  "permitsug.52": {
+   "he": "בניית קיר תומך/מגן",
+   "en": "Building a retaining / protective wall",
+   "ar": "بناء جدار استنادي / واقٍ",
+   "ru": "Строительство подпорной / защитной стены",
+   "am": "የድጋፍ / የመከላከያ ግድግዳ መገንባት",
+   "fr": "Construction d'un mur de soutènement / de protection"
+  },
+  "permitsug.53": {
+   "he": "בניית חניון",
+   "en": "Building a parking lot",
+   "ar": "بناء موقف سيارات",
+   "ru": "Строительство парковки",
+   "am": "የመኪና ማቆሚያ መገንባት",
+   "fr": "Construction d'un parking"
+  },
+  "permitsug.54": {
+   "he": "פיצול יח\"ד קיימות - צו שעה",
+   "en": "Splitting existing housing units - temporary order",
+   "ar": "تقسيم وحدات سكنية قائمة - أمر ساعة",
+   "ru": "Разделение существующих жилых единиц - временный приказ",
+   "am": "ነባር የመኖሪያ ክፍሎችን መከፋፈል - ጊዜያዊ ትዕዛዝ",
+   "fr": "Division de logements existants - ordonnance temporaire"
+  },
+  "permitsug.55": {
+   "he": "שיפורים סניטריים",
+   "en": "Sanitary improvements",
+   "ar": "تحسينات صحية",
+   "ru": "Санитарные улучшения",
+   "am": "የንፅህና ማሻሻያዎች",
+   "fr": "Améliorations sanitaires"
+  },
+  "permitsug.56": {
+   "he": "חדר טרנספורמציה",
+   "en": "Transformer room",
+   "ar": "غرفة محولات",
+   "ru": "Трансформаторная",
+   "am": "የትራንስፎርመር ክፍል",
+   "fr": "Local de transformation"
+  },
+  "permitsug.57": {
+   "he": "הסרת סכנה לפי צו מבנים מסוכנים",
+   "en": "Hazard removal under a dangerous buildings order",
+   "ar": "إزالة خطر بموجب أمر المباني الخطرة",
+   "ru": "Устранение опасности по приказу об опасных зданиях",
+   "am": "በአደገኛ ሕንፃዎች ትዕዛዝ መሠረት አደጋ ማስወገድ",
+   "fr": "Suppression d'un danger selon un arrêté de bâtiments dangereux"
+  },
+  "permitsug.58": {
+   "he": "ריצוף רחוב",
+   "en": "Street paving",
+   "ar": "رصف شارع",
+   "ru": "Мощение улицы",
+   "am": "የመንገድ ንጣፍ",
+   "fr": "Pavage de rue"
+  },
+  "permitsug.59": {
+   "he": "בניית בריכה פרטית",
+   "en": "Building a private pool",
+   "ar": "بناء بركة خاصة",
+   "ru": "Строительство частного бассейна",
+   "am": "የግል መዋኛ መገንባት",
+   "fr": "Construction d'une piscine privée"
+  },
+  "permitsug.60": {
+   "he": "הצבת ביתן",
+   "en": "Placing a kiosk",
+   "ar": "وضع كشك",
+   "ru": "Установка павильона",
+   "am": "ድንኳን ማቆም",
+   "fr": "Installation d'un pavillon"
+  },
+  "permitsug.61": {
+   "he": "גשר כניסה לבנין",
+   "en": "Building entrance bridge",
+   "ar": "جسر مدخل المبنى",
+   "ru": "Входной мостик в здание",
+   "am": "ወደ ሕንፃ መግቢያ ድልድይ",
+   "fr": "Passerelle d'entrée du bâtiment"
+  },
+  "permitsug.62": {
+   "he": "פיתוח שטח ציבורי פתוח",
+   "en": "Development of an open public space",
+   "ar": "تطوير مساحة عامة مفتوحة",
+   "ru": "Благоустройство открытого общественного пространства",
+   "am": "ክፍት የሕዝብ ቦታ ልማት",
+   "fr": "Aménagement d'un espace public ouvert"
+  },
+  "permitsug.63": {
+   "he": "בית עלמין ללא תכנית שטחים",
+   "en": "Cemetery without an area plan",
+   "ar": "مقبرة بدون مخطط مساحات",
+   "ru": "Кладбище без плана площадей",
+   "am": "የቦታ ዕቅድ የሌለው መቃብር ቦታ",
+   "fr": "Cimetière sans plan de surfaces"
+  },
+  "permitsug.64": {
+   "he": "ביטול היתר",
+   "en": "Permit cancellation",
+   "ar": "إلغاء رخصة",
+   "ru": "Аннулирование разрешения",
+   "am": "ፈቃድ መሰረዝ",
+   "fr": "Annulation de permis"
+  },
+  "permitsug.65": {
+   "he": "הצבת אנדרטה",
+   "en": "Placing a monument",
+   "ar": "وضع نصب تذكاري",
+   "ru": "Установка памятника",
+   "am": "መታሰቢያ ማቆም",
+   "fr": "Installation d'un monument"
+  },
+  "permitsug.66": {
+   "he": "הכשרת מגרשי ספורט",
+   "en": "Preparing sports fields",
+   "ar": "تجهيز ملاعب رياضية",
+   "ru": "Подготовка спортивных площадок",
+   "am": "የስፖርት ሜዳዎች ማዘጋጀት",
+   "fr": "Aménagement de terrains de sport"
+  },
+  "permitsug.67": {
+   "he": "מחסן טרומי פריק",
+   "en": "Prefabricated removable storage unit",
+   "ar": "مخزن جاهز قابل للفك",
+   "ru": "Сборная разборная кладовая",
+   "am": "ተነቃይ ቀድሞ የተሠራ መጋዘን",
+   "fr": "Entrepôt préfabriqué démontable"
+  },
+  "permitsug.68": {
+   "he": "סגירת בקשה להיתר",
+   "en": "Closing a permit request",
+   "ar": "إغلاق طلب رخصة",
+   "ru": "Закрытие заявки на разрешение",
+   "am": "የፈቃድ ጥያቄ መዝጋት",
+   "fr": "Clôture d'une demande de permis"
+  },
+  "permitsug.69": {
+   "he": "רישוי בניה - שימוש חורג מתכנית",
+   "en": "Building licensing - use deviating from the plan",
+   "ar": "ترخيص البناء - استخدام مخالف للمخطط",
+   "ru": "Лицензирование строительства - использование, отклоняющееся от плана",
+   "am": "የግንባታ ፈቃድ - ከዕቅዱ የተለየ አጠቃቀም",
+   "fr": "Permis de construire - usage dérogeant au plan"
+  },
+  "permitsug.70": {
+   "he": "גדר בגובה עד 1.50 מטר",
+   "en": "Fence up to 1.50 m high",
+   "ar": "سياج بارتفاع حتى 1.50 متر",
+   "ru": "Забор высотой до 1,50 м",
+   "am": "እስከ 1.50 ሜትር ከፍታ ያለው አጥር",
+   "fr": "Clôture jusqu'à 1,50 m de haut"
+  },
+  "permitsug.71": {
+   "he": "רישוי עסקים - שימוש חורג מהיתר",
+   "en": "Business licensing - use deviating from the permit",
+   "ar": "ترخيص الأعمال - استخدام مخالف للرخصة",
+   "ru": "Лицензирование бизнеса - использование, отклоняющееся от разрешения",
+   "am": "የንግድ ፈቃድ - ከፈቃዱ የተለየ አጠቃቀም",
+   "fr": "Licence d'activité - usage dérogeant au permis"
   }
  }
 }
