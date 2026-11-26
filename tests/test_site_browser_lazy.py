@@ -256,9 +256,7 @@ def test_evidence_tik_in_full_table_still_loads_full_list_with_ids(
         srv.shutdown()
 
 
-def test_missing_permit_ids_falls_back_to_loading_full_list(
-    tmp_path, browser, request
-):
+def test_missing_permit_ids_falls_back_to_loading_full_list(tmp_path, browser, request):
     """No permit-ids.json (older deploy, fetch error): keep the old safe
     behavior and load the full list for evidence outside the subset."""
     srv, url = _lazy_site(tmp_path)
@@ -277,7 +275,7 @@ def test_missing_permit_ids_falls_back_to_loading_full_list(
     )
     (site / "permit-ids.json").unlink(missing_ok=True)
     try:
-        with recorded_page(browser, request) as (pg, errors):
+        with recorded_page(browser, request) as (pg, _errors):
             seen = _count_requests(pg)
             pg.goto(url)
             pg.wait_for_function("window.__permitsLoaded === true")
