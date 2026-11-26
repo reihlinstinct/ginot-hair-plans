@@ -181,7 +181,9 @@ def test_workflow_is_scheduled_and_dispatchable_with_timeout():
 def test_merge_is_bound_to_validated_head_sha():
     workflow = WORKFLOW.read_text()
     assert 'sha="$MERGE_SHA"' in workflow
-    assert "merge_method=squash" in workflow
+    assert "merge_method=merge" in workflow
+    assert "merge_method=squash" not in workflow
+    assert "merge_method=rebase" not in workflow
     script = SCRIPT.read_text()
     assert "--admin" not in script
     # The merge call lives only in the gated workflow step, never in the
@@ -192,7 +194,7 @@ def test_merge_is_bound_to_validated_head_sha():
 
 def test_merge_step_is_gated_on_the_kill_switch():
     workflow = WORKFLOW.read_text()
-    merge_step = workflow.split("Squash-merge the validated PR", 1)[1]
+    merge_step = workflow.split("Merge the validated PR without squashing", 1)[1]
     assert "vars.DATA_AUTOMERGE_ENABLED == 'true'" in merge_step.split("run:", 1)[0]
 
 
