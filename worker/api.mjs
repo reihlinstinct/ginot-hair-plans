@@ -43,6 +43,17 @@ function rateLimited(ip) {
 const ACTIVE_KEYS = ["הפקדה", "תנאים", "הכרעה", "בדיקה", "בהליך"]; // = site's ACTIVE_STATUSES
 const isActive = (r) => ACTIVE_KEYS.some((k) => (r.station_desc || "").includes(k));
 
+// Compared as text against ISO dates, so the parameter must be a real
+// zero-padded calendar date: "2026-12-9" or "notadate" would silently compare
+// wrong instead of failing.
+export class BadParam extends Error {}
+export function isIsoDate(v) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v));
+  if (!m) return false;
+  const d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
+  return d.getUTCFullYear() === +m[1] && d.getUTCMonth() === +m[2] - 1 && d.getUTCDate() === +m[3];
+}
+
 export function filterPlans(rows, p) {
   let out = rows;
   if (p.get("open") === "1") out = out.filter(isActive);
@@ -52,6 +63,7 @@ export function filterPlans(rows, p) {
   if (q) out = out.filter((r) => (r.pl_number || "").includes(q) || (r.pl_name || "").includes(q));
   const deadline = p.get("before"); // objection deadline on/before YYYY-MM-DD
   if (deadline) {
+    if (!isIsoDate(deadline)) throw new BadParam("before must be a valid date, YYYY-MM-DD");
     out = out.filter((r) => {
       const d = r.objection_deadline_verified || r.objection_deadline_derived_2m_from_publication;
       return d && d <= deadline;
@@ -86,7 +98,9 @@ function json(body, { status = 200, headers = {} } = {}) {
       "content-type": "application/json; charset=utf-8",
       "access-control-allow-origin": "*",
       "access-control-allow-methods": "GET, OPTIONS",
-      "cache-control": `public, max-age=${CACHE_TTL}`,
+      // Errors must not be cached by a browser or shared cache: a transient
+      // 502/429 would otherwise stick for CACHE_TTL. Callers can still override.
+      "cache-control": status >= 400 ? "no-store" : `public, max-age=${CACHE_TTL}`,
       ...headers,
     },
   });
@@ -316,7 +330,7 @@ const INDEX = {
   name: "ginot-hair-api",
   about: "שכבת שאילתות לקריאה בלבד מעל נתוני האתר הסטטיים של גינות העיר",
   endpoints: {
-    "/plans": "תכניות. פרמטרים: open=1 (פתוחות בלבד), status, q, before=YYYY-MM-DD, limit",
+    "/plans": "תכניות. פרמטרים: open=1 (פתוחות בלבד), status, q, before=YYYY-MM-DD (invalid date: 400), limit",
     "/permits": "בקשות היתר. פרמטרים: street, status, type, q, limit",
     "/open": "תכניות פתוחות (כמו open.json הסטטי)",
     "/status": "תאריך עדכון ומונים",
@@ -419,7 +433,13 @@ export async function handleRequest(request, fetchImpl = fetch, env = {}, ctx = 
                   count: plans.length, plans });
   }
   if (url.pathname === "/plans") {
-    const rows = filterPlans(publicRows(data.rows, "rows"), p);
+    let rows;
+    try {
+      rows = filterPlans(publicRows(data.rows, "rows"), p);
+    } catch (e) {
+      if (e instanceof BadParam) return json({ error: e.message }, { status: 400 });
+      throw e;
+    }
     const limit = limitOf(p);
     return json({ generated: data.generated, count: rows.length,
                   returned: Math.min(rows.length, limit), plans: rows.slice(0, limit) });
