@@ -29,7 +29,9 @@ TILES = "https://tile.openstreetmap.org"
 BEACON_SCRIPT = "https://static.cloudflareinsights.com"
 BEACON_CONNECT = "https://cloudflareinsights.com"
 
-_INLINE_SCRIPT = re.compile(r"<script([^>]*)>(.*?)</script>", re.DOTALL | re.IGNORECASE)
+_INLINE_SCRIPT = re.compile(
+    r"<script([^>]*)>(.*?)</script[^>]*>", re.DOTALL | re.IGNORECASE
+)
 _HAS_CSP = re.compile(r"http-equiv=[\"']?Content-Security-Policy", re.IGNORECASE)
 _CHARSET = re.compile(r"<meta\s+charset=[^>]*>", re.IGNORECASE)
 _HEAD = re.compile(r"<head[^>]*>", re.IGNORECASE)

@@ -58,3 +58,12 @@ def test_committed_pages_allow_their_inline_scripts(path, text):
     content = meta.group(1).replace("&quot;", '"')
     for token in csp.script_hashes(text):
         assert token in content, f"{path}: inline script not allowed by CSP"
+
+
+def test_script_end_tag_with_whitespace_still_closes_the_script():
+    """HTML allows "</script >"; the hashed body must stop at that tag."""
+    html = "<script>var a=1;</script ><p>x</p><script>var b=2;</script\t>"
+    assert csp.script_hashes(html) == [
+        csp.script_hashes("<script>var a=1;</script>")[0],
+        csp.script_hashes("<script>var b=2;</script>")[0],
+    ]

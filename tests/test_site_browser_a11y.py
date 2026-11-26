@@ -52,10 +52,11 @@ def test_axe_scan_options_cover_wcag21_without_an_impact_filter():
 
 
 def _axe_violations(pg):
-    # The site CSP blocks inline script tags, so evaluate the vendored build
-    # through the DevTools protocol instead of add_script_tag(path=...).
-    cdp = pg.context.new_cdp_session(pg)
-    cdp.send("Runtime.evaluate", {"expression": AXE_PATH.read_text(encoding="utf-8")})
+    # The site CSP blocks inline script tags (add_script_tag). Evaluating the
+    # vendored build goes through the browser's inspector, which the page CSP
+    # does not apply to, and works on both Chromium and WebKit (a CDP session
+    # is Chromium-only).
+    pg.evaluate(AXE_PATH.read_text(encoding="utf-8"))
     return pg.evaluate("async (opts) => await axe.run(opts)", AXE_OPTIONS)["violations"]
 
 

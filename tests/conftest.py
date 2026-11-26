@@ -17,17 +17,17 @@ def pytest_runtest_makereport(item, call):
 # tests could not wait on page state. Poll with Page.evaluate instead: it runs
 # over the DevTools protocol and is not subject to the page CSP, so the pages
 # are still tested with the policy enforced (no bypass_csp).
-try:
-    from playwright.sync_api import Page as _Page
-    from playwright.sync_api import TimeoutError as _PwTimeout
-except ImportError:  # browser tests are skipped without playwright
-    _Page = None
+#
+# Playwright is optional for the unit tests, so the patch is installed from a
+# hook at session start (not at collection time) and does nothing when
+# Playwright is not installed (the browser test files skip themselves then).
 
-if _Page is not None:
-    import time as _time
 
-    def _wait_for_function(self, expression, arg=None, *, timeout=None, polling=None):
-        deadline = _time.monotonic() + (30000 if timeout is None else timeout) / 1000
+def _csp_safe_wait_for_function(page_cls, timeout_error):
+    import time
+
+    def wait_for_function(self, expression, arg=None, *, timeout=None, polling=None):
+        deadline = time.monotonic() + (30000 if timeout is None else timeout) / 1000
         step = (
             0.05 if not isinstance(polling, (int, float)) else max(polling, 10) / 1000
         )
@@ -44,8 +44,16 @@ if _Page is not None:
                 else self.evaluate(wrapped)
             ):
                 return True
-            if _time.monotonic() >= deadline:
-                raise _PwTimeout(f"wait_for_function timed out: {expression[:120]}")
-            _time.sleep(step)
+            if time.monotonic() >= deadline:
+                raise timeout_error(f"wait_for_function timed out: {expression[:120]}")
+            time.sleep(step)
 
-    _Page.wait_for_function = _wait_for_function
+    page_cls.wait_for_function = wait_for_function
+
+
+def pytest_sessionstart(session):
+    try:
+        from playwright.sync_api import Page, TimeoutError
+    except ImportError:  # no Playwright: the browser tests are skipped
+        return
+    _csp_safe_wait_for_function(Page, TimeoutError)
