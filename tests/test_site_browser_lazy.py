@@ -284,6 +284,37 @@ def test_missing_permit_ids_falls_back_to_loading_full_list(tmp_path, browser, r
         srv.shutdown()
 
 
+def test_malformed_permit_ids_falls_back_to_loading_full_list(
+    tmp_path, browser, request
+):
+    """permit-ids.json that parses but has no ids array (a bad deploy) must be
+    treated like a missing file: load the full list, never drop the evidence."""
+    srv, url = _lazy_site(tmp_path)
+    site = tmp_path / "site"
+    (site / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    (site / "permit-ids.json").write_text(json.dumps({"ids": "not-a-list"}))
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsLoaded === true")
+            assert seen["permits.html"] == 1
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
 def test_default_view_urgency_and_map_rows_match_full_load(tmp_path, browser, request):
     """The map draws the visible permit rows (plan-map.js permitRows) and the
     urgency list scans the obj rows: both must be the same on the subset as

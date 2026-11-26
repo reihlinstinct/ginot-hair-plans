@@ -504,3 +504,10 @@ test("error responses are no-store, successes keep the 5 minute cache", async ()
   assert.equal(ok.status, 200);
   assert.equal(ok.headers.get("cache-control"), "public, max-age=300");
 });
+
+test("before= that is present but empty is treated as absent, not as an invalid date", async () => {
+  assert.equal(filterPlans(rows, new URLSearchParams("before=")).length, 3);
+  const resp = await handleRequest(new Request("https://x.workers.dev/plans?before="), stub);
+  assert.equal(resp.status, 200);
+  assert.equal((await resp.json()).count, 3);
+});
