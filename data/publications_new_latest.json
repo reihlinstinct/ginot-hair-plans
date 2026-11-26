@@ -1,119 +1,18 @@
 {
-  "new_in_polygon": [
-    {
-      "myIndex": 16563479,
-      "tik_num": "2026/0422.00",
-      "street": "ניות",
-      "house_number": "2",
-      "neighborhood": "נוה שאנן/ניות",
-      "place_description": null,
-      "publication_date": "2026-11-25",
-      "objection_deadline": null,
-      "ed700": "2026-11-22",
-      "connected_rec_id": null,
-      "doc_id": "2c77e7ef-f00c-48aa-8efd-eb443d1f8269",
-      "diagnostics": {
-        "fields": {
-          "PD900": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "DocId": {
-            "present": true,
-            "null": false,
-            "type": "str"
-          },
-          "ED800": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          },
-          "ED700": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          }
-        },
-        "raw": {
-          "PD900": null,
-          "DocId": "2c77e7ef-f00c-48aa-8efd-eb443d1f",
-          "ED800": "2026-11-25T00:00:00",
-          "ED700": "2026-11-22T00:00:00"
-        },
-        "unexpected_keys": [
-          "description"
-        ],
-        "unexpected_keys_total": 1
-      },
-      "in_polygon": true
-    }
-  ],
+  "new_in_polygon": [],
   "unresolved_new": [
     {
-      "myIndex": 16607350,
-      "tik_num": "1980/0237.12",
-      "street": "הרב שמואל א. שאולזון",
-      "house_number": "46",
-      "neighborhood": "הר נוף",
+      "myIndex": 16563505,
+      "tik_num": "1959/0601.09",
+      "street": "בית שערים",
+      "house_number": "8",
+      "neighborhood": "קרית משה",
       "place_description": null,
-      "publication_date": "2026-11-25",
+      "publication_date": "2026-11-26",
       "objection_deadline": null,
-      "ed700": "2026-11-24",
-      "connected_rec_id": 1280329,
-      "doc_id": null,
-      "diagnostics": {
-        "fields": {
-          "PD900": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "DocId": {
-            "present": true,
-            "null": true,
-            "type": "null"
-          },
-          "ED800": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          },
-          "ED700": {
-            "present": true,
-            "null": false,
-            "type": "str",
-            "date_like": true
-          }
-        },
-        "raw": {
-          "PD900": null,
-          "DocId": null,
-          "ED800": "2026-11-25T00:00:00",
-          "ED700": "2026-11-24T00:00:00"
-        },
-        "unexpected_keys": [
-          "description"
-        ],
-        "unexpected_keys_total": 1
-      },
-      "in_polygon": null
-    },
-    {
-      "myIndex": 16557482,
-      "tik_num": "1986/0215.07",
-      "street": "קדושת אהרון",
-      "house_number": "4",
-      "neighborhood": "הקריות החסידיות",
-      "place_description": null,
-      "publication_date": "2026-11-25",
-      "objection_deadline": null,
-      "ed700": "2026-11-22",
-      "connected_rec_id": null,
-      "doc_id": "ff868d23-c7c8-4b86-837c-3a9f4740c329",
+      "ed700": "2026-11-03",
+      "connected_rec_id": 1268969,
+      "doc_id": "7c00cb55-3c77-4045-a368-4095e8168472",
       "diagnostics": {
         "fields": {
           "PD900": {
@@ -141,9 +40,9 @@
         },
         "raw": {
           "PD900": null,
-          "DocId": "ff868d23-c7c8-4b86-837c-3a9f4740",
-          "ED800": "2026-11-25T00:00:00",
-          "ED700": "2026-11-22T00:00:00"
+          "DocId": "7c00cb55-3c77-4045-a368-4095e816",
+          "ED800": "2026-11-26T00:00:00",
+          "ED700": "2026-11-03T00:00:00"
         },
         "unexpected_keys": [
           "description"
@@ -153,17 +52,17 @@
       "in_polygon": null
     },
     {
-      "myIndex": 16565992,
-      "tik_num": "2021/0188.01",
-      "street": "מקור חיים",
-      "house_number": "12",
-      "neighborhood": "מקור חיים",
+      "myIndex": 16568461,
+      "tik_num": "2016/1018.02",
+      "street": "בן עטר",
+      "house_number": "5",
+      "neighborhood": "רמות",
       "place_description": null,
-      "publication_date": "2026-11-25",
+      "publication_date": "2026-11-26",
       "objection_deadline": null,
-      "ed700": "2026-11-22",
+      "ed700": "2026-11-17",
       "connected_rec_id": null,
-      "doc_id": "9a4092cf-f2dc-44ed-bc87-68cab25766a4",
+      "doc_id": "6eb552fc-37c7-49a7-a31a-b668fbfa6ceb",
       "diagnostics": {
         "fields": {
           "PD900": {
@@ -191,9 +90,9 @@
         },
         "raw": {
           "PD900": null,
-          "DocId": "9a4092cf-f2dc-44ed-bc87-68cab257",
-          "ED800": "2026-11-25T00:00:00",
-          "ED700": "2026-11-22T00:00:00"
+          "DocId": "6eb552fc-37c7-49a7-a31a-b668fbfa",
+          "ED800": "2026-11-26T00:00:00",
+          "ED700": "2026-11-17T00:00:00"
         },
         "unexpected_keys": [
           "description"
