@@ -280,6 +280,46 @@ PERMIT_SUG_KEYS = {
 }
 
 
+# Neighborhood (schunaName) values with a translated label. The raw value
+# stays in the filter's option value; only the shown text changes. A value not
+# listed here is shown as the source gives it. Labels are transliterations,
+# draft like the rest of the non-Hebrew strings.
+SCHUNA_KEYS = {
+    "בית וגן": "schuna.00",
+    "בית צפפה": "schuna.01",
+    "גאולים - בקעה": "schuna.02",
+    "גבעת אורן": "schuna.03",
+    "גבעת הורדים": "schuna.04",
+    "גבעת המטוס": "schuna.05",
+    "גבעת הפורצים": "schuna.06",
+    "גבעת מרדכי": "schuna.07",
+    "גבעת רם": "schuna.08",
+    "גונן ח": "schuna.09",
+    "גונן ט": "schuna.10",
+    "גוננים": "schuna.11",
+    "גילה": "schuna.12",
+    "המושבה היוונית": "schuna.13",
+    "טלביה": "schuna.14",
+    "טלביה/המוגרבים": "schuna.15",
+    "מושבה גרמנית": "schuna.16",
+    "מנחת": "schuna.17",
+    "מקור חיים": "schuna.18",
+    "נוה גרנות": "schuna.19",
+    "נוה שאנן/ניות": "schuna.20",
+    "ניות": "schuna.21",
+    "סן סימון": "schuna.22",
+    "עומריה": "schuna.23",
+    "פת": "schuna.24",
+    "קטמון הישנה": "schuna.25",
+    "קריית שמואל": "schuna.26",
+    "קרית האומה": "schuna.27",
+    "רחביה": "schuna.28",
+    "שרפת": "schuna.29",
+    "תלפיות": "schuna.30",
+    "תלפיות תעשיה": "schuna.31",
+}
+
+
 def plan_status_label(lang: str, status: str) -> str:
     """Display text for a municipal plan status in lang (raw when unknown)."""
     key = PLAN_STATUS_KEYS.get(status)
@@ -297,3 +337,9 @@ def permit_sug_label(lang: str, sug: str) -> str:
     """Display text for a permit-request type in lang (raw when unknown)."""
     key = PERMIT_SUG_KEYS.get(sug)
     return t(lang, key) if key else sug
+
+
+def schuna_label(lang: str, name: str) -> str:
+    """Display text for a neighborhood name in lang (raw when unknown)."""
+    key = SCHUNA_KEYS.get(name)
+    return t(lang, key) if key else name

@@ -2494,6 +2494,262 @@
    "am": "ሰገነት መዝጋት",
    "fr": "Fermeture d'un balcon"
   },
+  "schuna.00": {
+   "he": "בית וגן",
+   "en": "Beit Vegan",
+   "ar": "بيت فيغان",
+   "ru": "Бейт-Ве-Ган",
+   "am": "ቤት ቬጋን",
+   "fr": "Beit Vegan"
+  },
+  "schuna.01": {
+   "he": "בית צפפה",
+   "en": "Beit Safafa",
+   "ar": "بيت صفافا",
+   "ru": "Бейт-Цафафа",
+   "am": "ቤት ሳፋፋ",
+   "fr": "Beit Safafa"
+  },
+  "schuna.02": {
+   "he": "גאולים - בקעה",
+   "en": "Geulim - Baka",
+   "ar": "غئوليم - البقعة",
+   "ru": "Геулим - Бака",
+   "am": "ጌኡሊም - ባካ",
+   "fr": "Geoulim - Baka"
+  },
+  "schuna.03": {
+   "he": "גבעת אורן",
+   "en": "Givat Oren",
+   "ar": "جفعات أورين",
+   "ru": "Гиват-Орен",
+   "am": "ጊቫት ኦረን",
+   "fr": "Givat Oren"
+  },
+  "schuna.04": {
+   "he": "גבעת הורדים",
+   "en": "Givat HaVradim",
+   "ar": "جفعات هفرديم",
+   "ru": "Гиват-ха-Вардим",
+   "am": "ጊቫት ሃቭራዲም",
+   "fr": "Givat HaVradim"
+  },
+  "schuna.05": {
+   "he": "גבעת המטוס",
+   "en": "Givat HaMatos",
+   "ar": "جفعات هماتوس",
+   "ru": "Гиват-ха-Матос",
+   "am": "ጊቫት ሃማቶስ",
+   "fr": "Givat HaMatos"
+  },
+  "schuna.06": {
+   "he": "גבעת הפורצים",
+   "en": "Givat HaPortzim",
+   "ar": "جفعات هبورتسيم",
+   "ru": "Гиват-ха-Порцим",
+   "am": "ጊቫት ሃፖርጺም",
+   "fr": "Givat HaPortzim"
+  },
+  "schuna.07": {
+   "he": "גבעת מרדכי",
+   "en": "Givat Mordechai",
+   "ar": "جفعات مردخاي",
+   "ru": "Гиват-Мордехай",
+   "am": "ጊቫት ሞርዴካይ",
+   "fr": "Givat Mordehaï"
+  },
+  "schuna.08": {
+   "he": "גבעת רם",
+   "en": "Givat Ram",
+   "ar": "جفعات رام",
+   "ru": "Гиват-Рам",
+   "am": "ጊቫት ራም",
+   "fr": "Givat Ram"
+  },
+  "schuna.09": {
+   "he": "גונן ח",
+   "en": "Gonen Het",
+   "ar": "جونين حيت",
+   "ru": "Гонен-Хет",
+   "am": "ጎነን ሔት",
+   "fr": "Gonen Het"
+  },
+  "schuna.10": {
+   "he": "גונן ט",
+   "en": "Gonen Tet",
+   "ar": "جونين طيت",
+   "ru": "Гонен-Тет",
+   "am": "ጎነን ጤት",
+   "fr": "Gonen Tet"
+  },
+  "schuna.11": {
+   "he": "גוננים",
+   "en": "Gonenim",
+   "ar": "جونينيم",
+   "ru": "Гоненим",
+   "am": "ጎነኒም",
+   "fr": "Gonenim"
+  },
+  "schuna.12": {
+   "he": "גילה",
+   "en": "Gilo",
+   "ar": "جيلو",
+   "ru": "Гило",
+   "am": "ጊሎ",
+   "fr": "Guilo"
+  },
+  "schuna.13": {
+   "he": "המושבה היוונית",
+   "en": "Greek Colony",
+   "ar": "المستعمرة اليونانية",
+   "ru": "Греческая колония",
+   "am": "የግሪክ ቅኝ ግዛት",
+   "fr": "Colonie grecque"
+  },
+  "schuna.14": {
+   "he": "טלביה",
+   "en": "Talbiya",
+   "ar": "الطالبية",
+   "ru": "Тальбия",
+   "am": "ታልቢያ",
+   "fr": "Talbiyeh"
+  },
+  "schuna.15": {
+   "he": "טלביה/המוגרבים",
+   "en": "Talbiya / Mughrabim",
+   "ar": "الطالبية / المغاربة",
+   "ru": "Тальбия / Мугрaбим",
+   "am": "ታልቢያ / ሙግራቢም",
+   "fr": "Talbiyeh / Mughrabim"
+  },
+  "schuna.16": {
+   "he": "מושבה גרמנית",
+   "en": "German Colony",
+   "ar": "المستعمرة الألمانية",
+   "ru": "Немецкая колония",
+   "am": "የጀርመን ቅኝ ግዛት",
+   "fr": "Colonie allemande"
+  },
+  "schuna.17": {
+   "he": "מנחת",
+   "en": "Manhat",
+   "ar": "منحات",
+   "ru": "Манахат",
+   "am": "ማንሃት",
+   "fr": "Manhat"
+  },
+  "schuna.18": {
+   "he": "מקור חיים",
+   "en": "Makor Haim",
+   "ar": "مكور حاييم",
+   "ru": "Макор-Хаим",
+   "am": "ማኮር ሃይም",
+   "fr": "Makor Haïm"
+  },
+  "schuna.19": {
+   "he": "נוה גרנות",
+   "en": "Neve Granot",
+   "ar": "نيفيه غرنوت",
+   "ru": "Неве-Гранот",
+   "am": "ኔቭ ግራኖት",
+   "fr": "Neve Granot"
+  },
+  "schuna.20": {
+   "he": "נוה שאנן/ניות",
+   "en": "Neve Sha'anan / Nayot",
+   "ar": "نيفيه شعنان / نيوت",
+   "ru": "Неве-Шаанан / Наёт",
+   "am": "ኔቭ ሻአናን / ናዮት",
+   "fr": "Neve Shaanan / Nayot"
+  },
+  "schuna.21": {
+   "he": "ניות",
+   "en": "Nayot",
+   "ar": "نيوت",
+   "ru": "Наёт",
+   "am": "ናዮት",
+   "fr": "Nayot"
+  },
+  "schuna.22": {
+   "he": "סן סימון",
+   "en": "San Simon",
+   "ar": "سان سيمون",
+   "ru": "Сан-Симон",
+   "am": "ሳን ሲሞን",
+   "fr": "San Simon"
+  },
+  "schuna.23": {
+   "he": "עומריה",
+   "en": "Omariya",
+   "ar": "العمرية",
+   "ru": "Омария",
+   "am": "ኦማሪያ",
+   "fr": "Omariya"
+  },
+  "schuna.24": {
+   "he": "פת",
+   "en": "Pat",
+   "ar": "بات",
+   "ru": "Пат",
+   "am": "ፓት",
+   "fr": "Pat"
+  },
+  "schuna.25": {
+   "he": "קטמון הישנה",
+   "en": "Old Katamon",
+   "ar": "كاتامون القديمة",
+   "ru": "Старый Катамон",
+   "am": "የቀድሞ ካታሞን",
+   "fr": "Vieux Katamon"
+  },
+  "schuna.26": {
+   "he": "קריית שמואל",
+   "en": "Kiryat Shmuel",
+   "ar": "كريات شموئيل",
+   "ru": "Кирьят-Шмуэль",
+   "am": "ኪርያት ሽሙኤል",
+   "fr": "Kiryat Shmouel"
+  },
+  "schuna.27": {
+   "he": "קרית האומה",
+   "en": "Kiryat HaUma",
+   "ar": "كريات هأوما",
+   "ru": "Кирьят-ха-Ума",
+   "am": "ኪርያት ሃኡማ",
+   "fr": "Kiryat HaOuma"
+  },
+  "schuna.28": {
+   "he": "רחביה",
+   "en": "Rehavia",
+   "ar": "رحافيا",
+   "ru": "Рехавия",
+   "am": "ረሃቪያ",
+   "fr": "Rehavia"
+  },
+  "schuna.29": {
+   "he": "שרפת",
+   "en": "Sharafat",
+   "ar": "شرفات",
+   "ru": "Шарафат",
+   "am": "ሻራፋት",
+   "fr": "Sharafat"
+  },
+  "schuna.30": {
+   "he": "תלפיות",
+   "en": "Talpiot",
+   "ar": "تلبيوت",
+   "ru": "Тальпиот",
+   "am": "ታልፒዮት",
+   "fr": "Talpiot"
+  },
+  "schuna.31": {
+   "he": "תלפיות תעשיה",
+   "en": "Talpiot Industrial Area",
+   "ar": "منطقة تلبيوت الصناعية",
+   "ru": "Промзона Тальпиот",
+   "am": "የታልፒዮት ኢንዱስትሪ ዞን",
+   "fr": "Zone industrielle de Talpiot"
+  },
   "permitsug.08": {
    "he": "חידוש היתר",
    "en": "Permit renewal",

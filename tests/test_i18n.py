@@ -480,3 +480,93 @@ def test_permits_js_carries_type_labels_only_for_translated_languages():
     js = page._permits_js("fr", "../")
     assert "var PSG={" in js
     assert i18n.t("fr", i18n.PERMIT_SUG_KEYS["פרגולה"]) in js
+
+
+def test_every_data_neighborhood_has_a_label_in_every_language():
+    """Each schunaName in the permit feed has a translated label (draft
+    transliteration); the Hebrew value is still what the filter submits."""
+    import json
+    from pathlib import Path
+
+    data = json.loads(
+        (
+            Path(__file__).resolve().parent.parent / "data" / "permit_requests.json"
+        ).read_text(encoding="utf-8")
+    )
+    names = {
+        (r.get("schunaName") or "").strip()
+        for r in data["requests"]
+        if (r.get("schunaName") or "").strip()
+    }
+    missing = sorted(n for n in names if n not in i18n.SCHUNA_KEYS)
+    assert not missing, missing
+    for lang in ("en", "ar", "ru", "am", "fr"):
+        for name in names:
+            assert i18n.schuna_label(lang, name)
+            assert i18n.schuna_label(lang, name) != name
+
+
+def test_plan_status_label_covers_stats_statuses():
+    for lang in ("en", "ar", "ru", "am", "fr"):
+        for st in i18n.PLAN_STATUS_KEYS:
+            assert i18n.plan_status_label(lang, st) != st
+
+
+def test_schuna_option_and_row_label_translated_but_filter_value_raw(tmp_path):
+    """The select shows a translated label but its value, and each row's
+    data-schuna, stay the raw Hebrew name: the filter compares raw values."""
+    from ginot.page_permits import _permits_section
+
+    permits = [
+        {
+            "tik_num": "2026/0001.00",
+            "status": "נפתח תיק רישוי",
+            "schunaName": "בית וגן",
+            "rehovName": "רחוב",
+            "mispBait": "1",
+        },
+        {
+            "tik_num": "2026/0002.00",
+            "status": "נפתח תיק רישוי",
+            "schunaName": "בית צפפה",
+            "rehovName": "",
+        },
+    ]
+    for lang in ("en", "ar", "am"):
+        rows = tmp_path / f"{lang}-rows.html"
+        default = tmp_path / f"{lang}-default.html"
+        html = _permits_section(
+            permits, rows_file=str(rows), default_rows_file=str(default), lang=lang
+        )
+        label = i18n.schuna_label(lang, "בית וגן")
+        assert f"<option value='בית וגן'>{label}</option>" in html
+        assert "data-schuna='בית וגן'" in rows.read_text(encoding="utf-8")
+        for line in rows.read_text(encoding="utf-8").splitlines():
+            if "schuna-val" in line:
+                assert label in line
+                assert "בית וגן</span>" not in line
+
+
+def test_schuna_address_fallback_translated_when_no_street(tmp_path):
+    from ginot.page_permits import _permits_section
+
+    permits = [
+        {
+            "tik_num": "2026/0002.00",
+            "status": "נפתח תיק רישוי",
+            "schunaName": "בית צפפה",
+            "rehovName": "",
+        }
+    ]
+    for lang in ("en", "ar", "am"):
+        rows = tmp_path / f"{lang}-r.html"
+        _permits_section(
+            permits,
+            rows_file=str(rows),
+            default_rows_file=str(tmp_path / f"{lang}-d.html"),
+            lang=lang,
+        )
+        text = rows.read_text(encoding="utf-8")
+        assert i18n.schuna_label(lang, "בית צפפה") in text
+        assert "data-schuna='בית צפפה'" in text
+        assert ": בית צפפה" not in text

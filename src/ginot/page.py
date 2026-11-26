@@ -21,6 +21,7 @@ import json
 import os
 
 from . import __version__, neighborhoods
+from . import i18n as _i18n
 from .dates import today_il
 from .page_permit_policy import (  # noqa: F401 - keep the page module API
     _PERMIT_GROUP_CLASS,
@@ -437,7 +438,7 @@ def stats_section(rows: list[dict], lang: str = "he") -> str:
     }
     return f"""<details id="stats"><summary>{_e(_tt(lang, "stats.title"))}</summary>
 <div class="stats">
-<div><h3>{_e(_tt(lang, "stats.by_status"))}</h3>{_bars(dict(by_status), lang=lang)}</div>
+<div><h3>{_e(_tt(lang, "stats.by_status"))}</h3>{_bars(dict(by_status), {k: _i18n.plan_status_label(lang, k) for k in by_status}, lang=lang)}</div>
 <div><h3>{_e(_tt(lang, "stats.by_flag"))}</h3>{_bars(dict(by_flag), flag_labels, lang=lang)}</div>
 <div><h3>{_e(_tt(lang, "stats.deposits"))}</h3>{_bars(deposits_by_month, lang=lang)}</div>
 <div><h3>{_e(_tt(lang, "stats.approvals"))}</h3>{_bars(approvals_by_year, lang=lang)}</div>
@@ -1266,7 +1267,7 @@ def render_index(
         "".join(
             f"<li data-kind='{_e(c['kind'])}'>{_e(_kind_label(c['kind']))}: <a href='{_e(c['mavat_url'])}'>{_e(c['pl_number'])}</a> {_e(c['pl_name'])}"
             + (
-                f" ({_e(c.get('from'))} → {_e(c.get('to'))})"
+                f" ({_e(_i18n.plan_status_label(lang, c.get('from') or ''))} → {_e(_i18n.plan_status_label(lang, c.get('to') or ''))})"
                 if c["kind"] == "status_change"
                 else ""
             )
