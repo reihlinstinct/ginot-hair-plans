@@ -1687,3 +1687,8 @@ def render_site(
     from .public_api import write_v1
 
     write_v1(out_dir, rows, changes, permits, generated)
+
+    # Content-Security-Policy meta on every generated document (GitHub Pages sends no headers)
+    from .csp import apply_to_site
+
+    apply_to_site(out_dir)
