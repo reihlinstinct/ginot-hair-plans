@@ -9,7 +9,7 @@ import pytest
 
 ROOT = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT / "src"))
-from ginot import i18n
+from ginot import i18n, page
 from ginot.page_email import render_email_page
 from ginot.page_resources import _e
 
@@ -447,3 +447,36 @@ def test_permit_status_label_translates_known_and_keeps_unknown():
     doc = i18n.load()
     for status, key in i18n.PERMIT_STATUS_KEYS.items():
         assert doc["strings"][key]["he"] == status, key
+
+
+def test_permit_sug_label_translates_known_and_keeps_unknown():
+    assert i18n.permit_sug_label("he", "פרגולה") == "פרגולה"
+    assert i18n.permit_sug_label("en", "פרגולה") == "Pergola"
+    assert i18n.permit_sug_label("ru", "סוג חדש") == "סוג חדש"
+    doc = i18n.load()
+    for sug, key in i18n.PERMIT_SUG_KEYS.items():
+        assert doc["strings"][key]["he"] == sug, key
+
+
+def test_permit_types_in_data_are_translated():
+    """Every permit-request type in the published data has a label, so no
+    Hebrew type text is left on the translated permit pages."""
+    import json
+    from pathlib import Path
+
+    data = json.loads(
+        (Path(__file__).resolve().parents[1] / "docs" / "data.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    permits = data.get("permits") or []
+    sugs = {(p.get("sugbakasha") or "") for p in permits} - {""}
+    assert sugs, "no permit types found in docs/data.json"
+    assert sugs <= set(i18n.PERMIT_SUG_KEYS), sorted(sugs - set(i18n.PERMIT_SUG_KEYS))
+
+
+def test_permits_js_carries_type_labels_only_for_translated_languages():
+    assert "var PSG={}" in page._permits_js("he", "")
+    js = page._permits_js("fr", "../")
+    assert "var PSG={" in js
+    assert i18n.t("fr", i18n.PERMIT_SUG_KEYS["פרגולה"]) in js

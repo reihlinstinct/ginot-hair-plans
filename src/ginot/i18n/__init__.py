@@ -201,6 +201,85 @@ PERMIT_STATUS_KEYS = {
 }
 
 
+# Municipal permit-request type (sugbakasha) values with a translated label.
+# The raw value stays in data-sug and in the filter's option value; only the
+# shown text changes. A value not listed here is shown as the source gives it.
+PERMIT_SUG_KEYS = {
+    "תוספת בניה / הרחבה לבניין קיים": "permitsug.00",
+    "תוספת בניה לדירות": "permitsug.01",
+    "בניה חדשה / בניין חדש": "permitsug.02",
+    "שינויים בבנין קיים": "permitsug.03",
+    "בניית מרפסת": "permitsug.04",
+    "תוכנית שינויים": "permitsug.05",
+    "התקנת מעלית": "permitsug.06",
+    "סגירת מרפסת": "permitsug.07",
+    "חידוש היתר": "permitsug.08",
+    "רישוי עסקים - שימוש חורג מתוכנית": "permitsug.09",
+    "התקנת מתקנים מיוחדים": "permitsug.10",
+    "רישוי בניה - שימוש חורג מהיתר": "permitsug.11",
+    "בנית מחסן/מחסנים": "permitsug.12",
+    "פרגולה": "permitsug.13",
+    "תוספת מבנה-מגרש בנוי": "permitsug.14",
+    "בניית גדר גבוהה מ 1.5 מטר": "permitsug.15",
+    'תמ"א 38 - תוספות': "permitsug.16",
+    "סגירת חורף": "permitsug.17",
+    "שינויים בקירות חזית במבנים קיימים": "permitsug.18",
+    "עבודות בקיר חיצון": "permitsug.19",
+    "שנוי יעוד המבנה": "permitsug.20",
+    'ממ"ד': "permitsug.21",
+    "הכשרת שטח לחניה": "permitsug.22",
+    "תכנית שינויים בסמכות מהנדס העיר": "permitsug.23",
+    "מתקן שידור / אנטנה סלולרית": "permitsug.24",
+    "התקנת גג רעפים": "permitsug.25",
+    "פיתוח חצר": "permitsug.26",
+    "חפירה ומילוי": "permitsug.27",
+    "מדרגות": "permitsug.28",
+    "ביצוע שיפור הנגישות לבניין ובתוכו": "permitsug.29",
+    'תוספת יח"ד באמצעות תוספת בניה': "permitsug.30",
+    "עבודות הריסה": "permitsug.31",
+    "שינוי שם בהיתר": "permitsug.32",
+    "עבודות בדרכים": "permitsug.33",
+    "פיצול היתר": "permitsug.34",
+    "התקנת חלון": "permitsug.35",
+    "ריצוף חצר": "permitsug.36",
+    "גג רעפים": "permitsug.37",
+    "עבודות עפר": "permitsug.38",
+    "שינויים ללא תוספת שטחים": "permitsug.39",
+    "מערכת פוטוולטאית": "permitsug.40",
+    'מבנה ארעי / מנ"ד': "permitsug.41",
+    "התקנת צובר גז עד 10 טון": "permitsug.42",
+    "פתיחת חלון": "permitsug.43",
+    'תמ"א 38 הריסה ובניה': "permitsug.44",
+    "התקנת צובר גז במשקל העולה על 10 טון": "permitsug.45",
+    "הכשרת שטח לגן ציבורי": "permitsug.46",
+    "עבודות סלילה": "permitsug.47",
+    "יציקת תקרה": "permitsug.48",
+    "בנית קירות פנימיים": "permitsug.49",
+    "התקנת אביזרים": "permitsug.50",
+    "הקמת סככה": "permitsug.51",
+    "בניית קיר תומך/מגן": "permitsug.52",
+    "בניית חניון": "permitsug.53",
+    'פיצול יח"ד קיימות - צו שעה': "permitsug.54",
+    "שיפורים סניטריים": "permitsug.55",
+    "חדר טרנספורמציה": "permitsug.56",
+    "הסרת סכנה לפי צו מבנים מסוכנים": "permitsug.57",
+    "ריצוף רחוב": "permitsug.58",
+    "בניית בריכה פרטית": "permitsug.59",
+    "הצבת ביתן": "permitsug.60",
+    "גשר כניסה לבנין": "permitsug.61",
+    "פיתוח שטח ציבורי פתוח": "permitsug.62",
+    "בית עלמין ללא תכנית שטחים": "permitsug.63",
+    "ביטול היתר": "permitsug.64",
+    "הצבת אנדרטה": "permitsug.65",
+    "הכשרת מגרשי ספורט": "permitsug.66",
+    "מחסן טרומי פריק": "permitsug.67",
+    "סגירת בקשה להיתר": "permitsug.68",
+    "רישוי בניה - שימוש חורג מתכנית": "permitsug.69",
+    "גדר בגובה עד 1.50 מטר": "permitsug.70",
+    "רישוי עסקים - שימוש חורג מהיתר": "permitsug.71",
+}
+
+
 def plan_status_label(lang: str, status: str) -> str:
     """Display text for a municipal plan status in lang (raw when unknown)."""
     key = PLAN_STATUS_KEYS.get(status)
@@ -212,3 +291,9 @@ def permit_status_label(lang: str, status: str) -> str:
     the status has no translation)."""
     key = PERMIT_STATUS_KEYS.get(status)
     return t(lang, key) if key else status
+
+
+def permit_sug_label(lang: str, sug: str) -> str:
+    """Display text for a permit-request type in lang (raw when unknown)."""
+    key = PERMIT_SUG_KEYS.get(sug)
+    return t(lang, key) if key else sug
