@@ -188,6 +188,104 @@ def test_evidence_outside_subset_triggers_full_load(tmp_path, browser, request):
         srv.shutdown()
 
 
+def test_orphan_evidence_tik_absent_from_full_table_does_not_load_full_list(
+    tmp_path, browser, request
+):
+    """Current in-polygon evidence for a tik that is in NO table row (the full
+    list cannot show it either) must not cost the full-table fetch on every
+    page load. permit-ids.json lists the tiks the full table has."""
+    srv, url = _lazy_site(tmp_path)
+    site = tmp_path / "site"
+    (site / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "1983/0461.03",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    (site / "permit-ids.json").write_text(json.dumps({"ids": ["2026/0205.00"]}))
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function(
+                "window.__permitsDefaultLoaded === true "
+                "&& window.__permitPublicationEvidenceLoaded === true"
+            )
+            pg.wait_for_timeout(500)
+            assert seen == {"permits.html": 0, "permits-default.html": 1}
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_evidence_tik_in_full_table_still_loads_full_list_with_ids(
+    tmp_path, browser, request
+):
+    """With permit-ids.json present, evidence for a tik that IS in the full
+    table but not the subset still promotes the full load."""
+    srv, url = _lazy_site(tmp_path)
+    site = tmp_path / "site"
+    (site / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    (site / "permit-ids.json").write_text(json.dumps({"ids": ["2026/0205.00"]}))
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsLoaded === true")
+            pg.locator('tr[data-tik="2026/0205.00"]').wait_for(state="visible")
+            assert seen == {"permits.html": 1, "permits-default.html": 1}
+            assert errors == []
+    finally:
+        srv.shutdown()
+
+
+def test_missing_permit_ids_falls_back_to_loading_full_list(
+    tmp_path, browser, request
+):
+    """No permit-ids.json (older deploy, fetch error): keep the old safe
+    behavior and load the full list for evidence outside the subset."""
+    srv, url = _lazy_site(tmp_path)
+    site = tmp_path / "site"
+    (site / "publications_active.json").write_text(
+        json.dumps(
+            [
+                {
+                    "tik_num": "2026/0205.00",
+                    "in_polygon": True,
+                    "publication_date": today_il().isoformat(),
+                    "objection_deadline": None,
+                }
+            ]
+        )
+    )
+    (site / "permit-ids.json").unlink(missing_ok=True)
+    try:
+        with recorded_page(browser, request) as (pg, errors):
+            seen = _count_requests(pg)
+            pg.goto(url)
+            pg.wait_for_function("window.__permitsLoaded === true")
+            assert seen["permits.html"] == 1
+    finally:
+        srv.shutdown()
+
+
 def test_default_view_urgency_and_map_rows_match_full_load(tmp_path, browser, request):
     """The map draws the visible permit rows (plan-map.js permitRows) and the
     urgency list scans the obj rows: both must be the same on the subset as
