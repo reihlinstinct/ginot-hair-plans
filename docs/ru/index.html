@@ -861,13 +861,29 @@ window.__loadFullPermits=loadFullPermits;
 // for a tik missing from the subset means the subset may be older than the
 // evidence: load it all. Old evidence (outside the overlay window, e.g. for
 // closed requests) promotes nothing, so it must not cost the full fetch.
-function evidenceOutsideSubset(){
+function evidenceOutsideSubset(ids){
   var have={};
   rows.forEach(function(r){have[r.getAttribute('data-tik')]=1;});
-  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num];});
+  // ids: set of tiks that exist in the full table (permit-ids.json), or null
+  // when that list is unavailable. Evidence for a tik that is in no table row
+  // cannot be shown by loading the full list, so it must not cost the fetch.
+  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num]&&(ids===null||ids[p.tik_num]===1);});
+}
+var permitIdsPromise=null;
+function loadPermitIds(){
+  if(!permitIdsPromise)permitIdsPromise=fetch('../permit-ids.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(d){
+    var s={};
+    if(!d||!Array.isArray(d.ids))return null;
+    d.ids.forEach(function(i){if(typeof i==='string')s[i]=1;});
+    return s;
+  }).catch(function(){return null;});
+  return permitIdsPromise;
 }
 function checkSubsetAgainstEvidence(){
-  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset()){evidenceNeedsFull=true;loadFullPermits();}
+  if(fullLoaded||!defaultLoaded||!evidenceLoaded||!evidenceOutsideSubset(null))return;
+  loadPermitIds().then(function(ids){
+    if(!fullLoaded&&evidenceOutsideSubset(ids)){evidenceNeedsFull=true;loadFullPermits();}
+  });
 }
 document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
 fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
