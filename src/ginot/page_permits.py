@@ -77,9 +77,9 @@ def _permits_section(
                 return f"{street} {num}".strip(), ""
             schuna = (p.get("schunaName") or "").strip()
             if schuna:
-                return _t(lang, "permits.schuna", schuna=schuna), _t(
-                    lang, "permits.no_exact_address"
-                )
+                return _t(
+                    lang, "permits.schuna", schuna=_i18n.schuna_label(lang, schuna)
+                ), _t(lang, "permits.no_exact_address")
             return _t(lang, "permits.no_address"), ""
         return (p.get("address") or "").strip(), ""
 
@@ -143,7 +143,7 @@ def _permits_section(
             # street address. Only when a street address exists - a
             # neighborhood-only row already shows it labeled (#408).
             + (
-                f"<span class='schuna-val'>{_e(_t(lang, 'permits.schuna', schuna=schuna))}</span>"
+                f"<span class='schuna-val'>{_e(_t(lang, 'permits.schuna', schuna=_i18n.schuna_label(lang, schuna)))}</span>"
                 if schuna and (p.get("rehovName") or "").strip()
                 else ""
             )
@@ -252,7 +252,10 @@ def _permits_section(
     n_with_schuna = sum(1 for p in permits if (p.get("schunaName") or "").strip())
     schuna_opts = (
         f"<option value=''>{_e(_t(lang, 'permits.schuna_all'))}</option>"
-        + "".join(f"<option value='{_e(v)}'>{_e(v)}</option>" for v in schunas)
+        + "".join(
+            f"<option value='{_e(v)}'>{_e(_i18n.schuna_label(lang, v))}</option>"
+            for v in schunas
+        )
     )
     return f"""
 <section id="permits" dir="{_dir}">
