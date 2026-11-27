@@ -96,7 +96,7 @@ ALLOWLIST = [
     (
         "data-automerge.yml",
         "rest-merge",
-        "/pulls/$MERGE_PR/merge -f merge_method=squash -f sha=$MERGE_SHA -f commit_title=$MERGE_TITLE -f commit_message=Auto-merged by data-automerge.yml (issue 1037).",
+        "/pulls/$MERGE_PR/merge -f merge_method=merge -f sha=$MERGE_SHA -f commit_title=$MERGE_TITLE -f commit_message=Auto-merged by data-automerge.yml (issue 1037).",
         "vars.DATA_AUTOMERGE_ENABLED == 'true'",
         "guarded data-only auto-merge (#1037): runs from the default branch after data_pr_automerge.py validates the PR; sha binding pins the exact validated head; kill-switch variable ships off",
     ),

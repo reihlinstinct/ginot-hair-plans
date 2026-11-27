@@ -3,7 +3,7 @@
 
 Scans open same-repo PRs from the four automated data producers
 (permit-feed/, weekly-refresh/, mirror-ingest/, publications/ branch
-prefixes) and squash-merges at most ``--max-merges`` of them - only when
+prefixes) and merges without squashing at most ``--max-merges`` of them - only when
 every gate passes:
 
 1. Provenance: same-repo head with a producer branch prefix, authored by
@@ -22,7 +22,7 @@ every gate passes:
 5. Green CI at the exact head sha (all check runs completed
    success/neutral/skipped), PR mergeable, no CHANGES_REQUESTED review at
    the head.
-6. Squash merge via the API bound to the validated head sha - a moved head
+6. Non-squash merge via the API bound to the validated head sha - a moved head
    makes GitHub reject the call.
 
 Fail-closed: any API error, unexpected shape or failed check skips the PR
@@ -379,7 +379,7 @@ def main() -> int:
             "Auto-merge guard passed (refs #1037): data-only paths, JSON "
             "sanity, secrets/PII scan clean, CI green at "
             f"{head_sha}. The gated merge step in data-automerge.yml "
-            "performs the squash merge bound to this sha."
+            "preserves the source commits with a non-squash merge bound to this sha."
         )
         try:
             gh_api(
