@@ -1926,6 +1926,14 @@
    "am": "የህትመት ጅምር",
    "fr": "Début de publication"
   },
+  "permits.chronology_warning": {
+     "he": "אי-התאמה במקור: הסיום המתוכנן קודם לתחילת הפרסום. זה אינו מועד התנגדות מאומת.",
+     "en": "Source date conflict: planned end precedes publication start. This is not a verified objection deadline.",
+     "ar": "تعارض في تواريخ المصدر: النهاية المخططة تسبق بدء النشر. هذا ليس موعد اعتراض موثقًا.",
+     "ru": "Конфликт дат источника: плановое окончание раньше начала публикации. Это не подтвержденный срок возражений.",
+     "am": "የምንጭ ቀን ግጭት፦ የታቀደው መጨረሻ ከህትመት መጀመሪያ በፊት ነው። ይህ የተረጋገጠ የተቃውሞ ማቅረቢያ ቀን አይደለም።",
+     "fr": "Conflit de dates à la source : la fin prévue précède le début de publication. Ce n'est pas un délai d'opposition vérifié."
+  },
   "permits.col_pubend": {
    "he": "סיום פרסום (מתוכנן)",
    "en": "Publication end (planned)",

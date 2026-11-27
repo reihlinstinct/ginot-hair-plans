@@ -353,6 +353,9 @@ function _renderUrgent(){
     var official=validDeadline(candidate)?candidate:'';
     if(group==='pubcheck'&&!official)return;
     var planned=r.getAttribute('data-pubend');
+    var start=r.getAttribute('data-pub');
+    // A conflicting source estimate cannot create an urgent deadline.
+    if(!official&&validDeadline(start)&&validDeadline(planned)&&planned<start)return;
     var d=official||(validDeadline(planned)?planned:'');if(!d)return;
     var parsed=Date.parse(d+'T00:00:00Z');
     if(!isFinite(parsed)||new Date(parsed).toISOString().slice(0,10)!==d)return;
@@ -485,7 +488,11 @@ function match(r){
   if(g==='obj'&&pfopenonly&&pfopenonly.checked){
     // #519: the official printed-notice deadline (PD900), when the overlay
     // supplied one, binds over the feed's planned end.
+    var officialEnd=r.getAttribute('data-pubend-official')||'';
     var pe=r.getAttribute('data-pubend-official')||r.getAttribute('data-pubend');
+    var sourceStart=r.getAttribute('data-pub')||'';
+    // Invalid source chronology means unknown, not an elapsed deadline.
+    if(!validIso(officialEnd)&&validIso(sourceStart)&&validIso(pe)&&pe<sourceStart)pe='';
     var evidence=r.getAttribute('data-publication-evidence')||'';
     // Keep raw planned end, but a later official publication makes that old
     // window stale. The new deadline remains unknown, not auto-extended.

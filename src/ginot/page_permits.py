@@ -118,6 +118,21 @@ def _permits_section(
             ).lower()
         )
         pub_end_iso = _iso(p.get("publication_end_planned"))
+        # Municipal planned dates remain untouched, but an inverted chronology
+        # must not look like a verified objection deadline (source QA #463).
+        try:
+            inverted = datetime.date.fromisoformat(
+                pub_end_iso
+            ) < datetime.date.fromisoformat(pub_iso)
+        except ValueError:
+            inverted = False
+        chronology_note = (
+            " <span class='pub-missing' data-publication-chronology-warning>"
+            + _e(_t(lang, "permits.chronology_warning"))
+            + "</span>"
+            if inverted
+            else ""
+        )
         if pub_iso:
             pubcat = "dated"
         elif status in _PERMIT_PUB_EVIDENCE_STATUSES or pub_end_iso:
@@ -153,7 +168,7 @@ def _permits_section(
             f"<td data-label='{_e(_t(lang, 'permits.col_status'))}'><span class=\"chip {_permit_status_class(status)}\">{_e(_i18n.permit_status_label(lang, status))}</span></td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_statusdate'))}'>{_date_cell(p.get('status_date'))}</td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_pubstart'))}' data-publication-cell>{pub_cell}</td>"
-            f"<td data-label='{_e(_t(lang, 'permits.mobile_pubend'))}'>{_date_cell(p.get('publication_end_planned'))}<span data-deadline-note></span></td>"
+            f"<td data-label='{_e(_t(lang, 'permits.mobile_pubend'))}'>{_date_cell(p.get('publication_end_planned'))}{chronology_note}<span data-deadline-note></span></td>"
             f"<td data-label='{_e(_t(lang, 'permits.col_review'))}'>{_permit_review_cell(p.get('tik_num'), lang, pre)}</td></tr>"
         )
         if _is_default_permit_candidate(
