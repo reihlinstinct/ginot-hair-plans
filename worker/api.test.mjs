@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { filterPlans, filterPermits, handleRequest, streetOf } from "./api.mjs";
+import { filterPlans, filterPermits, handleRequest, streetOf, isIsoDate, BadParam } from "./api.mjs";
 
 const rows = [
   { pl_number: "101-1", pl_name: "שימור אבן שפרוט", station_desc: "הפקדה להתנגדויות/השגות",
@@ -462,4 +462,45 @@ test("filterPlans before= reads the 2m field, not the legacy 60d field", () => {
     objection_deadline_derived_2m_from_publication: "2026-03-15" }];
   assert.equal(filterPlans(two, new URLSearchParams("before=2026-03-15")).length, 1);
   assert.equal(filterPlans(two, new URLSearchParams("before=2026-03-14")).length, 0);
+});
+
+test("before= accepts only a real zero-padded ISO date", () => {
+  for (const ok of ["2026-12-09", "2028-02-29"]) assert.equal(isIsoDate(ok), true, ok);
+  for (const bad of ["2026-12-9", "notadate", "2026-13-01", "2026-02-30", "2027-02-29", "", "2026-12-09x", " 2026-12-09"])
+    assert.equal(isIsoDate(bad), false, bad);
+  assert.throws(() => filterPlans(rows, new URLSearchParams("before=2026-12-9")), BadParam);
+  assert.throws(() => filterPlans(rows, new URLSearchParams("before=notadate")), BadParam);
+  // absent or valid still filters as before
+  assert.equal(filterPlans(rows, new URLSearchParams("")).length, 3);
+  assert.deepEqual(
+    filterPlans(rows, new URLSearchParams("before=2026-12-09")).map((r) => r.pl_number),
+    ["101-1", "101-3"]);
+});
+
+test("/plans?before= with an invalid date is a 400 that is not cached", async () => {
+  for (const bad of ["2026-12-9", "notadate"]) {
+    const resp = await handleRequest(new Request(`https://x.workers.dev/plans?before=${bad}`), stub);
+    assert.equal(resp.status, 400);
+    assert.equal(resp.headers.get("cache-control"), "no-store");
+    assert.match((await resp.json()).error, /before/);
+  }
+  const ok = await handleRequest(new Request("https://x.workers.dev/plans?before=2026-12-09"), stub);
+  assert.equal(ok.status, 200);
+  assert.equal((await ok.json()).count, 2);
+});
+
+test("error responses are no-store, successes keep the 5 minute cache", async () => {
+  const fail = () => Promise.resolve(new Response("x", { status: 503 }));
+  const e502 = await handleRequest(new Request("https://x.workers.dev/plans"), fail);
+  assert.equal(e502.status, 502);
+  assert.equal(e502.headers.get("cache-control"), "no-store");
+  const e404 = await handleRequest(new Request("https://x.workers.dev/nope"), stub);
+  assert.equal(e404.status, 404);
+  assert.equal(e404.headers.get("cache-control"), "no-store");
+  const e405 = await handleRequest(new Request("https://x.workers.dev/plans", { method: "PUT" }), stub);
+  assert.equal(e405.status, 405);
+  assert.equal(e405.headers.get("cache-control"), "no-store");
+  const ok = await handleRequest(new Request("https://x.workers.dev/plans"), stub);
+  assert.equal(ok.status, 200);
+  assert.equal(ok.headers.get("cache-control"), "public, max-age=300");
 });
