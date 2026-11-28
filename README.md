@@ -150,7 +150,7 @@ best-effort rate limit (120 requests/minute/IP, per isolate).
 
 | Route | Parameters |
 | --- | --- |
-| `/plans` | `open=1` (open plans only), `status` (substring of station_desc), `q` (number/name), `before=YYYY-MM-DD` (objection deadline on/before), `limit` (default 100, max 500) |
+| `/plans` | `open=1` (open plans only), `status` (substring of station_desc), `q` (number/name), `before=YYYY-MM-DD` (objection deadline on/before; an invalid date returns 400), `limit` (default 100, max 500) |
 | `/permits` | `street`, `status`, `type` (sugbakasha), `q`, `limit` |
 | `/open` | the static `open.json` |
 | `/status` | `{generated, plans, permits}` counts |
