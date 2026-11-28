@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="fr"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://static.cloudflareinsights.com 'sha256-IVb4TNH3MWRv/zM8PX3ccAGcZp/47xdekfissutcSG0=' 'sha256-RJ4HjQcfsinwiZq1maGc6wHiwesKhYjmYBqKBQW09Vc=' 'sha256-0daUnILWEtbM8NkdG0wyFq5PBlSJwog+HiquQUMmC5I=' 'sha256-qCulq+912Yp8C8DNqh3HlTGhEmdl+enSdCxZlUMWgEI=' 'sha256-7aKFY7k2tvjaF8y9RkuUc4ZxhV2JS8N4lQcpovhBoUE='; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://tile.openstreetmap.org; connect-src 'self' https://ginot-hair-api.reihlinstinct.workers.dev https://ags.iplan.gov.il https://ginot-hair-plans.vercel.app https://cloudflareinsights.com; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Plans du conseil de quartier גינות העיר</title>
 <link rel="alternate" type="application/atom+xml" href="../feed.xml">
@@ -863,13 +864,29 @@ window.__loadFullPermits=loadFullPermits;
 // for a tik missing from the subset means the subset may be older than the
 // evidence: load it all. Old evidence (outside the overlay window, e.g. for
 // closed requests) promotes nothing, so it must not cost the full fetch.
-function evidenceOutsideSubset(){
+function evidenceOutsideSubset(ids){
   var have={};
   rows.forEach(function(r){have[r.getAttribute('data-tik')]=1;});
-  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num];});
+  // ids: set of tiks that exist in the full table (permit-ids.json), or null
+  // when that list is unavailable. Evidence for a tik that is in no table row
+  // cannot be shown by loading the full list, so it must not cost the fetch.
+  return publicationEvidence.some(function(p){return currentEvidence(p)&&!have[p.tik_num]&&(ids===null||ids[p.tik_num]===1);});
+}
+var permitIdsPromise=null;
+function loadPermitIds(){
+  if(!permitIdsPromise)permitIdsPromise=fetch('../permit-ids.json').then(function(r){if(!r.ok)throw new Error('http');return r.json();}).then(function(d){
+    var s={};
+    if(!d||!Array.isArray(d.ids))return null;
+    d.ids.forEach(function(i){if(typeof i==='string')s[i]=1;});
+    return s;
+  }).catch(function(){return null;});
+  return permitIdsPromise;
 }
 function checkSubsetAgainstEvidence(){
-  if(!fullLoaded&&defaultLoaded&&evidenceLoaded&&evidenceOutsideSubset()){evidenceNeedsFull=true;loadFullPermits();}
+  if(fullLoaded||!defaultLoaded||!evidenceLoaded||!evidenceOutsideSubset(null))return;
+  loadPermitIds().then(function(ids){
+    if(!fullLoaded&&evidenceOutsideSubset(ids)){evidenceNeedsFull=true;loadFullPermits();}
+  });
 }
 document.addEventListener('publication-evidence-loaded',function(){evidenceLoaded=true;checkSubsetAgainstEvidence();});
 fetch('permits-default.html').then(function(r){if(!r.ok)throw new Error('http');return r.text();}).then(function(h){
